@@ -1,0 +1,5 @@
+&modelio
+   diri    = "./ice   "
+   diro    = "./   "
+   logfile = "ice.log  "
+/

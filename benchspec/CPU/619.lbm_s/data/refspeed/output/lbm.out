@@ -1,0 +1,204 @@
+MAIN_printInfo:
+	grid size      : 200 x 200 x 260 = 10.40 * 10^6 Cells
+       nTimeSteps     : 2000
+	result file    : reference.dat
+	action         : nothing
+	simulation type: lid-driven cavity
+	obstacle file  : 200_200_260_ldc.of
+
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 1.000000 maxRho: 1.000000 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.000000
+
+timestep: 64
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.998882 maxRho: 1.001118 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004121
+
+timestep: 128
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.998780 maxRho: 1.001205 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004263
+
+timestep: 192
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.998840 maxRho: 1.001095 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004315
+
+timestep: 256
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.998869 maxRho: 1.001116 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004339
+
+timestep: 320
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.998811 maxRho: 1.001191 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004353
+
+timestep: 384
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.998953 maxRho: 1.001004 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004367
+
+timestep: 448
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999104 maxRho: 1.000891 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004387
+
+timestep: 512
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999194 maxRho: 1.000811 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004400
+
+timestep: 576
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999266 maxRho: 1.000813 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004413
+
+timestep: 640
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999228 maxRho: 1.000807 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004415
+
+timestep: 704
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999246 maxRho: 1.000809 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004421
+
+timestep: 768
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999241 maxRho: 1.000782 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004425
+
+timestep: 832
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999285 maxRho: 1.000736 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004433
+
+timestep: 896
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999329 maxRho: 1.000715 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004435
+
+timestep: 960
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999349 maxRho: 1.000689 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004443
+
+timestep: 1024
+LBM_showGridStatistics:
+	nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999367 maxRho: 1.000678 Mass: 1.040000e+07
+	minU  : 0.000000 maxU  : 0.004445
+
+timestep: 1088
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999360 maxRho: 1.000691 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004450
+
+timestep: 1152
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999315 maxRho: 1.000741 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004489
+
+timestep: 1216
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999262 maxRho: 1.000779 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004523
+
+timestep: 1280
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999230 maxRho: 1.000811 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004548
+
+timestep: 1344
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999205 maxRho: 1.000834 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004565
+
+timestep: 1408
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999193 maxRho: 1.000838 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004587
+
+timestep: 1472
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999203 maxRho: 1.000822 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004609
+
+timestep: 1536
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999239 maxRho: 1.000801 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004632
+
+timestep: 1600
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999260 maxRho: 1.000786 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004655
+
+timestep: 1664
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999271 maxRho: 1.000774 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004679
+
+timestep: 1728
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999280 maxRho: 1.000765 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004702
+
+timestep: 1792
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999286 maxRho: 1.000762 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004723
+
+timestep: 1856
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999286 maxRho: 1.000762 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004742
+
+timestep: 1920
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999283 maxRho: 1.000763 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004760
+
+timestep: 1984
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999284 maxRho: 1.000765 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004776
+
+LBM_showGridStatistics:
+       nObstacleCells: 5630736 nAccelCells:   76832 nFluidCells: 4692432
+       minRho: 0.999284 maxRho: 1.000765 Mass: 1.040000e+07
+       minU  : 0.000000 maxU  : 0.004780
+

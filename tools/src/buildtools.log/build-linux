@@ -1,0 +1,177 @@
+#!/bin/sh
+
+# Build SPEC CPU tools for Linux
+
+if [ -z "$SPEC" ]; then
+  if pwd | grep tools/src; then
+    SPEC=$(dirname $(dirname $(pwd)))
+  elif [ -f bin/runcpu -a -f MANIFEST -a -d tools/src ]; then
+    SPEC=$(pwd)
+  else
+    echo SPEC is not set, and I do not know what to set it to
+    exit 1
+  fi
+fi
+
+if [ "x$1" != "xdoit" ]; then
+  # Log the session
+  arch=$(uname -p)
+  if [ "$arch" = unknown ]; then
+    arch=$(uname -m)
+  fi
+  arch=$(echo $arch | sed 's/i.86/x86/i; s/powerpc/ppc/i; s/sparc64/sparc/i;')
+  suitever=$(cat $SPEC/version.txt)
+  echo Starting build of linux-${arch} tools for kit $suitever
+  echo
+  echo Build log is in $SPEC/linux-${arch}-${suitever}.buildlog.txt
+  echo
+  echo Tail the log manually if you want to watch the progress.
+  exec $0 doit $* >$SPEC/linux-${arch}-${suitever}.buildlog.txt 2>&1
+else
+  shift
+fi
+
+PATH=/usr/bin:/bin
+if [ "x$SPECLANG" != x ]; then
+  PATH=$SPECLANG:$PATH
+fi
+export PATH
+export CC=gcc
+export CXX=g++
+
+
+get_os_version() {
+  local _os
+
+  if [ -f /etc/os-release ]; then # SuSE and newer linux
+    . /etc/os-release
+    if [ -n "$PRETTY_NAME" ]; then
+      _os=$PRETTY_NAME
+    else
+      _os="$NAME $VERSION"
+      if [ _os != " " ]; then
+        _os="$_os ($(uname -p))"
+      else
+        _os=
+      fi
+    fi
+  fi
+  if [ -z "$_os" -a -f /etc/oracle-release ]; then
+    _os=$(cat /etc/oracle-release)
+  fi
+  if [ -z "$_os" -a -f /etc/redhat-release ]; then
+    _os=$(cat /etc/redhat-release)
+  fi
+
+  echo $_os
+}
+
+# Informationals
+echo PATH is $PATH
+echo
+echo I am
+id
+echo
+echo My location is `pwd`
+echo
+echo This system is
+uname -a
+echo
+echo Running
+echo $(get_os_version)
+echo
+echo The C compiler I will use today is
+$CC -v 2>&1
+echo
+echo The C++ compiler I will use today is
+$CXX -v 2>&1
+echo
+
+mtest() {
+  _bits=$1
+  cat >/tmp/m${_bits}test.$$.c<<EOC
+	int main(void) {
+	 ;
+	 return 0;
+	}
+EOC
+  gcc -m${_bits} -o /tmp/m${_bits}test.$$ /tmp/m${_bits}test.$$.c >/dev/null 2>&1
+  rc_=$?
+  rm -f /tmp/m${_bits}test.$$*
+  echo $rc_
+}
+
+# Settings necessary for build
+BITS=${BITS:-64}
+if [ $BITS -eq 64 ]; then
+  bitcheck=$(mtest 64)
+  if [ $bitcheck -eq 0 ]; then
+    LFS_CFLAGS=$(getconf XBS5_LP64_OFF64_CFLAGS)
+    LFS_LDFLAGS=$(getconf XBS5_LP64_OFF64_LDFLAGS)
+    BITS=-m64
+  else
+    BITS=32
+  fi
+fi
+if [ $BITS = 32 ]; then
+  bitcheck=$(mtest 32)
+  if [ $bitcheck -eq 0 ]; then
+    LFS_CFLAGS=$(getconf XBS5_ILP32_OFFBIG_CFLAGS)
+    LFS_LDFLAGS=$(getconf XBS5_ILP32_OFFBIG_LDFLAGS)
+    BITS=-m32
+  else
+    BITS=
+  fi
+fi
+export CFLAGS="$BITS -O3 $LFS_CFLAGS"
+export LDFLAGS="$BITS $LFS_LDFLAGS"
+export XZFLAGS="--disable-assembler"
+
+# Get the compiler library paths in for Perl, regardless of where they may be.
+PERLFLAGS='-Uplibpth= '
+for libdir in $(gcc $CFLAGS -print-search-dirs | grep libraries | cut -f2- -d= | tr ':' '\n' | grep -v /gcc); do
+  libdir=$(readlink -m $libdir)
+  if [ -n "$libdir" -a -d "$libdir" ] && ! echo "$PERLFLAGS" | grep "Aplibpth=$libdir " >/dev/null; then
+    PERLFLAGS="$PERLFLAGS-Aplibpth=$libdir "
+  fi
+done
+export PERLFLAGS
+
+# Preserve sanity
+export SKIPTOOLSINTRO="yes, please"
+
+cd tools/src
+time ./buildtools
+if [ $? -ne 0 ]; then
+  echo
+  echo Build failed
+  echo
+else
+  echo
+  echo Small proof of success:
+  echo
+  cd ../..
+  . ./shrc
+  specperl -V
+  echo
+  touch TOOLS.sha512
+  specperl $SPEC/bin/runcpu -V
+  echo
+  specperl $SPEC/bin/runcpu --test
+  if [ $? -eq 0 ]; then
+    echo
+    echo runcpu tests passed
+    echo
+    echo Here is a copy of this script:
+    echo =======================================================================
+    cat $0
+    echo =======================================================================
+    echo
+  else
+    echo
+    echo runcpu tests failed
+    echo
+  fi
+  echo
+  echo $(basename $0) run finished on $(date)
+fi

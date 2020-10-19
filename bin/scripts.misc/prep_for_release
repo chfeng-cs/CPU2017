@@ -1,0 +1,1638 @@
+#!/bin/bash
+#
+# prep_for_release - clean up working directory in preparation for a kit
+# No support is provided for this script.
+#
+# Copyright 1999-2019 Standard Performance Evaluation Corporation
+#
+# $Id: prep_for_release 6228 2019-05-20 17:47:25Z CloyceS $
+#
+
+#
+# Set the 'C' locale, as otherwise bash may glob characters in a way
+# that makes the filesystem look case-insensitive.
+#
+export LANG=C
+export LC_ALL=C
+unset LC_CTYPE LC_COLLATE LC_TIME LC_NUMERIC LC_MONETARY LC_MESSAGES
+
+if [ -z "$SPEC" ]; then
+    echo "SPEC variable is not set!";
+    exit 1;
+fi
+
+# Do this early, so that a '.' in the PATH won't find useless things
+cd $SPEC
+
+# See if we have info about where to place things outside the working tree.
+[ -f ../spec_setup_info.sh ] && . ../spec_setup_info.sh
+
+echo Removing installation stuff...
+
+# Remove tools installations
+
+# These might be present:
+for i in bzip2 gzip invoke invoke_pm make sha512sum perl tar perldoc rxp xz sh; do
+    rm -f $SPEC/bin/spec$i
+    rm -f $SPEC/bin/spec${i}.exe
+done
+if [ -f $SPEC/TOOLS.sha512 ]; then
+    (cd $SPEC; grep /bin TOOLS.sha512 | awk '{print $4}' | xargs $XARGSR rm -f)
+fi
+rm -f $SPEC/bin/packagename
+rm -f $SPEC/SUMS.tools
+rm -f $SPEC/TOOLS.sha512
+rm -rf $SPEC/bin/lib
+
+echo Checking for pre-requisites...
+########################################################################
+## Check for pre-requisites
+########################################################################
+
+perlmod_check() {
+    local _bad=0 _perl=$1 _rc _module
+
+    if [ $# -lt 2 ]; then
+        return 1
+    fi
+    shift
+    echo Looking for Perl modules for $_perl
+    for _module in $*; do
+        _rc=$($_perl -M$_module -e 1 2>&1)
+        if [ $? -eq 0 ]; then
+            echo ...$_module found
+        else
+            echo '***' Module $_module is missing or unusable
+            _bad=1
+        fi
+    done
+    return $_bad
+}
+
+# For benchmark flag dump generation and make_makevars (generating formatter
+# variable order and updating Docs/makevars.html), cleanuptree needs a Perl
+# that has some modules not always included in the core Perl distribution.
+# You probably already have one (specperl), but if it's the copy in the tree
+# you're cleaning, it's already been deleted. To use a handy recent specperl
+# from a different benchmark tree, set something like this before running:
+#
+#    export PERL=/bench/cpu2017/bin/specperl
+#
+PERL=${PERL:-perl}
+_userperl="$PERL"
+PERL=
+for _perltry in "$_userperl" specperl perl
+do
+    if [ -n "$_perltry" ]; then
+        echo "Checking to see if '$_perltry' is usable..."
+        if $_perltry -e 1 2>/dev/null; then
+            perlmod_check "$_perltry" List::MoreUtils URI Date::Parse XML::SAX XML::NamespaceSupport IO::String IO::Compress::Bzip2 Time::HiRes
+            if [ $? -eq 0 ]; then
+                PERL=$_perltry
+            fi
+        fi
+    fi
+    if [ -n "$PERL" ]; then
+        echo
+        break
+    fi
+done
+if [ -z "$PERL" ]; then
+    if [ -n "$_userperl" ]; then
+        PERL="${_userperl}, "
+    fi
+    echo
+    echo Could not find a usable Perl.  Tried ${PERL}specperl and perl.
+    exit 1
+fi
+
+# Settings to tweak are all in vars_common.pl
+eval $($PERL -e 'unshift @INC, "$ENV{SPEC}/bin/common"; require "vars_common.pl"; suiteinfo();' 2>/dev/null)
+if [ -z "$suite" -o -z "$treeowner" -o -z "$treegroup" ]; then
+  echo "Did not get expected settings from vars_common.pl"
+  echo "Settings were:"
+  $PERL -e 'unshift @INC, "$ENV{SPEC}/bin/common"; require "vars_common.pl"; suiteinfo();'
+  exit 1
+fi
+
+# To convert HTML docs to text, cleanuptree needs a copy of elinks.  Neither
+# links nor lynx is acceptable.
+# If you have one that's not in your PATH, you might set something like:
+#
+#   export LINKS=/pkg/local/bin/elinks
+#
+if [ -z "$LINKS" ]; then
+    LINKS="elinks"
+fi
+$LINKS -version >/dev/null 2>&1
+if [ $? -ne 0 -a $? -ne 3 ]; then
+    # Exit code 3 is "all okay" in Links' stupid world
+    echo "The links you selected ($LINKS) isn't executable!"
+    exit 1
+fi
+LINKS_NOLINKS=
+for i in nolist no-numbering no-references; do
+    $LINKS -$i < /dev/null > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        LINKS_NOLINKS="-$i $LINKS_NOLINKS"
+    fi
+done
+echo "Got \"$LINKS\" for elinks; no link display options are \"$LINKS_NOLINKS\""
+
+# If you're building out of a Subversion working tree, you _must_ have a
+# working svn installed for setting directory properties and checking to
+# make sure that there are no uncommitted changes in the tree.
+SVN=${SVN:-svn}
+export SVN
+TMP=$($SVN help >/dev/null 2>&1)
+if [ $? -ne 0 -a -d .svn ]; then
+    # We really only need Subversion if this is a Subversion working tree
+    echo "No Subversion (svn) found.  Please add it to your PATH."
+    exit 1
+fi
+
+# If you're building out of a git-svn working tree, you _must_ have a
+# working git installed for setting directory properties and checking to
+# make sure that there are no uncommitted changes in the tree.
+if [ -d .git ]; then
+  TMP=$(git svn help >/dev/null 2>&1)
+  if [ $? -ne 0 ]; then
+      echo "No Git (git) found.  Please add it to your PATH."
+      exit 1
+  fi
+fi
+
+# The script that generates the variable order section in makevars.html
+# and the var_order file used by the flag reporter requires GNU make.
+MAKE=nomake
+for i in make gmake gnumake gnu-make specmake gmake4 gnumake4 gnu-make4; do
+    if $i --version 2>&1 | grep -i '^GNU Make [4-9]' >/dev/null; then
+        MAKE=$i
+        break
+    fi
+done
+if [ $MAKE = nomake ]; then
+    echo "No GNU make 4+ found.  Please add it to your PATH."
+    exit 1
+fi
+
+# A function to look through directories finding a program that'll work
+find_working() {
+    prog_=$1
+    if [ -n "$prog_" ]; then
+        shift
+        for dir_ in "$@"; do
+            $dir_/$prog_ </dev/null >/dev/null 2>&1
+            if [ $? -eq 0 ]; then
+                echo $dir_
+                break
+            fi
+        done
+    fi
+}
+
+# As long as we're doing pre-req checking, we might as well check the
+# implicit ones as well.
+# genmanifest needs specsha512sum.
+specsha512sum -e </dev/null >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+    # See if we can use one of the ones in tools/bin
+    tmppath_=$(find_working 'specsha512sum -e' $SPEC/tools/bin/* 2>/dev/null)
+    if [ -n "$tmppath_" ]; then
+        PATH=$tmppath_:$PATH
+        export PATH
+        specsha512sum -e </dev/null >/dev/null 2>&1
+    fi
+
+    if [ $? -ne 0 -o -z "$tmppath_" ]; then
+        echo "No specsha512sum found.  Please add it to your PATH."
+        exit 1
+    else
+        echo "Using tools binaries in $tmppath_"
+    fi
+fi
+
+
+# cleanuptree also requires GNU tar for making bundles of redistributable
+# sources.
+if [ -n "$SPECTAR" ]; then
+    TARTRY=$SPECTAR
+else
+    TARTRY="spectar gtar tar"
+fi
+TAR=
+for try in $TARTRY; do
+    TMP=$($try --help 2>&1 | grep -- --exclude 2>&1)
+    if [ -z "$TAR" -a $? -eq 0 -a -n "$TMP" ]; then
+        TMP=$($try --help 2>&1 | grep -- --format 2>&1)
+        if [ -z "$TAR" -a $? -eq 0 -a -n "$TMP" ]; then
+            TAR=$try
+            break
+        fi
+    fi
+done
+if [ -z "$TAR" ]; then
+    echo "No GNU tar found (tried $TARTRY).  Please add it to your PATH"
+    echo "or set SPECTAR to its location."
+    exit 1
+fi
+
+# For the same reason, xz is also required.
+if [ -n "$SPECXZ" ]; then
+    XZTRY=$SPECXZ
+else
+    XZTRY="specxz xz"
+fi
+XZ=
+for try in $XZTRY; do
+    TMP=$(echo foo | $try -vT0 >/dev/null 2>&1)
+    if [ -z "$XZ" -a $? -eq 0 ]; then
+        XZ=$try
+        break
+    fi
+done
+if [ -z "$XZ" ]; then
+    echo "No xz found (tried $XZTRY).  Please add it to your PATH"
+    echo "or set SPECXZ to its location."
+    exit 1
+fi
+
+# In order to estimate post-install and runtime sizes, a du that can exclude
+# files and directories and output in megabytes is needed. GNU du fits the
+# bill, as does du from recent *BSDs.
+DU=false
+DUEXCLUDE=--exclude
+for trydu in /usr/sfw/bin/gdu /opt/csw/bin/gdu gdu du; do
+  for tryexc in -- -I --exclude; do
+    out=$($trydu -k $tryexc .svn $tryexc .git Docs 2>&1)
+    rc=$?
+    if [ $rc -eq 0 ]; then
+        echo $out | egrep '\.(svn|git)' >/dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            DU=$trydu
+            DUEXCLUDE=$tryexc
+            break
+        fi
+    fi
+  done
+  if [ "$DU" != "false" ]; then
+    # See if --apparent-size (GNU only) is supported
+    out=$($DU --apparent-size Docs 2>&1)
+    if [ $? -eq 0 ]; then
+        DUEXCLUDE="--apparent-size $DUEXCLUDE"
+    fi
+    break
+  fi
+done
+$DU -ks $DUEXCLUDE .svn $DUEXCLUDE .git Docs >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+  echo "Need a du(1) that knows -k (kibibyte output) and can exclude files"
+  exit 1
+fi
+
+# For proper munging of version "numbers" that may include a tag, we need a
+# tr that exhibits the behavior specified in XPG6
+TR=false
+for trytr in /usr/xpg6/bin/tr /usr/gnu/bin/tr gtr tr; do
+    out=$(echo 012test | $trytr -cd 0-9 2>/dev/null)
+    rc=$?
+    if [ $rc -eq 0 -a "$out" = "012" ]; then
+      TR=$trytr
+      break
+    fi
+done
+if [ "$TR" = "false" ]; then
+  echo "Need a tr(1) that behaves like GNU or XPG6"
+  exit 1
+fi
+
+# Find sometimes needs to be able to understand -path, like GNU find or
+# anything that conforms to POSIX.1-2008/SUS4
+FIND=false
+mkdir t$$
+for tryfind in /usr/gnu/bin/find gfind find; do
+    $tryfind t$$ -path foo 2>/dev/null
+    rc=$?
+    if [ $rc -eq 0 ]; then
+      FIND=$tryfind
+      break
+    fi
+done
+rmdir t$$
+if [ "$FIND" = "false" ]; then
+  echo "Need a find(1) that understands -path like GNU or POSIX.1-2008"
+  exit 1
+fi
+
+# We need to be able to canonicalize paths.  On lots of systems, readlink -f
+# will do the business.  Others will have realpath.  On some systems we have
+# to resort to python.
+REALPATH=false
+for tryrl in 'readlink -f' realpath 'readlink -m' 'python -c "import os,sys; print(os.path.realpath(os.path.expanduser(sys.argv[1])))"'; do
+    eval "canon_path() {
+                        $tryrl \$1
+                       }"
+    tmp=$(canon_path /tmp/../tmp 2>/dev/null)
+    if [ $? -eq 0 -a "$tmp" != "/tmp/../tmp" -a -d "$tmp" ]; then
+        REALPATH=$tryrl
+        break
+    fi
+done
+if [ "$REALPATH" = "false" ]; then
+    echo "Need a way to canonicalize paths, like 'readlink -f' or realpath(1)"
+    exit 1
+fi
+
+
+# Copying the common sources around is done with rsync to keep the file
+# metadata consistent and fun stuff like that.
+TMP=$(rsync --help >/dev/null 2>&1)
+if [ $? -ne 0 ]; then
+    echo "No rsync found.  Please add it to your PATH."
+    exit 1
+fi
+
+
+# Generating diff stats requires... diffstat.  This is totally optional,
+# though, so if you don't have it nothing bad happens.
+if [ -z "$DIFFSTAT" ]; then
+    DIFFSTAT="diffstat"
+fi
+$DIFFSTAT </dev/null >/dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "The diffstat you selected ($DIFFSTAT) isn't executable!  But that's okay; we'll"
+    echo "press on..."
+    DIFFSTAT=
+fi
+
+
+## End pre-requisite checking ##########################################
+
+# Don't tweak these
+outputdir=$(canon_path $SPEC/../src)
+novc='( ( -name .svn -o -name .git ) -prune ) -o'
+generated_files='( -name flags.html -o -name configpp )'
+verfile=version.txt
+docbase=Docs
+
+# Get some more info about the thing being cleaned
+eval $(head -1 $SPEC/$verfile | perl -ne '
+  @ver = map { $_ + 0 } (/(\d+)\.?/g); END { push @ver,0,0,0;
+  print "SUITEVER=".join(".", @ver[0..2])."\n";
+  for my $l (qw(MAJOR MINOR SUBMINOR)) {
+      print "SUITE${l}=".shift(@ver)."\n";
+  }
+  }
+')
+# This intentionally captures release candidates as well
+ISRC=$(test $SUITEMINOR -ge 900 -o $SUITESUBMINOR -ge 900 && echo yes)
+
+# Make a version string for filenames that will allow them to be mostly sortable
+sortable_version=$(printf '%d.%03d.%d' $SUITEMAJOR $SUITEMINOR $SUITESUBMINOR)
+
+# Figure out if xargs knows -r or not
+t=$(echo foo | xargs -r echo 2>&1)
+if [ "x$t" = "xfoo" ]; then
+  XARGSR=-r
+else
+  XARGSR=
+fi
+
+# Convenience functions
+textify() {
+  htmlfile=$1
+  do_warning=$2
+  textfile=$3
+  omit_links=$4
+  if [ "$textfile" = "" ]; then
+    textfile=$(dirname $htmlfile)/$(basename $htmlfile .html).txt
+  fi
+  if [ "$omit_links" != "" ]; then
+    omit_links=$LINKS_NOLINKS
+  fi
+
+  rm -f $textfile
+  if [ "$do_warning" != "" ]; then
+      cat > $textfile  <<EONOTE
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/${lcsuite}/${do_warning}/
+(2) The ${do_warning} directory from the original ${suite} ISO image
+(3) The ${do_warning} directory on the system where you have installed
+    your SPEC ${suite} tree - for example:
+    /spec/${lcsuite}/${do_warning}/ (Unix) or D:\spec\\${lcsuite}\\${do_warning}\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+EONOTE
+  fi
+
+  $LINKS -dump $omit_links $htmlfile | sed 's#file://.*'$(dirname $htmlfile)'/##' >> $textfile
+  # All text files have CRLF endings
+  $PERL -ni -e 'tr/\012\015//d; print "$_\r\n";' $textfile
+}
+
+update_archive_p() {
+  # Name of archive in $1
+  # Directories to search in $*
+  archive=$1
+  shift
+  if [ -z "$archive" -o ! -f "$archive" ]; then
+    true;
+  else
+    found=0
+    for testcheck in $*; do
+      checkdir=$testcheck
+      checkfile=
+      if [ -f "$testcheck" ]; then
+        checkdir=$(dirname $testcheck)
+        checkfile="-name "$(basename $testcheck)
+      elif [ -d "$testcheck" ]; then
+        checkdir=$testcheck
+        checkfile=
+      else
+        # Maybe it's a glob?
+        testfiles=$testcheck
+        if echo $testfiles | grep / >/dev/null 2>&1; then
+          checkdir=$(dirname $testfiles)
+          testfiles="-name '"$(basename $testfiles)"'"
+        else
+          checkdir=.
+          testfiles="-name '$testfiles'"
+        fi
+      fi
+
+      # This isn't exactly right, but it's right enough.
+      tmp=$($FIND $checkdir $novc -type f $testfiles -newer $archive \! $generated_files -print | wc -l)
+      if [ -n "$tmp" -a "$tmp" -gt 0 ]; then
+          found=$(( $found + $tmp ))
+      fi
+    done
+    test $found -gt 0
+  fi
+}
+
+svn_check() {
+  _checkdir=$1
+  shift
+  if [ ! -d "$_checkdir/.svn" ]; then
+    # Either not in Subversion or in a post-1.6 tree
+    $SVN info $_checkdir >/dev/null 2>&1
+  else
+    true
+  fi
+}
+
+svn_ignore() {
+  # Set the svn:ignore property for the directory in $1 to the patterns in $*
+  dir=$1
+  shift
+  if [ -n "$dir" -a -d "$dir" ] && svn_check $dir; then
+    $SVN pg svn:ignore $dir | grep -v '^$' > /tmp/svn_ignore.$$
+    cp /tmp/svn_ignore.$$ /tmp/svn_ignore_copy.$$
+    for item in $*; do
+      if ! grep "$item" /tmp/svn_ignore.$$ >/dev/null 2>&1; then
+        echo $item >> /tmp/svn_ignore.$$
+      fi
+    done
+    if [ -s /tmp/svn_ignore.$$ ] && ! cmp /tmp/svn_ignore.$$ /tmp/svn_ignore_copy.$$ >/dev/null 2>&1; then
+      $SVN ps svn:ignore -F /tmp/svn_ignore.$$ $dir
+    fi
+    rm -f /tmp/svn_ignore.$$ /tmp/svn_ignore_copy.$$ >/dev/null 2>&1
+  fi
+}
+
+make_tar_filelist() {
+  patfile=$1
+  basedir=$2
+  if [ -n "$basedir" ]; then
+    basedir="$basedir/"
+  fi
+  files=""
+  for line in $(cat $patfile); do
+    if $(echo $line | grep '^!' >/dev/null 2>&1); then
+      # It's an exclusion
+      files="--exclude="$(echo $line | sed 's/^!//')" $files"
+    elif [ -n "$line" ]; then
+      files=$(echo "$files $basedir$line" | sed 's#/\.$##')
+    fi
+  done
+  echo $files
+}
+
+make_benchset() {
+    local title _bsetdir _size _langs _bsetfile files
+    title=$1; shift
+    _bsetdir=$1; shift
+    _size=$1; shift
+    _bsetfile=$1; shift
+    _langs=$1; shift
+    if [ $_size = 'normal' ]; then
+      _size=''
+    fi
+    files="$@"
+    size_letter=$(echo $_size | sed 's/^\(.\).*/\1/' | $TR A-Z a-z)
+    if [ -n "$_size" ]; then
+      title="${_size}_$title"
+    fi
+    if [ "$_bsetfile" = "choose" ]; then
+        if [ "$suite" = "MPI2007" ]; then
+            if [ "$_size" = 'large' ]; then
+                benchsetfile=$_bsetdir/MPIL2007.bset
+            else
+                benchsetfile=$_bsetdir/MPIM2007.bset
+            fi
+        elif [ "$suite" = "OMP2012" ]; then
+            if [ "$_size" = 'gross' ]; then
+                benchsetfile=$_bsetdir/OMPG2012.bset
+            else
+                benchsetfile=$_bsetdir/OMPG2012.bset
+            fi
+        else
+            benchsetfile=
+        fi
+    elif [ -r "$_bsetfile" ]; then
+        benchsetfile=$_bsetfile
+    else
+        echo "Specified benchset file '$_bsetfile' is not available"
+        exit 1
+    fi
+    echo -n "${title}..."
+    rm -f $_bsetdir/$title.bset
+    rm -f $_bsetdir/$(echo $title | sed s/all_/all_except_/).bset
+    DOITp=0
+    for file in $files; do
+      if [ -s $file ]; then
+        DOITp=1
+        break
+      fi
+    done
+    if [ $DOITp -eq 1 ]; then
+      (
+        cat $SPEC/bin/scripts.misc/bset_header | sed "s/XXXBSETNAMEXXX/$title/g; s/XXXSIZEXXX/$size_letter/g; s/XXXLANGSXXX/$_langs/g;";
+        for i in $(cat $files 2>/dev/null | sort | uniq); do
+          if [ -n "$benchsetfile" ]; then
+            grep "^[ 	]*$i" $benchsetfile
+          else
+            echo $i
+          fi
+        done
+        cat $SPEC/bin/scripts.misc/bset_footer
+      ) > $_bsetdir/$title.bset
+      gotone_=
+      for i in $(grep '^[ 	]*[0-9][0-9][0-9]\.' $_bsetdir/$title.bset | sort); do
+          echo -n "$i "
+          gotone_=1
+      done
+      if [ -n "$gotone_" ]; then
+          echo
+      else
+          echo empty
+          rm -f $_bsetdir/$title.bset
+      fi
+    else
+      echo empty
+    fi
+}
+
+dir_size() {
+    _total=0
+    _dirs="$*"
+    for _dir in $_dirs; do
+      _dir_total=$($DU -s $DUEXCLUDE .svn $DUEXCLUDE .git $_dir | sed 's/[^0-9].*//g')
+      _total=$(( $_total + $_dir_total ))
+    done
+    echo $_total
+}
+
+workload_size() {
+    # Attempt to figure out how much space the input and output files for
+    # the _size of _bench will take.  This includes stuff in the 'all' workload
+    # (which is copied in even if it isn't used), and also needs to take into
+    # account workload cloning.  That's what causes the Perl mess below.
+    local _bench=$1; shift
+    local _size=$1; shift
+
+    local _all_total=0
+    if [ -d $_bench/data/all ]; then
+      _all_total=$(dir_size $_bench/data/all)
+    fi
+    local _size_total=0
+    if [ -d $_bench/data/$_size ]; then
+      # Easy.  Just gather it up, add it to _all_total, and return
+      _size_total=$(dir_size $_bench/data/$_size)
+    else
+      # Hard.  Use Perl to figure out where it gets _size from, and use that
+      # size.
+      _size_total=0
+      local _sources=$($PERL -e '
+         my ($dir, $size) = @ARGV;
+         die "$dir is not a directory!\n" unless (-d $dir);
+         die "$dir/Spec/object.pm does not exist!\n" unless (-f "$dir/Spec/object.pm");
+         do "$dir/Spec/object.pm";
+         die "No entry for $size in \%workloads!\n" unless exists($workloads{$size});
+         if (ref($workloads{$size}) eq "ARRAY") {
+            foreach my $dir (@{$workloads{$size}}) {
+              if (ref($dir) eq "ARRAY") {
+                my ($bmark, @sizes) = @{$dir};
+                if (@sizes <= 0) {
+                  @sizes = ($size);
+                }
+                print join(" ", map { "$bmark:$_" } @sizes)." ";
+              }
+            }
+         } else {
+            # Just a different size from the same benchmark
+            print "$workloads{$size}\n";
+         }
+         print "\n";
+                              ' $_bench $_size)
+      if [ $? -ne 0 ]; then
+        exit 1;
+      fi
+      #echo "Looked up workload info for $(basename $bench) $_size... it comes from $_sources" 1>&2
+      local _source
+      for _source in $_sources; do
+        local _tmpsize=$(echo $_source | sed 's/^[^:]*://')
+        _source=$(echo $_source | sed 's/:.*//')
+        _size_total=$(( $_size_total + $(workload_size $(echo $SPEC/benchspec/*/$_source | head -1) $_tmpsize) ))
+      done
+      #echo "Total workload size for $(basename $bench) $_size is $_size_total" 1>&2
+    fi
+
+    echo $(( $_size_total + $_all_total ))
+}
+
+copy_or_die() {
+    local _src=$1 _dest=$2
+    shift
+    shift
+
+    cp $* $_src $_dest
+    if [ $? -ne 0 ]; then
+        _src=$(echo $_src | sed "s#^$SPEC/##")
+        _dest=$(echo $_dest | sed "s#^$SPEC/##")
+        echo Failed to copy $_src to $_dest
+        exit 1
+    fi
+}
+
+# Convert a major.minor.subminor version number to something that can be
+# compared using test
+version_number() {
+    local _v=$1
+    shift
+
+    local _ver=
+    local _num
+    for _num in $(echo $_v | $TR '.' ' '); do
+        _ver=${_ver}$(printf "%03d" $_num)
+    done
+    echo $f | sed 's/^0*//'
+}
+
+# Make sure that we have version files for all benchmarks
+echo Checking for benchmark version files, exe, run, and build directories...
+for i in $SPEC/benchspec/[A-Z0-9]*/*; do
+  if [ -d $i ]; then
+    if [ ! -f $i/$verfile -a $(basename $i) != ".svn" -a $(basename $i) != ".git" ]; then
+      echo No version file in $i
+      exit 1
+    fi
+    for j in build run exe; do
+      if [ -d $i/$j ]; then
+        echo Removing $i/$j
+        rm -rf $i/$j
+      fi
+    done
+  fi
+done
+
+# Make sure that every tools directory has a correctly named tools tarball.
+# This will allow removing tools-*.tar.* as a way of marking that a toolset
+# needs to be rebuilt without losing all the metadata (order, description,
+# etc).
+ToolsOk=1
+if [ -s $SPEC/MANIFEST ]; then
+    ManifestBits=$(awk '{ print length($1) * 4; exit }' $SPEC/MANIFEST)
+fi
+for i in $SPEC/tools/bin/*; do
+    if [ -d $i ]; then
+        shortname=$(basename $i)
+        compneeded=
+        # Check for the tools tarball
+        if [ $(ls $i/tools-${shortname}.tar* 2>/dev/null | wc -l) -ne 1 ]; then
+            echo Missing tools tarball for $shortname
+            ToolsOk=0
+        else
+            compneeded=$(echo $i/tools-${shortname}.tar* | sed 's/^.*\.tar\.//')
+        fi
+        if [ -n "$compneeded" -a ! \( -f $i/spec$compneeded -o -f $i/spec${compneeded}.exe \) ]; then
+            echo Missing spec$compneeded for $shortname
+            ToolsOk=0
+        fi
+        if [ ! -f $i/spectar -a ! -f $i/spectar.exe ]; then
+            echo Missing spectar for $shortname
+            ToolsOk=0
+        fi
+        if [ 0$ManifestBits -ge 256 -a ! \( -f $i/specsha${ManifestBits}sum -o -f $i/specsha${ManifestBits}sum.exe \) ]; then
+            echo Missing specsha${ManifestBits}sum for $shortname
+            ToolsOk=0
+        fi
+        if [ ! -s $i/description ]; then
+            echo Missing or empty description file for $shortname
+            ToolsOk=0
+        fi
+        if ! cat $i/order | tr -d '\015' | grep "^[0-9][0-9]*:${shortname}[ 	]*\$" >/dev/null 2>&1; then
+            echo Order file is incorrect for $shortname
+            echo "  Should consist only of one line:"
+            echo "  <nn>:$shortname"
+            ToolsOk=0
+        fi
+    fi
+done
+if [ ${TOOLS_NOCHECK:-0} -eq 0 -a $ToolsOk -ne 1 ]; then
+    exit 1
+fi
+
+# Make sure that there are no input files with names that rundir cleanup will
+# always remove, thus causing run directories to _always_ need to be rebuilt.
+echo Looking for the input files named like output files
+FoundEvil=0
+for i in $SPEC/benchspec/*/*/src; do
+  find $SPEC/benchspec/*/*/data/*/input \( -name '*.cmp' -o -name '*.err' -o -name '*.mis' -o -name '*.out' \) -print > /tmp/badly_named_inputs.$$
+  if [ $(cat /tmp/badly_named_inputs.$$ | wc -l) -gt 0 ]; then
+    echo Input files named like output files found in $(basename $(dirname $i)):
+    cat /tmp/badly_named_inputs.$$
+    FoundEvil=1
+  fi
+  rm -f /tmp/badly_named_inputs.$$
+done
+if [ $FoundEvil -ne 0 ]; then
+  exit 1
+fi
+
+# Make sure that there are no CRLFs in the sources
+echo Looking for the evil CRLF in source files
+FoundEvil=0
+for i in $SPEC/benchspec/*/*/src; do
+  ( \
+   echo $(dirname $i)/$verfile; \
+   $FIND $i $novc \( -type f \! -name '*.tar' \! -name '*.tar.*' -print \) \
+  ) | \
+    xargs $PERL -MFile::Basename -ne 'if (!$reported{$ARGV} && m/\015/o) { print "CRLF found in $ARGV\n"; $reported{$ARGV} = 1; $found = 1; } END { exit $found; }'
+  if [ $? -ne 0 ]; then
+    echo CRLF sources or $verfile  in $(basename $(dirname $i))
+    FoundEvil=1
+  fi
+done
+if [ $FoundEvil -ne 0 ]; then
+  exit 1
+fi
+
+# Make sure that there are no SPECUSERNUMs in the example configs
+echo Looking for the ancient SPECUSERNUM in example configs
+FoundEvil=0
+$FIND $SPEC/config $novc \( -type f \! -name '*.tar' \! -name '*.tar.*' -print \) | \
+  xargs $PERL -MFile::Basename -ne 's/#.*//; if (!$reported{$ARGV} && m/SPECUSERNUM/o) { print "SPECUSERNUM found in $ARGV\n"; $reported{$ARGV} = 1; $found = 1; } END { exit $found; }'
+if [ $? -ne 0 ]; then
+  echo SPECUSERNUM found in $(basename $(dirname $i))
+  FoundEvil=1
+fi
+if [ $FoundEvil -ne 0 ]; then
+  exit 1
+fi
+
+# Remove tools build leftovers
+echo Cleaning up tools build area...
+(cd $SPEC/tools/src; SKIPALL=1 DOCLEAN=1 CLEANONLY=1 ./buildtools)
+rm -rf $SPEC/tools/output
+
+# Remove run and exe directories (redundant, but that's okay)
+echo Removing benchmark run, exe, and build directories
+rm -rf $SPEC/benchspec/*/*/build $SPEC/benchspec/*/*/run $SPEC/benchspec/*/*/exe
+
+# Clean out the results directory
+echo Cleaning out results directory
+if [ -d $SPEC/result ]; then
+  $FIND $SPEC/result $novc \( -type f -print \) | egrep -v '(basebar|peakbar|invalid)\.gif$' | xargs $XARGSR rm -f
+else
+  mkdir $SPEC/result
+fi
+
+# Remove link checker leftovers
+echo Removing link checker reports
+touch $SPEC/nonexistent.html.report # To give it something to do
+find $SPEC -name '*.html.report' -print0 | xargs -0 rm -f
+
+# Get rid of the temp directory (if any)
+rm -rf $SPEC/tmp
+
+# Install all the starter scripts
+for i in \
+    configpp convert_to_development dumpsrcalt extract_config \
+    extract_flags extract_raw flag_dump flags_dump makesrcalt \
+    port_progress printkids.pl rawformat runcpu \
+    specdiff specperldoc specpp toolsver verify_hash
+do
+    copy_or_die $SPEC/bin/scripts.misc/sh_starter $SPEC/bin/$i -p
+done
+
+
+# Make sure configpp exists and is current, because we can't just symlink it
+echo Fixing up configpp
+rm -f $SPEC/bin/harness/configpp
+copy_or_die $SPEC/bin/harness/runcpu $SPEC/bin/harness/configpp -p
+
+# Likewise flags_dump
+echo Fixing up flags_dump
+rm -f $SPEC/bin/tools/flags_dump
+copy_or_die $SPEC/bin/tools/flag_dump $SPEC/bin/tools/flags_dump -p
+
+# Check for long file names
+# POSIX 1988 (ustar) still has a 256-character limit, but that should be
+# sufficient for our use.  POSIX 2001 (pax) format does not have the limits
+# at all, and it MAY be the case that even native tar on old Solaris (pre-11)
+# and HP-UX can understand pax format, but we'll generate in ustar format
+# (which they definitely CAN handle) and just not have pathnames longer than
+# 256 characters.
+echo "Checking for long (255+ character) file names"
+$FIND . $novc -print | $PERL -ne 'next if m{/(?:\.svn|\.git)/?}o; chomp; s#^\./##o; $l=length($_)-255; if ($l > 0) { print "$l: $_\n"; $long++; } END { if ($long) { print "$long long files found\n"; exit 1; } }'
+if [ $? -ne 0 ]; then
+    echo Long file names found
+    exit 1
+fi
+
+# Refresh the common sources, in case there are src.alts that want to modify
+# them.  If cleanuptree isn't running in bash, then $BASH should be empty and
+# we'll get whatever the bang path will give us.
+$BASH $SPEC/bin/scripts.misc/copy_commons
+if [ $? -ne 0 ]; then
+    exit $?
+fi
+
+# Refresh all the src.alts
+for i in $SPEC/benchspec/*/*/src/src.alt/*; do
+  if [ "x$i" != "x$SPEC/benchspec/*/*/src/src.alt/*" ]; then
+    if [ $(basename $i) != '.svn' -a $(basename $i) != '.git ' ]; then
+      # Ignore Subversion and Git directories
+      bmark=$(basename $(dirname $(dirname $(dirname $i))))
+      srcalt=$(basename $i)
+      echo Generating $srcalt src.alt for $bmark
+      $PERL -I$SPEC/bin/common -I$SPEC/bin/harness -I$SPEC/bin $SPEC/bin/tools/makesrcalt $bmark $srcalt --notarball --tsformat '%Y-%m-%d'
+      if [ $? -ne 0 ]; then
+          echo Failed generating $srcalt src.alt for $bmark
+          exit 1
+      fi
+    fi
+  fi
+done
+
+# Copy docs around to all cloned benchmarks, and fix up benchmark
+# descriptions for everyone
+echo Copying docs for cloned benchmarks and fixing up benchmark descriptions
+rm -rf $SPEC/Docs/benchmarks 2>/dev/null
+mkdir -p $SPEC/Docs/benchmarks
+for i in $SPEC/benchspec/*/[0-9]*; do
+  if [ -d $i ]; then
+    origin=
+    [ -f $i/Spec/origin ] && origin=$(cat $i/Spec/origin)
+    basebench=$i
+    if [ -n "$origin" ]; then
+      basebench=$(canon_path $i/../$origin)
+      rm -rf $i/${docbase} 2>/dev/null
+      cat ${basebench}/Spec/flags.xml | sed "s#${origin}#$(basename ${i})#g" > $i/Spec/flags.xml
+      chmod --reference=${basebench}/Spec/flags.xml $i/Spec/flags.xml 2>/dev/null
+      copy_or_die ${basebench}/${docbase} $i -pr
+    fi
+
+    # Figure out the basename of the HTML file
+    basedir=$(canon_path $basebench)
+    if [ $suite = CPU2017 ]; then
+        basebench=$(basename $basedir | sed -e 's/^2[0-9][0-9]\.o//; s/^[0-9][0-9][0-9]\.//; s/_[if][rs]$//; s/_[rs]$//')
+    else
+        basebench=$(basename $basedir | sed -e 's/^[0-9][0-9][0-9]\.//')
+    fi
+    if [ -n "$origin" ]; then
+        # Clean out the origin copy of the benchmark descriptions
+        rm -f $i/${docbase}/${basebench}.html 2>/dev/null
+        rm -f $i/${docbase}/$(basename $basedir).html 2>/dev/null
+        rm -f $i/${docbase}/$(basename $basedir).txt 2>/dev/null
+        cat $basedir/${docbase}/${basebench}.html | sed -e "s/$origin/$(basename $i)/g" > $i/${docbase}/$(basename $i).html
+        touch -r $basedir/${docbase}/${basebench}.html $i/${docbase}/$(basename $i).html
+    else
+        copy_or_die $basedir/${docbase}/${basebench}.html $i/${docbase}/$(basename $i).html -p
+    fi
+    copy_or_die $i/${docbase}/$(basename $i).html $SPEC/Docs/benchmarks -p
+  fi
+done
+
+# HTMLize all the benchmark flag descriptions
+for i in $SPEC/benchspec/flag*.xml $SPEC/benchspec/*/*/Spec/flags.xml; do
+  if [ "x$i" != "x$SPEC/benchspec/*/*/Spec/flags.xml" ]; then
+      if echo $i | grep Spec/flags.xml >/dev/null 2>&1; then
+        # Benchmark flags file; goes in the benchmark docs dir
+        docsdir=$(dirname $(dirname $i))/${docbase}
+      else
+        # Suite flags file; goes in $SPEC/${docbase}/flags
+        docsdir=$(dirname $(dirname $i))/${docbase}/flags
+      fi
+      flagfile=$(basename $i .xml)
+      [ -d $docsdir ] || mkdir $docsdir
+      echo Generating flags file for $(basename $(dirname $docsdir))
+      (
+       cd $docsdir
+       rm -f ${flagfile}.html*
+       if [ $(basename $i) = 'flags.xml' ]; then
+         $PERL -I$SPEC/bin/common -I$SPEC/bin/harness $SPEC/bin/tools/flag_dump --source=$(basename $(dirname $(dirname $i))) $i >/dev/null
+       else
+         $PERL -I$SPEC/bin/common -I$SPEC/bin/harness $SPEC/bin/tools/flag_dump --source=suite $i >/dev/null
+       fi
+      )
+      if [ $? -ne 0 ]; then
+          echo Failed generating HTML flags
+          exit 1
+      fi
+  fi
+done
+
+# Don't forget the example flag description files
+for i in $SPEC/${docbase}/flags/flags*.xml; do
+  if [ "x$i" != "x$SPEC/${docbase}/flags/flags*.xml" ]; then
+      echo Dumping $(basename $i) to HTML
+      (
+       cd $(dirname $i)
+       rm -f $(basename $i .xml).html*
+       $PERL -I$SPEC/bin/common -I$SPEC/bin/harness $SPEC/bin/tools/flag_dump $i >/dev/null
+      )
+  fi
+done
+
+# Make copies of the flags files for public reference (including use by the
+# website formatter)
+echo "Copying flags (formatted and source) to Docs/benchmarks/flags"
+mkdir -p $SPEC/Docs/benchmarks/flags
+copy_or_die $SPEC/benchspec/flags-mandatory.xml $SPEC/Docs/benchmarks/flags/${lcsuite}.flags.xml
+copy_or_die $SPEC/Docs/flags/flags-mandatory.html $SPEC/Docs/benchmarks/flags/${lcsuite}.flags.html
+for i in $SPEC/benchspec/*/[0-9]*; do
+    copy_or_die $i/Spec/flags.xml $SPEC/Docs/benchmarks/flags/$(basename $i).flags.xml
+    copy_or_die $i/Docs/flags.html $SPEC/Docs/benchmarks/flags/$(basename $i).flags.html
+done
+
+SIZES='normal'
+if [ $suite = 'MPI2007' ]; then
+  SIZES='large medium'
+elif [ $suite = 'OMP2001' ]; then
+  SIZES='large medium largepower'
+elif [ $suite = 'OMP2012' ]; then
+  SIZES='normal'
+fi
+# We only do changed/unchanged during development of v1.0.
+for bset in changed unchanged; do
+    for bsetdir in $SPEC/benchspec/[A-Z0-9]*; do
+        if [ -d $bsetdir ]; then
+            rm -f $bsetdir/$bset*.bset
+            if [ $SUITEMAJOR -eq 0 -a -z "$ISRC" ]; then
+                if [ $bset = "unchanged" ]; then
+                    COMPARISON=-lt
+                else
+                    COMPARISON=-ge
+                fi
+                echo Making the \"$bset\" benchsets in $bsetdir
+                rm -f /tmp/cleanuptree.$bset.$$
+                for(( ATLEAST=$SUITEMINOR ; $SUITEMINOR - $ATLEAST <= 3 ; ATLEAST-- )); do
+                    if [ $ATLEAST -ge 0 ]; then
+                        if [ $ATLEAST -eq $SUITEMINOR ]; then
+                            bsetfile=$bset
+                        else
+                            bsetfile=${bset}_$ATLEAST
+                        fi
+                        GOTONE=0
+                        for i in $bsetdir/*/$verfile; do
+                            if [ $(version_number $(cat $i)) $COMPARISON $(version_number 0.${ATLEAST}.0) ]; then
+                                echo "   "$(basename $(dirname $i)) >> /tmp/cleanuptree.$bset.$$
+                                GOTONE=1
+                            fi
+                        done
+                        if [ $GOTONE -eq 0 ]; then
+                            # Don't leave an empty benchset
+                            rm -f $bsetdir/$bsetfile.bset
+                        else
+                            for size in $SIZES; do
+                                make_benchset "$bsetfile" $bsetdir $size choose "any language and that are $bset since kit $ATLEAST" /tmp/cleanuptree.$bset.$$
+                            done
+                            rm -f /tmp/cleanuptree.$bset.$$
+                        fi
+                    fi
+                done
+            fi
+        fi
+    done
+done
+# We really only need one "unchanged" set, so get rid of the others
+rm -f $SPEC/benchspec/*/unchanged_*
+
+# Make lists of all the benchmarks by language
+echo Sifting the benchmarks by language...
+for lang in C CXX F77 F Mixed; do
+    rm -f /tmp/cleanuptree.lang.${lang}.$$
+    if [ -e /tmp/cleanuptree.lang.${lang}.$$ ]; then
+        echo "Temporary lang file for $lang (/tmp/cleanuptree.lang.${lang}.$$) cannot be"
+        echo removed.
+        exit 1
+    fi
+done
+if [ $suite = CPU2017 ]; then
+    LANGS="C CXX F Mixed C,F C,CXX C,CXX,F CXX,F"
+else
+    LANGS="C CXX F77 F Mixed C,F C,CXX C,CXX,F CXX,F C,F77 C,CXX C,CXX,F77 CXX,F77"
+fi
+for bsetdir in $SPEC/benchspec/*; do
+    for k in $bsetdir/[A-Z]*bset ; do
+        for j in $( grep '^[	 ]*[0-9][0-9][0-9]\.' $k 2> /dev/null); do
+            langs=$( $PERL -e "require \"$bsetdir/$j/Spec/object.pm\";"' @langs = sort map { split(/,/) } (values %benchlang, $benchlang);  print ",".join(",", @langs).",\n"' )
+            for currentlang in $LANGS; do
+                if echo $langs | grep "^,${currentlang},\$" > /dev/null; then
+                    if ! grep $j /tmp/cleanuptree.lang.${currentlang}.$$ > /dev/null 2>&1; then
+                        echo "    $j" >> /tmp/cleanuptree.lang.${currentlang}.$$
+                    fi
+                fi
+            done
+            # Everyone gets the mixed list
+            if echo $langs | grep "^,.*,.*," > /dev/null; then
+                if ! grep $j /tmp/cleanuptree.lang.Mixed.$$ > /dev/null 2>&1; then
+                    echo "    $j" >> /tmp/cleanuptree.lang.Mixed.$$
+                fi
+            fi
+        done
+    done
+done
+
+# Now do the language-specific bsets: pure_c, pure_cpp, pure_fortran, pure_f77,
+# pure_f9x (along with mixed_<foo> and any_<foo>)
+
+# Remove old language-specific benchsets (if any)
+echo Removing old per-language benchsets...
+for oldbset in '*all*' '*mixed*' '*any*' '*pure*'; do
+    eval "echo $SPEC/benchspec/*/${oldbset}.bset 2>/dev/null" | xargs -t $XARGSR rm -f
+done
+
+echo Making per-language benchsets...
+for size in $SIZES; do
+    # XXX This is fine as long as all sizes contain the same benchmarks.
+    # XXX It will need to be changed if that is ever not the case.
+
+    for bsetdir in $SPEC/benchspec/[A-Z0-9]*; do
+        if [ -d $bsetdir ]; then
+            for output_bset in '' $(perl -e 'foreach (@ARGV) { $output = 0; do $_; print "$_\n" if $output }' $bsetdir/*bset); do
+                base_bset=$(basename $output_bset .bset)_
+                base_desc=", from the $(basename $output_bset .bset) benchset"
+                if [ -z "$output_bset" ]; then
+                    output_bset=choose
+                    base_bset=
+                    base_desc=
+                fi
+
+                # C
+                make_benchset "${base_bset}pure_c" $bsetdir $size $output_bset \
+                    "C exclusively${base_desc}" \
+                    /tmp/cleanuptree.lang.C.$$
+                make_benchset "${base_bset}mixed_c" $bsetdir $size $output_bset \
+                    "C with other languages${base_desc}" \
+                    /tmp/cleanuptree.lang.C,F.$$ \
+                    /tmp/cleanuptree.lang.C,F77.$$ \
+                    /tmp/cleanuptree.lang.C,CXX.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F77.$$
+                make_benchset "${base_bset}any_c" $bsetdir $size $output_bset \
+                    "C (in part or in whole)${base_desc}" \
+                    /tmp/cleanuptree.lang.C.$$ \
+                    /tmp/cleanuptree.lang.C,F.$$ \
+                    /tmp/cleanuptree.lang.C,F77.$$ \
+                    /tmp/cleanuptree.lang.C,CXX.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F77.$$
+
+                # C++
+                make_benchset "${base_bset}pure_cpp" $bsetdir $size $output_bset \
+                    "C++ exclusively${base_desc}" \
+                    /tmp/cleanuptree.lang.CXX.$$
+                make_benchset "${base_bset}mixed_cpp" $bsetdir $size $output_bset \
+                    "C++ with other languages${base_desc}" \
+                    /tmp/cleanuptree.lang.CXX,F.$$ \
+                    /tmp/cleanuptree.lang.CXX,F77.$$ \
+                    /tmp/cleanuptree.lang.C,CXX.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F77.$$
+                make_benchset "${base_bset}any_cpp" $bsetdir $size $output_bset \
+                    "C++ (in part or in whole)${base_desc}" \
+                    /tmp/cleanuptree.lang.CXX.$$ \
+                    /tmp/cleanuptree.lang.CXX,F.$$ \
+                    /tmp/cleanuptree.lang.CXX,F77.$$ \
+                    /tmp/cleanuptree.lang.C,CXX.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F77.$$
+
+                # Fortran
+                make_benchset "${base_bset}pure_fortran" $bsetdir $size $output_bset \
+                    "Fortran exclusively${base_desc}" \
+                    /tmp/cleanuptree.lang.F.$$ \
+                    /tmp/cleanuptree.lang.F77.$$
+                make_benchset "${base_bset}mixed_fortran" $bsetdir $size $output_bset \
+                    "Fortran with other languages${base_desc}" \
+                    /tmp/cleanuptree.lang.C,F.$$ \
+                    /tmp/cleanuptree.lang.C,F77.$$ \
+                    /tmp/cleanuptree.lang.CXX,F.$$ \
+                    /tmp/cleanuptree.lang.CXX,F77.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F77.$$
+                make_benchset "${base_bset}any_fortran" $bsetdir $size $output_bset \
+                    "Fortran (in whole or in part)${base_desc}" \
+                    /tmp/cleanuptree.lang.F.$$ \
+                    /tmp/cleanuptree.lang.F77.$$ \
+                    /tmp/cleanuptree.lang.C,F.$$ \
+                    /tmp/cleanuptree.lang.C,F77.$$ \
+                    /tmp/cleanuptree.lang.CXX,F.$$ \
+                    /tmp/cleanuptree.lang.CXX,F77.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F.$$ \
+                    /tmp/cleanuptree.lang.C,CXX,F77.$$
+
+                if [ $suite != CPU2017 ]; then
+                    # FORTRAN 77
+                    make_benchset "${base_bset}pure_f77" $bsetdir $size $output_bset \
+                        "Fortran 77 exclusively${base_desc}" \
+                        /tmp/cleanuptree.lang.F77.$$
+                    make_benchset "${base_bset}mixed_f77" $bsetdir $size $output_bset \
+                        "Fortran 77 with other languages${base_desc}" \
+                        /tmp/cleanuptree.lang.C,F77.$$ \
+                        /tmp/cleanuptree.lang.CXX,F77.$$ \
+                        /tmp/cleanuptree.lang.C,CXX,F77.$$
+                    make_benchset "${base_bset}any_f77" $bsetdir $size $output_bset \
+                        "Fortran 77 (in whole or in part)${base_desc}" \
+                        /tmp/cleanuptree.lang.F77.$$ \
+                        /tmp/cleanuptree.lang.C,F77.$$ \
+                        /tmp/cleanuptree.lang.CXX,F77.$$ \
+                        /tmp/cleanuptree.lang.C,CXX,F77.$$
+
+                    # Fortran 90+
+                    make_benchset "${base_bset}pure_f9x" $bsetdir $size $output_bset \
+                        "Fortran 90 or later${base_desc}" \
+                        /tmp/cleanuptree.lang.F.$$
+                    make_benchset "${base_bset}mixed_f9x" $bsetdir $size $output_bset \
+                        "Fortran 90 or later and other languages${base_desc}" \
+                        /tmp/cleanuptree.lang.C,F.$$ \
+                        /tmp/cleanuptree.lang.CXX,F.$$ \
+                        /tmp/cleanuptree.lang.C,CXX,F.$$
+                    make_benchset "${base_bset}any_f9x" $bsetdir $size $output_bset \
+                        "Fortran 90 or later (in whole or in part)${base_desc}" \
+                        /tmp/cleanuptree.lang.F.$$ \
+                        /tmp/cleanuptree.lang.C,F.$$ \
+                        /tmp/cleanuptree.lang.CXX,F.$$ \
+                        /tmp/cleanuptree.lang.C,CXX,F.$$
+                fi
+
+                # Multiple languages (any combination)
+                make_benchset "${base_bset}mixed" $bsetdir $size $output_bset \
+                    "multiple languages${base_desc}" \
+                    /tmp/cleanuptree.lang.Mixed.$$
+            done
+        fi
+    done
+done
+rm -f /tmp/cleanuptree.*.$$ 2>/dev/null
+
+if [ $suite = CPU2017 ]; then
+    for bsetdir in $SPEC/benchspec/[A-Z0-9]*; do
+        if [ -d $bsetdir ]; then
+            # Make a benchset for benchmarks with a speed workload but no OpenMP code
+            for i in $bsetdir/*/data/refspeed; do
+                bench=$(dirname $(dirname $i))
+                benchdir=$(dirname $bench)
+                bench=$(ls -d $benchdir/$(basename $bench | sed 's/^5/6/; s/\..*/\./')*)
+                if [ "x$bench" != x ]; then
+                    bench=$(basename $bench)
+                    if [ $(ls -d $SPEC/benchspec/*/$(echo $bench | sed 's/^[56]/2/; s/\..*/./')* 2>/dev/null | wc -l) -eq 0 ]; then
+                        echo $bench | sed 's/^5/6/' >> /tmp/cleanuptree.serial_speed.$$
+                    fi
+                fi
+            done
+            make_benchset "serial_speed" $bsetdir normal choose "any language that have a refspeed workload but no OpenMP version" /tmp/cleanuptree.serial_speed.$$
+            rm -f /tmp/cleanuptree.serial_speed.$$
+        fi
+    done
+fi
+
+# Make the list of benchsets that the formatter will use
+$PERL $SPEC/bin/scripts.misc/generate_formatter_benchsets --silent --indent 0 $SPEC/benchspec/*/*.bset 2> $SPEC/bin/formatter/bset_list
+if [ $? -ne 0 ]; then
+    echo Formatter benchset list generation failed. Please investigate and fix.
+    ls -l $SPEC/bin/formatter/bset_list
+    exit 1
+fi
+
+# Regenerate section 4 of makevars.html and the formatter's var_order file
+$PERL $SPEC/bin/scripts.misc/make_makevars --make=$MAKE
+if [ $? -ne 0 ]; then
+    echo Formatter variable order generation failed. Please investigate and fix.
+    ls -l $SPEC/bin/formatter/var_order
+    exit 1
+fi
+
+# Textualize whatever docs there are
+echo Text conversion for benchmark descriptions
+for i in benchspec/*/[0-9]*; do
+  bench=$(basename $i)
+  if [ -f $i/Docs/${bench}.html ]; then
+    echo ...$bench
+    textify $i/Docs/${bench}.html
+  fi
+done
+
+echo Text conversion for suite docs
+docdir=$SPEC/${docbase}
+
+for i in $docdir/* $SPEC/PTDaemon/R* $SPEC/config/tiny-examples/* $SPEC/Revisions; do
+  # Skip this for directories, scripts, config, text, CSS, DTD, and PDF files
+  if [ ! -d $i ] && ! echo $i | egrep '/sysinfo|\.(cfg|txt|css|dtd|sh|pl|pdf)$' >/dev/null 2>&1; then
+    # Strip the extension
+    txtfile=$(echo $i | sed 's/\.[^.]*$//')
+    # If the file doesn't exist without an extension, the file's name
+    # is the full name _with_ extension
+    if [ -n "$txtfile" -a ! -f $txtfile -a $i != ${txtfile}.html ]; then
+      txtfile=$i
+    fi
+    if [ -f ${txtfile}.html -a $i != $txtfile ]; then
+      echo ...$(basename $i) '(HTML)'
+      txtfile=${docbase}/$(basename $txtfile).txt
+      textify $i $docbase $txtfile nolinks
+    elif [ ! -f ${txtfile}.html ]; then
+        if echo $txtfile | grep $SPEC/config > /dev/null; then
+            # Put the generated files in the source directory
+            :
+        else
+            # Put the generated files in $SPEC/${docbase}
+            txtfile=${docbase}/$(basename $txtfile).txt
+        fi
+        echo ...$(basename $i) '(text)'
+        # Just do the textification
+        if [ "$i" != "$txtfile" ]; then
+            copy_or_die $i $txtfile -p
+        fi
+    fi
+  fi
+done
+
+# And some scattered files
+for i in $SPEC/Docs/licenses/* $SPEC/benchspec/*/*/[Dd]ocs/{README,NOTICE,LICENSE,COPYRIGHT}*
+do
+    # Skip this for directories, scripts, config, text, CSS, DTD, and PDF files
+    if [ ! -d $i ] && ! echo $i | egrep '/sysinfo|\.(cfg|txt|css|dtd|sh|pl|pdf)$' >/dev/null 2>&1; then
+        if [ -f $i ] && ! echo $i | grep '\.txt$' >/dev/null 2>&1; then
+            rm -f $i.txt
+            $PERL -ne 'tr/\012\015//d; print "$_\r\n";' $i > $i.txt
+        fi
+    fi
+done
+
+echo Nuking bad files
+$FIND $SPEC $novc -type f \( -name 'core' -o -name 'Makefile.spec' -o -name '.*.sw[op]' -o -name '*~' -o -name '.*svn*tmp' -o -name 'svn*.tmp' -o -name '*.flc' -o -name '*.cfg.20*' -o -name .DS_Store \) -print | grep -v 'EditorJunk/Plugin/Bar.pm' | xargs $XARGSR rm -f
+
+echo
+echo Packaging up redistributable benchmark sources
+for i in $SPEC/benchspec/*/[0-9]*; do
+  if [ -d $i -a -f $i/Spec/redistributable ]; then
+    bench=$(basename $i)
+    [ -d $SPEC/redistributable_sources/modified ] || mkdir -p $SPEC/redistributable_sources/modified
+    (
+     tarball=$SPEC/redistributable_sources/modified/$bench.tar.xz
+     # Clean up older versions
+     for j in $(dirname $tarball)/$(basename $tarball xz)*; do
+       if [ "$j" != "$tarball" ]; then
+         rm -f $j
+       fi
+     done
+     cd $i
+     echo -n " - $bench: "
+     if update_archive_p $tarball Spec/redistributable $(grep -v '^!' $i/Spec/redistributable); then
+       files=$(make_tar_filelist $i/Spec/redistributable $bench)
+       echo
+       $TAR -C $(dirname $i) --format=ustar -cf - --exclude=.svn --exclude=.git --exclude=.gitignore $files | $XZ -vT0 > $tarball
+       if [ $? -ne 0 ]; then
+           echo Failed to generate redistributable sources tarball for $bench
+           exit 1
+       fi
+     else
+       echo "up-to-date"
+     fi
+    )
+  fi
+done
+
+if [ -s $SPEC/tools/src/redistributable ]; then
+  echo
+  echo Packaging up redistributable tools sources
+
+  [ -d $SPEC/redistributable_sources/modified/tools.src ] || mkdir -p $SPEC/redistributable_sources/modified/tools.src
+  (
+    cd $SPEC/tools/src
+    for i in $(cat $SPEC/tools/src/redistributable); do
+      for dir in $(echo $i); do
+        tarball=$SPEC/redistributable_sources/modified/tools.src/${dir}-spec.tar.xz
+        # Clean up older versions
+        for j in $(dirname $tarball)/$(basename $tarball | sed 's/-[0-9.]*-spec\.tar.*//')-[0-9]*; do
+          if [ "$j" != "$tarball" ]; then
+            rm -f $j
+          fi
+        done
+        echo -n " - $dir: "
+        if update_archive_p $tarball redistributable $SPEC/tools/src/$dir; then
+          echo
+          $TAR -C $SPEC/tools/src --format=ustar -cf - --exclude=.svn --exclude=.git --exclude=.gitignore $dir | $XZ -vT0 > $tarball
+          if [ $? -ne 0 ]; then
+              echo Failed to generate modified tools sources tarball for $dir
+              exit 1
+          fi
+        else
+          echo "up-to-date"
+        fi
+      done
+    done
+  )
+  echo
+fi
+
+if [ -s $SPEC/bin/redistributable ]; then
+  echo
+  echo Packaging up redistributable harness bits
+
+  [ -d $SPEC/redistributable_sources/modified/tools.src ] || mkdir -p $SPEC/redistributable_sources/modified/tools.src
+  (
+    cd $SPEC/bin
+    tarball=$SPEC/redistributable_sources/modified/tools.src/harness-spec.tar.xz
+    for j in $(dirname $tarball)/$(basename $tarball | sed 's/-[0-9.]*-spec\.tar.*//')-[0-9]*; do
+      if [ "$j" != "$tarball" ]; then
+        rm -f $j
+      fi
+    done
+    if update_archive_p $tarball redistributable $(cat $SPEC/bin/redistributable); then
+      echo
+      $TAR -C $SPEC/bin --format=ustar -cf - --exclude=.svn --exclude=.git --exclude=.gitignore $(eval echo $(cat $SPEC/bin/redistributable)) | $XZ -vT0 > $tarball
+      if [ $? -ne 0 ]; then
+          echo Failed to generate modified harness tarball
+          exit 1
+      fi
+    else
+      echo "up-to-date"
+    fi
+  )
+  echo
+fi
+
+# Do this stuff now, _before_ doing the time-consuming manifest generation
+VCDIFF=
+IGNORECHECK=
+if svn_check .; then
+    STATUSCHECK="$SVN status 2>&1 | grep -v '^X' | grep -v '^    X' | grep -v '^Performing status on external item' | grep -v '^$'"
+    if [ -n "$DIFFSTAT" ]; then
+        baseurl=$(dirname $($SVN info $SPEC | awk '/^URL/{print $2}'))
+        if [[ $baseurl =~ '/branches' ]]; then
+            # Top is one level up
+            baseurl=$(dirname $baseurl)
+        fi
+        prevtag=$($SVN ls -v ${baseurl}/tags | sort -n | tail -1 | awk '{print $6}' | sed 's#/$##')
+        VCDIFF="$SVN diff --no-diff-deleted ${baseurl}/tags/$prevtag/\$difffile $SPEC/\$difffile 2>/dev/null"
+        IGNORECHECK="$SVN pg svn:ignore $SPEC/\$basedir | grep \$srcdir >/dev/null"
+    fi
+
+elif [ -d .git ]; then
+    STATUSCHECK="(git status --porcelain --untracked-files=all 2>&1 | grep -v '^$'; \
+                  git log $(git svn log --show-commit --oneline --limit=1 | awk '{print $3}')..HEAD)"
+    if [ -n "$DIFFSTAT" ]; then
+        prevtag=$(git branch -r | grep tags/ | sed 's#^[ 	]*tags/##' | sort -n | tail -1)
+        VCDIFF="git diff --no-prefix --diff-filter='ACMRTUXB' tags/$prevtag -- \$difffile"
+        IGNORECHECK="git check-ignore --quiet \$basedir/\$srcdir >/dev/null 2>&1"
+    fi
+
+fi
+
+echo Checking for uncommitted changes
+eval "$STATUSCHECK" > /tmp/kit_update.$$ 2>&1
+if [ -s /tmp/kit_update.$$ ]; then
+    echo
+    echo "Uncommitted changes found:"
+    echo
+    cat /tmp/kit_update.$$
+    echo
+    if [ "$VC_NOCHECK" = "" ]; then
+        echo Commit or ignore them and re-run $0
+        rm -f /tmp/kit_update.$$
+        exit
+    fi
+fi
+rm -f /tmp/kit_update.$$
+
+# Make sure that $SPEC/../src and children exist
+echo Making kit build output directories...
+_ok=1
+for i in '' /old /benchmarks /tools; do
+    if ! mkdir -p ${outputdir}$i; then
+        echo ...${outputdir}$i could not be created
+        _ok=0
+    fi
+done
+# Set up for update
+for _lev in '' manifests/; do
+    for _typ in devel release; do
+        if ! mkdir -p $outputdir/updates/${_lev}${_typ}; then
+            echo ...${outputdir}/updates/${_lev}${_typ} could not be created
+            _ok=0
+        fi
+    done
+done
+if [ $_ok -ne 1 ]; then
+    echo
+    echo ERROR: kit build output directories do not exist and could not be created
+    echo
+    exit 1
+fi
+
+echo Syncing up tools
+rsync -aHSlPvi --stats --delete --exclude=.svn --exclude=.git --include=spec\* --include=description --include=\*/ --exclude=\* $SPEC/tools/bin/. ${outputdir}/tools/.
+
+if [ -n "$DIFFSTAT" -a -n "$VCDIFF" -a -n "$IGNORECHECK" ]; then
+    echo -n Generating diff stats
+    statsfile=$(printf "../src/diffstat.%d.%03d.%d.txt" $SUITEMAJOR $SUITEMINOR $SUITESUBMINOR)
+    echo Diffstats for $suite $SUITEVER vs. $prevtag > $statsfile
+    for difffile in bin Docs tools/src; do
+        outfile=/tmp/cleanuptree.diffstat.$$.$(basename $difffile)
+        eval "$VCDIFF" | $DIFFSTAT -f6 -m -o $outfile
+        if [ $(cat $outfile | wc -l) -gt 1 ]; then
+            (echo \$SPEC/$difffile:
+            cat $outfile
+            echo) >> $statsfile
+            echo -n .
+        fi
+        rm -f $outfile
+    done
+    # Now do all the benchmark object.pm and source directories
+    for basedir in benchspec/*/[0-9]*; do
+        outfile=/tmp/cleanuptree.diffstat.$$.$(basename $basedir)
+        (for srcdir in Spec Docs src; do
+            difffile=$basedir/$srcdir
+            eval "$IGNORECHECK"
+            [ $? -ne 0 -a -d $SPEC/$difffile ] && eval "$VCDIFF"
+        done) \
+            | $DIFFSTAT -f6 -m -o $outfile
+        if [ $(cat $outfile | wc -l) -gt 1 ]; then
+            (echo \$SPEC/$basedir:
+            cat $outfile
+            echo) >> $statsfile
+            echo -n .
+        fi
+        rm -f $outfile
+    done
+    echo
+    echo Diff stats are in $statsfile
+fi
+
+# *************************************************************
+# *** NO FILES UNDER $SPEC MAY BE CHANGED AFTER THIS POINT! ***
+# *************************************************************
+
+# Generate the manifest
+_force=
+if [ "x$1" != "xno_manifest" ]; then
+    echo Making the MANIFEST file
+    $SPEC/bin/scripts.misc/genmanifest.sh
+    if [ $? -ne 0 ]; then
+        echo MANIFEST generation failed
+        exit 1
+    fi
+
+    if [ -n "$DO_RELEASE" -a -z "$VC_NOCHECK" ]; then
+        echo Archiving the MANIFEST file
+        if [ -f $SPEC/../src/old/MANIFEST.$sortable_version ]; then
+            # Don't nuke a previous one if someone forgot to update vars_common.pl
+            mv $SPEC/../src/old/MANIFEST.$sortable_version $SPEC/../src/old/MANIFEST.${sortable_version}.old$$
+            echo
+            echo "WARNING: Saved copy of MANIFEST for $sortable_version was moved aside"
+            echo
+            _force=--force
+        fi
+        copy_or_die $SPEC/MANIFEST $SPEC/../src/old/MANIFEST.$sortable_version
+    fi
+fi
+
+if [ $(id -u) -eq 0 ] || [ $(id -un) = $treeowner -a "$(id -Gn | grep "\\b$treegroup\\b")" != '' ]; then
+    echo Setting permissions
+    chown -R $treeowner $SPEC >/dev/null 2>&1 || :  # Okay if it fails
+    chgrp -R $treegroup $SPEC >/dev/null 2>&1 || :  # Okay if it fails
+    chmod -R ug+rw,o+r,o-w $SPEC            # Not okay if it fails
+    $FIND $SPEC -type d -print | xargs chmod a+x
+
+    chmod 1777 $SPEC/config
+
+    chown -R $treeowner $SPEC/../src/updates >/dev/null 2>&1 || :  # Okay if it fails
+    chgrp -R $treegroup $SPEC/../src/updates >/dev/null 2>&1 || :  # Okay if it fails
+else
+    echo Skipping setting permissions
+fi
+
+if [ -n "$DO_RELEASE" ]; then
+    echo Generating update packages for --update
+    # Set up for update
+    if [ $is_release -eq 1 ]; then
+        _destloc=release
+    else
+        _destloc=devel
+    fi
+    if [ -z "$VC_NOCHECK" ]; then
+        copy_or_die $SPEC/MANIFEST $SPEC/../src/updates/manifests/$_destloc/MANIFEST.$sortable_version
+    fi
+    $PERL $SPEC/bin/scripts.misc/genupdates $_force $SPEC/../src/updates/manifests $SPEC/../src/updates
+    if [ $? -ne 0 ]; then
+        echo Update generation failed
+        exit 1
+    fi
+
+    if [ -n "$AUTODIST_AREA" -a -d "$AUTODIST_AREA" ]; then
+        echo Copying stuff into the auto/$lcsuite directory
+        _rsync_fake=
+        if [ -n "$VC_NOCHECK" ]; then
+            # Not a real release
+            _rsync_fake=-n
+        fi
+        if [ $(id -u) -eq 0 ]; then
+            _sucmd="su $treeowner"
+        else
+            _sucmd="sh"
+        fi
+        mkdir -p $AUTODIST_AREA/$lcsuite/Docs/benchmarks
+        if [ -d $AUTODIST_AREA/$lcsuite/Docs/benchmarks ]; then
+            eval "$_sucmd -c 'rsync $_rsync_fake -aHSlPvi --stats --delete --exclude=.svn --exclude=.git $SPEC/Docs/benchmarks/. $AUTODIST_AREA/$lcsuite/Docs/benchmarks/.'"
+        else
+            echo ERROR: Could not copy benchmark descriptions and flags files to $AUTODIST_AREA/$lcsuite/Docs/benchmarks
+        fi
+        mkdir -p $AUTODIST_AREA/$lcsuite/updates
+        if [ -d $AUTODIST_AREA/$lcsuite/updates ]; then
+            eval "$_sucmd -c 'rsync $_rsync_fake -aHSlPvi --stats --delete --exclude=.svn --exclude=.git --exclude=devel --exclude=manifests $SPEC/../src/updates/. $AUTODIST_AREA/$lcsuite/updates/.'"
+        else
+            echo ERROR: Could not copy updates to $AUTODIST_AREA/$lcsuite/updates
+        fi
+    fi
+fi
+
+if [ "$suite" != "MPI2007" -a "$suite" != "OMP2012" -a "$suite" != "ACCEL" ]; then
+    # Make an estimate of sizes. MPI2007, OMP2012, and ACCEL need code to get
+    # numbers for each benchset, and to figure out workload names from same.
+    echo
+    echo "Estimating MINIMUM sizes, assuming non-minimized rundirs..."
+    suite_total=$(( $(dir_size $SPEC) / 1024 ))
+    # It sure would be nice to have associative arrays for this (not in bash < 4.0)
+    test_total=0
+    train_total=0
+    ref_total=0
+    for bench in $SPEC/benchspec/*/[0-9]*; do
+      test_total=$(( $test_total + $(workload_size $bench test) ))
+      train_total=$(( $train_total + $(workload_size $bench train) ))
+      if [ "$suite" != "CPU2017" ]; then
+          ref_total=$(( $ref_total + $(workload_size $bench ref) ))
+      else
+          if basename $bench | grep '^[26]' >/dev/null; then
+              ref_total=$(( $ref_total + $(workload_size $bench refspeed) ))
+          else
+              ref_total=$(( $ref_total + $(workload_size $bench refrate) ))
+          fi
+      fi
+    done
+    echo "Suite unpacked (no run dirs or builds): $suite_total MiB"
+    fullrun=$(( ( $test_total + $train_total + $ref_total ) / 1024 ))
+    echo "test (per copy):  $(( $test_total / 1024 )) MiB"
+    echo "train (per copy): $(( $train_total / 1024 )) MiB"
+    echo "ref (per copy):   $(( $ref_total / 1024 )) MiB"
+    echo "Full run (all workloads): $fullrun MiB"
+    echo "Minimum total full run (all workloads + suite overhead): $(( $fullrun + $suite_total )) MiB"
+fi
+
+echo
+$PERL $SPEC/bin/scripts.misc/get_suitehash
+
+echo
+echo Done.  Do not forget to clean up the config directory if necessary.
+echo
+echo Also do not forget to update the version file on the public website!
+echo
+echo Also do not forget to sync the updates directories to auto/${lcsuite}/updates
+echo on the public website.
+echo
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=sh syntax=sh shiftwidth=4 tabstop=8 expandtab nosmarttab:

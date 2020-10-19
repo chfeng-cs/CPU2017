@@ -1,0 +1,199 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+       $Id: index.html 6362 2019-08-19     Latest: www.spec.org/cpu2017/Docs/
+           17:54:29Z JohnHenning $
+
+   SPEC CPU(R)2017 Documentation [Updates]   [Tools]   [Benchmarks]   [Open
+   Index                         Source]
+
+    Updates
+
+   SPEC CPU 2017 may be updated from time to time. To update your copy, use
+   runcpu --update.
+
+   History:
+
+     * v1.1.0, Sep-2019: fully support power measurement. See SPEC CPU 2017
+       Changes in v1.1.
+     * v1.0.5, May-2018: improve Spectre/Meltdown vulnerability reporting;
+       improve GCC compatibility for both examples and documentation.
+     * The list of Revisions has more detail.
+
+    Tools
+
+                                Getting Started
+   Quick Start            A one-pager to get you started quickly.
+                          Overview of the suite and the process, including
+   Overview/What's New    Why this benchmark? What are the metrics? How does
+                          CPU 2017 differ from previous suites?
+   System Requirements    Hardware and software needed to use SPEC CPU 2017.
+                          Installation guides. The "Unix" guide applies to
+   Installing on Unix     AIX, HP-UX, Linux, Mac OS X, Solaris and similar
+   Installing on Windows  systems. The Windows guide is for Microsoft Windows
+                          systems.
+                                   Basic Use
+                          The runcpu command is the primary user interface
+   Using SPEC CPU 2017    for running SPEC CPU 2017 benchmarks and reporting
+   (runcpu)               results. Everyone using the suite will need this
+                          document.
+                          The rules must be studied carefully prior to
+   SPEC CPU 2017          submitting results to SPEC for publication, and
+   Run and Reporting      prior to quoting results in public. Caution: the
+   Rules                  rules may be updated. Published result must comply
+                          with the current version
+                          at www.spec.org/cpu2017/Docs/runrules.html.
+                            Customizing Your Testing
+                          SPEC CPU 2017 provides benchmarks in source code
+                          form. A "config file" specifies how to compile them
+   Config Files           and controls many aspects of how they are run. If
+                          you are a new user, you will probably start with an
+                          existing config file, such as one downloaded from
+                          www.spec.org/cpu2017.
+                          When the benchmarks are compiled, compilation flags
+                          (such as -O2 or -unroll) are detected and
+                          automatically reported. Flag description files help
+                          the tools recognize flags and report on them. Your
+                          compiler vendor may supply a flag description file
+   Flag Description Files for you, which you can reference via the config
+                          file flagsurl field.
+                          In addition to compiler flags files, there are also
+                          "platform" flags files, where you describe items
+                          such as Operating System tuning and BIOS settings.
+                          It is likely that you will need to write your own
+                          Platform Flags File.
+                                Advanced Topics
+   Make Variables         To understand exactly how the benchmarks are built,
+                          use this document to help you decipher the process.
+   Monitoring Facility    Information about monitoring hooks.
+                          How to use specinvoke, specdiff, specmake and other
+   Utilities              utilities. Also, manpages are available for FILEPP
+                          (specpp) and RXP (specrxp).
+                          Although runcpu automates many benchmarking tasks,
+                          sometimes you may prefer to work "by hand", perhaps
+   Avoiding runcpu        because you want to modify a benchmark, collect
+                          traces for a simulator, or debug an experimental
+                          compiler. This document describes how to minimize
+                          use of SPEC's toolset.
+                                    Trouble
+   FAQ                    Frequently asked technical questions
+   Known Problems         Known problems and errata information.
+   Technical Support      Information on SPEC technical support.
+   Building the Toolset   How to build (or re-build) the tools (Hint: you
+                          probably don't need to.)
+                                   Miscellany
+   Credits                Information about the contributors to SPEC CPU
+                          2017.
+   Licenses               Copyright notice and license information.
+
+    The Benchmarks
+
+   SPEC CPU 2017 has 43 benchmarks, organized into 4 suites:
+
+  SPECrate 2017 Integer            SPECspeed 2017 Integer
+  SPECrate 2017 Floating Point     SPECspeed 2017 Floating Point
+
+   Benchmark pairs shown as:
+
+  5nn.benchmark_r / 6nn.benchmark_s
+
+   are similar to each other. Differences include: compile flags; workload
+   sizes; and run rules. See: [OpenMP]   [memory]   [rules]
+
+   SPECrate(R)2017 SPECspeed(R)2017 Language[1]  KLOC[2]   Application Area
+       Integer         Integer
+   500.perlbench_r 600.perlbench_s  C            362     Perl interpreter
+   502.gcc_r       602.gcc_s        C            1,304   GNU C compiler
+   505.mcf_r       605.mcf_s        C            3       Route planning
+                                                         Discrete Event
+   520.omnetpp_r   620.omnetpp_s    C++          134     simulation -
+                                                         computer network
+   523.xalancbmk_r 623.xalancbmk_s  C++          520     XML to HTML
+                                                         conversion via XSLT
+   525.x264_r      625.x264_s       C            96      Video compression
+                                                         Artificial
+   531.deepsjeng_r 631.deepsjeng_s  C++          10      Intelligence:
+                                                         alpha-beta tree
+                                                         search (Chess)
+                                                         Artificial
+   541.leela_r     641.leela_s      C++          21      Intelligence: Monte
+                                                         Carlo tree search
+                                                         (Go)
+                                                         Artificial
+   548.exchange2_r 648.exchange2_s  Fortran      1       Intelligence:
+                                                         recursive solution
+                                                         generator (Sudoku)
+   557.xz_r        657.xz_s         C            33      General data
+                                                         compression
+
+   SPECrate(R)2017 SPECspeed(R)2017 Language[1]  KLOC[2]   Application Area
+   Floating Point   Floating Point
+   503.bwaves_r    603.bwaves_s     Fortran      1       Explosion modeling
+   507.cactuBSSN_r 607.cactuBSSN_s  C++, C,      257     Physics: relativity
+                                    Fortran
+   508.namd_r                       C++          8       Molecular dynamics
+                                                         Biomedical imaging:
+   510.parest_r                     C++          427     optical tomography
+                                                         with finite elements
+   511.povray_r                     C++, C       170     Ray tracing
+   519.lbm_r       619.lbm_s        C            1       Fluid dynamics
+   521.wrf_r       621.wrf_s        Fortran, C   991     Weather forecasting
+   526.blender_r                    C++, C       1,577   3D rendering and
+                                                         animation
+   527.cam4_r      627.cam4_s       Fortran, C   407     Atmosphere modeling
+                                                         Wide-scale ocean
+                   628.pop2_s       Fortran, C   338     modeling (climate
+                                                         level)
+   538.imagick_r   638.imagick_s    C            259     Image manipulation
+   544.nab_r       644.nab_s        C            24      Molecular dynamics
+   549.fotonik3d_r 649.fotonik3d_s  Fortran      14      Computational
+                                                         Electromagnetics
+   554.roms_r      654.roms_s       Fortran      210     Regional ocean
+                                                         modeling
+                                    [1] For multi-language benchmarks, the
+                                    first one listed determines library and
+                                    link options (details)
+                                                 [2] KLOC = line count
+                                                 (including
+                                                 comments/whitespace) for
+                                                 source files used in a build
+                                                 / 1000
+
+   Some individual benchmark in the suite have additional documents, found in
+   the benchmark "Docs" subdirectory on your installed benchmark tree, or on
+   the SPEC CPU 2017 distribution media. For example, additional information
+   about 554.roms_r may be found in your installed copy of SPEC CPU 2017 at:
+
+      $SPEC/benchspec/CPU/554.roms_r/Docs/ (Unix)
+   or
+      %SPEC%\benchspec\CPU\554.roms_r\Docs\ (Windows)
+
+    Open Source Components
+
+   On the SPEC distribution media (ISO image), you will find:
+
+ redistributable_sources/README Information about freely-available sources
+                                that have been incorporated in SPEC CPU 2017
+
+   Information about which components are used and their licenses is in SPEC
+   CPU 2017 Licenses.
+
+   SPEC CPU(R)2017 Documentation Index: Copyright (c) 2017-2019 Standard
+   Performance Evaluation Corporation (SPEC(R))
+
+

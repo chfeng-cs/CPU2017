@@ -1,0 +1,22 @@
+# This file contains a list of the benchmarks written in
+# C (in part or in whole), from the intrate benchset.
+# It is automatically generated.
+
+$name        = 'intrate_any_c';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+        500.perlbench_r
+        502.gcc_r
+        505.mcf_r
+        525.x264_r
+        557.xz_r
+        999.specrand_ir
+);
+
+1;

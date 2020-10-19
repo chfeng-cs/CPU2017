@@ -1,0 +1,16 @@
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/IO/AtomicFile.pm relocate_as=../../../../IO/AtomicFile.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/IO/InnerFile.pm relocate_as=../../../../IO/InnerFile.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/IO/Lines.pm relocate_as=../../../../IO/Lines.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/IO/Scalar.pm relocate_as=../../../../IO/Scalar.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/IO/ScalarArray.pm relocate_as=../../../../IO/ScalarArray.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/IO/Stringy.pm relocate_as=../../../../IO/Stringy.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/IO/Wrap.pm relocate_as=../../../../IO/Wrap.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/IO/WrapTie.pm relocate_as=../../../../IO/WrapTie.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/IO::AtomicFile.3 relocate_as=../../../../../../../../man/man3/IO::AtomicFile.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/IO::InnerFile.3 relocate_as=../../../../../../../../man/man3/IO::InnerFile.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/IO::Lines.3 relocate_as=../../../../../../../../man/man3/IO::Lines.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/IO::Scalar.3 relocate_as=../../../../../../../../man/man3/IO::Scalar.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/IO::ScalarArray.3 relocate_as=../../../../../../../../man/man3/IO::ScalarArray.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/IO::Stringy.3 relocate_as=../../../../../../../../man/man3/IO::Stringy.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/IO::Wrap.3 relocate_as=../../../../../../../../man/man3/IO::Wrap.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/IO::WrapTie.3 relocate_as=../../../../../../../../man/man3/IO::WrapTie.3

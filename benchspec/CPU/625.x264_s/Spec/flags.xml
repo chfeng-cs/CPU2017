@@ -1,0 +1,1147 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags in 625.x264_s.
+
+  Copyright 2012-2017 Standard Performance Evaluation Corporation
+
+  $Revision: 5894 $
+  $Date: 2018-04-13 18:53:49 -0400 (Fri, 13 Apr 2018) $
+-->
+<flagsdescription>
+
+<filename>625.x264_s.flags</filename>
+
+<title>625.x264_s Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+]]>
+</header>
+
+<flag name="bench_includes" class="mandatory" regexp="-I(?:\.|ldecod_src/inc|x264_src|x264_src/extras|x264_src/common)(?:\s+|$)">
+  <example>-I., -Ildecod_src/inc, -Ix264_src, -Ix264_src/extras, -Ix264_src/common</example>
+  This flag is included automatically by Spec/object.pm.  Adds the include directory paths to the compilation.
+</flag>
+
+<flag name="DSPEC_WINDOWS_MSVS2013" class="portability">
+This disables some compatibility function name translations for Windows that
+are not needed when building with Microsoft Visual Studio 2013 and later.
+</flag>
+
+<flag name="DALLOW_GRAYSCALE" class="forbidden">
+Enables the use of Grayscale images in the decoder.  Not used in SPEC CPU version.
+</flag>
+
+<flag name="DARCH_ARM" class="forbidden">
+Enable ARM specific support.
+</flag>
+
+<flag name="DARCH_PPC" class="forbidden">
+Enable Power PC specific support.
+</flag>
+
+<flag name="DARCH_UltraSparc" class="forbidden">
+Enable Ultra Sparc specific support.
+</flag>
+
+<flag name="DARCH_X86" class="forbidden">
+Enable x86 specific support.
+</flag>
+
+<flag name="DARCH_X86_64" class="forbidden">
+Enable x86 64-bit specific support.
+</flag>
+
+<flag name="DAVS_INPUT" class="forbidden">
+Allow for AVS formatted input files.
+</flag>
+
+<flag name="DBROKEN_STACK_ALIGNMENT" class="portability">
+Fix alignment issue on platforms, such as Windows, where stack alignment is not guaranteed.
+</flag>
+
+<flag name="DCONTEXT_INI_C" class="forbidden">
+Defined in the decoder to allow for context initization tables.
+</flag>
+
+<flag name="DDEBUG_BITDEPTH" class="forbidden">
+Enable debugging info in decoder.
+</flag>
+
+<flag name="DDEBUG_MB_TYPE" class="forbidden">
+Enable debugging info in encoder.
+</flag>
+
+<flag name="DDECOUTPUT_TEST" class="forbidden">
+Automatically disabled in the source. 
+</flag>
+
+<flag name="DDISABLE_ERC" class="forbidden">
+Disable any error concealment processes in the decoder.  Enabled in the source.
+</flag>
+
+<flag name="DDUMP_DPB" class="forbidden">
+Enable debugging info in decoder.
+</flag>
+
+<flag name="DELIDE_CODE" class="forbidden">
+When compiling with GNU and when included in a library, this section of code in the encoder may be omitted.
+</flag>
+
+<flag name="DENABLE_FIELD_CTX" class="forbidden">
+Enables Field mode related context types for CABAC in the decoder.  Enabled by default.
+</flag>
+
+<flag name="DENABLE_HIGH444_CTX" class="forbidden">Enables High 444 profile context types for CABAC in the decoder.  Enabled by default.
+</flag>
+
+<flag name="DENABLE_NLS" class="forbidden">
+This is for GNU distributions with internationalized messages.
+</flag>
+
+<flag name="DENABLE_OUTPUT_TONEMAPPING" class="forbidden">
+Enable tone map the output if tone mapping SEI present in the decoder.  Enabled by default.
+</flag>
+
+<flag name="DFALSE" class="forbidden">
+If defined, define "Boolean" as an "int". Otherwise define "Boolean" as an enum type where FALSE==0, TRUE==1.
+</flag>
+
+<flag name="DFAST_READ" class="forbidden">
+Enable a faster method for reading files in the decoder.  Enabled by default.
+</flag>
+
+<flag name="DFFMS_INPUT" class="forbidden">
+Allow for FFMS formatted input files.
+</flag>
+
+<flag name="DHAVE_ALTIVEC" class="forbidden">
+Enable ALTIVEC specific support.
+</flag>
+
+<flag name="DHAVE_ARMV6" class="forbidden">
+Enable ARMv6 specific support.
+</flag>
+
+<flag name="DHAVE_CONFIG_H" class="forbidden">
+Defined if there is a x264_config.h available.
+</flag>
+
+<flag name="DHAVE_GF_MALLOC" class="forbidden">
+Defined malloc as "gf_malloc" and free as "gf_free".
+</flag>
+
+<flag name="DHAVE_LIBINTL_H" class="forbidden">
+This is for GNU distributions with internationalized messages.
+</flag>
+
+<flag name="DHAVE_LOG2F" class="portability">
+  The log2() and log2f() functions are required by the C99 standard and are
+  assumed to be available on all platforms other than Windows.  Windows users
+  may specify availability of these functions by defining this macro.
+  Otherwise, an implementation will be provided by the benchmark.
+</flag>
+
+<flag name="DHAVE_MALLOC_H" class="forbidden">
+Define if a system malloc.h is available. 
+</flag>
+
+<flag name="DHAVE_MMX" class="forbidden">
+Define if MMX instructions are available.
+</flag>
+
+<flag name="DHAVE_NEON" class="forbidden">
+Defined if a Neon FP unit is available.
+</flag>
+
+<flag name="DHAVE_PTHREAD" class="forbidden">
+Running with pthreads is not supported.
+</flag>
+
+<flag name="DHAVE_STDINT_H" class="forbidden">
+Define if a system stdint.h header file is available.
+</flag>
+
+<flag name="DHAVE_STRING_H" class="forbidden">
+Define if a system string.h header file is available.
+</flag>
+
+<flag name="DHAVE_VISUALIZE" class="forbidden">
+Define to enable visualization support.  Not included in SPEC CPU version.
+</flag>
+
+<flag name="DIMGTYPE" class="forbidden">
+Define imgpel size type. 0 implies byte (cannot handle >8 bit depths) and 1 implies unsigned short.  IMGTYPE is defined internally by the decoder as 1.
+</flag>
+
+<flag name="DINCLUDED_BY_CONFIGFILE_C" class="forbidden">
+Define if parameters are included by a config file.
+</flag>
+
+<flag name="DINT16_C" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT16_MAX" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT16_MIN" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT32_C" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT32_MAX" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT32_MIN" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT64_C" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT64_MAX" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT64_MIN" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT8_C" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT8_MAX" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT8_MIN" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINTMAX_MAX" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINTMAX_MIN" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINTPTR_C" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINTPTR_MAX" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINTPTR_MIN" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DINT_MAX" class="forbidden">
+Work around for Open Watcom issue.
+</flag>
+
+<flag name="DJCOST_CALC_SCALEUP" class="forbidden">
+<![CDATA[
+<p>1: J = (D&lt;&lt;LAMBDA_ACCURACY_BITS)+Lambda*R; 0: J = D + ((Lambda*R+Rounding)&gt;&gt;LAMBDA_ACCURACY_BITS).  Set to 1 in the decoder.</p>
+]]>
+</flag>
+
+<flag name="DJM_PARALLEL_DEBLOCK" class="forbidden">
+Enables Parallel Deblocking.  Set to 0 in the decoder.
+</flag>
+
+<flag name="DLAVF_INPUT" class="forbidden">
+Allow for lavf input files.
+</flag>
+
+<flag name="DLONG_LONG_MAX" class="forbidden">
+Define the value of LONG_LONG_MAX.  Set internally.
+</flag>
+
+<flag name="DLONG_MAX" class="forbidden">
+Define the value of LONG_MAX.  Set internally.
+</flag>
+
+<flag name="DMAXINT64" class="forbidden">
+Define the value of MAXINT64.  Set internally.
+</flag>
+
+<flag name="DMP4_OUTPUT" class="forbidden">
+Allow of MP4 output.
+</flag>
+
+<flag name="DMVC_EXTENSION_ENABLE" class="forbidden">
+Enable support for the Multiview High Profile.  Enabled by default in the decoder.
+</flag>
+
+<flag name="DNDEBUG" class="mandatory">
+Disable debugging information.
+</flag>
+
+<flag name="DOPENMP" class="forbidden">
+Define when OpenMP is used.  However, the SPEC CPU version does not include any OpenMP pragmas.
+</flag>
+
+<flag name="DPAIR_FIELDS_IN_OUTPUT" class="forbidden">
+Pair field pictures for output purposes.  Set internally to 0.
+</flag>
+
+<flag name="DPRINTF_INT16_DEC_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's 16-bit int decimal width.
+</flag>
+
+<flag name="DPRINTF_INT16_HEX_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's 16-bit int hexadecimal width.
+</flag>
+
+<flag name="DPRINTF_INT16_MODIFIER" class="forbidden">
+If not defined in stdint.h, set printf's 16-bit int modifier width.
+</flag>
+
+<flag name="DPRINTF_INT32_DEC_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's 32-bit int decimal width.
+</flag>
+
+<flag name="DPRINTF_INT32_HEX_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's 32-bit int hexadecimal width.
+</flag>
+
+<flag name="DPRINTF_INT32_MODIFIER" class="forbidden">
+If not defined in stdint.h, set printf's 32-bit int modifier width.
+</flag>
+
+<flag name="DPRINTF_INT64_DEC_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's 64-bit int decimal width.
+</flag>
+
+<flag name="DPRINTF_INT64_HEX_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's 64-bit int hexadecimal width.
+</flag>
+
+<flag name="DPRINTF_INT64_MODIFIER" class="forbidden">
+If not defined in stdint.h, set printf's 64-bit int modifier width.
+</flag>
+
+<flag name="DPRINTF_INT8_DEC_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's 8-bit int decimal width.
+</flag>
+
+<flag name="DPRINTF_INT8_HEX_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's 8-bit int hexadecimal width.
+</flag>
+
+<flag name="DPRINTF_INTMAX_DEC_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's maximum int decimal width.
+</flag>
+
+<flag name="DPRINTF_INTMAX_HEX_WIDTH" class="forbidden">
+If not defined in stdint.h, set printf's maximum int hexadecimal width.
+</flag>
+
+<flag name="DPRINTF_INTMAX_MODIFIER" class="forbidden">
+If not defined in stdint.h, set printf's maximum int modifer width.
+</flag>
+
+<flag name="DPRINTF_INTPTR_MODIFIER" class="forbidden">
+If not defined in stdint.h, set printf's int modifer.
+</flag>
+
+<flag name="DPRINTREFLIST" class="forbidden">
+Print ref list info for debug purposes.  Set internally to zero.
+</flag>
+
+<flag name="DPRINT_BUFFERING_PERIOD_INFO" class="forbidden">
+Print buffering period SEI info.
+</flag>
+
+<flag name="DPRINT_DEBLOCKING_FILTER_DISPLAY_PREFERENCE_INFO" class="forbidden">
+Print deblocking filter display preference SEI info.
+</flag>
+
+<flag name="DPRINT_DEC_REF_PIC_MARKING" class="forbidden">
+Print decoded picture buffer management repetition SEI info.
+</flag>
+
+<flag name="DPRINT_FILLER_PAYLOAD_INFO" class="forbidden">
+Print filler payload SEI info.
+</flag>
+
+<flag name="DPRINT_FILM_GRAIN_CHARACTERISTICS_INFO" class="forbidden">
+Print Film grain characteristics SEI info.
+</flag>
+
+<flag name="DPRINT_FMO_MAPS" class="forbidden">
+Print FMO Maps.
+</flag>
+
+<flag name="DPRINT_FRAME_PACKING_ARRANGEMENT_INFO" class="forbidden">
+Print frame packing arrangement SEI info.
+</flag>
+
+<flag name="DPRINT_FULL_FRAME_FREEZE_INFO" class="forbidden">
+Print full-frame freeze SEI info.
+</flag>
+
+<flag name="DPRINT_FULL_FRAME_FREEZE_RELEASE_INFO" class="forbidden">
+Print full-frame freeze release SEI info.
+</flag>
+
+<flag name="DPRINT_FULL_FRAME_SNAPSHOT_INFO" class="forbidden">
+Print full-frame snapshot SEI info.
+</flag>
+
+<flag name="DPRINT_MOTION_CONST_SLICE_GROUP_SET_INFO" class="forbidden">
+Print Motion-constrained slice group set SEI info.
+</flag>
+
+<flag name="DPRINT_OUTPUT_POC" class="forbidden">
+Print POC information to stdout.
+</flag>
+
+<flag name="DPRINT_PAN_SCAN_RECT" class="forbidden">
+Print pan-scan rectangle SEI info.
+</flag>
+
+<flag name="DPRINT_PCITURE_TIMING_INFO" class="forbidden">
+Print picture timing SEI info.
+</flag>
+
+<flag name="DPRINT_POST_FILTER_HINT_INFO" class="forbidden">
+Print post-filter hint SEI info.
+</flag>
+
+<flag name="DPRINT_PROGRESSIVE_REFINEMENT_END_INFO" class="forbidden">
+Print Progressive refinement segment end SEI info.
+</flag>
+
+<flag name="DPRINT_PROGRESSIVE_REFINEMENT_START_INFO" class="forbidden">
+Print Progressive refinement segment start SEI info.
+</flag>
+
+<flag name="DPRINT_RECOVERY_POINT" class="forbidden">
+Print random access point SEI info.
+</flag>
+
+<flag name="DPRINT_RESERVED_INFO" class="forbidden">
+Print reserved SEI info.
+</flag>
+
+<flag name="DPRINT_SCENE_INFORMATION" class="forbidden">
+Print scene information SEI info.
+</flag>
+
+<flag name="DPRINT_STEREO_VIDEO_INFO_INFO" class="forbidden">
+Print stereo video SEI info.
+</flag>
+
+<flag name="DPRINT_SUBSEQUENCE_CHAR" class="forbidden">
+Print sub-sequence characteristics SEI info.
+</flag>
+
+<flag name="DPRINT_SUBSEQUENCE_INFO" class="forbidden">
+Print sub-sequence SEI info
+</flag>
+
+<flag name="DPRINT_SUBSEQUENCE_LAYER_CHAR" class="forbidden">
+Print sub-sequence characteristics SEI info.
+</flag>
+
+<flag name="DPRINT_TONE_MAPPING" class="forbidden">
+Print tone-mapping SEI info.
+</flag>
+
+<flag name="DPRINT_USER_DATA_REGISTERED_ITU_T_T35_INFO" class="forbidden">
+Print ITU-T T.35 user data SEI info.
+</flag>
+
+<flag name="DPRINT_USER_DATA_UNREGISTERED_INFO" class="forbidden">
+Print unregistered user data SEI info.
+</flag>
+
+<flag name="DPRId32" class="forbidden">
+Define only if not defined in the system inttypes.h.
+</flag>
+
+<flag name="DPRId64" class="forbidden">
+Define only if not defined in the system inttypes.h.
+</flag>
+
+<flag name="DPRIu32" class="forbidden">
+Define only if not defined in the system inttypes.h.
+</flag>
+
+<flag name="DPRIu64" class="forbidden">
+Define only if not defined in the system inttypes.h.
+</flag>
+
+<flag name="DPRIx32" class="forbidden">
+Define only if not defined in the system inttypes.h.
+</flag>
+
+<flag name="DPRIx64" class="forbidden">
+Define only if not defined in the system inttypes.h.
+</flag>
+
+<flag name="DPTRDIFF_MAX" class="forbidden">
+(u)intptr_t may or may not be defined.  Test for its presence with the test: #ifdef PTRDIFF_MAX.  If this is not defined for your platform, then it is because this file has not yet been extended to cover all of your system's capabilities, not because its optional.
+</flag>
+
+<flag name="DPTRDIFF_MIN" class="forbidden">
+Should be defined by system headers.  If not add a definition.
+</flag>
+
+<flag name="DPTW32_STATIC_LIB" class="forbidden">
+Defined when creating a Windows pthreaded static library.
+</flag>
+
+<flag name="DRDO_SKIP_BS" class="forbidden">
+Defined internally to zero so RDO can not be skipped.
+</flag>
+
+<flag name="DSCNu32" class="forbidden">
+Define only if not defined in the system inttypes.h.
+</flag>
+
+<flag name="DSCNu64" class="forbidden">
+Define only if not defined in the system inttypes.h.
+</flag>
+
+<flag name="DSEI_H" class="forbidden">
+Guard for the sei.h header file.
+</flag>
+
+<flag name="DSIG_ATOMIC_MAX" class="forbidden">
+If sigatomic_t is not defined for your system, define it.  
+</flag>
+
+<flag name="DSIZE_MAX" class="forbidden">
+If SIZE_MAX is not defined, define it as (~(size_t)0).
+</flag>
+
+<flag name="DSPEC_NEED_STDINT" class="portability">
+Define if stdint.h is not available.  The included "pstdint.h" will be used instead.
+</flag>
+
+<flag name="DSPEC_NO_LOG2F" class="portability">
+Enable if the compilation environment does not support the "log2" or "log2f" routines.
+</flag>
+
+<flag name="DSPEC_NO_UNDERBAR_INLINE" class="portability">
+Uses on Windows when the compiler defines the inline keyword without an underbar, i.e. "inline".  MSC defines it with an underbar, i.e. "_inline". 
+</flag>
+
+<flag name="DSPEC_PTHREADS" class="forbidden">
+Running with pthreads is not supported.
+</flag>
+
+<flag name="DSPEC_USE_LL_INT64" class="forbidden">
+On Windows, define "int64" as "long long".  The default is to define "int64" as "int64_t".
+</flag>
+
+<flag name="DSTDINT_H_UINTPTR_T_DEFINED" class="forbidden">
+Defined if uintptr_t types and limits are defined.
+</flag>
+
+<flag name="DSYS_BEOS" class="forbidden">
+Include BEOS specific header files.
+</flag>
+
+<flag name="DSYS_FREEBSD" class="forbidden">
+Include FREEBSD specific header files.
+</flag>
+
+<flag name="DSYS_LINUX" class="forbidden">
+Include Linux specific header files.
+</flag>
+
+<flag name="DSYS_MACOSX" class="forbidden">
+Include MacOSX specific header files.
+</flag>
+
+<flag name="DSYS_MINGW" class="forbidden">
+Include Mingw specific header files.
+</flag>
+
+<flag name="DSYS_OPENBSD" class="forbidden">
+Include OpenBSD specific header files.
+</flag>
+
+<flag name="DSYS_SunOS" class="forbidden">
+Include SunOS specific header files.
+</flag>
+
+<flag name="DS_IFREG" class="forbidden">
+Used when defining S_ISREG, if S_ISREG is not already defined.
+</flag>
+
+<flag name="DS_ISREG" class="forbidden">
+Define S_ISREG, if S_ISREG is not already defined by the system.
+</flag>
+
+<flag name="DTEST" class="forbidden">
+Enable test driver for the getopt.c source.
+</flag>
+
+<flag name="DTRACE" class="forbidden">
+0:Trace off 1:Trace on 2:detailed CABAC context information.
+Defined internally to 0.
+</flag>
+
+<flag name="DUSE_NONOPTION_FLAGS" class="forbidden">
+If defined, include getopt nonoption_flags.
+</flag>
+
+<flag name="DUSE_REAL_PTHREAD" class="forbidden">
+Use the real pthread library.
+</flag>
+
+<flag name="DUSE_RND_COST" class="forbidden">
+Round the weighted cost.
+</flag>
+
+<flag name="DVMS" class="forbidden">
+Include VMS specific header files.
+</flag>
+
+<flag name="DWIN32" class="forbidden">
+Define when using Windows.  Please use SPEC_WINDOWS instead.
+</flag>
+
+<flag name="DWIN64" class="forbidden">
+Define when using 64-bit Windows.  Please use SPEC_WINDOWS instead.
+</flag>
+
+<flag name="DWORDS_BIGENDIAN" class="portability">
+Define when using a big endian system.
+</flag>
+
+<flag name="DWRITE_MAP_IMAGE" class="forbidden">
+Write spare picture map.
+</flag>
+
+<flag name="DX264_ANALYSE_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_BS_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_CABAC_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_COMMON_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_CPU_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_DCT_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_ENCODER_MACROBLOCK_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_ENCODER_SET_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_FLV_BYTESTREAM_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_FRAME_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_INPUT_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_MACROBLOCK_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_MATROSKA_EBML_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_MC_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_ME_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_MUXERS_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_OSDEP_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_OUTPUT_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_PIXEL_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_POINTVER" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_PREDICT_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_QUANT_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_RATECONTROL_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_SET_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DX264_X264_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="DZEROSNR" class="forbidden">
+Use the PSNR computation method.  Defined internally to zero.
+</flag>
+
+<flag name="D_ANNEXB_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_BIARIDECOD_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_BLK_PREDICTION_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_BLOCK_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_CABAC_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_CONFIGFILE_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_CONFIG_COMMON_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_CONTEXT_INI_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_CRAYC" class="forbidden">
+Defined by the Cray C compiler.
+</flag>
+
+<flag name="D_DEBUG" class="forbidden">
+Enabled debug code.
+</flag>
+
+<flag name="D_DEFINES_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_DISTORTION_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_ELEMENTS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_ENC_STATISTICS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_ERC_API_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_ERC_DO_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_ERC_GLOBALS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_ERRORCONCEALMENT_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_FAST_MEMORY_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_FLTDBG_" class="forbidden">
+Define a debugging file pointer that's never used.
+</flag>
+
+<flag name="D_FMO_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_FRAME_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_GETOPT_H" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_GLOBAL_H_" class="forbidden">
+Header file guard.
+Header file guard.
+</flag>
+
+<flag name="D_H264DECODER_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_HEADER_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_IFUNCTIONS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_IMAGE_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_IMG_IO_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_IMG_PROCESS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_IMG_PROCESS_TYPES_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_INPUT_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_INTRA16x16_PRED_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_INTRA4x4_PRED_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_INTRA8x8_PRED_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_INTTYPES_H" class="forbidden">
+Used to determine if inttypes.h has been included.
+</flag>
+
+<flag name="D_INTTYPES_H_" class="forbidden">
+Used to determine if inttypes.h has been included.
+</flag>
+
+<flag name="D_IO_IMAGE_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_IO_RAW_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_IO_TIFF_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_IO_VIDEO_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_LAGRANGIAN_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_LEAKYBUCKET_" class="forbidden">
+Use a leaky bucket parameter file.
+</flag>
+
+<flag name="D_LEAKY_BUCKET_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_LIBC" class="forbidden">
+Used to determine is libc is defined.
+</flag>
+
+<flag name="D_LOOPFILTER_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_LOOP_FILTER_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_MACROBLOCK_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_MBUFFER_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_MBUFFER_MVC_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_MB_ACCESS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_MB_PREDICTION_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_MC_PREDICTION_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_MEMALLOC_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_MSC_VER" class="forbidden">
+Defined by the Microsoft C compiler.
+</flag>
+
+<flag name="D_MV_PREDICTION_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_NALUCOMMON_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_NALU_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_NO_PROTO" class="forbidden">
+This tells Alpha OSF/1 and AIX 3.2 not to define a getopt prototype in stdio.h.  Defined by default.
+</flag>
+
+<flag name="D_OPENMP" class="forbidden">
+Gets defined when OpenMP is enabled.  OpenMP is not used in the SPEC CPU version.
+</flag>
+
+<flag name="D_OUTPUT_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_PARAMS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_PARSETCOMMON_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_PARSET_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_PSTDINT_H_INCLUDED" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_QUANT_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_QUANT_PARAMS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_REPORT_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_RTP_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_TRANSFORM8X8_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_TRANSFORM_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_TYPEDEFS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_TYPES_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_VLC_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_VUI_PARAMS_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_WIN32" class="forbidden">
+Automatically defined by a compiler when building on Windows.
+</flag>
+
+<flag name="D_WIN32_H_" class="forbidden">
+Header file guard.
+</flag>
+
+<flag name="D_WIN64" class="forbidden">
+Automatically defined by a compiler when building on 64-bit Windows.
+</flag>
+
+<flag name="D__APPLE_CC__" class="forbidden">
+Defined by the Apple C compiler.
+</flag>
+
+<flag name="D__BORLANDC__" class="forbidden">
+Defined by the Borland C compiler.
+</flag>
+
+<flag name="D__DECC" class="forbidden">
+Defined by the DEC C compiler.
+</flag>
+
+<flag name="D__GNUC_MINOR__" class="forbidden">
+Defined by the GNU compiler and set to the compilers minor version number.
+</flag>
+
+<flag name="D__GNUC__" class="forbidden">
+Defined by the GNU C compiler.
+</flag>
+
+
+<flag name="D__INTEL_COMPILER" class="forbidden">
+Defined by the Intel Compiler.
+</flag>
+
+
+<flag name="D__MINGW32__" class="forbidden">
+Defined bu the Mingw compiler.
+</flag>
+
+<flag name="D__MWERKS__" class="forbidden">
+Defined by the Metroworks compiler.
+</flag>
+
+<flag name="D__SSE__" class="forbidden">
+Defined by the compiler when SSE is available.
+</flag>
+
+<flag name="D__STDC_VERSION" class="forbidden">
+The std C verionsion number supported by the compiler.
+</flag>
+
+<flag name="D__STDC_VERSION__" class="forbidden">
+The std C verionsion number supported by the compiler.
+</flag>
+
+<flag name="D__STDC__" class="forbidden">
+Defined is standard C is supported by the compiler.
+</flag>
+
+<flag name="D__SUNPRO_C" class="forbidden">
+Defined by teh Sun Pro C compiler.
+</flag>
+
+<flag name="D__SUNPRO_CC" class="forbidden">
+Defined by the Sun Pro C compiler.
+</flag>
+
+<flag name="D__TURBOC__" class="forbidden">
+Defined by the Turbo C compiler.
+</flag>
+
+<flag name="D__WATCOMC__" class="forbidden">
+Defined by the Watcom C compiler.
+</flag>
+
+<flag name="D__WATCOM_INT64__" class="forbidden">
+Defined by the Watcom C compiler.
+</flag>
+
+<flag name="D__alpha" class="forbidden">
+Defined when compiling on an Alpha system.
+</flag>
+
+<flag name="D__alpha__" class="forbidden">
+Defined when compiling on an Alpha system.
+</flag>
+
+<flag name="D__cplusplus" class="forbidden">
+Defined when using a C++ compiler.
+</flag>
+
+<flag name="D__i386__" class="forbidden">
+Defined by the compiler when targeting the i386 family of systems. 
+</flag>
+
+<flag name="D__ia64__" class="forbidden">
+Defined by the compiler when targeting an Itanium system.
+</flag>
+
+<flag name="D__x86_64__" class="forbidden">
+Defined by the compiler when targeting an x86 64-bit system.
+</flag>
+
+</flagsdescription>

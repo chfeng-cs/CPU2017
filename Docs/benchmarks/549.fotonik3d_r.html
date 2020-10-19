@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> <html
+   xmlns="http://www.w3.org/1999/xhtml">
+   <head> 
+      <title>549.fotonik3d_r</title> 
+      <style type="text/css">
+         .snugbot          {margin-bottom:0.1em;}
+         .snugtop          {margin-top:0.1em;}
+         .snug             {margin-bottom:0.1em; margin-top:0.1em;}
+         .l1               {margin:1em 0.5em 1em 2em;} 
+         .l1snugtop        {margin:0.1em 0.5em 1em 2em;} 
+         .l1snugbot        {margin:1em 0.5em 0.1em 2em;} 
+         .l1snug           {margin:0.1em 0.5em 0.1em 2em;} 
+         a:link, a:visited {white-space:nowrap; text-decoration: underline; color: blue; }
+         pre               {margin-left:5em;}
+         ol                {margin-left:2em;}
+         ul                {margin-left:2em;}
+         li                {margin-bottom:.1em;}
+      </style>
+   </head> 
+
+   <body> 
+      <h1>549.fotonik3d_r <br />
+         SPEC CPU&reg;2017 Benchmark Description</h1>
+
+      <h2>Benchmark Name</h2>
+
+      <p class="l1">549.fotonik3d_r</p>
+
+      <hr />
+
+      <h2>Benchmark Author</h2>
+
+      <p class="l1">Ulf Andersson ulfa [at] pdc [dot] kth [dot] se </p>
+
+      <hr />
+
+      <h2>Benchmark Program General Category</h2>
+
+      <p class="l1">Computational Electromagnetics (CEM)</p>
+
+      <hr />
+
+      <h2>Benchmark Description</h2>
+      <div class="l1">
+
+         <p>Fotonik3D computes the transmission coefficient of a photonic
+         waveguide using the finite-difference time-domain (FDTD) method for
+         the Maxwell equations. UPML for dielectric materials is used to
+         terminate the computational domain.</p>
+
+         <p>The core of the FDTD method is second-order accurate
+         central-difference approximations of the Faraday's and Ampere's laws.
+         These central-differences are employed on a staggered Cartesian grid
+         resulting in an explicit finite-difference method. The FDTD method is
+         also referred to as the Yee scheme. It is the standard time-domain
+         method within CEM.</p>
+
+         <p>The code consists of three steps, initialization, time-stepping and
+         wrap-up. More than 99% of the time is spent in the time-stepping. Each
+         time step is identical to all the others.  The majority of the time is
+         spent in five routines: </p>
+         <ol>
+            <li> Updating the electric fields in dielectric materials </li>
+            <li> Updating the magnetic fields in dielectric materials </li>
+            <li> Computing the Discrete Fourier Transform (DFT) of electric and
+            magnetic fields in power planes </li>
+            <li> Updating the electric fields in UPML</li>
+            <li> Updating the magnetic fields in UPML</li>
+         </ol>
+
+         <p>The FDTD-updates of the electric field during the time-stepping is
+         done in the module material_mod while the FDTD-updates of the magnetic
+         fields are done in the module update_mod.</p>
+
+         <p>The excitation of the code is a 2D (x and z) cross section of the
+         computational domain. A precomputed Single TE mode is read from file
+         and multiplied with a time dependent pulse:</p>
+<pre>
+Ex(:,y_index,:) = Ex(:,y_index,:) + pulse(t)*Single_TE_mode(:,:)
+</pre>
+         <p>The computation of the excitation takes very little time.</p>
+
+         <p>The module power_mod performs the computation of the power flow.</p>
+
+         <p>During the initialization, two files containing a list of twinkles
+         are read. A twinkles is one side of an FDTD-cell. These lists defines
+         the two power planes through which we will compute the power flow. The
+         input files also defines for which frequencies the power flow shall be
+         computed.</p>
+
+         <p>During the time-stepping a DFT is computed for the perpendicular
+         components (x and z) of the interpolated electric and magnetic fields
+         at the midpoint of each twinkle in the power plane.</p>
+
+         <p>After time-stepping the power flow, i.e., Poynting's vector, is
+         computed for each twinkle. Then the contribution from all the twinkles
+         are summed for each frequency. This is written to an output file for
+         both power planes. The transmission coefficient for each frequency can
+         then be computed by a post-processing program. (In the real
+         application we need to take more time steps in order to compute the
+         power flow accurately.)</p>
+
+      </div>
+
+
+      <h2>Input Description</h2>
+
+      <div class="l1">
+         <p>All input files are ASCII files.</p>
+
+         <p class="snugbot"><b>yee.dat</b> is the main input file. Inputs in
+         this file must come in a specific order.  For full details, see the
+         source to 'init.F90'.  Among the fields are:</p>
+         <ul class="snugtop">
+
+            <li id="nxyz"><b>nx,ny,nz</b>: The size of the computational
+            domain, nx by ny by nz cells</li>
+
+            <li id="N_t"><b>N_t</b>: the number of time-steps.  Run time is 
+            directly affected by the number of steps chosen.</li>
+
+            <li id="OBC"><b>OBC</b>: Outer Boundary Condition.  Positive
+            numbers request use of the Uniaxial PML method with that number of
+            cells.  Higher numbers cause more memory usage.</li>
+         </ul>
+
+         <p class="snugbot"><b>power1.dat</b> and <b>power2.dat</b> define the
+         two power planes were the power flow shall be computed:</p>
+
+         <ul class="snug">
+            <li>power1.dat is for the incident field</li> 
+            <li>power2.dat is for the transmitted field. </li>
+         </ul>
+
+         <p class="snug">These files define the frequencies for which to
+         compute the power flow. For details on these two files, see the source
+         file 'power.F90'.  Among the fields are:</p>
+         <ul class="snugtop">
+
+            <li><b>Filename</b> points to the geometrical description of the
+            power planes (for example, <b>trans_W3PC.def</b>, and
+            <b>incident_W3PC.def</b>.)</li>
+
+            <li id="Freq_no"><b>Freq_no</b> controls the number of frequencies
+            to calculate, and directly affects the size all arrays allocated in
+            routine 'power_init'.  It should be set to the same value in both
+            power1.dat and power2.dat.</li>
+         </ul>
+
+         <p><b>OBJ.dat</b> describes the photonic waveguide. This file starts
+         with a short list of values for relative permittivity (epsilon_r). It
+         then assigns one of these epsilon_r-values to each electric component
+         of every cell.</p>
+
+         <p><b>PSI.dat</b> contains the definition of the single TE mode used
+         for the Plane Source excitation. This file defines the location (its
+         y-value) of the Plane Source and contains a pointer to a file,
+         <b>TEwaveguide.m</b>, containing the description of the single TE
+         mode.  This TE mode has been precomputed by another code. It contains
+         (nx+1)*(nz+1) values.</p>
+
+         <p>SPEC&reg; provides 4 workloads: test, train, refrate, and refspeed, with
+         these characteristics:</p> 
+         <ul>
+
+            <li>The <a href="#Freq_no">Freq_no</a> increases across the 4
+            workloads, from a low of 301 for test to a high of 4001 for
+            refspeed.</li>
+
+            <li>The first three use a problem size (<a href="#nxyz">nx, ny,
+               nz</a>) of 120 x 470 x 120; the refspeed workload uses a size of
+            240 x 940 x 240.  </li>
+
+            <li>The <a href="#OBC">OBC</a> is 4 for test and train, 8 for
+            refrate, and 12 for refspeed.</li>
+
+            <li><div class="snug">The number of steps (<a href="#N_t">N_t</a>)
+               is chosen to match SPEC's requirements:</div> 
+
+            <ul class="snug" style="margin-left:.4em;">
+
+               <li>Test steps are only a few, because test is intended simply
+               to verify that a working executable has been built.</li>
+
+               <li>Train steps are about 10% of the number of refrate
+               steps.</li>
+
+               <li>Refrate and refspeed steps are set to take the desired
+               amount of time (on a particular system used during development
+               of the benchmark suite).</li>
+
+            </ul>
+            </li>
+         </ul>
+      </div>
+
+      <h2>Output Description</h2>
+      <div class="l1">
+
+         <p>The output ASCII-file, 'pscyee.out', contains the power values for
+         each frequency for the two power planes. It also contains the values
+         of Ec which can be used for normalization.   The values are validated
+         by comparing them to a SPEC-provided set of expected outputs.</p>
+
+         <p>Various progress information is written to standard output, which
+         may be useful when debugging, especially if the benchmark is run
+         directly from the command line.  When run under the control of the
+         SPEC tools, standard out is captured to &lt;benchmark_name&gt;.log.
+         This file is not validated.</p>
+      </div>
+
+
+      <h2>Programming Language</h2>
+
+      <p class="l1">Fortran 95 + OpenMP</p>
+
+
+      <h2>Known portability issues</h2>
+      <div class="l1">
+
+         <p>No portability issues known.</p>
+
+         <p>It is perhaps worth mentioning that some calculations generate
+         'subnormal' numbers (<a
+            href="https://en.wikipedia.org/wiki/Denormal_number">wikipedia</a>)
+         which may cause slower operation than normal numbers on some hardware
+         platforms.  On such platforms, performance may be improved if "flush
+         to zero on underflow" (FTZ) is enabled.  During SPEC's testing of
+         Fotonik3d, the output validated correctly whether or not FTZ was
+         enabled.</p>
+      </div>
+
+
+      <h2>References</h2>
+
+
+      <ol class="l1">
+
+         <li><p>Ulf Andersson, Min Qiu, and Ziyang Zhang, <cite>Parallel Power
+            Computation for Photonic Crystal Devices</cite>, Methods and
+         Applications of Analysis, 07/2006; 13(2):149-156. DOI:
+         10.4310/MAA.2006.v13.n2.a3, PDF available from: <a
+            href="https://www.researchgate.net/publication/228405514_Parallel_Power_Computation_for_Photonic_Crystal_Device">www.researchgate.net/publication/228405514</a></p></li>
+
+
+         <li><p>Torleif Martin, <cite>Broadband Electromagnetic Scattering and
+            Shielding Analysis using the Finite Difference Time Domain
+            Method</cite>, Link&ouml;ping 2001, ISBN 91-7219-914-8.</p></li>
+
+         <li><p>S.D. Gedney (1996), <cite>An anisotropic perfectly matched
+            layer absorbing media for the truncation of FDTD latices</cite>,
+         IEEE Transactions on Antennas and Propagation, Vol. 44 (12): pp.
+         1630-1639.  Bibcode: 1996ITAP...44.1630G.  <a
+            href="http://dx.doi.org/10.1109/8.546249">DOI:10.1109/8.546249.</a></p></li>
+
+         <li><p>Taflove (ed.), <cite>Advances in Computational Electrodynamics,
+            Sect.  5.4-5.9, 1998</cite></p></li> 
+
+         <li><p>A. Taflove and S. C. Hagness, <cite>Computational
+            Electrodynamics: The Finite-Difference Time-Domain Method</cite>,
+         3rd  ed., Norwood, MA: Artech House, 2005.</p>  </li>
+
+         <li><p>A. Taflove, A. Oskooi, and S. G. Johnson, eds., <cite>Advances
+            in FDTD Computational Electrodynamics: Photonics and
+            Nanotechnology</cite>.  Norwood, MA: Artech House, 2013. </p> </li>
+      </ol>
+
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+
+   </body>
+</html>

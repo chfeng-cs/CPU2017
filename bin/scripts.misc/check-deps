@@ -1,0 +1,140 @@
+#!/usr/bin/perl
+#
+# check-deps - Check whether files mentioned in nnn.benchmark/Spec/object.pm
+#              dependency section are present in src/ tree
+# No support is provided for this script.
+#
+# Copyright 2013-2016 Standard Performance Evaluation Corporation
+#
+# Usage:
+#    $0 bmk
+#          where bmk = a benchmark name, such as 500.perlbench
+#
+#
+# %deps = (
+#      'calcflops.F90' => [
+#              'globalvar.F90',
+#              'power.F90',
+#              'parameter.f90',
+#              ],
+#      'collect.F90' => [
+#              'globalvar.F90',
+#              'parameter.f90',
+#              ],
+#
+# j.henning 11/2013 and fixed by Cloyce
+# $Id: check-deps 4547 2016-07-11 21:21:00Z CloyceS $
+#
+
+use strict;
+use File::Basename;
+
+my $bmk = basename(shift(@ARGV));
+
+die "please define SPEC" unless defined $ENV{'SPEC'} && $ENV{'SPEC'} ne '' && -d $ENV{'SPEC'};
+unshift @INC, "$ENV{SPEC}/bin"; # In case an object.pm wants tools stuff
+chdir "$ENV{SPEC}/benchspec/CPU2017" or die "where am i?";
+die "name a benchmark" unless $bmk ne '';
+die "cannot find $bmk" unless -d $bmk;
+chdir $bmk or die "now what?";
+die "cannot find $bmk/Spec/object.pm" unless -e "Spec/object.pm";
+
+#
+# OK, made it past pre-reqs.  Do something.
+#
+$ENV{'SPEC_USE_WINDOWS_SOURCES_ANYWAY'} = 1;  # To check ALL the sources
+eval "package bm;
+      require 'Spec/object.pm';
+     ";
+# XXX Grep out -I lines and apply them when looking to see if headers exist XXX
+die "Error loading object.pm: $@\nStopped" if $@;
+
+#
+# gather list of source files that are mentioned
+#
+my %src_mentioned = ();
+my %missing_sources = ();
+for my $s (@bm::sources) {
+   $src_mentioned{$s} = 1;
+   $missing_sources{$s}++ unless (-e "src/$s");
+}
+for my $dest (keys %bm::sources) {
+   for my $s (@{$bm::sources{$dest}}) {
+      $src_mentioned{$s} = 1;
+      $missing_sources{$s}++ unless (-e "src/$s");
+   }
+}
+if (keys %src_mentioned == 0) {
+  die "No sources mentioned in $bmk/Spec/object.pm\n";
+}
+#
+# gather list of files mentioned in dependency statements
+#
+my %dep_mentioned = ();
+my %missing_deps = ();
+my %missing_deptargets = ();
+for my $k (sort keys %bm::deps) {
+   $dep_mentioned{$k} = 1;
+   $missing_deps{$k}++ unless (-e "src/$k");
+   for my $file (@{$bm::deps{$k}}) {
+      $dep_mentioned{$file} = 1;
+      push @{$missing_deptargets{$k}}, $file unless (-e "src/$file");
+   }
+}
+for my $k (sort keys %bm::srcdeps) {
+   $dep_mentioned{$k} = 1;
+   $missing_deps{$k}++ unless (-e "src/$k");
+   for my $file (@{$bm::srcdeps{$k}}) {
+      $dep_mentioned{$file} = 1;
+      push @{$missing_deptargets{$k}}, $file unless (-e "src/$file");
+   }
+}
+
+# Compare the lists, and print warnings if needed
+
+print "\n$bmk:\n";
+my $ok = 1;
+if (keys %missing_sources) {
+  print "ERROR: the sources list in $bmk/Spec/object.pm mentions files which do not exist\n",
+        "       in the source directory.  Check for mismatched filename case, etc:\n\t";
+  print join("\n\t", sort keys %missing_sources)."\n";
+  $ok = 0;
+}
+
+if (keys %missing_deps) {
+  print "WARNING: the dependencies list in $bmk/Spec/object.pm mentions files which do not exist\n",
+        "         in the source directory.  This isn't harmful, but should probably be cleaned up:\n\t";
+  print join("\n\t", sort keys %missing_deps)."\n";
+  $ok = 0;
+}
+
+if (keys %missing_deptargets) {
+  print "WARNING: in $bmk/Spec/object.pm, some files are marked as depending on files which do not\n",
+        "         exist in the source directory.  This can cause incremental compilation to fail, and\n",
+        "         should be cleaned up:\n";
+  foreach my $dep (sort keys %missing_deptargets) {
+    print "\tFile $dep depends on the following missing files:\n\t\t";
+    print join("\n\t\t", @{$missing_deptargets{$dep}})."\n";
+  }
+  $ok = 0;
+}
+
+# If it's mentioned in a dependency section, is marked as not actually
+# existing in the filesystem, and is not a header, complain about it.
+# Headers get special treatment because they're NEVER mentioned in
+# the list of sources to compile.
+my @orphan_deps = grep { !exists($src_mentioned{$_}) && (exists($missing_deps{$_}) || exists($missing_deptargets{$_})) && !/\.h(?:pp)?$/i } (keys %dep_mentioned);
+if (@orphan_deps) {
+   print "WARNING: $bmk/Spec/object.pm has some files in dependency section(s)\nthat do not appear in the sources section.\nThis isn't harmful, but you should probably clean them up anyway:\n\t";
+   print join("\n\t", @orphan_deps)."\n";
+   $ok = 0;
+}
+
+if (!$ok) {
+  exit 1;
+} else {
+  print "Sources and dependencies look good\n";
+}
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab:

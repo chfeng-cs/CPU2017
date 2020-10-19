@@ -1,0 +1,1 @@
+-f 'sed "s/[^ 	]*rate/whatever/" | egrep "Build|Run|Compil|main.c"'

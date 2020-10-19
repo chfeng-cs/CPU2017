@@ -1,0 +1,310 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags in 508.namd_r.
+
+  Copyright 2012-2017 Standard Performance Evaluation Corporation
+
+  $Revision: 5894 $
+  $Date: 2018-04-13 18:53:49 -0400 (Fri, 13 Apr 2018) $
+-->
+<flagsdescription>
+
+<filename>508.namd_r.flags</filename>
+
+<title>508.namd_r Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+]]>
+</header>
+
+<flag name="DSPEC_NEED_ERFC" class="portability">
+Include an "erfc" routine.  Use on systems which do not have the C99 erfc routine available.
+</flag>
+
+<flag name="DALTVIRIAL" class="forbidden">
+Add the Alt Viral Tensor reduction tags. 
+</flag>
+
+<flag name="DARCH_POWERPC" class="forbidden">
+Add Power PC specific assembly and alignment instructions.
+</flag>
+
+<flag name="DCALCENERGY" class="forbidden">
+Used internally to enable energy calculation.
+</flag>
+
+<flag name="DCOMMON_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DCOMPUTELIST_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DCOMPUTENONBONDEDINL_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DCOMPUTENONBONDEDUTIL_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DCOMPUTE_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DDEFINITION" class="forbidden">
+If defined, includes several include files already included elsewhere.
+</flag>
+
+<flag name="DFALSE" class="forbidden">
+Define FALSE to be 0.
+</flag>
+
+<flag name="DFAST" class="forbidden">
+Use the "FAST" methods. (default) 
+</flag>
+
+<flag name="DFEPFLAG" class="forbidden">
+Defines the extension of the FEP routine names.  Not used in SPEC version.
+</flag>
+
+<flag name="DFULL" class="forbidden">
+Use the "FULL" method. 
+</flag>
+
+<flag name="DFULLELECT" class="forbidden">
+Enable the "FULL" method.
+</flag>
+
+<flag name="DINTFLAG" class="forbidden">
+Use the "int" extension for FEP routine names.
+</flag>
+
+<flag name="DINT_MAX" class="forbidden">
+INT_MAX is defined in "limits.h" and is used to check whether to typedef "int32" as an "int" or a "short".
+</flag>
+
+<flag name="DLATTICE_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DLESFLAG" class="forbidden">
+Use the "les" extension for FEP routine names.
+</flag>
+
+<flag name="DLJTABLE_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DMEM_OPT_VERSION" class="forbidden">
+A HACK to re-sort FullAtom list used in Parallel IO. When every home patch processor receives its atoms list for a patch, the atoms inside this patch may not sorted according to hydList value to save space, use anonymous union data structure to share the space of "langevinParam" to store "hydList" from an InputAtom and then sort the atom list. The "langevinParam" value is not initialized until home patch creation.
+</flag>
+
+<flag name="DMERGEELECT" class="forbidden">
+Use the merge elect routines.
+</flag>
+
+<flag name="DMOLECULE_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DNAMDTYPES_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DNAMD_CUDA" class="forbidden">
+Enable CUDA version of NAMD.  Not available in SPEC CPU version.
+</flag>
+
+<flag name="DNAMD_ComputeNonbonded_SortAtoms" class="forbidden">
+Enables Atom Sort. Basic Idea: Determine the line between the center of masses of the two patches.  Project and then sort the lists of atom along this line.  Then, as the pairlists are being generated for the atoms in the first atom list, use the sorted list to only add atoms from the second list that are between +/- ~cutoff from the atoms position on the line.
+</flag>
+
+<flag name="DNAMD_DISABLE_SSE" class="mandatory">
+Do not allow the use of SSE intrinsics.
+</flag>
+
+<flag name="DNAMD_RESTRICT" class="forbidden">
+If no set, then the restrict keyword is defined to blank.  However, restrict is not used anywhere in the source.
+</flag>
+
+<flag name="DNAMD_SeparateWaters" class="forbidden">
+If not zero, defines DEFINE_CHECK_WATER_SEPARATION macro. Not used in SPEC CPU version.
+</flag>
+
+<flag name="DNBPAIR" class="forbidden">
+Defined internally for the NonBonded pair interaction type.
+</flag>
+
+<flag name="DNBSELF" class="forbidden">
+Defined internally for the NonBonded Self interaction type.
+</flag>
+
+<flag name="DNBTYPE" class="forbidden">
+Determines which Nonbonded type to use.  Defined internally.
+</flag>
+
+<flag name="DNETWORK_PROGRESS" class="forbidden">
+Add a call to "CkNetworkProgress" routine to check the network's progress.  Is routine is not defined in the SPEC CPU version.  
+</flag>
+
+<flag name="DNO" class="forbidden">
+"NO" is internally defined as 0.
+</flag>
+
+<flag name="DOBJECTARENA_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DONE" class="forbidden">
+"ONE" is set internally to 1.00000000000.
+</flag>
+
+<flag name="DPAIR" class="forbidden">
+Internal macro which gets set when NBPAIR is used.
+</flag>
+
+<flag name="DPATCHLIST_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DPATCH_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DPI" class="forbidden">
+"PI" macro set internally to 3.141592653589793.
+</flag>
+
+<flag name="DPLACEMENT_NEW" class="forbidden">
+Enables the placement new operator. 
+</flag>
+
+<flag name="DPLACEMENT_NEW_GLOBAL" class="forbidden">
+Enables the placement new operator in the global namespace. 
+</flag>
+
+<flag name="DPPROFFLAG" class="forbidden">
+Use the "pprof" extension for FEP routine names.
+</flag>
+
+<flag name="DREDUCTIONMGR_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DRESIZEARRAYRAW_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DRESIZEARRAY_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DRESULTSET_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DSELF" class="forbidden">
+Internal macro which gets set when NBSELF is used.
+</flag>
+
+<flag name="DSHORT" class="forbidden">
+Internal macro used to define the short method.
+</flag>
+
+<flag name="DSIMPARAMETERS_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DSIMPLE_PAIRLIST" class="forbidden">
+Use a simpler method to determine the pair list.
+</flag>
+
+<flag name="DSLOWONLY" class="forbidden">
+Only use the slow method.  Disables "FAST".
+</flag>
+
+<flag name="DSMALLRAD" class="forbidden">
+Defines SMALLRAD macro to 0.0005.
+</flag>
+
+<flag name="DSMALLRAD2" class="forbidden">
+Defines SMALLRAD2 macro to 0.0005*0.0005.
+</flag>
+
+<flag name="DSTRINGNULL" class="forbidden">
+Defines the STRINGNULL macro to '\0'.
+</flag>
+
+<flag name="DTABENERGY" class="forbidden">
+Interanally defined marco.
+</flag>
+
+<flag name="DTABENERGYFLAG" class="forbidden">
+Use the "tabener" extension for FEP routine names.
+</flag>
+
+<flag name="DTENSOR_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DTEST_VECTOR_CLASS" class="forbidden">
+Enables a "main" routine within the Vector.h files which tests the basic functionality of the vector class.
+</flag>
+
+<flag name="DTIFLAG" class="forbidden">
+Use the "ti" extension for FEP routine names.
+</flag>
+
+<flag name="DTWOPI" class="forbidden">
+Define the TWOPI macro to 2.0 * PI.
+</flag>
+
+<flag name="DVECTOR_H" class="forbidden">
+Guard so include file doesn't get included twice.
+</flag>
+
+<flag name="DWIN32" class="forbidden">
+Include a version of erfc when running on Windows.  Please use -DSPEC_NEED_ERFC instead.
+</flag>
+
+<flag name="DWIN32ERFC" class="forbidden">
+Enables the erfc routine.  Please use -DSPEC_NEED_ERFC instead.
+</flag>
+
+<flag name="DZERO" class="forbidden">
+Define the ZERO macro to 0.
+</flag>
+
+<flag name="D__GNUC__" class="forbidden">
+Set compiler specfic alignment attributes when using SSE intrinsics.  SSE intrinsics are disabled in the SPEC CPU version. 
+</flag>
+
+<flag name="D__INTEL_COMPILER" class="forbidden">
+Set compiler specfic alignment attributes when using SSE intrinsics.  SSE intrinsics are disabled in the SPEC CPU version. 
+</flag>
+
+<flag name="D__PGI" class="forbidden">
+Set compiler specfic alignment attributes when using SSE intrinsics.  SSE intrinsics are disabled in the SPEC CPU version. 
+</flag>
+
+<flag name="D__SSE2__" class="forbidden">
+Enable SSE intrinsic routines. 
+</flag>
+
+
+<flag name="Df_1" class="forbidden">
+Internally defined macro.
+</flag>
+
+<flag name="Dfullf_1" class="forbidden">
+Internally defined macro.
+</flag>
+
+</flagsdescription>

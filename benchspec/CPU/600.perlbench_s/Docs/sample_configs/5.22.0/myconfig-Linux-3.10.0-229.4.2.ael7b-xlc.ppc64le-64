@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# This script is designed to provide a handy summary of the configuration
+# information being used to build perl. This is especially useful if you
+# are requesting help from comp.lang.perl.misc on usenet or via mail.
+
+# Note that the text lines /^Summary of/ .. /^\s*$/ are copied into Config.pm.
+cat <<'!NO!SUBS!'
+Summary of my perl5 (revision 5 version 22 subversion 0) configuration:
+   
+  Platform:
+    osname=linux, osvers=3.10.0-229.4.2.ael7b.ppc64le, archname=ppc64le-linux
+    uname='linux cpu4.austin.ibm.com 3.10.0-229.4.2.ael7b.ppc64le #1 smp fri apr 24 15:23:58 edt 2015 ppc64le ppc64le ppc64le gnulinux '
+    config_args='-dOes -Uusedl -Uuse5005threads -Uusethreads -D libswanted=nm -A libswanted=malloc -A libswanted=ld -A libswanted=m -A libswanted=sec -A libswanted=util -A libswanted=c -A libswanted=cposix -A libswanted=posix -A libswanted=bsd -A libswanted=BSD -Dcc=xlc -D ccflags=-O5'
+    hint=recommended, useposix=true, d_sigaction=define
+    useithreads=undef, usemultiplicity=undef
+    use64bitint=define, use64bitall=define, uselongdouble=undef
+    usemymalloc=n, bincompat5005=undef
+  Compiler:
+    cc='xlc', ccflags ='-O5 -fno-strict-aliasing -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64',
+    optimize='-O1',
+    cppflags='-O5 -fno-strict-aliasing -I/usr/local/include'
+    ccversion='', gccversion='IBM XL C/C++ for Linux, Version 13.1.2.0', gccosandvers=''
+    intsize=4, longsize=8, ptrsize=8, doublesize=8, byteorder=12345678, doublekind=3
+    d_longlong=define, longlongsize=8, d_longdbl=define, longdblsize=16, longdblkind=-1
+    ivtype='long', ivsize=8, nvtype='double', nvsize=8, Off_t='off_t', lseeksize=8
+    alignbytes=8, prototype=define
+  Linker and Libraries:
+    ld='ld', ldflags =' -L/usr/local/lib'
+    libpth=/usr/local/lib /lib/../lib64 /usr/lib/../lib64 /lib /usr/lib /lib64 /usr/lib64 /usr/local/lib64
+    libs=-lm -lutil -lc -lbsd
+    perllibs=-lm -lutil -lc -lbsd
+    libc=libc-2.17.so, so=so, useshrplib=false, libperl=libperl.a
+    gnulibc_version='2.17'
+  Dynamic Linking:
+    dlsrc=dl_none.xs, dlext=none, d_dlsymun=undef, ccdlflags=''
+    cccdlflags='', lddlflags=''
+
+!NO!SUBS!

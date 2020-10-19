@@ -1,0 +1,1044 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Installing on Windows - CPU 2017</title>
+<!-- You'll want a nice wide screen when editing this .......................................................................... -->
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+body { background: white; color: black; }
+</style>
+</head>
+<body>
+
+<h1>Installing SPEC CPU&reg;2017 on Microsoft&nbsp;Windows&nbsp;Systems</h1>
+<table class="version">
+   <tr>
+      <th>$Id: install-guide-windows.html 6309 2019-07-28 22:01:05Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+<div style="text-align:center;border:medium solid green;padding:3px;margin:2em 0em 2em 8em;width:300px;background:#fff8f8;">
+   <h2 style="margin-top:3px;">Summary</h2>
+   <div style="font-size:125%;">
+      <a href="#verify">Verify</a> the ISO 
+      <br /><a href="#mount">Mount</a> it 
+      <br /><b><kbd><a href="#install">install.bat</a>&nbsp;X:\somedir</kbd></b>
+   </div>
+</div>
+
+<p class="contents">Contents</p>
+
+<p class="contentsl1"><a href="#prepare">Prepare</a> for the installation</p>
+<p class="contentsl2"><a href="#s1">1.</a> Review Prerequisites</p>
+<p class="contentsl2"><a href="#s2">2.</a> Open a Command Prompt Window</p>
+<p class="contentsl2"><a href="#s3">3.</a> Verify the download (optional, recommended)</p>
+<p class="contentsl2"><a href="#s4">4.</a> Mount the ISO image</p>
+
+<p class="contentsl1"><a href="#install">Install</a> it</p>
+<p class="contentsl2"><a href="#s5">5.</a> Run install.bat </p>
+<p class="contentsl3"><a href="#s5a">5.a.</a> Confirm Source and Destination</p>
+<p class="contentsl3"><a href="#s5b">5.b.</a> The files are unpacked and tested</p>
+<p class="contentsl2"><a href="#s6">6.</a> Edit shrc.bat </p>
+
+<p class="contentsl1"><a href="#test">Test</a> your installed copy</p>
+
+<p class="contentsl2"><a href="#s7">7.</a> Use your shrc.bat </p>
+<p class="contentsl2"><a href="#s8">8.</a> Select a config file and try to build one benchmark</p>
+<p class="contentsl2"><a href="#s9">9.</a> Try compiling an entire suite, and run the test workload</p>
+<p class="contentsl2"><a href="#s10">10.</a> Try a full (reportable) run</p>
+
+
+<p class="contentsl1"><a href="#appendix1">Appendix 1:</a> Uninstalling SPEC CPU 2017</p>
+<p class="contentsl1"><a href="#appendix2">Appendix 2:</a> Useful Tips and Techniques</p>
+<p class="contentsl2"><a href="#temp">a.</a> About Temporary Space (<samp class="snuglr">%temp%</samp>)</p>
+<p class="contentsl2last"><a href="#text">b.</a> About Text Files and Windows/Unix Compatibility</p>
+
+<p>This document describes how to install SPEC CPU&reg;2017 on Microsoft Windows systems.  (If you want to install under AIX,
+Linux, mac&nbsp;OS, Solaris, or a similar system, you need the <a class="external" href="install-guide-unix.html">other</a>
+install guide.) SPEC CPU 2017 is a product of the SPEC&reg; non-profit corporation 
+<a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  </p>
+
+<p class="l1snug">Reminder: <span class="alarm">SPEC benchmarks are licensed software.</span></p>
+<ul class="l1snug">
+   <li>If you have a license, you may install on multiple systems within your institution.</li>
+   <li>You may <span class="alarm">not</span> share the software with the public.</li>
+</ul>
+
+
+<h2 id="prepare">Prepare for the Installation</h2>
+
+<p class="l1">Please follow these steps:</p>
+
+<table style="border:none;width:1200px;">
+   <tr>
+      <td style="border:none;vertical-align:top;">
+
+         <h3 style="margin-top:3px;" id="s1">1. Review Prerequisites</h3>
+
+         <p class="l1snug"> Review the <a class="external" href="system-requirements.html">System Requirements</a>.
+         Please particularly notice the requirements for:</p> 
+
+         <ul class="l1snugtop">
+            <li>Physical memory</li>
+            <li>Disk space</li> 
+            <li>Familiarity with basic commands (such as <kbd class="snugr">cd</kbd>, <kbd class="snugr">dir</kbd>, <kbd class="snugr">mkdir</kbd>, <kbd class="snugr">findstr</kbd>) and with
+            the Command Prompt (aka "Windows Command Processor", "cmd.exe", "MSDOS&nbsp;Window").</li> 
+         </ul>
+
+
+
+         <h3 id="s2">2. Open a Command Prompt Window</h3>
+
+         <p class="l1snugbot">If you haven't already done so, start a Command Prompt Window now.</p>
+         <ul class="l1snugtop">
+            <li>For Windows 7 and earlier versions, use the search bar by clicking Start and typing "Command". The option for Command
+            Prompt will appear. Click on it.</li>
+            <li>For Windows 8.x and Windows 10, from the desktop, right click on the start button and click on Command Prompt from the
+            pop-up menu.</li>
+         </ul>
+         <p class="l1">Tip: you will probably find that the window is easier to use if you enlarge it.</p>
+         <ol class="l1">
+            <li>Click the upper left corner of the Command Prompt window.</li>
+            <li>Select "Properties" </li>
+            <li>Select "Layout" tab</li>
+            <li>Increase the sizes.  For example, you could use the values shown in the screen shot on the right, if you wish.</li>
+         </ol>
+      </td>
+      <td style="border:none;">
+
+         <img width="571" height="519" src="images/adjust-cmd-window.png" alt="adjust-window-size" />
+
+      </td>
+</tr></table>
+
+<h3 id="s3">3. <span id="verify">Verify</span> the download (optional, recommended)</h3>
+
+<p class="l1snugbot">SPEC CPU is distributed as an ISO image.  The file is large; therefore it is recommended (though not
+required) that you verify that the download is correct before continuing. </p>
+
+<p class="l1">If you have the <kbd>sha512sum</kbd> or <kbd>sha256sum</kbd> utility, use it to calculate a checksum for your
+download.  You might be able to access the utility by right-clicking on the ISO image.  Compare the checksum to the posted
+   value at <a class="external" href="https://www.spec.org/cpu2017/releases/">www.spec.org/cpu2017/releases</a>.   
+</p>
+
+
+<table style="width:500px; border:2px  dotted #5c033d;padding:2px;margin:1em 1em 1em 8em;">
+   <tr>
+      <td style="border:none;"><span style="font-family:sans-serif; color:#5c031d; margin: 2px;">q.</span></td>
+      <td style="border:none;"><span style="font-family:sans-serif; color:#5c031d; margin: 2px;">Is it ok to skip doing this
+            verification? I trust my network and I don't feel like hunting for a SHA-512 tool just now.</span>
+      </td>
+   </tr>
+   <tr>
+      <td style="border:none;"><span style="font-family:times; margin: 2px;">a.</span></td>
+      <td style="border:none;"><span style="font-family:times; margin: 2px;">
+            It's always safer to verify downloads.
+            <br />However, if you skip this step, you will probably be ok, because the installation procedure will verify the
+            individual files within the distribution.</span> </td>
+   </tr>
+</table>
+
+
+<h3 id="s4">4. <span id="mount">Mount</span> the ISO image</h3>
+
+<p class="l1">There are two options:</p>
+<ol class="l1">
+   <li><b>Attach the ISO file</b>
+   <ul>
+      <li>On Windows 8.x, Windows 10 and Windows Server 2012, the ISO file can be attached as a drive. To do this, open
+      Windows Explorer and navigate to the directory where the ISO file was downloaded. Then, either double-click on the ISO
+      file, or click on the ISO file and select "Mount".</li>
+      <li>On Windows 7 and earlier versions, third party software is required. This document makes no recommendations about
+      particular add-ons.</li>
+   </ul></li>
+
+   <li><p>Or, <b>Burn a DVD</b> 
+   <br />(optical device and blank DVD are required)  
+   <br /> Windows 7 and later has built-in software to burn a DVD. Right click on the ISO image and select "Burn disk image".
+   (Older versions of Windows are not supported by SPEC CPU 2017.)</p></li>
+</ol>
+
+<p class="l1">Regardless of the method you choose, note the drive letter where the ISO image or the DVD is attached.</p>
+
+<h2 style="border-top:thin solid gray;padding-top:3px;" id="install">Install it</h2>
+
+<h3 id="s5">5. Run install.bat</h3>
+
+<p class="l1">The following tasks must be done from the Command Prompt. <span class="alarm">Do not</span> attempt to run
+install.bat from Windows Explorer.</p>
+
+<p class="l1">Change your directory to the mounted image.  The following examples assume that the ISO image is mounted as
+drive <samp class="snugr">D:</samp>, so entering just the letter and a colon changes to the right location:</p>
+
+<pre class="l2">
+C:\&gt; <b>D: </b> 
+D:\&gt; </pre>
+
+<p class="l1">You're now ready to run the installer.  The format for this command is</p>
+
+<pre class="l2">install.bat   destination_drive:\destination_directory </pre>
+
+<p class="l1">For example, if your ISO image is drive 
+D:, and you  want to install CPU 2017 on drive 
+C: in a folder named 
+<samp class="snugr">cpu2017</samp>, you could type:</p>
+
+
+<pre class="l2">D:\&gt; <b>install.bat&nbsp;&nbsp;C:\cpu2017 </b></pre>
+
+<h4 id="s5a">5.a. Confirm Source and Destination</h4>
+
+<p class="l1">You should see a message similar to the following:</p>
+
+<pre class="l2">
+D:\&gt;<b>install.bat  c:\cpu2017</b>
+Installing FROM source: E:\
+Installing TO destination: c:\CPU2017
+
+ If the above is NOT correct, hit Control-C and run install.bat from
+ the correct benchmark tree with an argument designating the desired
+ destination directory.
+
+Press any key to continue . . .</pre>
+
+<p class="l1">If you see a message similar to the above, just press return.  If you see error messages, check to be sure that
+you are in the correct directory and that <a href="#tempset"><samp class="nb">%temp%</samp> is defined</a>.</p>
+
+<p class="l1">After you press return, the
+installation begins.</p>  
+
+<h4 id="s5b">5.b. The files are unpacked and tested</h4>
+
+<p class="l1">No more questions are asked.  As it proceeds, the install procedure tells you what benchmarks are being unpacked.  
+</p>
+
+
+<pre class="l2">
+ Depending on the speed of the source and destination devices, this
+ may take several minutes.
+ Please be patient.
+
+Unpacking CPU2017 base files (17.4 MB)
+Unpacking 500.perlbench_r benchmark and data files (102.1 MB)
+Unpacking 502.gcc_r benchmark and data files (256.3 MB)
+Unpacking 503.bwaves_r benchmark and data files (0.2 MB)
+.
+.     <span class="annotation">(lines omitted) </span>
+.
+Unpacking 999.specrand_ir benchmark and data files (6.4 MB)
+
+Checking the integrity of your source tree...
+
+Depending on the amount of memory in the system and the speed of
+the destination device, this may take several minutes.
+Please be patient.
+
+Unpacking tools binaries
+Setting SPEC environment variable to c:\CPU2017\
+Checking the integrity of your binary tools...
+Testing the tools installation (this may take a minute)
+
+Runspec tests completed successfully!
+Installation completed!
+c:\cpu2017&gt;
+</pre>
+
+<p class="l1"><span class="alarm">Note</span> that the testing phase (just above) may take more time than it does to do the unpacking.
+This is normal.  </p>
+
+
+<p class="l1">At this point, the CPU 2017 installation will be using about 2.2 GB 
+of disk space on the destination drive.  </p>
+
+<h3 id="s6">6. Edit shrc.bat 
+   <span id="Edit-shrc"> </span>
+   <span id="Edit.shrc"> </span>
+   <span id="EditShrc"> </span>
+   <span id="Edit_shrc"> </span>
+   <span id="Editshrc"> </span>
+   <span id="edit-shrc"> </span>
+   <span id="edit.shrc"> </span>
+   <span id="editShrc"> </span>
+   <span id="edit_shrc"> </span>
+   <span id="editshrc"> </span>
+   <span id="Shrc"> </span>
+   <span id="shrc"> </span>
+   <span id="Shrc.bat"> </span>
+   <span id="shrc.bat"> </span>
+</h3>
+
+<p class="l1snugbot">Change your directory to the destination that has just been created, for example:</p>
+<pre class="l2">D:\&gt; C:
+C:\&gt; cd cpu2017
+C:\cpu2017\&gt; </pre>
+
+
+
+
+<p class="l1snugbot"> Read the comments in the file</p>
+
+<p class="l1ex">shrc.bat </p>
+
+<p class="l1snugtop">and make the appropriate edits for your compiler paths. </p> 
+
+<table style="width:500px; border:2px  dotted #5c033d;padding:2px;margin:1em 1em 1em 8em;">
+   <tr>
+      <td style="border:none;"><span style="font-family:sans-serif; color:#5c031d; margin: 2px;">q.</span></td>
+      <td style="border:none;"><span style="font-family:sans-serif; color:#5c031d; margin: 2px;">When I try to edit <samp
+               class="nbsnugr">shrc.bat</samp>, it looks like the lines are not correctly formatted.  The text appears to
+            be all run together.  For example, this can happen when using notepad.</span> </td>
+   </tr>
+   <tr>
+      <td style="border:none;"><span style="font-family:times; margin: 2px;">a</span></td>
+      <td style="border:none;"><span style="font-family:times; margin: 2px;">Try wordpad.
+            For more information, see the section below: <a href="#text">About Text Files and Windows/Unix Compatibility</a>.</span>
+      </td>
+   </tr>
+</table>
+
+<p class="l1snugbot"> You must uncomment one of two lines: </p>
+<pre class="l2snug">rem set SHRC_PRECOMPILED=yes  </pre>
+<p class="l1snug">or</p>
+<pre class="l2snug">rem set SHRC_COMPILER_PATH_SET=yes </pre> 
+<p class="l1snugtop">by removing "<samp class="nbsnuglr">rem</samp>" from the beginning of the desired line. </p>
+
+<p class="l1"> If you uncomment the first line, you must have pre-compiled binaries for the benchmarks </p>
+
+<p class="l1"> If you uncomment the second line, you will have to follow the instructions (a few lines below further along in
+<samp class="snugr">shrc.bat</samp>) to set up the environment for your compiler, either (A)&nbsp;by calling a vendor-supplied batch setup
+file or (B)&nbsp;by entering the path yourself:</p>
+
+<ol class="l2" style="list-style-type:upper-alpha">
+   <li><p>It is usually better to call a vendor-supplied batch setup file, because the file may set additional needed
+   variables, such as <samp>INCLUDE</samp> and <samp class="snugr">LIB</samp>.  Examples of vendor files, such as <samp class="snugr">iclvars</samp>,
+   <samp class="snugr">vcvars</samp>, and <samp class="snugr">vsvars</samp>, are in the comments within <samp class="snugr">shrc.bat</samp>.  Do not assume that any of those
+   examples will work on your system: you need to check first.  The names and locations of these files change from compiler
+   to compiler, from version to version, and even from system to system (if you choose a non-default installation
+   directory).  </p></li>
+
+   <li><p class="snugbot">If you enter a path directly:</p>
+   <ul class="snugtop">
+      <li>Be sure to set all needed variables.  Check your compiler documentation.</li>  
+      <li>Be sure that you do not have any semi-colons (;) inside of quotes, as that may cause <a 
+         class="external" href="faq.html#Build.02"> mysterious errors</a>.</li> 
+   </ul></li>
+</ol>
+
+<p class="l1">No matter how your path gets set, in general it is a good idea to understand what is in your path, and that you
+have only what you truly need.  If you have non-standard versions of commonly used utilities in your path, you may avoid
+unpleasant surprises by taking them out.  By default, <samp>shrc.bat</samp> will print the path after it is done.   If you would
+prefer that it not do so, you can set <samp class="nb">SHRC_QUIET=yes</samp> in your environment.</p>
+
+
+
+
+
+<h2 style="border-top:thin solid gray;padding-top:3px;" id="test">Test your installed copy</h2>
+
+<p class="l1">From this point forward, we are testing basic capabilities of the installed version of SPEC CPU 2017, including
+compiling benchmarks and running them.</p>
+
+<p class="l1">If you prefer to skip this part, perhaps because someone else has given you pre-compiled binaries, please note that you
+remain responsible for compliance with SPEC's <a class="external" href="https://www.spec.org/fairuse.html">Fair Use</a> rule
+and the <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html">CPU 2017 run rules</a>.</p> 
+
+
+<h3 id="s7">7. Use your shrc.bat </h3>
+
+<p class="l1">Set the environment, using your edited shrc.  For example:</p>
+<p class="ex">  
+C:\cpu2017&gt; <b>shrc.bat</b></p>
+
+
+
+<h3 id="s8">8. Select a config file and try to build one benchmark</h3>
+
+
+<p class="hanging1snugbot"><b>Find a Config File</b>:
+<span id="config"> </span>
+<span id="AboutConfig"> </span>
+<span id="about-config"> </span>
+<span id="about.config"> </span>
+<span id="aboutConfig"> </span>
+<span id="about_config"> </span>
+<span id="aboutconfig"> </span>
+<span id="AboutConfigFiles"> </span>
+<span id="about-config-files"> </span>
+<span id="about.config.files"> </span>
+<span id="aboutConfigFiles"> </span>
+<span id="about_config_files"> </span>
+<span id="aboutconfigfiles"> </span>
+<span id="ConfigFiles"> </span>
+<span id="config-files"> </span>
+<span id="config.files"> </span>
+<span id="configFiles"> </span>
+<span id="config_files"> </span>
+<span id="configfiles"> </span>
+
+You will need to select a config file.  Config files contain details such as portability and optimization options.  If you
+are a beginner, you will probably start with an existing config file.  You can find one:</p>
+
+<ol class="l1snugish"> 
+   <li class="snugish"><p class="snug">On your installed copy of SPEC CPU 2017:</p>
+   <pre class="l2snug">$SPEC/config/Example*        (Unix) or
+%SPEC%\config\Example*       (Windows)</pre></li>
+
+   <li>At <a class="external" href="https://www.spec.org/cpu2017/results/">www.spec.org/cpu2017/results</a>.  Look for a
+      system similar to yours, click the 'config' link.</li> 
+
+   <li class="snugish">Or, <a class="external" href="config.html" >write</a> your own.</li>
+</ol>
+
+<p class="hanging1snugbot"><b>Name it:</b> &nbsp; Copy your selection to a new file the config file to the config directory.
+Give it a name that does not use blanks. Hint: make the name something useful to *you*, for example:</p>
+<pre class="l2snugish">%SPEC%\config\Rahuls_first_test.cfg     </pre>
+
+
+<p class="hanging1snugbot"><b>Edit the label:</b> &nbsp;&nbsp; Usually it is a good idea to edit the file and change the line
+that says:</p>
+<pre class="l2snugish">label = something</pre>
+<p class="l1snug">or if there is no such line, then add one at the top.  The <a class="external" href="config.html#label"
+   >label</a> is an arbitrary tag that is added to your binaries and directories, which can come in very handy when you need
+to (for example) find your run directories, analyze a problem, and clean disk space.  As with the config file name, make it
+something meaningful to *you*.  No blanks are allowed.</p>
+
+<p class="hanging1snugbot"><b>Other Edits:</b></p>
+<ol class="snugish">
+   <li>Look for any locations marked EDIT and make changes as needed.</li>
+   <li>Look for paths and adjust if needed. Example: the config file mentions a path for 
+      <br /><kbd>.../Lib/10.0.14393.0</kbd> but your system uses
+      <br /><kbd>.../Lib/10.0.14394.1</kbd></li>
+   <li><p class="snug">Look for any commands in the config file, and verify that they will not cause surprises.</p>
+
+
+         <!-- ReUsableBegin: shell commands  ......................................................................  -->
+         <p style="margin:.5em 1em .2em 6em; text-indent:-4em;"> 
+         <span class="alarm">Warning:</span> SPEC CPU config files can execute <span class="caution"> arbitrary </span>
+         <a class="external" href="config.html#shell" >shell</a> commands.  
+         <br />Read a config file before using it.  
+         <br />Don't be <a class="external" href="system-requirements.html#root" >root</a>.  
+         Don't run as <a class="external" href="system-requirements.html#root" >Administrator</a>. 
+         Turn privileges off.  </p>
+         <!-- shell commands ReUsableEnd   ......................................................................  -->
+
+   </li>
+</ol>
+
+   <p class="hanging1"><b>Select a benchmark to try first.  </b> Begin with a benchmark that compiles quickly, such as
+   <kbd>505.mcf_r</kbd> or <kbd>508.namd_r</kbd> for SPECrate&reg;; or <kbd>619.lbm_s</kbd> for SPECspeed&reg;.</p>
+
+<p class="hanging1"><b>Example:</b> Here, the user starts with a config file for Intel C/C++ and Fortran 17.0 Update 1 Compilers
+for Windows, edits it, and tries <kbd class="snugr">508.namd_r</kbd>.</p>
+
+<pre class="l1">
+C:\cpu2017&gt; <b>cd %SPEC%\config</b>
+C:\cpu2017&gt; <b>copy Example-ic17.0u1-win-rate.cfg try.cfg</b>
+   .
+   . [edit try.cfg for compiler path]
+   .
+
+c:\CPU2017&gt; <b>runcpu -c try.cfg --action build 508.namd_r</b>
+runcpu v4547 - Copyright 1999-2016 Standard Performance Evaluation Corporation
+Using 'windows-x64 ' tools
+Reading file manifests... read 31964 entries from 2 files in 0.26s (120682 files/s)
+Loading runcpu modules................
+Locating benchmarks...found 47 benchmarks in 58 benchsets.
+Reading config file 'c:/CPU2017/config/try.cfg'
+Running "specperl c:/CPU2017/Docs/sysinfo" to gather system information.
+
+
+1 configuration selected:
+
+Action   Benchmarks
+------   ----------------------------------------------------------------------
+build    508.namd_r
+-------------------------------------------------------------------------------
+
+Benchmarks selected: 508.namd_r
+Compiling Binaries
+  Building 508.namd_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 22:10:43]
+
+Build successes for fprate: 508.namd_r(base)
+Build errors for fprate: None
+
+Build Complete
+
+The log for this run is in c:/CPU2017/result/CPU2017.002.log
+
+runcpu finished at 2016-07-14 22:11:59; 112 total seconds elapsed
+
+c:\CPU2017&gt;
+</pre>
+
+<table>
+   <tr>
+      <td style="vertical-align:top; background:#72d387;text-align:right;font-size:125%;"><b>If<br />the<br />above<br />succeeds</b></td>
+      <td style="background:#e0ffe0;"><p class="snugtop">You have established that SPEC CPU 2017 is installed and the tools can use
+         your config file to find a "C" compiler.</p>  
+         <p class="snugbot">Let us take a brief look  at what the above command did:</p>
+
+         <pre class="snug"> 
+C:\cpu2017&gt; <b>cd %SPEC%\benchspec\CPU\508.namd_r\exe</b>
+C:\cpu2017\benchspec\CPU\508.namd_r\exe&gt;<b>dir</b>
+namd_r_base.Example-ic17.0u1-win-rate
+C:\cpu2017\benchspec\CPU\508.namd_r\exe&gt;<b>cd %SPEC%\result</b>
+C:\cpu2017\result&gt; <b>dir </b>
+CPU2017.001.log  lock.CPU2017
+         </pre>
+         <p class="snug">Note that:</p>
+         <ul class="snugtop">
+            <li>An executable file has been created, using a <a class="external" href="config.html#label">label</a> that was
+               specified by the config file (<samp class="nbsnuglr">Example-ic17.0u1-win-rate</samp>) The label is just an
+               arbitrary tag that you can use to help you keep track of your builds. </li> 
+            <li>A log file is available: <samp class="nb">CPU2017.001.log</samp></li>
+         </ul>
+      </td>
+   </tr>
+   <tr>
+      <td style="vertical-align:top; background:#f09090;text-align:right;font-size:125%;"><b>If<br />the<br />above<br />fails</b></td>
+      <td style="background:#ffe8e8;">
+         <p class="snug">Usually, failures happen if you start with a config file that is not intended for your operating
+         system and compiler  (<a href="#about_config">About Config Files</a>), 
+         <br />or if you have not installed the compiler, 
+         <br />or have not edited the config file to point to the compiler location.  </p>
+         <p>If a file is mentioned with more information, please carefully examine that file (e.g.&nbsp;<samp
+            class="nbsnugr">benchspec\CPU2017\nnn.mumble\build_base_mumble.0000\mumble.err</samp>)
+         </p>
+         <p class="snugbot">You can use locate the log file and the
+         build directory, and useful files within the build, using commands similar to these:  </p>
+
+         <pre class="snug"> 
+C:\cpu2017&gt; <b>cd %SPEC%\result</b>
+C:\cpu2017\result&gt; <b>dir *log</b>
+CPU2017.001.log
+C:\cpu2017\result&gt; <b>cd %SPEC%\benchspec\CPU\505.mcf_r\build</b>
+C:\cpu2017\benchspec\CPU\505.mcf_r\build&gt; <b>dir </b>
+build_base_Example-ic17.0u1-win-rate.0000 list
+C:\cpu2017\benchspec\CPU\505.mcf_r\build&gt; <b>cd build_base_Example-ic17.0u1-win-rate.0000</b>
+C:\cpu2017\benchspec\CPU\505.mcf_r\build\build_base_Example-ic17.0u1-win-rate&gt; <b>dir *err *out</b>
+make.clean.out  make.out  options.err  options.out
+         </pre>
+      </td>
+   </tr>
+</table>
+
+
+<h3 id="s9">9. Try compiling an entire suite, and run the test workload</h3>
+
+<p class="l1snugbot">SPEC CPU 2017 contains 43 <a class="external" href="index.html#benchmarks">benchmarks</a> which are
+divided into 4 suites:</p>
+<ul class="l1snugtop">
+   <li>intrate</li>
+   <li>intspeed</li>
+   <li>fprate</li>
+   <li>fpspeed</li>
+</ul>
+
+<p class="l1snugbot">Let's pick a suite and build all the benchmarks in that suite.  The command below,</p>
+<ul class="l1snugtop">
+   <li>Selects the smallest workload <a class="external" href="runcpu.html#size">size</a></li>
+   <li>Confirms that we do not want a full, reportable run (<a class="external"
+         href="runcpu.html#noreportable">--noreportable</a>).</li>
+   <li>Runs each benchmark only once (<a class="external" href="runcpu.html#iterations">--iterations=1</a>).</li>
+</ul>
+
+<pre class="l2">
+c:\CPU2017&gt;<b>runcpu -c try.cfg --size test --iterations 1 -noreportable fprate</b>
+runcpu v4547 - Copyright 1999-2016 Standard Performance Evaluation Corporation
+Using 'windows-x64 ' tools
+Reading file manifests... read 31964 entries from 2 files in 0.20s (162599 files/s)
+Loading runcpu modules................
+Locating benchmarks...found 47 benchmarks in 58 benchsets.
+Reading config file 'c:/CPU2017/config/try.cfg'
+Running "specperl c:/CPU2017/Docs/sysinfo" to gather system information.
+
+
+1 configuration selected:
+
+Action   Benchmarks
+------   ----------------------------------------------------------------------
+build    fprate
+-------------------------------------------------------------------------------
+
+Benchmarks selected: 503.bwaves_r, 507.cactuBSSN_r, 508.namd_r, 510.parest_r, 511.povray_r, 519.lbm_r, 
+    521.wrf_r, 526.blender_r, 527.cam4_r, 538.imagick_r, 544.nab_r, 549.fotonik3d_r, 554.roms_r, 997.specrand_fr
+Compiling Binaries
+  Building 503.bwaves_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 12:26:14]
+  Building 507.cactuBSSN_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 12:26:20]
+  Building 508.namd_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 12:31:10]
+  Building 510.parest_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 12:32:07]
+  Building 511.povray_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 12:42:33]
+  Building 519.lbm_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 12:44:19]
+  Building 521.wrf_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 12:44:32]
+  Building 526.blender_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 14:44:53]
+  Building 527.cam4_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 15:02:00]
+  Building 538.imagick_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 15:09:04]
+  Building 544.nab_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 15:13:05]
+  Building 549.fotonik3d_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 15:13:14]
+  Building 554.roms_r base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 15:14:23]
+  Building 997.specrand_fr base Example-ic17.0u1-win-rate: (build_base_Example-ic17.0u1-win-rate.0000) [2016-07-14 15:19:02]
+
+Build successes for fprate: 503.bwaves_r(base), 507.cactuBSSN_r(base), 508.namd_r(base), 510.parest_r(base), 
+    511.povray_r(base), 519.lbm_r(base), 521.wrf_r(base), 526.blender_r(base), 527.cam4_r(base), 538.imagick_r(base), 
+    544.nab_r(base), 549.fotonik3d_r(base), 554.roms_r(base), 997.specrand_fr(base)
+Build errors for fprate: None
+
+Setting Up Run Directories
+  Setting up 503.bwaves_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 507.cactuBSSN_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 508.namd_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 510.parest_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 511.povray_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 519.lbm_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 521.wrf_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 526.blender_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 527.cam4_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 538.imagick_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 544.nab_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 549.fotonik3d_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 554.roms_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 997.specrand_fr test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+Running Benchmarks
+  Running 503.bwaves_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:23:35]
+  Running 507.cactuBSSN_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:23:42]
+  Running 508.namd_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:23:47]
+  Running 510.parest_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:23:55]
+  Running 511.povray_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:03]
+  Running 519.lbm_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:04]
+  Running 521.wrf_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:07]
+  Running 526.blender_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:17]
+  Running 527.cam4_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:19]
+  Running 538.imagick_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:42]
+  Running 544.nab_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:43]
+  Running 549.fotonik3d_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:45]
+  Running 554.roms_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:51]
+  Running 997.specrand_fr test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:24:56]
+Success: 1x503.bwaves_r 1x507.cactuBSSN_r 1x508.namd_r 1x510.parest_r 1x511.povray_r 1x519.lbm_r 1x521.wrf_r 
+    1x526.blender_r 1x527.cam4_r 1x538.imagick_r 1x544.nab_r 1x549.fotonik3d_r 1x554.roms_r 1x997.specrand_fr
+Producing Raw Reports
+ label: Example-ic17.0u1-win-rate
+  workload: test
+NOTICE: sw_compiler003 is longer than 50 characters and will be split
+   metric: SPECrate2017_fp_base
+    format: raw -&gt; c:/CPU2017/result/CPU2017.004.fprate.test.rsf
+Parsing flags for 503.bwaves_r base: done
+Parsing flags for 507.cactuBSSN_r base: done
+Parsing flags for 508.namd_r base: done
+Parsing flags for 510.parest_r base: done
+Parsing flags for 511.povray_r base: done
+Parsing flags for 519.lbm_r base: done
+Parsing flags for 521.wrf_r base: done
+Parsing flags for 526.blender_r base: done
+Parsing flags for 527.cam4_r base: done
+Parsing flags for 538.imagick_r base: done
+Parsing flags for 544.nab_r base: done
+Parsing flags for 549.fotonik3d_r base: done
+Parsing flags for 554.roms_r base: done
+Doing flag reduction: done
+    format: flags -&gt; c:/CPU2017/result/CPU2017.004.fprate.test.flags.html
+    format: HTML -&gt; c:/CPU2017/result/CPU2017.004.fprate.test.html
+    format: Text -&gt; c:/CPU2017/result/CPU2017.004.fprate.test.txt
+
+The log for this run is in c:/CPU2017/result/CPU2017.004.log
+
+runcpu finished at 2016-07-14 22:25:37; 10532 total seconds elapsed
+
+c:\CPU2017&gt; 
+</pre>
+
+<p class="l1">Note above that compiling the SPECrate2017 Floating Point benchmarks and running the brief test workload took about 3
+hours (10532 seconds).   <span class="u">Your time may be considerably different</span> (faster or slower), for example when
+using other compilers or building other suites (recall that there are 4 suites in CPU 2017: intrate, fprate, intspeed,
+fpspeed).  The time required to do a build also depends directly upon the config file <a
+   class="external" href="config.html#makeOptimize">optimization selections</a>.</p>
+
+
+
+
+<h3 id="s10">10. Try a full (reportable) run</h3>
+
+<p class="l1">If everything has worked up to this point, you may wish to start a full run, perhaps leaving your computer to
+run overnight.  The extended test will demand significant hardware resources from your machine (<a 
+   class="external" href="system-requirements.html">System Requirements</a>)</p>
+
+<p class="l1snugbot">In the example below, a <a class="external" href="runcpu.html#reportable">reportable</a> run is
+requested, using 10 <a class="external" href="runcpu.html#copies">copies</a> of the benchmarks:</p>
+
+<pre class="l2">
+c:\CPU2017&gt;runcpu --config=try --reportable --copies=10 fprate
+runcpu v4547 - Copyright 1999-2016 Standard Performance Evaluation Corporation
+Using 'windows-x64 ' tools
+Reading file manifests... read 31964 entries from 2 files in 0.25s (125458 files/s)
+Loading runcpu modules................
+Locating benchmarks...found 47 benchmarks in 58 benchsets.
+Reading config file 'c:/CPU2017/config/try.cfg'
+Running "specperl c:/CPU2017/Docs/sysinfo" to gather system information.
+
+
+1 configuration selected:
+
+ Action    Run Mode   Workload     Report Type      Benchmarks
+--------   --------   --------   ----------------   ---------------------------
+validate   rate       test       SPECrate2017_fp   fprate                    
+Loading "http://www.spec.org/auto/cpu2017/devel_version" for version check...
+...Version check failed.
+
+NOTICE: Suite version checking failed
+
+          A connection to the internet is useful, but is NOT required
+          in order to run CPU2017.  If one is available, several
+          components will be checked to see if they are current.  If
+          you need to use an HTTP proxy to access the Internet, please
+          see the 'http_proxy' entry in config.html.
+
+                       ----------------------------------
+                       The run will continue in 5 seconds
+                       ----------------------------------
+</pre>
+<p class="commentary">The above message is expected if you are behind a firewall.
+<br />The run continues after 5 seconds:</p>
+<pre class="l2">
+Reportable runs must include a 'test' run; adding to run list
+Reportable runs must include a 'train' run; adding to run list
+-------------------------------------------------------------------------------
+</pre>
+<p class="commentary">For a <a class="external" href="runcpu.html#reportable">reportable</a>
+run, all three workload <a class="external" href="runcpu.html#size">sizes</a> are run.  For test
+and train, the only requirement is that they generate valid output.  They are
+<b>not</b> timed.  
+<br />In the next section, the test workloads are run.</p>
+<pre class="l2">
+
+Benchmarks selected: 503.bwaves_r, 507.cactuBSSN_r, 508.namd_r, 510.parest_r, 511.povray_r, 519.lbm_r, 521.wrf_r, 
+   526.blender_r, 527.cam4_r, 538.imagick_r, 544.nab_r, 549.fotonik3d_r, 554.roms_r, 997.specrand_fr
+Compiling Binaries
+  Up to date 503.bwaves_r base Example-ic17.0u1-win-rate
+  Up to date 507.cactuBSSN_r base Example-ic17.0u1-win-rate
+  Up to date 508.namd_r base Example-ic17.0u1-win-rate
+  Up to date 510.parest_r base Example-ic17.0u1-win-rate
+  Up to date 511.povray_r base Example-ic17.0u1-win-rate
+  Up to date 519.lbm_r base Example-ic17.0u1-win-rate
+  Up to date 521.wrf_r base Example-ic17.0u1-win-rate
+  Up to date 526.blender_r base Example-ic17.0u1-win-rate
+  Up to date 527.cam4_r base Example-ic17.0u1-win-rate
+  Up to date 538.imagick_r base Example-ic17.0u1-win-rate
+  Up to date 544.nab_r base Example-ic17.0u1-win-rate
+  Up to date 549.fotonik3d_r base Example-ic17.0u1-win-rate
+  Up to date 554.roms_r base Example-ic17.0u1-win-rate
+  Up to date 997.specrand_fr base Example-ic17.0u1-win-rate
+
+
+Setting Up Run Directories
+  Setting up 503.bwaves_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 507.cactuBSSN_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 508.namd_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 510.parest_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 511.povray_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 519.lbm_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 521.wrf_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 526.blender_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 527.cam4_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 538.imagick_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 544.nab_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 549.fotonik3d_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 554.roms_r test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+  Setting up 997.specrand_fr test base Example-ic17.0u1-win-rate (1 copy): run_base_test_Example-ic17.0u1-win-rate.0001
+Running Benchmarks
+  Running 503.bwaves_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:35:21]
+  Running 507.cactuBSSN_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:35:28]
+  Running 508.namd_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:35:34]
+  Running 510.parest_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:35:41]
+  Running 511.povray_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:35:49]
+  Running 519.lbm_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:35:51]
+  Running 521.wrf_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:35:54]
+  Running 526.blender_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:36:03]
+  Running 527.cam4_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:36:05]
+  Running 538.imagick_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:36:29]
+  Running 544.nab_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:36:30]
+  Running 549.fotonik3d_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:36:32]
+  Running 554.roms_r test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:36:38]
+  Running 997.specrand_fr test base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:36:43]
+Success: 1x503.bwaves_r 1x507.cactuBSSN_r 1x508.namd_r 1x510.parest_r 1x511.povray_r 1x519.lbm_r 1x521.wrf_r 
+   1x526.blender_r 1x527.cam4_r 1x538.imagick_r 1x544.nab_r 1x549.fotonik3d_r 1x554.roms_r 1x997.specrand_fr
+Benchmarks selected: 503.bwaves_r, 507.cactuBSSN_r, 508.namd_r, 510.parest_r, 511.povray_r, 519.lbm_r, 521.wrf_r, 
+   526.blender_r, 527.cam4_r, 538.imagick_r, 544.nab_r, 549.fotonik3d_r, 554.roms_r, 997.specrand_fr
+
+</pre>
+<p class="commentary">The test workload is not timed.  
+<br />After all the test workloads are done, the train workloads are started:</p>
+<pre class="l2">
+Benchmarks selected: 503.bwaves_r, 507.cactuBSSN_r, 508.namd_r, 510.parest_r, 511.povray_r, 519.lbm_r, 521.wrf_r, 
+     526.blender_r, 527.cam4_r, 538.imagick_r, 544.nab_r, 549.fotonik3d_r, 554.roms_r, 997.specrand_fr
+Compiling Binaries
+  Up to date 503.bwaves_r base Example-ic17.0u1-win-rate
+  Up to date 507.cactuBSSN_r base Example-ic17.0u1-win-rate
+  Up to date 508.namd_r base Example-ic17.0u1-win-rate
+  Up to date 510.parest_r base Example-ic17.0u1-win-rate
+  Up to date 511.povray_r base Example-ic17.0u1-win-rate
+  Up to date 519.lbm_r base Example-ic17.0u1-win-rate
+  Up to date 521.wrf_r base Example-ic17.0u1-win-rate
+  Up to date 526.blender_r base Example-ic17.0u1-win-rate
+  Up to date 527.cam4_r base Example-ic17.0u1-win-rate
+  Up to date 538.imagick_r base Example-ic17.0u1-win-rate
+  Up to date 544.nab_r base Example-ic17.0u1-win-rate
+  Up to date 549.fotonik3d_r base Example-ic17.0u1-win-rate
+  Up to date 554.roms_r base Example-ic17.0u1-win-rate
+  Up to date 997.specrand_fr base Example-ic17.0u1-win-rate
+
+
+Setting Up Run Directories
+  Setting up 503.bwaves_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 507.cactuBSSN_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 508.namd_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 510.parest_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 511.povray_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 519.lbm_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 521.wrf_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 526.blender_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 527.cam4_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 538.imagick_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 544.nab_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 549.fotonik3d_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 554.roms_r train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+  Setting up 997.specrand_fr train base Example-ic17.0u1-win-rate (1 copy): run_base_train_Example-ic17.0u1-win-rate.0000
+Running Benchmarks
+  Running 503.bwaves_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:37:02]
+  Running 507.cactuBSSN_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:37:30]
+  Running 508.namd_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:38:04]
+  Running 510.parest_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:38:46]
+  Running 511.povray_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:39:35]
+  Running 519.lbm_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:39:41]
+  Running 521.wrf_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:40:05]
+  Running 526.blender_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:40:54]
+  Running 527.cam4_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:43:52]
+  Running 538.imagick_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:44:21]
+  Running 544.nab_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:45:04]
+  Running 549.fotonik3d_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:46:42]
+  Running 554.roms_r train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:47:41]
+  Running 997.specrand_fr train base Example-ic17.0u1-win-rate (1 copy) [2016-07-14 22:50:07]
+Success: 1x503.bwaves_r 1x507.cactuBSSN_r 1x508.namd_r 1x510.parest_r 1x511.povray_r 1x519.lbm_r 1x521.wrf_r 
+    1x526.blender_r 1x527.cam4_r 1x538.imagick_r 1x544.nab_r 1x549.fotonik3d_r 1x554.roms_r 1x997.specrand_fr
+</pre>
+<p class="commentary">After the train workloads are done, the timed, "refrate", workloads begin.</p>
+<pre class="l2">
+Benchmarks selected: 503.bwaves_r, 507.cactuBSSN_r, 508.namd_r, 510.parest_r, 511.povray_r, 519.lbm_r, 521.wrf_r, 
+   526.blender_r, 527.cam4_r, 538.imagick_r, 544.nab_r, 549.fotonik3d_r, 554.roms_r, 997.specrand_fr
+Compiling Binaries
+  Up to date 503.bwaves_r base Example-ic17.0u1-win-rate
+  Up to date 507.cactuBSSN_r base Example-ic17.0u1-win-rate
+  Up to date 508.namd_r base Example-ic17.0u1-win-rate
+  Up to date 510.parest_r base Example-ic17.0u1-win-rate
+  Up to date 511.povray_r base Example-ic17.0u1-win-rate
+  Up to date 519.lbm_r base Example-ic17.0u1-win-rate
+  Up to date 521.wrf_r base Example-ic17.0u1-win-rate
+  Up to date 526.blender_r base Example-ic17.0u1-win-rate
+  Up to date 527.cam4_r base Example-ic17.0u1-win-rate
+  Up to date 538.imagick_r base Example-ic17.0u1-win-rate
+  Up to date 544.nab_r base Example-ic17.0u1-win-rate
+  Up to date 549.fotonik3d_r base Example-ic17.0u1-win-rate
+  Up to date 554.roms_r base Example-ic17.0u1-win-rate
+  Up to date 997.specrand_fr base Example-ic17.0u1-win-rate
+
+
+Setting Up Run Directories
+  Setting up 503.bwaves_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 507.cactuBSSN_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 508.namd_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 510.parest_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 511.povray_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 519.lbm_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 521.wrf_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 526.blender_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 527.cam4_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 538.imagick_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 544.nab_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 549.fotonik3d_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 554.roms_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+  Setting up 997.specrand_fr refrate (ref) base Example-ic17.0u1-win-rate (10 copies): run_base_refrate_Example-ic17.0u1-win-rate.0000-0009
+Running Benchmarks
+  Running (#1) 503.bwaves_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-14 22:50:27]
+  Running (#1) 507.cactuBSSN_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-14 23:05:19]
+  Running (#1) 508.namd_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-14 23:17:35]
+  Running (#1) 510.parest_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-14 23:28:46]
+  Running (#1) 511.povray_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-14 23:49:17]
+  Running (#1) 519.lbm_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 00:07:11]
+  Running (#1) 521.wrf_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 00:16:42]
+  Running (#1) 526.blender_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 00:27:37]
+  Running (#1) 527.cam4_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 00:39:56]
+  Running (#1) 538.imagick_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 00:51:31]
+  Running (#1) 544.nab_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 01:10:54]
+  Running (#1) 549.fotonik3d_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 01:22:47]
+  Running (#1) 554.roms_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 01:47:30]
+  Running (#1) 997.specrand_fr refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 02:01:32]
+  Running (#2) 503.bwaves_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 02:01:38]
+  Running (#2) 507.cactuBSSN_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 02:16:09]
+  Running (#2) 508.namd_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 02:28:37]
+  Running (#2) 510.parest_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 02:39:46]
+  Running (#2) 511.povray_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 03:00:13]
+  Running (#2) 519.lbm_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 03:18:23]
+  Running (#2) 521.wrf_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 03:27:54]
+  Running (#2) 526.blender_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 03:39:37]
+  Running (#2) 527.cam4_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 03:51:56]
+  Running (#2) 538.imagick_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 04:03:57]
+  Running (#2) 544.nab_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 04:23:25]
+  Running (#2) 549.fotonik3d_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 04:35:18]
+  Running (#2) 554.roms_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 05:00:03]
+  Running (#2) 997.specrand_fr refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 05:14:13]
+  Running (#3) 503.bwaves_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 05:14:18]
+  Running (#3) 507.cactuBSSN_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 05:28:53]
+  Running (#3) 508.namd_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 05:41:07]
+  Running (#3) 510.parest_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 05:52:15]
+  Running (#3) 511.povray_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 06:12:40]
+  Running (#3) 519.lbm_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 06:30:27]
+  Running (#3) 521.wrf_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 06:39:57]
+  Running (#3) 526.blender_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 06:51:28]
+  Running (#3) 527.cam4_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 07:03:48]
+  Running (#3) 538.imagick_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 07:15:23]
+  Running (#3) 544.nab_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 07:34:46]
+  Running (#3) 549.fotonik3d_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 07:46:39]
+  Running (#3) 554.roms_r refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 08:11:20]
+  Running (#3) 997.specrand_fr refrate (ref) base Example-ic17.0u1-win-rate (10 copies) [2016-07-15 08:25:55]
+Success: 3x503.bwaves_r 3x507.cactuBSSN_r 3x508.namd_r 3x510.parest_r 3x511.povray_r 3x519.lbm_r 3x521.wrf_r 
+   3x526.blender_r 3x527.cam4_r 3x538.imagick_r 3x544.nab_r 3x549.fotonik3d_r 3x554.roms_r 3x997.specrand_fr
+Producing Raw Reports
+ label: Example-ic17.0u1-win-rate
+  workload: refrate (ref)
+NOTICE: sw_compiler003 is longer than 50 characters and will be split
+   metric: SPECrate2017_int_base
+    format: raw -&gt; c:/CPU2017/result/CPU017.005.fprate.refrate.rsf
+Parsing flags for 503.bwaves_r base: done
+Parsing flags for 507.cactuBSSN_r base: done
+Parsing flags for 508.namd_r base: done
+Parsing flags for 510.parest_r base: done
+Parsing flags for 511.povray_r base: done
+Parsing flags for 519.lbm_r base: done
+Parsing flags for 521.wrf_r base: done
+Parsing flags for 526.blender_r base: done
+Parsing flags for 527.cam4_r base: done
+Parsing flags for 538.imagick_r base: done
+Parsing flags for 544.nab_r base: done
+Parsing flags for 549.fotonik3d_r base: done
+Parsing flags for 554.roms_r base: done
+Doing flag reduction: done
+    format: flags -&gt; c:/CPU2017/result/CPU2017.005.fprate.refrate.flags.html
+    format: HTML -&gt; c:/CPU2017/result/CPU2017.005.fprate.refrate.html
+    format: Text -&gt; c:/CPU2017/result/CPU2017.005.fprate.refrate.txt
+
+The log for this run is in c:/CPU2017/result/CPU2017.005.log
+
+runcpu finished at 2016-07-15 08:26:39; 35529 total seconds elapsed
+
+c:\CPU2017&gt;  
+</pre>
+
+<p class="l1">The run completed successfully.  On this particular (year 2016) hardware system, a 10-copy 
+<a class="external" href="runcpu.html#reportable">reportable</a> fprate run, using base-only 
+<a class="external" href="runcpu.html#tune">tuning</a>, required about 10 hours (35529 seconds).  Much more time would be
+needed if the run used both base and peak tuning, or used more <a class="external" href="runcpu.html#copies">copies</a>, or
+asked for additional suites (intrate, intspeed, or fpspeed).</p>
+
+
+<h2 style="margin-top:2em;border-top:thin solid black;padding-top:1em;" id="appendix1">Appendix 1: <span id="uninstall"> Uninstalling</span> SPEC CPU 2017</h2>
+
+<p class="l1">At this time, SPEC does not provide an uninstall utility for SPEC CPU 2017.  Confusingly, there <span
+   class="u">is</span> a file named <samp>uninstall.sh</samp> in the top directory, but it does not remove the whole product; it
+only removes the SPEC tool set, and does not affect the benchmarks (which consume the bulk of the disk space).  </p>
+
+<p class="l1">To remove SPEC CPU 2017 on Windows systems, select the top directory in Windows Explorer and delete it.</p>
+
+<p class="l1">To remove SPEC CPU 2017 on Unix systems, use <samp class="nb">rm -Rf</samp> on the directory where you installed the
+suite, for example:</p>  
+
+<pre class="l2">  rm -Rf /home/cs3000/saturos/spec/cpu2017</pre>
+
+<p class="l1">If you have been using the <a class="external" href="runcpu.html#output_root">output_root</a> feature, you
+will have to track those down separately.  <span class="alarm">Therefore, prior to removing the tree</span>, you might
+want to look for mentions of output root, for example:</p> 
+<pre class="l2">
+Windows:
+    cd %SPEC%\config
+    findstr output_root *cfg
+
+Unix:
+    cd $SPEC/config
+    grep output_root *cfg
+</pre>
+
+<p class="l1">Note: instead of deleting the entire directory tree, some users find it useful to keep the
+<samp>config</samp> and <samp>result</samp> subdirectories, while deleting everything else.  </p>
+
+
+<h2 id="appendix2">Appendix 2: Useful Tips and Techniques</h2>
+
+<h3 id="temp">
+   <span id="tempset"> </span>
+   Appendix 2.a. About Temporary Space (<samp class="snuglr">%temp</samp>)</h3>
+<p class="l1">It has occasionally been reported that installation attempts fail if there is not a directory that can be used
+to hold temporary files.  To check this point, print the <samp>%temp%</samp> environment variable, and try writing a small file
+to it, like this:</p>
+
+<pre class="l2">C:\Users\kumar&gt; <b>echo %temp%</b>
+C:\Users\kumar\AppData\Local\Temp
+
+C:\Users\kumar&gt; <b>echo "hi" &gt; %temp%\test-hi.txt</b>
+
+C:\Users\kumar&gt; <b>type %temp%\test-hi.txt</b>
+"hi"
+
+C:\Users\kumar&gt; <b>del %temp%\test-hi.txt</b>
+</pre>
+
+<p class="l1">If <samp>%temp%</samp> is not set, the first <samp>echo</samp> command above will just print:
+<br /><samp>&nbsp;&nbsp;&nbsp;&nbsp;%temp%</samp>   
+<br />If <samp>%temp%</samp> is set to a directory that is not writeable, the second command will print: 
+<br /><samp>&nbsp;&nbsp;&nbsp;&nbsp;Access is denied</samp>
+<br />  If either of these
+happen, you should set it to the full path (with drive letter) of a directory that can be used as scratch space.  For
+example, if Kumaran would like to use a temporary directory underneath his directory on drive K:, he could type:</p>
+
+<p class="ex">C:\&gt; <b>set temp=K:\KUMARAN\TEMP</b> </p>
+
+<h3 id="text">Appendix 2.b. About Text Files and Windows/Unix Compatibility</h3>
+
+<p class="l1">There are many files in the SPEC CPU 2017 distribution that contain text.  Unfortunately, Unix systems and Windows
+systems have different conventions for storing text files.  Sometimes, a text file formatted for Windows will appear on Unix
+as if it has extra Control-M characters.  Sometimes, a text file formatted for Unix will appear on Windows as if all the
+lines were joined together.</p>
+
+<p class="l1">There are at least three ways for Windows users to correctly view and edit text files that originated on a Unix
+system:</p>
+
+<ol class="l1">
+   <li><p > Use WordPad.  WordPad can commonly be found by <br />
+   Start--&gt;All Programs--&gt;Accessories--&gt;WordPad
+   </p></li>
+
+   <li><p > Use the MS-DOS Editor.  Open a Command Prompt and type "Edit".  This alternative does not work on 64-bit Windows
+   systems.  The program only recognizes files with 8 characters or fewer, a dot, and then 3 characters or fewer.  If you
+   are trying to use it with a longer file name, you can discover that there is an "8 dot 3" synonym for it by typing:
+   "<kbd class="snuglr">dir /x</kbd>".  </p></li>
+
+   <li><p > Use the editor "vi".  Although vi originated on Unix systems, there are also Windows versions.  "UNIX Compatibility"
+   products for Windows often include a version of vi, and there are independently-distributed versions, such as "Vi IMproved"
+   (at <a class="external" href="http://www.vim.org/">http://www.vim.org/</a>).  </p></li> 
+</ol>
+
+<p class="l1">Note that SPEC does not "endorse" any of these solutions, although it is hoped that at least one of them will be
+useful for you.</p>
+
+
+
+<p style="border-top:thin solid black;">
+Installing SPEC CPU&reg;2017 on Microsoft Windows Systems:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+</body>
+</html>

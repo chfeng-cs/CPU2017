@@ -1,0 +1,45 @@
+  Setting up 600.perlbench_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 602.gcc_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 605.mcf_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 620.omnetpp_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 623.xalancbmk_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 625.x264_s refspeed (ref) base none: 
+  Setting up 631.deepsjeng_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 641.leela_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 648.exchange2_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 657.xz_s refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 998.specrand_is refspeed (ref) base none: run_base_refspeed_none.0000
+  Setting up 600.perlbench_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 602.gcc_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 605.mcf_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 620.omnetpp_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 623.xalancbmk_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 625.x264_s refspeed (ref) peak none: 
+  Setting up 631.deepsjeng_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 641.leela_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 648.exchange2_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 657.xz_s refspeed (ref) peak none: run_peak_refspeed_none.0000
+  Setting up 998.specrand_is refspeed (ref) peak none: run_peak_refspeed_none.0000
+Running Benchmarks
+  Running 600.perlbench_s refspeed (ref) base none [timestamp]
+  Running 602.gcc_s refspeed (ref) base none [timestamp]
+  Running 605.mcf_s refspeed (ref) base none [timestamp]
+  Running 620.omnetpp_s refspeed (ref) base none [timestamp]
+  Running 623.xalancbmk_s refspeed (ref) base none [timestamp]
+  Running 625.x264_s refspeed (ref) base none [timestamp]
+  Running 631.deepsjeng_s refspeed (ref) base none [timestamp]
+  Running 641.leela_s refspeed (ref) base none [timestamp]
+  Running 648.exchange2_s refspeed (ref) base none [timestamp]
+  Running 657.xz_s refspeed (ref) base none [timestamp]
+  Running 998.specrand_is refspeed (ref) base none [timestamp]
+  Running 600.perlbench_s refspeed (ref) peak none [timestamp]
+  Running 602.gcc_s refspeed (ref) peak none [timestamp]
+  Running 605.mcf_s refspeed (ref) peak none [timestamp]
+  Running 620.omnetpp_s refspeed (ref) peak none [timestamp]
+  Running 623.xalancbmk_s refspeed (ref) peak none [timestamp]
+  Running 625.x264_s refspeed (ref) peak none [timestamp]
+  Running 631.deepsjeng_s refspeed (ref) peak none [timestamp]
+  Running 641.leela_s refspeed (ref) peak none [timestamp]
+  Running 648.exchange2_s refspeed (ref) peak none [timestamp]
+  Running 657.xz_s refspeed (ref) peak none [timestamp]
+  Running 998.specrand_is refspeed (ref) peak none [timestamp]

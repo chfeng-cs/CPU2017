@@ -1,0 +1,22 @@
+  Building 500.perlbench_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 502.gcc_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 505.mcf_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 520.omnetpp_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 523.xalancbmk_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 525.x264_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 531.deepsjeng_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 541.leela_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 548.exchange2_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 557.xz_r peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir
+  Building 999.specrand_ir peak none: (build_peak_none.0000) [timestamp]
+/usr/bin/merge_feedback fbdir

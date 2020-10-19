@@ -1,0 +1,5 @@
+specsha256sum:
+../specsum-testdata/test-specsum.in.02: FAILED
+../specsum-testdata/test-specsum.in.02: FAILED
+WARNING: 1 line is improperly formatted
+ERROR: 2 computed checksums did NOT match

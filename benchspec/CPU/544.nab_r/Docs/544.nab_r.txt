@@ -1,0 +1,84 @@
+                                   544.nab_r
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   544.nab_r
+
+  Benchmark Author
+
+   Russ Brown <russ.brown[at] yahoo.com>, et al
+
+  Benchmark Program General Category
+
+   Molecular Modeling
+
+  Benchmark Description
+
+   544.nab_r is based on Nucleic Acid Builder (NAB), which is a molecular
+   modeling application that performs the types of floating point intensive
+   calculations that occur commonly in life science computation. The
+   calculations range from relatively unstructured "molecular dynamics" to
+   relatively structured linear algebra.
+
+  Input Description
+
+   544.nab_r's input consists molecules with varying numbers of atoms.
+
+   To simulate a molecule, two files are required.
+
+   One is a PDB format text file that specifies the atomic (x,y,z)
+   coordinates; most of those were taken from the [1]Brookhaven Protein Data
+   Bank. Information at that site details how those files were created.
+
+   The other is a PRM format text file that specifies, among other
+   characteristics, the "force field" that indicates how the atoms interact
+   with one another. Generating the PRM file involves using the full version
+   of NAB to read the PDB file, add protons to the molecule, and output the
+   PRM file.
+
+   A small NAB program is required that reads the PDB file, adds H atoms if
+   necessary, and outputs new PDB and PRM files. That program, as well as the
+   steps necessary to run it, have been encapsulated in the shell script
+   makeprm.sh in the benchmark Docs directory. The script requires access to
+   a full installation of NAB, as well as working C and Fortran compilers.
+
+  Output Description
+
+   The outputs are summaries of the state of the molecular dynamics
+   simulation every 100 iterations and at the end.
+
+  Programming Language
+
+   ANSI C
+
+  Known portability issues
+
+   None
+
+  Sources and Licensing
+
+   The benchmark is drawn from AmberTools 12, under GPL. SPEC(R) added a
+   BSD-licensed random number generator, and Henry Spencer's regexp.
+
+   Please see details in the document [2]SPEC CPU(R)2017 Licenses.
+
+  References
+
+     * The Case Group at Rutgers: [3]http://casegroup.rutgers.edu
+     * The Brookhaven Protein Data Bank: [4]http://www.rcsb.org
+     * NAB (part of AmberTools): [5]http://ambermd.org/
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. http://www.rcsb.org/
+   2. https://www.spec.org/cpu2017/Docs/licenses.html#bmk544.nab_r
+   3. http://casegroup.rutgers.edu/
+   4. http://www.rcsb.org/
+   5. http://ambermd.org/

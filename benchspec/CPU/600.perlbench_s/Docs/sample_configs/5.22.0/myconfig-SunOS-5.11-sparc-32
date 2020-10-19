@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# This script is designed to provide a handy summary of the configuration
+# information being used to build perl. This is especially useful if you
+# are requesting help from comp.lang.perl.misc on usenet or via mail.
+
+# Note that the text lines /^Summary of/ .. /^\s*$/ are copied into Config.pm.
+cat <<'!NO!SUBS!'
+Summary of my perl5 (revision 5 version 22 subversion 0) configuration:
+   
+  Platform:
+    osname=solaris, osvers=2.11, archname=sun4-solaris
+    uname='sunos t4-4-002 5.11 11.2 sun4v sparc sun4v '
+    config_args='-dOes -Uusedl -Uuse5005threads -Uusethreads -D libswanted=nm -A libswanted=malloc -A libswanted=ld -A libswanted=m -A libswanted=sec -A libswanted=util -A libswanted=c -A libswanted=cposix -A libswanted=posix -A libswanted=bsd -A libswanted=BSD -Dcc=cc -D ccflags=-m32 -A ccflags=-fast'
+    hint=recommended, useposix=true, d_sigaction=define
+    useithreads=undef, usemultiplicity=undef
+    use64bitint=undef, use64bitall=undef, uselongdouble=undef
+    usemymalloc=n, bincompat5005=undef
+  Compiler:
+    cc='cc', ccflags ='-m32 -fast -I/usr/gnu/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DPERL_USE_SAFE_PUTENV',
+    optimize='-O',
+    cppflags='-m32 -fast -I/usr/gnu/include'
+    ccversion='Sun C 5.14 SunOS_sparc Dodona 2015/08/11', gccversion='', gccosandvers=''
+    intsize=4, longsize=4, ptrsize=4, doublesize=8, byteorder=4321, doublekind=4
+    d_longlong=define, longlongsize=8, d_longdbl=define, longdblsize=16, longdblkind=2
+    ivtype='long', ivsize=4, nvtype='double', nvsize=8, Off_t='off_t', lseeksize=8
+    alignbytes=8, prototype=define
+  Linker and Libraries:
+    ld='ld', ldflags =' -L/usr/lib -L/usr/ccs/lib -L/export/home/dodona/build.21/solarisstudiodev/lib/compilers/staticlib -L/export/home/dodona/build.21/solarisstudiodev/lib/compilers/sparc4 -L/export/home/dodona/build.21/solarisstudiodev/lib/compilers -L/lib -L/usr/gnu/lib '
+    libpth=/usr/lib /usr/ccs/lib /export/home/dodona/build.21/solarisstudiodev/lib/compilers/staticlib /export/home/dodona/build.21/solarisstudiodev/lib/compilers/sparc4 /export/home/dodona/build.21/solarisstudiodev/lib/compilers /lib /usr/gnu/lib
+    libs=-lmalloc -lm -lsec -lc
+    perllibs=-lmalloc -lm -lsec -lc
+    libc=/lib/libc.so, so=so, useshrplib=false, libperl=libperl.a
+    gnulibc_version=''
+  Dynamic Linking:
+    dlsrc=dl_none.xs, dlext=none, d_dlsymun=undef, ccdlflags=''
+    cccdlflags='', lddlflags=''
+
+!NO!SUBS!

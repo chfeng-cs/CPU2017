@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <title>Credits - CPU 2017</title>
+      <!-- You'll want a nice wide screen when editing this .......................................................................... -->
+
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+      <style type="text/css">
+
+      </style>
+
+   </head>
+   <body style="width:800px;">
+
+
+      <h1>SPEC CPU&reg;2017 Credits</h1>
+      <table class="version">
+         <tr>
+            <th>$Id: credits.html 6317 2019-07-28 22:50:53Z JohnHenning $</th>
+            <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+         </tr>
+      </table>
+
+      <h2>Background: a Worthy Predecessor</h2>
+      <div class="l1">
+
+         <p>One of the most frequent questions SPEC&reg; has been asked over the past decade has been "When is the next SPEC
+         CPU&reg; suite coming out?" This has not been easy to answer, in part because the SPEC CPU 2006 benchmark suite has
+         been widely used.</p>
+
+         <p>SPEC CPU 2006 improved over its predecessors, and was intended to stand the test of time, as the computing industry
+         continues to innovate.  It has had a long and influential run.</p>
+
+         <p>A lot of work went into SPEC CPU 2006, and it paid off: as of June 2017, there are over 44,000 SPEC CPU 2006
+         results published at 
+         <a href="https://www.spec.org/cpu2006/results/" class="external">www.spec.org/cpu2006/results</a>, for an average of
+         ~338 submissions a month, ~78 a week or ~11 every day.  And this doesn't include information on the runs that were
+         not submitted to SPEC. Quite impressive for a benchmark that can take a bit of time and effort to set up and run.
+         </p>
+
+         <p>Although there is a large established base set of results, the time has come to update things. </p>
+
+      </div>
+
+      <h2>Goals and Challenges for the New Suite</h2>
+      <div class="l1">
+
+         <p>As with the previous SPEC CPU suites, the goal is to establish a suite of source code benchmarks to provide 
+         consistent, comparable measures of CPU-intensive performance.  The task is not simple.</p>
+
+         <p class="snugbot">Challenges include:</p>
+         <ul class="snug">
+            <li>Locating meaningful programs.</li>
+            <li>Porting them to numerous environments.</li>
+            <li>Defining rules to govern how benchmarks are compiled, run and reported.</li>
+            <li>Developing tools to help enforce these rules while still making things easy to use. </li>
+            <li>Defining processes by which decisions can be made. </li>
+         </ul>
+
+         <p>With SPEC CPU 2017, the SPEC CPU subcommittee believes that it has come up with a benchmark suite that builds upon
+         and improves the previous suite, to meet the current and next generations of computing.</p>
+
+         <p class="snugbot">The new suite: </p>
+
+         <ul class="snug">
+            <li> Increases the number of applications and application areas.</li>
+            <li> Uses more complex application source code.</li>
+            <li> Uses more memory for the SPECspeed metrics.</li>
+            <li> Allows parallelization for SPECspeed programs by using OpenMP directives.  </li>
+            <li> Improves the tools for building, running, and reporting.</li>
+            <li> Adds an optional power metric. </li>
+            <li> Clarifies and updates the run rules.</li>
+            <li> Improves the documentation.</li>
+         </ul>
+
+         <p>The SPEC CPU subcommittee hopes that the updates will continue to to be useful for people designing and comparing
+         computing systems. </p>
+
+         <p>As with previous suites, there have been numerous people whose contributions have affected the end results,
+         especially given the long development time. </p>
+
+      </div>
+
+      <h2>Thank you to Program Authors and Contributors</h2>
+      <div class="l1">
+
+         <p>SPEC CPU benchmarks are based primarily on real-world applications (rather than using loop kernels or artificial
+         stress tests).  We therefore -- most of all -- thank the authors of those real-world applications.</p>
+
+         <p>Thank you to contributors via the SPEC CPU Benchmark Search Program, contributors who work for member companies,
+         and to the many authors of open source software.  They are listed in 
+         <a class="external" href="licenses.html#benchmarks">SPEC CPU 2017 Licenses</a> and in the documentation for
+         individual <a class="external" href="index.html#benchmarks">benchmarks</a>.</p>
+
+      </div>
+
+      <h2>Thank you to SPEC</h2>
+      <div class="l1">
+
+         <p>We would also like to thank:</p>
+
+         <ul>
+            <li><p class="snugbot">SPEC management, who provided us with resources, and kept the SPEC CPU Subcommittee on
+               their toes:</p>
+               <ul class="snug">
+                  <li>Walter Bays - President, SPEC</li>
+                  <li>Michael Paton, Alan Adamson, Steve Realmuto - Chairs of the SPEC Open Systems Steering
+                     Committee.</li>
+               </ul>
+            </li>
+            <li><p class="snugbot">The SPEC office, who were the ones who really provided the CPU subcommittee with the
+               resources needed to get things done.</p>
+               <ul class="snug">
+                  <li>Dianne Rice, Kathy Powers, Diana Cercy, Charles McKay, Cathy Sandifer, Jason Glick</li>
+               </ul>
+            </li>
+            <li><p class="snugbot">SPEC supporting contributor managing the editorial cycle for SPEC CPU 2006 result
+               review:</p>
+               <ul class="snug">
+                  <li>Julie Reilly</li>
+               </ul>
+            </li>
+         </ul>
+
+      </div>
+
+      <h2>Thank you to SPEC CPU Subcommittee Contributors</h2>
+      <div class="l1">
+
+         <p>These are the people who spent time finding and porting code, performed testing and analysis, participating in
+         the debate and discourse on the processes, rules and content of the suite. Much appreciation is given for their
+         willingness to spend their talents and time working on SPEC CPU 2017 efforts and day to day SPEC work. Contributions
+         included project leading benchmarks, providing regular resting reports, writing documentation or overseeing some
+         aspect of the process.  A little bit of each of these people can be found in the suite: </p>
+
+         <table style="margin-left:4em;" class="noborder">
+            <tr>
+               <td> 
+                  James Bucek
+                  <br />Michael Carroll
+                  <br />Mathew Colgrove
+                  <br />Diego Esteves
+                  <br />Darryl Gove
+                  <br />John Henning
+               </td>
+               <td style="padding:0em 2em;">
+                  Hidekatsu Imura
+                  <br />Hans J&oslash;raandstad
+                  <br />Willi Kratzer
+                  <br />Subhash Kunnoth
+                  <br />Alan MacKay
+                  <br />Rahul Rahatekar
+               </td>
+               <td>
+                  Jeff Reilly
+                  <br />David Reiner
+                  <br />Van Smith
+                  <br />Cloyce Spradling
+                  <br />Wilfried Stehling
+               </td>
+            </tr>
+         </table>
+
+         <p class="snugbot">Of particular note: </p>
+         <ul class="snugish">
+            <li>Mat Colgrove led the largest number of benchmarks.</li>
+            <li>Michael Carroll led the single largest benchmark.</li> 
+            <li>John Henning is the primary author of the documentation.</li>
+            <li>Cloyce Spradling is the primary author of the SPEC CPU toolset.</li>
+         </ul>
+
+      </div>
+
+      <h2>Thank you for Technical Assistance</h2>
+      <div class="l1">
+
+         <p>Thanks are due to those who provided specific technical assistance, for example helping with analysis, testing,
+         or addressing specific implementation issues:</p>
+
+         <table style="margin-left:4em;" class="noborder">
+            <tr>
+               <td>
+                  Nelson Amaral
+                  <br />Christopher Cambly
+                  <br />Aaron Cragin
+                  <br />Christopher Henning
+                  <br />Jim Himer
+                  <br />Jee Ho
+                  <br />Lizy John
+                  <br />Ajay Joshi 
+               </td>
+               <td style="padding:0em 2em;">
+                  Arthur Kang
+                  <br />Venkatesh KR
+                  <br />Prathiba Kumar
+                  <br />Carol LePage
+                  <br />Manmohan Manoharan
+                  <br />Chris Parrott
+                  <br />Michael Paton
+                  <br />Dave Raddatz
+               </td>
+               <td>
+                  Srini Ramani
+                  <br />David Schmidt
+                  <br />Marcus Shawcroft
+                  <br />Biswa Singh 
+                  <br />Suresh Srinivasan
+                  <br />Raghavendra Swamy
+                  <br />Jaya Yeruva
+                  <br />Linda Zhang
+               </td>
+            </tr>
+         </table>
+
+      </div>
+
+      <h2>In memory of</h2>
+      <div class="l1">
+
+         <p class="snugbot">And in memory of those whose past contributions, support and inspiration remain with us:</p>
+         <ul class="snug">
+            <li> Alan Adamson</li>
+            <li> Kaivalya Dixit</li>
+            <li> Larry Gray</li>
+            <li> Tom Skornia</li>
+         </ul>
+
+
+      </div>
+
+      <h2>Thank You to Those Behind the scenes</h2>
+      <div class="l1">
+
+         <p>Finally, we thank all of the people behind the scenes in the compiler groups, architecture groups, and performance
+         groups who supported their work for SPEC at their respective companies.</p>
+
+      </div>
+      <h2>The Bottom Line</h2>
+
+      <div style="margin-left:15em;"><p> Thank you for contributions on a long road!</p>
+
+         <p class="l1">Cloyce D. Spradling, Release Manager, SPEC CPU 2017
+         <br />John L. Henning, Secretary, SPEC CPU Subcommittee 
+         <br />James Bucek, Vice-Chair, SPEC CPU Subcommittee
+         <br />Jeffrey W. Reilly, Chair, SPEC CPU Subcommittee
+         </p>
+
+         <p>June 2017</p>
+
+      </div>
+
+
+      <p style="border-top:thin solid black;">
+      SPEC CPU&reg;2017 Credits:
+      Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+      <!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+         the table of contents will actually position the desired section at the top of your browser window -->
+         <p style="margin:300px 1em;">&nbsp;</p>
+
+   </body>
+</html>

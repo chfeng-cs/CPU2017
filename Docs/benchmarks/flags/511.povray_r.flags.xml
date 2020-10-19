@@ -1,0 +1,1069 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags in 511.povray_r.
+
+  Copyright 2015-2017 Standard Performance Evaluation Corporation
+
+  $Revision: 5894 $
+  $Date: 2018-04-13 18:53:49 -0400 (Fri, 13 Apr 2018) $
+-->
+<flagsdescription>
+
+<filename>511.povray_r.flags</filename>
+
+<title>511.povray_r Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+]]>
+</header>
+
+<flag name="bench_includes" class="mandatory" regexp="-I(?:\.|frontend|base)(?:\s+|$)">
+  <example>
+ -I.,
+ -Ifrontend,
+ -Ibase
+ </example>
+This flag is included automatically by Spec/object.pm.
+</flag>
+
+<flag name="DALIGN16" class="forbidden">
+Used to set alignment for some data structures. Disabled for everyone.
+</flag>
+
+<flag name="DALLOW_SMOOT_RAD_PREVIEW" class="forbidden">
+Used to set this parameter to 1 for everyone
+</flag>
+
+<flag name="DALTMAIN" class="forbidden">
+Always undefined to enable local output
+</flag>
+
+<flag name="DAccumulatePoolStatistics" class="forbidden">
+Always undefined since we do not wish to use these statistics
+</flag>
+
+<flag name="DBBOX_EXTRA_STATS" class="forbidden">
+Always set to 1 to generate extra statistics
+</flag>
+
+<flag name="DBEGIN_POV_NAMESPACE" class="forbidden">
+Just a macro to set the namespace
+</flag>
+
+<flag name="DBLOB_EXTRA_STATS" class="forbidden">
+Always set to 1 to enable these statistics
+</flag>
+
+<flag name="DBOUND_HUGE" class="forbidden">
+Maximum lengths of a bounding box is set with this to 2.0e10
+</flag>
+
+<flag name="DC99_COMPATIBLE_RADIOSITY" class="portability">
+Select log or ilog functions for INHYP
+</flag>
+
+<flag name="DCALLOC" class="forbidden">
+Used to declare the way your system calls calloc
+</flag>
+
+<flag name="DCDECL" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DCOLC" class="forbidden">
+Always set to float
+</flag>
+
+<flag name="DCOMPILER_VER" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DCONFIG_MATH" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DCOOPERATE" class="forbidden">
+Always set to blank since this is only for multi-threaded versions
+</flag>
+
+<flag name="DCOOPERATE_0" class="forbidden">
+Always set to blank since this is only for multi-threaded versions
+</flag>
+
+<flag name="DCOOPERATE_1" class="forbidden">
+Always set to blank since this is only for multi-threaded versions
+</flag>
+
+<flag name="DCOOPERATE_2" class="forbidden">
+Always set to blank since this is only for multi-threaded versions
+</flag>
+
+<flag name="DCRITICAL_LENGTH" class="forbidden">
+Always set to 1.0e6
+</flag>
+
+<flag name="DDBL" class="forbidden">
+Always set to double to use that data type
+</flag>
+
+<flag name="DDBL_FORMAT_STRING" class="forbidden">
+Always set to %lf to print doubles
+</flag>
+
+<flag name="DDEBUG_DEFAULTCPU" class="forbidden">
+Always set to 0 since this enables debug when set to 1
+</flag>
+
+<flag name="DDEBUG_FLOATFUNCTION" class="forbidden">
+Always set to 0 since this enables debug when set to 1
+</flag>
+
+<flag name="DDEFAULT_ASSUMED_GAMMA" class="forbidden">
+Always set to 1
+</flag>
+
+<flag name="DDEFAULT_DISPLAY_GAMMA" class="forbidden">
+Always set to 2.2
+</flag>
+
+<flag name="DDEFAULT_ITEXTSTREAM_BUFFER_SIZE" class="forbidden">
+Always set to 512
+</flag>
+
+<flag name="DDEFAULT_OUTPUT_FORMAT" class="forbidden">
+Always set to 't'
+</flag>
+
+<flag name="DDELETE_FILE" class="forbidden">
+Always set to unlink
+</flag>
+
+<flag name="DDELETE_FILE_ERR" class="forbidden">
+Always set to -1
+</flag>
+
+<flag name="DDISTRIBUTION_MESSAGE_2" class="forbidden">
+Always set to help string
+</flag>
+
+<flag name="DDONT_SHOW_IMAGE_LIB_VERSIONS" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DDRIVE_SEPARATOR" class="forbidden">
+Set to ':' for some file systems
+</flag>
+
+<flag name="DDUMP_OBJECT_DATA" class="forbidden">
+Always set to 0
+</flag>
+
+<flag name="DDYNAMIC_HASHTABLE" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DEND_POV_NAMESPACE" class="forbidden">
+Convenient macro to delimit povray's namespace
+</flag>
+
+<flag name="DEPSILON" class="forbidden">
+Always set to 1e-10
+</flag>
+
+<flag name="DEXIST_FILE" class="forbidden">
+Always set to POV_BASE_NAMESPACE::File_Exist(name)
+</flag>
+
+<flag name="DEXIST_FONT_FILE" class="forbidden">
+Always set to False
+</flag>
+
+<flag name="DEXIT_POVRAY" class="forbidden">
+Use to define povray's exit function
+</flag>
+
+<flag name="DFILENAME_SEPARATOR" class="forbidden">
+Set to :, / or \
+</flag>
+
+<flag name="DFILE_NAME_LENGTH" class="forbidden">
+Always set to 150
+</flag>
+
+<flag name="DFINISH_POVRAY" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DFREE" class="forbidden">
+Always free
+</flag>
+
+<flag name="DFRONTEND_ADDRESS" class="forbidden">
+Always set to povray_getoutputcontext()
+</flag>
+
+<flag name="DFUDGE_FACTOR1" class="forbidden">
+Always set to 1.0e12
+</flag>
+
+<flag name="DFUDGE_FACTOR2" class="forbidden">
+Always set to -1.0e-5
+</flag>
+
+<flag name="DFUDGE_FACTOR3" class="forbidden">
+Always set to 1.0e-7
+</flag>
+
+<flag name="DGETCOMMANDLINE" class="forbidden">
+Always set to ccommand
+</flag>
+
+<flag name="DGET_KEY" class="forbidden">
+Always not set
+</flag>
+
+<flag name="DGET_KEY_EXISTS" class="forbidden">
+Never defined
+</flag>
+
+<flag name="DGLOBAL_PHOTONS" class="forbidden">
+Never defined
+</flag>
+
+<flag name="DGREY" class="forbidden">
+Always 'G'
+</flag>
+
+<flag name="DHEAP" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DHFIELD_EXTRA_STATS" class="forbidden">
+Always set to 1
+</flag>
+
+<flag name="DHUGE_VAL" class="forbidden">
+Always set to 1.0e+17
+</flag>
+
+<flag name="DIFF_SWITCH_CAST" class="forbidden">
+Always set to (int)
+</flag>
+
+<flag name="DINLINE_NOISE" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DINLINE_PICK_IN_CUBE" class="forbidden">
+Always 0
+</flag>
+
+<flag name="DIStream" class="forbidden">
+Always IStream
+</flag>
+
+<flag name="DLATHE_EXTRA_STATS" class="forbidden">
+Always 1
+</flag>
+
+<flag name="DLOW_COUNT_BRIGHT" class="forbidden">
+Always FALSE
+</flag>
+
+<flag name="DMALLOC" class="forbidden">
+Always malloc
+</flag>
+
+<flag name="DMAX_BUFSIZE" class="forbidden">
+Always set to MAX_INT
+</flag>
+
+<flag name="DMAX_TRACE_LEVEL_LIMIT" class="forbidden">
+Always set to 256
+</flag>
+
+<flag name="DMEDIA_INTERACTION" class="forbidden">
+Always 1
+</flag>
+
+<flag name="DMEM_CLEAR_STRING" class="forbidden">
+Always "CLEA"
+</flag>
+
+<flag name="DMEM_GUARD" class="forbidden">
+Never defined
+</flag>
+
+<flag name="DMEM_GUARD_STRING" class="forbidden">
+Always "GURD"
+</flag>
+
+<flag name="DMEM_HEADER" class="forbidden">
+Always set to nothing
+</flag>
+
+<flag name="DMEM_PREFILL" class="forbidden">
+Always undefined
+</flag>
+
+<flag name="DMEM_PREFILL_STRING" class="forbidden">
+Only "POVR" but not defined
+</flag>
+
+<flag name="DMEM_RECLAIM" class="forbidden">
+Always set to 0 to disable garbage collection
+</flag>
+
+<flag name="DMEM_STATS" class="forbidden">
+Always set to 0 to disable memory stats
+</flag>
+
+<flag name="DMEM_TAG" class="forbidden">
+Always set to 0 to disable memory tagging
+</flag>
+
+<flag name="DMEM_TRACE" class="forbidden">
+Always set to 0 to disable memory tracing
+</flag>
+
+<flag name="DM_PI" class="forbidden">
+Used to define value of PI
+</flag>
+
+<flag name="DM_PI_180" class="forbidden">
+Used to define value of PI/180
+</flag>
+
+<flag name="DM_PI_2" class="forbidden">
+Used to define value of PI/2
+</flag>
+
+<flag name="DM_PI_360" class="forbidden">
+Used to define value of PI/360
+</flag>
+
+<flag name="DNEED_INVHYP" class="portability">
+User uses this to use the inv hyp functions in the source code
+</flag>
+
+<flag name="DNEW_LINE_STRING" class="forbidden">
+Always "\n"
+</flag>
+
+<flag name="DNORMAL" class="forbidden">
+Always '0'
+</flag>
+
+<flag name="DORDERED" class="forbidden">
+Always set to 0
+</flag>
+
+<flag name="DOStream" class="forbidden">
+Macro OStream is defined to OStream
+</flag>
+
+<flag name="DOT_DEBUG" class="forbidden">
+Always set to 0
+</flag>
+
+<flag name="DPOVFPU_Run" class="forbidden">
+Always POVFPU_RunDefault(..)
+</flag>
+
+<flag name="DPOVMSAddress" class="forbidden">
+Always set to void *
+</flag>
+
+<flag name="DPOVMSBool" class="forbidden">
+Always set to int
+</flag>
+
+<flag name="DPOVMSFloat" class="forbidden">
+Always set to float
+</flag>
+
+<flag name="DPOVMSInt" class="forbidden">
+Always set to int
+</flag>
+
+<flag name="DPOVMSLong" class="forbidden">
+Always set to long
+</flag>
+
+<flag name="DPOVMSPixel" class="forbidden">
+Always set to unsigned char[4]
+</flag>
+
+<flag name="DPOVMSStream" class="forbidden">
+Always set to unsigned char
+</flag>
+
+<flag name="DPOVMSType" class="forbidden">
+Always unsigned int
+</flag>
+
+<flag name="DPOVMS_ALLOW_BINARY_MODE" class="forbidden">
+Always defined based on ALTMAIN
+</flag>
+
+<flag name="DPOVMS_ASSERT" class="forbidden">
+Always defined to be POVMS_AssertFunction
+</flag>
+
+<flag name="DPOVMS_ASSERT_OUTPUT" class="forbidden">
+Always standard error print
+</flag>
+
+<flag name="DPOVMS_CDECL" class="forbidden">
+Always set to blank
+</flag>
+
+<flag name="DPOVMS_DISCONNECTED" class="forbidden">
+Never set
+</flag>
+
+<flag name="DPOVMS_EXPORT" class="forbidden">
+Defined to be nothing
+</flag>
+
+<flag name="DPOVMS_EXPORT_STREAM_FUNCTIONS" class="forbidden">
+Only defined to nothing in source by header file inclusion
+</flag>
+
+<flag name="DPOVMS_LOG_OUTPUT" class="forbidden">
+Only defined in source to be nothing
+</flag>
+
+<flag name="DPOVMS_NO_DUMP_SUPPORT" class="forbidden">
+Never defined
+</flag>
+
+<flag name="DPOVMS_NO_ORDERED_STREAM_DATA" class="forbidden">
+Always 1
+</flag>
+
+<flag name="DPOVMS_Sys_AddressToQueue" class="forbidden">
+Always defined in source to default
+</flag>
+
+<flag name="DPOVMS_Sys_Calloc" class="forbidden">
+Always calloc
+</flag>
+
+<flag name="DPOVMS_Sys_Free" class="forbidden">
+Always free
+</flag>
+
+<flag name="DPOVMS_Sys_Malloc" class="forbidden">
+Always malloc
+</flag>
+
+<flag name="DPOVMS_Sys_Memmove" class="forbidden">
+Always memmove
+</flag>
+
+<flag name="DPOVMS_Sys_QueueClose" class="forbidden">
+Always defined in source to default
+</flag>
+
+<flag name="DPOVMS_Sys_QueueOpen" class="forbidden">
+Always defined in source to default
+</flag>
+
+<flag name="DPOVMS_Sys_QueueReceive" class="forbidden">
+Always defined in source to default
+</flag>
+
+<flag name="DPOVMS_Sys_QueueSend" class="forbidden">
+Always defined in source to default
+</flag>
+
+<flag name="DPOVMS_Sys_QueueToAddress" class="forbidden">
+Always defined in source to default
+</flag>
+
+<flag name="DPOVMS_Sys_Queue_Type" class="forbidden">
+Always defined to POVMS_Sys_QueueNode_Default *
+</flag>
+
+<flag name="DPOVMS_Sys_Realloc" class="forbidden">
+Always hardcoded to realloc
+</flag>
+
+<flag name="DPOVMS_Sys_Strlen" class="forbidden">
+Always hardcoded to strlen 
+</flag>
+
+<flag name="DPOVMS_Sys_Timer" class="forbidden">
+Always hardcoded to 0 
+</flag>
+
+<flag name="DPOVRAY_BEGIN_COOPERATE" class="forbidden">
+Always defined to nothing
+</flag>
+
+<flag name="DPOVRAY_COOPERATE_GLOBAL" class="forbidden">
+Not defined
+</flag>
+
+<flag name="DPOVRAY_END_COOPERATE" class="forbidden">
+Always defined to nothing
+</flag>
+
+<flag name="DPOVRAY_PLATFORM_NAME" class="forbidden">
+Always defined to be "SPEC CPU2017"
+</flag>
+
+<flag name="DPOV_ALLOW_FILE_READ" class="forbidden">
+Always defined to be 1
+</flag>
+
+<flag name="DPOV_ALLOW_FILE_WRITE" class="forbidden">
+Always defined to be 1
+</flag>
+
+<flag name="DPOV_ASSIGN_PIXEL" class="forbidden">
+Always defined to nothing
+</flag>
+
+<flag name="DPOV_ASSIGN_PIXEL_UNCLIPPED" class="forbidden">
+Always defined to nothing
+</flag>
+
+<flag name="DPOV_BASE_NAMESPACE" class="forbidden">
+Always defined to pov base for namespace standards
+</flag>
+
+<flag name="DPOV_CALLOC" class="forbidden">
+Always calloc
+</flag>
+
+<flag name="DPOV_CONVERT_TEXT_TO_UCS2" class="forbidden">
+Always null
+</flag>
+
+<flag name="DPOV_DISPLAY_CLOSE" class="forbidden">
+Hardcoded to support function in the source
+</flag>
+
+<flag name="DPOV_DISPLAY_FINISHED" class="forbidden">
+Hardcoded to support function in the source
+</flag>
+
+<flag name="DPOV_DISPLAY_INIT" class="forbidden">
+Hardcoded to support function in the source
+</flag>
+
+<flag name="DPOV_DISPLAY_PLOT" class="forbidden">
+Hardcoded to support function in the source
+</flag>
+
+<flag name="DPOV_DISPLAY_PLOT_BOX" class="forbidden">
+Hardcoded to support function in the source
+</flag>
+
+<flag name="DPOV_DISPLAY_PLOT_RECT" class="forbidden">
+Hardcoded to support function in the source
+</flag>
+
+<flag name="DPOV_DISPLAY_PLOT_ROW" class="forbidden">
+Hardcoded to nothing
+</flag>
+
+<flag name="DPOV_ERROR_MARKER_TEXT" class="forbidden">
+Defined to error string in the source
+</flag>
+
+<flag name="DPOV_FREE" class="forbidden">
+Defined to free
+</flag>
+
+<flag name="DPOV_FRONTEND_NAMESPACE" class="forbidden">
+Defined for std in namespace designation
+</flag>
+
+<flag name="DPOV_GET_FULL_PATH" class="forbidden">
+Defined in source to macro
+</flag>
+
+<flag name="DPOV_IS1" class="forbidden">
+Always empty string
+</flag>
+
+<flag name="DPOV_IS2" class="forbidden">
+Always empty string
+</flag>
+
+<flag name="DPOV_IS3" class="forbidden">
+Always empty string
+</flag>
+
+<flag name="DPOV_IS4" class="forbidden">
+Always empty string
+</flag>
+
+<flag name="DPOV_LONG" class="forbidden">
+Always defined to be a 64-bit integer type
+</flag>
+
+<flag name="DPOV_MALLOC" class="forbidden">
+Defined in source to malloc wrapper
+</flag>
+
+<flag name="DPOV_MAX_CMD_LENGTH" class="forbidden">
+Always 250 in source
+</flag>
+
+<flag name="DPOV_MEMCPY" class="forbidden">
+Always memcpy
+</flag>
+
+<flag name="DPOV_MEMMOVE" class="forbidden">
+Always defined to memmove wrapper
+</flag>
+
+<flag name="DPOV_MEM_INIT" class="forbidden">
+Always mem_init
+</flag>
+
+<flag name="DPOV_MEM_RELEASE_ALL" class="forbidden">
+Always mem_release_all
+</flag>
+
+<flag name="DPOV_NAMESPACE" class="forbidden">
+Set to 8 for filesystems with 8.3 names
+</flag>
+
+<flag name="DPOV_NAME_MAX" class="forbidden">
+Always 8
+</flag>
+
+<flag name="DPOV_NUM_ECHO_LINES" class="forbidden">
+Always set to 8
+</flag>
+
+<flag name="DPOV_POST_PIXEL" class="forbidden">
+Always defined to nothing
+</flag>
+
+<flag name="DPOV_POST_SHUTDOWN" class="forbidden">
+Always defined to nothing
+</flag>
+
+<flag name="DPOV_PRE_PIXEL" class="forbidden">
+Always defiend to nothing
+</flag>
+
+<flag name="DPOV_PRE_RENDER" class="forbidden">
+Always defiend to nothing
+</flag>
+
+<flag name="DPOV_PRE_SHUTDOWN" class="forbidden">
+Always defiend to nothing
+</flag>
+
+<flag name="DPOV_RAY_IS_OFFICIAL" class="forbidden">
+Always defined to 1
+</flag>
+
+<flag name="DPOV_REALLOC" class="forbidden">
+Always defined to realloc wrapper
+</flag>
+
+<flag name="DPOV_SEEK_CUR" class="forbidden">
+Defined to IOBase::seeki_cur
+</flag>
+
+<flag name="DPOV_SEEK_END" class="forbidden">
+Defined to IOBase::seek_end
+</flag>
+
+<flag name="DPOV_SEEK_SET" class="forbidden">
+Defined to IOBase::seek_set
+</flag>
+
+<flag name="DPOV_SHELLOUT" class="forbidden">
+Always defined to pov_shellout wrapper
+</flag>
+
+<flag name="DPOV_SPLIT_PATH" class="forbidden">
+Macro defined to wrapper in source
+</flag>
+
+<flag name="DPOV_STRDUP" class="forbidden">
+Always defined to strdup wrapper
+</flag>
+
+<flag name="DPOV_SYSTEM" class="forbidden">
+Defined to system(..)
+</flag>
+
+<flag name="DPOV_ULONG" class="forbidden">
+Set to unsigned long long
+</flag>
+
+<flag name="DPOV_WHERE_ERROR" class="forbidden">
+Defined to nothing
+</flag>
+
+<flag name="DPOV_WRITE_LINE" class="forbidden">
+Defined to nothing
+</flag>
+
+<flag name="DPRECISION_TIMER_AVAILABLE" class="forbidden">
+Always set to 0 for SPEC_CPU
+</flag>
+
+<flag name="DPRECISION_TIMER_COUNT" class="forbidden">
+Always defined to 0
+</flag>
+
+<flag name="DPRECISION_TIMER_INIT" class="forbidden">
+Defined to nothing
+</flag>
+
+<flag name="DPRECISION_TIMER_START" class="forbidden">
+Defined to ;
+</flag>
+
+<flag name="DPRECISION_TIMER_STOP" class="forbidden">
+Defined to nothing
+</flag>
+
+<flag name="DPRINT_CREDITS" class="forbidden">
+Defined to Print_Credits(..)
+</flag>
+
+<flag name="DPRINT_OTHER_CREDITS" class="forbidden">
+Defined to nothing
+</flag>
+
+<flag name="DPRISM_EXTRA_STATS" class="forbidden">
+Always defined to 1
+</flag>
+
+<flag name="DPRI_QUE" class="forbidden">
+Defined to HEAP in source
+</flag>
+
+<flag name="DQSORT" class="forbidden">
+Defined to qsort(..)
+</flag>
+
+<flag name="DRADSTATS" class="forbidden">
+Not defined
+</flag>
+
+<flag name="DRAD_GRADIENT" class="forbidden">
+Always 1
+</flag>
+
+<flag name="DREAD_SYS_IMAGE" class="forbidden">
+Defined to Read_Targe_Image(..)
+</flag>
+
+<flag name="DREALLOC" class="forbidden">
+Defined to realloc wrapper
+</flag>
+
+<flag name="DREFLECT_FOR_RADIANCE" class="forbidden">
+Always defined to 0
+</flag>
+
+<flag name="DRENAME_FILE" class="forbidden">
+Always defined to rename(..)
+</flag>
+
+<flag name="DRENAME_FILE_ERR" class="forbidden">
+Always defined to -1
+</flag>
+
+<flag name="DSAFE_BUT_SLOW" class="forbidden">
+Not defined
+</flag>
+
+<flag name="DSAFE_METHOD" class="forbidden">
+Always defined to be 1
+</flag>
+
+<flag name="DSAW_METHOD" class="forbidden">
+Always defined to be 1
+</flag>
+
+<flag name="DSCANF_EOF" class="forbidden">
+Always defined to EOF macro
+</flag>
+
+<flag name="DSHOW_SAMPLE_SPOTS" class="forbidden">
+Never defined
+</flag>
+
+<flag name="DSIGMOID_METHOD" class="forbidden">
+Never defined
+</flag>
+
+<flag name="DSNGL" class="forbidden">
+Always set to float
+</flag>
+
+<flag name="DSOR_EXTRA_STATS" class="forbidden">
+Always defined to be 1
+</flag>
+
+<flag name="DSPEC_WINDOWS_ICL" class="portability">
+Definitions for Windows and Intel Compiler
+</flag>
+
+<flag name="DSPEC_WINDOWS_VS" class="portability">
+Definitions for Windows and Visual Studio compiler
+</flag>
+
+<flag name="DSPLIT_TIME" class="forbidden">
+Always defined to POV_Std_Split_Time(..)
+</flag>
+
+<flag name="DSTARTUP_POVRAY" class="forbidden">
+Defined to nothing
+</flag>
+
+<flag name="DSTART_TIME" class="forbidden">
+Always defiend to time(..)
+</flag>
+
+<flag name="DSTOP_TIME" class="forbidden">
+Always defined to time(..)
+</flag>
+
+<flag name="DSUPPORT_INTEGER_INSTRUCTIONS" class="forbidden">
+Always defined to 0
+</flag>
+
+<flag name="DSYS_DEF_EXT" class="forbidden">
+Always defined to ".tga"
+</flag>
+
+<flag name="DSYS_FUNCTIONS" class="forbidden">
+Always defined to 0
+</flag>
+
+<flag name="DSYS_IMAGE_CLASS" class="forbidden">
+Always defined to Targa_Image
+</flag>
+
+<flag name="DSYS_IMAGE_HEADER" class="forbidden">
+Prevents multiple inclusion of header files
+</flag>
+
+<flag name="DSYS_MATH_PARAM" class="forbidden">
+Always set to double
+</flag>
+
+<flag name="DSYS_MATH_RETURN" class="forbidden">
+Always set to double
+</flag>
+
+<flag name="DTARGET_OS_MAC" class="portability">
+Enable MacOS portability changes
+</flag>
+
+<flag name="DTEST_ABORT" class="forbidden">
+Always defined to nothing
+</flag>
+
+<flag name="DTEST_SOLVER" class="forbidden">
+Never defined
+</flag>
+
+<flag name="DTEXTSTREAM_CRLF" class="forbidden">
+Never defined
+</flag>
+
+<flag name="DTIME_ELAPSED" class="forbidden">
+Always defined to difftime(..)
+</flag>
+
+<flag name="DTORUS_EXTRA_STATS" class="forbidden">
+Always defined to 1
+</flag>
+
+<flag name="DTTF_DEBUG" class="forbidden">
+Not defined
+</flag>
+
+<flag name="DTTF_DEBUG2" class="forbidden">
+Not defined
+</flag>
+
+<flag name="DTTF_DEBUG3" class="forbidden">
+Not defined
+</flag>
+
+<flag name="DTWO_M_PI" class="forbidden">
+Always defined as 2*PI
+</flag>
+
+<flag name="DUCS2" class="forbidden">
+Always defined to unsigned short
+</flag>
+
+<flag name="DUCS4" class="forbidden">
+Always defined to unsigned int
+</flag>
+
+<flag name="DUNORDERED" class="forbidden">
+Always defined to 1
+</flag>
+
+<flag name="DUSE_FASTER_NOISE" class="forbidden">
+Always disabled
+</flag>
+
+<flag name="DUSE_LOCAL_POVMS_OUTPUT" class="forbidden">
+Always defined to 1 based on ALTMAIN
+</flag>
+
+<flag name="DUSE_NEW_DIFFICULT_COEFFS" class="forbidden">
+Not defined
+</flag>
+
+<flag name="DUSE_SYSPROTO" class="forbidden">
+Not defined
+</flag>
+
+<flag name="DUSING_POV_NAMESPACE" class="forbidden">
+Defined to be namespace helper macro
+</flag>
+
+<flag name="DWAIT_FOR_KEYPRESS" class="forbidden">
+Defined to nothing
+</flag>
+
+<flag name="D_DEBUG_POVMS_DUMP_MESSAGES_" class="forbidden">
+Not defined
+</flag>
+
+<flag name="D_DEBUG_POVMS_TRACE_MEMORY_" class="forbidden">
+Not defined
+</flag>
+
+<flag name="D__cplusplus" class="forbidden">
+portability changes for CPP
+</flag>
+
+<!-- __STDC_VERSION__ is being ignored; it is supplied by the compilation system -->
+<!-- _SPECQSORTH_ is being ignored; it guards against multiple header inclusion -->
+<!-- ATMOSPH_H is being ignored; it guards against multiple header inclusion -->
+<!-- BBOX_H is being ignored; it guards against multiple header inclusion -->
+<!-- BCYL_H is being ignored; it guards against multiple header inclusion -->
+<!-- BENCHMARK_H is being ignored; it guards against multiple header inclusion -->
+<!-- BEZIER_H is being ignored; it guards against multiple header inclusion -->
+<!-- BLOB_H is being ignored; it guards against multiple header inclusion -->
+<!-- BOXES_H is being ignored; it guards against multiple header inclusion -->
+<!-- BSPHERE_H is being ignored; it guards against multiple header inclusion -->
+<!-- CAMERA_H is being ignored; it guards against multiple header inclusion -->
+<!-- CHI2_H is being ignored; it guards against multiple header inclusion -->
+<!-- COLOUR_H is being ignored; it guards against multiple header inclusion -->
+<!-- COLUTILS_H is being ignored; it guards against multiple header inclusion -->
+<!-- CONES_H is being ignored; it guards against multiple header inclusion -->
+<!-- CONFIGBASE_H is being ignored; it guards against multiple header inclusion -->
+<!-- CONFIGFRONTEND_H is being ignored; it guards against multiple header inclusion -->
+<!-- CONFIG_H is being ignored; it guards against multiple header inclusion -->
+<!-- CSG_H is being ignored; it guards against multiple header inclusion -->
+<!-- DEFAULTMESSAGEOUTPUT_H is being ignored; it guards against multiple header inclusion -->
+<!-- DEFAULTPLATFORMBASE_H is being ignored; it guards against multiple header inclusion -->
+<!-- DISCS_H is being ignored; it guards against multiple header inclusion -->
+<!-- EXPRESS_H is being ignored; it guards against multiple header inclusion -->
+<!-- FILEINPUTOUTPUT_H is being ignored; it guards against multiple header inclusion -->
+<!-- FNCODE_H is being ignored; it guards against multiple header inclusion -->
+<!-- FNINTERN_H is being ignored; it guards against multiple header inclusion -->
+<!-- FNPOVFPU_H is being ignored; it guards against multiple header inclusion -->
+<!-- FNSYNTAX_H is being ignored; it guards against multiple header inclusion -->
+<!-- FPMETRIC_H is being ignored; it guards against multiple header inclusion -->
+<!-- FRACTAL_H is being ignored; it guards against multiple header inclusion -->
+<!-- FRAME_H is being ignored; it guards against multiple header inclusion -->
+<!-- FUNCTION_H is being ignored; it guards against multiple header inclusion -->
+<!-- HCMPLX_H is being ignored; it guards against multiple header inclusion -->
+<!-- HFIELD_H is being ignored; it guards against multiple header inclusion -->
+<!-- HISTOGRA_H is being ignored; it guards against multiple header inclusion -->
+<!-- IFF_H is being ignored; it guards against multiple header inclusion -->
+<!-- IMAGE_H is being ignored; it guards against multiple header inclusion -->
+<!-- INTERIOR_H is being ignored; it guards against multiple header inclusion -->
+<!-- ISOSURF_H is being ignored; it guards against multiple header inclusion -->
+<!-- JULIA_H is being ignored; it guards against multiple header inclusion -->
+<!-- LATHE_H is being ignored; it guards against multiple header inclusion -->
+<!-- LBUFFER_H is being ignored; it guards against multiple header inclusion -->
+<!-- LIGHTGRP_H is being ignored; it guards against multiple header inclusion -->
+<!-- LIGHTING_H is being ignored; it guards against multiple header inclusion -->
+<!-- MATHUTIL_H is being ignored; it guards against multiple header inclusion -->
+<!-- MATRICES_H is being ignored; it guards against multiple header inclusion -->
+<!-- MEDIA_H is being ignored; it guards against multiple header inclusion -->
+<!-- MESH_H is being ignored; it guards against multiple header inclusion -->
+<!-- NORMAL_H is being ignored; it guards against multiple header inclusion -->
+<!-- OBJECTS_H is being ignored; it guards against multiple header inclusion -->
+<!-- OCTREE_H is being ignored; it guards against multiple header inclusion -->
+<!-- OPTOUT_H is being ignored; it guards against multiple header inclusion -->
+<!-- PARSESTR_H is being ignored; it guards against multiple header inclusion -->
+<!-- PARSE_H is being ignored; it guards against multiple header inclusion -->
+<!-- PARSTXTR_H is being ignored; it guards against multiple header inclusion -->
+<!-- PATTERN_H is being ignored; it guards against multiple header inclusion -->
+<!-- PGM_H is being ignored; it guards against multiple header inclusion -->
+<!-- PHOTONS_H is being ignored; it guards against multiple header inclusion -->
+<!-- PIGMENT_H is being ignored; it guards against multiple header inclusion -->
+<!-- PLANES_H is being ignored; it guards against multiple header inclusion -->
+<!-- PLATFORMBASE_H is being ignored; it guards against multiple header inclusion -->
+<!-- POINTER_H is being ignored; it guards against multiple header inclusion -->
+<!-- POINT_H is being ignored; it guards against multiple header inclusion -->
+<!-- POLYGON_H is being ignored; it guards against multiple header inclusion -->
+<!-- POLYSOLV_H is being ignored; it guards against multiple header inclusion -->
+<!-- POLY_H is being ignored; it guards against multiple header inclusion -->
+<!-- POVMSCPP_H is being ignored; it guards against multiple header inclusion -->
+<!-- POVMSGID_H is being ignored; it guards against multiple header inclusion -->
+<!-- POVMSRECEIVE_H is being ignored; it guards against multiple header inclusion -->
+<!-- POVMSSEND_H is being ignored; it guards against multiple header inclusion -->
+<!-- POVMS_H is being ignored; it guards against multiple header inclusion -->
+<!-- POVRAY_H is being ignored; it guards against multiple header inclusion -->
+<!-- POV_ERR_H is being ignored; it guards against multiple header inclusion -->
+<!-- POV_MEM_H is being ignored; it guards against multiple header inclusion -->
+<!-- POV_UTIL_H is being ignored; it guards against multiple header inclusion -->
+<!-- PPM_H is being ignored; it guards against multiple header inclusion -->
+<!-- PRISM_H is being ignored; it guards against multiple header inclusion -->
+<!-- PROCESSOPTIONS_H is being ignored; it guards against multiple header inclusion -->
+<!-- PROCESSRENDEROPTIONS_H is being ignored; it guards against multiple header inclusion -->
+<!-- QUADRICS_H is being ignored; it guards against multiple header inclusion -->
+<!-- RADIOSIT_H is being ignored; it guards against multiple header inclusion -->
+<!-- RAY_H is being ignored; it guards against multiple header inclusion -->
+<!-- RENDCTRL_H is being ignored; it guards against multiple header inclusion -->
+<!-- RENDERFRONTEND_H is being ignored; it guards against multiple header inclusion -->
+<!-- RENDERIO_H is being ignored; it guards against multiple header inclusion -->
+<!-- RENDER_H is being ignored; it guards against multiple header inclusion -->
+<!-- RESWORDS_H is being ignored; it guards against multiple header inclusion -->
+<!-- SKIP_COMPLEX_OPTOUT_H is being ignored; it guards against multiple header inclusion -->
+<!-- SOR_H is being ignored; it guards against multiple header inclusion -->
+<!-- SPHERES_H is being ignored; it guards against multiple header inclusion -->
+<!-- SPHERE_SWEEP_H is being ignored; it guards against multiple header inclusion -->
+<!-- SPLINE_H is being ignored; it guards against multiple header inclusion -->
+<!-- STANDARDMESSAGEOUTPUT_H is being ignored; it guards against multiple header inclusion -->
+<!-- STATSPOV_H is being ignored; it guards against multiple header inclusion -->
+<!-- STRINGUTILITIES_H is being ignored; it guards against multiple header inclusion -->
+<!-- SUPER_H is being ignored; it guards against multiple header inclusion -->
+<!-- TARGA_H is being ignored; it guards against multiple header inclusion -->
+<!-- TEXTSTREAMBUFFER_H is being ignored; it guards against multiple header inclusion -->
+<!-- TEXTSTREAM_H is being ignored; it guards against multiple header inclusion -->
+<!-- TEXTURE_H is being ignored; it guards against multiple header inclusion -->
+<!-- TOKENIZE_H is being ignored; it guards against multiple header inclusion -->
+<!-- TORUS_H is being ignored; it guards against multiple header inclusion -->
+<!-- TRIANGLE_H is being ignored; it guards against multiple header inclusion -->
+<!-- TRUETYPE_H is being ignored; it guards against multiple header inclusion -->
+<!-- TXTTEST_H is being ignored; it guards against multiple header inclusion -->
+<!-- USERDISP_H is being ignored; it guards against multiple header inclusion -->
+<!-- USERIO_H is being ignored; it guards against multiple header inclusion -->
+<!-- VBUFFER_H is being ignored; it guards against multiple header inclusion -->
+<!-- VECTOR_H is being ignored; it guards against multiple header inclusion -->
+<!-- VLBUFFER_H is being ignored; it guards against multiple header inclusion -->
+<!-- WARP_H is being ignored; it guards against multiple header inclusion -->
+</flagsdescription>

@@ -1,0 +1,55 @@
+{
+   "abstract" : "Perl extension for generating Scalable Vector Graphics (SVG) documents",
+   "author" : [
+      "Ronan Oger <ronan@cpan.com>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "ExtUtils::MakeMaker version 7.04, CPAN::Meta::Converter version 2.150001",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "SVG",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Scalar::Util" : "0",
+            "parent" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "repository" : {
+         "url" : "https://github.com/szabgab/SVG"
+      }
+   },
+   "version" : "2.64",
+   "x_contributors" : [
+      "Peter Wainwright",
+      "Ian Hickson",
+      "Adam Schneider",
+      "Steve Lihn",
+      "Allen Day",
+      "Gabor Szabo"
+   ]
+}

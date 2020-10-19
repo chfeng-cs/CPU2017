@@ -1,0 +1,1087 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags in 527.cam4_r.
+
+  Copyright 2015-2017 Standard Performance Evaluation Corporation
+
+  $Revision: 5894 $
+  $Date: 2018-04-13 18:53:49 -0400 (Fri, 13 Apr 2018) $
+-->
+<flagsdescription>
+
+<filename>527.cam4_r.flags</filename>
+
+<title>527.cam4_r Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+]]>
+</header>
+
+<flag name="bench_includes" class="mandatory" regexp="-I(?:\.|netcdf/include|include)(?:\s+|$)">
+<example>-I., -Iinclude, -Inetcdf/include</example>
+This flag is included automatically by Spec/object.pm.
+</flag>
+
+<flag name="DPLAT" class="mandatory">
+Number of latitudes.
+</flag>
+
+<flag name="DPLON" class="mandatory">
+Number of longitudes.
+</flag>
+
+<flag name="DPLEV" class="mandatory">
+Number of vertical levels.
+</flag>
+
+<flag name="DPCNST" class="mandatory">
+Number of advected constituents (including water vapor).
+</flag>
+
+<flag name="DPCOLS" class="mandatory">
+Number of columns.
+</flag>
+
+<flag name="DPTRM" class="mandatory">
+M truncation parameter.
+</flag>
+
+<flag name="DPTRN" class="mandatory">
+N truncation parameter
+</flag>
+
+<flag name="DPTRK" class="mandatory">
+K truncation parameter
+</flag>
+
+<flag name="F-D_NETCDF" class="mandatory">
+This flag indicates that NetCDF is being used for I/O.
+</flag>
+
+<flag name="F-D_MPISERIAL" class="mandatory">
+This flag indicates that the benchmark is built without support for MPI.
+</flag>
+
+<flag name="DAIX" class="forbidden">
+AIX platform flag.  Use SPEC_AIX.
+</flag>
+
+<flag name="DALLOCA_ARG_T" class="portability">
+This macro defines the type of argument that the alloca() function takes.  It
+defaults to 'int'.
+</flag>
+
+<flag name="DALWAYS_NC_SHARE" class="forbidden">
+This flag causes NetCDF to attempt to set NC_SHARE on files it opens.  It is
+used for debugging, and changing its value from the default is forbidden.
+</flag>
+
+<flag name="DANSI_C_preprocessor" class="forbidden">
+This flag is used by cfortran.h to determine whether it can use preprocessor
+features defined by the ANSI C standard.
+Changing its default value is forbidden.
+</flag>
+
+<flag name="DAbsoftProFortran" class="forbidden">
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft Pro Fortran compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</flag>
+
+<flag name="DAbsoftUNIXFortran" class="forbidden">
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft UNIX F77 compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</flag>
+
+<flag name="DBFB_CAM_SCAM_IOP" class="forbidden">
+Enable SCAM I/O timing.
+</flag>
+
+<flag name="DBGL" class="forbidden">
+Add Blue Gene L data structures for MPI.
+</flag>
+
+<flag name="DBGP" class="forbidden">
+Add Blue Gene P data structures for MPI.
+</flag>
+
+<flag name="DBGx" class="forbidden">
+Use Blue Gene MPI data structures.
+</flag>
+
+<flag name="DBGxisbroken" class="forbidden">
+Add debugging infor for Blue Gene MPI.
+</flag>
+
+<flag name="DBIT64" class="forbidden">
+Used in gptl.c in nanosecond routine which is disabled for SPEC.
+</flag>
+
+<flag name="DCAF" class="forbidden">
+Enable Co-Array Fortran.
+</flag>
+
+<flag name="DCAM_MODE" class="forbidden">
+If CAM_MODE is defined, the user may use FVstartclock/FVstopclock exactly like the CAM utilities t_startf and t_stopf.
+</flag>
+
+<flag name="DCDF_ROUTINE_NAME" class="forbidden">
+This flag causes the variable cdf_routine_name to be set to the current
+function name in the NetCDF-2 bindings.  This flag may not be used for
+CPU2017.
+</flag>
+
+<flag name="DCFSUBASFUN" class="forbidden">
+This flag causes cfortran.h to replace subroutines with function calls.  It
+may not be used for 521.wrf_r.
+</flag>
+
+<flag name="DCHECKS" class="forbidden">
+Add interal debugging checks.
+</flag>
+
+<flag name="DCO2A" class="mandatory">
+Use the C02A model.
+</flag>
+
+<flag name="DCO2B" class="forbidden">
+Use the C02B model.
+</flag>
+
+<flag name="DCO2C" class="forbidden">
+Use the C02C model.
+</flag>
+
+<flag name="DCO2_DMSA" class="forbidden">
+Use the C02_DMSA model.
+</flag>
+
+<flag name="DCOMMENT" class="forbidden">
+Add C-style comments in the shr_isnan.h header file.  
+</flag>
+
+<flag name="DCOMMON_BLOCK" class="forbidden">
+This macro defines a method to refer to Fortran common blocks from C functions.
+Its default value may not be changed.
+</flag>
+
+<flag name="DCOUP_DOM" class="forbidden">
+Add CAM DOM History fields.
+</flag>
+
+<flag name="DCOUP_SOM" class="forbidden">
+Add COM Component.  Can't be used with aquaplanet.
+</flag>
+
+<flag name="DCPP_VECTOR" class="forbidden">
+Enable the use of a Vector directive.
+</flag>
+
+<!--flag name="DCPRSPEC_CRAY" class="untouched">
+Ignore.  Unreachable in SPEC version.
+</flag-->
+
+<flag name="DCPRXLF" class="forbidden">
+Defines the Xlf compiler.  Use SPEC_AIX. 
+</flag>
+
+<flag name="DCRAYFLOAT" class="forbidden">
+This macro indicates that CRAY floating point (real*16) should be used.  This
+may not be set for CPU2017.
+</flag>
+
+<flag name="DCTEM_DIAGS" class="forbidden">
+Enable intermediate output in the ctemp.F90 file.
+</flag>
+
+<flag name="DDEBUG" class="forbidden"  regexp="[-/]D(?:O|C)?DEBUG\S*(?=\s|$)">
+Enable debugging information
+</flag>
+
+<flag name="DDIAGNS" class="forbidden">
+Enable diagnostics.
+</flag>
+
+<flag name="dll_stuff" class="forbidden" regexp="[-/]DDLL_(?:EXPORT|NETCDF)\b">
+<example>
+-DDLL_EXPORT,
+-DDLL_NETCDF
+</example>
+These macros are used when building parts of the WRF library as a DLL.  They
+are not used for CPU2017 and may not be set.
+</flag>
+
+<flag name="DDM_PARALLEL" class="forbidden">
+Use write to unit 0 instead of print in a MPI context when using wrf_messages.
+</flag>
+
+<flag name="DDOUBLE_PRECISION" class="forbidden">
+This macro contains the name of the C type which can hold a double precision
+Fortran number.  Its default value may not be changed.
+</flag>
+
+<!--flag name="DDSIZE" class="untouched">
+Implicilty set.  Ignore.
+</flag-->
+
+<flag name="DENABLE_UNIX_ABORT" class="forbidden">
+Call abort directly instead of MP_abort.
+</flag>
+
+<flag name="DESMF_DEFINES" class="forbidden">
+Guard against double defines for ESMF.  Defined in the program. 
+</flag>
+
+<flag name="DESMF_INTERFACE" class="forbidden">
+Add ESMF routine interfaces.
+</flag>
+
+<flag name="DFCALLSC_QUALIFIER" class="forbidden">
+This macro holds the qualifier (if any) needed for C functions called from
+Fortran.  The default value may not be changed.
+</flag>
+
+<flag name="DFILTER_MASS_FLUXES" class="forbidden">
+Add mass flux filtering.
+</flag>
+
+<flag name="old_sun_stuff" class="forbidden" regexp="[-/]D(?:FLOATFUNCTIONTYPE|ASSIGNFLOAT|RETURNFLOAT)(?:=\S*)?\b">
+<example>
+-DFLOATFUNCTIONTYPE=XXX,
+-DASSIGNFLOAT=XXX,
+-DRETURNFLOAT=XXX
+</example>
+This flag (if necessary) is defined by the compilation system.
+Changing its default value is forbidden.
+</flag>
+
+
+<flag name="DFORTRAN_REAL" class="forbidden">
+This macro contains the name of the C type which can hold a Fortran REAL
+number.  Its default value may not be changed.
+</flag>
+
+<flag name="DGCC_VERSION" class="forbidden">
+Internal macro used to determine the GNU version being used and if it supports the 'isnan' intrinsic.
+</flag>
+
+<flag name="DGEOS_MODE" class="forbidden">
+Use GEOS Mode.
+</flag>
+
+<flag name="DGLC_NEC_1" class="forbidden">
+Add additional g2x sequence states.
+</flag>
+
+<flag name="DGLC_NEC_10" class="forbidden">
+Add additional g2x sequence states.
+</flag>
+
+<flag name="DGLC_NEC_3" class="forbidden">
+Add additional g2x sequence states.
+</flag>
+
+<flag name="DGLC_NEC_5" class="forbidden">
+Add additional g2x sequence states.
+</flag>
+
+<flag name="DGPTL_H" class="forbidden">
+Guard against double defines for GPTL header file.  Defined in the program. 
+</flag>
+
+<flag name="DHANDLE_INFO" class="forbidden">
+Print handle information.
+</flag>
+
+<flag name="DHAVE_ALLOCA" class="forbidden">
+This macro indicates that alloca is available as a macro or function.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA.
+</flag>
+
+<flag name="DHAVE_ALLOCA_H" class="forbidden">
+This macro indicates that the alloca.h header file is available.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA_H.
+</flag>
+
+<flag name="DHAVE_C99_INLINE" class="forbidden">
+Define if C99 inline support is available.  The inline keyword is only used with timing routines disabled in the SPEC version of CAM4.
+</flag>
+
+<flag name="DHAVE_COMM_F2C" class="forbidden">
+Enable the use of MPI_comm_f2c.
+</flag>
+
+<flag name="DHAVE_GETPAGESIZE" class="forbidden">
+If defined, use the getpagesize system routine.
+</flag>
+
+<flag name="DHAVE_GETTIMEOFDAY" class="forbidden">
+Define that the gettimeofday system routine is available.
+</flag>
+
+<flag name="DHAVE_LIBRT" class="forbidden">
+Define if the RT library is available.
+</flag>
+
+<flag name="DHAVE_MPI" class="forbidden">
+Define if building CAM with MPI support.
+</flag>
+
+<flag name="DHAVE_NANOTIME" class="forbidden">
+Define if the nanotime system routine is available.
+</flag>
+
+<flag name="DHAVE_PAPI" class="forbidden">
+Define if the system has PAPI support.
+</flag>
+
+<flag name="DHAVE_SLASHPROC" class="forbidden">
+Determine size in bytes of memory usage info presented by the OS. Method: allocate a
+known amount of memory and see how much bigger the process becomes.
+</flag>
+
+<flag name="DHAVE_ST_BLKSIZE" class="forbidden">
+This macro indicates that "struct stat" has a member named "st_blksize".
+It is set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ST_BLKSIZE.
+</flag>
+
+<flag name="DHAVE_TIMES" class="forbidden">
+Define to enable CPU statistic information.
+</flag>
+
+<flag name="DHEAVYNEW" class="mandatory">
+Use a faster code version when calculating pwaut.
+</flag>
+
+<flag name="DHIDE_MPI" class="mandatory">
+Disable MPI from the ESMF routines.
+</flag>
+
+<flag name="DINFO" class="forbidden">
+Print intermediary information.
+</flag>
+
+<flag name="DINNER_OMP" class="mandatory">
+Enable OpenMP routines in cd_core.F90 and sw_core.F90. 
+??? May need this one on in ocam4 ???
+</flag>
+
+<flag name="netcdf_debug" class="forbidden" regexp="[-/]D(?:LN_TEST|INSTRUMENT)\b">
+<example>
+-DLN_TEST,
+-DINSTRUMENT,
+</example>
+These flags enable some NetCDF debugging output.  They may not be used for
+CPU2017.
+</flag>
+
+<flag name="DIRIX64" class="forbidden">
+System specific information for IRIX64.  Use SPEC_IRIX64.
+</flag>
+
+<flag name="DLIBSCI_FFT" class="forbidden">
+Use FFT routines from the SCI library. 
+</flag>
+
+<flag name="DLINUX" class="forbidden">
+System portability flag.  Use SPEC_LINUX.
+</flag>
+
+<flag name="DLISTMAIN" class="forbidden">
+Add a main routine to list.c for debugging purposes.
+</flag>
+
+<flag name="DLOCKNUMREC" class="forbidden">
+This flag enables locking for NC.numrecs.  It may not be used for CPU2017.
+</flag>
+
+<flag name="DMAKE_PROGRAM" class="forbidden">
+Creates a test program for testing function nc_inq_libvers().  This may not
+be used for CPU2017.
+</flag>
+
+<flag name="DMALL_ON" class="forbidden">
+Enable the mall routines.
+</flag>
+
+<!--flag name="DMAX" class="untouched">
+Implicitly defined.  Ignore.
+</flag-->
+
+<flag name="DMCT_INTERFACE" class="forbidden">
+Use the MCT Interface.  
+</flag>
+
+<flag name="DMEMCHK" class="forbidden">
+Add memory debugging information.
+</flag>
+
+<!--flag name="DMIN" class="untouched">
+Implicitly defined.  Ignore.
+</flag-->
+
+<flag name="DMODAL_AERO" class="forbidden">
+Use the Aero Model.
+</flag>
+
+<flag name="DMODAL_AERO_3MODE" class="forbidden">
+Use the Aero Model with mode 3.
+</flag>
+
+<flag name="DMODAL_AERO_7MODE" class="forbidden">
+Use the Aero Model with mode 7.
+</flag>
+
+<flag name="DMODCM_DP_TRANSPOSE" class="forbidden">
+Use the CM for dynamics/physics transpose method for nonlocal load-balance.
+</flag>
+
+<flag name="DMODCM_TIMING" class="forbidden">
+Enable CAM timing routines.
+</flag>
+
+<!--flag name="DMODHS" class="untouched">
+Impliclty defined. Ignore.
+</flag-->
+
+<!--flag name="DMOD_ASSUMED_SIZE" class="forbidden">
+Implicilty set.  Ignore.
+</flag-->
+
+<flag name="DMOD_SPECIFIED_SHAPE" class="forbidden">
+Communicate a number of contiguous parcels to/from arbitrary set of PEs.
+</flag>
+
+<flag name="DMPI2" class="forbidden">
+Define if MPI2 support is available.
+</flag>
+
+<flag name="DMPICH_" class="forbidden">
+Define is MPICH is being used.
+</flag>
+
+<flag name="DMSIS_DIAGS" class="forbidden">
+Display diagnositic messages.
+</flag>
+
+<flag name="DMY_ALLTOALL" class="forbidden">
+Use a local version for all-to-all MPI communication if MPI_ALLTOALL is not available.
+</flag>
+
+<flag name="DNAMING" class="forbidden">
+Sets the Fortran to C symbol nameing.  Use SPEC_UPPER_CASE, SPEC_NO_UNDERSCORE, SPEC_DOUBLE_UNDERSCORE instead.
+</flag>
+
+<flag name="DNAVY10" class="forbidden">
+Define if using US NAVY 10-min terrain data.
+</flag>
+
+<flag name="DNC_ARRAY_GROWBY" class="forbidden">
+This macro holds the size (in elements) that arrays in NetCDF should be grown
+at one time.  Its default value may not be changed.
+</flag>
+
+<flag name="nc_retcodes" class="forbidden" regexp="[-/]DNC_(?:ENOMEM|ERANGE)(?:=\S*)?\b">
+<example>
+-DNC_ENOMEM=XXX,
+-DNC_ERANGE=XXX
+</example>
+These macros contain the values of return codes used internally by NetCDF.
+Their default values may not be changed.
+</flag>
+
+<!--flag name="DNEW_BUDGET" class="untouched">
+Implicitly set.  Ignore.
+</flag-->
+
+<flag name="netcdf_type_flags" class="forbidden" regexp="[-/]DNF_(?:NF_DOUBLEPRECISION_IS_C_FLOAT|NF_INT1_IS_C_SIGNED_CHAR|NF_INT2_IS_C_SHORT|NF_INT_IS_C_INT|NF_REAL_IS_C_DOUBLE|NF_REAL_IS_C_FLOAT)(?:=\S*)\b">
+<example>
+-DNF_DOUBLEPRECISION_IS_C_FLOAT=XXX,
+-DNF_INT1_IS_C_SIGNED_CHAR=XXX,
+-DNF_INT2_IS_C_SHORT=XXX,
+-DNF_INT_IS_C_INT=XXX,
+-DNF_REAL_IS_C_DOUBLE=XXX,
+-DNF_REAL_IS_C_FLOAT=XXX
+</example>
+These macros are used by NetCDF to determine which native C types fit which
+native Fortran types.  Their default values may not be changed directly.
+</flag>
+
+<!--flag name="DNOR4" class="untouched">
+Implicilty set. Ignore.
+</flag-->
+
+<flag name="DNO_GETTIMEOFDAY" class="mandatory">
+Disables the use of the gettimeofday system routine.
+</flag>
+
+<flag name="DNO_IEEE_FLOAT" class="forbidden">
+This macro should be set if the system does not use IEEE floating point
+representation.  It may not be set for CPU2017.
+</flag>
+
+<flag name="DNO_LEAP_CALENDAR" class="forbidden">
+When defined, Feburary is set to 28 days, and not adjusted for leap years.
+</flag>
+
+<flag name="DNO_MPI2" class="mandatory">
+This flag indicates that the benchmark is built without support for MPI.
+</flag>
+
+<flag name="DNO_NETCDF_2" class="forbidden">
+This flag turns off backward compatibility definitions in NetCDF.  Its
+default value may not be changed.
+</flag>
+
+<flag name="DNO_R16" class="mandatory">
+Use if not using quad precision floating point data types.
+</flag>
+
+<flag name="DNO_SHR_VMATH" class="mandatory">
+Disable the use of platform specific vector math routines.
+</flag>
+
+<flag name="DNO_STRERROR" class="forbidden">
+This macro indicates that the strerror function is not available.  Its
+default value may not be changed.
+</flag>
+
+<flag name="DOFFLINE_DYN" class="forbidden">
+Enable offline diagnostic field information.
+</flag>
+
+<flag name="DPAREXCH" class="forbidden">
+Activate Pilgrim calls.  Used for debugging geopk.F90.
+</flag>
+
+<flag name="DPERGRO" class="mandatory">
+Use pergro model.
+</flag>
+
+<flag name="DPIO_GPFS_HINTS" class="forbidden">
+Set PIO hints.
+</flag>
+
+<flag name="DPIO_LUSTRE_HINTS" class="forbidden">
+Set PIO hints for lustre.
+</flag>
+
+<flag name="DRTTOV" class="forbidden">
+Use output from RTTOV.  Not use in SPEC workload.
+</flag>
+
+<flag name="DSCYC_MASSBGT" class="forbidden">
+?? Need to get a description
+</flag>
+
+<flag name="DSGI_FFT" class="forbidden">
+Use FFT routines from the SGI system libraries.
+</flag>
+
+<!--flag name="DSORT" class="untouched">
+Impliclty defined.  Ignore.
+</flag-->
+
+<flag name="DSPEC_AIX" class="portability">
+Platform settings for AIX.
+</flag>
+
+<flag name="DSPEC_AIX_OLD" class="portability">
+Platform settings for older AIX version.
+</flag>
+
+<flag name="DSPEC_CASE_FLAG" class="portability">
+Fortran to C symbol naming.  C symbol names are lower case with one underscore.
+_symbol
+</flag>
+
+<flag name="DSPEC_CATAMOUNT" class="portability">
+Platform settings for Catamount.
+</flag>
+
+<flag name="DSPEC_CRAY" class="portability">
+Platform settings for Cray.
+</flag>
+
+<flag name="DSPEC_DOUBLE_UNDERSCORE" class="portability">
+Fortran to C symbol naming.  C symbol names are lower case with two appended underscores.
+symbol##__
+</flag>
+
+<flag name="DSPEC_HPUX" class="portability">
+Platform settings for HPUX.
+</flag>
+
+<flag name="DSPEC_HPUX_IA64" class="portability">
+Platform settings for HPUX on Itanium.
+</flag>
+
+<flag name="DSPEC_IBMXL" class="portability">
+Platform settings for the IBM XL compiler. 
+</flag>
+
+<flag name="DSPEC_IRIX" class="portability">
+Platform settings for IRIX.
+</flag>
+
+<flag name="DSPEC_IRIX64" class="portability">
+Platform settings for IRIX64.
+</flag>
+
+<flag name="DSPEC_LINUX" class="portability">
+Platform settings for Linux.
+</flag>
+
+<flag name="DSPEC_LINUX64_IPF" class="portability">
+Platform settings for Linux IPF.
+</flag>
+
+<flag name="DSPEC_LINUX_PPC" class="portability">
+Platform settings for Linux PPC.
+</flag>
+
+<flag name="DSPEC_LINUX_SPARC" class="portability">
+Platform settings for Linux on SPARC.
+</flag>
+
+<flag name="logical_strict" class="portability" regexp="[-/]D(?:SPEC_)?LOGICAL_STRICT\b">
+<example>
+-DLOGICAL_STRICT,
+-DSPEC_LOGICAL_STRICT
+</example>
+LOGICAL_STRICT is a NetCDF macro that should be defined for Fortran compilers
+that treat .eqv./.neqv. as .eq./.ne..
+</flag>
+
+
+<flag name="DSPEC_MACOSX" class="portability">
+Platform settings for Mac OSX
+</flag>
+
+<flag name="DSPEC_MACOSX_BE" class="portability">
+Platform settings for Mac OSX on a big-endian architecture.
+</flag>
+
+<flag name="DSPEC_NAG" class="portability">
+Use NAG's F90_UNIX_IO module for the flush routine.
+</flag>
+
+<flag name="DSPEC_NEC_SX" class="portability">
+System settings from NEC_SX.
+</flag>
+
+<flag name="DSPEC_NEED_IO_H" class="portability">
+Define if "io.h" needs to be included.  
+</flag>
+
+<flag name="DSPEC_NOI8" class="portability">
+Define when shr_kind_i8 is not supported.
+</flag>
+
+<flag name="DSPEC_NO_FILE_OFFSET_BITS" class="portability">
+Don't impliclty define "_FILE_OFFSET_BITS=64".
+</flag>
+
+<flag name="DSPEC_NO_HAVE_ALLOCA" class="portability">
+Don't use alloca.
+</flag>
+
+<flag name="DSPEC_NO_HAVE_ALLOCA_H" class="portability">
+Don't include "alloca.h".
+</flag>
+
+<flag name="DSPEC_NO_HAVE_FTRUNCATE" class="portability">
+Don't use ftruncate.
+</flag>
+
+<flag name="DSPEC_NO_MALLOC_H" class="portability">
+Define if your compilation system doesn't provide malloc.h, or if the system
+version doesn't work with your compiler.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_AIX" class="portability">
+If SPEC_AIX is set, but the ncconfig_aix header file should not be used.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_GENERIC" class="portability">
+Do not use the generic ncconfig header file.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_IRIX" class="portability">
+If SPEC_AIX is set, but the ncconfig_aix header file should not be used.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_LINUX" class="portability">
+If SPEC_LINUX is set, but the ncconfig_linux header file should not be used.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_MACOSX" class="portability">
+If SPEC_MACOSX is set, but the ncconfig_macosx header file should not be used.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_SOLARIS" class="portability">
+If SPEC_SOLARIS is set, but the ncconfig_solaris header file should not be used.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_WINDOWS" class="portability">
+If SPEC_WINDOWS is set, but the ncconfig_windows header file should not be used.
+</flag>
+
+<flag name="DSPEC_NO_SIZEOF" class="portability">
+Define if Fortran compiler does not have a sizeof routine available.
+</flag>
+
+<flag name="DSPEC_NO_SPEC_CRAY_POINTERS" class="portability">
+Set if the Fortran compiler does not support the Cray pointer's extension.
+</flag>
+
+<flag name="DSPEC_NO_STDC_HEADERS" class="portability">
+Defined if the standard C headers are not available.
+</flag>
+
+<flag name="DSPEC_NO_ST_BLKSIZE" class="portability">
+Set if ST_BLKSIZE is not available.
+</flag>
+
+<flag name="DSPEC_NO_UNDERSCORE" class="portability">
+Fortran to C symbol naming.  C symbol names are lower case without underscores.
+symbol
+</flag>
+
+<flag name="DSPEC_NO_VPRINTF" class="portability">
+Define if the vprintf routine is not available in C.
+</flag>
+
+<flag name="DSPEC_OSF1" class="portability">
+Platform settings from OSF1.
+</flag>
+
+<flag name="DSPEC_SEQUENCE" class="portability">
+Add the Fortran sequence attribute to user defined data types.
+</flag>
+
+<flag name="DSPEC_SOLARIS" class="portability">
+Platfrom settings for Solaris.
+</flag>
+
+<flag name="DSPEC_SOLARIS_X86" class="portability">
+Platform setting flag for Solaris on an x86 architecture.
+</flag>
+
+<flag name="DSPEC_UCHAR_DEFINED" class="portability">
+Define "uchar" as "unsigned char".
+</flag>
+
+<flag name="DSPEC_UNICOS" class="portability">
+Platform settings for UNICOS.
+</flag>
+
+<flag name="DSPEC_UPPER_CASE" class="portability">
+Fortran to C symbol naming.  C symbol names are upper case without underscores.
+SYMBOL
+</flag>
+
+<flag name="DSPEC_WINDOWS_ICL" class="portability">
+Platform settings for Windows ICL.
+</flag>
+
+<flag name="DSPEC_WORDS_LITTLEENDIAN" class="portability">
+Define if NetCDF should store words in little endian format instead of the default big endian.
+</flag>
+
+<flag name="DSPEC_X86" class="portability">
+On x86, the floating point rounding mode is not inherited by OpenMP threads and could cause differences in results.  The flag enables a save and restore the floating point rounding mode when using OpenMP.
+</flag>
+
+<flag name="DSPMD" class="forbidden">
+Enable distributed memory version of the code.
+</flag>
+
+<flag name="DSPMDSTATS" class="forbidden">
+Display distributed memory statistics.
+</flag>
+
+<!--flag name="DSSP" class="untouched">
+Disable streaming timers on UNICOS.  Not reachable in SPEC version. Ignore.
+</flag-->
+
+<flag name="DSTAGGERED" class="mandatory">
+Required for compiling CAM4.
+</flag>
+
+<flag name="DSTAND_ALONE" class="forbidden">
+Use portions of the code as stand alone libraries and not as part of CAM4.
+</flag>
+
+<flag name="DSTUBMPI" class="mandatory">
+Create stub versions of MPI routines.
+</flag>
+
+<flag name="DSYSDARWIN" class="forbidden">
+Platform settings for Darwin.  Use SPEC_MACOSX.
+</flag>
+
+<flag name="DSYS_SX" class="forbidden">
+Use sys_sx method when changing the COSP vertical grid.
+</flag>
+
+<flag name="DSunOS" class="forbidden">
+Sun OS platform setting.
+</flag>
+
+<flag name="DTESTCALCDECOMP" class="forbidden">
+Compile calcdecomp.F90 as a stand-alone test.
+</flag>
+
+<flag name="DTHREADED_OMP" class="mandatory">
+Define get_num_threads in gptl.c when using the pthreads.
+</flag>
+
+<flag name="DTHREADED_PTHREADS" class="forbidden">
+Define when use gptl.c with pthreads.
+</flag>
+
+<flag name="DTIMING" class="forbidden">
+Enable timing information.
+</flag>
+
+<flag name="DTIMING_BARRIERS" class="forbidden">
+Enable timing barriers.
+</flag>
+
+<flag name="DTODO" class="forbidden">
+Enable development code.
+</flag>
+
+<!--flag name="DTOUCH_LAST" class="untouched">
+Implicitly defined. Ignore.
+</flag-->
+
+<flag name="DTRACER_CHECK" class="forbidden">
+Enable tracer checking.
+</flag>
+
+<flag name="DTROPCHEM" class="forbidden">
+Enable the tropchem model.
+</flag>
+
+<!--flag name="DTYPEDOUBLE" class="untouched">
+<flag name="DTYPEINT" class="untouched">
+<flag name="DTYPEREAL" class="untouched">
+<flag name="DTYPETEXT" class="untouched">
+Implcitly set.  Ignore.
+</flag-->
+
+<!--flag name="DUD_FORT_LIB_H" class="untouched">
+<flag name="DUD_NCFORTRAN_H" class="untouched">
+Header file guard.  Ignore.
+</flag-->
+
+<!--flag name="DUD_NETCDF_CPP_INC" class="untouched">
+Implicitly set.  Ignore.
+</flag-->
+
+<flag name="DUNICOSMP" class="forbidden">
+Enable UNICOS specific system information routines.
+</flag>
+
+<flag name="DUNSIGNED_BYTE" class="forbidden">
+Not used.
+</flag>
+
+<flag name="DUSEMPIIO" class="forbidden">
+Enable MPI I/O
+</flag>
+
+<flag name="DUSE_COSP" class="mandatory">
+Use the CFMIP Observational Simulator Package.
+</flag>
+
+<flag name="DUSE_CSM_SHARE" class="forbidden">
+Enable the sharing of performance timer information.
+</flag>
+
+<flag name="DUSE_ESMF_LIB" class="forbidden">
+Use the ESMF Library.
+</flag>
+
+<flag name="DUSE_MASTERPROC" class="forbidden">
+When using MPI, this flag forces only the master process to read in data.
+</flag>
+
+<flag name="DUSE_NEW_DELETE" class="forbidden">
+Implicitly set when using C++ compiler.
+</flag>
+
+<flag name="DUSE_OMP" class="forbidden">
+Enable the use of Cray CSD OpenMP-like directives. 
+</flag>
+
+<flag name="DVECTORIZE" class="forbidden">
+Enable platform specific vector routines.
+</flag>
+
+<flag name="DVECTOR_MATH" class="forbidden">
+Enable platform specific vector math routines.
+</flag>
+
+<flag name="DVOC" class="forbidden">
+Add VOC Flux data.
+</flag>
+
+<flag name="DWACCM_MOZART" class="forbidden">
+WACCM-derived relation between mass concentration and wet aerosol radius in meters.
+</flag>
+
+<flag name="DWACCM_PHYS" class="forbidden">
+WACCM-derived relation between mass concentration and wet aerosol radius in meters.
+</flag>
+
+<flag name="DWORDS_BIGENDIAN" class="forbidden">
+By default, NetCDF is using big endian data format.  To use Little Endian, define SPEC_WORDS_LITTLEENDIAN.
+</flag>
+
+<flag name="DWRAP_MPI_TIMING" class="forbidden">
+Put wrappers around MPI timing routines.
+</flag>
+
+<flag name="DZTRINGV_ARGS_allows_Pvariables" class="forbidden">
+This allows Pvariables for ARGS.
+</flag>
+
+<!--flag name="D_ADD_TWO_UNDERSCORES" class="forbidden">
+Implicilty set.  Use SPEC_DOUBLE_UNDERSCORE.
+</flag-->
+
+<!--flag name="D_ADD_UNDERSCORE" class="untouched">
+Implicilty set and is the default.
+</flag-->
+
+<!--flag name="Dalloca" class="untouched">
+Ignore.
+</flag-->
+
+<flag name="posix_stuff" class="forbidden" regexp="[-/]D(?:ENOERR|FLT_MAX_EXP|(?:INT|FLT|LONG|SHORT)_MAX|O_BINARY|O_CREAT|O_TRUNC|O_WRONLY|SEEK_SET)(?:=\S*)\b">
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+<example>
+-DENOERR=XXX,
+-DFLT_MAX=XXX,
+-DFLT_MAX_EXP=XXX,
+-DINT_MAX=XXX,
+-DLONG_MAX=XXX,
+-DO_BINARY=XXX,
+-DSEEK_SET=XXX,
+-DSHORT_MAX=XXX
+</example>
+</flag>
+
+<flag name="cfortran_internals" class="forbidden" regexp="[-/]D(?:OLD_VAXC|__CF_(?:_?KnR|_APOLLO67))(?:=\S*)?\b">
+<example>
+-D__CF_KnR=XXX,
+-D__CF__APOLLO67=XXX,
+-D__CF__KnR=XXX,
+-DOLD_VAXC=XXX
+</example>
+These macros are used internally by cfortran.h and may not be set explicitly.
+</flag>
+
+<flag name="header_guards" class="forbidden" regexp="[-/]D(?:UD_(?:FORT_LIB_H|NCFORTRAN_H|NETCDF_CPP_INC)|_NETCDF_|_FBITS_H_|__CFORTRAN_LOADED|_ONSTACK_H_|_NCCONFIG_(?:AIX|GENERIC|IRIX|LINUX|MACOSX|SOLARIS|WINDOWS)_H_|_NCCONFIG_H_|_NCIO_H_|_NCX_H_|_NC_H_|ESMF_(?:MACROS|TimeMgr)_INC)\b">
+<example>
+-DUD_FORT_LIB_H,
+-DUD_NCFORTRAN_H,
+-DUD_NETCDF_CPP_INC,
+-D_NETCDF_,
+-D_FBITS_H_,
+-D__CFORTRAN_LOADED,
+-D_ONSTACK_H_,
+-D_NCCONFIG_AIX_H_,
+-D_NCCONFIG_GENERIC_H_,
+-D_NCCONFIG_H_,
+-D_NCCONFIG_IRIX_H_,
+-D_NCCONFIG_LINUX_H_,
+-D_NCCONFIG_MACOSX_H_,
+-D_NCCONFIG_SOLARIS_H_,
+-D_NCCONFIG_WINDOWS_H_,
+-D_NCIO_H_,
+-D_NCX_H_,
+-D_NC_H_,
+-DESMF_MACROS_INC,
+-DESMF_TimeMgr_INC
+</example>
+These macros are used to prevent multiple header inclusion; setting them
+explicitly is forbidden.
+</flag>
+
+<flag name="comp_implicit" class="forbidden" regexp="[-/]D(?:extname|sun|sunFortran|unix|vax|vms|vmsFortran|hpuxFortran|hpuxFortran800|lynx|mips|mipsFortran|apollo|apolloFortran|__CYGWIN32__|_WIN32|__WIN64|__PGI|__GNUC__|__PATHCC__|__STDCPP__|__STDC__|__VAXC|__alpha|__convex__|__cplusplus|__hpux|__mips|__sgi|__sun|__ultrix__|__unix__|__vax__|__vms|_SC_PAGESIZE|_SC_PAGE_SIZE|_SX|__64BIT__|_MSC_VER|_IBMR2|crayx1|_CRAY|_CRAYC|_CRAYIEEE|_CRAYMPP|_CRAYT3E|_INT64|VAXC|VAXUltrix|VISUAL_CPLUSPLUS|WIN32|S_IRUSR|SXFortran|CLIPPERFortran|CONVEXFortran|CRAY|CRAYFortran|DECFortran|IBMR2Fortran|PowerStationFortran)(?:=\S*)?\b">
+These flags are set implicitly by the compilation system and may not be
+set explicitly.
+<example>
+-Dextname=XXX,
+-Dsun=XXX,
+-DsunFortran=XXX,
+-Dunix=XXX,
+-Dvax=XXX,
+-Dvms=XXX,
+-DvmsFortran=XXX,
+-DhpuxFortran=XXX,
+-DhpuxFortran800=XXX,
+-Dlynx=XXX,
+-Dmips=XXX,
+-DmipsFortran=XXX,
+-Dapollo=XXX,
+-DapolloFortran=XXX,
+-D__CYGWIN32__=XXX,
+-D__GNUC__=XXX,
+-D__PATHCC__=XXX,
+-D__STDCPP__=XXX,
+-D__STDC__=XXX,
+-D__VAXC=XXX,
+-D__alpha=XXX,
+-D__convex__=XXX,
+-D__cplusplus=XXX,
+-D__hpux=XXX,
+-D__mips=XXX,
+-D__sgi=XXX,
+-D__sun=XXX,
+-D__ultrix__=XXX,
+-D__unix__=XXX,
+-D__vax__=XXX,
+-D__vms=XXX,
+-D_SC_PAGESIZE=XXX,
+-D_SC_PAGE_SIZE=XXX,
+-D_SX=XXX,
+-D__64BIT__=XXX,
+-D_MSC_VER=XXX,
+-D_IBMR2=XXX,
+-D_CRAY=XXX,
+-D_CRAYC=XXX,
+-D_CRAYIEEE=XXX,
+-D_CRAYMPP=XXX,
+-D_CRAYT3E=XXX,
+-D_INT64=XXX,
+-DVAXC=XXX,
+-DVAXUltrix=XXX,
+-DVISUAL_CPLUSPLUS=XXX,
+-DWIN32=XXX,
+-DS_IRUSR=XXX,
+-DSXFortran=XXX,
+-DCLIPPERFortran=XXX,
+-DCONVEXFortran=XXX,
+-DCRAY=XXX,
+-DCRAYFortran=XXX,
+-DDECFortran=XXX,
+-DIBMR2Fortran=XXX,
+-DPowerStationFortran=XXX
+</example>
+</flag>
+
+
+
+</flagsdescription>

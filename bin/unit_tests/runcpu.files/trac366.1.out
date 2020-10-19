@@ -1,0 +1,9 @@
+  Running 999.specrand_ir test base none (1 copy) [timestamp]
+  Running 999.specrand_ir test peak none (1 copy) [timestamp]
+  Starting runcpu for 999.specrand_ir test base none
+  Starting runcpu for 999.specrand_ir test peak none
+Read 1 info lines from the sysinfo program.
+Running Benchmarks (up to 4 concurrent processes)
+Running sysinfo to gather system information.
+Waiting for running processes to finish...
+sysinfo: sysinfo was here

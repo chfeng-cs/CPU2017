@@ -1,0 +1,72 @@
+#!/bin/bash
+#
+# copy_commons - ensure that local benchmark copies of common sources are
+#                up to date
+# No support is provided for this script.
+#
+# Copyright 2015 Standard Performance Evaluation Corporation
+#
+# $Id: copy_commons 3581 2015-10-21 22:16:28Z CloyceS $
+#
+if [ -d $SPEC/.svn ]; then
+    if [ -z "$SVN" ]; then
+        TMP=$(svn help >/dev/null 2>&1)
+        if [ $? -ne 0 ]; then
+            echo "No Subversion (svn) found.  Please add it to your PATH."
+            exit 1
+        else
+            SVN=svn
+        fi
+    fi
+else
+    SVN=
+fi
+
+TMP=$(rsync --help >/dev/null 2>&1)
+if [ $? -ne 0 ]; then
+    echo "No rsync found.  Please add it to your PATH."
+    exit 1
+fi
+
+for commonsrc in $SPEC/benchspec/common/*; do
+    if [ -f $commonsrc/destinations ]; then
+        cat $commonsrc/destinations | while read benchmark destname; do
+            if [ -n "$benchmark" ]; then
+                if [ -z "$destname" ]; then
+                    destname=$(basename $commonsrc)
+                fi
+                for bmdir in $SPEC/benchspec/*/${benchmark}; do
+                    srcdir=${bmdir}/src
+                    dest=${srcdir}/$destname
+                    echo Putting $(basename $commonsrc) into ${benchmark}/src/$destname
+
+                    # Make sure that the destination directory is ignored by Git
+                    if ! grep "^/$destname" $srcdir/.gitignore >/dev/null 2>&1; then
+                        echo Putting /$destname into $srcdir/.gitignore
+                        echo "/$destname" >> $srcdir/.gitignore
+                    fi
+
+                    if [ -n "$SVN" ]; then
+                        # And make sure that the .gitignore file is in Subversion as well
+                        if $SVN stat $srcdir/.gitignore 2>&1 | grep '^\?' >/dev/null; then
+                            echo Putting $srcdir/.gitignore into Subversion
+                            $SVN add $srcdir/.gitignore
+                        fi
+                        # Make sure that the destination directory is ignored by Subversion
+                        if ! $SVN pg svn:ignore $srcdir 2>/dev/null | grep "^$destname" >/dev/null 2>&1; then
+                            echo Putting $destname into $SVN:ignore in $srcdir
+                            ($SVN pg svn:ignore $srcdir | grep -v '^$'; echo $destname) | $SVN ps svn:ignore -F - $srcdir
+                        fi
+                    fi
+
+                    # Actually copy the files
+                    mkdir -p $dest
+                    rsync -aiHSl --delete ${commonsrc}/. ${dest}/. --exclude-from=${commonsrc}/exclusions
+                done
+            fi
+        done
+    fi
+done
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=sh syntax=sh shiftwidth=4 tabstop=8 expandtab nosmarttab:

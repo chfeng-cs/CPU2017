@@ -1,0 +1,991 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                   Installing SPEC CPU(R)2017 on Unix Systems
+         Including: AIX, Linux, Mac OS X, Solaris, and similar systems
+
+      $Id: install-guide-unix.html 6309    Latest: www.spec.org/cpu2017/Docs/
+     2019-07-28 22:01:05Z JohnHenning $
+
+                                    Summary
+
+                                 Verify the ISO
+                                    Mount it
+                                    cd /mnt
+                                  ./install.sh
+
+   Contents
+
+   Prepare for the Installation
+
+   1. Review Prerequisites
+
+   2. Verify the download (optional, recommended)
+
+   3. Mount the ISO image
+
+   Install it
+
+   4. Set your directory to the mounted image
+
+   5. Use install.sh
+
+   5.a. Select Destination
+
+   5.b. The toolset is selected (usually automatic)
+
+   5.c. The files are unpacked and tested
+
+   Test your installed copy
+
+   6. Source shrc or cshrc
+
+   7. Select a config file and try to build one benchmark
+
+   8. Try compiling an entire suite, and run the test workload
+
+   9. Try a full (reportable) run
+
+   Appendix 1: Uninstalling SPEC CPU 2017
+
+   Appendix 2: Installing from a tarfile
+
+   This document describes how to install SPEC CPU(R)2017 on Unix systems,
+   including AIX, Linux, macOS, Solaris, and similar systems. (If you want to
+   install under Microsoft Windows, you need the other install guide.) SPEC
+   CPU 2017 is a product of the SPEC(R) non-profit corporation (about SPEC).
+
+   Reminder: SPEC benchmarks are licensed software.
+
+     * If you have a license, you may install on multiple systems within your
+       institution.
+     * You may not share the software with the public.
+
+Prepare for the Installation
+
+   To prepare for the installation, please follow these steps:
+
+  1. Review Prerequisites
+
+   Review the System Requirements. Please particularly notice the
+   requirements for:
+
+     * Physical memory
+     * Disk space
+     * Familiarity with basic Unix shell commands (such as ls, man, and
+       mkdir) and with the terminal window (aka "command window", "shell",
+       "console", "terminal emulator", "xterm").
+
+   If you haven't already done so, start a terminal window now.
+
+  2. Verify the download (optional, recommended)
+
+   SPEC CPU is distributed as an ISO image. The file is large; therefore it
+   is recommended (though not required) that you verify that the download is
+   correct before continuing.
+
+   If you have the sha512sum or sha256sum utility, use it to calculate a
+   checksum for your download. Compare the checksum to the posted value at
+   www.spec.org/cpu2017/releases.
+
+   q. Is it ok to skip doing this verification? I trust my network and I
+      don't feel like hunting for a SHA-512 tool just now.
+      It's always safer to verify downloads.
+   a. However, if you skip this step, you will probably be ok, because the
+      installation procedure will verify the individual files within the
+      distribution.
+
+  3. Mount the ISO image
+
+   Mount the image, using the methods appropriate for your operating system.
+   The following examples are not intended to be comprehensive, but may get
+   you started, or at least give you clues which manpages to read:
+
++------------------------------------------------------------------------------+
+|AIX     |Become root.  |# loopmount -i cpu2017.iso -o "-V cdrfs -o ro" -m /mnt|
+|        |(*) Then:     |                                                      |
+|--------+--------------+------------------------------------------------------|
+|HP-UX   |Become root.  |# mkdir /iso                                          |
+|        |(*) Then:     |# kcmodule fspd=loaded                                |
+|        |              |# mount  /path/to/image/cpu2017.iso  /iso             |
+|--------+--------------+------------------------------------------------------|
+|Linux   |On Linux, you |                                                      |
+|        |can try       |                                                      |
+|        |clicking on an|                                                      |
+|        |ISO image;    |                                                      |
+|        |but a GUI     |                                                      |
+|        |"mount" might |# mount -t iso9660 -o ro,exec,loop cpu2017.iso /mnt   |
+|        |be only a file|                                                      |
+|        |browser.      |                                                      |
+|        |You may need  |                                                      |
+|        |to become     |                                                      |
+|        |root. (*)     |                                                      |
+|--------+--------------+------------------------------------------------------|
+|Mac OS X|As an         |                                                      |
+|        |ordinary,     |$ open cpu2017.iso                                    |
+|        |non-privileged|                                                      |
+|        |user:         |                                                      |
+|--------+--------------+------------------------------------------------------|
+|Solaris |Become root.  |# lofiadm -a /path/to/image/cpu2017.iso               |
+|        |(*) Then:     |/dev/lofi/1                                           |
+|        |              |# mount -o ro -F hsfs /dev/lofi/1 /mnt                |
+|--------+---------------------------------------------------------------------|
+|        |(*) Can't be root? See the tarfile option.                           |
++------------------------------------------------------------------------------+
+
+   As noted above, for some operating systems you may need root privileges to
+   mount the image. You should not need root privileges at any other time
+   during this installation procedure, nor when running SPEC CPU benchmarks.
+   In general, it is recommended that you use an ordinary user account for
+   SPEC CPU.
+
+Install it
+
+   Now that the distribution is mounted, you can use the installer.
+   If you prefer a non-interactive installation, see ./install.sh -h
+   Most users will probably prefer to use the steps below:
+
+  4. Set your directory to the mounted image
+
+   If you had privileges enabled for the portion above, you can turn them off
+   now.
+
+   Set your current working directory to the directory where the image is
+   mounted. The exact command will vary depending on how you mounted it, the
+   label on the image, and the operating system. It might look something like
+   one of these:
+
+ $ cd /Volumes/SPEC_CPU2017
+ $ cd /media/SPEC_CPU2017
+ $ cd /mnt
+
+  5. Use install.sh
+
+   Type:
+
+ ./install.sh
+
+   If you already have the environment variable $SPEC defined, you will see a
+   warning similar to the following.
+   Just say "no".
+
+ SPEC CPU 2017 Installation
+
+ The SPEC environment variable is already set to "/spec/cpu2017.093",
+ which does not match the current directory ("/mnt").
+ If you continue with the installation, the tools will be installed
+ from "/spec/cpu2017.093" and possibly also into that directory.
+ Is this the desired behavior? (Please enter 'yes' or 'no')
+ no
+
+ Okay, ignoring your environment setting of $SPEC.
+
+    5.a. Select Destination
+
+   You will be prompted for a destination directory. You may need to avoid
+   using environment variables (such as $HOME) and the tilde symbol (~).
+   Please do not put any spaces in the path, because many Unix programs use
+   space as an argument delimiter.
+
+                   $HOME/Benchmarks/SPEC/CPU2017/
+   Might fail:     ~/Benchmarks/SPEC/CPU2017/
+                   $SCRATCH/cpu2017
+   Definitely Bad: /home/subhash/My Benchmarks/SPEC CPU2017/
+   Good:           /home/subhash/Benchmarks/SPEC/CPU2017/
+                   /scratch/cpu2017
+
+   The example below specifies a full path to a directory underneath the
+   user's home directory.
+
+ SPEC CPU2017 Installation
+
+ Top of the CPU2017 tree is '/mnt'
+ Enter the directory you wish to install to (e.g. /usr/cpu2017)
+ /home/subhash/cpu2017
+
+ Installing FROM /mnt
+ Installing TO /home/subhash/cpu2017
+
+ Is this correct? (Please enter 'yes' or 'no')
+ yes
+
+   Notice above that you will be asked to confirm your choice. If you enter
+   "no", the procedure will exit, and you can try again.
+
+   Note: You can also specify the destination directory in the command line,
+   using the -d flag, for example, like this:
+   ./install.sh -d /home/subhash/cpu2017
+
+    5.b. The toolset is selected (usually automatically)
+
+   SPEC CPU 2017 includes a set of pre-compiled binary tools. The
+   installation procedure tries to select a set that matches your hardware
+   and operating system.
+
+   Usually, you should not worry about whether the toolset is an exact match
+   to your current environment, because the toolset selection does not affect
+   your benchmark scores, and because the installation procedure does a
+   series of tests to ensure that the selected tools work on your system.
+
+   If at least one candidate match is found, you will see a message such as:
+
+
+ The following toolset is expected to work on your platform.  If the
+ automatically installed one does not work, please re-run install.sh and
+ exclude that toolset using the '-e' switch.
+
+ The toolset selected will not affect your benchmark scores.
+
+ linux-x86_64                  For x86_64 Linux systems
+                               Built on Oracle Linux 6.0 with
+                               GCC v4.4.4 20100726 (Red Hat 4.4.4-13)
+
+
+   If the installation procedure is unable to determine your system
+   architecture, you will see a message such as:
+
+ We do not appear to have working vendor-supplied binaries for your
+ architecture.  You will have to compile the tool binaries by
+ yourself.  Please read the file
+
+     /mnt/Docs/tools-build.html
+
+ for instructions on how you might be able to build them.
+
+ Please only attempt this as a last resort.
+
+   If you see that message, please stop here, and examine the file
+   tools-build.html
+
+   Note: If the tools that are automatically installed on your system do not
+   work, but you know that another set of tools distributed with SPEC CPU
+   2017 will work, you can exclude the ones that do not work. You may be
+   instructed to do this during the first installation. Use the -e flag for
+   install.sh, for example:
+
+   ./install.sh -e linux-x86_64
+
+   The above will cause the tools for linux-x86_64 to be excluded from
+   consideration, and the installation procedure will check whether one of
+   the other toolsets works on this system.
+
+   Alternatively, you can explicitly direct which toolset is to be used with
+   the -u flag for install.sh, for example:
+
+   ./install.sh -u aix-ppc
+
+   The above will cause the installer to try to use the aix-ppc toolset. If
+   you specify tools that do not work on your system, the installation
+   procedure will stop immediately, without installing anything.
+
+    5.c. The files are unpacked and tested
+
+   No more questions are asked. The script unpacks the files, and tests them.
+
+ =================================================================
+ Attempting to install the linux-x86_64 toolset... <<-- or whatever toolset was selected
+
+
+ Unpacking CPU2017 base files (36.8 MB)
+ Unpacking CPU2017 tools binary files (147.1 MB)
+ Unpacking 500.perlbench_r benchmark and data files (102 MB)
+ Unpacking 502.gcc_r benchmark and data files (240.1 MB)
+ .
+ .     (lines omitted)
+ .
+ Unpacking 998.specrand_is benchmark and data files (0 MB)
+ Unpacking 999.specrand_ir benchmark and data files (6.4 MB)
+
+ Checking the integrity of your source tree...
+
+ Checksums are all okay.
+
+ Unpacking binary tools for linux-x86_64...
+
+ Checking the integrity of your binary tools...
+
+ Checksums are all okay.
+
+ Testing the tools installation (this may take a minute)
+
+ ................................................................................
+ ................................................................................
+ ................................................................................
+ ...................................................................-.......
+
+ Installation successful.  Source the shrc or cshrc in
+ /home/subhash/cpu2017
+ to set up your environment for the benchmark.
+
+ $
+
+   Note that the testing phase (just above) may take more time than it does
+   to do the unpacking. This is normal.
+
+   At this point, you will have consumed about 2.6 GB of disk space on the
+   destination drive.
+
+Test your installed copy
+
+   From this point forward, this Installation Guide walks you through basic
+   testing of the installed copy, including compiling benchmarks and running
+   them.
+
+   If you prefer to skip this part, perhaps because someone else has given
+   you pre-compiled binaries, please note that you remain responsible for
+   compliance with SPEC's Fair Use rule and the CPU 2017 run rules.
+
+  6. Set paths, using shrc or cshrc
+
+   Set paths: Use a path command from the table below. On Unix systems,
+   determine whether you are using a C-compatible-shell (such as csh, tcsh)
+   or a Bourne-compatible shell (such as sh, bash, ksh, zsh).
+
+System shell      Example                    Instructions
+       C-shell    % cd /home/subhash/cpu2017 cd to the directory where you installed your
+       compatible % source cshrc             copy of SPEC CPU 2017 and say:
+                                             source cshrc
+                                             cd to the directory where you installed SPEC CPU
+Unix                                         2017 and try:
+       Bourne     $ cd /home/subhash/cpu2017 source shrc
+       compatible $ source shrc              If your shell is sufficiently old that it
+                                             responds source: not found then try:
+
+                                              . ./shrc     <--that's dot-space-dot-slash-shrc
+
+  7. Select a config file and try to build one benchmark
+
+   Find a Config File:                    You will need to select a config
+   file. Config files contain details such as portability and optimization
+   options. If you are a beginner, you will probably start with an existing
+   config file. You can find one:
+
+    1. In your installed copy of SPEC CPU 2017:
+
+ $SPEC/config/Example*        (Unix) or
+ %SPEC%\config\Example*       (Windows)
+
+    2. At www.spec.org/cpu2017/results. Look for a system similar to yours,
+       click the 'config' link.
+    3. Or, write your own.
+
+   Name it:   Copy your selection to a new file in the config directory. Give
+   it a name that does not use blanks. Hint: make the name something useful
+   to *you*, for example:
+
+ $SPEC/config/JeffWantsYetAnotherTest.cfg
+
+   Edit the label:    Usually it is a good idea to edit the file and change
+   the line that says:
+
+ label = something
+
+   or if there is no such line, then add one at the top. The label is an
+   arbitrary tag that is added to your binaries and directories, which can
+   come in very handy when you need to (for example) find your run
+   directories, analyze a problem, and clean disk space. As with the config
+   file name, make it something meaningful to *you*. No blanks are allowed.
+
+   Other Edits:
+
+    1. Look for any locations marked EDIT and make changes as needed.
+    2. Look for paths and adjust if needed (example: your compiler is in
+       /opt/bin but the config file uses /usr/bin).
+    3. Look for any commands in the config file, and verify that they will
+       not cause surprises.
+
+       Warning: SPEC CPU config files can execute arbitrary shell commands.
+       Read a config file before using it.
+       Don't be root. Don't run as Administrator. Turn privileges off.
+
+   Example: The go command is a handy utility for moving around in the
+   installed tree. It is set up by shrc (or cshrc).
+
+ $ go config
+ /home/subhash/cpu2017/config
+ $ ls Example*
+   [...many listed...]
+ $ cp Example-gcc-linux-x86.cfg try1.cfg
+    .
+    . Use your favorite editor.  Look for places marked 'EDIT'.
+    .
+ $ diff Example-gcc-linux-x86.cfg try1.cfg | grep define
+ < %define label mytest-1jan2017       # (2) Make the label meaningful to *you*
+ > %define label firstrun              # (2) Make the label meaningful to *you*
+ < %   define  build_ncpus 8      #      Or, you can set it on the command line:
+ > %   define  build_ncpus 4      #      Or, you can set it on the command line:
+ < %define  gcc_dir          /SW/compilers/GCC/Linux/x86_64/gcc-6.2.0
+ > %define  gcc_dir          /export/home/gcc-6.2.0/
+ $
+
+   You can see in the diff command above that the tester has chosen to:
+
+     * Tag binaries with the label firstrun. You can set whatever string
+       makes sense to you, to help you keep track of your work.
+     * Use 4 processors during compiles, because that is the number available
+       on his laptop.
+     * Set gcc_dir to the location where GCC V6.2 was installed
+
+   Try to build a single benchmark. Begin with a benchmark that compiles
+   quickly, such as 505.mcf_r (or if you are using a config file designed for
+   SPECspeed(R), try 619.lbm_s.)
+
+ $ runcpu --config=try1 --action=build 505.mcf_r
+ runcpu v5038 - Copyright 1999-2016 Standard Performance Evaluation Corporation
+ Using 'linux-x86_64' tools
+ Reading file manifests... read 32125 entries from 2 files in 0.12s (258619 files/s)
+ Loading runcpu modules................
+ Locating benchmarks...found 47 benchmarks in 53 benchsets.
+ Reading config file '/home/subhash/cpu2017/config/try1.cfg'
+ 1 configuration selected:
+
+ Action   Benchmarks
+ ------   ----------------------------------------------------------------------
+ build    505.mcf_r
+ -------------------------------------------------------------------------------
+
+ Setting up environment for running 505.mcf_r...
+ Starting runcpu for 505.mcf_r...
+ Running "specperl /home/subhash/cpu2017/Docs/sysinfo" to gather system information.
+ sysinfo: r5007 of 2016-11-15 (fc8dc82f217779bedfed4d694d580ba9)
+ sysinfo: Getting system information for Linux...
+ sysinfo: ...getting CPU info
+ sysinfo: ...getting info from numactl
+ sysinfo: ...getting memory info
+ sysinfo: ...getting OS info
+ sysinfo: ...getting disk info
+ sysinfo: ...trying to get DIMM info from dmidecode
+ Benchmarks selected: 505.mcf_r
+ Compiling Binaries
+   Building 505.mcf_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 07:14:04]
+
+   Build successes for intrate: 505.mcf_r(base)
+   Build errors for intrate: None
+
+   Build Complete
+   The log for this run is in /home/subhash/cpu2017/result/CPU2017.001.log
+
+   runcpu finished at 2016-12-02 07:14:06; 3.0649631023407 total seconds elapsed
+
+
+   Did it work? Compare your output to the above.
+
+            You have established that SPEC CPU 2017 is installed and the
+            tools can use your config file to find a "C" compiler. Let us
+            take a brief look (with go) at what the above command did:
+
+            $ go mcf_r exe
+            /home/subhash/cpu2017/benchspec/CPU/505.mcf_r/exe
+            $ ls
+            mcf_r_base.firstrun-m64
+   If       $ go result
+   the      /home/subhash/cpu2017/result
+   above    $ ls *log
+   succeeds CPU2017.001.log
+            $
+
+            Notice that:
+
+              * An executable file has been created, using a label that was
+                specified by the config file (firstrun). The label is just an
+                arbitrary tag that you can use to help you keep track of your
+                builds.
+              * A log file is available: CPU2017.001.log
+            Usually, failures happen if you start with a config file that is
+            not intended for your operating system and compiler (About Config
+            Files),
+            or if you have not installed the compiler,
+            or have not edited the config file to point to the compiler
+            location.
+
+            If a file is mentioned with more information, please carefully
+            examine it. Look on your screen for messages of the form Error
+            ... check file: /path/to/file.
+
+   If       You can use commands such as go to locate the log file and the
+   the      build directory, and useful files within the build:
+   above
+   fails    $ go result
+            /export/home/spec/cpu2017/result
+            $ ls *log
+            CPU2017.001.log
+            $ go mcf_r build
+            /export/home/spec/cpu2017/benchspec/CPU/505.mcf_r/build
+            $ ls
+            build_base_jul5a-m64.0000  list
+            $ cd build_base_jul5a-m64.0000/
+            $ ls *err *out
+            make.clean.out  make.out  options.err  options.out
+            $
+
+
+  8. Try compiling an entire suite, and run the test workload
+
+   SPEC CPU 2017 contains 43 benchmarks which are divided into 4 suites:
+
+     * intrate
+     * intspeed
+     * fprate
+     * fpspeed
+
+   Let's pick a suite and build all the benchmarks in that suite. The command
+   below,
+
+     * Selects the smallest workload size
+     * Ensures that only one copy is run.
+     * Continues a line using backslash (\)
+     * Confirms that runcpu should not do a full, reportable run
+       (--noreportable).
+     * Runs each benchmark only once (iterations=1).
+
+ $ runcpu --config=try --size=test --copies=1 \
+ >   --noreportable  --iterations=1 intrate
+ runcpu v5038 - Copyright 1999-2016 Standard Performance Evaluation Corporation
+ Using 'linux-x86_64' tools
+ Reading file manifests... read 32125 entries from 2 files in 0.12s (270790 files/s)
+ Loading runcpu modules................
+ Locating benchmarks...found 47 benchmarks in 53 benchsets.
+ Reading config file '/home/subhash/cpu2017/config/try1.cfg'
+ 1 configuration selected:
+
+  Action    Run Mode   Workload     Report Type      Benchmarks
+ --------   --------   --------   ----------------   ---------------------------
+ validate   rate       test       SPECrate2017_int   intrate
+ -------------------------------------------------------------------------------
+
+ Setting up environment for running intrate...
+ Starting runcpu for intrate...
+ Running "specperl /home/subhash/cpu2017/Docs/sysinfo" to gather system information.
+ sysinfo: r5007 of 2016-11-15 (fc8dc82f217779bedfed4d694d580ba9)
+ sysinfo: Getting system information for Linux...
+ sysinfo: ...getting CPU info
+ sysinfo: ...getting info from numactl
+ sysinfo: ...getting memory info
+ sysinfo: ...getting OS info
+ sysinfo: ...getting disk info
+ sysinfo: ...trying to get DIMM info from dmidecode
+ Benchmarks selected: 500.perlbench_r, 502.gcc_r, 505.mcf_r, 520.omnetpp_r, 523.xalancbmk_r, 525.x264_r, 531.deepsjeng_r, 541.leela_r, 548.exchange2_r, 557.xz_r, 999.specrand_ir
+ Compiling Binaries
+   Building 500.perlbench_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:29:45]
+   Building 502.gcc_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:30:24]
+   Building 505.mcf_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:33:29]
+   Building 520.omnetpp_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:33:31]
+   Building 523.xalancbmk_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:34:46]
+   Building 525.x264_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:38:23]
+   Building 531.deepsjeng_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:38:44]
+   Building 541.leela_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:38:47]
+   Building 548.exchange2_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:38:55]
+   Building 557.xz_r base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:39:02]
+   Building 999.specrand_ir base firstrun-m64: (build_base_firstrun-m64.0000) [2016-12-02 08:39:06]
+
+ Build successes for intrate: 500.perlbench_r(base), 502.gcc_r(base), 505.mcf_r(base), 520.omnetpp_r(base), 523.xalancbmk_r(base), 525.x264_r(base), 531.deepsjeng_r(base), 541.leela_r(base), 548.exchange2_r(base), 557.xz_r(base), 999.specrand_ir(base)
+ Build errors for intrate: None
+
+ Setting Up Run Directories
+   Setting up 500.perlbench_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 502.gcc_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 505.mcf_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 520.omnetpp_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 523.xalancbmk_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 525.x264_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 531.deepsjeng_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 541.leela_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 548.exchange2_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 557.xz_r test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+   Setting up 999.specrand_ir test base firstrun-m64 (1 copy): run_base_test_firstrun-m64.0000
+ Running Benchmarks
+   Running 500.perlbench_r test base firstrun-m64 (1 copy) [2016-12-02 08:39:15]
+   Running 502.gcc_r test base firstrun-m64 (1 copy) [2016-12-02 08:39:42]
+   Running 505.mcf_r test base firstrun-m64 (1 copy) [2016-12-02 08:39:43]
+   Running 520.omnetpp_r test base firstrun-m64 (1 copy) [2016-12-02 08:39:53]
+   Running 523.xalancbmk_r test base firstrun-m64 (1 copy) [2016-12-02 08:40:01]
+   Running 525.x264_r test base firstrun-m64 (1 copy) [2016-12-02 08:40:02]
+   Running 531.deepsjeng_r test base firstrun-m64 (1 copy) [2016-12-02 08:40:50]
+   Running 541.leela_r test base firstrun-m64 (1 copy) [2016-12-02 08:40:57]
+   Running 548.exchange2_r test base firstrun-m64 (1 copy) [2016-12-02 08:41:03]
+   Running 557.xz_r test base firstrun-m64 (1 copy) [2016-12-02 08:41:17]
+   Running 999.specrand_ir test base firstrun-m64 (1 copy) [2016-12-02 08:41:28]
+ Success: 1x500.perlbench_r 1x502.gcc_r 1x505.mcf_r 1x520.omnetpp_r 1x523.xalancbmk_r 1x525.x264_r 1x531.deepsjeng_r 1x541.leela_r 1x548.exchange2_r 1x557.xz_r 1x999.specrand_ir
+ Producing Raw Reports
+  label: firstrun-m64
+   workload: test
+ NOTICE: sw_os001 is longer than 50 characters and will be split
+    metric: SPECrate2017_int_base
+     format: raw -> /home/subhash/cpu2017/result/CPU2017.002.intrate.test.rsf
+ Parsing flags for 500.perlbench_r base: done
+ Parsing flags for 502.gcc_r base: done
+ Parsing flags for 505.mcf_r base: done
+ Parsing flags for 520.omnetpp_r base: done
+ Parsing flags for 523.xalancbmk_r base: done
+ Parsing flags for 525.x264_r base: done
+ Parsing flags for 531.deepsjeng_r base: done
+ Parsing flags for 541.leela_r base: done
+ Parsing flags for 548.exchange2_r base: done
+ Parsing flags for 557.xz_r base: done
+ Doing flag reduction: done
+     format: flags -> /home/subhash/cpu2017/result/CPU2017.002.intrate.test.flags.html
+     format: cfg -> /home/subhash/cpu2017/result/CPU2017.002.intrate.test.cfg, /home/subhash/cpu2017/result/CPU2017.002.intrate.test.orig.cfg
+     format: CSV -> /home/subhash/cpu2017/result/CPU2017.002.intrate.test.csv
+     format: PDF -> /home/subhash/cpu2017/result/CPU2017.002.intrate.test.pdf
+     format: Text -> /home/subhash/cpu2017/result/CPU2017.002.intrate.test.txt
+ The log for this run is in /home/subhash/cpu2017/result/CPU2017.002.log
+
+ runcpu finished at 2016-12-02 08:41:34; 709.688139915466 total seconds elapsed
+ $
+
+
+   Note above that compiling the SPECrate(R)2017 Integer benchmarks and
+   running the brief test workload took about 12 minutes (710 seconds). Your
+   time may be considerably different, especially when building the floating
+   point benchmarks, some of which are very complex. The time required to do
+   a build also depends directly upon the config file optimization
+   selections.
+
+  9. Try a full (reportable) run
+
+   If everything has worked up to this point, you may want to start a
+   reportable run, perhaps leaving your computer to run overnight. Important:
+   review how many CPUs are used by the config file, and adjust as needed. As
+   explained in the System Requirements, both SPECrate(R) and SPECspeed(R)
+   can test multiple chips / cores / hardware threads:
+
+     * For SPECrate, you set the number of copies.
+     * For SPECspeed, you set the number of threads.
+
+   Check how many processors are on your system; also check the memory
+   requirements (which differ depending on what you are testing).
+
+   The laptop in this example has 1 chip, 2 cores, and 4 hardware threads:
+
+ $ grep 'core id' /proc/cpuinfo | sort | uniq
+ core id         : 0
+ core id         : 1
+ $ grep 'processor' /proc/cpuinfo | sort | uniq
+ processor       : 0
+ processor       : 1
+ processor       : 2
+ processor       : 3
+ $
+
+   The tester decides to run 2 copies for the SPECrate Integer test, matching
+   the number of cores:
+
+ $ diff Example-gcc-linux-x86.cfg try1.cfg | grep copies
+ <    copies           = 1   # EDIT to change number of copies (see above)
+ >    copies           = 2   # EDIT to change number of copies (see above)
+ $
+
+   If you have not already done so, you should also edit your config file to
+   describe the system under test. See config.html for information on the
+   various fields for the human who reads your results. The Example config
+   files have a section to get you started.
+
+   The run is started, using the reportable option:
+
+ $ runcpu --config=try1 --reportable intrate
+ runcpu v5038 - Copyright 1999-2016 Standard Performance Evaluation Corporation
+ Using 'linux-x86_64' tools
+ Reading file manifests... read 32125 entries from 2 files in 0.12s (262557 files/s)
+ Loading runcpu modules................
+ Locating benchmarks...found 47 benchmarks in 53 benchsets.
+ Reading config file '/export/home/cpu2017/config/try1.cfg'
+ 1 configuration selected:
+
+  Action    Run Mode   Workload     Report Type      Benchmarks
+ --------   --------   --------   ----------------   ---------------------------
+ validate   rate       refrate    SPECrate2017_int   intrate
+ Loading "http://www.spec.org/auto/cpu2017/devel_version" for version check...
+ OK
+ Reportable runs must include a 'test' run; adding to run list
+ Reportable runs must include a 'train' run; adding to run list
+ -------------------------------------------------------------------------------
+
+ Setting up environment for running intrate...
+ Starting runcpu for intrate...
+ Running "specperl /export/home/cpu2017/Docs/sysinfo" to gather system information.
+ sysinfo: r5007 of 2016-11-15 (fc8dc82f217779bedfed4d694d580ba9)
+ sysinfo: Getting system information for Linux...
+ sysinfo: ...getting CPU info
+ sysinfo: ...getting info from numactl
+ sysinfo: ...getting memory info
+ sysinfo: ...getting OS info
+ sysinfo: ...getting disk info
+ sysinfo: ...trying to get DIMM info from dmidecode
+ Reportable runs must include a 'test' run; adding to run list
+ Reportable runs must include a 'train' run; adding to run list
+ Benchmarks selected: 500.perlbench_r, 502.gcc_r, 505.mcf_r, 520.omnetpp_r, 523.xalancbmk_r, 525.x264_r,                                                                                    531.deepsjeng_r, 541.leela_r, 548.exchange2_r, 557.xz_r, 999.specrand_ir
+ Notice: Errors may not be ignored for reportable runs.
+ Compiling Binaries
+   Up to date 500.perlbench_r base Start-m64
+   Up to date 502.gcc_r base Start-m64
+   Up to date 505.mcf_r base Start-m64
+   Up to date 520.omnetpp_r base Start-m64
+   Up to date 523.xalancbmk_r base Start-m64
+   Up to date 525.x264_r base Start-m64
+   Up to date 531.deepsjeng_r base Start-m64
+   Up to date 541.leela_r base Start-m64
+   Up to date 548.exchange2_r base Start-m64
+   Up to date 557.xz_r base Start-m64
+   Up to date 999.specrand_ir base Start-m64
+
+
+ Running Benchmarks (up to 2 concurrent processes)
+   Starting runcpu for 500.perlbench_r test base Start-m64
+   Starting runcpu for 502.gcc_r test base Start-m64
+   Starting runcpu for 505.mcf_r test base Start-m64
+   Starting runcpu for 520.omnetpp_r test base Start-m64
+   Starting runcpu for 523.xalancbmk_r test base Start-m64
+   Starting runcpu for 525.x264_r test base Start-m64
+   Starting runcpu for 531.deepsjeng_r test base Start-m64
+   Starting runcpu for 541.leela_r test base Start-m64
+   Starting runcpu for 548.exchange2_r test base Start-m64
+   Starting runcpu for 557.xz_r test base Start-m64
+   Starting runcpu for 999.specrand_ir test base Start-m64
+ Waiting for running processes to finish...
+
+ Benchmarks selected: 500.perlbench_r, 502.gcc_r, 505.mcf_r, 520.omnetpp_r, 523.xalancbmk_r, 525.x264_r, 531.deepsjeng_r, 541.leela_r, 548.exchange2_r, 557.xz_r, 999.specrand_ir
+ Notice: Errors may not be ignored for reportable runs.
+ Compiling Binaries
+   Up to date 500.perlbench_r base Start-m64
+   Up to date 502.gcc_r base Start-m64
+   Up to date 505.mcf_r base Start-m64
+   Up to date 520.omnetpp_r base Start-m64
+   Up to date 523.xalancbmk_r base Start-m64
+   Up to date 525.x264_r base Start-m64
+   Up to date 531.deepsjeng_r base Start-m64
+   Up to date 541.leela_r base Start-m64
+   Up to date 548.exchange2_r base Start-m64
+   Up to date 557.xz_r base Start-m64
+   Up to date 999.specrand_ir base Start-m64
+
+
+ Running Benchmarks (up to 2 concurrent processes)
+   Starting runcpu for 500.perlbench_r train base Start-m64
+   Starting runcpu for 502.gcc_r train base Start-m64
+   Starting runcpu for 505.mcf_r train base Start-m64
+   Starting runcpu for 520.omnetpp_r train base Start-m64
+   Starting runcpu for 523.xalancbmk_r train base Start-m64
+   Starting runcpu for 525.x264_r train base Start-m64
+   Starting runcpu for 531.deepsjeng_r train base Start-m64
+   Starting runcpu for 541.leela_r train base Start-m64
+   Starting runcpu for 548.exchange2_r train base Start-m64
+   Starting runcpu for 557.xz_r train base Start-m64
+   Starting runcpu for 999.specrand_ir train base Start-m64
+ Waiting for running processes to finish...
+
+ Benchmarks selected: 500.perlbench_r, 502.gcc_r, 505.mcf_r, 520.omnetpp_r, 523.xalancbmk_r, 525.x264_r, 531.deepsjeng_r, 541.leela_r, 548.exchange2_r, 557.xz_r, 999.specrand_ir
+ Notice: 500.perlbench_r has 1 iteration.
+         This is not correct for a reportable run.  Changing iterations to 2
+         for ALL benchmarks.
+ Notice: Errors may not be ignored for reportable runs.
+ Compiling Binaries
+   Up to date 500.perlbench_r base Start-m64
+   Up to date 502.gcc_r base Start-m64
+   Up to date 505.mcf_r base Start-m64
+   Up to date 520.omnetpp_r base Start-m64
+   Up to date 523.xalancbmk_r base Start-m64
+   Up to date 525.x264_r base Start-m64
+   Up to date 531.deepsjeng_r base Start-m64
+   Up to date 541.leela_r base Start-m64
+   Up to date 548.exchange2_r base Start-m64
+   Up to date 557.xz_r base Start-m64
+   Up to date 999.specrand_ir base Start-m64
+
+
+ Setting Up Run Directories
+   Setting up 500.perlbench_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 502.gcc_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 505.mcf_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 520.omnetpp_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 523.xalancbmk_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 525.x264_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 531.deepsjeng_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 541.leela_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 548.exchange2_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 557.xz_r refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+   Setting up 999.specrand_ir refrate (ref) base Start-m64 (2 copies): run_base_refrate_Start-m64.0000, run_base_refrate_Start-m64-0001
+ Running Benchmarks
+   Running (#1) 500.perlbench_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 13:22:36]
+   Running (#1) 502.gcc_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 13:29:36]
+   Running (#1) 505.mcf_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 13:35:48]
+   Running (#1) 520.omnetpp_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 13:43:27]
+   Running (#1) 523.xalancbmk_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 13:54:12]
+   Running (#1) 525.x264_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:01:46]
+   Running (#1) 531.deepsjeng_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:09:21]
+   Running (#1) 541.leela_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:15:05]
+   Running (#1) 548.exchange2_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:24:07]
+   Running (#1) 557.xz_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:33:11]
+   Running (#1) 999.specrand_ir refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:40:28]
+   Running (#2) 500.perlbench_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:40:30]
+   Running (#2) 502.gcc_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:47:27]
+   Running (#2) 505.mcf_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 14:53:44]
+   Running (#2) 520.omnetpp_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 15:01:31]
+   Running (#2) 523.xalancbmk_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 15:12:16]
+   Running (#2) 525.x264_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 15:19:55]
+   Running (#2) 531.deepsjeng_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 15:27:33]
+   Running (#2) 541.leela_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 15:33:19]
+   Running (#2) 548.exchange2_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 15:42:21]
+   Running (#2) 557.xz_r refrate (ref) base Start-m64 (2 copies) [2016-12-02 15:51:18]
+   Running (#2) 999.specrand_ir refrate (ref) base Start-m64 (2 copies) [2016-12-02 15:58:26]
+ Success: 2x500.perlbench_r 2x502.gcc_r 2x505.mcf_r 2x520.omnetpp_r 2x523.xalancbmk_r 2x525.x264_r 2x531.deepsjeng_r 2x541.leela_r 2x548.exchange2_r 2x557.xz_r 2x999.specrand_ir
+ Producing Raw Reports
+  label: Start-m64
+   workload: refrate (ref)
+ NOTICE: sw_os001 is longer than 50 characters and will be split
+    metric: SPECrate2017_int_base
+     format: raw -> /export/home/cpu2017/result/CPU2017.003.intrate.rsf
+ Parsing flags for 500.perlbench_r base: done
+ Parsing flags for 502.gcc_r base: done
+ Parsing flags for 505.mcf_r base: done
+ Parsing flags for 520.omnetpp_r base: done
+ Parsing flags for 523.xalancbmk_r base: done
+ Parsing flags for 525.x264_r base: done
+ Parsing flags for 531.deepsjeng_r base: done
+ Parsing flags for 541.leela_r base: done
+ Parsing flags for 548.exchange2_r base: done
+ Parsing flags for 557.xz_r base: done
+ Doing flag reduction: done
+     format: flags -> /export/home/cpu2017/result/CPU2017.003.intrate.flags.html
+     format: cfg -> /export/home/cpu2017/result/CPU2017.003.intrate.cfg, /export/home/cpu2017/result/CPU2017.003.intrate.orig.cfg
+     format: CSV -> /export/home/cpu2017/result/CPU2017.003.intrate.csv
+     format: PDF -> /export/home/cpu2017/result/CPU2017.003.intrate.pdf
+     format: Text -> /export/home/cpu2017/result/CPU2017.003.intrate.txt
+ The log for this run is in /export/home/cpu2017/result/CPU2017.003.log
+
+ runcpu finished at 2016-12-02 15:58:33; 9776 total seconds elapsed
+ $
+
+
+   The run completed successfully. On this particular laptop, a 2-copy
+   reportable intrate run, using base-only tuning, required less than 3 hours
+   (9776 seconds). Much more time would be needed if the run used both base
+   and peak tuning, or used more copies, or asked for additional suites
+   (fprate, intspeed, or fpspeed).
+
+Appendix 1: Uninstalling SPEC CPU 2017
+
+   At this time, SPEC does not provide an uninstall utility for SPEC CPU
+   2017. Confusingly, there is a file named uninstall.sh in the top
+   directory, but it does not remove the whole product; it only removes the
+   SPEC tool set, and does not affect the benchmarks (which consume the bulk
+   of the disk space).
+
+   To remove SPEC CPU 2017 on Windows systems, select the top directory in
+   Windows Explorer and delete it.
+
+   To remove SPEC CPU 2017 on Unix systems, use rm -Rf on the directory where
+   you installed the suite, for example:
+
+   rm -Rf /home/cs3000/saturos/spec/cpu2017
+
+   If you have been using the output_root feature, you will have to track
+   those down separately. Therefore, prior to removing the tree, you might
+   want to look for mentions of output root, for example:
+
+ Windows:
+     cd %SPEC%\config
+     findstr output_root *cfg
+
+ Unix:
+     cd $SPEC/config
+     grep output_root *cfg
+
+   Note: instead of deleting the entire directory tree, some users find it
+   useful to keep the config and result subdirectories, while deleting
+   everything else.
+
+Appendix 2: Installing from a tarfile
+
+   If you are unable to mount the ISO image on the system where you want to
+   install SPEC CPU 2017 (perhaps because you lack root privileges), you may
+   use the following alternative.
+
+     * Do one of these two:
+
+         1. Find some other system -- perhaps a laptop? -- where you can
+            mount it; or
+         2. Find a system that at least lets you "browse" the contents of the
+            ISO.
+            (For example, on many systems, you can use your mouse to click on
+            the image and extract items from it.)
+
+     * Retrieve 5 things from the image:
+
+         1. install_archives/cpu2017.tar.xz       (or similar -- the name
+            might change slightly from time to time).
+         2. install_archives/cpu2017.tar.xz.sha512
+         3. tools/bin/(dir)/specxz       where (dir) matches the system on
+            which you plan to install CPU 2017.
+         4. tools/bin/(dir)/spectar
+         5. tools/bin/(dir)/specsha512sum
+
+     * Copy the above 5 to the system where you wish to install SPEC CPU
+       2017. Be sure that your copy method does not change the files (for
+       example, you might need to select a binary transmission mode.)
+
+     * Use specsha512sum to verify the checksum of the large archive and then
+       use specxz and spectar to unpack it. NOTE that you should not use your
+       own system tar unless you are sure that it can handle long directory
+       paths.
+
+     * Then, start install.shas described in Step 5, above.
+
+   Example: In this example, the ISO image is mounted on a Mac OS X laptop.
+   The destination system for SPEC CPU 2017 is a Linux system.
+
+ mac$ open cpu2017.iso
+ mac$ cd /Volumes/SPEC_CPU2017/
+ mac$ scp install_archives/cpu2017.tar.xz* agjay07:
+ james@agjay07's password:
+ cpu2017.tar.xz                                100% 1161MB   4.0MB/s   04:48
+ cpu2017.tar.xz.sha512                         100%  143     0.1KB/s   00:00
+
+ mac$ scp tools/bin/linux-x86_64/spec* agjay07:
+ james@agjay07's password:
+ specsha512sum                                 100%   71KB  71.5KB/s   00:00
+ spectar                                       100%  503KB 502.7KB/s   00:00
+ specxz                                        100%  219KB 219.5KB/s   00:00
+ mac$
+ mac$ ssh agjay07
+ james@agjay07's password:
+ Last login: Fri Jul 15 13:56:27 2016
+ lx>
+ lx> specsha512sum -c cpu2017.tar.xz.sha512
+ cpu2017.tar.xz: OK
+ lx> mkdir cpu2017
+ lx> cd cpu2017
+ lx> ../specxz -dc ../cpu2017.tar.xz | ../spectar -xf -
+ lx> ./install.sh
+
+ SPEC CPU2017 Installation
+
+ Top of the CPU2017 tree is '/home/james/cpu2017'
+
+ Installing FROM /home/james/cpu2017
+ Installing TO /home/james/cpu2017
+
+ Is this correct? (Please enter 'yes' or 'no')
+ yes
+
+   ... and so forth, as described in Step 5, above.
+
+   Installing SPEC CPU(R)2017 on Unix Systems Including: AIX, Linux, Mac OS
+   X, Solaris, and similar systems: Copyright (c) 2017-2019 Standard
+   Performance Evaluation Corporation (SPEC(R))
+
+

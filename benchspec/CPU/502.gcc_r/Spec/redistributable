@@ -1,0 +1,5 @@
+src
+data/refrate/input
+data/refspeed/input
+data/train/input
+!Makefile

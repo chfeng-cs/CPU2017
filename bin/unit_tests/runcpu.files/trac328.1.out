@@ -1,0 +1,20 @@
+runcpu banner
+Using tools
+Reading file manifests...
+Loading runcpu modules...
+Locating benchmarks...found some benchmarks in some benchsets.
+Reading config file 'trac328.cfg'
+Pre-processed configuration file dump follows:
+--------------------------------------------------------------------
+# Invocation command line:
+# $SPEC/bin/harness/runcpu --define option=action=validate --configpp -c trac328.cfg
+# output_root was not used for this run
+############################################################################
+sysinfo_program=
+action=validate
+
+--------------------------------------------------------------------
+
+The log for this run is in [log file]
+
+runcpu finished at [timestamp]

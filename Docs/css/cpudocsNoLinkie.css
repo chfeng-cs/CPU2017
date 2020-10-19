@@ -1,0 +1,9 @@
+
+/* Less decorativee links - they're not clickable */
+a.external:visited, a.external:link {
+  text-decoration: none;
+  background: none;
+  padding:0px;
+  margin:0px;
+}
+

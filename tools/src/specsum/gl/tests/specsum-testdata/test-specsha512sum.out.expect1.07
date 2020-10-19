@@ -1,0 +1,5 @@
+../specsum-testdata/test-specsum.in.02: FAILED
+../specsum-testdata/test-specsum.in.02: FAILED
+specsha512sum: test-specsha512sum.in.expect1.07: 3: improperly formatted SHA512 checksum line
+specsha512sum: WARNING: 1 line is improperly formatted
+specsha512sum: WARNING: 2 computed checksums did NOT match

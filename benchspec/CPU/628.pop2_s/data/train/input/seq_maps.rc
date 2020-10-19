@@ -1,0 +1,56 @@
+##################################################################
+#
+# seq_maps.rc
+#
+# This is a resource file which lists the names of mapping
+# weight files to use in a sequential CCSM run (mapname).
+# You can also set when data is rearranged in the mapping (maptype).
+#
+# This file is read during the map_model2model_init calls.
+#
+# For maptype:  X = Rearrange the input so that the output
+#                   is on the correct processor.
+#               Y = Rearrange the output and sum partial outputs
+#                   if necessary
+#
+# NOTE:  For bfb on different processor counts, set all maptypes to "X".
+################################################################## 
+
+atm2ocnFmapname: ./map_fv4x5_to_gx3v7_aave_da_091218.nc
+atm2ocnFmaptype: X
+
+atm2ocnSmapname: ./map_fv4x5_to_gx3v7_bilin_da_091218.nc
+atm2ocnSmaptype: X
+
+ocn2atmFmapname: ./map_gx3v7_to_fv4x5_aave_da_091218.nc
+ocn2atmFmaptype: Y
+
+ocn2atmSmapname: ./map_gx3v7_to_fv4x5_aave_da_091218.nc
+ocn2atmSmaptype: Y
+
+atm2iceFmapname: ./map_fv4x5_to_gx3v7_aave_da_091218.nc
+atm2iceFmaptype: X
+
+atm2iceSmapname: ./map_fv4x5_to_gx3v7_bilin_da_091218.nc
+atm2iceSmaptype: X
+
+ice2atmFmapname: ./map_gx3v7_to_fv4x5_aave_da_091218.nc
+ice2atmFmaptype: Y
+
+ice2atmSmapname: ./map_gx3v7_to_fv4x5_aave_da_091218.nc
+ice2atmSmaptype: Y
+
+atm2lndFmapname: idmap
+atm2lndFmaptype: X
+
+atm2lndSmapname: idmap
+atm2lndSmaptype: X
+
+lnd2atmFmapname: idmap
+lnd2atmFmaptype: Y
+
+lnd2atmSmapname: idmap
+lnd2atmSmaptype: Y
+
+rof2ocnFmapname: ./map_rx1_to_gx3v5_e1000r500_090319.nc
+rof2ocnFmaptype: Y

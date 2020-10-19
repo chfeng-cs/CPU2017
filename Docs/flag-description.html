@@ -1,0 +1,1918 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- A nice wide window (132 columns) is recommended when editing this document ................................................ -->
+
+<head>
+<meta name="revision" content="$Id: flag-description.html 6317 2019-07-28 22:50:53Z JohnHenning $" />
+<title>Flag Description Files - CPU 2017</title>
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+
+<style type="text/css">
+.bold {font-weight: bold} 
+.center { text-align: center; }
+</style>
+
+</head>
+<body>
+
+
+<div class="center">
+<h1>SPEC CPU&reg;2017 Flag Description Files</h1>
+<table class="version">
+   <tr>
+      <th>$Id: flag-description.html 6317 2019-07-28 22:50:53Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+
+<p><strong>ABSTRACT</strong><br />
+This document describes the SPEC CPU&reg;2017 flags description file format.  SPEC CPU 2017 is
+a product of the SPEC&reg; non-profit corporation <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.</p>
+
+</div>
+
+<hr />
+
+<table style="border:none;">
+<tr style="border:none;">
+
+   <td style="border:none;padding-left:2em;">
+
+      <p class="snug" style="font-size:85%;font-family:sans;">Element order, from <a
+      href="#ElementOrder">below</a>:</p>
+      <a href="#ElementOrder"><img width="175" height="116" alt="flag DTD summary" src="images/dtd-summary.gif" style="border:medium solid blue;padding:6px;
+      background:#ffebff;" /></a> </td> 
+
+   <td style="border:none;">
+     <p class="snugtop">Quick links:</p>  
+     <ul>
+        <li>User flags files are of two kinds: <a href="#CompilerFlagsFile">compiler flags files</a> and <a
+        href="#PlatformFlagsFile">platform flags files</a>.   </li>
+         <li>Some elements are allowed to appear in both compiler and platform flags files; some can only appear in one of them;
+         click diagram for details. </li>
+         <li>Notice that some elements can appear in either file.  Given a choice, which should you use?  See <a
+         href="#WhichFile">guidelines</a>. </li>
+      </ul>
+   </td>
+
+   </tr>
+</table>
+
+<hr />
+
+
+<h3>Contents</h3>
+<table>
+   <tr>
+      <td>
+   <p class="contentsl1" id="Dtoc_purp"><a href="#purpose">Purpose</a></p>
+
+   <p class="contentsl1" id="Dtoc_1"><a  href="#section1"      >1 </a> File Types, Usage, and Reporting</p>
+   <p class="contentsl2"><a              href="#section1.1"    >1.1</a> Flag File Types</p>
+
+   <p class="contentsl2"><a              href="#section1.2"    >1.2</a> Flag file usage</p>
+   <p class="contentsl3"><a              href="#section1.2.1"  >1.2.1</a> Required and optional user flags files</p>
+   <p class="contentsl3"><a              href="#section1.2.2"  >1.2.2</a> Including a file</p>
+   <p class="contentsl3"><a              href="#section1.2.3"  >1.2.3</a> Re-use is encouraged</p>
+   <p class="contentsl3"><a              href="#section1.2.4"  >1.2.4</a> Adding, removing, updating flags files</p>
+   <p class="contentsl3"><a              href="#section1.2.5"  >1.2.5</a> Which options for which flags file? </p>
+   <p class="contentsl2"><a              href="#section1.3"    >1.3</a> Reporting</p>
+   <p class="contentsl3"><a              href="#section1.3.1"  >1.3.1</a> Flags dump (HTML version all flags)</p>
+   <p class="contentsl3"><a              href="#section1.3.2"  >1.3.2</a> Per-result flags report</p> 
+
+   <p class="contentsl2"><a              href="#section1.4"    >1.4</a> Example flags files</p>
+      </td>
+      <td>
+
+   <p class="contentsl1" id="Dtoc_2"><a  href="#section2"      >2 </a> Flags file structure </p>
+
+   <p class="contentsl2"><a              href="#section2.1"    >2.1</a> Syntax basics</p>
+   <p class="contentsl3"><a              href="#section2.1.1"  >2.1.1</a> Tags, elements, and attributes</p>
+   <p class="contentsl3"><a              href="#section2.1.2"  >2.1.2</a> Enclosing tags and DTD</p>
+   <p class="contentsl3"><a              href="#section2.1.3"  >2.1.3</a> HTML comments are supported</p>
+   <p class="contentsl3"><a              href="#section2.1.4"  >2.1.4</a> Regarding embedded HTML</p>
+   <p class="contentsl3"><a              href="#section2.1.5"  >2.1.5</a> Element order</p>
+                                                              
+   <p class="contentsl2"><a              href="#section2.2"    >2.2</a> Common elements</p> 
+   <p class="contentsl3"><a              href="#section2.2.1"  >2.2.1</a> Suggested filename (mandatory)</p>
+   <p class="contentsl3"><a              href="#section2.2.2"  >2.2.2</a> Title (mandatory)</p>
+   <p class="contentsl3"><a              href="#section2.2.3"  >2.2.3</a> Style sheet</p>
+   <p class="contentsl3"><a              href="#section2.2.4"  >2.2.4</a> Submit command</p>
+   <p class="contentsl3"><a              href="#section2.2.5"  >2.2.5</a> Software environment</p>
+
+   <p class="contentsl2"><a              href="#section2.3"    >2.3</a> Compiler flags file elements</p> 
+   <p class="contentsl3"><a              href="#section2.3.1"  >2.3.1</a> FDO settings</p>
+   <p class="contentsl3"><a              href="#section2.3.2"  >2.3.2</a> Header (top level)</p>
+   <p class="contentsl3"><a              href="#section2.3.3"  >2.3.3</a> Headers for each class</p>
+   <p class="contentsl3"><a              href="#section2.3.4"  >2.3.4</a> Named Flags </p>
+
+   <p class="contentsl2"><a              href="#section2.4"    >2.4</a> Platform flags file elements</p>
+   <p class="contentsl3"><a              href="#section2.4.1"  >2.4.1</a> OS tuning</p>
+   <p class="contentsl3"><a              href="#section2.4.2"  >2.4.2</a> Virtual machine settings</p>
+   <p class="contentsl3"><a              href="#section2.4.3"  >2.4.3</a> Firmware settings</p>
+   <p class="contentsl3"><a              href="#section2.4.4"  >2.4.4</a> Parts and options </p>
+      </td>
+      <td>
+   <p class="contentsl1" id="Dtoc_3"><a  href="#section3"    >3 </a> Flag Description Elements and Attributes</p>
+   <p class="contentsl2"><a              href="#section3.1"  >3.1</a> Flag name (mandatory)</p>
+   <p class="contentsl2"><a              href="#section3.2"  >3.2</a> Flag class (mandatory)</p>
+   <p class="contentsl3"><a              href="#section3.2.1">3.2.1</a> "mandatory" class</p>
+   <p class="contentsl3"><a              href="#section3.2.2">3.2.2</a> "forbidden" class</p>
+   <p class="contentsl3"><a              href="#section3.2.3">3.2.3</a> "portability" class</p>
+   <p class="contentsl3"><a              href="#section3.2.4">3.2.4</a> "optimization" class</p>
+   <p class="contentsl3"><a              href="#section3.2.5">3.2.5</a> "compiler" class</p>
+   <p class="contentsl3"><a              href="#section3.2.6">3.2.6</a> "other" class</p>
+   <p class="contentsl3"><a              href="#section3.2.7">3.2.7</a> "unknown" class</p>
+
+   <p class="contentsl2"><a              href="#section3.3"  >3.3</a> Regular expression (mandatory, but defaulted)</p>
+   <p class="contentsl3"><a              href="#section3.3.1">3.3.1</a> Default regular expression </p>
+   <p class="contentsl3"><a              href="#section3.3.2">3.3.2</a> Full Perl regular expressions may be used</p>
+   <p class="contentsl3"><a              href="#section3.3.3">3.3.3</a> Substituting captured text</p>
+   <p class="contentsl3"><a              href="#section3.3.4">3.3.4</a> When <samp class="nb">\b</samp> won't work</p>
+   <p class="contentsl3"><a              href="#section3.3.5">3.3.5</a> Regular expression references</p>
+
+   <p class="contentsl2"><a              href="#section3.4"  >3.4</a> Descriptive text (mandatory)</p>
+   <p class="contentsl3"><a              href="#section3.4.1">3.4.1</a> Example: update descriptive text with rawformat</p>
+
+   <p class="contentsl2"><a              href="#section3.5"  >3.5</a> Including other flags</p>
+   <p class="contentsl3"><a              href="#section3.5.1">3.5.1</a> Include by "flag" attribute</p>
+   <p class="contentsl3"><a              href="#section3.5.2">3.5.2</a> Include by "text" attribute</p>
+   <p class="contentsl3"><a              href="#section3.5.3">3.5.3</a> Splitters</p>
+
+   <p class="contentsl2"><a              href="#section3.6"  >3.6</a> List of compilers</p>
+   <p class="contentsl2"><a              href="#section3.7"  >3.7</a> Example flag text</p>
+   <p class="contentsl2"><a              href="#section3.8"  >3.8</a> Example replacements</p>
+   <p class="contentsl2"><a              href="#section3.9"  >3.9</a> Controlling flag display</p>
+   <p class="contentsl2"><a              href="#section3.10" >3.10</a> Indication of parallelism</p>
+   <p class="contentsl2"><a              href="#section3.11" >3.11</a> Other attributes</p>
+      </td>
+   </tr>
+   <tr>
+      <td>
+
+   <p class="contentsl1" id="Dtoc_4"><a  href="#section4" >4 </a> Other elements</p>
+
+   <p class="contentsl1" id="Dtoc_5"><a  href="#section5" >5 </a> Precedence</p>
+
+   <p class="contentsl1" id="Dtoc_6"><a  href="#section6" >6 </a> Best Practices</p>
+      </td>
+   </tr>
+</table>
+
+
+<h2 id="purpose">Purpose</h2>
+
+<p>This document describes how to write XML flag description files for use by SPEC CPU 2017.</p>
+
+<p>SPEC CPU 2017 provides benchmarks in source code form, which are compiled under control of SPEC's toolset.  Compiler
+flags are reported with the help of flag description files. For each flag, they provide:</p>
+<ul>
+<li>A flag type, such as "portability" or "optimization".</li>
+<li>A regular expression to recognize the flag.</li>
+<li>What the flag means, so that someone reading a result can click on it and see a brief definition.</li>
+</ul>
+
+<p>Flags description files are not limited to compiler flags.  They also describe other performance-relevant options.</p>
+
+<p>It is assumed that the reader has at least some familiarity with HTML.  Familiarity with XML is not essential, but may be
+helpful.</p>
+
+<hr />
+<h2 id="section1">1. <span id="Files">File</span> Types, Usage, and Reporting</h2>
+
+<h3 id="section1.1">1.1 <span id="FileTypes">Flag</span> File Types</h3>
+
+<p>Flag description files are supplied by SPEC or by benchmark users.</p>
+<p>SPEC supplies these:</p>
+<div class="l1">
+<ul>
+<li id="SuiteFlagsFile">The <b>Suite-wide flags file</b> contains flags that are applied to all compiles, which are generally
+   not switchable (the <a href="#MandatoryClass">mandatory class</a>) and not reported.  It is supplied as <samp
+      class="nbsnugr">$SPEC/benchspec/flags_mandatory.xml</samp>.</li>
+
+<li id="BenchmarkFile"><b>Per-benchmark flags files</b> describe flags for individual benchmarks, such as optional
+portability flags.  These are supplied as <samp class="nbsnugr">$SPEC/benchspec/CPU/nnn.benchmark/Spec/flags.xml</samp>.
+   </li>
+</ul>
+
+<p>If SPEC should need to update flags files that it supplies, they will be posted at the SPEC web site.  You can update your
+copies using <a class="external" href="runcpu.html#update">runcpu --update</a>.</p>
+
+</div>
+
+<p id="UserFlagsFiles"><b>User flags files</b> are of two types:</p>
+<div class="l1">
+
+<ul>
+   <li id="CompilerFlagsFile">A <b>Compiler flags file</b> describes options that are used to build benchmark binaries.
+      It also describes features and settings related to the compilation environment.</li>
+
+   <li id="PlatformFlagsFile"> A <b>Platform flags file</b> describes characteristics of the system being tested.
+   </li>
+</ul>  
+
+<p>For more information about which items to put into which flags file type, please see section <a
+   href="#WhichFile">1.2.5</a>.</p>
+</div>
+
+
+<h3 style="margin-bottom:.5em;" id="section1.2">1.2 <span id="FlagFileUsage">Flag</span> file usage</h3>
+
+<h4 style="margin-top:.5em;" id="section1.2.1">1.2.1 <span id="RequiredFiles">Required</span> and optional user flags files</h4>
+<ul>
+<li><p>You <b><i>must</i></b> provide a compiler flags file.  If you do not, your result will be marked "invalid", because the run
+rules <a class="external" href="runrules.html#flagsfiles">require</a> that all tuning must be described.  For example, you would
+use a compiler flags file to describe the meaning of:</p> 
+<pre>--optimize</pre> </li>
+<li><p>Usually, you will need to provide a platform flags file.  For example, if you use a firmware setting such as the following,
+you would explain it in a platform flags file:</p>
+<pre>Power Management: Server Throughput</pre>
+</li>
+<li><p>Optionally, you may provide more than one of either type, for example if you use two different compilers.</p></li>
+</ul>
+
+<h4 id="section1.2.2">1.2.2 <span id="IncludingFiles">Including</span> a file</h4>
+
+<p>User flag description files may be included via the config file (by the <a class="external"
+href="config.html#flagsurl">flagsurl</a> variable) or via the runcpu command line <a class="external"
+href="runcpu.html#flagsurl">--flagsurl</a> switch.  Each file's location may be specified as either a path on the local file
+system or as a <samp class="nb">file://</samp> or <samp class="nb">http://</samp> URL.  HTTPS is not supported.</p>
+
+<p>In particular, your config file or runcpu command  can re-use a previous flags file by picking it up directly from <a
+class="external" href="https://www.spec.org/cpu2017/flags/">http://www.spec.org/cpu2017/flags/</a>.</p>
+
+
+<h4 id="section1.2.3">1.2.3 <span id="ReUseEncouraged">Re-use</span> is encouraged</h4>
+
+<p><b>Flags Files Are Reusable - and they should be re-used</b>.  When multiple results use the same compiler, they can, and
+probably should, use the same compiler flags file.   When a series of hardware products share a common BIOS, they can, and
+probably should, share a single platform file that describes that BIOS.  Re-using flags files allows edits to be propagated
+to multiple affected result pages.</p>
+
+<p> Making it easier to re-use flags files is the point of the requirement to 
+separate compiler and platform flags.  The intent is that items which tend to change together should be described together;
+and things that change on separate schedules should be separated.</p>
+
+<h4 id="section1.2.4">1.2.4 <span id="UpdatingFiles">Adding,</span> removing, updating flags files</h4>
+
+<p class="snugbot">User flag descriptions are automatically saved within the raw result file so that the result may be
+reformatted without requiring access to the flags file.  </p>
+
+<p>You can use <a class="external" href="utility.html#extract_flags">extract_flags</a> to copy the flags from a result file to a
+new file.</p> 
+
+<p>The flag descriptions stored in the raw file will be removed if the result is formatted with the 'noflags' pseudo-flags
+file (<samp class="nbsnuglr">--flagsurl noflags</samp>).  </p>
+
+<p class="snugbot">The stored flag descriptions can be updated: if you use</p> 
+<pre class="codeexample">
+runcpu <a class="external" href="runcpu.html#rawformat">--rawformat</a>  --flagsurl=newflags1.xml,newflags2.xml
+</pre>
+<p class="snugtop">then the above-named two flag description files will replace any descriptions stored in the raw result
+file.  This feature can come in very handy if you need to update your user flags file after you have completed your
+measurement run.  For example, if a flag changes its meaning with a new compiler version, or you find that you have committed
+typographical errors that cause flags to unexpectedly be reported as "unknown", <samp class="nb">runcpu
+--rawformat</samp> can easily be rerun as needed.  </p>
+
+<p>Note that when reformatting with a new user flags file, <strong>all</strong> of the stored flags files will be replaced. If
+multiple flags files were used when formatting a result, it is not possible to selectively replace only one.  Instead, <a
+class="external" href="utility.html#extract_flags">extract</a> all of them; make your edits; and then put them all back in with <a
+class="external" href="runcpu.html#rawformat">rawformat</a>. </p> 
+
+<p>An example of using rawformat to update a flags file can be found in <a href="#rawformat">section 3.4.1</a>.</p>
+
+<h4 id="section1.2.5">1.2.5 Which <span id="WhichFile">options</span> for which flags file? </h4> 
+
+<p>Some options may be described in either a compiler flags file or a platform flags file. This section explains why SPEC
+allows that flexibility, and explains how to pick which file type to use.  First, a reminder:   </p>
+
+<p style="border:thin solid gray;margin:.6em 3em;width:75%;padding:.1em .3em"><i>The intent of the separation of compiler
+flags from platform flags is to improve the probability that things which tend to change together are described together, and
+that things which tend to change separately are described separately.</i></p>
+
+<p>For some kinds of information, the placement is obvious.  For example:</p>
+
+<ol>
+<li>An f90 compiler uses <samp class="nbsnugr">--optimize</samp>. Describe it in a compiler flags file.</li>
+<li>A firmware or BIOS setting selects main memory speed.   Describe it in a platform flags file.</li>
+<li>A shell command <samp class="nb">ulimit</samp> is needed to compile the benchmarks.  Describe it in the compiler flags
+file.</li>
+</ol>
+
+<p>So far, these examples are straightforward.  Some options are harder to classify:</p>
+<ol start="4">
+<li>A run time environment variable <samp class="nb">OMP_NUM_THREADS</samp> is closely tied to a compiler option
+<samp class="nbsnugr">--openmp</samp>.</li>
+<li>CPU cores are selected at run time by a <samp class="nb">numactl</samp> command.</li>
+</ol>
+
+<p>For Example 4 you could pick either choice, with a slight preference for the compiler flags file because this run-time option
+is closely related to a compile-time option. If you set it by the config file options <a class="external"
+href="config.html#env_vars">env_vars</a> or <a class="external" href="config.html#preenv">preenv</a>, the relationship becomes
+stronger, as does the preference.</p>
+
+<p>For Example 5 you could pick either choice: <samp>numactl</samp>  is clearly a runtime setting, however, it may be called via the
+config file option <a class="external" href="config.html#submit">submit</a>, and its usage  might be developed by the same person
+who develops the compile tuning options.  Therefore you might find it more convenient to use the compiler flags file, and this is
+allowed.</p> 
+
+<p>Having considered these examples, we are ready to describe a set of guidelines.</p>
+
+<table style="width:75%;margin-left:12%;background:#ffebff;">
+<tr><td colspan="2"><b>Table 1: Guidelines for placement of descriptions.</b>
+   <br />If an option can be described in multiple places, SPEC recommends choosing the location using these
+   criteria:</td>
+</tr>
+<tr><td>A</td>
+    <td>Result pages should state <b>what</b> tuning is chosen.</td>
+</tr>
+<tr><td>B</td>
+    <td>Flag description files should describe what the tuning <b>means</b>.</td>
+</tr>
+<tr><td>C</td>
+    <td>If the tuning is required in order to build the benchmarks, then describe it in a compiler flags file.</td>
+</tr>
+<tr><td>D</td>
+    <td>If the tuning relates to the run-time environment and is invisible to the build process (even after considering config
+    file features such as <a class="external" href="config.html#preenv">preenv</a> and <a class="external"
+    href="config.html#submit">submit</a>), then describe it in a platform flags file.</td> 
+</tr>
+<tr><td>E</td>
+    <td>For options that do not fit either of the previous two guidelines, please estimate whether it is likely to change as
+    compilers evolve or to change as platforms evolve, and pick the file accordingly.</td>
+</tr>
+</table>
+
+
+<h3 id="section1.3">1.3 <span id="Reporting">Reporting</span> </h3>
+
+<p>Flag description files affect all reports, which draw on the flags description files in order to correctly classify flags as
+optimization, portability, and so forth.   There are two types of HTML flags outputs. </p>
+
+<h4 id="section1.3.1">1.3.1 <span id="FlagsDump">Flags</span> dump (HTML version all flags)</h4>
+
+<p>A "<i>flags dump</i>" can be generated by <samp class="nb">flag_dump</samp> (see <a class="external"
+href="utility.html#flag_dump">utility.html</a>).  A flags dump is an HTML version of all the flags from an XML flags description
+file.</p> 
+
+<!-- "per-result" is referenced from outside this doc -->
+<h4 id="section1.3.2">1.3.2 <span id="PerResult">Per-result</span> <span id="per-result">flags</span> report</h4>
+
+<p>A "<i>per-result flags report</i>", such as <samp class="nbsnugr">CPU2017.505.fprate.flags.html</samp>, is generated by <samp
+class="nb">runcpu --output_format flags</samp> (see <a class="external" href="runcpu.html#out">runcpu.html</a>).  A
+per-result flags report includes descriptions only for the flags that were used in that particular test.</p> 
+
+<p>Per-result flags reports can be regenerated using <a class="external" href="runcpu.html#rawformat">runcpu --rawformat</a>.</p>
+
+<p>An example of using rawformat to update a flags file can be found in <a href="#rawformat">section 3.4.1</a>.</p>
+
+
+<h3 id="section1.4">1.4 <span id="for00001">Example</span> flags files</h3>
+
+<p>You will find several examples on your installed copy of SPEC CPU 2017 in <samp class="nb">$SPEC/config/flags</samp> (Unix) or <samp
+class="nb">%SPEC%\config\flags</samp> (Windows).   The example flags file for GCC is a real, working example which has been annotated and cross-referenced to this document.  You might want to copy it, and bring it up in a program such as <samp class="snugr">notepad</samp>; or (as shown below), you could edit it using <samp class="nbsnugr">vim -R</samp>, where the "-R" indicates read-only mode. <br clear="all" /><img src="images/gcc-example-in-editor.png" width="1196" height="488" alt="using editor to look at example xml" /> </p>
+
+<p>In addition, there are many flags files at the SPEC web site that have been
+posted with published results.  You can find them as shown in the figure below.</p>
+
+<ul>
+<li>Selecting any optimization flag, such as the one called out by <span style="border:thin solid red;color:red;">1</span>, will
+take you into the per-result flags report -- in this case, to the section that describes <samp class="nbsnugr">-xpagesize</samp>.
+</li>
+<li>The bottom of the result, at <span style="border:thin solid red;color:red;">2</span>, points to a flags dump. </li> 
+<li>At <span style="border:thin solid red;color:red;">3</span>, you can find the original <samp>.xml</samp> user flags file.
+<b>Don't click</b> on an <samp>xml</samp> file; it will likely annoy your browser.  Instead, download it to your machine (e.g.
+with right-click) and open it with an editor.  </li>
+</ul>
+
+<p style="margin-left:1.5em;"> <img style="border:thin solid black;" id="figure1" width="862" height="529"
+src="images/flags-figure1.jpg" alt="screenshot of CPU 2006 result 0001" /> <br /><b>Figure 1: How to find example flags files at
+www.spec.org </b></p>
+
+
+<hr />
+<h2 id="section2">2. <span id="FlagsFileStructure">Flags</span> file structure </h2>
+
+<p>As you read this description, you may find it useful to refer to the examples, as mentioned above. </p>
+
+<h3 style="margin-bottom:.4em;" id="section2.1">2.1 <span id="SyntaxBasics">Syntax</span> basics</h3>
+
+<p>A few basic XML concepts are introduced in here.  The definitive source for XML is <a class="external"
+href="http://www.w3.org/">www.w3.org</a>.   You can find more basic descriptions by searching the web for 'XML Introduction'.</p> 
+
+
+<h4 id="section2.1.1">2.1.1 <span id="TagsElementsAttributes">Tags,</span> elements, and attributes</h4>
+
+<p class="snugbot">First, some terminology.  Consider:</p>
+
+<pre class="codeexample">
+&lt;title&gt;Flag descriptions for ACME Compiler 12.2&lt;/title&gt;
+
+&lt;flag name="rounding" 
+      class="optimization" 
+      regexp="-round\b"&gt;
+
+   &lt;include text="-lfastmath" /&gt;
+
+   Allow mathematical operations to complete more quickly, with a slight
+   loss of accuracy.  Specifically, on some operations, the bottom 
+   digit may not be correctly rounded.
+
+&lt;/flag&gt;
+</pre>
+
+<p>In XML terminology, the words in between angle brackets above are called <b>tags</b>, and the tags delimit
+<b>elements</b>.  Notice that most elements have surrounding tag pairs.  For example, the title element begins with start tag
+<samp class="nb">&lt;title&gt;</samp> and ends with <samp class="nbsnugr">&lt;/title&gt;</samp>.   </p>
+
+<p>A tag can also be self-closing, or <b>empty</b>, as in the <samp class="nb">include</samp> tag above.  Notice that
+there is no <samp class="nb">&lt;/include&gt;</samp> tag above; rather, there is only a single tag, which ends with "<samp
+class="nbsnuglr">/&gt;</samp>".</p>
+
+<p>An element may contain other elements.  For example, the <samp class="nb">&lt;flag&gt;</samp> and <samp
+class="nb">&lt;/flag&gt;</samp> tags delimit a multi-line element that contains an <samp
+class="nb">&lt;include&gt;</samp> element.</p>
+
+<p>A tag may have one or more <b>attributes</b>, which are <samp class="nb">name=value</samp> pairs in the tag.  Although
+the <samp class="nb">&lt;include&gt;</samp> tag above is termed empty (or self-closing), it nevertheless has an
+attribute, <samp class="nbsnugr">text="-lfastmath"</samp>, which causes the inclusion of the description for the fast math
+library.</p>
+
+<h4 style="margin-top:.4em;" id="section2.1.2">2.1.2 <span id="DTD"> Enclosing</span> tags and DTD</h4>
+
+<p>A flags description file is an XML 1.0 file that conforms to the SPEC CPU flags description Document Type Definition
+(DTD).  </p>
+
+
+<p>The first lines of the flags file <span class="bold">must</span> be</p>
+
+<pre>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE flagsdescription
+   SYSTEM "http://www.spec.org/dtd/cpuflags2.dtd"
+&gt;
+&lt;flagsdescription&gt;
+</pre>
+
+<p><span style="border:thin solid red;padding:2px;margin-left:3em;font-size:125%;"> 
+Please note that the dtd version is cpuflags<span class="alarm">2</span>.dtd, not cpuflags<span
+class="alarm">1</span>.dtd.</span></p>
+
+<p>As you might expect, the file must end with a line that is simply</p>
+
+<pre>
+&lt;/flagsdescription&gt;
+</pre>
+
+<p>The first three lines claim that your document is an XML document that conforms to a specific DTD.  Can you prove that?  Yes,
+for example with <a class="external" href="http://www.cogsci.ed.ac.uk/~richard/rxp.html">RXP</a>, a validating XML parser, which
+is included with SPEC CPU 2017 as "specrxp".  See topic "specrxp" in <a class="external" href="utility.html#specrxp">utility.html</a>.</p>
+
+<h4 id="section2.1.3">2.1.3 <span id="HTMLComments">HTML</span> comments are supported</h4>
+
+<p>Standard HTML-style comments are supported.  It is suggested that you use comments near the top of the file to describe
+its purpose, the system to which it applies, etc.  These comments must <span class="bold">NOT</span> come before the DOCTYPE
+declaration.  For example:</p>   
+
+<pre>
+  &lt;!-- ACME Compiler 12.2 Flags.  
+      Originally written for V1.0 by Aaron (chairman of the Committee on Engrossed Bills) 
+      and updated subsequently to V12.2.
+  --&gt;
+</pre>
+
+
+<h4 id="section2.1.4">2.1.4 <span id="CDATA">Regarding</span> embedded HTML</h4>
+
+<p>A flags description file is an XML document.  Flag descriptions commonly include HTML.  However, embedding HTML within XML
+poses a challenge, because XML parsers are promised that ampersand (&amp;) and left angle bracket (&lt;) do not appear unless
+used as XML markup. The solution is to hide embedded HTML by enclosing it within <samp class="nb">CDATA</samp> sections.
+(Alternatively, individual brackets could be escaped one at a time, but this is not recommended.)</p>
+
+<p class="snugbot">A <samp class="nb">CDATA</samp> section begins with </p>
+<pre>&lt;![CDATA[</pre>
+<p class="snug">and ends with</p>
+<pre>]]&gt;</pre>  
+<p class="snugtop">Any text between the start and end tags will not be touched by the XML parser.  Of course, the CDATA end
+tag may not appear unescaped in the enclosed text.</p>
+
+<p>For example:</p>
+
+<pre class="codeexample">
+&lt;header&gt;&lt;![CDATA[
+&lt;p&gt;This is an &lt;i&gt;ACME Corporation&lt;/i&gt; flags description.&lt;/p&gt;
+&lt;p&gt;Please read it.&lt;/p&gt;
+]]&gt;&lt;/header&gt;
+</pre>
+
+<p>SPEC CPU 2017 reports are compliant with the <a class="external" href="http://www.w3.org/TR/xhtml1/">XHTML 1.0 Strict</a>
+standard.  Care should be taken that any HTML markup used does not cause reports to become invalid or not well-formed.  There
+is an <a class="external" href="http://validator.w3.org/">on-line validator</a> which may be used to check those elements.
+Because the flag descriptions for a per-result flags report have the same markup as in the flag dump, validating the flags
+dump (as generated by <a class="external" href="utility.html#flag_dump">flag_dump</a>) will ensure that per-result flags
+reports are also valid.</p> 
+
+<p>For convenience, flag descriptions that do not include any HTML will have <samp
+class="nb">&lt;p&gt;...&lt;/p&gt;</samp> added to them.  For example:</p>
+
+<pre class="codeexample">
+&lt;flag name="F-fstrength-reduce" class="optimization"&gt;
+      &lt;![CDATA[
+      &lt;p&gt;Perform the optimizations of loop strength reduction and elimination of
+      iteration variables.&lt;/p&gt;
+      ]]&gt;
+&lt;/flag&gt;
+</pre>
+<p>could also be said as:</p>
+<pre class="codeexample">
+&lt;flag name="F-fstrength-reduce" class="optimization"&gt;
+      Perform the optimizations of loop strength reduction and elimination of
+      iteration variables.
+&lt;/flag&gt;
+</pre>
+
+<p>Automatic addition of <samp class="nb">&lt;p&gt;...&lt;/p&gt;</samp> is the only HTML that gets added automatically;
+otherwise, you're on your own for writing valid HTML.  If you do write any of your own HTML, <samp
+class="nb">&lt;p&gt;...&lt;/p&gt;</samp>  is <b>not</b> added, because the paragraph tags might interfere with whatever
+else you had set out to do.  In fact, if you include any left or right angle brackets (whether for HTML or just because you'd
+like to say that "3 &gt; 2"), the automatic addition of <samp class="nb">&lt;p&gt;...&lt;/p&gt;</samp> does <b>not</b>
+occur. </p> 
+
+
+<h4 id="section2.1.5">2.1.5 <span id="ElementOrder">Element</span> order</h4>
+
+<p>The <a href="#DTD">DTD</a> specifies a strict order for elements described in this chapter.  When you use any of
+these elements, they must appear in the correct order.</p>
+
+<p>Some elements, labeled "common" below, may appear in any flags file.  Others may appear only a <a
+href="#CompilerFlagsFile">compiler flags file</a> or only in a <a href="#PlatformFlagsFile">platform flags file</a>.   The
+sections below explain what the expected contents are for each element.</p>
+
+<pre style="background:#ffebff;margin:2em 5em;">
+<b>Table 2: Element order by file type</b>
+
+compiler     common          platform
+
+             <a href="#suggestedfilename">File name</a> (*)
+             <a href="#Title">Title</a> (*)
+             <a href="#StyleSheet">Style</a>
+             <a href="#Submit">Submit command</a>
+             <a href="#sw_environment">SW environment</a>
+            /             \
+           /               \
+          /                 \
+ <a href="#FdoSettings">FDO settings</a>                 <a href="#OsTuning">OS tuning</a>
+ <a href="#Header">Header</a>                       <a href="#VM">Virtual Machine</a>
+ <a href="#NamedFlags">Named flags</a>                  <a href="#Firmware">Firmware</a>
+                              <a href="#Parts">Parts</a>
+
+ (*) Mandatory.  All other elements are optional.
+</pre>
+
+<h3 id="section2.2">2.2 <span id="CommonElements">Common</span> elements</h3>
+
+<p>The elements described in this section may appear in both <a href="#CompilerFlagsFile">compiler flags files</a> and in <a
+href="#PlatformFlagsFile">platform flags files</a>.  </p> 
+
+<h4 id="section2.2.1">2.2.1 Suggested filename (mandatory)
+
+   <span id="Suggested-filename"> </span>
+   <span id="Suggested.filename"> </span>
+   <span id="SuggestedFilename"> </span>
+   <span id="Suggested_filename"> </span>
+   <span id="Suggestedfilename"> </span>
+   <span id="suggested-filename"> </span>
+   <span id="suggested.filename"> </span>
+   <span id="suggestedFilename"> </span>
+   <span id="suggested_filename"> </span>
+   <span id="suggestedfilename"> </span>
+
+   <span id="Filename"> </span>
+   <span id="filename"> </span>
+
+
+
+</h4>
+
+<p>There are times when the flag file moves around without a filename, such as when it is enclosed in a raw result file.</p>
+
+<p>In order to make it possible to extract the file and automatically save it with a useful name, the <samp
+class="nb">&lt;filename&gt;...&lt;/filename&gt;</samp> element may be used to suggest the base of a filename.</p>
+
+<p>For example, this suggests that the filename begin with "ACME-12.2": </p>
+
+<pre class="codeexample">
+&lt;filename&gt;ACME-12.2&lt;/filename&gt;
+</pre>
+
+<p>The filename may consist of alphanumeric characters, periods, underscores, and hyphens.  If present, other characters will
+be converted to underscores.</p>
+
+<p>Because this is meant to be the base of a filename, any '.xml' or '.html' extensions will be automatically and silently
+stripped.</p>
+
+<p>There is no guarantee that all tools which might save a copy of the flags file will use the contents of this element.
+It is only a "suggestion".</p>
+
+<p>A filename element <b>must</b> be provided with all flags files.</p>
+
+
+<h4 id="section2.2.2">2.2.2 <span id="Title">Title</span> <span id="title">(mandatory)</span></h4>
+
+<p>Using the <samp class="nb">&lt;title&gt;...&lt;/title&gt;</samp> element, you can define text which will be used to
+form the HTML page title for a flags dump (commonly seen as the window title for the browser).  This text is also used as the
+initial header on the page.</p>
+
+<p>The <samp class="nb">&lt;title&gt;</samp> element is not used for results reporting; it is only used when dumping the
+flags to an HTML file.</p>
+
+<p>Because it is used in the page title, this element <span class="bold">must not</span> contain any HTML markup.</p>
+
+<p>For example:</p>
+
+<pre class="codeexample">
+&lt;title&gt;GNU Compiler Collection Flags&lt;/title&gt;
+</pre>
+
+<p>A title element <b>must</b> be provided with all flags files.</p>
+
+
+<!-- "style" is referenced from outside this doc -->
+<h4 id="section2.2.3">2.2.3 <span id="StyleSheet">Style</span> <span id="style">sheet</span> </h4>
+
+<p>SPEC CPU 2017 reports use structural HTML with presentation controlled by CSS.  Most discrete elements are identified by a class
+or an ID (or both) so that they can be styled with a great degree of control.  There is a <a class="external"
+href="css/cpu2017result.css">common style sheet</a>, as well as style sheets containing tweaks for <a class="external"
+href="css/cpu2017screen.css">screen output</a> and for <a class="external" href="css/cpu2017print.css">print output</a>.  They
+contain code to handle everything that the tools output by default.</p> 
+
+<p>If you'd like to define some classes for use in your own markup, or if you'd like to override some of the default CSS, you
+may do so by using the <samp class="nb">&lt;style&gt;...&lt;/style&gt;</samp> element.  Doing so will affect both
+per-result flags reports and the flags dump.</p>
+
+<p>As mentioned above, because the flag description file is parsed as XML, some things in the CSS (such as left angle
+brackets) must be escaped.  It is easiest to just enclose all of the CSS in a CDATA section.</p>
+
+<p>For example:</p>
+
+<pre class="codeexample">
+&lt;style&gt;&lt;![CDATA[
+body { background: white; }
+]]&gt;&lt;/style&gt;
+</pre>
+
+
+<h4 id="section2.2.4">2.2.4 <span id="Submit">Submit</span> <span id="submit_command">command</span></h4>
+
+<p>The <samp class="nb">&lt;submit_command&gt;...&lt;/submit_command&gt;</samp> element may be used to describe settings,
+programs, or scripts used in conjunction with the config file <a class="external" href="config.html#submit">submit</a> option.
+If a script is used to handle submissions, the full text is typically included here.</p> 
+
+<p>The content of the submit_command element is inserted verbatim after the flag descriptions at the end of both the flags
+dump and the per-result flag report.  For example:</p>
+
+<pre class="codeexample">
+&lt;submit_command&gt;&lt;![CDATA[
+
+&lt;p&gt;&lt;b&gt;&lt;tt&gt;submit=echo 'pbind -b...' &amp;gt; dobmk; sh dobmk&lt;/tt&gt;&lt;/b&gt; (SPEC tools, Unix)&lt;br /&gt;
+
+When running multiple copies of benchmarks, &lt;tt&gt;&lt;b&gt;submit&lt;/b&gt;&lt;/tt&gt; is used to cause 
+individual jobs to be bound to specific threads.  Here is a brief guide to understanding 
+the specific command which will be found in the config file: &lt;/p&gt;
+
+&lt;ul&gt;
+   &lt;li&gt;&lt;tt&gt;&lt;b&gt;echo ... &amp;gt; dobmk&lt;/b&gt;&lt;/tt&gt; causes the generated commands to be written 
+       to a file, namely &lt;tt&gt;dobmk&lt;/tt&gt;.  &lt;/li&gt;
+
+   &lt;li&gt;&lt;tt&gt;&lt;b&gt;sh dobmk&lt;/b&gt;&lt;/tt&gt; actually runs the benchmark.&lt;/li&gt;
+
+   &lt;li&gt;&lt;tt&gt;&lt;b&gt;pbind -b&lt;/b&gt;&lt;/tt&gt; causes this copy's processes to be bound to the thread 
+       specified by the expression that follows it.  See the config file used in the 
+       submission for the exact syntax, which tends to be cumbersome because of the 
+       need to carefully quote parts of the expression.  When all expressions are 
+       evaluated, each thread ends up with exactly one copy of each benchmark.  The 
+       pbind expression may include:
+       &lt;ul&gt;
+            &lt;li&gt;&lt;tt&gt;&lt;b&gt;$SPECCOPYNUM&lt;/b&gt;&lt;/tt&gt;: the SPEC tools-assigned number for this 
+                copy of the benchmark.  &lt;/li&gt;
+
+            &lt;li&gt;&lt;tt&gt;&lt;b&gt;psrinfo&lt;/b&gt;&lt;/tt&gt;: find out what processors are available &lt;/li&gt;
+
+            &lt;li&gt;&lt;tt&gt;&lt;b&gt;grep on-line&lt;/b&gt;&lt;/tt&gt;: search the &lt;tt&gt;psrinfo&lt;/tt&gt; output for 
+                information regarding on-line cpus &lt;/li&gt;
+
+            &lt;li&gt;&lt;tt&gt;&lt;b&gt;expr&lt;/b&gt;&lt;/tt&gt;: Calculate simple arithmetic expressions.  For 
+                example, the effect of binding jobs to a (quote-resolved) expression such 
+                as: &lt;br /&gt;
+                    &lt;tt&gt;expr ( $SPECCOPYNUM / 4 ) * 8 + ($SPECCOPYNUM % 4 ) )&lt;/tt&gt;&lt;br /&gt;
+                would be to send the jobs to processors whose numbers are: &lt;br /&gt;
+                    &lt;tt&gt;0,1,2,3, 8,9,10,11, 16,17,18,19 ...&lt;/tt&gt; &lt;/li&gt;
+
+            &lt;li&gt;&lt;tt&gt;&lt;b&gt;awk...print \$1&lt;/b&gt;&lt;/tt&gt;: Pick out the line corresponding to this 
+                copy of the benchmark and use the CPU number mentioned at the start of 
+                this line.  &lt;/li&gt;
+
+       &lt;/ul&gt;&lt;/li&gt;
+
+&lt;/ul&gt;
+
+]]&gt;&lt;/submit_command&gt;
+</pre>
+
+<p>Notice in the example above that the flags file author has gone to some trouble to make the eventual webpage readable
+by the consumer of the result (by using various HTML markup), and to make the HTML source maintainable (by indenting and
+whitespace).  Both practices are recommended.</p>
+
+
+<p>The submit command element may appear in both <a href="#CompilerFlagsFile">compiler flags files</a> and in <a
+href="#PlatformFlagsFile">platform flags files</a>.  For guidance as to which to use, please see <a href="#WhichFile">section
+1.2.5</a>.  </p> 
+
+
+
+<h4 id="section2.2.5">2.2.5 <span id="sw_environment">Software</span> <span id="software">environment</span> </h4>
+
+<p>The <samp class="nb">&lt;sw_environment&gt;...&lt;/sw_environment&gt;</samp> element may be used to describe
+shell resources, environment variables, and other software options or installation settings.</p>
+
+<p>The content of the sw_environment element is inserted verbatim after the submit_command section (if any) at the end of
+both the flags dump and the per-result flag report.  For example:</p>
+
+<pre class="codeexample">
+&lt;sw_environment&gt;&lt;![CDATA[
+
+ &lt;dl&gt;
+ &lt;dt&gt;HUGETLB_MORECORE&lt;/dt&gt;
+ &lt;dd&gt;Set this environment variable to "yes" to enable applications to use 
+     large pages.&lt;/dd&gt;
+
+ &lt;dt&gt;LD_PRELOAD=/usr/lib64/libhugetlbfs.so&lt;/dt&gt;
+ &lt;dd&gt;Setting this environment variable is necessary to enable applications to 
+     use large pages.&lt;/dd&gt;
+
+ &lt;dt&gt;KMP_STACKSIZE&lt;/dt&gt;
+ &lt;dd&gt;Specify stack size to be allocated for each thread.&lt;/dd&gt;
+
+ &lt;dt&gt;KMP_AFFINITY&lt;/dt&gt;
+ &lt;dd&gt;
+  &lt;ul&gt;
+   &lt;li&gt;KMP_AFFINITY  =  &amp;lt; physical | logical &amp;gt;, starting-core-id &lt;br /&gt;
+       specifies the static mapping of user threads to physical cores. 
+       For example, if you have a system configured with 8 cores, 
+       OMP_NUM_THREADS=8 and KMP_AFFINITY=physical,0 then thread 0 will 
+       be mapped to core 0, thread 1 will be mapped to core 1, and 
+       so on in a round-robin fashion.&lt;/li&gt;
+
+   &lt;li&gt;KMP_AFFINITY = granularity=fine,scatter &lt;br /&gt;
+       The value for the environment variable KMP_AFFINITY affects how 
+       the threads from an auto-parallelized program are scheduled
+       across processors. &lt;br /&gt;
+
+       Specifying granularity=fine selects the finest granularity level, 
+       causes each OpenMP thread to be bound to a single thread context.  &lt;br /&gt;
+
+       This ensures that there is only one thread per core on cores 
+       supporting HyperThreading Technology&lt;br /&gt;
+
+       Specifying scatter distributes the threads as evenly as possible 
+       across the entire system. &lt;br /&gt; 
+
+       Hence a combination of these two options, will spread the threads 
+       evenly across sockets, with one thread per physical core.
+       &lt;/li&gt;
+  &lt;/ul&gt;
+ &lt;/dd&gt;
+ &lt;/dl&gt;
+
+]]&gt;&lt;/sw_environment&gt;
+</pre>
+
+<p>The software environment element may appear in both <a href="#CompilerFlagsFile">compiler flags files</a> and in <a
+href="#PlatformFlagsFile">platform flags files</a>.  For guidance as to which to use, please see <a href="#WhichFile">section
+1.2.5</a>.  </p> 
+
+
+
+<h3 id="section2.3">2.3 <span id="CompilerElements">Compiler</span> flags file elements</h3>
+
+<h4 id="section2.3.1">2.3.1 <span id="FdoSettings">FDO</span> <span id="fdo_settings">settings</span></h4>
+
+<p>The <samp class="nb">&lt;fdo_settings&gt;...&lt;/fdo_settings&gt;</samp> element may be used to describe settings or
+programs used when doing <a class="external" href="config.html#sectionVI">feedback-directed optimization</a>.  This section should
+not be used to describe flags and settings covered by <a href="#NamedFlags">named flags</a>.  It is intended primarily to describe
+settings for and programs used in <a class="external" href="config.html#sectionIV.A">fdo_*</a> options.</p> 
+
+<p>The content of the fdo_settings element is inserted verbatim after the submit_command section (if any) at the end of both the
+flags dump and the per-result flag report.  For example:</p>
+
+<pre class="codeexample">
+&lt;fdo_settings&gt;&lt;![CDATA[
+
+&lt;p&gt;When feedback-directed program reorganization (FDPR) is performed, 
+the following settings are used:&lt;/p&gt;
+
+&lt;pre&gt;
+fdo_pre2   = rm -f $baseexe.nprof $baseexe.instr; fdpr -1 -q -p $baseexe
+fdo_run2   = fdpr -2 -q -p $commandexe -x $command
+fdo_post2  = fdpr -3 -q -O4 -p $baseexe; mv $baseexe $baseexe.orig; cp ${baseexe}.fdpr $baseexe
+&lt;/pre&gt;
+
+&lt;p&gt;In brief, here is an explanation of the commands and the options used:&lt;/p&gt;
+&lt;ol&gt;
+ &lt;li&gt;&lt;tt&gt;fdo_pre2&lt;/tt&gt; Leftover outputs in the build directory (if any) are removed&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;fdo_pre2&lt;/tt&gt; The executable is instrumented and an initial static profile generated&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;fdo_run2&lt;/tt&gt; The training workload is run to generate a dynamic profile&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;fdo_post2&lt;/tt&gt; The profiles are evaluated and a new, reordered binary (&lt;baseexe&gt;.fdpr) 
+     is generated&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;fdo_post2&lt;/tt&gt; The uninstrumented binary and the reordered binary are swapped so that 
+     the tools use the reordered binary for the benchmark runs.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Options used for the fdpr program:&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;tt&gt;-1&lt;/tt&gt;: Phase 1 - generate static profiles&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;-2&lt;/tt&gt;: Phase 2 - generate dynamic profiles&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;-3&lt;/tt&gt;: Phase 3 - reorder binary&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;-q&lt;/tt&gt;: Quiet mode - no output to stdout&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;-p &amp;lt;program&amp;gt;&lt;/tt&gt;: Operate on the named binary&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;-x &amp;lt;cmd&amp;gt;&lt;/tt&gt;: When generating dynamic profiles, use the following 
+     arguments to &amp;lt;program&amp;gt;&lt;/li&gt;
+ &lt;li&gt;&lt;tt&gt;-O4&lt;/tt&gt;: Switch on the following optimizations: [...etc] &lt;/li&gt; 
+&lt;/ul&gt;
+
+]]&gt;&lt;/fdo_settings&gt;
+</pre>
+
+
+<p>The FDO settings element may appear only in <a href="#CompilerFlagsFile">compiler flags files</a>.</p>
+
+<h4 id="section2.3.2">2.3.2 <span id="Header">Header</span> <span id="header">(top</span> level)</h4>
+
+<p>Within a <samp class="nb">&lt;header&gt;...&lt;/header&gt;</samp> element you can provide some HTML text that you
+would like to have added to reports.</p>
+
+<p>The contents of this section will be inserted verbatim after the top-level header and before the start of the flag
+descriptions.  If it is non-empty, it <span class="bold">must</span> be well-formed and valid XHTML 1.0.  If in doubt, <a
+class="external" href="http://validator.w3.org/">validate it</a>.</p> 
+
+<p>For example:</p>
+
+<pre class="codeexample">
+&lt;header&gt;&lt;![CDATA[
+&lt;p&gt;This is a flags description file for ACME Platforms using ACMEBIOS 8 firmware.&lt;/p&gt;
+&lt;p&gt;CPU throttling and Power Management firmware settings are described here.
+&lt;/p&gt;
+]]&gt;&lt;/header&gt;
+</pre>
+
+<p>The default <samp class="nb">header</samp> section in the user flag description file is output in both the flags dump (as
+generated by the <a class="external" href="utility.html#flag_dump">flag_dump</a> utility), and the per-result flags report.</p> 
+
+<p>Header settings elements may appear only in <a href="#CompilerFlagsFile">compiler flags files</a>.</p>
+
+<h4 id="section2.3.3">2.3.3 <span id="ClassHeaders">Headers</span> for each class </h4>
+
+<p>It is possible to provide some HTML which will appear in a flags dump at the top of each class section, before the flags in
+that section.  This text is also specified with the <a href="#Header">header</a> element, with a "class" attribute added. 
+Per-class <samp class="nb">header</samp> sections in the user flag description file only appear in the flags dump (as
+generated by the <a class="external" href="utility.html#flag_dump">flag_dump</a> utility); they do not appear in a per-result
+flags report.  </p> 
+
+<p>For example, for general notes about optimization flags, use something like this:</p>
+
+<pre class="codeexample">
+&lt;header class="optimization"&gt;&lt;![CDATA[
+&lt;p&gt;Some suboptions either enable or disable a feature.&lt;/p&gt;
+
+&lt;p&gt;Suboption values and their effects:&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;1, on, true - enable the feature&lt;/li&gt;
+ &lt;li&gt;0, off, false - disable the feature&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These values are not case sensitive.&lt;/p&gt;
+&lt;/p&gt;
+]]&gt;&lt;/header&gt;
+</pre>
+
+<p>Header settings elements may appear only in <a href="#CompilerFlagsFile">compiler flags files</a>.</p>
+
+<h4 id="section2.3.4">2.3.4 <span id="NamedFlags">Named</span> <span id="flag">Flags</span> </h4>
+
+<p>The description of each individual flag is enclosed in <samp class="nb">&lt;flag&gt;...&lt;/flag&gt;</samp> tags.
+Because flag recognition and reporting has many features, it is described separately in its own <a
+href="#FlagElements">chapter</a>.  For now, one example will serve as an introduction:</p>
+
+<pre class="codeexample">
+&lt;flag name="disable-unroll" 
+      class="optimization" 
+      regexp="-nounroll|-unroll=0" &gt;
+
+    &lt;![CDATA[
+      &lt;p&gt;Disables loop unrolling, which is an optimization where the 
+      compiler tries to improve performance by making multiple copies of 
+      loop bodies.  &lt;/p&gt;
+    ]]&gt;
+
+&lt;/flag&gt;
+</pre>
+
+<p>This example describes a flag <a href="#FlagName">named</a> <samp class="nbsnugr">disable-unroll</samp>.   If a benchmark
+is compiled using either <samp class="nb">-nounroll</samp> or <samp class="nb">-unroll=0</samp> (notice these strings
+in the regular expression, or <a href="#RegExp">regexp</a>), then the <a href="#FlagClass">class</a> attribute will cause
+the Optimization Flags section of the report to link to the <a href="#FlagDescriptiveText">descriptive text</a> that is provided:
+namely, the paragraph that begins "Disables loop..."</p>
+
+<p>Named flag elements may appear only in <a href="#CompilerFlagsFile">compiler flags files</a>.</p>
+
+<h3 id="section2.4">2.4 <span id="PlatformFiles">Platform</span> flags file elements</h3>
+<h4 id="section2.4.1">2.4.1 <span id="OsTuning">OS</span> tuning</h4>
+
+<p>The <samp class="nb">&lt;os_tuning&gt;...&lt;/os_tuning&gt;</samp> element may be used to describe
+operating system install options, boot settings, other operating system configuration settings relevant to the run.</p>
+
+<p>The content of the os_tuning element is inserted verbatim after the sw_environment section (if any) at the end of both the
+flags dump and the per-result flag report.  For example:</p>
+
+<pre class="codeexample">
+&lt;os_tuning&gt;
+&lt;![CDATA[
+
+&lt;p&gt;&lt;b&gt;&lt;kbd&gt;autoup=&lt;n&gt;&lt;/kbd&gt;&lt;/b&gt; (Unix /etc/system)
+&lt;br /&gt;When the file system flush daemon &lt;tt&gt;fsflush&lt;/tt&gt; runs, it writes
+to disk all modified file buffers that are more than &lt;kbd&gt;n&lt;/kbd&gt; seconds
+old.  &lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;&lt;kbd&gt;psrset -c &lt;n&gt;&lt;/kbd&gt;&lt;/b&gt; (Unix, superuser commands)
+&lt;br /&gt; Creates a new processor set and displays the new processor set ID.
+&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;&lt;kbd&gt;psrset -e &lt;n&gt;&lt;/kbd&gt;&lt;/b&gt; (Unix, superuser commands)
+&lt;br /&gt; Executes a command (with optional arguments) in the specified
+processor set.  The command process and any child processes are executed
+only by processors in the processor set.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;&lt;kbd&gt;tune_t_fsflushr=&lt;n&gt;&lt;/kbd&gt;&lt;/b&gt; (Unix /etc/system)
+&lt;br /&gt; Controls the number of seconds between runs of the file system
+flush daemon, &lt;tt&gt;fsflush&lt;/tt&gt;.  &lt;/p&gt;
+
+]]&gt;
+&lt;/os_tuning&gt;
+</pre>
+
+<p>The OS tuning element may appear only in <a href="#PlatformFlagsFile">platform flags files</a>.</p>
+
+
+<h4 id="section2.4.2">2.4.2 <span id="VM">Virtual</span> Machine Settings</h4>
+
+<p>The <samp class="nb">&lt;virtual_machine&gt;...&lt;/virtual_machine&gt;</samp> element may be used to describe
+settings pertaining to hypervisors, domains, partitioning, or any other virtualization technology used during the benchmark
+run.</p>
+
+<p>The content of the virtual_machine element is inserted verbatim after the os_tuning section (if any) at the end of both
+the flags dump and the per-result flag report.  For example:</p>
+
+<pre class="codeexample">
+&lt;virtual_machine&gt;&lt;![CDATA[
+
+&lt;p&gt;The benchmark run was performed in a resource-capped container configured with 
+the following zonecfg(8) file:&lt;/p&gt;
+&lt;pre&gt;
+create -b
+set zonepath=/zhome/speccpu
+set brand=ipkg
+set autoboot=true
+set limitpriv=default,dtrace_proc,dtrace_user
+add dataset
+set name=tank/speccpu
+end
+add capped-cpu
+set ncpus=1
+end
+add capped-memory
+set swap=2G
+end
+&lt;/pre&gt;
+
+]]&gt;&lt;/virtual_machine&gt;
+</pre>
+
+<p>The virtual machine element may appear only in <a href="#PlatformFlagsFile">platform flags files</a>.</p>
+
+
+<h4 id="section2.4.3">2.4.3 <span id="Firmware">Firmware</span> settings</h4>
+
+<p>The <samp class="nb">&lt;firmware&gt;...&lt;/firmware&gt;</samp> element may be used to describe
+firmware, BIOS, or microcode settings used on the system under test.</p>
+
+<p>The content of the firmware element is inserted verbatim after the virtual_machine section (if any) at the end of both the
+flags dump and the per-result flag report.  For example:</p>
+
+<pre class="codeexample">
+&lt;firmware&gt;&lt;![CDATA[
+
+&lt;dl&gt;
+ &lt;dt&gt;Hardware Prefetch:&lt;/dt&gt; 
+ &lt;dd&gt;
+  &lt;p&gt;This BIOS option allows the enabling/disabling of a processor mechanism 
+     to prefetch data into the cache according to a pattern-recognition algorithm.&lt;/p&gt;
+  &lt;p&gt;In some cases, setting this option to Disabled may improve performance. 
+     Users should only disable this option after performing application benchmarking 
+     to verify improved performance in their environment.&lt;/p&gt;
+ &lt;/dd&gt;
+
+ &lt;dt&gt;Adjacent Sector Prefetch:&lt;/dt&gt; 
+ &lt;dd&gt;
+  &lt;p&gt;This BIOS option allows the enabling/disabling of a processor mechanism 
+     to fetch the adjacent cache line within a 128-byte sector that contains the 
+     data needed due to a cache line miss.&lt;/p&gt;
+  &lt;p&gt;In some cases, setting this option to Disabled may improve performance. 
+     Users should only disable this option after performing application benchmarking 
+     to verify improved performance in their environment.&lt;/p&gt;
+ &lt;/dd&gt;
+ 
+ &lt;dt&gt;High Bandwidth:&lt;/dt&gt; 
+ &lt;dd&gt;Enabling this option allows the chipset to defer memory transactions and 
+     process them out of order for optimal performance.&lt;/dd&gt;
+&lt;/dl&gt;
+
+]]&gt;&lt;/firmware&gt;
+</pre>
+
+<p>The firmware element may appear only in <a href="#PlatformFlagsFile">platform flags files</a>.</p>
+
+
+<h4 id="section2.4.4">2.4.4 <span id="Parts">Parts</span> and options </h4>
+
+<p>The <samp class="nb">&lt;parts&gt;...&lt;/parts&gt;</samp> element may be used to describe
+hardware and software parts and options needed to complete the system.</p>
+
+<p>The content of the parts element is inserted verbatim after the firmware section (if any) at the end of both the
+flags dump and the per-result flag report.  For example:</p>
+
+<pre class="codeexample">
+&lt;parts&gt;&lt;![CDATA[
+
+&lt;p&gt;Any case and fan combination providing at least 347 SCFM over the 
+   processor's thermal control gear.&lt;/p&gt;
+
+&lt;p&gt;PGUM #28-451 must be installed in order to enable large pages to 
+   be allocated on non-local memory boards in large memory systems.  This 
+   is an extra-cost option and does not come with the standard operating 
+   system install.&lt;/p&gt;
+
+]]&gt;&lt;/parts&gt;
+</pre>
+
+<p>The parts element may appear only in <a href="#PlatformFlagsFile">platform flags files</a>.</p>
+
+<hr />
+
+<h2 id="section3">3. <span id="FlagElements">Flag</span> Description Elements and Attributes</h2>
+
+<p>This chapter provides the full description for <samp class="nb">&lt;flag&gt;</samp> elements and attributes.  A brief
+overview of the XML concepts of tags, elements, and attributes is available in <a href="#TagsElementsAttributes">section
+2.1</a>.</p>  
+
+<p>A flags file can be validated against its XML <a href="#DTD">dtd</a>.  Therefore, flag details must be specified
+in the correct locations.  Some are specified as attributes within the opening <samp class="nb">&lt;flag ... &gt;</samp>
+tag, and others are specified as standalone elements inside of the <samp class="nb">flag</samp> element.  The text of the
+flag description itself is the text within the <samp class="nb">flag</samp> section; it is not called out by any special
+element or attribute name, although usually you will want to place it within a <a href="#CDATA">CDATA</a> marker.</p>
+
+<p>The attributes that are allowed on a flag tag are:</p>
+
+   <p class="l2">
+   <a href="#FlagName">name</a> (*) <br />
+   <a href="#FlagClass">class</a> (*) <br />
+   <a href="#RegExp">regexp</a> (**) <br />
+   <a href="#CompilerList">compilers</a><br />
+   <a href="#parallel">parallel</a><br /><br />
+   (*) The name and class are mandatory.  <br />
+   (**) The regexp must be provided unless it is implied by 
+     a <a href="#DefaultRE">carefully chosen</a> name.</p>
+
+<p>Attributes may be specified in any order.</p>
+
+<p>The elements that are allowed to be contained inside a flag element are:</p>
+
+   <p class="l2">
+   <a href="#FlagExample">example</a> <br />
+   <a href="#ExReplacement">ex_replacement</a> <br />
+   <a href="#IncludeFlags">include</a> <br />
+   <a href="#Display">display</a> <br />
+   <a href="#FlagDescriptiveText">descriptive text</a> (usually within <a href="#CDATA">CDATA</a>) <br />
+   </p>
+
+<p><a href="#ElementOrder">Unlike</a> top-level elements, these "child" elements of the flag element may be specified in any
+order.</p>
+
+<p>Here is an example that contains every allowed attribute and element:</p>
+
+<pre class="codeexample">
+&lt;flag name="F-Ox" 
+      class="optimization" 
+      regexp="-O(\d+)\b" 
+      compilers="cc,c++" 
+      parallel="no"
+      &gt;
+
+    &lt;example&gt;-O3&lt;/example&gt;
+    &lt;ex_replacement&gt;3&lt;/ex_replacement&gt;
+    &lt;!-- 
+       Comments can be freely added between elements 
+    --&gt;
+    &lt;include flag="F-Qunroll" /&gt;
+    &lt;include text="F-inline=$1" /&gt;
+    &lt;display enable="1" /&gt;
+
+    &lt;![CDATA[
+         &lt;p&gt;-O$1 enables optimization at level $1.&lt;/p&gt;
+         &lt;!-- Because this comment appears within the CDATA section, it will also
+         appear in any HTML generated from the flag description. --&gt;
+    ]]&gt;
+&lt;/flag&gt;
+</pre>
+
+<p>Whitespace is largely ignored (except within quoted and CDATA sections).</p>
+
+
+<p>All of the options are fully explained in the sections below.</p>
+
+<h3 id="section3.1"> <span id="FlagName">3.1</span>   <span id="flag_name">Flag</span> <span id="flagname">name</span> (mandatory)</h3>
+
+<p class="snugbot">The requirements are:</p>
+<ol>
+<li>Each flag must have a <samp class="nb">name</samp> attribute. </li> 
+<li>A name must begin with a letter, a colon, or an underscore.  </li>
+<li>After that, it may be composed of letters, digits, periods, hyphens ('-'), underscores, or colons.  </li>
+</ol>
+
+<p>The XML name attribute is almost never going to be spelled exactly the same way as the human-readable compiler flag,  since
+compiler flags typically begin with other characters, such as slash (/) and hyphen (-).  Note also that a name may not include an
+equals sign.  See the <a href="#DefaultRE">regexp</a> section for suggested naming conventions that meet the above
+restrictions.</p>
+
+<p class="snugbot">Although the XML name string is arbitrary, you will probably find it useful to choose names that bear an
+obvious relationship to human-readable compiler flag names.  If the compiler calls it <samp class="nbsnugr">--bigger</samp>, your XML should <span
+class="u">not</span> say <samp>flag name="smaller"</samp> for three reasons:</p>
+<ul class="snugtop">
+<li>To make it easier to maintain your flags file.</li>
+<li>Because the XML name is sometimes printed in flag dumps (if alternative <a href="#FlagExample">example text</a> is not
+supplied). </li>
+<li>Because well-chosen names will save you having to write many regular expressions, as described <a
+href="#DefaultRE">below</a>.</li>
+</ul>
+
+<p>The XML flag name attribute <span class="bold">must</span> be unique.  If you format a single result using multiple flags
+files (with <a class="external" href="runcpu.html#flagsurl">--flagsurl=file1.xml,file2.xml</a> or the config file option <a
+class="external" href="config.html#flagsurl">flagsurl</a>), the name must be unique across all the files.</p> 
+
+<p>The naming restrictions are derived from the "Name" production (#5) in <a class="external"
+href="http://www.w3.org/TR/2000/REC-xml-20001006#sec-common-syn">XML 1.0 section 2.3</a>.</p> 
+
+
+
+
+<h3 id="section3.2">3.2 <span id="FlagClass">Flag</span> <span id="flag_class">class</span> <span id="flagclass">(mandatory)</span> </h3>
+
+<p>Each flag must also have a <samp class="nb">class</samp> attribute, which determines how the flag is reported.  There
+are 7 possible classes.</p>
+
+<div class="l1">
+
+<h4 id="section3.2.1">3.2.1 "mandatory" class
+   <span id="Mandatory"> </span>
+   <span id="mandatory"> </span>
+   <span id="Mandatory-class"> </span>       <span id="Class-mandatory"> </span>
+   <span id="Mandatory.class"> </span>       <span id="Class.mandatory"> </span>
+   <span id="MandatoryClass"> </span>        <span id="ClassMandatory"> </span>
+   <span id="Mandatory_class"> </span>       <span id="Class_mandatory"> </span>
+   <span id="Mandatoryclass"> </span>        <span id="Classmandatory"> </span>
+   <span id="mandatory-class"> </span>       <span id="class-mandatory"> </span>
+   <span id="mandatory.class"> </span>       <span id="class.mandatory"> </span>
+   <span id="mandatoryClass"> </span>        <span id="classMandatory"> </span>
+   <span id="mandatory_class"> </span>       <span id="class_mandatory"> </span>
+   <span id="mandatoryclass"> </span>        <span id="classmandatory"> </span>
+</h4>
+
+<p>These are flags that are supplied by SPEC for every compile.  With a few exceptions, they cannot be overridden.  Flags in the
+"mandatory" class are not listed on per-result flags reports, but they do appear in the dump of the suite-wide flags file.  The
+original is on your installed copy of SPEC CPU 2017 as <samp class="nb">$SPEC/benchspec/flags-mandatory.xml</samp> (Unix) or <samp
+class="nb">%SPEC%\benchspec\flags-mandatory.xml</samp> (Windows) and the HTML version is in the <samp>flags</samp> subdirectory of
+the <samp>Docs</samp> directory, as  <a class="external" href="flags/flags-mandatory.html">flags-mandatory.html</a>.</p>
+
+<h4 id="section3.2.2">3.2.2 <span id="ForbiddenClass">"forbidden"</span> class</h4>
+<p>These are flags that may not be used.  If "forbidden" flags are present, that does not prevent you from doing a run; but
+such flags will be prominently displayed in red on the result pages and your result will be marked "Invalid".</p>
+
+<h4 id="section3.2.3">3.2.3 <span id="PortabilityClass">"portability"</span> <span id="portability">class</span> </h4>
+<p class="snugbot">Flags in this class are candidates for consideration as portability as defined in the SPEC CPU 2017 <a
+class="external" href="runrules.html#portability">rules</a>.  For example, the flags description file for <samp
+class="nb">500.perlbench_r</samp> classifies <samp class="nb">-DSPEC_LINUX_IA32</samp> as portability; if your system
+needs it, your config file might say:</p> 
+<pre>500.perlbench_r,600.perlbench_s:
+   PORTABILITY = -DSPEC_LINUX_IA32
+</pre>
+<p class="snugtop">and the reports of your runs will mention the use of <samp class="nb">-DSPEC_LINUX_IA32</samp> in the
+Portability Flags section.  Note: the appearance of a flag in the "portability" class in a flag description file is not alone
+enough to meet the <a class="external" href="runrules.html#portability">rule</a>; the tested platform must actually need the
+flag.  </p>
+
+<p>Portability flags are required to appear in configuration variables that contain the string <samp
+class="nbsnugr">PORTABILITY</samp>; if you use a flag from the portability class in a configuration variable such as <samp
+class="nbsnugr">OPTIMIZATION</samp>, <samp class="nbsnugr">COPTIMIZATION</samp>, and so forth, this will be flagged as an error.</p>
+
+<h4 id="section3.2.4">3.2.4 <span id="OptimizationClass">"optimization"</span> <span id="optimization">class</span> </h4>
+<p>Use the <samp>optimization</samp> class for flags that control, invoke, enable, encourage, or otherwise affect optimization. </p> 
+
+<!-- repeat in both sections -->
+<p>If in doubt between class <a href="#other">other</a> and <a href="#optimization">optimization</a>, pick <samp class="snugr">optimization</samp>.</p>
+<!-- end repeat-->
+
+<p>If any flags in the <samp>optimization</samp> class are used in a configuration variable that are intended for portability flags,
+such as <samp class="nbsnugr">PORTABILITY</samp>, <samp class="nbsnugr">CXXPORTABILITY</samp>, and so forth, this will be noted in
+the results.</p>
+
+<h4 id="section3.2.5"> <span id="CompilerClass">3.2.5</span> <span id="compiler_class">the</span> <span id="compilerclass">"compiler"</span> <span id="compiler">class</span></h4>
+
+<p>Flags in the <samp>compiler</samp> class are used <strong>only</strong> to match the invocation strings for compilers (that is, the
+first token on the command line).  </p>
+
+<p>The compiler class can be combined with the compilers <a href="#compilers_attribute">attribute</a> to dis-ambiguate flags with
+identical spelling (identical <samp class="snugr">regexp</samp>) that are used by multiple compilers. In  the example below, notice that both the C
+and C++ compilers have a switch with <samp class="nb">regexp="-g"</samp> and slightly different meanings:</p>
+
+<pre>
+   &lt;flag name="tbcc" class="compiler" regexp="/opt/turboblaster/cc"&gt;
+       C compiler 
+   &lt;/flag&gt;
+
+   &lt;flag name="tbcxx" class="compiler" regexp="/opt/turboblaster/c++"&gt;
+       C++ compiler
+   &lt;/flag&gt;
+
+   &lt;flag name="cc_g"  class="optimization" regexp="-g" compilers="tbcc"&gt;
+      &lt;![CDATA[
+         &lt;p&gt;
+            Enables debugging.  
+            Does &lt;i&gt;not&lt;/i&gt; disable any optimizations.
+         &lt;/p&gt;
+      ]]&gt;
+   &lt;/flag&gt;
+
+   &lt;flag name="cxx_g" class="optimization" regexp="-g" compilers="tbcxx"&gt;
+      &lt;![CDATA[
+         &lt;p&gt;
+            Enables debugging.  
+            Disables inlining unless optimization is &lt;tt&gt;-O4&lt;/tt&gt; or greater.
+         &lt;/p&gt;
+      ]]&gt;
+   &lt;/flag&gt;
+</pre>
+
+<p>The flags <samp>cc_g</samp> and <samp>cxx_g</samp> are linked to the correct compilers with their <samp>compilers=</samp> attribute.  The
+effect is is that when reporting on a benchmark whose compile line begins <samp class="nbsnugr">/opt/turboblaster/cc</samp>, if the
+<samp class="nb">-g</samp> switch is used, it will get the first description above ("does not disable any optimizations"); if reporting on a C++
+benchmark, then the second description will be used ("Disables inlinling unless...")</p>
+
+<!-- repeat in both sections -->
+<p>Compare the <a href="#compiler_class">compiler class</a> vs. the <a href="#compilers_attribute">compilers attribute</a>.</p>
+<!-- end repeat -->
+
+<h4 id="section3.2.6"> <span id="OtherClass">3.2.6</span> <span id="other">"other"</span> class</h4>
+<p>This class is used for flags and other things that are neither optimization nor portability.  These include flags that
+specify locations to the compiler, flags that change the compiler's verbosity, etc.  Items in this class will be displayed on
+the per-result flags report.</p>
+
+<h4 id="section3.2.7">3.2.7 <span id="UnknownClass">"unknown"</span> class</h4>
+<p>This class is used internally in the tools.  Flags in this class will
+always be listed in the "unknown flags" section on the per-result flag
+report.  This should not be used in a flags description file; after all, if
+it's listed there, it isn't unknown, is it?</p>
+
+</div>
+
+<h3 id="section3.3"> <span id="RegExp">3.3</span> <span id="flag_regexp">Regular</span> <span id="flagregexp">expression</span>
+   (<span id="regexp">mandatory</span>, but defaulted)</h3>
+
+<p>Each flag must have a <samp class="nb">regexp</samp> attribute, which is a Perl-style regular expression that can
+be used to pick the flag out of a string of characters.  This requirement may seem daunting, but for many flags, a
+carefully-chosen <a href="#DefaultRE">name</a> will yield a default regexp that will work.  </p>
+
+<p>If you've not seen regular expressions before, suggestions for reading may be found in <a href="#REstudy">section 3.3.5</a>.</p>
+
+<h4 id="section3.3.1"> <span id="DefaultRE">3.3.1</span> <span id="default_regexp">Default</span> <span
+id="defaultregexp">regular</span> expression </h4>
+
+<p>Commonly, a regular expression is can be generated by default from the flag name, if you understand that the tools provide a
+default regexp using the transformations in this section (which are applied in the order listed):</p>
+
+
+<ol> 
+
+   <li><p>If a flag name begins with the string "<samp class="nbsnuglr">F-</samp>", the "<span class="tt">F</span>" will be
+   stripped, and the remainder used as the basis for the default regexp.  Thus a flag named "<samp
+   class="nbsnuglr">F-fast</samp>" will generate a default regexp that matches "<samp class="nbsnuglr">-fast</samp>".  The regexp
+   will do case-sensitive matching. This takes care of a common situation for Unix systems.  </p></li>
+
+   <li><p>If a flag name begins with the string "<samp class="nbsnuglr">f-</samp>", the "<span class="tt">f-</span>" will be
+   stripped, and "<samp class="nbsnuglr">[-/]</samp>" will be prepended to it.  In addition, the regexp will have "<samp
+   class="nbsnuglr">(?i)</samp>" added to the beginning to cause it to match in a case-insensitive fashion.  Thus a flag
+   named "<samp class="nbsnuglr">f-optimize</samp>" will generate a default regexp that will match any of 
+   "<samp class="nbsnuglr">/OPTIMIZE</samp>",
+   "<samp class="nbsnuglr">-OPTIMIZE</samp>",
+   "<samp class="nbsnuglr">-Optimize</samp>", or
+   "<samp class="nbsnuglr">/OpTiMiZe</samp>".
+   This takes care of a common situation for Windows systems.</p></li>
+
+  <li id="justpunct"><p>If no replacement for "<samp class="nbsnuglr">F-</samp>" or "<samp class="nbsnuglr">f-</samp>" was done,
+  "<samp class="nbsnuglr">[-/]</samp>" will be prepended to the regexp.  This option is available if you want case-sensitive
+  matching for the string and you want the beginning punctuation to be included in the regexp, but you don't care whether the
+  punctuation looks like Unix or Windows.  This situation is, as it were, case sensitive and OS-insensitive.</p></li>
+
+  <li><p>The default composition of a <a href="#FlagName">name</a> does not allow it to contain an equals ("<samp
+  class="nbsnuglr">=</samp>") symbol; since this is common in many flags, the next decision is made based on whether or not a
+  colon is present, as a stand-in for equals.</p>
+
+   <ol style="list-style:lower-alpha">
+
+      <li><p>If the string contains a colon  ("<span class="tt">:</span>")  then the <span class="bold">first</span> (and
+      only the first) occurrence of a colon will be converted to an equal symbol.  Thus a flag named "<samp
+      class="nbsnuglr">F-DBYTEORDER:1234</samp>" will match "<samp class="nbsnuglr">-DBYTEORDER=1234</samp>".  </p></li>
+
+      <li><p>If the string does not contain a colon, then the default regexp value will have</p> 
+<pre>           (?:\([^\)]+\))?
+</pre>
+      <p>and</p>
+<pre>           ((?:=\S*)?
+</pre> 
+
+      <p>appended to it.  The first pattern matches an opening left parenthesis, one or more characters that are not right
+      parentheses, and a closing right parenthesis.  In other words, a list of arguments enclosed in parentheses.  In the second
+      pattern, "<span class="tt">=</span>" matches an equals sign - that is, it is not a pattern metacharacter, unlike all the
+      rest of this regular expression.  The "<samp class="nbsnuglr">\S*</samp>" says that a string of non-blank characters is
+      optional.  In both cases, the "<samp class="nbsnuglr">(?:pattern)</samp>" notation groups the pattern inside the parentheses
+      so that the "<samp class="nbsnuglr">?</samp>" operator that immediately follows the closing parentheses applies to it, thus
+      allowing 0 or 1 instances of the whole thing.</p> 
+
+      <p>The overall effect of "<samp class="nbsnuglr">(?:\([^\)]+\))?(?:=\S*)?</samp>" is thus to both optionally match an
+      argument list enclosed in parentheses, and to optionally match an equals sign and a value that does not contain whitespace.
+      This should be sufficient to catch most forms of basic definition: a flag named
+      "<samp class="nbsnuglr">F-DFOO</samp>" will catch use of "<samp class="nbsnuglr">-DFOO</samp>", "<samp
+      class="nbsnuglr">-DFOO=</samp>", and "<samp class="nbsnuglr">-DFOO=bar</samp>". </p></li>
+
+   </ol></li>
+
+   <li><p>Finally, we will keep the default regular expression from matching longer flags that have the above as the first
+   part of the string.  For example, we do not want "<samp class="nbsnuglr">-DSPEC_SOLARIS</samp>" to match "<samp
+   class="nbsnuglr">-DSPEC_SOLARIS_SPARC</samp>" (since that would leave "<samp class="nbsnuglr">_SPARC</samp>" alone
+   and unknown).  Usually, "<samp class="nbsnuglr">\b</samp>" (match a word boundary) is added to the end.  But if the
+   flag does not end with an alphanumeric, then "<samp class="nbsnuglr">(?=\s|$)</samp>" will be appended to the regexp,
+   which says to accept either white space or end of string. (You'll find more about this way of recognizing the end of a
+   switch in <a href="#beyond-slash-b">section 3.3.4</a>, below.)</p> 
+
+  </li>
+
+</ol>
+
+<p>Note that if this sequence of transformations does not yield an acceptable regular expression, it will be necessary to
+provide one explicitly via the <samp class="nb">regexp</samp> attribute.  Some hints for doing so are given in the next
+few sections.</p>
+
+<p>Some cases in which the default regular expression is not sufficient:</p>
+
+<ul>
+
+<li> The flag marker is a forward slash, but is not allowed to be a dash; <span class="bold">or</span> it is neither.</li>
+
+<li> There is <span class="bold">no</span> flag marker, as when matching the name of a library that is linked directly (that
+is, not via <samp class="nbsnugr">-l</samp>).</li>
+</ul>
+
+<h4 id="section3.3.2">3.3.2 <span id="PerlRE">Full</span> Perl regular expressions may be used</h4>
+
+<p>When the text of a flag is not constant, a more complex regular
+expression must be used.  In that case, nearly any of the full range of
+Perl regular expression features may be used: backreferences, negative and
+positive look-ahead and look-behind assertions, minimal matching, etc.  The
+only features that may not be used are ones marked "experimental" in the
+Perl documentation or ones which involve evaluating Perl code inside the
+regular expression.</p>
+
+<h4 id="section3.3.3">3.3.3 <span id="CaptureSubstitution">Substituting</span> captured text</h4>
+
+<p>Captured backreferences may be substituted into the <a href="#FlagDescriptiveText">flag description text</a> and <a
+href="#IncludeFlags">included flags</a> .  For example, in the following (inadequate) flag description:</p>
+
+<pre class="codeexample">
+&lt;flag name="xO"
+      class="optimization"
+      regexp="-xO([0-9]+)\b"&gt;
+This flag enables optimization at level $1.
+&lt;/flag&gt;
+</pre>
+
+<p>The regexp would match any flag which consisted of the characters "<samp class="nbsnuglr">-xO</samp>" followed by one or
+more digits.  The digits are "captured" by the parentheses that surround <samp class="nb">[0-9]+</samp> and made
+available to the text.  So for a flag like "<samp class="nbsnuglr">-xO5</samp>", the text produced in the flag report would
+read</p>
+
+<p class="example">This flag enables optimization at level 5.</p>
+
+<p>This feature allows complex flags (such as a flag that causes the compiler to pass a bunch of flags directly to the
+linker) to be compactly described.  There's no reason you couldn't simply list each variation separately; in cases where
+there are only two or three possibilities, that may be preferable.  But if you want to get fancy, you can.</p>
+
+<p>To insert a literal dollar sign into replacement text, prefix it with a
+backslash ("<samp class="nbsnuglr">\</samp>", as in
+<samp class="nbsnugr">\$VMSDirName</samp>).  To insert a literal
+backslash, prefix it with another backslash.</p>
+
+<h4 id="section3.3.4">3.3.4 <span id="lookahead">When</span> <samp id="beyond-slash-b" class="nb">\b</samp> won't work</h4>
+<p>If your flag ends with a non-alphanumeric character, <samp class="nb">\b</samp> is
+<strong>not</strong> the correct way to end it.  The reason is that
+<samp class="nb">\b</samp> is a zero-width assertion that matches the boundary between a
+"word" (alphanumeric) character and a non-"word" character.  For most
+flags, <samp class="nb">\b</samp> is just the thing, since both whitespace and the end of
+the string are considered by Perl to be "non-word" characters.</p>
+
+<p>But what about when you have a flag that does not end in an alphanumeric character?  Say you have a flag that will appear
+on the compiler command line as '<samp class="nbsnuglr">-fpsafe-</samp>'.  You can't use <samp class="nb">\b</samp>
+because the last character in that flag is a dash.  It's time for the "zero-width positive lookahead assertion", that is,
+<samp class="nbsnugr">(?=pattern)</samp>, with pattern set to match either whitespace or end of string:</p>
+
+<pre class="codeexample">(?=\s|$)</pre> 
+
+<p>So for the example above, the full regexp would be</p>
+
+<pre class="codeexample">-fpsafe-(?=\s|$)</pre> 
+
+<p>That will ensure that your flag description matches
+<strong>only</strong> the string '-fpsafe-' and not something like
+'-fpsafe-all'.</p>
+
+<p>In fact, you could safely replace all occurrences of <samp class="nb">\b</samp> with the
+construct above.  But <samp class="nb">\b</samp> is more concise and looks a
+<strong>lot</strong> less confusing, so we'll use that wherever we can.</p>
+
+<h4 id="section3.3.5">3.3.5 <span id="REstudy">Regular</span> expression references</h4>
+
+<p>You can learn about Perl's regular expression capabilities by typing any of these three commands:</p>
+<pre>   specperldoc perlretut
+   specperldoc perlrequick
+   specperldoc perlre</pre>  
+<p>You'll find the same information on many systems by typing "<samp class="nbsnuglr">man perl</samp>", or you can try <a
+class="external" href="http://perldoc.perl.org/perl.html">http://perldoc.perl.org/perl.html</a>.  Jeffrey Friedl has also written
+a book called <span style="text-decoration:underline">Mastering Regular Expressions</span> which you might find helpful.</p> 
+
+
+<h3 id="section3.4"> <span id="FlagDescriptiveText">3.4</span> <span id="flag_text">Descriptive</span> text (mandatory)</h3>
+
+<p>With one exception, all flags must have descriptive text.  After all,
+the whole point of this exercise is to locate <strong>and</strong> describe
+the flags being used.  This text is what's contained in the <samp
+class="nb">&lt;flag...&gt;</samp> element, so there's no special
+attribute or element name for it.</p>
+
+<p>The only time a description may be omitted is in the case of non-displayed flags (such as splitters).  Those flags must
+<strong>not</strong> have descriptive text.  See the <a href="#Display">controlling display</a> section for more
+information.</p>
+
+
+
+<!-- "rawformat" is referenced from outside this doc -->
+<h4 id="section3.4.1">3.4.1 Example: <span id="rawformat">update</span> descriptive text with rawformat</h4>
+
+
+<p>As mentioned in <a href="#CaptureSubstitution">section 3.3.3</a>, descriptive text can use elements of the regular expression
+to make them more specific.  In this example, the first result from the previous suite, SPEC CPU 2006, is modified to use the
+feature.  (Similar commands would work in the same way for SPEC CPU 2017.) In the example, result #1 is retrieved; then <a
+class="external" href="utility.html#extract_raw">extract_raw</a> pulls out the rawfile from the html page and <a
+class="external" href="utility.html#extract_flags">extract_flags</a> retrieves the flags from the rawfile.</p>
+
+
+<pre class="codeexample">
+$ <b>mkdir example-cpu2006-00001/</b>
+$ <b>cd example-cpu2006-00001/</b>
+$ <b>ls</b>
+$ <b>wget -q http://www.spec.org/cpu2006/results/res2006q3/cpu2006-20060513-00001.html</b>
+$ <b>ls -l</b>
+total 120
+-rw-rw-r--  1 jhenning  staff  58662 Dec 19 11:48 cpu2006-20060513-00001.html
+$ <b>extract_raw cpu2006-20060513-00001.html </b>
+cpu2006-20060513-00001.html: Wrote "cpu2006-20060513-00001.rsf"
+$ <b>extract_flags cpu2006-20060513-00001.rsf </b>
+Reading "cpu2006-20060513-00001.rsf"
+Wrote "sun-studio.xml"
+$ <b>cp sun-studio.xml myflags.xml</b>
+$ <b>vi myflags.xml </b>
+
+   ... edit, save changes .... here are the differences:
+
+$ <b>diff -u sun-studio.xml myflags.xml</b> 
+... 
+ &lt;flag name="xpagesize" 
+       class="optimization" 
+-      regexp="-xpagesize=\S+\b"&gt;
++      regexp="-xpagesize=(\S+)\b"&gt;
+ &lt;example&gt;-xpagesize=&lt;n&gt; &lt;/example&gt;
+-Set the preferred page size for running the program.
++Set the preferred page size for running the program to $1.
+ &lt;/flag&gt; </pre>
+
+<p>The lines marked "+" in the <samp class="nb">diff</samp> output above are added, and the lines marked "-" are
+removed. The <a class="external" href="runcpu.html#rawformat">rawformat</a> option <a class="external"
+href="runcpu.html#flagsurl">--flagsurl</a> applies the new file:</p>
+
+<pre class="codeexample">
+$ <b>rawformat --flagsurl ./myflags.xml --output_format html cpu2006-20060513-00001.rsf </b>
+...
+Retrieving flags file (./myflags.xml)...
+...
+Doing flag reduction: done
+                       Renaming previous rawfile to cpu2006-20060513-00001.rsf.old.0
+        format: raw -&gt; cpu2006-20060513-00001.rsf
+        format: flags -&gt; cpu2006-20060513-00001.flags.html
+        format: HTML -&gt; cpu2006-20060513-00001.html, cpu2017-20060513-00001.gif
+
+</pre>
+
+<p>Notice above that a new rawfile was automatically written.  It contains the new flags file.  Here is a snapshot of two
+browser windows to show the difference between the reference system as posted at www.spec.org and our updated version:</p>
+
+<p style="margin-left:1.5em;">
+<img style="padding:0em; border:thin solid black;" width="673" height="452" alt="screenshot of comparison of reports" src="images/flags-figure2.jpg" />
+<br /><b>Figure 2: Before/after <a href="#CaptureSubstitution">substitution of captured text</a></b></p>
+
+
+<h3 id="section3.5">3.5 <span id="IncludeFlags">Including</span> other flags</h3>
+
+<p class="snugbot">Flags may include other flags, with the empty tag <samp class="nb">&lt;include /&gt;</samp> and one or
+more of its attributes:</p>
+<pre>
+&lt;include text="<i>some other abritrary text</i>" /&gt;
+&lt;include flag="<i>XML_name_of_other_flag</i>"  /&gt;
+&lt;include flag="<i>XML_name_of_other_flag</i>" flagtext="<i>text for named other flag</i>" /&gt;
+</pre>
+<p class="snugtop">The <samp>text</samp> attribute lets you insert arbitrary text as if it had been on the command line, which is
+then parsed using the same methods as other text.  You can insert multiple other flags if desired.  The <samp>flag</samp>
+attribute lets you insert one flag using its XML flag name.   The <samp>flagtext</samp> attribute can be used only when
+<samp>flag=</samp> is present: it provides the specific text to go with the named flag. </p>
+
+<h4 id="section3.5.1"> <span id="IncludeByName">3.5.1</span>  Include by "flag" attribute</h4>
+
+<p>To include another flag, reference its name from the <samp>flag</samp> attribute.  If you include a flag whose
+<samp>regexp</samp> can match more than one thing, be aware that the <samp>&lt;example&gt;</samp> text will be used, unless you use
+both the <samp>flag</samp> attribute and the <samp>flagtext</samp> attribute.  For example, consider these two flags:</p>
+
+<pre class="codeexample">
+&lt;flag name="tune"
+      class="optimization"
+      regexp="-tune=\S+\b"&gt;
+   &lt;example&gt;-tune=tb1, -tune=tb2, ...&lt;/example&gt;
+   &lt;![CDATA[
+       &lt;p&gt;Tune generated code for the indicated TurboBlaster chip.  
+       Legal values are tb1, tb2, tb3, or tb9000.  &lt;/p&gt;
+   ]]&gt;
+&lt;/flag&gt; 
+
+&lt;flag name="arch_tb3" 
+    class="optimization"
+    regexp="-arch=tb3\n"&gt;
+       &lt;include flag="tune" flagtext="-tune=tb3"/&gt;
+       Generate code that runs only on the TurboBlaster 3.
+&lt;/flag&gt;
+</pre>
+
+<p class="snugbot">Using the above, if <samp class="nb">-arch=tb3</samp> is found in the compile flags, the report will indicate that the
+flag <samp class="nb">-tune=tb3</samp> is included.  If the <samp>flagtext</samp> attribute were not present, then the report would use the
+example text:</p>
+<pre>
+   -arch=tb3
+     Includes: -tune=tb1, -tune=tb2, ...
+</pre>
+<p class="snugtop">which would, obviously, be less than accurate.  In general, if you are using the <samp>flag</samp> attribute
+to include flags by name, whose <samp>regexp</samp> can match more than one thing, you should use the <samp>flagtext</samp>
+attribute.  Note that the text in the <samp class="nb">flagtext</samp> attribute is subject to backreference
+substitution, which might help you fill it out (along the lines of <samp class="nb">regexp="-arch=(\S+)"</samp> and
+<samp class="nbsnugr">flagext="-tune=$1"</samp>).</p>
+
+
+<h4 id="section3.5.2"> <span id="IncludeByText">3.5.2</span>  <span id="include_text">Include</span> 
+   <span id="includetext">by</span> "text" attribute</h4>
+
+<p>The <samp>text</samp> attribute allows you to add arbitrary text back into the flags list that is
+being processed.  The text listed is subject to backreference substitution.  For example:</p>
+
+<pre class="codeexample">
+&lt;flag name="fast"
+      class="optimization"
+      regexp="-fast(32|64)\b"&gt;
+         &lt;include text="-g$1" /&gt;
+         This switch is not for going slowly.
+&lt;/flag&gt;
+</pre>
+
+<p>With this flag description,
+<samp class="nb">-fast32</samp> or
+<samp class="nb">-fast64</samp>
+cause either
+<samp class="nb">-g32</samp> or
+<samp class="nb">-g64</samp>
+to be put back into the list of flags to be parsed.  The inclusions will go
+back into the same variable from which they came.</p>
+
+
+<h4 id="section3.5.3">3.5.3 <span id="splitters">Splitters</span> </h4>
+
+<p>Flag insertion by text is a powerful feature that allows complex multi-switch flags to be decomposed and parsed as if they
+were several individual flags.</p>
+
+<p>For example, given the PathScale-style multi-switch flag <samp class="nbsnugr">-OPT:Ofast:ro=3:fast_sqrt</samp>, the
+following flag description would break it up into its constituent parts:</p>
+
+<pre class="codeexample">
+&lt;flag name="F-OPT:all"
+      class="optimization"
+      regexp="-OPT:([^:\s]+):(.+)\b"&gt;
+&lt;include text="-OPT:$1" /&gt;
+&lt;include text="-OPT:$2" /&gt;
+&lt;display enable="0" /&gt;
+&lt;/flag&gt;
+</pre>
+
+<p class="snugbot">The regular expression matches <samp class="nb">-OPT:</samp> followed by some text that does not
+contain a colon or white space (which is captured), followed by a colon and additional text (which is also captured).  Both
+instances of saved text are reinserted into the flags variable prepended by "<samp class="nbsnuglr">-OPT:</samp>": </p>
+
+<table style="margin-left:2em;border:none;">
+   <tr style="border:none;">
+      <td style="border:none;">It effectively causes the original string </td>
+      <td style="border:none;" class="codeexample">-OPT:Ofast:ro=3:fast_sqrt </td>
+   </tr>
+   <tr style="border:none;">
+      <td style="border:none;">to be replaced by</td>
+      <td style="border:none;" class="codeexample">-OPT:Ofast -OPT:ro=3:fast_sqrt</td>
+   </tr>
+   <tr style="border:none;">
+      <td style="border:none;">and then (as it iterates again) by </td>
+      <td style="border:none;" class="codeexample">-OPT:Ofast -OPT:ro=3 -OPT:fast_sqrt</td>
+   </tr>
+</table>
+
+<p class="snug">Of course, each of the three generated flags will need a description, for example:</p>
+
+<pre class="codeexample">
+&lt;flag name="F-OPT:fast_sqrt"
+      class="optimization"
+      regexp="-OPT:Ofast_sqrt\b"&gt;
+         Replaces calls to the accurate but slow square root implementation
+         with calls to fast_sqrt, which is only accurate to within 37 ulp.
+&lt;/flag&gt;
+</pre>
+
+<p>See also the section on the <a href="#display">display</a> element.</p>
+
+<h3 id="section3.6"> <span id="CompilerList">3.6</span> <span id="compilers_attribute">List</span> <span id="compilersattribute">of</span> <span id="compilers">compilers</span></h3>
+
+<p>The <samp class="nb">compilers</samp> attribute allows you to specify that a particular flag should match only when we are
+processing a command line for a particular compiler, or group of compilers.  The value for this attribute is a comma-separated
+list of flag <a href="#FlagName">names</a>.  The flags referenced must be in the <a href="#CompilerClass">compiler</a> class.</p>
+
+<!-- repeat in both sections -->
+<p>Compare the <a href="#compiler_class">compiler class</a> vs. the <a href="#compilers_attribute">compilers attribute</a>.</p>
+<!-- end repeat -->
+
+
+<h3 id="section3.7"> <span id="FlagExample">3.7</span> <span id="example">Example</span> <span id="flag_example">flag</span> <span
+   id="flagexample">text</span></h3>
+
+<p class="snugbot">The <samp class="nb">example</samp> attribute allows the specification of readable text for display of
+flag references, such as in the HTML flag dump.   For example, if a flags file has:</p>
+
+<pre class="codeexample">
+&lt;flag name="xpagesize" 
+      class="optimization" 
+      regexp="-xpagesize=\S+\b"&gt;
+   &lt;example&gt;-xpagesize=&amp;lt;n&amp;gt;&lt;/example&gt;
+   Set the preferred page size for running the program.
+&lt;/flag&gt;
+</pre>
+
+<p class="snugtop">then in a per-result flags file, the specific string that matched the <samp class="nb">regexp</samp>
+above will be printed (such as <samp class="nbsnugr">-xpagesize=4M</samp>).  In a flags dump, there isn't any matching <samp
+   class="nb">regexp</samp> - so what should we print?  The answer is given by the <samp
+   class="nb">&lt;example&gt;</samp> text, namely <samp class="nbsnugr">-xpagesize=&lt;n&gt;</samp>.</p>
+
+<p class="snugbot">Notice above that in order to get the description to say</p>
+<div class="l1snug"><samp class="nb">-xpagesize=&lt;n&gt;</samp></div>
+<p class="snug">we needed to code the example text as</p>
+<div class="l1snug"><samp class="nb">-xpagesize=&amp;lt;n&amp;gt</samp></div>
+<p class="snugtop">because otherwise, XML would go looking for an undeclared element <samp class="snugr">&lt;n&gt;</samp>.</p>
+
+
+<p>Unlike a flag <samp class="nbsnugr">name</samp>, the <samp class="nb">example</samp> text does not need to be unique.
+For example, if two compilers have the same flag text with different meanings, <samp class="nb">example</samp> can be set
+identically for both.</p>
+
+
+<h3 id="section3.8">3.8 <span id="ExReplacement">Example</span> <span id="ex_replacement">replacements</span></h3>
+
+<p>The <samp class="nb">ex_replacement</samp> attribute allows you to specify replacements for $1, $2, and so forth in
+the <a href="#FlagDescriptiveText">descriptive text</a> and in <a href="#IncludeFlags">included flag parameters</a>.  These
+would normally come from text captured by the regexp during flag matching; when the regexp is not being used for matching (as
+when doing a flags dump), these replacements will be used.</p>
+
+<p>This attribute may be specified multiple times.</p>
+
+<p class="snugbot">We could improve the flag in the previous section by saying:</p>
+
+<pre class="codeexample">
+&lt;flag name="xpagesize" 
+      class="optimization" 
+      regexp="-xpagesize=(\S+)\b"&gt;
+   &lt;example&gt;-xpagesize=&amp;lt;n&amp;gt;&lt;/example&gt;
+   &lt;ex_replacement&gt;one of the valid sizes for your platform - e.g. 8KB, 4M.  
+                   You can find out what sizes are supported on your
+                   platform by saying "pagesize -a".
+   &lt;/ex_replacement&gt;
+   Set the preferred page size for running the program to $1
+&lt;/flag&gt;
+</pre>
+
+<p>The above would cause the flags dump to look like this:
+<br clear="all" />
+<img style="padding:.5em 0px 0px 2em; border:none;" width="767" height="286" alt="screenshot of flag dump" 
+src="images/flags-figure6.jpg" /> </p>
+
+
+<p style="margin-top:2em;">You can also apply the example replacements feature for flags that are included by other flags.</p>
+
+<h3 id="section3.9">3.9 Controlling flag display
+
+   <span id="Display"> </span>      <span id="Nodisplay"> </span>
+   <span id="display"> </span>      <span id="nodisplay"> </span>
+
+   <span id="No-display"> </span>
+   <span id="No.display"> </span>
+   <span id="NoDisplay"> </span>
+   <span id="No_display"> </span>
+   <span id="no-display"> </span>
+   <span id="no.display"> </span>
+   <span id="noDisplay"> </span>
+   <span id="no_display"> </span>
+
+</h3>
+
+<p>Flag descriptions that serve only to "split" multiple-option flags into smaller, more matchable chunks
+generally won't have any descriptive text (since they perform a function other than describing a flag).  These special
+"splitter" flags do not necessarily need to show up in the flag report; in that case, display can be disabled by use of the
+<samp class="nb">display</samp> element and its single attribute <samp class="nbsnugr">enable</samp>.</p>
+
+<p>Note that disabling display of a particular flag description is only
+allowed if the flag in question contains no descriptive text and
+<span class="bold">ONLY</span> includes other flags by
+<a href="#IncludeByText">textual insertion</a>.  For example:</p>
+
+<pre class="codeexample">
+&lt;!-- Splitter for -OPT flags --&gt;
+&lt;flag name="F-OPT:all"
+      class="optimization"
+      regexp="-OPT:([^:\s]+):(.+)\b"&gt;
+&lt;include text="-OPT:$1" /&gt;
+&lt;include text="-OPT:$2" /&gt;
+&lt;display enable="0" /&gt;
+&lt;/flag&gt;
+</pre>
+
+<p>The above example splits a complex flag into parts as its only function.  It will not be displayed in reports, because it
+has <br /><samp>&lt;display enable="0" /&gt;</samp>   </p>
+<p class="l1"><b>Exception:</b> If you format your reports <a class="external" href="runcpu.html#review">for review</a> then
+the flag will be included, along with the notation <samp>NODISPLAY</samp> to indicate that by default, it does not appear in 
+reports.</p>
+
+<p>See sections <a href="#IncludeByText">3.5.2</a> and <a href="#splitters">3.5.3</a> for more explanation of how the above
+flag description works.</p>
+
+<p>This attribute is ignored when generating a flags dump.</p>
+
+<p>It is expected that <samp>display enable="0"</samp> would normally be used only for splitters.  Any other usage would need
+to be justified.</p>
+
+<!-- "parallel" is referenced from outside this doc -->
+<h3 id="section3.10">3.10 <span id="parallel">Indication</span> of parallelism</h3>
+
+<p>The <samp class="nb">parallel</samp> attribute allows you to specify that a particular flag implies that code will be
+compiled with support for parallel execution.  The value for this attribute is either "yes" or "no"; "no" is the
+default.</p>
+
+<p>For an explanation of the intended usage model, please see the discussion <a class="external"
+   href="config.html#parallelreporting">About Parallel Reporting</a> in config.html. </p> 
+
+<h3 id="section3.11">3.11 <span id="OtherAttributes">Other</span> attributes</h3>
+
+<p>Inclusion of other attributes (whether intentionally or by typo) will be flagged as an error and cause the flag
+description file being read to be ignored.</p>
+
+<hr />
+<h2 id="section4">4 <span id="OtherElements">Other</span> Elements</h2>
+
+<p>Inclusion of other elements (whether intentionally or by typo) will be flagged as an error and cause the flag description
+file being read to be ignored.</p>
+
+
+<hr />
+<h2 id="section5">5 <span id="Precedence">Precedence</span>  </h2>
+<p>Flags in each file are processed in the order in which they appear; there is no explicit precedence mechanism.  If a
+description matches more than 100 times when processing flags for a single benchmark, that description will be disabled, a
+warning emitted, and processing will continue.</p>
+
+<hr id="good" />
+<h2 id="section6">6 <span id="BestPractices">Best</span> Practices</h2>
+
+<ol style="list-style-type:upper-alpha">
+
+   <li><p id="validatexml"><b>Validate .xml:</b> After you write your flags file, <a class="external"
+   href="utility.html#specrxp">validate the XML</a>.</p></li>  
+
+   <li><p id="validatehtml"><b>Validate .html:</b> Then, create a <a class="external" href="utility.html#flag_dump">flag dump</a>
+   with HTML output, and <a class="external" href="http://validator.w3.org/">validate that too</a>.</p></li> 
+
+   <li><p id="combiningflagsfiles"><b>Combine files wisely:</b>  you can use multiple flags files to format a single result.
+   Some suggestions on use of this feature:</p>
+
+       <ul>
+
+       <li><p>If you use multiple independent compilers, you will probably find it useful to have flags files that address
+       each compiler separately.  That way, when compiler companies release their compilers on independent schedules, you can
+       update the corresponding flags files accordingly.  (Note that <a href="#FlagName">flag names</a> must be unique even
+       when they are located in separate files.  So, you might want to consider using flag names such as <samp
+       class="nb">fast-f90-A</samp> for the <samp class="nb">-fast</samp> switch in the Fortran compiler from Company
+       A.)</p></li>
+
+       <li>If you use multiple related compilers (e.g. which connect to the same back-end optimizer, with identical switches for
+       <samp class="nbsnugr">--Optimize</samp>), you will probably find it more convenient to combine the descriptions. This
+       suggestion arises from the fact that each <samp>.xml</samp> file must stand on its own, capable of being <a class="external"
+       href="utility.html#specrxp">validated</a>.  If your C and your Fortran compiler both use the same <samp
+       class="nb">--Optimize</samp> switch, but you insist on separating them, you'll have to describe <samp
+       class="nb">--Optimize</samp> twice, using a different flag name (although an identical regexp) in the second file.</li>
+
+       <li><p>Recall that there are two forms of HTML output generated from the <samp>.xml</samp> flags files: <a
+       href="#FlagsDump">flags dumps</a> and <a href="#PerResult">per-result flags reports</a>.  When a flags file is dumped,
+       it should stand on its own, including useful <a href="#Header">informational elements</a> such as section headers.
+       When flags files are merged in per-result reports, the tools try to make sensible decisions about how to merge them.
+       For example, if you use the <a href="#OsTuning">os_tuning</a> feature, the per-result report will say:</p>
+
+<pre>This result has been formatted using multiple flags files. 
+The "OS Tuning" from each of them appears next.
+---
+OS Tuning from file1.xml
+...
+---
+OS Tuning from file2.xml</pre>
+
+       <p>The tools can't always guess the best way of combining flags files.  You should be prepared to review, and possibly
+       adjust, the informational elements, as you experiment with flag file combining.</p></li>
+
+       </ul>
+   </li>
+
+   <li><p id="separateunique"><b>Separate unique content:</b> In general, if you are writing flags files for use by others,
+   try to think through the separation of common content from unique content, so as to avoid un-needed flags file
+   proliferation.  For example, platform settings with lots of description of a special BIOS probably belong in a separate
+   flags file. </p></li>
+
+   <li id="choosenames"><p><b>Choose filenames wisely:</b> If you are writing a flags file that is expected to evolve over
+   time, it's probably wise to <a href="#suggestedfilename">suggest a name</a> on the order of "<samp
+   class="nbsnuglr">AcmeC-Win-RevA</samp>", not something like "<samp
+   class="nbsnuglr">Acme-Compiler-Corporation-C-Compiler-Version-10.1-Windows-flags-file.xml</samp>".  The long name
+   has several problems: </p>
+
+    <ol>
+        <li>If it is posted at <a href="https://www.spec.org/cpu2017/flags/" class="external"> www.spec.org/cpu2017/flags</a>,
+           users who might browse that directory looking for a suitable flags file might not be able to see anything past the
+           first part.</li>
+        <li>From context, it's already clear that it's a <samp class="nbsnugr">flags-file</samp>.</li>
+        <li>And probably clear that it is a compiler file.</li>
+   </ol>
+     
+
+</li>
+</ol>
+
+
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Flag Description Files:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+</body>
+</html>

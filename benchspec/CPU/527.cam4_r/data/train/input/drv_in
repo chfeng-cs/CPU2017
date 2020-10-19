@@ -1,0 +1,27 @@
+&ccsm_pes
+ atm_nthreads		= 8
+ cpl_nthreads		= 8
+ ice_nthreads		= 8
+ lnd_nthreads		= 8
+ ocn_nthreads		= 8
+/
+&seq_infodata_inparm
+ aqua_planet		= .true.
+ aqua_planet_sst		= 1
+ case_name		= 'camrun'
+ ocean_tight_coupling		= .true.
+ orb_iyear		= 1990
+ start_type		= 'startup'
+/
+&seq_timemgr_inparm
+ atm_cpl_dt		= 1800
+ restart_option		= 'none'
+ start_ymd		= 101
+ stop_n		        = 2
+ stop_option		= 'nsteps'
+/
+&prof_inparm
+ profile_single_file		= .true.
+/
+&pio_inparm
+/

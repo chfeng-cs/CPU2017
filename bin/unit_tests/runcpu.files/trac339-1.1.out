@@ -1,0 +1,1 @@
+echo submit command: BIND=0 1>&2; ../run_peak_refrate_trac339.0000/specrand_ir_peak.trac339 1255432124 234923 0<&- > rand.234923.out 2>> rand.234923.err

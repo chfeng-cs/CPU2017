@@ -1,0 +1,201 @@
+#!/usr/bin/env perl
+#
+#  extract_compinfo - a tool for extracting encoded compilation option dumps
+#                     and compiler version information from raw result files
+#                     and config files
+#  Copyright 2006-2019 Standard Performance Evaluation Corporation
+#
+# No support is provided for this script.
+#
+#  Author: Cloyce D. Spradling
+#
+# $Id: extract_compinfo 6093 2019-03-13 04:04:33Z CloyceS $
+
+use IO::File;
+use File::Basename;
+use File::Spec::Functions qw(rel2abs);
+use Text::Wrap;
+use strict;
+
+BEGIN {
+  my $where = dirname(rel2abs($0));
+  unshift @INC,
+        "$where/../harness",
+        "$where/../common";
+}
+
+require 'vars.pl';
+require 'util.pl';
+
+our %config;
+my %tag_to_var = ( 'compopts' => 'compile_options', 'compvers' => 'compiler_version' );
+
+our %used_by;           # to merge compiler version info
+our $summarize = 0;
+if ($ARGV[0] eq "-s") {
+   $summarize = 1;
+   shift;
+}
+my ($file, $want_what, $want_bench, $want_tune, $want_label) = @ARGV;
+$want_what = lc($want_what) if $want_what ne '';
+$want_what = qr/$want_what/;
+if ($want_bench =~ /=/) {
+  # deal with cut-n-paste from a config file
+  ($want_bench, $want_tune, $want_label) = split(/=/, $want_bench);
+}
+$want_bench = '.' unless $want_bench ne '';
+$want_bench = qr/$want_bench/;
+if ($want_tune eq '') {
+  $want_tune = '.';
+} else {
+  $want_tune = lc($want_tune);
+}
+$want_tune = qr/$want_tune/;
+
+if ($file eq '') {
+  print "Usage:\n";
+  print "  (from raw file): $0 [-s] <raw file> [options|version] [benchmark] [tune]\n";
+  print "  (from config file): $0 [-s] <config file> [options|version] [benchmark] [tune] [label]\n";
+  print "-s summarizes compile version info\n";
+  die "Stopped";
+}
+die "\"$file\" does not exist or cannot be read.\nStopped" unless -r $file;
+
+my $ifh = new IO::File '<'.$file;
+my $line = <$ifh>;
+my ($mode, $linere);
+if ($line =~ /^(?:spec\.\Q${main::lcsuite}\E\.)/) {
+  $mode = 0;  # Raw file
+  $linere = qr/^(?:spec\.\Q${main::lcsuite}\E\.)?(compopts|compvers)(\d*)\.*([^.]*)\.([^: ]+)(?: =|:) (.*)$/o;  # Match the lines themselves
+  $want_label = '.' unless defined($want_label) and $want_label ne '';
+} else {
+  $mode = 1;  # Config file
+  $linere = qr/^([^=]+)=([^=]+)=([^:=]+)/o; # Match the section
+  $want_label = '.';
+}
+$want_label = qr/$want_label/;
+
+my $label = 'none';
+BENCHMARK: while ($line = <$ifh>) {
+    $line =~ tr/\015\012//d;
+    $label = $1 if ($mode == 0 and $line =~ /^spec\.\Q${main::lcsuite}\E\.label: (.*)/);
+    next unless $line =~ /$linere/;
+    if ($mode == 0) {
+      # Raw file
+      # Backrefs come from setting of $linere above
+      my ($what, $tmpidx, $bench, $tune, $data) = ($tag_to_var{$1}, $2+0, $3, $4, $5);
+      $bench =~ s/^(\d{3})_/${1}./;
+      $config{$bench}->{$tune}->{$label}->{$what}->[$tmpidx] = $data;
+    } else {
+      (my $bench, my $tune, $label) = ($1, $2, $3);
+      for(my $i = 0; $i < 2; $i++) {    # Up to two sections to harvest
+        # Found the section; find compile_options or compiler_version and
+        # string them together
+        while (defined($line) and $line !~ /^(?:compile_options|compiler_version|\s*$)/) {
+          ($line = <$ifh>) =~ tr/\015\012//d;
+          last if defined($line) and $line eq '';
+        }
+        last unless defined($line);
+        if ($line =~ /^\s*$/) {
+          # Maybe not in the __HASH__ section yet; keep trying
+          next BENCHMARK;
+        }
+        $line =~ s/^(compile_options|compiler_version)=(.*?)\\?$/$2/;
+        my $what = $1;
+        push @{$config{$bench}->{$tune}->{$label}->{$what}}, $line if $line ne '';
+        ($line = <$ifh>) =~ tr/\015\012//d;
+        while(defined($line) and $line =~ s/\\$//) {
+          push @{$config{$bench}->{$tune}->{$label}->{$what}}, $line;
+          ($line = <$ifh>) =~ tr/\015\012//d;
+        }
+        push @{$config{$bench}->{$tune}->{$label}->{$what}}, $line if defined($line);
+        redo BENCHMARK if $line =~ /$linere/ or $line =~ /^\s*$/;
+      }
+    }
+}
+foreach my $bench (sort keys %config) {
+  next unless $bench =~ /$want_bench/;
+  foreach my $tune (sort keys %{$config{$bench}}) {
+    next unless $tune =~ /$want_tune/;
+    foreach my $label (sort keys %{$config{$bench}->{$tune}}) {
+      next unless $label =~ /$want_label/;
+      foreach my $what (sort keys %{$config{$bench}->{$tune}->{$label}}) {
+        next unless $what =~ /$want_what/;
+        my $tag = "$bench=$tune=$label $what ==========";
+        print $tag."\n" unless $summarize;
+        my $opts = scalar(decode_decompress(join('', @{$config{$bench}->{$tune}->{$label}->{$what}})));
+        if ($what eq 'compile_options') {
+          foreach my $line (split(/\n/, $opts)) {
+            $line =~ s/[^[:print:] \t]/?/g;
+            if ($line =~ s/(.)\b([CPO]: [^[:space:]=]+.*)/$1/) {
+              print $line."\n";
+              $line = $2;
+              redo;
+            } else {
+              print $line."\n";
+            }
+          }
+        } else {
+          if ($summarize) {
+            store_bench_version($opts, $bench, $tune);
+          } else {
+            print $opts;
+          }
+        }
+        print ("=" x length($tag)) unless $summarize;
+        print "\n" unless $summarize;
+      }
+    }
+  }
+}
+
+if ($summarize) {
+  print_version_summary();
+}
+
+#------------------------------------------------------------------------
+sub store_bench_version {
+  my ($ver, $bench, $tune)  = @_;
+  my $marker = '(?:PASS\d+\s+)?\S+_VERSION_OPTION:';
+  my @sections = ($ver =~ m/($marker(?:.(?!$marker))+)/sg);
+  for my $section (@sections) {
+    #print "section:'$section'\n\n";
+    (my $lang, my $content) = split "\n", $section, 2;
+    $content =~ s/\s*$//;
+    $lang =~ s/PASS\d+\s+//;
+    $lang =~ s/_VERSION_OPTION://;
+    #print "lang:$lang bench:$bench tune:$tune\n";
+    $used_by{$content}{$lang}{$bench}{$tune}++;
+  }
+}
+
+#------------------------------------------------------------------------
+sub print_version_summary {
+  my $width = 100;
+  $Text::Wrap::columns = $width;
+  $Text::Wrap::huge    = "wrap";  # specperl 5.24 does the wrap.
+  # /System/Library/Perl/5.18/Text/Wrap.pm dies with 'this shouldn't happen' 
+  print "\nSUMMARY of version info\n";
+  for my $opts (sort keys %used_by) {
+    print "="x$width . "\n";
+    for my $lang (sort keys %{$used_by{$opts}}) {
+      my $blist;
+      for my $bench (sort keys %{$used_by{$opts}{$lang}}) {
+        my @tune = (sort keys %{$used_by{$opts}{$lang}{$bench}});
+        $blist .= "$bench(" . join(",", @tune) . ") ";
+      }
+      my $plang = sprintf "%-4s ", $lang;
+      print wrap ($plang, " "x5, $blist);
+    }
+    print "\n" . "-"x$width . "\n";
+    print wrap ("", "", $opts);
+    print "\n" . "-"x$width . "\n";
+    print "\n";
+  }
+}
+
+#------------------------------------------------------------------------
+sub Log {
+  my ($lvl, @msgs) = @_;
+  print @msgs;
+}

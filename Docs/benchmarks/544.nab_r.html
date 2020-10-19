@@ -1,0 +1,94 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+      <link rel="STYLESHEET" href="https://www.spec.org/cpu2017/Docs/css/cpudocs.css" type="text/css" />
+<title>544.nab_r</title>
+<meta name="generator" content="Cloyce+VIM 6.2" />
+<meta name="revision"
+      content="$Id: nab.html 6320 2019-07-28 23:29:02Z JohnHenning $" />
+</head>
+
+<body>
+<div style="text-align: center">
+<h1>544.nab_r<br />
+SPEC CPU&reg;2017 Benchmark Description</h1>
+</div>
+ 
+<h3>Benchmark Name</h3>
+<p>544.nab_r</p>
+
+<h3>Benchmark Author</h3>
+<p>Russ Brown &lt;russ.brown&#x5b;at&#x5d; yahoo.com&gt;, et al</p>
+
+<h3>Benchmark Program General Category</h3>
+<p>Molecular Modeling</p>
+ 
+<h3>Benchmark Description</h3>
+<p>544.nab_r is based on Nucleic Acid Builder (NAB), which is a molecular
+modeling application that performs the types of floating point intensive
+calculations that occur commonly in life science computation.  The calculations
+range from relatively unstructured "molecular dynamics" to relatively
+structured linear algebra.</p>
+
+
+<h3>Input Description</h3>
+<p>544.nab_r's input consists molecules with varying numbers of atoms.</p>
+
+<p>To simulate a molecule, two files are required.</p>
+
+<p>One is a PDB format text file that specifies the atomic (x,y,z)
+coordinates; most of those were taken from the
+<a href="http://www.rcsb.org">Brookhaven Protein Data Bank</a>.  Information
+at that site details how those files were created.</p>
+
+<p>The other is a PRM format text file that specifies, among other
+characteristics, the "force field" that indicates how the atoms interact with
+one another.  Generating the PRM file involves using the full version of
+NAB to read the PDB file, add protons to the molecule, and output the PRM
+file.</p>
+
+<p>A small NAB program is required that reads the PDB file, adds H atoms
+if necessary, and outputs new PDB and PRM files.  That program, as well
+as the steps necessary to run it, have been encapsulated in the shell
+script <tt>makeprm.sh</tt> in the benchmark Docs directory.  The script
+requires access to a full installation of NAB, as well as working C and
+Fortran compilers.</p>
+
+
+<h3>Output Description</h3>
+<p>The outputs are summaries of the state of the molecular dynamics simulation
+every 100 iterations and at the end.</p>
+
+
+<h3>Programming Language</h3>
+<p>ANSI C</p>
+
+
+<h3>Known portability issues</h3>
+<p>None</p>
+
+<h3 id="license">Sources and Licensing</h3>
+
+<p>The benchmark is drawn from AmberTools 12, under GPL.  SPEC&reg; added a BSD-licensed random number generator, and Henry
+Spencer's regexp.  </p>
+
+  <p>Please see details in the document <a
+    href="https://www.spec.org/cpu2017/Docs/licenses.html#bmk544.nab_r">SPEC CPU&reg;2017 Licenses</a>.</p>
+
+
+
+<h3>References</h3>
+<ul>
+<li>The Case Group at Rutgers: <a href="http://casegroup.rutgers.edu">http://casegroup.rutgers.edu</a></li>
+<li>The Brookhaven Protein Data Bank: <a href="http://www.rcsb.org">http://www.rcsb.org</a></li>
+<li>NAB (part of AmberTools): <a href="http://ambermd.org/">http://ambermd.org/</a></li>
+</ul>
+
+<p>Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $</p>
+
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+</body>
+</html>

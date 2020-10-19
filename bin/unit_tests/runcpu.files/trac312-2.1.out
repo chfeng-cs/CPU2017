@@ -1,0 +1,3 @@
+Reading config file 'trac312-2.cfg'
+ERROR: obsolete fields were found while reading the config file:
+	'VENDOR' (obsolete) seen in

@@ -1,0 +1,6 @@
+notes100 = adir is /usr/
+notes101 = bdir is /usr/
+notes102 = cdir is m{usr}
+notes103 = ddir is its/long/path/
+notes104 = edir is /rooted/long/path
+notes105 = fdir is /rooted/long/dir/

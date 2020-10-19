@@ -1,0 +1,129 @@
+                                600.perlbench_s
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   600.perlbench_s
+
+  Benchmark Authors
+
+   Larry Wall, et. al.
+
+  Benchmark Program General Category
+
+   Programming language
+
+  Benchmark Description
+
+   600.perlbench_s is a cut-down version of Perl v5.22.1, the popular
+   scripting language. SPEC's version of Perl has had most of OS-specific
+   features removed. To understand how SPEC's version differs from the
+   original, please see the comments in spec_config.h.
+
+  Input Description
+
+   The reference workload for 600.perlbench_s consists of three scripts:
+
+     * The primary component of the workload is the Open Source spam checking
+       software SpamAssassin. SpamAssassin is used to score a couple of known
+       corpora of both spam and ham (non-spam), as well as a sampling of mail
+       generated from a set of random components. SpamAssassin has been
+       heavily patched to avoid doing file I/O, and currently does not use
+       the Bayesian filtering.
+     * Another component is the popular freeware email-to-HTML converter
+       MHonArc. Email messages are generated randomly and converted to HTML.
+       In addition to MHonArc, which was lightly patched to avoid file I/O,
+       this component also uses several standard modules from the CPAN
+       (Comprehensive Perl Archive Network).
+     * The third script (which also uses the mail generator for convenience)
+       exercises a slightly-modified version of the 'specdiff' script, which
+       is a part of the CPU2017 tool suite.
+
+   The training workload is similar, but not identical, to the reference
+   workload from CPU2000. The test workload consists of the non-system-
+   specific parts of the actual Perl 5.20.1 test harness.
+
+   Adding workloads is just a matter of adding another script and associated
+   input data to the input directories. The script must have a .pl extension.
+   If it needs input parameters, it will also be necessary to edit object.pm
+   to enable those to be read from a file.
+
+  Output Description
+
+   In the case of the mail-based benchmarks, a line with salient
+   characteristics (number of header lines, number of body lines, etc) is
+   output for each message generated. During processing, MD5 hashes of the
+   contents of output "files" (in memory) are computed and output. For
+   SpamAssassin, the message's score and the rules that it triggered are also
+   output.
+
+  Programming Language
+
+   ANSI C
+
+  Known Portability Issues
+
+   Windows compilers that do not automatically define _MSC_VER may define
+   SPEC_CPU_NEED_POSIX_IDS as a portability flag to enable compilation.
+
+   There are some known aliasing issues. The internal data structures that
+   represent Perl's variables are accessed in such as a way as to violate
+   ANSI aliasing rules. Compilation with optimizations that rely on strict
+   compliance to ANSI C aliasing rules will most likely produce binaries that
+   will not validate. A typical symptom that you might see is:
+
+ Attempt to free unreferenced scalar: SV 0x7fa54a8031c0 at lib/strict.pm line 38.
+ perlbench_r_base.may07a-m64(94624,0x7ffff25803c0) malloc: *** error for object 0x7fa54a4138a8: pointer being freed was not
+ allocated
+ *** set a breakpoint in malloc_error_break to debug
+ Abort trap: 6
+
+   Solution: Tell your compiler to be less aggressive in its optimizations,
+   in particular as regards aliasing issues.
+   For example, with GCC, you might try:
+   -fno-strict-aliasing
+
+  Sources and Licensing
+
+   600.perlbench_s is based on perl-5.22.1, plus several third-party modules,
+   including:
+
+     * HTML-Parser
+     * IO-stringy
+     * MailTools
+     * MHonArc
+     * SpamAssassin
+     * TimeDate
+
+   Please see details in the document [1]SPEC CPU(R)2017 Licenses.
+
+   To avoid any possible conflict with standard executables, the benchmark is
+   given the name 'perlbench'. Its differences are primarily described in the
+   comments to spec_config.h. In brief: perlbench is a constrained version of
+   perl which tries to remove most operating-system-specific functions, while
+   leaving behind a set of features which are interesting as a CPU benchmark.
+   The SPEC CPU(R) suites intentionally do not spend significant time in
+   operating system services or IO.
+
+  References
+
+     * Perl Mongers: [2]http://www.perl.org/
+     * O'Reilly's Perl Pages: [3]http://www.perl.com/
+     * The Comprehensive Perl Archive Network: [4]https://www.cpan.org/
+     * SpamAssassin: [5]http://spamassassin.apache.org/
+     * MHonArc: [6]https://www.mhonarc.org/
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. https://www.spec.org/cpu2017/Docs/licenses.html#bmk600.perlbench_s
+   2. http://www.perl.org/
+   3. http://www.perl.com/
+   4. https://www.cpan.org/
+   5. http://spamassassin.apache.org/
+   6. https://www.mhonarc.org/

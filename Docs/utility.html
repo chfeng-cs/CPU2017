@@ -1,0 +1,2636 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Utilities - CPU 2017</title>
+<!-- You'll want a nice wide screen when editing this (132 columns)............................................................. -->
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+body { background: white; color: black; }
+
+table.syntax    {border:solid gray; border-width:thin 0px;margin-left:2em;} 
+table.syntax tr {border:none;}
+table.syntax pre {margin:1px;}
+table.syntax th  {border:none;text-align:right;font-weight:bold;padding-right:5px;font-family:arial,sans-serif;}
+table.syntax td  {border:none;padding-left:5px;vertical-align:middle;}
+table.syntax .seealso   {border:solid #d0d0d0;border-width:thin 0px;font-size:90%;text-align:center;}
+
+
+table.options   {margin:.5em 3em;width:800px;}
+table.options th {white-space:nowrap;}
+.toprow         {background:#e8e8e8;}
+.seealso        {font-size:90%;background:#e8e8e8;}
+
+h2 { padding-top:.2cm; border-top: solid 1px #c0c0c0; }
+</style>
+</head>
+
+<body>
+   <h1>SPEC CPU&reg;2017 Utilities</h1>
+   <table class="version">
+      <tr>
+         <th>$Id: utility.html 6312 2019-07-28 22:16:59Z JohnHenning $</th>
+         <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+      </tr>
+   </table>
+
+   <p class="contentsrl1">Contents</p>
+   <table class="noborder">
+      <tr>
+         <td style="border-top:none;">
+            <p class="contentsrl2"><a href="#intro"         >Introduction + Windows note</a></p>
+            <p class="contentsrl2"><a href="#configpp">       configpp             </a></p>
+            <p class="contentsrl2"><a href="#convert">        convert_to_development</a></p>
+            <p class="contentsrl2"><a href="#dumpsrcalt">     dumpsrcalt           </a></p>
+            <p class="contentsrl2"><a href="#extract_config"> extract_config       </a></p>
+            <p class="contentsrl2"><a href="#extract_flags">  extract_flags        </a></p>
+            <p class="contentsrl2"><a href="#extract_misc">   extract_misc (UNSUPPORTED) </a></p>
+            <p class="contentsrl2"><a href="#extract_raw">    extract_raw          </a></p>
+            <p class="contentsrl2"><a href="#flag_dump">      flag_dump            </a></p>
+            <p class="contentsrl2"><a href="#go">             go (Unix only)       </a></p>
+         </td>
+         <td style="border-top:none;padding:0em 4em;">
+            <p class="contentsrl2"><a href="#imagevalidate">  imagevalidate        </a></p>
+            <p class="contentsrl3"><a href="#imagevalidateHistogram">Histogram</a></p>
+            <p class="contentsrl3"><a href="#imagevalidateDifference">Difference Image</a></p>
+            <p class="contentsrl2"><a href="#index">          index (UNSUPPORTED)</a></p>
+            <p class="contentsrl2"><a href="#makesrcalt">     makesrcalt           </a></p>
+            <p class="contentsrl2"><a href="#ogo">            ogo (Unix only)      </a></p>
+            <p class="contentsrl2"><a href="#port_progress">     port_progress     </a></p>
+            <p class="contentsrl2"><a href="#printkids">      printkids.pl         </a></p>
+            <p class="contentsrl2"><a href="#printpath">      printpath         </a></p>
+            <p class="contentsrl2"><a href="#rawformat">      rawformat            </a></p>
+            <p class="contentsrl3"><a href="#description">     Editing rawfiles</a></p>
+            <p class="contentsrl3"><a href="#cont">            Continued fields</a></p>
+            <p class="contentsrl3"><a href="#test_date">       test_date</a></p>
+            <p class="contentsrl3"><a href="#nopower">         --nopower</a></p>
+         </td>
+         <td style="border-top:none;padding:0em 4em;">
+            <p class="contentsrl2"><a href="#specdiff">       specdiff             </a></p>
+            <p class="contentsrl2"><a href="#specinvoke">     specinvoke           </a></p>
+            <p class="contentsrl2"><a href="#specmake">       specmake             </a></p>
+            <p class="contentsrl2"><a href="#specperl">       specperl             </a></p>
+            <p class="contentsrl2"><a href="#specpp">       specpp             </a></p>
+            <p class="contentsrl2"><a href="#specrxp">       specrxp             </a></p>
+            <p class="contentsrl2"><a href="#specsha512sum">       spec&lt;...&gt;sum              </a></p>
+            <p class="contentsrl2"><a href="#spectar">       spectar             </a></p>
+            <p class="contentsrl2"><a href="#specxz">       specxz             </a></p>
+            <p class="contentsrl2" style="margin-top:1em;"> <a href="#sysinfo">sysinfo</a></p>
+            <p class="contentsrl2"><a href="#toolsver">       toolsver             </a></p>
+         </td>
+      </tr>
+   </table>
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="intro">Introduction + note to Windows users</h2>
+
+   <p>This document describes various useful utilities that ship with SPEC CPU&reg;2017, a product of the SPEC&reg; non-profit
+   corporation <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  With apologies to users of Microsoft
+   Windows systems, most examples use Unix syntax.</p> 
+   <table style="margin:.4em 8%">
+      <tr><td colspan="2">Microsoft Windows users, please use your <br />imagination as you read this document.</td></tr>
+      <tr><td><b>If&nbsp;you&nbsp;see&nbsp;&nbsp;&nbsp;&nbsp;</b></td>    
+         <td><b>Please pretend you saw</b></td></tr>
+      <tr><th>cat</th>                   <th>type</th></tr>
+      <tr><th>cp</th>                    <th>copy</th></tr>
+      <tr><th>diff</th>                  <th>fc</th></tr>
+      <tr><th>grep</th>                  <th>findstr</th></tr>
+      <tr><th>ls</th>                    <th>dir</th></tr>
+      <tr><th>/</th>                     <th>\</th></tr>
+      <tr><th>$SPEC</th>                 <th>%spec%</th></tr>
+   </table>
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="configpp">configpp </h2>
+
+   <p><var>configpp</var> preprocesses a config file.  
+   <br />The preprocessor is automatically run every time that you use <a href="runcpu.html" class="external">runcpu</a>.  
+   <br />Running it separately is a good way to check whether your config file 
+   <a class="external" href="config.html#macros">macros</a> do what you hope they do.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Overview</th>
+         <td><pre>configpp --config=file [--define symbol[=value]]... [--output=file]
+configpp -c file       [-S symbol=[value]]...       [-o file]</pre></td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>Try not to confuse with <a href="#specpp">specpp</a></td>
+      </tr>
+      <tr style="padding-top:.25em;">
+         <th>Don't say<br />You meant</th>
+         <td><samp>configpp file&nbsp;&nbsp;</samp><span class="alarm">&lt;&mdash; wrong</span>
+            <br /><samp class="nb">configpp -c file</samp> </td>
+      </tr>
+   </table>
+
+
+   <table class="options">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>configpp</samp> commonly-used options</b> </td>
+      </tr>
+      <tr>
+         <th>-c file</th>
+         <td> Same as <samp class="nb">--config</samp></td>
+      </tr>
+      <tr>
+         <th>--config=file</th>
+         <td> Config file to preprocess.  If none specified, will look for <samp class="snugr">default.cfg</samp>.</td>
+      </tr>
+      <tr>
+         <th style="white-space:nowrap;">--define symbol[=value]</th>
+         <td> Set the <samp>symbol</samp> to <samp class="snugr">value</samp>.  If you do not specify a value, behaves as an
+            empty string in text contexts, <samp>1</samp> in numeric contexts, or true in logical contexts (because in Perl,
+            <samp>1</samp> is true).</td>
+      </tr>
+      <tr>
+         <th>-o file</th>
+         <td> same as <samp class="nb">--output</samp></td>
+      </tr>
+      <tr>
+         <th>--output=file</th>
+         <td>Where to send output.  If not specified, will be sent to standard output.  The suffix <samp>.cfg</samp> will be
+            added if you have not already done so. </td>
+      </tr>
+      <tr>
+         <th>-S symbol=value</th>
+         <td> same as <samp class="nb">--define</samp></td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See also <kbd class="nb">--help</kbd> for additional options
+         </td>
+      </tr>
+   </table>
+
+   <p style="margin-top:1.8em;" class="snugbot"><b>Tips and Traps</b></p>
+
+   <div class="l1snugish">
+
+      <p class="questionsnug">q. Why did I get this message?
+      <samp class="nb">Input file "-S" not readable</samp></p>
+      <p class="answersnugtop">a. You wanted to preprocess a config file, but instead of typing <samp>configpp</samp> you said <a
+         href="#specpp">specpp</a>.</p>
+      <p class="questionsnug">q. Why did I get this message?
+      <samp>Neither config file 'default.cfg' nor 'default.cfg.cfg' exist</samp> </p>
+      <p class="answersnug">a. You forgot to put <kbd class="nb">--config=</kbd> or <kbd class="nb">-c</kbd> in front of your config file name.
+      Therefore,
+      <br /><samp>$SPEC/config/default.cfg</samp> was tried, but it does not exist.</p>
+
+      <p class="questionsnug">q. Why does it seem like the output of <samp>configpp</samp> is completely different than my input?
+      Nothing matches at all!</p>
+      <p class="answersnugtop">a. You fell into the previous trap, only worse: 
+      <br /><samp>$SPEC/config/default.cfg</samp> actually exists on your system.</p>
+
+
+   </div>
+
+   <p>For much more information on the preprocessor, see its 
+   <a class="external" href="config.html#preprocessor">chapter</a> in <i>SPEC CPU 2017 Config Files</i>.</p>
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 >convert_to_development
+      <span id="Convert"> </span>
+      <span id="convert"> </span>
+
+      <span id="Convert-to-development"> </span>
+      <span id="Convert.to.development"> </span>
+      <span id="ConvertToDevelopment"> </span>
+      <span id="Convert_to_development"> </span>
+      <span id="Converttodevelopment"> </span>
+      <span id="convert-to-development"> </span>
+      <span id="convert.to.development"> </span>
+      <span id="convertToDevelopment"> </span>
+      <span id="convert_to_development"> </span>
+      <span id="converttodevelopment"> </span>
+   </h2>
+
+   <p><var>convert_to_development</var> removes the SPEC safety checks which normally would verify the integrity of benchmark
+   code, data, and tools.  
+   <br />Before using this utility, you should carefully consider the Tips and Traps below.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>$ <b>convert_to_development</b>
+
+Development tree conversion: /tmp/cpu2017
+
+After this conversion, the benchmark tree named above will no longer be
+usable for reportable runs.  In return, all of the safety features that
+ensure that sources, data, and tools are not changed are removed.
+
+This conversion is not reversable.  In order to regain the ability to do
+reportable runs, it will be necessary to do a complete new reinstallation in
+another location; re-running install.sh or install.bat will not be sufficient.
+
+Do you still want to continue with this conversion?
+<b>yes</b>
+Successfully performed development tree conversion.
+$ </pre></td>
+      </tr>
+   </table>
+
+
+   <p>An academic or research user might consider using <samp>convert_to_development</samp> while investigating performance
+   effects of alternate source code and data sets. </p>
+
+   <p style="margin-top:1em;" class="snugbot"><b>Tips and Traps</b></p>
+
+   <table style="width:800px;" class="l2">
+      <tr>
+         <td>Not reportable</td>
+         <td><span class="alarm">Warning:</span> It is not possible to use 
+            <a class="external" href="runcpu.html#reportable">--reportable</a> in a development tree.  
+            <br />All reports are marked <samp class="snugr">Invalid</samp>.</td>
+      </tr>
+      <tr>
+         <td>Fair Use</td>
+         <td>Measurements from a development tree are not official SPEC metrics.  Any public use is subject to disclosure
+            requirements, which are described in SPEC's <a class="external" href="https://www.spec.org/fairuse.html">Fair Use
+               Rule</a>.</td>
+      </tr>
+      <tr>
+         <td>One-way street</td>
+         <td><span class="alarm">Warning:</span> After a tree is converted to development, it cannot be converted back.  
+            To do reportable runs, you will need to re-install, in a new location, using your original SPEC distribution
+            media (ISO image).</td>
+      </tr>
+      <tr>
+         <td>Binaries&nbsp;not transferable</td>
+         <td>Benchmark binaries built in one type of tree (reportable or development) cannot be used in the other type unless
+            you set <a class="external" href="config.html#verify_binaries">verify_binaries=no</a>.  </td>
+      </tr>
+      <tr>
+         <td>Alternatives</td>
+         <td>Before using <samp class="snugr">convert_to_development</samp>, you may want to check out use of a 
+            <a class="external" href="config.html#sandbox">build sandbox</a>, or 
+            <a href="#runsetupSandbox">run sandbox</a>, or the document 
+            <a class="external" href="runcpu-avoidance.html">Avoiding runcpu</a>.  </td>
+      </tr>
+   </table>
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="dumpsrcalt">dumpsrcalt</h2>
+
+   <p><var>dumpsrcalt</var> displays the contents of a <var>src.alt</var> (a compressed tar file created by <a
+       href="#makesrcalt">makesrcalt</a>), without necessarily having to apply it.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Overview</th>
+         <td><pre>dumpsrcalt [--summarize] <i>src.alt</i> </pre></td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See also <kbd class="nb">dumpsrcalt --help</kbd> for additional options
+         </td>
+      </tr>
+   </table>
+
+   <p>To find out what is in a src.alt, it may be easiest to just <a class="external" href="config.html#src.alt">apply</a> it.  
+   <br />Or, you can use <samp class="snugr">dumpsrcalt</samp>, which displays the differences in a form that will be familiar to users of
+   <samp>patch</samp> utilities.  To find out more about the utility, please see its <samp class="nbsnugr">--help</samp>.</p>
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="extract_config">extract_config</h2>
+
+   <p ><var>extract_config</var> reads a rawfile, decodes the config file that produced it, and writes the config
+   file to a file or to standard output. </p> 
+   <table class="syntax">
+      <tr>
+         <th>Overview</th>
+         <td><pre>extract_config <i>rawfile</i></pre></td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See <kbd class="nb">extract_config --help</kbd> for options
+         </td>
+      </tr>
+   </table>
+
+
+   <p class="snugbot">The extracted config file will have these differences vs. the original:</p>
+   <ul class="snugish">
+      <li>Added: a comment at the top to say where it came from</li>
+      <li>Added: data from <a href="#sysinfo">sysinfo</a></li>
+      <li>Removed: <a class="external" href="config.html#protectedComments">protected comments</a></li>
+      <li>Removed: the <a class="external" href="config.html#HASH">HASH section</a></li>
+   </ul>
+   <p class="snugtop">An extracted config file will exactly match a config file as printed by 
+   <kbd class="nb">rawformat --output_format=config</kbd> with one exception: if you have <a
+        href="#editRawfile">edited</a> the raw file, it will not include your edits. </p>
+
+   <p class="snugbot">Example: first, a config file is extracted: </p>
+
+   <pre class="l2snugish">$ <b>ls</b>
+CPU2017.504.intrate.rsf
+$ <b>extract_config CPU2017.504.intrate.rsf </b>
+Wrote "CPU2017.504.intrate.cfg"
+$ <b>mv CPU2017.504.intrate.cfg from_extract_config</b>
+   </pre>
+   <p class="l1snugish">The extracted config file was moved out of the way, so it won't be over-written when we run
+   <samp class="snugr">rawformat</samp>:</p>
+   <pre class="l2snugish">$ <b>rawformat --output_format=config,nocheck CPU2017.504.intrate.rsf | grep format:</b>
+    format: cfg -&gt; CPU2017.504.intrate.cfg, CPU2017.504.intrate.orig.cfg
+   </pre>
+   <p class="l1snugish">If you <a href="#edit">edit</a> a rawfile, the <samp>.orig.cfg</samp> shows what the config file looked
+   like prior to editing.  It matches the extracted config file (with the exception of having one extra line).
+   </p>
+   <pre class="l2snugish">$ <b>diff CPU2017.504.intrate.orig.cfg from_extract_config </b>
+454a455
+&gt; 
+$  <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="extract_flags">extract_flags</h2>
+
+   <p><var>extract_flags</var> reads a rawfile, decodes any <a class="external" href="flag-description.html">flags files</a>
+   that are stored within it, and writes them to one of several destinations.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Overview</th>
+         <td><pre>extract_flags <i>rawfile</i></pre></td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See <kbd class="nb">extract_flags --help</kbd> for options
+         </td>
+      </tr>
+   </table>
+
+   <p>A flags file has a concept of a <a class="external" href="flag-description.html#suggested_filename">suggested
+      filename</a>. When writing an output file, that is the first preference.  <br />A second choice would be to match the
+   name of the input file.
+   <br />A final choice would be to specify an arbitrary new name.  
+   <br />Each of these is shown in the examples below (use <kbd class="nb">--help</kbd> for a description of
+   the switches).</p>
+
+   <pre class="l2snugish">$ <b>ls</b>
+CPU2017.714.intrate.rsf
+$
+$ <b>extract_flags CPU2017.714.intrate.rsf </b>
+Reading "CPU2017.714.intrate.rsf"
+Wrote "gcc.xml"
+$ 
+$ <b>extract_flags --nofilename CPU2017.714.intrate.rsf</b>
+Reading "CPU2017.714.intrate.rsf"
+Wrote "CPU2017.714.intrate.xml"
+$ 
+$ <b>cat CPU2017.714.intrate.rsf | extract_flags --nofilename --basename=rutabaga</b>
+Reading from stdin
+Wrote "rutabaga.xml" 
+$</pre>
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="extract_misc">extract_misc (UNSUPPORTED)</h2>
+
+   <p><var>extract_misc</var> is an UNSUPPORTED utility that reads a rawfile and decodes a requested section.  It generalizes
+   the features of <a href="#extract_config">extract_config</a> and <a href="#extract_flags">extract_flags</a> to allow
+   extraction of any named section.</p>   
+
+   <table class="syntax">
+      <tr>
+         <th>Overview</th>
+         <td><pre>specperl $SPEC/bin/scripts.misc/extract_misc <i>section rawfile</i></pre>
+            <p class="snug">On Windows systems, try:</p> 
+            <pre>      specperl %SPEC%\bin\scripts.misc\extract_misc</pre>
+            </td>
+      </tr>
+      <tr>
+         <th>section</th>
+         <td>The <i>section</i> will depend on the contents of the particular rawfile that you are examining.  
+            <br />For example, it might look like this:
+            <br /><samp>spec.cpu2017.results.&lt;benchmark&gt;.&lt;base|peak&gt;.&lt;iter&gt;.powersamples</samp>
+            <br />where 
+            <br /><samp>&lt;benchmark&gt;</samp> is the full benchmark name and 
+            <br /><samp>&lt;iter&gt;</samp> is the iteration number (3 digits,
+            starting with <samp class="snugr">000</samp>) 
+         </td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>This utility is officially unsupported.</td>
+      </tr>
+   </table>
+
+   
+   <p>Output is always to standard out.</p>
+
+   <p><samp>extract_misc</samp> may be particularly useful when verifying that your power and temperature measurements are
+   working as intended.  </p>
+   
+   <p class="snugish"><b>Example:</b> You could check out the temperature samples from the first run of the first benchmark
+   in SPEC CPU 2017 result <samp>00001</samp> using:</p>
+   <pre class="snugish">$ <b>wget -q https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00001.html</b>
+$ <b>extract_raw cpu2017-20161026-00001.html</b> 
+cpu2017-20161026-00001.html: Wrote "cpu2017-20161026-00001.rsf"
+$ <b>specperl $SPEC/bin/scripts.misc/extract_misc \
+      spec.cpu2017.results.503_bwaves_r.base.000.tempsamples \
+      cpu2017-20161026-00001.rsf &gt; tmp.tmp</b></pre>
+   <p class="snugish">The above command extracts one very long line.  Here is the first temperature sample from that
+   line:</p>
+   <pre class="snugish">$ <b>cut -b 27-70 tmp.tmp</b>
+'temp' =&gt; ['21.5'],'ts' =&gt; '1479362566.394',</pre>
+   <p class="snugish">and if you ask <a href="#specperl">specperl</a> to translate that timestamp, it reports that it is from 17-Nov-2016:</p>
+   <pre>$ <b>specperl -e 'print scalar localtime(1479362566.394), "\n";</b>'
+Thu Nov 17 01:02:46 2016</pre>
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="extract_raw">extract_raw</h2>
+
+   <p><var>extract_raw</var> reads an HTML, PDF, or PostScript report and extracts the rawfile that generated it.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>extract_raw <i>&lt;report&gt;</i></pre></td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>You might or might not be able to extract from an HTML file if it was saved from a browser.  
+            <br />Try "Save as <i>Web Page, HTML only</i>", not "<i>Save as Web Page, complete</i>".
+         </td>
+      </tr>
+   </table>
+
+   <p>The raw file is the most important of the outputs.  
+   <br />If you have it, you can re-generate any of the others using <a
+          href="#rawformat">rawformat</a>.  </p>
+   <div class="questionsnug">q. I lost my rawfile.  Do I have any hope?</div>
+   <div class="answersnug">a. Maybe.  Did you save an HTML, PDF, or PostScript report?</div>
+
+   <pre class="l1snugish">$ <b>ls</b>
+CPU2017.714.intrate.pdf
+$ <b>extract_raw CPU2017.714.intrate.pdf </b>
+CPU2017.714.intrate.pdf: Wrote "CPU2017.714.intrate.rsf"
+$ <b>rawformat --output_format=ps,html,txt,csv,config,nocheck CPU2017.714.intrate.rsf &gt; /dev/null</b>
+$ <b>ls</b>
+CPU2017.714.intrate.cfg         CPU2017.714.intrate.orig.cfg    CPU2017.714.intrate.txt
+CPU2017.714.intrate.csv         CPU2017.714.intrate.pdf         invalid.gif
+CPU2017.714.intrate.flags.html  CPU2017.714.intrate.ps
+CPU2017.714.intrate.html        CPU2017.714.intrate.rsf
+$  <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="flag_dump" style="margin-bottom:0.05em;">flag_dump</h2>
+
+   <p><var>flag_dump</var> (or <var>flags_dump</var>) reads an XML 
+   <a href="flag-description.html" class="external">flag description</a> and creates a human-readable HTML version from it.
+   </p>
+
+   <table style="width:800px" class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>flag_dump <i>&lt;XML flags file&gt;...</i>
+flags_dump <i>&lt;XML flags file&gt;...</i></pre></td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>The utility assumes that you are fomatting a user flags file.  
+            <br />If you try to use it for one of the SPEC-provided flags files, it will probably refuse, because SPEC's
+            files include <a class="external" href="flag-description.html#mandatory">mandatory</a> flags, which user flags
+            files are not allowed to use.  </td>
+      </tr>
+   </table>
+
+   <p class="snugbot">If you are writing a flags file, you should both: </p>
+   <ol class="snugish">
+      <li>Verify XML correctness with <a href="#specrxp">specrxp</a>.</li>
+      <li><p class="snugish">Verify HTML correctness of its included HTML components:  </p>
+         <ul class="snugish">
+            <li>Use <samp>flag_dump</samp></li>
+            <li>Send its output to an HTML validator, such as 
+               <a class="external" href="http://validator.w3.org/">http://validator.w3.org/</a>.</li>
+         </ul>
+      </li>
+   </ol>
+
+   <p class="snugbot">Example:</p>
+   <pre class="l1snugish">$ <b>ls</b>
+MS-VisualStudio.xml                     clang.xml
+Oracle-Developer-Studio-12.5.xml        gcc.xml
+$ <b>flags_dump *xml</b>
+Processing MS-VisualStudio.xml...wrote MS-VisualStudio.html
+Processing Oracle-Developer-Studio-12.5.xml...wrote Oracle-Developer-Studio-12.5.html
+Processing clang.xml...wrote clang.html
+Processing gcc.xml...wrote gcc.html
+$ <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="go">go (Unix only)</h2>
+
+   <p><var>go</var> provides a handy alias to navigate a SPEC CPU 2017 directory tree.  
+   <br />If you just say <kbd>go</kbd> (without any argument) your directory is set to <samp class="snugr">$SPEC</samp>. 
+   <br />Other destinations are described in the table below.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Summary</th>
+         <td style="margin-bottom:.4em;"><pre>go <i>destination </i> [<i>subdir</i>]...  </pre></td>
+      </tr>
+      <tr>
+         <th>Pre-requisite</th>
+         <td>Source <samp>shrc</samp> or <samp>cshrc</samp> to 
+            <a href="quick-start.html#setpaths" class="external">set</a> 
+            <a href="install-guide-unix.html#setpaths" class="external">paths</a>
+         </td>
+      </tr>
+      <tr>
+         <td colspan="2" style="border: solid gray;border-width:thin 0px;">Available destinations</td>
+      </tr>
+      <tr>
+         <td colspan="2"><pre>top              $SPEC
+bin              $SPEC/bin
+config           $SPEC/config
+Docs|docs        $SPEC/Docs
+result           $SPEC/result
+
+cpu              $SPEC/benchspec/CPU/
+
+nnn.benchmark    $SPEC/benchspec/CPU/nnn.benchmark
+nnn              <span class="sans">Same, if <samp>nnn</samp> matches a benchmark</span>
+substring        <span class="sans">Same, if <samp>substring</samp> matches the start of a benchmark name;</span>
+{build|exe|run}  <span class="sans">If you are already under some </span> nnn.benchmark, <span class="sans">goes to</span>
+                 nnn.benchmark/{build|exe|run} </pre>
+         </td>
+      </tr>
+   </table>
+
+   <p class="snugbot">Notes</p>
+   <ul class="snugish">
+      <li>If you start a sub-shell, the alias probably will not work until you once again source 
+         <samp>shrc</samp> or <samp class="snugr">cshrc</samp>.
+      </li>
+      <li>The alias is unlikely to work in scripts.  Check your shell documentation.</li>
+      <li><samp>go</samp> does not know directories that are created by 
+         <a class="external" href="config.html#expid">expid</a>.</li>
+      <li><samp>go</samp> does not know about <a class="external" href="config.html#output_root">output_root</a> directories,
+         but <a href="#ogo">ogo</a> does!</li> 
+   </ul>
+
+
+   <p class="snugbot">Examples</p>
+   <pre class="l2snugish">$ <b>go</b>
+/spec/cpu2017/rc4
+$ <b>go result</b>
+/spec/cpu2017/rc4/result
+$ <b>go 500 exe</b>
+/spec/cpu2017/rc4/benchspec/CPU/500.perlbench_r/exe
+   </pre>
+   <p class="l1snugish"> If you abbreviate a benchmark name, the first matching benchmark is used.  
+   <br />Below, it would be easier to just type <kbd class="nbsnugr">go 600</kbd>. 
+   </p>
+   <pre class="l2snugish">$ <b>go perlbenc exe</b>
+/spec/cpu2017/rc4/benchspec/CPU/500.perlbench_r/exe
+$ <b>go perlbench_s exe</b>
+/spec/cpu2017/rc4/benchspec/CPU/600.perlbench_s/exe
+$ <b>go build</b>
+/spec/cpu2017/rc4/benchspec/CPU/600.perlbench_s/build
+   </pre>
+   <p class="l1snugish">You can string subdirectories together.
+   </p>
+   <pre class="l2snugish">$ <b>go bin lib Math BigInt</b>
+/spec/cpu2017/rc4/bin/lib/Math/BigInt
+$  <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="imagevalidate">imagevalidate</h2>
+
+   <table class="noborder">
+      <tr>
+         <td>
+            <p><var>imagevalidate</var> compares two images for acceptable similarity.  The validator uses the Structural
+            SIMilarity (SSIM) index method (<a class="external"
+               href="https://en.wikipedia.org/wiki/Structural_similarity">wikipedia</a>) to compare blocks of 8x8 pixels.
+            For every block, an SSIM index is computed in the range of -1 to +1, where +1 means identical.  </p>
+
+            <p><samp>runcpu</samp> automatically uses <samp>imagevalidate</samp> to verify the operation of several benchmarks.
+            Most SPEC CPU 2017 users will not need to know how it works, but you might want to know if you are debugging
+            verification errors.   </p>
+
+            <table class="syntax">
+               <tr>
+                  <th>Overview</th>
+                  <td><pre>imagevalidate_... [-avg] [-maxthreshold <i>n</i>] [-threshold <i>n</i>] <i>image1</i> <i>image2</i>
+imagevalidate_... -diff <i>file</i> <i>image1</i> <i>image2</i> </pre></td>
+               </tr>
+               <tr>
+                  <th>Location</th>
+                  <td>The image validator is built along with the benchmarks that use it.  The exact name varies.  Look in
+                     the directory <samp>nnn.benchmark/exe</samp> for a filename that starts with "imagevalidate".  The name
+                     will include the benchmark number, the <a class="external" href="config.html#tune">tuning</a>, and any
+                     applicable <a class="external" href="config.html#label">label</a>.
+
+                  </td>
+               </tr>
+            </table>
+
+         </td>
+         <td> 
+            <p class="snug" style="font-size:75%;"><i>Are both of these 'correct'?</i></p>
+            <a href="images/blender.train.expected.png">
+               <img  style="width:200px;" alt="blender train expected" src="images/icon.blender.train.expected.png" /></a>
+            <br />
+            <a href="images/blender.train.produced.png">
+               <img  style="width:200px;" src="images/icon.blender.train.produced.png" alt="blender train produced" /></a>
+            <p class="snugtop" style="font-size:75%;"><i>Sometimes the answer is obvious.<br />AVG SSIM=0.661</i></p>
+         </td>
+      </tr>
+   </table>
+
+   <table style="border:none;border-color:white;">
+      <tr style="border:none;border-color:white;">
+         <td style="border:none;border-color:white;">
+
+            <table class="options" style="margin-left:.2em;width:700px;">
+               <tr>
+                  <td class="toprow" colspan="2"><b><samp>imagevalidate</samp> commonly-used options</b></td>
+               </tr>
+               <tr>
+                  <th>-avg</th>
+                  <td>Print the average similarity, instead of printing a similarity score for every block. </td>
+               </tr>
+               <tr>
+                  <th>-diff <i>file</i> </th>
+                  <td>Create a tga (Targa) image with pixel-by-pixel differences</td>
+               </tr>
+               <tr>
+                  <th class="nb">-maxthreshold <i>n</i>
+                     <br />-maxthreshold <i>n%</i>
+                     <br />-maxthreshold <i>0.n </i>
+                  </th>
+                  <td><p class="snug">Each block is compared to a similarity threshold.  The <samp class="nb">-maxthreshold</samp>
+                     determines how many are allowed to fall below the threshold before the program declares a comparison error.
+                     The value can be expressed as an absolute number of blocks, or as a percentage, or as a fraction.  For
+                     example, if 2000 blocks are compared, each of these would allow 20 blocks to fall below the threshold:</p>
+                     <pre class="l1snugish">-maxthreshold 20
+-maxthreshold 1%
+-maxthreshold .01</pre>
+                  </td>
+               </tr>
+               <tr>
+                  <th>-threshold <i>n</i> </th>
+                  <td>Set the acceptable similarity index for block-by block comparisons.  
+                     <br />The number <i>n</i> must be a value between 0
+                     and 1.</td>
+               </tr>
+               <tr>
+                  <td colspan="2" class="seealso">
+                     See also <kbd class="nb">--help</kbd> for additional options
+                  </td>
+               </tr>
+            </table>
+         </td>
+         <td style="border:none;border-color:white;">
+            <p class="snugbot" style="font-size:75%;"><i>Sometimes, it's a little harder to decide</i>
+            <a href="images/blender.refrate.expected.png">
+               <img  alt="blender ref expected" style="width:300px;" src="images/icon.blender.refrate.expected.png" /></a>
+            <br /><a href="images/blender.refrate.produced.png">
+               <img  alt="blender ref produced" style="width:300px;" src="images/icon.blender.refrate.produced.png" /></a></p>
+            <p class="snugtop" style="font-size:75%;"><i>AVG SSIM=0.998</i></p>
+         </td>
+      </tr>
+   </table>
+
+
+
+   <p>To find out how a benchmark uses the validator, go to a run directory and use <kbd class="nbsnugr">specinvoke -n
+      compare.cmd</kbd>, as in the example below: </p>
+
+   <pre class="l2snugish">$ <b>cat parrot.cfg</b>
+iterations            = 1
+label                 = NorwegianBlue
+output_root           = /tmp/val
+runlist               = 511.povray_r
+size                  = test
+tune                  = base
+default:
+   CC                 = gcc
+   CXX                = g++
+   CC_VERSION_OPTION  = -v
+   CXX_VERSION_OPTION = -v
+   </pre>
+   <p class="l1snugish"> <!-- commentary -->
+   </p>
+   <pre class="l2snugish">$ <b>cat parrot.sh </b>
+runcpu --config=parrot | grep txt
+cd /tmp/val/benchspec/CPU/511.povray_r/run/run*
+echo
+specinvoke -nr compare.cmd | grep NorwegianBlue
+   </pre>
+   <p class="l1snugish"> <!-- commentary -->
+   </p>
+   <pre class="l2snugish">$ <b>./parrot.sh </b>
+    format: Text -&gt; /tmp/val/result/CPU2017.001.fprate.test.txt
+
+../run_base_test_NorwegianBlue.0000/imagevalidate_511_base.NorwegianBlue 
+     SPEC-benchmark.tga 
+     /Users/chrisp/notlob/cpu2017/rc5/benchspec/CPU/511.povray_r/data/test/compare/SPEC-benchmark.org.tga
+$  <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+
+   <p>In the above example, the validator compares a file written by the benchmark (<samp
+                     class="nbsnuglr">SPEC-benchmark.tga</samp>)  to the expected outputs in the <samp
+                     class="snugr">511.povray_r/data/test/compare/</samp> directory.</p>
+
+   <p class="snugbot">Although not shown above, if you examine all the commands that are printed by</p>
+   <pre class="l2snugish">specinvoke -nr compare.cmd</pre>
+   <p class="snugish">you would see that there is also an additional step.  The file</p>
+   <pre class="l2snugish">$SPEC/benchspec/CPU/511.povray_r/data/test/output/imagevalidate_SPEC-benchmark.tga.out</pre>
+   <p class="snugish">which contains lines of the form:</p>
+   <pre class="l2snugish">(0,0)  SSIM = 1.000000000</pre>
+   <p class="snugish">is compared using</p>
+   <pre class="l2snugish"><a class="nb" href="#specdiff">specdiff</a> --reltol 0.06</pre>
+   <p class="snugtop"> thereby effectively putting a lower bound on SSIM of 0.94.</p>
+
+
+   <h3 id="imagevalidateHistogram">Imagevalidate Histogram</h3>
+
+   <p>A histogram of SSIM values is available in stderr with a count of blocks that fall into various similarity groupings.
+   </p> 
+
+   <p class="snugbot"> For example, a histogram for a particular run of <a href="benchmarks/525.x264_r.html" class="external">525.x264_r</a> shows
+   that although the results for frame 999 matched the expected version with an average SSIM of 0.952283700, and although 12702
+   blocks were above .90, there was a "tail" of dissimilar blocks, including 39 in the range of .6 to .7, 4 in the range of .5 to .6,
+   and 2 that fell below 0.5.</p>
+
+   <table class="noborder">
+      <tr>
+         <td>
+            <pre class="l1snugish">
+$ <b>cat imagevalidate_frame_999.err</b>
+ImageValidator r3528
+INFO: threshold set to 0.500000
+INFO: max threshold set to 20 absolute, 0.000000 relative
+frame_999.yuv: INFO:
+  Blocks below threshold: 2 blocks of 20 allowed (14400 total)
+                AVG SSIM: 0.952283700
+                MIN SSIM: 0.494511796
+       SSIM distribution:
+         [         1.000]: 59
+         [ 0.900,  1.000): 12702
+         [ 0.800,  0.900): 1379
+         [ 0.700,  0.800): 215
+         [ 0.600,  0.700): 39
+         [ 0.500,  0.600): 4
+         [ 0.400,  0.500): 2
+         [ 0.300,  0.400): 0
+         [ 0.200,  0.300): 0
+         [ 0.100,  0.200): 0
+         [ 0.000,  0.100): 0
+         [-0.100,  0.000): 0
+         [-0.200, -0.100): 0
+         [-0.300, -0.200): 0
+         [-0.400, -0.300): 0
+         [-0.500, -0.400): 0
+         [-0.600, -0.500): 0
+         [-0.700, -0.600): 0
+         [-0.800, -0.700): 0
+         [-0.900, -0.800): 0
+         [-1.000, -0.900): 0
+$ 
+            </pre>
+         </td>
+         <td style="vertical-align:bottom;">
+            <p class="snugbot" style="font-size:75%;"><i>Acceptable? Or not? </i><br />
+            <a href="images/x264.refrate.frame_999.expected.png">
+               <img  style="width:400px;" alt="x264 expected" src="images/icon.x264.refrate.frame_999.expected.png" /></a>
+            <br /><a href="images/x264.refrate.frame_999.produced.png">
+               <img  alt="x264 produced" style="width:400px;" src="images/icon.x264.refrate.frame_999.produced.png" /></a></p>
+            <p class="snugtop" style="font-size:75%;"><i>AVG SSIM=0.952283700</i></p>
+         </td>
+      </tr>
+
+      <tr>
+         <td>
+            <h3 style="margin-top:.4em;" id="imagevalidateDifference">Imagevalidate Difference Images</h3>
+
+            <p class="snug">If you would like to see the differences, the utility can guide you to them with a block-by-block
+            difference image.  The file on the right has red markings where there are differences, with a white rectangle added by hand
+            afterwards, centered on the worst differences.  It 
+            was produced using the procedure below.</p>
+
+            <p class="snugbot">The outputs from <samp>525.x264_r</samp> include a <samp>yuv</samp> output file.  
+            Copy the expected output to this directory for convenience, run the validator with the
+            <samp class="nb">-diff</samp>  and <samp class="nb">-dumpfile</samp> switches:</p>
+
+            <pre class="l1snugish">
+$ <b>ls -l *999* | cut -b 30-999</b>
+    1382400 May 31 08:44 frame_999.yuv
+        917 May 31 08:50 imagevalidate_frame_999.err
+         38 May 31 08:50 imagevalidate_frame_999.out
+         23 May 31 08:51 imagevalidate_frame_999.out.cmp
+$ <b>ls *tga</b>
+*tga: No such file or directory
+$ <b>data=$SPEC/benchspec/CPU/525.x264_r/data</b>
+$ <b>cp $data/refrate/compare/frame_999.org.tga ./expected.tga</b>
+$ <b>./imagevalidate_525_peak.may30c -avg -diff diff.tga \
+   -dumpfile frame_999.yuv ./expected.tga 2>/dev/null</b>
+frame_999.yuv: AVG SSIM = 0.952283700
+$
+            </pre>
+         </td>
+         <td style="vertical-align:top;">
+            <a href="images/diff.png">
+               <img style="margin-top:40px;width:400px;" alt="diffs" src="images/icon.diff.png" /></a>
+            <p style="font-size:75%;" class="snugtop"><i>Imagevalidate uses red for differences. <br />A white box was added by hand, surrounding the
+               reddest area.</i></p>
+         </td>
+      </tr>
+      <tr>
+         <td>
+            <pre>
+$ <b>ls -l *tga | cut -b 30-999</b>
+    2764818 Jun  2 07:52 diff.tga
+    2764818 Jun  2 07:52 expected.new.tga
+    2764818 Jun  2 07:51 expected.tga
+    2764818 Jun  2 07:52 frame_999.new.tga
+$ <b>specmd5sum *tga</b>
+6d3dd515cd3ebfa4ba9fcde9bb055eef *diff.tga
+316ed7c95fd4911de70ed13d496623ea *expected.new.tga
+316ed7c95fd4911de70ed13d496623ea *expected.tga
+22cac65989c128ce7b592e191ffe99a4 *frame_999.new.tga
+$ 
+            </pre>
+            <p>Now there are 4 <samp class="snugr">.tga</samp> files: the one that was copied in 
+            (<samp class="snuglr">expected.tga</samp>); a tga dump of that file, which is, of course, identical 
+            (<samp class="snuglr" >expected.new.tga</samp>); a tga version of the benchmark's rendering of frame 999 
+            (<samp class="snuglr" >frame_999.new.tga</samp>); and a map of the differences 
+            (<samp class="snuglr" >diff.tga</samp>).</p>  
+
+            <p>To use these files, open them on a computer that knows about TGA format.  The difference map uses red for areas that
+            differ, with more and more red as SSIM approaches -1.  The illustration shows an excerpt of these three files,
+            centered on the single-worst reported block (SSIM index 0.494511796). </p>
+
+         </td>
+         <td rowspan="2" style="vertical-align:top;">
+            <img style="width:400px;" src="images/viewtga.png" alt="tga viewer" />
+         </td>
+      </tr>
+      <tr>
+         <td style="vertical-align:bottom;">
+            <p class="snugbot">Notice that even when the eye knows exactly where to look, it can be difficult to spot the particular
+            differences reported for this field of grass.  </p>
+         </td>
+      </tr>
+   </table>
+
+   <p class="snugbot">The differences become more apparent with additional cropping and
+   zooming: </p>
+   <div  style="text-align:center;"> 
+      <img src="images/cropzoom.png" alt="cropped and zoomed" />
+   </div>
+
+   <p>Bottom line: yes, there are some visual differences by frame 999, presumably due to accumulated floating point
+   differences, but they are rare; and in context, the overall average SSIM index of 0.952283700 seems like a good indicator
+   that most people would not be aware of video artifacts in this frame. </p> 
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="index">index (UNSUPPORTED)</h2>
+   <p><var>index</var> prepares an HTML index for a set of results.</p>
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><p class="snug">Populate a directory with results, then say:</p> 
+            <pre>      $SPEC/bin/scripts.misc/index</pre>
+            <p class="snug">On Windows systems, try:</p> 
+            <pre>      specperl %SPEC%\bin\scripts.misc\index</pre>
+         </td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>This utility is officially unsupported.</td>
+      </tr>
+   </table>
+
+   <p>As you are preparing sets of results, you might find it handy to use <samp class="snugr">scripts.misc/index</samp>.
+   The utility is officially unsupported because its primary intent is for use at the SPEC website; features may therefore be
+   added, subtracted, or adjusted for convenience of the SPEC webmasters, rather than for user convenience.  It might work for
+   you; or you might use it as a basis for writing your own utility.  You are welcome to try it out, but please do not submit 
+   support requests against it. </p>
+
+
+   <table>
+      <tr>
+         <td colspan="2"> In this example, a SPEC documentation writer has lightly disguised his laptop as the fictional
+            TurboBlaster 9000, and proceeds as if preparing for publication.  He picks the runs that would be prepared for
+            publication review, and copies them to a separate directory:
+         </td>
+      </tr>
+      <tr>
+         <td><a href="images/indexExample.png">
+               <img style="padding:3px;border:1px solid blue;" alt="example index" src="images/indexExample.small.png" /></a></td>
+         <td>
+            <pre class="snugish">$ <b>cd $GO/result</b>
+$ <b>mkdir prep_for_pub</b>
+$ <b>cp CPU2017.007.intspeed.rsf prep_for_pub/TurboBlaster9000.intspeed.1thread.rsf</b>
+$ <b>cp CPU2017.001.intrate.rsf prep_for_pub/TurboBlaster9000.intrate.1copy.rsf</b>
+$ <b>cp CPU2017.008.fpspeed.rsf prep_for_pub/TurboBlaster9000.fpspeed.1thread.rsf</b>
+$ <b>cp CPU2017.006.fprate.rsf prep_for_pub/TurboBlaster9000.fprate.1copy.rsf</b>
+$ <b>cp CPU2017.504.intrate.rsf prep_for_pub/TurboBlaster9000.intrate.4copy.rsf</b>
+$ <b>cp CPU2017.505.fprate.rsf prep_for_pub/TurboBlaster9000.fprate.4copy.rsf </b>
+$ <b>cp CPU2017.076.intspeed.rsf prep_for_pub/TurboBlaster9000.intspeed.4thread.rsf</b>
+$ <b>cp CPU2017.077.fpspeed.rsf prep_for_pub/TurboBlaster9000.fpspeed.4thread.rsf</b>
+$ <b>cd prep_for_pub/</b>
+$ <b>vi *rsf</b> </pre>
+            <p class="snugish">As noted in the section on <a href="#rawformat">rawformat</a>, a result rawfile may be edited to update
+            reader fields, such as the system description.  After doing so, the results are formatted, and the index is generated.</p>
+            <pre class="snugish">$ <b>rawformat --flags $SPEC/config/flags/gcc.xml \
+  -output_format=all *rsf &gt; rawformat.log             </b>
+$ <b>$SPEC/bin/scripts.misc/index</b>
+$   <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+         </td>
+      </tr>
+   </table>
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="makesrcalt">makesrcalt</h2>
+
+   <p><var>makescralt</var> packages alternative source into a compressed tar file, known as a <var>src.alt</var>.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Overview</th>
+         <td><pre>mkdir         nnn.benchmark/src/src.alt/<i>name</i>
+cp sources... nnn.benchmark/src/src.alt/<i>name</i>
+cp README     nnn.benchmark/src/src.alt/<i>name</i>
+makesrcalt    nnn.benchmark <i>name</i></pre>
+         </td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>SPEC must <a class="external" href="techsupport.html">approve</a> your src.alt before you publish any results using it.</td>
+      </tr>
+   </table>
+
+   <table class="options" style="margin-top:1em;">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>makesrcalt</samp> commonly-used options and operands</b> </td>
+      </tr>
+      <tr>
+         <th class="nb">--usewith &lt;min&gt;:&lt;max&gt;</th>
+         <td>Versions eligible to use the alternate source.  
+            <br />If not specified, defaults to the currently-installed version.</td>
+      </tr>
+      <tr>
+         <th>nnn.benchmark</th>
+         <td><p class="snugtop">The benchmark that uses this alternate source.</p>  
+
+         </td>
+      </tr>
+      <tr>
+         <th>&lt;srcaltname&gt;</th>
+         <td>A name for your alternate source.  
+            <br />For convenience, make it short.  
+            <br />Use only letters, digits, and underscores.</td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See also <kbd class="nb">--help</kbd> for additional options
+         </td>
+      </tr>
+   </table>
+
+   <p>SPEC will post approved CPU 2017 src.alts at 
+   <a href="https://www.spec.org/cpu2017/src.alt/" class="external">www.spec.org/cpu2017/src.alt</a>.  <br />Users apply them
+   via the config file <a class="external" href="config.html#src.alt">src.alt</a> option.</p>
+
+   <p class="snugbot">
+   <span id="Src.alt"> </span>   <span id="Srcalt"> </span>
+   <span id="src.alt"> </span>   <span id="srcalt"> </span>
+   <span id="Src.alt-development"> </span>      <span id="Srcalt-development"> </span>
+   <span id="Src.alt.development"> </span>      <span id="Srcalt.development"> </span>
+   <span id="Src.altDevelopment"> </span>       <span id="SrcaltDevelopment"> </span>
+   <span id="Src.alt_development"> </span>      <span id="Srcalt_development"> </span>
+   <span id="Src.altdevelopment"> </span>       <span id="Srcaltdevelopment"> </span>
+   <span id="src.alt-development"> </span>      <span id="srcalt-development"> </span>
+   <span id="src.alt.development"> </span>      <span id="srcalt.development"> </span>
+   <span id="src.altDevelopment"> </span>       <span id="srcaltDevelopment"> </span>
+   <span id="src.alt_development"> </span>      <span id="srcalt_development"> </span>
+   <span id="src.altdevelopment"> </span>       <span id="srcaltdevelopment"> </span>
+   <b>src.alt Development</b>
+   </p>
+
+   <div class="l1snugish">
+      <p class="snugish">If you believe that changes are needed to SPEC source code, here is the process to follow.</p>
+      <ol class="snugish">
+         <li>Develop your changes in a <a class="external" href="config.html#sandbox">build sandbox</a>.</li>
+         <li><p class="snug">Determine where the original benchmark sources are located.  For shared directories, use the
+            SPECrate variant:</p>
+
+            <div class="l1snugish">
+
+               <!-- ReUsable: Shared Directory statement.  -->
+               Most SPECspeed&reg; benchmarks (<samp class="snuglr">6nn.benchmark_s</samp>) share content that is located
+               under a corresponding SPECrate&reg; benchmark (<samp class="snuglr">5nn.benchmark_r</samp>). Shared sources files may be 
+
+               <a href="config.html#OpenMP" class="external">compiled differently</a> for SPECspeed vs. SPECrate.  For
+               example, the sources for <samp>619.lbm_s</samp> can be found at <samp class="snugr">519.lbm_r/src/</samp> and
+               only <samp>619.lbm_s</samp> can be compiled with OpenMP.  
+               <!-- end of Shared Directory statement -->
+
+            </div>
+
+         </li>
+         <li>Create a directory <samp>nnn.benchmark/src/src.alt/<i>name</i></samp> with your modified sources.</li>
+         <li>Create a draft <samp>README</samp> in that directory. See previous postings at 
+            <a class="external" href="https://www.spec.org/cpu2017/src.alt/">www.spec.org/cpu2017/src.alt</a> (or
+            www.spec.org/cpu2006/src.alt).  <br />In your draft, kindly do NOT claim that it is approved; the release manager
+            will do that at the last minute.</li> 
+         <li>Use <samp>makesrcalt</samp> as shown above.</li>
+         <li>Test it with all workload <a class="external" href="config.html#size">sizes</a>.</li>
+         <li>If the sources are used by more than one benchmark, test all sizes for other affected benchmarks. </li> 
+         <li><a class="external" href="techsupport.html">Contact SPEC</a> to get the src.alt approved.  </li> 
+      </ol>
+   </div>
+
+   <p><b>makesrcalt Example</b></p> 
+
+   <p class="l1snugish">In this example, a comment is added to a source file:</p>
+
+   <pre class="l2snugish">$ <b>pwd</b>
+/cpu2017/rc4/benchspec/CPU/549.fotonik3d_r/src/src.alt/addAcomment
+$ <b>ls</b>
+README          init.F90
+$ <b>diff -u ../../init.F90 init.F90 </b>
+ ! HISTORY
+ !       Written by Ulf Andersson
++! comment added by Src Alternator
+ !
+$ <b>makesrcalt --usewith 0.904 549.fotonik3d_r addAcomment</b>
+Making 'addAcomment' src.alt for 549.fotonik3d_r
+This will be usable with version 0.904 of the suite.
+
+Making differences and computing hashes...
+Writing control file...
+Gathering files...
+Wrote /cpu2017/rc4/549.fotonik3d_r.addAcomment.cpu2017.kit0.904.tar.xz
+
+Finished making 'addAcomment' src.alt for 549.fotonik3d_r.  Elapsed time: 0 seconds
+$ <span class="xsmall">(Output subsetted for brevity.)</span> 
+<a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+
+
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="ogo">ogo (Unix only)</h2>
+
+   <p class="snugbot"><var>ogo</var> provides a handy alias that navigates *both*</p>
+   <ul class="snug">
+      <li><samp>$SPEC</samp> - a SPEC CPU 2017 directory tree</li>
+      <li><samp>$GO</samp> - a related tree created by <a class="external" href="config.html#output_root">output_root</a></li>
+   </ul>
+
+   <p class="snugtop"><samp>ogo</samp> automatically picks a tree and a directory depending on whether you want to move
+   to a read-only directory (e.g.&nbsp;<samp class="snugr">perlbench&nbsp;src</samp>)  or an output directory (e.g.&nbsp;<samp
+                                             class="snugr">perlbench&nbsp;build</samp>).</p>
+
+
+   <table class="syntax">
+      <tr>
+         <th>Summary</th>
+         <td style="margin-bottom:.4em;"><pre>ogo <i>destination </i> [<i>subdir</i>]...  </pre></td>
+      </tr>
+      <tr>
+         <th>Pre-requisites</th>
+         <td>1. Source <samp>shrc</samp> or <samp>cshrc</samp> to 
+            <a href="quick-start.html#setpaths" class="external">set</a> 
+            <a href="install-guide-unix.html#setpaths" class="external">paths</a>
+            <br />2. Define the variable <samp>GO</samp> to match your <a class="external" href="config.html#output_root">output_root</a>.
+         </td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>C shell users must set <samp>GO</samp> to an actual path, not a symbolic link.</td>
+      </tr>
+      <tr>
+         <td colspan="2" style="border-top: thin solid gray;">Available destinations are the same as 
+            for <a href="#go">go</a>.
+            <br />If you want shorter messages, set the variable <samp class="snugr">OGO_NO_WARN</samp>.
+         </td>
+      </tr>
+   </table>
+
+   <p class="snugbot">Notes</p>
+   <ul class="snugish">
+      <li>If you start a sub-shell, the alias probably will not work until you once again source 
+         <samp>shrc</samp> or <samp class="snugr">cshrc</samp>.
+      </li>
+      <li>The alias is unlikely to work in scripts.  Check your shell documentation.</li>
+      <li><samp>ogo</samp> does not know directories that are created by 
+         <a class="external" href="config.html#expid">expid</a>.</li>
+      <li>
+         <span class="new">New with CPU 2017:</span>
+         <samp>%{ENV_GO}</samp> can be usefully combined with <samp>ogo</samp>
+      </li>
+   </ul>
+
+   <div class="exHeader" id="exampleAutoGo"><span><b>Example:</b> Automating your output root using <samp>%{ENV_GO}</samp> and
+         <samp>ogo</samp> </span> </div> 
+
+
+   <p class="l1snugish">Set <samp>GO</samp> once, at login.
+   <br />Config files can pick it up from an 
+   <a class="external" href="config.html#ENVmacros">ENV macro</a> </p>
+
+   <pre class="l2snugish">$ <b>grep GO ~/.bashrc</b>
+export GO=/tmp/outputs
+$ <b>cat autoroot.cfg</b>
+output_root          = %{ENV_GO}  # pick up automatically from environment
+iterations           = 1
+label                = xyzzy
+runlist              = 505.mcf_r
+size                 = test
+default:
+   CC                = gcc
+   CC_VERSION_OPTION = -v
+$ <b>cat autoroot.sh </b>
+runcpu --config=autoroot | grep txt
+$ <b>./autoroot.sh </b>
+    format: Text -&gt; /tmp/outputs/result/CPU2017.001.intrate.test.txt</pre>
+   <p class="l1snugish"><samp>ogo</samp> handily moves around in the directories from the above command.
+   <br />It confirms your destination underneath <samp class="snugr">$GO</samp>.</p>
+
+   <pre class="l2snugish">$ <b>ogo</b>
+Using value in GO for output_root: /tmp/outputs
+/tmp/outputs
+$ <b>ogo mcf run</b>
+Using value in GO for output_root: /tmp/outputs
+/tmp/outputs/benchspec/CPU/505.mcf_r/run
+$ <b>ogo exe</b>
+Using value in GO for output_root: /tmp/outputs
+/tmp/outputs/benchspec/CPU/505.mcf_r/exe
+$ <b>ls</b>
+mcf_r_base.xyzzy</pre>
+   <p class="l1snugish">If you get tired of the two-line message, you can shrink it by setting <samp class="snugr">OGO_NO_WARN</samp>.</p>
+   <pre class="l2snugish">$ <b>OGO_NO_WARN="quiet please" </b>
+$ <b>ogo mcf run</b>
+/tmp/outputs/benchspec/CPU/505.mcf_r/run</pre>
+   <p class="l1snugish"> <samp>ogo</samp> uses the tree rooted at <samp>$SPEC</samp> if the destination is read-only (<samp
+      class="snuglr">mcf src</samp>). 
+   </p>
+   <pre class="l2snugish">$ <b>ogo mcf src</b>
+/spec/cpu2017/rc4/benchspec/CPU/505.mcf_r/src
+$  <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="port_progress">port_progress</h2>
+
+   <p><var>port_progress</var> analyzes log files and summarizes errors.  It was primarily used during the benchmark porting
+   phase for SPEC CPU 2017 (thus its name), but it can still come in handy, for example when trying the benchmarks with a new
+   compiler.  </p>
+
+
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>port_progress [-b <i>benchmarks</i>] [-c <i>config</i>] [-q] [--rate] [--skipnt] [--speed] [--table] [-a|<i>logs...</i>] </pre></td>
+      </tr>
+   </table>
+
+   <table class="options" style="margin-top:1em;">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>port_progress</samp> commonly-used options</b> </td>
+      </tr>
+      <tr>
+         <th>-b <i>benchmarks</i></th>
+         <td>Only report matching benchmarks (you can use a regexp).</td>
+      </tr>
+      <tr>
+         <th>-c <i>config</i></th> 
+         <td>Only report matching config files (you can use a regexp).<i>config</i>.</td>
+      </tr>
+      <tr>
+         <th>--rate</th>
+         <td>Report only about SPECrate (5xx) benchmarks</td>
+      </tr>
+      <tr>
+         <th>--speed</th>
+         <td>Report only about SPECspeed (6xx) benchmarks</td>
+      </tr>
+      <tr>
+         <th>-q</th>
+         <td>Slightly less annoying verbosity</td>
+      </tr>
+      <tr>
+         <th>--table</th>
+         <td>Much less annoying verbosity</td>
+      </tr>
+      <tr>
+         <th>--skipnt</th>
+         <td>Please shut up about things that were Not Tested.</td>
+      </tr>
+      <tr>
+         <th>-a|<i>logs...</i></th>
+         <td>Report on All or on selected logs</td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See also <kbd class="nb">--help</kbd> for additional options
+         </td>
+      </tr>
+   </table>
+
+   <p><samp>port_progress</samp> quickly summarizes the completion status for a series of runs.  The report is organized into
+   columns laid out by config file, tuning (base or peak), and workload <a class="external" href="config.html#size">size</a>
+   (<samp class="snugl">Te</samp> for test, <samp>Tr</samp> for train, <samp>Ref</samp> for ref).  Each benchmark and
+   workload is summarized using codes such as:</p>
+   <pre>S  - Success
+CE - Compile error
+RE - Run time error (did not finish; crashed or core dumped)
+VE - Verification Error (it finished, but got the wrong answer)</pre>
+
+   <p>In the example below, the tester has been trying several compiler versions (X, Y, and Z) using several config files.  A report is
+   requested only for the troublesome benchmarks - all of which worked with the most recent compiler.</p>
+
+   <pre>$ <b>port_progress -q -a --skipnt --table -b 'gcc|blender|cam|pop'</b>
+Looking for benchmarks that match 'gcc|blender|cam|pop'
+SPEC CPU2017 v0.905.1
+  Wed Mar 15 13:16:11 2017
+
+                ---------  ---------  ---------
+                mar10h-X   mar11a-Y   mar11b-Z
+                ---------  ---------  ---------
+                Base       Base       Base       
+                ---------  ---------  ---------  
+                Te Tr Ref  Te Tr Ref  Te Tr Ref  
+                -- -- ---  -- -- ---  -- -- ---  
+502.gcc_r       S  S  VE   S  S  S    S  S  S    
+602.gcc_s       S  S  VE   S  S  S    S  S  S    
+526.blender_r   S  S  VE   S  S  VE   S  S  S    
+527.cam4_r      S  S  VE   S  S  S    S  S  S    
+627.cam4_s      S  S  VE   S  S  S    S  S  S    
+628.pop2_s      VE VE VE   VE VE VE   S  S  S    
+   </pre>
+
+
+   <!-- ........................................................................................................................... -->
+   <h2 id="printkids">printkids.pl</h2>
+
+   <p><var>printkids.pl</var> prints a table showing the execution times for each of a
+   benchmark's subcomponents.  Before using it, <kbd>cd</kbd> to a run directory.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>printkids.pl [--columns=<i>N</i>] [--truncate] [--wrap] 
+Windows: %SPEC%\bin\specperl %SPEC%\bin\tools\printkids.pl &amp;etc</pre></td>
+      </tr>
+   </table>
+
+   <table class="options" style="margin-top:1em;">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>printkids.pl</samp> commonly-used options</b></td>
+      </tr>
+      <tr>
+         <th>--columns=<i>N</i></th>
+         <td>Limit output to the requested width</td>
+      </tr>
+      <tr>
+         <th>--truncate</th>
+         <td>Content wider than the requested number of columns is chopped off (default).</td>
+      </tr>
+      <tr>
+         <th>--wrap</th>
+         <td>Content wider than the requested number of columns is wrapped.</td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See also <kbd class="nb">--help</kbd> for additional options
+         </td>
+      </tr>
+   </table>
+
+   <p>Some benchmark executables are invoked multiple times.  If you'd like to know how much time was spent on each invocation,
+   you can examine the log file, or you can go to a run directory and use 
+   <samp class="snugr">printkids.pl</samp>.   In the example below, the ref run for <samp>525.x264_r</samp> has three parts, and it is
+   apparent that the first part is the shortest.</p>
+
+   <pre class="l1snugish">$ <b>ogo 525 run</b>
+Using value in GO for output_root: /Users/somebody/spec/cpu2017/out.rc5
+/Users/somebody/spec/cpu2017/out.rc5/benchspec/CPU/525.x264_r/run
+$ <b>cd run_base_refrate_mar10a-m64.0000/</b>
+$ <b>printkids.pl --wrap --columns=90</b>
+  Seconds  Command
+    46.58 x264_r_base.mar10a-m64 --pass 1 --stats x264_stats.log --bitrate 1000 --frames
+                                 1000 -o BuckBunny_New.264 BuckBunny.yuv 1280x720
+   159.59 x264_r_base.mar10a-m64 --pass 2 --stats x264_stats.log --bitrate 1000 --dumpyuv
+                                 200 --frames 1000 -o BuckBunny_New.264 BuckBunny.yuv
+                                 1280x720
+   162.37 x264_r_base.mar10a-m64 --seek 500 --dumpyuv 200 --frames 1250 -o
+                                 BuckBunny_New.264 BuckBunny.yuv 1280x720
+=========
+   368.54 Total by adding children      
+   368.54 Total according to speccmds.out
+$ </pre>
+
+
+
+   <!-- ........................................................................................................................... -->
+   <h2 id="printpath">printpath</h2>
+
+   <p><var>printpath.pl</var> is a script that can be used on Windows to print the path in a format that is easier to read.
+   <br />You can send the output to a file, which can then be easily edited.  </p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage:</th>
+         <td><pre>printpath</pre></td>
+      </tr>
+      <tr>
+         <th>or:</th>
+         <td><pre>%SPEC%\bin\specperl %SPEC%\bin\windows\printpath.pl</pre></td>
+      </tr>
+      <tr><td colspan="2" style="font-size:75%;">(After you edit and use <a class="external"
+               href="https://www.spec.org/cpu2017/Docs/install-guide-windows.html#shrc.bat">shrc.bat</a>, either spelling
+            should work.)</td>
+      </tr>
+   </table>
+
+
+   <p>In the example below, <samp>printpath.pl</samp> makes it easier to notice that <samp>cygwin</samp> (a Windows/Unix compatibility product)
+   is in the path.  SPEC recommends that your <samp>%PATH%</samp> should not include Windows/Unix compatibility products, because these
+   have sometimes contributed to <a class="external" href="https://www.spec.org/cpu2006/Docs/faq.html#Run.04">hard-to-diagnose
+      errors</a> (link goes to a CPU 2006 FAQ). </p> 
+   <pre>
+
+C:\cpu2017\rc5&gt;<b>echo %PATH%</b>
+C:\cpu2017\rc5\bin\windows;C:\cpu2017\rc5\bin;C:\ProgramData\Oracle\Java\javapat
+h;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\Wi
+ndowsPowerShell\v1.0\;c:\cygwin\bin;c:\unison
+
+C:\cpu2017\rc5&gt;<b>specperl %SPEC%\bin\windows\printpath.pl</b>
+PATH=^
+C:\cpu2017\rc5\bin\windows;^
+C:\cpu2017\rc5\bin;^
+C:\ProgramData\Oracle\Java\javapath;^
+C:\windows\system32;^
+C:\windows;^
+C:\windows\System32\Wbem;^
+C:\windows\System32\WindowsPowerShell\v1.0\;^
+c:\cygwin\bin;^
+c:\unison
+   </pre>
+
+
+
+   <!-- ........................................................................................................................... -->
+   <h2 id="rawformat">rawformat </h2>
+
+
+   <p><var>rawformat</var> is the report writer for SPEC CPU 2017.  
+   It creates HTML, PDF, and many other forms of output.  
+   <br /><samp>rawformat</samp> is automatically invoked by <samp>runcpu</samp> at the end of a performance test.
+   <br />It  can be invoked directly, by typing <kbd class="snugr">rawformat</kbd>, or
+   equivalently by typing <a class="external" href="runcpu.html#rawformat">runcpu --rawformat</a>.  
+   <br />(The name <samp>rawformat</samp> indicates that its input is a raw data file generated by an experiment, which it transforms into various formats.)
+   </p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>rawformat [options] <i>rawfiles...</i></pre></td>
+      </tr>
+   </table>
+
+   <table class="options">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>rawformat</samp> commonly-used options</b> </td>
+      </tr>
+      <tr>
+         <th><a class="external" href="runcpu.html#basepeak">--basepeak</a></th>
+         <td>Copy base results to peak</td>
+      </tr>
+      <tr>
+         <th><a class="external" href="runcpu.html#basepeak">--basepeak</a>=bench[:bench...]</th>
+         <td>Copy base results to peak for the benchmarks specified</td>
+      </tr>
+      <tr>
+         <th><a class="external" href="runcpu.html#baseonly">--baseonly</a></th>
+         <td>Discard peak results and report only base</td>
+      </tr>
+      <tr>
+         <th><a class="external" href="runcpu.html#flagsurl">--flagsurl</a>=URL</th>
+         <td>Use the file at URL as a flags description file.  This option may be specified multiple times.</td>
+      </tr>
+      <tr>
+         <th><a class="external" href="runcpu.html#http_proxy">--http_proxy</a>=HOST[:PORT]</th>
+         <td>Use HOST as a proxy when fetching flags files or suite updates.  If unspecified, PORT defaults to 80.</td>
+      </tr>
+      <tr>
+         <th><a class="external" href="runcpu.html#output_format">--output_format</a>=FORMAT[:...]</th>
+         <td>Set the output format FORMAT is one of: all, cfg, check, csv, flags, html, mail, pdf, ps, raw, screen, text.  By
+            default, includes the <a class="external" href="runcpu.html#subcheck">check</a> format, unless you include
+            <kbd>nocheck</kbd> among your list of formats.</td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            Options for <samp>rawformat</samp> can be included on your <samp>runcpu</samp> command line; therefore, for
+            convenience, they are described in the document <a class="external" href="runcpu.html">Using SPEC CPU 2017:
+               The 'runcpu' Command</a>.
+            <br />    See also <kbd class="nb">rawformat --help</kbd> 
+         </td>
+      </tr>
+   </table>
+
+   <p>You might use <samp>rawformat</samp> many times just before completing a project, as you 
+   go through cycles of the form 
+   <br /><samp class="nb">rawformat-review-edit-rawformat-review-edit-rawformat...</samp>
+   <br />until finally you get to <samp>...publish!</samp> </p> 
+
+
+   <h3 id="description">Editing rawfiles <span class="alarm">(ONLY above the fence!)</span>
+
+      <span id="Edit"> </span>     <span id="Edited"> </span>     <span id="Editing"> </span>
+      <span id="edit"> </span>     <span id="edited"> </span>     <span id="editing"> </span>
+
+      <span id="Edit-rawfile"> </span>      <span id="Editing-rawfile"> </span>      <span id="Edited-rawfile"> </span>
+      <span id="Edit.rawfile"> </span>      <span id="Editing.rawfile"> </span>      <span id="Edited.rawfile"> </span>
+      <span id="EditRawfile"> </span>       <span id="EditingRawfile"> </span>       <span id="EditedRawfile"> </span>
+      <span id="Edit_rawfile"> </span>      <span id="Editing_rawfile"> </span>      <span id="Edited_rawfile"> </span>
+      <span id="Editrawfile"> </span>       <span id="Editingrawfile"> </span>       <span id="Editedrawfile"> </span>
+      <span id="edit-rawfile"> </span>      <span id="editing-rawfile"> </span>      <span id="edited-rawfile"> </span>
+      <span id="edit.rawfile"> </span>      <span id="editing.rawfile"> </span>      <span id="edited.rawfile"> </span>
+      <span id="editRawfile"> </span>       <span id="editingRawfile"> </span>       <span id="editedRawfile"> </span>
+      <span id="edit_rawfile"> </span>      <span id="editing_rawfile"> </span>      <span id="edited_rawfile"> </span>
+      <span id="editrawfile"> </span>       <span id="editingrawfile"> </span>       <span id="editedrawfile"> </span>
+
+      <span id="Edit-results"> </span>         <span id="Editing-results"> </span>      <span id="Edited-results"> </span>
+      <span id="Edit.results"> </span>         <span id="Editing.results"> </span>      <span id="Edited.results"> </span>
+      <span id="EditResults"> </span>          <span id="EditingResults"> </span>       <span id="EditedResults"> </span>
+      <span id="Edit_results"> </span>         <span id="Editing_results"> </span>      <span id="Edited_results"> </span>
+      <span id="Editresults"> </span>          <span id="Editingresults"> </span>       <span id="Editedresults"> </span>
+      <span id="edit-results"> </span>         <span id="editing-results"> </span>      <span id="edited-results"> </span>
+      <span id="edit.results"> </span>         <span id="editing.results"> </span>      <span id="edited.results"> </span>
+      <span id="editResults"> </span>          <span id="editingResults"> </span>       <span id="editedResults"> </span>
+      <span id="edit_results"> </span>         <span id="editing_results"> </span>      <span id="edited_results"> </span>
+      <span id="editresults"> </span>          <span id="editingresults"> </span>       <span id="editedresults"> </span>
+
+   </h3>
+
+   <div class="l1">
+
+      <p>A result rawfile may be edited to update <a class="external" href="config.html#readerFields">reader fields</a>, such
+      as the system description.  
+      <br />The fields that you are allowed to edit are the ones located above the "fence":</p>
+
+      <pre># =============== do not edit below this point =================== </pre>
+
+      <p><span class="caution">Caution:</span> do not change your original rawfile.  Keep it safely as a backup.  Instead, copy the
+      original to a new file, and then edit the copy. </p>
+
+      <p><b>Syntax:</b> Rawfiles have some difference from <a class="external" href="config.html#Dtoc_V">config files</a>:</p>
+      <ul>
+         <li>Field names are preceded by <samp>spec.cpu2017.</samp> </li>
+         <li>Config files use equal signs; rawfiles use colons</li>
+         <li>If a field continues across multiple lines, you must use numbers on all of them.  You cannot mix numbered and
+            un-numbered lines for a single field.</li>
+      </ul>
+
+      <p class="hanging1snugbot" id="mkt"><b>Example: Edit the system name.</b>  
+      <br />Just before Announcement Day, and after you have run all
+      your tests, <br />Marketing decides to change the system name from: </p>
+      <div class="l2snug">"Turboblaster 9000" </div>
+      <div class="l1snug">to</div>
+      <div class="l2snug">"Turbo Blaster 9000"</div>
+      <p class="l1snugish">You may edit the rawfile, provided that you edit only the reader fields, above the fence.  
+      <br />Start by making a new copy:</p> 
+      <pre class="l2snugish">$ <b>grep hw_model CPU2017.008.fpspeed.rsf </b>
+spec.cpu2017.hw_model: Turboblaster 9000
+$ <b>mkdir prep_for_publication</b>
+$ <b>cp CPU2017.008.fpspeed.rsf prep_for_publication/tb9000.fpspeed.rsf</b>
+$ <b>cd prep_for_publication/</b></pre>
+      <p class="l1snugish">Make your edits:</p>
+      <pre class="l2snugish">$ <b>vi tb9000.fpspeed.rsf </b>
+$ <b>diff ../CPU2017.008.fpspeed.rsf ./tb9000.fpspeed.rsf </b>
+9c9
+&lt; spec.cpu2017.hw_model: Turboblaster 9000
+---
+&gt; spec.cpu2017.hw_model: Turbo Blaster 9000</pre>
+      <p class="l1snugish">And re-generate your reports:</p>
+      <pre class="l2snugtop">$ <b>rawformat --output_format txt,html,csv tb9000.fpspeed.rsf </b></pre>
+
+   </div>
+
+   <h3 id="cont" style="margin-top:1em;" class="hanging1snugbot">rawfile continued fields</h3> 
+   <p class="l1">When editing fields that have more than 
+   one line, you cannot mix numbered and un-numbered versions of a single field.
+   Instead, you must use a number on both of them:</p>
+
+   <table class="l2snugish">
+      <tr>
+         <td style="background:#ffe0e0;vertical-align:middle;"><strong>WRONG:</strong></td>
+         <td style="background:#ffe0e0;"><pre class="snug">spec.cpu2017.sw_compiler: C/C++: Version 17.0.0.098 of Intel C/C++
+spec.cpu2017.sw_compiler1: Compiler for Linux</pre>
+         </td>
+      </tr>
+      <tr>
+         <td style="background:#e0ffe0;vertical-align:middle;"><strong>RIGHT:</strong></td>
+         <td style="background:#e0ffe0;"><pre class="snug">spec.cpu2017.sw_compiler000: C/C++: Version 17.0.0.098 of Intel C/C++
+spec.cpu2017.sw_compiler001: Compiler for Linux</pre>
+         </td>
+      </tr>
+   </table>
+
+   <h3>rawfiles only: test_date
+      <span id="Test-date"> </span> 
+      <span id="Test.date"> </span>  
+      <span id="TestDate"> </span>   
+      <span id="Test_date"> </span>  
+      <span id="Testdate"> </span>   
+      <span id="test-date"> </span>  
+      <span id="test.date"> </span>  
+      <span id="testDate"> </span>   
+      <span id="test_date"> </span>  
+      <span id="testdate"> </span>   
+   </h3> 
+
+   <p class="l1snugish">For SPEC CPU 2017, one field is ignored in config files, but may be set in a raw file:</p>
+
+   <table class="l2" style="width:800px;">
+      <tr>
+         <td><samp>test_date</samp>
+         </td>
+         <td><p class="snug"> When the tests were run.  This field is populated automatically based on the clock in the system
+            under test.  Setting this in the config file will generate a warning and the setting will be ignored.  If your system
+            clock is incorrect, then the value may be edited in the raw file.  It's better to avoid the necessity to edit, by
+            setting your system clock properly.</p>
+         </td>
+      </tr>
+   </table>
+
+   <h3 id="nopower">rawformat --nopower</h3>
+   <div class="l1">
+
+      <p>It is permitted to reformat a power+performance run as performance-only, using <kbd class="snugr">rawformat
+         --nopower</kbd>.  You may wish to do so if a run is marked invalid due to sampling or other problems detected during
+      power measurement.</p>
+
+      <p>Using this option will produce a new rawfile as its only action.  To produce your reports, enter a second
+      <kbd>rawformat</kbd> command with the desired <a class="external" href="runcpu.html#output_format">output_format</a>
+      selections.</p>
+      
+      <p>For example, run #48 did not produce any reports, because some (but not all) benchmarks failed:</p>
+
+      <pre>$ <b>grep -A2 format: CPU2017.048.log</b>
+    format: raw -&gt; /spec/johnh/out.pre1.1-502/result/CPU2017.048.intrate.refrate.rsf
+ERROR: Compressed power samples could not be extracted.
+Formatting aborted
+$
+$ <b>ls CPU2017.048*</b>
+CPU2017.048.intrate.refrate.rsf  
+CPU2017.048.log                  
+CPU2017.048.log.debug
+$</pre>
+      <p class="snugish">The rawfile is copied to a new directory, where the first <kbd>rawformat</kbd> command creates a new
+      rawfile:</p>
+      <pre>$ <b>mkdir reformat</b>
+$ <b>cp CPU2017.048.intrate.refrate.rsf reformat</b>
+$ <b>cd reformat</b>
+$ <b>rawformat --nopower CPU2017.048.intrate.refrate.rsf</b>
+. . .
+Formatting CPU2017.048.intrate.refrate.rsf
+                       Renaming previous rawfile to CPU2017.048.intrate.refrate.rsf.old.0
+    format: raw -&gt; CPU2017.048.intrate.refrate.nopower.rsf
+rawformat finished at 2019-04-26 08:32:40; 17 total seconds elapsed
+$ <b>ls</b>
+CPU2017.048.intrate.refrate.nopower.rsf  
+CPU2017.048.intrate.refrate.rsf.old.0
+$</pre>
+<p>and the second <kbd>rawformat</kbd> command creates a text report:</p>
+<pre><b>rawformat --output_format=text,nosubcheck CPU2017.048.intrate.refrate.nopower.rsf </b>
+. . .
+Doing flag reduction: done
+    format: Text -&gt; CPU2017.048.intrate.refrate.nopower.txt
+rawformat finished at 2019-04-26 08:35:08; 27 total seconds elapsed
+$ 
+$ <b>ls</b>
+CPU2017.048.intrate.refrate.nopower.rsf  
+CPU2017.048.intrate.refrate.nopower.txt  
+CPU2017.048.intrate.refrate.rsf.old.0
+$ </pre>
+   </div>
+
+
+   <!-- ........................................................................................................................... -->
+   <h2 id="specdiff">specdiff</h2>
+
+   <p><var>specdiff</var> determines whether benchmark outputs match the SPEC-supplied expected outputs.
+   <br />Benchmark developers define the validation criteria by specifying acceptable tolerances.</p>
+
+
+   <table class="syntax" style="width:800px;">
+      <tr>
+         <th>Usage</th>
+         <td><pre>specdiff [--abstol <i>n</i>] [--calctol] [--obiwan] [--reltol <i>n</i>] [--skiptol <i>n</i>] <i>file1</i>  <i>file2</i></pre></td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td><samp class="nb">--calctol</samp> is often harder to interpret than expected.  </td>
+      </tr> 
+   </table>
+
+   <table class="options" style="width:600px;">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>specdiff</samp> commonly-used options</b> </td>
+      </tr>
+      <tr>
+         <th>--abstol <i>n</i> </th>  
+         <td>absolute tolerance </td>
+      </tr>
+      <tr>
+         <th>--calctol </th>  
+         <td>calculate required tolerances.  See cautionary note below.</td>
+      </tr>
+      <tr>
+         <th>-l|--lines  <i>n</i>  </th>  
+         <td># of differences to print (-1 for all)</td>
+      </tr>
+      <tr>
+         <th>-m|--mis </th>  
+         <td>Write <i>file2</i>.mis containing information about miscompares</td>
+      </tr>
+      <tr>
+         <th>--obiwan  </th>  
+         <td>allow off-by-one errors</td>
+      </tr>
+      <tr>
+         <th>--reltol  <i>n</i></th>  
+         <td>relative tolerance </td>
+      </tr>
+      <tr>
+         <th>--skiptol <i>n</i></th>  
+         <td># of differences to ignore</td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See also <kbd class="nb">specdiff --help</kbd> for additional options
+         </td>
+      </tr>
+   </table>
+
+
+   <p>Tolerances are written by <samp>runcpu</samp> to <samp class="snugr">compare.cmd</samp>, which <a href="#specinvoke">specinvoke</a>
+   reads when it calls <samp class="snugr">specdiff</samp>.  
+   <br />If you are debugging a problem, you can look at how the validation is done and you can run <samp>specdiff</samp> by
+   hand.  </p>
+
+   <p class="l1"><b>Example:</b> Go to a run directory and find out what <samp>specdiff</samp> command would be generated using
+   <a href="#specinvoke">specinvoke</a>'s dry-run switch, <samp class="nbsnugr">-n</samp>.</p>
+
+   <pre class="l2snugish">$ <b>ogo fotonik run</b>
+Using value in GO for output_root: /spec/cpu2017/out.rc5
+/spec/cpu2017/out.rc5/benchspec/CPU/549.fotonik3d_r/run
+$ <b>cd run_base_refrate_mar10a-m64.0000/</b>
+$ <b>specinvoke -n compare.cmd | grep specdiff</b>
+/spec/cpu2017/rc5/bin/specperl /spec/cpu2017/rc5/bin/harness/specdiff -m -l 10 
+   --abstol 1e-27 --reltol 1e-10 --obiwan --floatcompare 
+   /spec/cpu2017/rc5/benchspec/CPU/549.fotonik3d_r/data/refrate/output/pscyee.out 
+   pscyee.out 0&lt;&amp;- &gt; pscyee.out.cmp
+$</pre>
+   <p class="l1snugish">The above command is a bit wordy.  If your <a class="external" href="quick-start.html#shrc">paths</a>
+   are set correctly, you can just say <samp>specdiff</samp> instead of <samp class="nbsnugr">/spec/cpu2017/rc5/bin/specperl
+      /spec/cpu2017/rc5/bin/harness/specdiff</samp>.  
+   <br />The example below further shortens the command by defining <samp class="snugr">expected</samp>, and then varies the
+   tolerances and counts how many lines are generated (with <samp class="nbsnugr">wc -l</samp>).  
+   <br />If only 1 line is printed, there are no miscompares.</p>
+
+   <pre class="l2snugish">$ <b>expected=$SPEC/benchspec/CPU/549.fotonik3d_r/data/refrate/output/pscyee.out</b>
+$ <b>specdiff --lines=-1 --abstol 1e-27 --reltol 1e-10 --obiwan --floatcompare $expected pscyee.out | wc -l</b>
+       1
+$ <b>specdiff --lines=-1 --abstol 1e-27  --obiwan --floatcompare $expected pscyee.out | wc -l</b>
+       1
+$ <b>specdiff --lines=-1 --abstol 1e-28  --obiwan --floatcompare $expected pscyee.out | wc -l</b>
+       1
+$ <b>specdiff --lines=-1 --abstol 1e-29  --obiwan --floatcompare $expected pscyee.out | wc -l</b>
+       1
+$ <b>specdiff --lines=-1 --abstol 1e-30  --obiwan --floatcompare $expected pscyee.out | wc -l</b>
+     391
+$ <b>specdiff --lines=-1 --abstol 1e-35  --obiwan --floatcompare $expected pscyee.out | wc -l</b>
+     937
+$  <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+   <p class="l1snugtop">From the above, we could conclude that the particular compiler and optimizations used in this run
+   produce outputs that are much closer to SPEC's expected outputs than required by the SPEC-supplied tolerance: the results
+   match within an abstol that is 100x tighter (1e-27 vs 1e-29).  
+   </p>
+
+   <p><span class="caution">Caution to benchmark developers:</span> The <samp class="nb">--calctol</samp> switch answers two separate
+   questions, one at time: (1) Given all the other tolerances listed, what relative tolerance <samp>R</samp> would be needed in
+   order for these files to be considered a match? and (2) Given all the other tolerances listed, what absolute tolerance
+   <samp>A</samp> would be needed?  Notice that:
+   <br />Any particular difference <samp>D</samp> that is just barely covered by <samp>R</samp> may be much smaller than <samp class="snugr">A</samp>.  
+   <br />Any particular difference <samp>D</samp> that is just barely covered by <samp>A</samp> may be much smaller than <samp class="snugr">R</samp>.   
+   <br />Therefore, a benchmark developer who is considering a tolerance
+   change should never blindly apply the results of <samp class="nbsnugr">--calctol</samp>.  Consider a much smaller change, and
+   recalculate.  </p>
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="specinvoke">specinvoke</h2>
+
+   <p><var>specinvoke</var> runs and times commands, after <samp>runcpu</samp> sets them up.  
+   <br />It can display commands needed to set up the environment and to change directories.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>specinvoke [options] [commandfile]</pre>
+            <p class="snug">If the commandfile is not named, looks for <samp class="snuglr">speccmds.cmd</samp>.</p></td>
+      </tr>
+   </table>
+
+   <table class="options">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>specinvoke</samp> commonly-used options</b> </td>
+      </tr>
+      <tr>
+         <th>-n</th>
+         <td>Print a dry run of commands, but do not actually do them.</td>
+      </tr>
+      <tr>
+         <th>-nn</th>
+         <td>Include commands that set environment variables and commands that <samp>cd</samp> to directories.</td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See also <kbd class="nb">--help</kbd> for additional options
+         </td>
+      </tr>
+   </table>
+
+   <p class="snugbot"><b>Environment variables:</b> It is important to understand that <samp>specinvoke</samp> does not
+   set environment variables; but you can cause them to be set by capturing the dry run output and executing it.  The output of
+   <kbd class="nb">specinvoke -nn</kbd> includes commands to:</p>
+   <ul class="l1snugish">
+      <li>Set the current directory.  For SPECrate runs, there may be many such commands.</li>
+      <li>Add environment variables that were in the environment when <samp>runcpu</samp> set up the directories.</li>
+      <li>For SPECrate, set <samp>OMP_NUM_THREADS</samp> and <samp>OMP_THREAD_LIMIT</samp> to 1.</li>
+      <li>For SPECspeed, set <samp>OMP_NUM_THREADS</samp> to the <a class="external" href="runcpu.html#threads">--threads</a>
+         command line value or to the config file <a class="external" href="config.html#threads">threads=</a> value.</li>
+      <li>Remove extraneous environment variables that are present now but were not present when <samp>runcpu</samp> was
+         run.</li>
+      <li><p class="snug">A final line is also included which requires notice:
+         <br /> <samp class="nb">specinvoke exit: rc=0</samp> </p>
+         <ul class="snug">
+            <li>This <span class="caution">must be removed</span> if you execute the dry run commands.  </li>
+            <li>If you do not, then
+               <samp>specinvoke</samp> will try to re-run itself, looking for a file named <samp>exit:</samp> that it is unlikely to
+               find.</li>
+            <li>See <a href="#specinvoke.3">Example 3</a> below.</li>
+         </ul>
+      </li>
+   </ul>
+
+   <p>The <samp>specinvoke</samp> utility by default looks for <samp class="snugr">speccmds.cmd</samp>, which is how benchmarks
+   are run.  However, that is not its only use.  The <samp>runcpu</samp> program also uses <samp>specinvoke</samp> for setting
+   up certain benchmarks, via <samp class="snugr">inputgen.cmd</samp>; and to drive comparisons, as described in the section on
+   <a href="#specdiff">specdiff</a>.  You might want to use it to run benchmarks "by hand", or to customize the runs during a
+   performance analysis exercise.  Several common usage examples are shown below.</p>
+
+
+   <p> <span id="Sandbox"> </span>
+   <span id="sandbox"> </span>
+   <span id="Run-setup"> </span>      <span id="Runsetup-sandbox"> </span>      <span id="Run-sandbox"> </span>
+   <span id="Run.setup"> </span>      <span id="Runsetup.sandbox"> </span>      <span id="Run.sandbox"> </span>
+   <span id="RunSetup"> </span>       <span id="RunsetupSandbox"> </span>       <span id="RunSandbox"> </span>
+   <span id="Run_setup"> </span>      <span id="Runsetup_sandbox"> </span>      <span id="Run_sandbox"> </span>
+   <span id="Runsetup"> </span>       <span id="Runsetupsandbox"> </span>       <span id="Runsandbox"> </span>
+   <span id="run-setup"> </span>      <span id="runsetup-sandbox"> </span>      <span id="run-sandbox"> </span>
+   <span id="run.setup"> </span>      <span id="runsetup.sandbox"> </span>      <span id="run.sandbox"> </span>
+   <span id="runSetup"> </span>       <span id="runsetupSandbox"> </span>       <span id="runSandbox"> </span>
+   <span id="run_setup"> </span>      <span id="runsetup_sandbox"> </span>      <span id="run_sandbox"> </span>
+   <span id="runsetup"> </span>       <span id="runsetupsandbox"> </span>       <span id="runsandbox"> </span>
+   <span id="Run-setup-sandbox"> </span>
+   <span id="Run.setup.sandbox"> </span>
+   <span id="RunSetupSandbox"> </span>
+   <span id="Run_setup_sandbox"> </span>
+   <span id="run-setup-sandbox"> </span>
+   <span id="run.setup.sandbox"> </span>
+   <span id="runSetupSandbox"> </span>
+   <span id="run_setup_sandbox"> </span>
+   </p>
+
+   <div style="margin-top:2em;" class="exHeader" id="specinvoke.1"><span><b>Specinvoke Example 1:</b> 
+         runsetup sandbox: "What will happen if I run this?" </span></div>
+   <p class="l1snug">You can use <kbd>specinvoke</kbd> to explore what will happen during a benchmark run.
+   <br />In the example below, a directory was set up using <kbd>runcpu</kbd> 
+   <a class="external" href="runcpu.html#runsetup">--action runsetup</a>.
+   <br />Notice that the directory has <samp>speccmds.cmd</samp> and <samp class="snugr">lbm.in</samp>, but no <samp
+                                                                           class="snugr">lbm.out</samp>:
+   </p>
+   <pre class="l2snugish">$ <b>cd /tmp/demo_runsetup/benchspec/CPU/519.lbm_r/run/run_peak_test_fast.0000</b>
+$ <b>ls</b>
+100_100_130_cf_a.of  compare.cmd   lbm.in   lbm_r_peak.fast         speccmds.cmd
+$ <b>specinvoke -n speccmds.cmd | grep lbm_r</b>
+../run_peak_test_fast.0000/lbm_r_peak.fast 20 reference.dat 0 1 100_100_130_cf_a.of 
+                 0&lt;&amp;- &gt; lbm.out 2&gt;&gt; lbm.err
+   </pre>
+   <p class="l1snugish"> After using <kbd>specinvoke</kbd> without the dry-run (<kbd class="nbsnuglr">-n</kbd>) switch, the files
+   <samp>lbm.out</samp> and <samp>lbm.err</samp> have been created:</p>
+   <pre class="l2snugish">$ <b>specinvoke</b>
+specinvoke exit: rc=0
+$ <b>ls lbm.*</b>
+lbm.err lbm.in  lbm.out
+$</pre>
+
+
+   <div style="margin-top:2em;" class="exHeader" id="specinvoke.2"><span><b>Specinvoke Example 2:</b> Diagnosis: "What happened
+         during my run?" </span></div> 
+   <p class="l1snug">When something goes wrong, it is often useful to try the commands by hand.  
+   <br />Ask <samp>specinvoke</samp> what it did, by using
+   the "<samp class="nbsnuglr">-n</samp>" switch:</p>
+
+   <pre class="l2snugish">$ <b>go perl run</b>
+/Users/somebody/spec/cpu2017/rc5/benchspec/CPU/500.perlbench_r/run
+$ <b>cd run_base_test_may07a-m64.0000/</b>
+$ <b>specinvoke -n</b>
+# specinvoke r&lt;dev&gt;
+#  Invoked as: specinvoke -n
+# timer ticks over every 1000 ns
+# Use another -n on the command line to see chdir commands and env dump
+# Starting run for copy #0
+../run_base_test_may07a-m64.0000/perlbench_r_base.may07a-m64 -I. -I./lib makerand.pl 
+                 0&lt;&amp;- &gt; makerand.out 2&gt;&gt; makerand.err
+# Starting run for copy #0
+../run_base_test_may07a-m64.0000/perlbench_r_base.may07a-m64 -I. -I./lib test.pl 
+                 0&lt;&amp;- &gt; test.out 2&gt;&gt; test.err
+specinvoke exit: rc=0
+   </pre>
+   <p class="l1snugish"> Above, it can be seen that perlbench is run twice.  From the looks of the stderr, similar failures
+   afflicted both runs: </p>
+   <pre class="l2snugish">$ <b>cat makerand.err </b>
+Attempt to free unreferenced scalar: SV 0x7fc4c9014c88.
+$ <b>cat test.err </b>
+Attempt to free unreferenced scalar: SV 0x7ffae90143a0 at t/TEST line 517.
+Attempt to free unreferenced scalar: SV 0x7ffae901f7f8 at t/TEST line 638.
+Attempt to free unreferenced scalar: SV 0x7ffae90143a0 at t/TEST line 638.
+Attempt to free unreferenced scalar: SV 0x7ffae901f7f8 at t/TEST line 662.
+Attempt to free unreferenced scalar: SV 0x7ffae90147c0 at t/TEST line 680.
+perlbench_r_base.may07a-m64(94080,0x7ffff25803c0) 
+  malloc: *** error for object 0x7ffae9038508: pointer being freed was not allocated
+*** set a breakpoint in malloc_error_break to debug
+$  </pre>
+
+   <p class="l1snugtop">Since the problem affected both runs, you could run either in a debugger, with the command 
+   options above (<samp class="nbsnuglr">-I. -I./lib &amp;etc)</samp>.
+   <br />If you want to try out your own variations on the above command by hand, you could do so.  
+   <br />In this particular example, nothing works, not even just verbose version information:</p>
+   <pre class="l2snugish">$ <b>./perlbench_r_base.may07a-m64 -V</b>                         
+Attempt to free unreferenced scalar: SV 0x7fa54a8031c0 at lib/strict.pm line 38.
+perlbench_r_base.may07a-m64(94624,0x7ffff25803c0) 
+malloc: *** error for object 0x7fa54a4138a8: pointer being freed was not allocated
+*** set a breakpoint in malloc_error_break to debug
+Abort trap: 6
+$ </pre>
+   <p class="l1snugtop">The reason for the above failure is that perlbench was compiled with aggressive assumptions about
+   aliasing.  
+   <br />See the discussion in the section on Known Portability Issues in the 
+   <a class="external" href="https://www.spec.org/cpu2017/Docs/benchmarks/500.perlbench_r.html#alias">500.perlbench_r</a>
+   benchmark description.</p>
+
+
+
+   <p><span id="Specinvoke-environment"> </span>      <span id="Specinvoke-environment-variables"> </span>
+   <span id="Specinvoke.environment"> </span>      <span id="Specinvoke.environment.variables"> </span>
+   <span id="SpecinvokeEnvironment"> </span>       <span id="SpecinvokeEnvironmentVariables"> </span>
+   <span id="Specinvoke_environment"> </span>      <span id="Specinvoke_environment_variables"> </span>
+   <span id="Specinvokeenvironment"> </span>       <span id="Specinvokeenvironmentvariables"> </span>
+   <span id="specinvoke-environment"> </span>      <span id="specinvoke-environment-variables"> </span>
+   <span id="specinvoke.environment"> </span>      <span id="specinvoke.environment.variables"> </span>
+   <span id="specinvokeEnvironment"> </span>       <span id="specinvokeEnvironmentVariables"> </span>
+   <span id="specinvoke_environment"> </span>      <span id="specinvoke_environment_variables"> </span>
+   <span id="specinvokeenvironment"> </span>       <span id="specinvokeenvironmentvariables"> </span>
+   </p>
+   <div class="exHeader" style="margin-top:2em;" id="specinvoke.3"><span><b>Specinvoke Example 3:</b> Setting environment variables  and run directories</span></div>
+
+   <p class="l1snugish">This example demonstrates using <samp>specinvoke</samp> to find out what commands are needed to set
+   directories and environment variables.  
+   <br />To begin, 
+   519.lbm_r is <a class="external" href="runcpu.html#runsetup">setup</a> for 3 copies, and
+   <a href="#ogo">ogo</a> sets the current directory.</p>
+
+   <pre class="l2snugish">$ <b>runcpu --action=runsetup --config=mar10a --size=test --copies=3 519.lbm | grep 'Setting up'</b>
+Setting up environment for running 519.lbm_r...
+  Setting up 519.lbm_r test base mar10a-m64 (3 copies): run_base_test_mar10a-m64.0000-0002
+$ <b>ogo lbm run</b>
+Using value in GO for output_root: /Users/somebody/spec/cpu2017/out.rc5
+/Users/somebody/spec/cpu2017/out.rc5/benchspec/CPU/519.lbm_r/run
+$ </pre>
+   <p class="l1snugish">The runcpu command above lists the directories that are created.
+   <br />The run control information will be in
+   the first one that was mentioned, directory <samp class="nbsnugr">run_base_test_mar10a-m64.0000</samp>.
+   <br />Go there, capture the dry run to a file, and print it with line numbers:</p>
+
+   <pre class="l2snugish">$ <b>cd run_base_test_mar10a-m64.0000</b>
+$ <b>specinvoke -nn &gt; doit.sh</b>
+$ <b>cat -n doit.sh </b>
+     1  # specinvoke r&lt;dev&gt;
+     2  #  Invoked as: specinvoke -nn
+     3  # timer ticks over every 1000 ns
+     4  # Environment in effect for these runs:
+     5  Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.Y0VNE6tdL4/Render
+     6  DISPLAY=/private/tmp/com.apple.launchd.RLSpnQHR4y/org.macosforge.xquartz:0
+     7  GO=/Users/somebody/spec/cpu2017/out.rc5
+     8  HOME=/Users/somebody
+     9  LANG=en_US.UTF-8
+    10  LC_ALL=C
+    11  LC_LANG=C
+    12  LD_LIBRARY_PATH=/Users/somebody/work/compilers/gcc-6.2.0//lib64/:
+                      /Users/somebody/work/compilers/gcc-6.2.0//lib/:/lib64
+    13  LIBC_FATAL_STDERR_=1
+    14  LOGNAME=somebody
+    15  OMP_NUM_THREADS=1
+    16  OMP_THREAD_LIMIT=1
+    17  PATH=/Users/somebody/spec/cpu2017/rc5/bin:/usr/bin:/bin
+    18  SECURITYSESSIONID=188ca
+    19  SHELL=/bin/bash
+    20  SPEC=/Users/somebody/spec/cpu2017/rc5
+    21  SPECDB_PWD=/Users/somebody/spec/cpu2017/rc5
+    22  SPECPERLLIB=/Users/somebody/spec/cpu2017/rc5/bin/lib:/Users/somebody/spec/cpu2017/rc5/bin
+    23  SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.IjLo6TkyZE/Listeners
+    24  TERM=xterm-256color
+    25  TERM_PROGRAM=Apple_Terminal
+    26  TERM_PROGRAM_VERSION=361.1
+    27  TERM_SESSION_ID=84E5235A-F353-46ED-B7D3-278192866128
+    28  TMPDIR=/var/folders/xg/0bny4w9d43gdc6zp5mz3jqv40000gn/T/
+    29  __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
+    30  export Apple_PubSub_Socket_Render DISPLAY GO HOME LANG LC_ALL LC_LANG
+    31  export LD_LIBRARY_PATH LIBC_FATAL_STDERR_ LOGNAME OMP_NUM_THREADS
+    32  export OMP_THREAD_LIMIT PATH SECURITYSESSIONID SHELL SPEC SPECDB_PWD SPECPERLLIB
+    33  export SSH_AUTH_SOCK TERM TERM_PROGRAM TERM_PROGRAM_VERSION TERM_SESSION_ID
+    34  export TMPDIR __CF_USER_TEXT_ENCODING
+    35  unset OLDPWD
+    36  unset PWD
+    37  unset SHLVL
+    38  unset _
+    39  # Fake output for rate runs will not necessarily clearly represent the order
+    40  # that workloads would be run in a real run.
+    41  # Starting run for copy #0
+    42  cd /Users/somebody/spec/cpu2017/out.rc5/benchspec/CPU/519.lbm_r/run/run_base_test_mar10a-m64.0000
+    43  ../run_base_test_mar10a-m64.0000/lbm_r_base.mar10a-m64 20 reference.dat 0 1 100_100_130_cf_a.of
+                  0&lt;&amp;- &gt; lbm.out 2&gt;&gt; lbm.err
+    44  # Starting run for copy #1
+    45  cd /Users/somebody/spec/cpu2017/out.rc5/benchspec/CPU/519.lbm_r/run/run_base_test_mar10a-m64.0001
+    46  ../run_base_test_mar10a-m64.0000/lbm_r_base.mar10a-m64 20 reference.dat 0 1 100_100_130_cf_a.of 
+                 0&lt;&amp;- &gt; lbm.out 2&gt;&gt; lbm.err
+    47  # Starting run for copy #2
+    48  cd /Users/somebody/spec/cpu2017/out.rc5/benchspec/CPU/519.lbm_r/run/run_base_test_mar10a-m64.0002
+    49  ../run_base_test_mar10a-m64.0000/lbm_r_base.mar10a-m64 20 reference.dat 0 1 100_100_130_cf_a.of 
+                 0&lt;&amp;- &gt; lbm.out 2&gt;&gt; lbm.err
+    50  specinvoke exit: rc=0
+$ </pre>
+   <p class="l1snugish"> Notice that:</p>
+   <ul class="l2snugish">
+      <li>Lines 5 through 34 set environment variables.  
+         <br />Most settings will be as found in the user's environment, with the
+         principal exception that <samp>OMP_NUM_THREADS=1</samp> and <samp>OMP_THREAD_LIMIT=1</samp> (lines 15 and 16 in this
+         example) are always added for SPECrate runs, no matter what may be in the user environment.   </li>
+      <li>Lines 35 through 38 remove interactive shell-related environment variables, because these were not part of the
+         environment present when the run directory was setup. </li>
+      <li>Lines 43, 46, and 49 set the current directory for each copy.</li>
+   </ul>
+
+   <p class="l1snugbot"><b>No effect until used:</b> The record of environment variables in <samp>speccmds.cmd</samp>
+   has no effect until you create a new process using them.  
+   <br />Typically, this is done by writing to a script, making minor edits if needed, and running it.  
+   <br /><span class="caution">One edit you will definitely need: remove the last line</span> -- in this case, line #50 from above. 
+   <br />(If you do not, your script will try to run <samp>specinvoke</samp> again, looking for a file named '<samp
+               class="snuglr">exit:</samp>')  
+            <br />Below, all but the last line is captured to <samp>doit.sh</samp> and it is run:</p>
+   <pre class="l2snugish">$ <b>ls ../*test*/lbm.out</b>
+ls: ../*test*/lbm.out: No such file or directory
+$ <b>specinvoke -nn | wc -l</b>
+      50
+$ <b>specinvoke -nn | head -49 &gt; doit.sh</b>
+$ <b>sh doit.sh</b>
+$ <b>ls ../*test*/lbm.out</b>
+../run_base_test_mar10a-m64.0000/lbm.out  ../run_base_test_mar10a-m64.0001/lbm.out  
+../run_base_test_mar10a-m64.0002/lbm.out
+$  </pre>
+   <p class="l1snugtop">Note above that after running <samp class="snugr">doit.sh</samp>, three copies of <samp>lbm.out</samp>
+   have been created.
+   </p>
+
+   <div style="margin-top:2em;" class="exHeader" id="specinvoke.4"><span><b>Specinvoke Example 4:</b> Extra environment variable removal</span></div>
+   <p class="l1snug"> <samp class="nb">specinvoke -nn</samp> prints commands to create the original environment, including removing
+   extras, as needed:</p>
+   <pre class="l2snugish">$ <b>export ImaBozo=1</b>
+$ <b>export YourABozo=2</b>
+$ <b>export WeAreAllBozosOnThisBus=3</b>
+$ <b>specinvoke -nn | grep Bozo</b>
+unset YourABozo
+unset ImaBozo
+unset WeAreAllBozosOnThisBus
+$ </pre>
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="specmake">specmake</h2>
+
+   <p><var>specmake</var> is GNU <samp>make</samp> under another name (to avoid any possible conflicts with other versions of
+   make on your system).  It builds benchmark executables, driving compilers/linkers/other build components as needed.
+   Typically, you do not use <samp>specmake</samp> directly; instead, you specify make variables in your 
+   <a class="external" href="config.html#specmake">config file</a>.  However, if something goes wrong, a useful debug
+   strategy is to <samp>cd</samp> to the build directory, and try <samp>specmake</samp> directly until you figure out what
+   the problem is.</p> 
+
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>specmake [options] [target]...</pre></td>
+      </tr>
+   </table>
+
+   <table class="options">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>specmake</samp> commonly-used options</b> </td>
+      </tr>
+      <tr>
+         <th>clean</th>
+         <td>In a build directory, say <kbd>specmake clean</kbd> to remove existing objects, executables, and intermediate
+            files in that directory.</td>
+      </tr>
+      <tr>
+         <th>FDO=PASS&lt;n&gt;</th>
+         <td>In a build directory, say <kbd>specmake FDO=PASS&lt;n&gt;</kbd> to create binaries for 
+            <a class="external" href="config.html#FDO">Feedback-Directed Optimization</a> pass&lt;n&gt;.</td>
+      </tr>
+      <tr>
+         <th>-j &lt;n&gt;</th>
+         <td>Allow up to the specified number of simultaneous jobs.</td>
+      </tr>
+      <tr>
+         <th>--keep-going</th>
+         <td>Continue the build even if there is a failure.</td>
+      </tr>
+      <tr>
+         <th>-n</th>
+         <td>Print a dry run of commands, but do not actually do them.</td>
+      </tr>
+      <tr>
+         <th>preprocess</th>
+         <td>In a build directory, say <kbd>specmake preprocess</kbd> to create both Fortran and C/C++ preprocessed files.
+            Note that these differ greatly by language, as described <a href="#specmake.preprocess">below</a>.</td>
+      </tr>
+      <tr>
+         <th>TARGET={wrf_r|ldecod_s|
+            <br />imagevalidate_511...}</th>
+         <td>For benchmarks that build more than one executable, you will find in the build directory Makefiles that are named
+            after each target.  
+            <br />Select the one you want to build via <samp>TARGET=</samp></td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See also <kbd class="nb">--help</kbd> for additional options
+         </td>
+      </tr>
+   </table>
+
+
+   <p>When something goes wrong with a build, you can use the build directory as a "sandbox", trying out different therapies.
+   Examples:</p>
+   <div class="l1">
+      <p class="snugbot"><i>How many modules were not built?</i></p>
+      <pre class="l1snugtop">cd nnn.benchmark/build/build_where_something_broke.0000
+specmake -n | wc -l</pre>
+
+      <p class="snugbot"><i>I want to see as many errors as possible, not just the first one.</i></p>
+      <pre class="l1snugtop">cd nnn.benchmark/build/build_where_something_broke.0000
+specmake --keep-going </pre>
+
+      <p class="snugbot"><i>Maybe it fails because my config file line <samp class="nb">CXXOPTIMIZE=-O3</samp> is too aggressive.</i></p>
+      <pre class="l1snug">cd nnn.benchmark/build/build_where_something_broke.0000
+specmake clean
+specmake CXXOPTIMIZE=-O2 </pre>
+
+      <p class="snugbot"><i>Maybe it fails because I need to try This, That, or Other.  </i></p>
+      <pre class="l1snug">cd nnn.benchmark/build/build_where_something_broke.0000
+edit Makefile.spec # try This
+specmake           # .......... still fails? 
+edit Makefile.spec # try That
+specmake           #  .......... still fails?
+edit Makefile.spec # try Other
+   ...&amp;etc</pre>
+   </div>
+
+   <p id="specmake.preprocess"><b><kbd>specmake preprocess</kbd></b> creates both
+   Fortran intermediate files (<samp class="snuglr">name.fppized.f90</samp>) and
+   C/C++ intermediate files (<samp class="snuglr">name.i</samp>).  
+   <br />These have very differing existence requirements, usefulness, and relevance:</p>
+
+   <p class="hanging2"><b>Fortran</b> preprocessed files are always created.  Fortran preprocessing for SPEC CPU 2017
+      benchmarks is never done by the compilers; it is done by <a href="#specpp">specpp</a>.  Your Fortran compiler is not
+      called until after <samp>name.fppized.f90</samp> has been created. A reason you might say <kbd>specmake
+         preprocess</kbd> is because you want to create all of them at once.  Because your Fortran compiler does not see the
+      original files, the executable always corresponds to the preprocessed source, and any line numbers reported by debugger
+      messages may differ greatly from original source line numbering.</p>
+
+   <p class="hanging2"><b>C/C++</b> preprocessed files are rarely created.  C/C++ preprocessing is done by compilers, which
+   may vary in how they do it.  Typically, C/C++ compilers do not bother to save preprocessed output to intermediate files
+   (<samp class="snuglr">name.i</samp>) unless requested to do so.  A reason you might want to create them is in order to
+   verify whether macros are behaving as expected; however, in some cases, the compiler might not promise that it is even
+   capable of creating a <samp>name.i</samp> file that corresponds exactly to the object.  Line numbers reported by debuggers
+   normally match the line numbering of the original source, not the numbering of <samp>name.i</samp> files.</p>
+
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="specperl">specperl</h2>
+
+   <p><var>specperl</var> is simply Perl, built under a known set of circumstances at the same time as other tools in the
+   SPEC toolset, and renamed to avoid conflicts with any other versions of the program on your path.  Your system probably
+   already has <samp>Perl</samp> -- but it might be older or newer, or might not include the same 
+   <a class="external" href="https://www.cpan.org/">CPAN</a> additions.  
+   <br />You can compare your system Perl to <samp>specperl</samp> by comparing the output of "<kbd class="nbsnuglr">perl
+      -V</kbd>" vs.  "<kbd class="nbsnuglr">specperl -V</kbd>".</p> 
+
+   <p class="snugbot"><b>Interactive use:</b> You can use <samp>specperl</samp> interactively if you have executed one of the three
+   path-setting scripts (see list in <a class="external" href="quick-start.html#path">Quick Start</a>).  
+   <br />You can get help using <samp class="snugr">specperldoc</samp>.  
+   <br />Examples:</p>
+
+   <pre class="l2snug">specperl -v                           # print basic version info
+specperl -V                           # print version details
+specperl -e "print hex '1C000800'"    # One liner to convert a number
+specperldoc perlre                    # Find out about regular expressions 
+                                      # (useful for <a class="external" href="flag-description.html">flag description</a> files)
+specperldoc -f hex                    # Lookup a function</pre>
+
+
+   <p class="l1"><span class="alarm">Warning:</span> <code>specperl</code> might not be the best choice for your own custom scripts.  
+   If you have a system Perl, it may be better adapted to the particular characteristics (or idiosyncracies) of your
+   particular operating system and hardware.  Caveat programmer, use at own risk.</p>
+
+   <p class="snugbot"><b>How do the tools use specperl?</b> When using Perl, a key requirement is to set paths correctly.  For tools
+   such as </p>
+   <div class="l2snug">
+      <a href="#configpp">                 configpp</a> 
+      <br /><a href="#convert_to_development">   convert_to_development</a> 
+      <br /><a href="#dumpsrcalt">               dumpsrcalt</a> 
+      <br /><a href="#extract_config">           extract_config</a> 
+      <br /><a href="#extract_flags">            extract_flags</a> 
+      <br /><a href="#extract_raw">              extract_raw</a> 
+      <br /><a href="#flag_dump">                flag_dump</a> 
+      <br /><a href="#makesrcalt">               makesrcalt</a>
+      <br /><a href="#port_progress">            port_progress</a> 
+      <br /><a href="#rawformat">                rawformat</a> 
+      <br /><a class="external" href="runcpu.html">  runcpu</a> 
+      <br /><a href="#specdiff">                 specdiff</a> 
+      <br /><a href="#specpp">                   specpp</a> 
+   </div> 
+   <p class="snug">the paths are set by tiny, similarly-named scripts in either <samp>$SPEC/bin</samp> or <samp
+      class="snugr">%SPEC%\bin\windows</samp>.  
+   <br />These set the path, then <samp>exec</samp> or <samp>call</samp> the real scripts, using something similar to </p>
+   <pre>specperl -IdirectoryThis IdirectoryThat realScript</pre>
+
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="specpp">specpp</h2>
+
+   <p><var>specpp</var> is the Fortran preprocessor.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage<div class="small">(typical)</div></th>
+         <td ><pre>specpp [-Dmacro] [-Idir] [-m c-comment.pm] [-w] </pre></td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso" >
+            Additional options: see <kbd class="nb">specpp -h</kbd> and the <a class="external" href="specpp.html">manpage</a>
+         </td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>Try not to confuse with <a href="#configpp">configpp</a></td>
+      </tr>
+   </table>
+
+   <p>Preprocessing is not a part of standard Fortran.  Therefore, SPEC supplies a copy of Darren Miller's freely available
+   preprocessor utility <samp class="snugr">filepp</samp>, with minor modifications, as <samp class="snugr">specpp</samp>.  Using the same
+   preprocessor on all platforms ensures that the preprocessing is done consistently. </p>
+
+   <p class="snugbot">When building benchmarks, your Fortran compiler is not invoked until after <samp>specpp</samp> has completed its
+   work.  Therefore, <a class="external" href="config.html#portability">config.html</a> points out:</p>
+   <ul>
+      <li><samp>FPORTABILITY&nbsp;&nbsp;&nbsp;&nbsp; <b>is not</b></samp> the right place to set Fortran preprocessor
+         variables</li>
+      <li><samp>FPPPORTABILITY&nbsp;&nbsp; <b>is</b> &nbsp;&nbsp;&nbsp;</samp> the right place.</li>
+   </ul>
+
+
+   <p class="snugbot">For example, if a config file sets</p>
+   <pre>
+FPORTABILITY   = --files=bigendian
+FPPPORTABILITY = -DSPEC_LINUX
+   </pre>
+   <p class="snugtop">and if a benchmark uses <samp class="snugr">mumble.F90</samp>, then <samp>specpp</samp> will
+   create <samp>mumble.fppized.f90</samp> prior to the invocation of the Fortran compiler.   The preprocessor will see the flag
+   <samp class="nbsnugr">-DSPEC_LINUX</samp>.   The compiler will see the flag <samp class="nb">--files=bigendian</samp> and the
+   compiler not see the flag <samp class="nbsnugr">-DSPEC_LINUX</samp>.   
+   </p>
+
+   <p>Usually, you won't need to know any more about <samp class="snugr">specpp</samp>, because it is automatically invoked.  If you
+   are a benchmark developer, or if you are simply curious, the <a class="external" href="specpp.html">manpage</a> is available.</p>
+
+   <p>Don't confuse <a href="#specpp">specpp</a> with <a href="#configpp">configpp</a>.</p>
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="specrxp">specrxp</h2>
+
+   <p><var>specrxp</var> validates the XML in a <a class="external" href="flag-description.html">flags file</a>.  
+   <br />It is simply Richard Tobin's <a class="external" href="http://www.cogsci.ed.ac.uk/~richard/rxp.html">RXP</a> under a
+   unique name to ensure no possible conflicts with other versions of rxp on your system.</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Overview:
+            <br />(validate silently)</th>
+         <td><pre>specrxp -V -s <i>&lt;flags file&gt;</i></pre> </td>
+      </tr>
+      <tr>
+         <th>Caution</th>
+         <td>If it seems to hang, see below.</td>
+      </tr>
+      <tr>
+         <td colspan="2" class="seealso">
+            See the <a class="external" href="specrxp.html">manpage</a> for additional options
+         </td>
+      </tr>
+   </table>
+
+   <p>If you write a flags file, you should validate that you have written well-formed XML, using <samp class="snugr">specrxp</samp>, 
+   typically with <kbd class="nb">-V</kbd> to request validation and <kbd class="nb">-s</kbd> to request silence (if there are no errors). Many
+   more options can be found in the <a class="external" href="specrxp.html">manpage</a>.</p>
+
+
+   <p class="question">q. Why does specrxp seem to hang?</p>
+   <p class="answer">a. You are behind a firewall.  The following line, which must be present at the top of your
+   flags file, needs internet access:</p>
+   <pre class="l2snugish">
+   SYSTEM "http://www.spec.org/dtd/cpuflags2.dtd"
+   </pre>
+
+   <p class="l1snug">To resolve the problem, you can:</p>
+   <ol class="l2snugish"> 
+      <li>Copy the flags file to a system that does have access.</li>
+      <li>Or define a proxy (e.g. 
+         <kbd class="nbsnugr">export http_proxy=http://www-proxy.mycompany.com:80/</kbd>)</li>
+      <li>Or temporarily change the line to point at a local file.  Change it back afterwards!</li>
+   </ol>
+
+   <p style="margin-top:1.4em;"><span class="alarm">Reminder:</span> after validating the XML, <a href="#flag_dump">dump</a> and then 
+   <a class="external" href="http://validator.w3.org/">validate</a> your HTML.  Both steps are needed.</p> 
+
+
+   <!-- ........................................................................................................................... -->
+
+   <h2> <span id="specmd5sum"> </span>
+      <span id="specsha256sum"> </span>
+      <span id="specsha512sum"> </span> 
+      specmd5sum, specsha256sum, specsha512sum</h2>
+
+   <p> <samp class="snugr">specmd5sum</samp>, <samp class="snugr">specsha256sum</samp>, and <samp>specsha512sum</samp>
+   calculate and verify checksums.  They are based on <br /><samp class="snugr">md5sum</samp>, 
+   <samp class="snugr">sha256sum</samp>, and <samp>sha512sum</samp> from 
+   <a class="external" href="http://www.gnu.org/software/coreutils/">GNU coreutils</a>.</p>
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="spectar">spectar</h2>
+
+   <p><var>spectar</var> is simply GNU tar, built under a known set of circumstances at the same time as other tools
+   in the SPEC toolset, and renamed to avoid conflicts with any other versions of the program on your path.  GNU tar, unlike
+   some other archiving programs, correctly handles very long path names.  </p>
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="specxz">specxz</h2>
+
+   <p><var>specxz</var> is <samp>xz</samp> from  <a class="external" href="https://tukaani.org/xz/">XZ Utils</a>, built under a
+   known set of circumstances at the same time as other tools in the SPEC toolset, and renamed to avoid conflicts with any other
+   versions of the program on your path.  </p>
+
+   <p>Commonly-used switches work analogously to those in other compression utilities, such as <samp class="nb">-d</samp> to decompress.   For
+   details, say <samp class="nb">specxz --help</samp></p>
+
+   <p class="snugbot"><b>Warning:</b> this idiom, commonly used on Unix systems, has been observed to fail on some tested
+   Windows systems:  </p>
+
+   <pre>specxz -dc mumble.tar.xz | spectar -xf -  <span class="alarm">&lt;-- may fail on Windows</span>
+   </pre>
+
+   <p class="snugbot">If you see failures, break it into two commands.</p>
+   <pre>specxz -d mumble.tar.xz                   <span class="alarm">&lt;-- an alternative</span>
+spectar -xf mumble.tar </pre>
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="sysinfo">sysinfo</h2>
+
+   <p><var>sysinfo</var> inventories various aspects of a SUT (System Under Test).  
+   <br />Usually it is called automatically by <samp class="snugr">runcpu</samp>, but you can also run it directly from the
+   command line.
+   <br />Published results <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#sysinfo">must</a> use
+   <samp class="snugr">sysinfo</samp>.  </p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage </th>
+         <td><pre>sysinfo [-f] [-p] [-q] </pre></td>
+      </tr>
+   </table>
+   <table class="options">
+      <tr>
+         <td class="toprow" colspan="2"><b><samp>sysinfo</samp> options</b> </td>
+      </tr>
+      <tr>
+         <th>-f</th>
+         <td>Do not write <a class="external" href="config.html#readerFields">descriptive fields</a>. Write config file 
+            <a class="external" href="config.html#comments">comments</a> instead.</td>
+      </tr>
+      <tr>
+         <th>-p</th>
+         <td>Do not write <a class="external" href="config.html#notes_plat">Platform Notes</a>. Write config file 
+            <a class="external" href="config.html#comments">comments</a> instead.</td>
+      </tr>
+      <tr>
+         <th>-q</th>
+         <td>Do not send progress updates to stderr</td>
+      </tr>
+   </table>
+
+   <p class="hanging1" id="sysinfo-location"><b>Location, platforms, and updates:</b> The sysinfo utility is installed with SPEC CPU 2017 as
+   <samp>$SPEC/bin/sysinfo</samp> (Unix) or <samp class="snugr">%SPEC%\bin\sysinfo</samp> (Windows).  It supports multiple
+   operating systems, including AIX, Linux, Mac OS X, Microsoft Windows, and Solaris.   If your operating system is not
+   supported, and if you wish to publish results, you should <a class="external" href="techsupport.html">contact SPEC</a> for
+   assistance, because published results 
+   <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#sysinfo">must</a> use <samp class="snugr">sysinfo</samp>.</p>
+
+   <p class="l1">SPEC may update the sysinfo tool from time to time, which users can download from the SPEC web site using <a
+      class="external" href="runcpu.html#update">runcpu&nbsp;--update</a>.   SPEC may require that published results use a
+   specific version of the tool.  </p>
+
+   <p id="WhySysinfo"> <b>Why is sysinfo required?</b>  </p>
+   <ol>
+      <li>It creates a <b>contemporaneous</b> record of the system under test.</li>
+      <li>The record is created automatically, and is not subject to human transcription error.</li>
+      <li>Therefore, sysinfo can remove ambiguity such as "I remember that I upgraded the version of the operating system, but I
+         can't quite recall whether that was before or after I did the re-run of the floating point speed tests."</li>
+   </ol>
+
+   <p class="hanging1snugbot"><b>How is it called? Can I turn it off?</b> <samp>runcpu</samp> calls <samp>sysinfo</samp> while parsing the config file.
+   The utility is found via the setting for <a class="external" href="config.html#sysinfo_program">sysinfo_program</a>.  By
+   default, it uses the copy in the <samp>$SPEC/bin/</samp> directory.  You could temporarily turn it off using:</p>
+
+   <pre class="l2snugish">sysinfo_program = </pre>
+
+   <p class="l1snugtop">but it <span class="alarm">must</span> be used for results that you would like to be able to 
+   <a class="external" href="runrules.html#sysinfo">publish</a>.</p>
+
+   <p class="hanging1" id="sysinfo-outputs"> <b>Output types:</b> By default, information will be added to the platform notes and to some of
+   the system description fields.   To see what will be added, run it from the command line:</p>
+
+   <pre class="l2">
+$ <b>$SPEC/bin/sysinfo -q</b>
+notes_plat_sysinfo_000 = Sysinfo program /Users/somebody/spec/cpu2017/rc4/bin/sysinfo
+notes_plat_sysinfo_005 = Rev: r5214 of 2017-01-15 ea4c2974a34b51078facb71b0461e013
+notes_plat_sysinfo_010 = running on hostname.local Sun Jan 15 08:45:49 2017
+notes_plat_sysinfo_015 =  
+notes_plat_sysinfo_020 = SUT (System Under Test) info as seen by some common utilities.
+notes_plat_sysinfo_025 = For more information on this section, see
+notes_plat_sysinfo_030 =    https://www.spec.org/cpu2017/Docs/config.html#sysinfo
+notes_plat_sysinfo_035 =  
+notes_plat_sysinfo_040 = Hardware:
+notes_plat_sysinfo_045 =  
+notes_plat_sysinfo_050 =     Hardware Overview:
+notes_plat_sysinfo_055 =  
+notes_plat_sysinfo_060 =       Model Name: MacBook Pro
+notes_plat_sysinfo_065 =       Model Identifier: MacBookPro11,4
+.
+.
+.
+hw_model           = MacBookPro11,4
+hw_nchips          = 1
+hw_ncores          = 4
+hw_scache          = 256 KB per Core
+hw_tcache          = 6 MB
+prepared_by        = somebody  (is never output, only tags rawfile)
+sw_os              = macOS 10.12.2 (16C67)
+sw_other           = Xcode 8.2.1 (11766.1)
+$ 
+   </pre>
+
+   <p class="hanging1"><b>Editing the output:</b>  Descriptive fields (such as <samp>hw_model</samp> above) may be 
+   <a href="#edited">edited</a> in the usual manner.  The Platform Notes (<samp class="snuglr">notes_plat_sysinfo_NNN</samp>)
+   cannot be edited, but you may add additional notes.  Put them into a subsection with a <a class="external"
+      href="config.html#notesTag">notes tag</a> that falls alphabetically afterwards, for example:</p>
+   <pre class="l2">notes_plat_update_100 = Because of a BIOS limitation, dmidecode and sysinfo do not 
+notes_plat_update_110 = report Ranks correctly for DDR4 DIMMs.  The DIMM part numbers 
+notes_plat_update_120 = are reported correctly.  Therefore, please see the manufacturer 
+notes_plat_update_130 = memory data sheets to determine the number of Ranks.</pre>
+
+   <p class="hanging1"><b>Comment destination:</b> If you use <samp class="nb">-f</samp> or <samp class="nb">-p</samp> to send output to config file comments, those
+   comments will be visible only via <a href="runcpu.html#output_format" class="external">output_format</a> 
+   <a class="external" href="runcpu.html#outputConfig">config</a>.  They do not appear in reports, and they are not written
+   to the config file in your <samp class="nb">$SPEC/config</samp> directory.  They are written to the copy in your
+   <samp>result</samp> directory.  This can make them easy to overlook, which is why the default is to write actual notes and
+   fields, instead of writing only comments. </p>
+
+   <p class="hanging1" id="sysinfo-warnings"><span id="conflict"> </span>
+   <b>Avoiding warnings about conflicting fields:</b>  You might see warnings such as:</p>
+   <pre class="l2"> WARNING: Your config file sets some fields that are also set by sysinfo:
+  hw_cpu_name, sw_os
+   </pre>
+
+   <p class="l1"> Fields created by sysinfo (such as <samp class="snugr">hw_cpu_name</samp>) are written to a 
+   <a class="external" href="config.html#namedSections">section</a> named <samp>default:</samp> at the end of your config
+   file.  The warning means that you have already set one of the listed fields in your <samp>default:</samp> section.
+   Because the sysinfo output comes at the end of your config file, its setting will override the earlier config file
+   settings, which might not be desirable.</p>
+
+   <p class="l1">To get rid of sysinfo duplicate field warnings, put your fields into any 
+   <a class="external" href="config.html#namedSections">named section</a> other than <samp class="snugr">default:</samp>.</p>
+
+   <p class="l2snugbot"><b>Example:</b> Brian is using a small system for SPECspeed testing, and a large server for
+   SPECrate testing.  Brian does not like the default output from <samp class="snugr">sysinfo</samp>, because it only includes the bare amount of
+   information about memory, and does not break the memory down by DIMM types:</p>
+   <pre class="l3snug">default:
+hw_memory = 32768 MB  fixme: format is: 'n GB (n x n GB nRxn PCn-nnnnnR-n, ECC)'</pre>
+   <p class="l2snug">Therefore, he writes the into his config file:</p>
+   <pre class="l3snug">
+intspeed,fpspeed:
+   hw_memory = 32 GB (2 x 16 GB 4Rx4 PC4-2133P-L)
+intrate,fprate;
+   hw_memory = 1 TB (32 x 32 GB 4Rx4 PC4-2133P-L)
+   </pre>
+   <p class="l2snugtop">After writing the above, the warnings go away, and Brian's preferred disclosure always 'wins'.</p>
+
+
+
+   <p class="hanging1" id="writing-a-sysinfo"><b>Writing your own sysinfo program:</b> If you wish, you can write your own
+   utility, by following the rules below.  If you plan to publish your results, you should contact SPEC to ask for approval of
+   your variant.</p>
+
+   <ol class="l1">
+      <li>The sysinfo program can be any executable program or script.  It does not have to be a Perl script.</li>
+      <li>If you do want to write a Perl script, you can count on specperl being on the path (as in the example above).</li>
+      <li>The sysinfo program is run prior to most other config file processing.  This means that most variables of the form
+         <samp>$[var]</samp> and <samp>${var}</samp>  will not work.</li>
+      <li>You <i>can</i> use <samp>$[top]</samp> to find the top of your SPEC CPU 2017 tree.</li>
+      <li>The program should output lines of the form:
+
+         <pre>
+name = value</pre>
+      </li>
+
+      <li>The lines should be output to standard output.</li>
+
+      <li>Only informational fields (hw_*, sw_*, notes*, test_sponsor, license_num, tester, prepared_by) may be set;
+         these settings will be inserted into the 'default:' section, and will not be able to override any
+         per-benchmark settings.</li>
+
+      <li>Illegal lines will be silently discarded.</li>
+
+      <li>Standard config file comments are also allowed.</li>
+      <li>Because the line checking is fairly simple-minded, some config file features such as line continuation, block quotes, and
+         line appending are not available.</li>
+
+      <li>The output from the sysinfo program will be included in the final config as if it had been part of the original config
+         file.</li>
+
+      <li>Arguments can be given to the command if necessary.</li>
+
+      <li>If the <samp>sysinfo_program</samp> fails to generate any output, the tools will write a warning to the log file.  Errors and
+         warning messages from your program might not be captured to the log.</li>
+   </ol>
+
+   <!-- ........................................................................................................................... -->
+
+   <h2 id="toolsver">toolsver</h2>
+
+   <p><var>toolsver</var> prints information about the tools that were used by a rawfile</p>
+
+   <table class="syntax">
+      <tr>
+         <th>Usage</th>
+         <td><pre>toolsver <i>rawfile</i></pre></td>
+      </tr>
+   </table>
+
+   <p>For example:</p>
+
+   <pre>
+$ <b>toolsver CPU2017.001.fprate.test.rsf </b>
+CPU2017.001.fprate.test.rsf:
+ Binary toolset used was 'macosx-x86'
+ Versions of Perl-based tools:
+    5038 runcpu
+    4547 CPUFlagsParser.pm
+    5026 benchmark.pm
+    5031 benchset.pm
+    4995 benchset_common.pl
+    4915 compare.pl
+    5050 config.pl
+    5012 config_common.pl
+    4403 flagutils.pl
+    4999 flagutils_common.pl
+    4403 format.pm
+    4733 listfile.pm
+    4829 locate.pl
+    4707 log.pl
+    4698 log_common.pl
+    4713 monitor.pl
+    4403 os.pl
+    4696 os_common.pl
+    5066 parse.pl
+    5025 raw.pl
+    4829 setup.pl
+    5038 util.pl
+    4985 util_common.pl
+    5069 vars_common.pl
+$ </pre>
+
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Utilities:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+
+</body>
+</html>

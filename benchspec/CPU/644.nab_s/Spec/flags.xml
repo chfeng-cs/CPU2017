@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags in 644.nab_s.
+
+  Copyright 2010-2017 Standard Performance Evaluation Corporation
+
+  $Revision: 5894 $
+  $Date: 2018-04-13 18:53:49 -0400 (Fri, 13 Apr 2018) $
+-->
+<flagsdescription>
+
+<filename>644.nab_s.flags</filename>
+
+<title>644.nab_s Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+]]>
+</header>
+
+<!--
+   - Portability flags
+   -->
+
+<!--
+   - Optimization flags
+   -->
+<flag name="DOPENMP" class="forbidden">
+   To use OpenMP with the SPEC version of the benchmark, set SPEC_OPENMP
+   It automatically sets the internal definition OPENMP; it is forbidden for a user config file to do so.
+</flag>
+
+<flag name="DMPI" class="forbidden">
+Definition of this macro enables parallelization with MPI.
+It is forbidden for the SPEC CPU version of NAB.
+</flag>
+
+<flag name="DSCALAPACK" class="forbidden">
+Definition of the macro enables parallelization with MPI using the ScaLAPACK
+libraries.
+It is forbidden for the SPEC CPU version of NAB.
+</flag>
+
+<flag name="DNOPAR" class="forbidden">
+Setting this macro will disable parallelization in some cases under OpenMP.
+It is forbidden for the SPEC CPU version of NAB.
+</flag>
+
+<!--
+   - Forbidden but mostly okay flags
+   -->
+<flag name="DSPEC_DEBUG" class="forbidden">
+Setting this macro enables some extra output which will cause the benchmark to
+not validate.  Because of that, it may not be set for a reportable run.
+</flag>
+
+<flag name="DSPEC_VERBOSE_OUTPUT" class="forbidden">
+Setting this macro enables output of less important variables which will cause
+the benchmark to not validate.  Because of that, it may not be set for a
+reportable run.
+</flag>
+
+<!--
+   - Mandatory flags
+   -->
+<flag name="DNOPERFLIB" class="mandatory">
+NOPERFLIB selects code that does not use perflib.  Not defining this macro will
+break the benchmark build, so this macro is defined automatically and may not
+be undefined.
+</flag>
+
+<flag name="DSORT_ATOM_NUMBERS" class="mandatory">
+This macro causes atoms to be sorted by number, and is set within the code
+itself.  It cannot be un-set.
+</flag>
+
+<flag name="DHEAP_SORT_PAIRS" class="mandatory">
+This macro causes atom pairs to be sorted using the heapsort algorithm, and is
+set within the code itself.  It cannot be un-set.
+</flag>
+
+<flag name="omp_flushes" class="mandatory" regexp="[-/]D(?:EGB|MME)_OMP_FLUSH(?:=\S*)?\b">
+<example>
+-DEGB_OMP_FLUSH
+-DMME_OMP_FLUSH
+</example>
+Setting these macros causes four-cycle signalling to be used when synchronizing
+OpenMP threads.  They are set in the code and may not be un-set.
+</flag>
+
+<flag name="DNAB_DOUBLE_PRECISION" class="mandatory">
+This macro indicates that NAB will use double-precision floating point math.
+It is set by default in the code and may not be unset.
+</flag>
+
+<flag name="regex_includes" regexp="-Iregex-alpha\b" class="mandatory">
+  This flag instructs the compiler to look in the regex-alpha/ subdirectory for
+  the include files used by the regular expression engine.
+</flag>
+
+<!--
+   - Forbidden flags
+   -->
+<flag name="DDOCK" class="forbidden">
+This macro has no effect in the SPEC CPU version of NAB.  Regardless, it may
+not be set.
+</flag>
+
+<flag name="DLINT" class="forbidden">
+Setting this macro would cause several functions to not be defined, thus
+breaking the build.  It may not be used.
+</flag>
+
+<flag name="DLOGARITHMIC_REDUCTION" class="forbidden">
+This macro indicates that logarithmic reduction should be used to reduce
+sumdeijda.  Because changing this would change the code path used by default,
+setting it is forbidden.
+</flag>
+
+<flag name="DMME_LOGARITHMIC_REDUCTION" class="forbidden">
+This macro indicates that logarithmic reduction should be used to reduce
+the gradient vector.  This macro is undefined in the code itself and may not
+be defined by hand.
+</flag>
+
+<flag name="DMMCIF" class="forbidden">
+This macro controls inclusion of a header file that is not supplied with the
+benchmark.  Defining it would break the benchmark build, so it may not be used.
+</flag>
+
+<flag name="DMORT" class="forbidden">
+This macro controls inclusion of a source file that is not supplied with the
+benchmark.  Defining it would break the benchmark build, so it may not be used.
+</flag>
+
+<flag name="DNOREDUCE" class="mandatory">
+Setting this macro will cause vector reduction with OpenMP to be single-
+threaded (as it is when using MPI and ScaLAPACK).
+</flag>
+
+<flag name="moreout" class="forbidden" regexp="[-/]DPRINT_(?:14PAIRS|DERIV|EPHI)(?:=\S*)?\b">
+<example>
+-DPRINT_14PAIRS
+-DPRINT_DERIV
+-DPRINT_EPHI
+</example>
+These macros enable extra output about the problems being solved.  Because
+setting them would cause the benchmark to not validate (and in some cases not
+build), setting any of them for a reportable run is not allowed.
+</flag>
+
+<flag name="DPI" class="forbidden">
+This macro defines a constant value for the mathematical constant Pi.  It may
+not be set to other than its default value.
+</flag>
+
+<flag name="DTRUE" class="forbidden">
+The value of this macro is used as a generic truth value.  It is set
+automatically, and may not be set by hand.
+</flag>
+
+<flag name="DFALSE" class="forbidden">
+The value of this macro is used as a generic false value.  It is set
+automatically, and may not be set by hand.
+</flag>
+
+<flag name="DUSEBCOPY" class="forbidden">
+  This macro causes the regular expression engine to use bcopy() instead of
+  memcpy().  This should not be needed on any system that satisfies the
+  requirements to run CPU2017.
+</flag>
+
+<flag name="DREDEBUG" class="forbidden">
+  This macro causes the regular expression engine to emit debug output on
+  stdout, which will cause benchmark validation to fail.
+</flag>
+
+<flag name="DPOSIX_MISTAKE" class="forbidden">
+  This macro disables the "mistake" in the POSIX 1003.2 standard that allows
+  an unmatches right parenthesis to represent itself in a regular expression.
+  The benchmark does not depend on this behavior being present or absent, so
+  for consistency this macro may not be defined.
+</flag>
+
+<!-- __cplusplus is being ignored; the compilation system defines it when needed -->
+<!-- __NABCODE_H__ is being ignored; it is a header guard -->
+<!-- __NABTYPES_H__ is being ignored; it is a header guard -->
+<!-- _regexp_h is being ignored; it is a header guard -->
+<!-- DATABASE_H is being ignored; it is a header guard -->
+<!-- __NAB__ is being ignored; it is a header guard -->
+<!-- _POSIX2_RE_DUP_MAX is being ignored; it is a header guard -->
+<!-- _REGEX_H_ is being ignored; it is a header guard -->
+<!-- _OPENMP is being ignored; defining it without OpenMP enabled will cause the build to fail, and defining it explicitly with OpenMP enabled is a no-op -->
+<!-- PCHARDONE is being ignored; it is a multiple-inclusion guard -->
+<!-- LNAMES is being ignored; defining it explicitly will cause the build to break -->
+<!-- SNAMES is being ignored; defining it explicitly will cause the build to break -->
+
+
+</flagsdescription>

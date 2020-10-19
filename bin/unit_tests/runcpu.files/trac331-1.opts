@@ -1,0 +1,1 @@
+-f 'egrep "BIND|numactl" | sed "s#/run_[^/]*#/run_dir#"'

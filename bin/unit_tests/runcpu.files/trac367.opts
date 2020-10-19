@@ -1,0 +1,1 @@
+-C -f "egrep 'macro|INFO|WARN|-S'"

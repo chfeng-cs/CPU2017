@@ -1,0 +1,123 @@
+#!perl -n
+
+BEGIN {
+  # Look to get some symbols from perl-orig-config.h, to cut down on diff
+  # noise. (And because these are important; if the values don't match, that
+  # has real implications for correct operation.)
+  my $count = 0;
+  my $dir = './src';
+  while($count < 10 && ! -d $dir) {
+    $count++;
+    $dir = '../'.$dir;
+  }
+  if (-d $dir) {
+    if (! -f "$dir/perl-orig-config.h") {
+      die "Found src dir at $dir, but no perl-orig-config.h file\nStopped";
+    }
+  } else {
+    die "Couldn't find src dir\nStopped";
+  }
+  open(CIN, "<$dir/perl-orig-config.h") or die "Couldn't open perl-orig-config.h: $!\nStopped";
+  my @relist = ();
+  while(defined(my $line = <CIN>)) {
+    if ($line =~ /^#\s*define\s+(\S+_IS_\S+)\s+(-?\d+)\s*$/) {
+      push @relist, $1;
+      $::kind_re_hash{qr/\h+${1}\h*$/} = ' '.$2;
+    }
+  }
+  close(CIN);
+  my $kind_re_txt = '(?:'.join('|', @relist).')';
+  $::kind_re = qr/$kind_re_txt/;
+
+  if ($ENV{'EXCL_RE_DEBUG'}) {
+    use Data::Dumper;
+    print STDERR Data::Dumper->Dump([\$::kind_re, \%::kind_re_hash],['kind_re', 'kind_re_hash'])."\n";
+    exit if $ENV{'EXCL_RE_DEBUG'} > 1;
+  }
+}
+
+if (/$::kind_re/) {
+  foreach my $re (keys %::kind_re_hash) {
+    print STDERR 'REPLACED: '.$_ if ($ENV{'EXCL_RE_DEBUG'} and /$re/);
+    s/$re/$::kind_re_hash{$re}/ and $ENV{'EXCL_RE_DEBUG'} and print STDERR '    WITH: '.$_;
+  }
+}
+
+print unless m#
+    \s(?:
+      ARCHLIB |
+      ARCHLIB_EXP |
+      ARCHNAME |
+      BIN |
+      BIN_EXP |
+      BIT_BUCKET |
+      CPPRUN |
+      CPPSTDIN |
+      CPPLAST |
+      CPPMINUS |
+      CSH |
+      DB_Hash_t |
+      DB_Prefix_t |
+      DB_VERSION_MAJOR_CFG |
+      DB_VERSION_MINOR_CFG |
+      DB_VERSION_PATCH_CFG |
+      DOSUID |_R_PROTO |
+      Drand01.. |
+      GMTIME_MIN |
+      GMTIME_MAX |
+      LOC_SED |
+      LOCALTIME_MIN |
+      LOCALTIME_MAX |
+      NDBM_H_USES_PROTOTYPES |
+      Netdb_hlen_t |
+      Netdb_host_t |
+      Netdb_name_t |
+      Netdb_net_t |
+      OSNAME |
+      OSVERS |
+      PERL_INC|
+      PRIVLIB |
+      PRIVLIB_EXP |
+      PWCHANGE |
+      PWCLASS |
+      PWEXPIRE |
+      PWGECOS |
+      PWPASSWD |
+      RANDBITS |
+      Rand_seed_t |
+      RD_NODATA |
+      SCHED_YIELD |
+      SETUID_SCRIPTS_ARE_SECURE_NOW |
+      SHORTSIZE |
+      SIG_NAME |
+      SIG_NUM |
+      SIG_SIZE |
+      SITEARCH |
+      SITEARCH_EXP |
+      SITELIB |
+      SITELIB_EXP |
+      SITELIB_STEM |
+      STARTPERL |
+      __STDC_HOSTED__ |
+      __STDC_UTF_16__ |
+      __STDC_UTF_32__ |
+      __STDC_VERSION__ |
+      _config_h_ |
+      _specconfig_h_
+    )\s |
+    \s(?:
+      EOF_NONBLOCK |
+      FCNTL_CAN_LOCK |
+      Fflush |
+      Fstat |
+      HASATTRIBUTE_ |
+      INSTALL_PREFIX |
+      Stat |
+      USE_SEMCTL
+    ) |
+    (?:
+      _R_PROTO
+    )\s |
+    seedDrand01.x. |
+    define\s\S+?_f "
+    #x;

@@ -1,0 +1,497 @@
+ 
+
+#==========================================================================
+#  Begin pop2_in namelist build
+#==========================================================================
+
+&domain_nml
+  nprocs_clinic            = 1
+  nprocs_tropic            = 1
+  clinic_distribution_type = 'cartesian'
+  tropic_distribution_type = 'cartesian'
+  ew_boundary_type         = 'cyclic'
+  ns_boundary_type         = 'closed'
+/
+
+&io_nml
+  num_iotasks          = 1 
+  lredirect_stdout     = .true. 
+  log_filename         = './ocn.log'
+  luse_pointer_files   = .true.
+  pointer_filename     = './rpointer.ocn'
+  luse_nf_64bit_offset = .true.
+/
+
+&io_pio_nml
+  io_pio_num_iotasks =  1
+  io_pio_stride      = -1 
+  io_pio_type_name   = 'netcdf'
+/
+
+
+##########################################################
+WARNING: DO NOT CHANGE iyear0, imonth0, iday0, ihour0 
+##########################################################
+
+&time_manager_nml
+  runid             = 'casespec'
+  time_mix_opt      = 'avgfit'
+  time_mix_freq     = 17
+  dt_option         = 'steps_per_day'
+  dt_count          = 12
+  impcor            = .true.
+  laccel            = .false.
+  accel_file        = './gx3v7_depth_accel'
+  dtuxcel           = 1.0 
+  allow_leapyear    = .false.
+  iyear0            = 1            
+  imonth0           = 1      
+  iday0             = 2       
+  ihour0            = 0    
+  iminute0          = 0         
+  isecond0          = 0        
+  date_separator    = '-'
+  stop_option       = 'nyear'
+  stop_count        =  1000
+  fit_freq          = 1
+/
+
+&grid_nml
+   horiz_grid_opt       = 'file'
+   horiz_grid_file      = './horiz_grid_20030806.ieeer8'
+   vert_grid_opt        = 'file'
+   vert_grid_file       = './gx3v7_vert_grid'
+   topography_opt       = 'file'
+   kmt_kmin             = 3
+   topography_file      = './topography_20100105.ieeei4'
+   topography_outfile   = './casespec.pop.h.topography_bathymetry.ieeer8'
+   bathymetry_file      = 'unknown_bathymetry'
+   partial_bottom_cells =  .false.
+   bottom_cell_file     = 'unknown_bottom_cell'
+   n_topo_smooth        = 0
+   flat_bottom          = .false.
+   lremove_points       =  .false.
+   region_mask_file     = './region_mask_20090831.ieeei4'
+   region_info_file     = './gx3v7_region_ids'
+   sfc_layer_opt        = 'varthick'
+/
+&init_ts_nml
+   init_ts_option      = 'ccsm_startup'
+   init_ts_suboption   = 'null'
+   init_ts_file        = './ts_PHC2_jan_ic_gx3v7_20100107.ieeer8'
+   init_ts_file_fmt    = 'bin'
+   init_ts_outfile     = './casespec.pop.h.ts_ic'
+   init_ts_outfile_fmt = 'nc'
+/
+
+&diagnostics_nml
+   diag_global_freq_opt   = 'nmonth'
+   diag_global_freq       = 1
+   diag_cfl_freq_opt      = 'nmonth'
+   diag_cfl_freq          = 1
+   diag_transp_freq_opt   = 'nmonth'
+   diag_transp_freq       = 1
+   diag_transport_file    = './gx3v7_transport_contents'
+   diag_outfile           = './casespec.pop.dd'
+   diag_transport_outfile = './casespec.pop.dt'
+   cfl_all_levels         = .false.
+   diag_all_levels        = .false.
+   diag_velocity_outfile  = './casespec.pop.dv'
+   ldiag_velocity         = .true.
+/
+
+&budget_diagnostics_nml
+   ldiag_global_tracer_budgets = .true.
+/
+
+&bsf_diagnostic_nml
+   ldiag_bsf = .true.
+/
+
+&restart_nml
+   restart_freq_opt    = 'nyear' 
+   restart_freq        = 100000
+   restart_start_opt   = 'nstep'
+   restart_start       =  0
+   restart_outfile     = './casespec.pop.r'
+   restart_fmt         = 'bin'
+   leven_odd_on        = .false. 
+   even_odd_freq       = 100000
+   pressure_correction = .false.
+/
+
+&history_nml
+   history_freq_opt  = 'never'
+   history_freq      = 1
+   history_outfile   = './casespec.pop.hs'
+   history_fmt       = 'nc'
+   history_contents  = './gx3v7_history_contents'
+/
+
+&movie_nml
+   movie_freq_opt = 'never'
+   movie_freq     = 1
+   movie_outfile  = './casespec.pop.hm'
+   movie_fmt      = 'nc'
+   movie_contents = './gx3v7_movie_contents'
+/
+
+&solvers
+   solverChoice         = 'ChronGear'
+   convergenceCriterion = 1.0e-13 
+   maxIterations        = 1000
+   convergenceCheckFreq = 10
+   preconditionerChoice = 'diagonal'
+   preconditionerFile   = 'unknownPrecondFile'
+/
+
+&vertical_mix_nml
+   vmix_choice           = 'kpp'
+   aidif                 = 1.0
+   implicit_vertical_mix = .true.
+   convection_type       = 'diffusion'
+   nconvad               = 2
+   convect_diff          = 10000.0
+   convect_visc          = 10000.0
+   bottom_drag           = 1.0e-3
+   bottom_heat_flx       = 0.0
+   bottom_heat_flx_depth = 1000.0e2
+/
+
+&vmix_const_nml
+   const_vvc = 0.25
+   const_vdc = 0.25
+/
+
+&vmix_rich_nml
+   bckgrnd_vvc = 1.0
+   bckgrnd_vdc = 0.1
+   rich_mix    = 50.0
+/
+
+&tidal_nml
+  ltidal_mixing          = .true.
+  local_mixing_fraction  = 0.33
+  mixing_efficiency      = 0.2
+  vertical_decay_scale   = 500.0e02
+  tidal_mix_max          = 100.0
+  tidal_energy_file      = './tidal_energy_gx3v7_20100107.ieeer8'
+  tidal_energy_file_fmt  = 'bin'
+/
+
+&vmix_kpp_nml
+   bckgrnd_vdc1           = 0.16
+   bckgrnd_vdc2           = 0.0
+   bckgrnd_vdc_eq         = 0.01
+   bckgrnd_vdc_psim       = 0.13
+   bckgrnd_vdc_ban        = 1.0
+   bckgrnd_vdc_dpth       = 1000.0e02
+   bckgrnd_vdc_linv       = 4.5e-05
+   Prandtl                = 10.0
+   rich_mix               = 50.0
+   lrich                  = .true.
+   ldbl_diff              = .true.
+   lshort_wave            = .true.
+   lcheckekmo             = .false.
+   num_v_smooth_Ri        = 1
+   lhoriz_varying_bckgrnd = .true.
+   llangmuir              = .false.
+   linertial              = .false.
+/
+
+&advect_nml
+   tadvect_ctype = 'upwind3'
+/
+
+&hmix_nml
+   hmix_momentum_choice = 'anis'
+   hmix_tracer_choice   = 'gent'
+   lsubmesoscale_mixing = .true.
+/
+
+&hmix_del2u_nml
+   lauto_hmix          = .false. 
+   lvariable_hmix      = .false. 
+   am                  = 3.0e9
+/
+
+&hmix_del2t_nml
+   lauto_hmix          = .false.
+   lvariable_hmix      = .false.
+   ah                  = 1.0e7
+/
+
+&hmix_del4u_nml
+   lauto_hmix          = .false. 
+   lvariable_hmix      = .false.
+   am                  = -0.6e20
+/
+
+&hmix_del4t_nml
+   lauto_hmix          = .false.
+   lvariable_hmix      = .false.
+   ah                  = -0.2e20
+/
+
+&hmix_gm_nml
+   kappa_isop_choice      = 'bfre'
+   kappa_thic_choice      = 'bfre'
+   kappa_freq_choice      = 'once_a_day'
+   slope_control_choice   = 'notanh'
+   kappa_depth_1          = 1.0
+   kappa_depth_2          = 0.0
+   kappa_depth_scale      = 150000.0
+   ah                     = 4.0e7
+   ah_bolus               = 4.0e7
+   use_const_ah_bkg_srfbl = .true.
+   ah_bkg_srfbl           = 4.0e7
+   ah_bkg_bottom          = 0.0
+   slm_r                  = 0.3
+   slm_b                  = 0.3
+   diag_gm_bolus          = .true.
+   transition_layer_on    = .true.
+   read_n2_data           = .false.
+   buoyancy_freq_filename = './buoyancy_freq'
+   buoyancy_freq_fmt      = 'nc'
+   const_eg               = 1.2
+   gamma_eg               = 500.0
+   kappa_min_eg           = 0.35e7
+   kappa_max_eg           = 2.0e7
+/
+
+&mix_submeso_nml
+   efficiency_factor          = 0.07
+   time_scale_constant        = 8.64e4
+   luse_const_horiz_len_scale = .false.
+   hor_length_scale           = 5.0e5
+/
+
+&hmix_aniso_nml
+   hmix_alignment_choice     = 'grid'
+   lvariable_hmix_aniso      = .true.
+   lsmag_aniso               = .false.
+   visc_para                 = 1.0
+   visc_perp                 = 1.0
+   c_para                    = 0.0
+   c_perp                    = 0.0
+   u_para                    = 0.0
+   u_perp                    = 0.0
+   vconst_1                  = 1.0e7
+   vconst_2                  = 24.5
+   vconst_3                  = 0.2
+   vconst_4                  = 1.0e-8
+   vconst_5                  = 3
+   vconst_6                  = 1.0e7
+   vconst_7                  = 90.0
+   smag_lat                  = 20.0
+   smag_lat_fact             = 0.98
+   smag_lat_gauss            = 98.0
+   var_viscosity_infile      = 'ccsm-internal'
+   var_viscosity_infile_fmt  = 'bin'
+   var_viscosity_outfile     = 'unknown_var_viscosity_outfile'
+   var_viscosity_outfile_fmt = 'bin'
+/
+
+&state_nml
+   state_choice     = 'mwjf'
+   state_file       = 'internal'
+   state_range_opt  = 'enforce'
+   state_range_freq = 100000
+/
+
+&baroclinic_nml
+   reset_to_freezing = .false.
+/
+
+&ice_nml
+   ice_freq_opt     = 'coupled'
+   ice_freq         =  100000
+   kmxice           = 1
+   lactive_ice      = .false.
+/
+
+&pressure_grad_nml
+   lpressure_avg  = .true.
+   lbouss_correct = .false.
+/
+
+&topostress_nml
+   ltopostress  = .false.
+   nsmooth_topo = 0
+/
+
+&forcing_ws_nml
+   ws_data_type      = 'none'
+   ws_data_inc       = 24.
+   ws_interp_freq    = 'every-timestep'
+   ws_interp_type    = 'linear'
+   ws_interp_inc     = 72.
+   ws_filename       = 'unknown-ws'
+   ws_file_fmt       = 'bin'
+   ws_data_renorm(1) = 10.
+/
+
+&forcing_shf_nml
+   shf_formulation      = 'partially-coupled'
+   shf_data_type        = 'monthly'
+   shf_data_inc         = 24.
+   shf_interp_freq      = 'every-timestep'
+   shf_interp_type      = 'linear'
+   shf_interp_inc       = 72.
+   shf_restore_tau      = 30.
+   shf_filename         = './shf_20090831.ieeer8'
+   shf_file_fmt         = 'bin'
+   shf_data_renorm(3)   = 0.94
+   shf_weak_restore     = 0.
+   shf_strong_restore   = 0.0
+   luse_cpl_ifrac       = .true.
+   shf_strong_restore_ms= 92.64
+/
+
+&forcing_sfwf_nml
+   sfwf_formulation       = 'partially-coupled'
+   sfwf_data_type         = 'monthly'
+   sfwf_data_inc          = 24.
+   sfwf_interp_freq       = 'every-timestep'
+   sfwf_interp_type       = 'linear'
+   sfwf_interp_inc        = 72.
+   sfwf_restore_tau       = 30.
+   sfwf_filename          = './sfwf_mm_PHC2_salx_flxio_20090831.ieeer8'
+   sfwf_file_fmt          = 'bin'
+   sfwf_data_renorm(1)    = 0.001
+   sfwf_weak_restore      = 0.0115
+   sfwf_strong_restore    = 0.0
+   sfwf_strong_restore_ms = 0.6648
+   ladjust_precip         = .true.
+   lms_balance            = .false.
+   lfw_as_salt_flx        = .true.
+   lsend_precip_fact      = .true.
+/
+
+&forcing_pt_interior_nml
+   pt_interior_data_type         = 'none'
+   pt_interior_data_inc          = 24.
+   pt_interior_interp_freq       = 'every-timestep'
+   pt_interior_interp_type       = 'linear'
+   pt_interior_interp_inc        = 72.
+   pt_interior_restore_tau       = 365.
+   pt_interior_filename          = 'unknown-pt_interior'
+   pt_interior_file_fmt          = 'bin'
+   pt_interior_restore_max_level = 0 
+   pt_interior_formulation       = 'restoring'
+   pt_interior_data_renorm(1)    = 1.
+   pt_interior_variable_restore  = .false.
+   pt_interior_restore_filename  = 'unknown-pt_interior_restore'
+   pt_interior_restore_file_fmt  = 'bin'
+/
+
+&forcing_s_interior_nml
+   s_interior_data_type         = 'none'
+   s_interior_data_inc          = 24.
+   s_interior_interp_freq       = 'every-timestep'
+   s_interior_interp_type       = 'linear'
+   s_interior_interp_inc        = 72.
+   s_interior_restore_tau       = 365.
+   s_interior_filename          = 'unknown-s_interior'
+   s_interior_file_fmt          = 'bin'
+   s_interior_restore_max_level = 0 
+   s_interior_formulation       = 'restoring'
+   s_interior_data_renorm(1)    = 1.
+   s_interior_variable_restore  = .false.
+   s_interior_restore_filename  = 'unknown-s_interior_restore'
+   s_interior_restore_file_fmt  = 'bin'
+/
+
+&forcing_ap_nml
+   ap_data_type      = 'none'
+   ap_data_inc       = 1.e20
+   ap_interp_freq    = 'never'
+   ap_interp_type    = 'nearest'
+   ap_interp_inc     = 1.e20
+   ap_filename       = 'unknown-ap'
+   ap_file_fmt       = 'bin'
+   ap_data_renorm    = 1.
+/
+
+&coupled_nml
+   coupled_freq_opt  = 'nhour'
+   coupled_freq      =  24
+   qsw_distrb_opt    = 'cosz'
+/
+
+&sw_absorption_nml
+   sw_absorption_type = 'chlorophyll'
+   chl_option         = 'file'
+   chl_filename       = './chl_mm_SeaWiFs97-01_20031205.ieeer8'
+   chl_file_fmt       = 'bin'
+   jerlov_water_type  = 3
+/
+
+The present code makes assumptions about the region boundaries, so
+DO NOT change transport_reg2_names unless you know exactly what you are doing.
+&transports_nml
+  lat_aux_grid_type      = 'southern'
+  lat_aux_begin          = -90.0
+  lat_aux_end            =  90.0
+  n_lat_aux_grid         = 180 
+  moc_requested          = .true.
+  n_heat_trans_requested = .true.
+  n_salt_trans_requested = .true.
+  transport_reg2_names   = 'Atlantic Ocean','Mediterranean Sea','Labrador Sea','GIN Sea','Arctic Ocean','Hudson Bay'
+  n_transport_reg        = 2
+/
+
+&context_nml
+   lcoupled                 = .true.
+   lccsm                    = .true.
+   b4b_flag                 = .false.
+   lccsm_control_compatible = .false.
+/
+
+&overflows_nml
+   overflows_on           = .true.
+   overflows_interactive  = .true.
+   overflows_infile       = './gx3v7_overflow'
+   overflows_diag_outfile = './casespec.pop.do'
+   overflows_restart_type = 'ccsm_startup'
+   overflows_restfile     = './casespec.pop.ro'
+/
+
+
+##########################################################################
+ Combined tavg stream information from base model and extra-tracer models
+##########################################################################
+
+&tavg_nml
+   n_tavg_streams                       = 3
+   ltavg_ignore_extra_streams           = .false.
+   ltavg_streams_index_present          = .true.
+   tavg_freq_opt                        = 'nmonth' 'nday' 'once'
+   tavg_freq                            = 1 1 1
+   tavg_file_freq_opt                   = 'nmonth' 'nmonth' 'once'
+   tavg_file_freq                       = 1 1 1
+   tavg_stream_filestrings              = 'nmonth1' 'nday1' 'once'
+   tavg_start_opt                       = 'nstep' 'nstep' 'nstep'
+   tavg_start                           = 0 0 0
+   tavg_fmt_in                          = 'nc' 'nc' 'nc'
+   tavg_fmt_out                         = 'nc' 'nc' 'nc'
+   tavg_contents                        = './gx3v7_tavg_contents'
+   ltavg_nino_diags_requested           = .true.
+   tavg_infile                          = './casespec.pop.hrestart.end' 
+   tavg_outfile                         = './casespec.pop.h' 
+   ltavg_has_offset_date                = .false. .false. .false.
+   tavg_offset_years                    = 1 1 1
+   tavg_offset_months                   = 1 1 1
+   tavg_offset_days                     = 2 2 2
+   ltavg_one_time_header                = .false. .false. .false.
+/
+
+
+&passive_tracers_on_nml
+   iage_on = .true.
+/
+
+&iage_nml
+   init_iage_option = 'ccsm_startup'
+   init_iage_init_file = 'same_as_TS'
+/

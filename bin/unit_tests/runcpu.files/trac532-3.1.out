@@ -1,0 +1,341 @@
+    (From config) $env_vars = "yes"
+Setting TRAC532CHECK = "preenv_setting"
+Running sysinfo to gather system information.
+    (From config) $env_vars = "yes"
+        Disabling 'env_vars' for base runs.
+  Building 500.perlbench_r base none: (build_base_none.0000) [timestamp]
+    (From config) $env_vars = "0"
+  Building 502.gcc_r base none: (build_base_none.0000) [timestamp]
+  Building 505.mcf_r base none: (build_base_none.0000) [timestamp]
+  Building 520.omnetpp_r base none: (build_base_none.0000) [timestamp]
+  Building 523.xalancbmk_r base none: (build_base_none.0000) [timestamp]
+  Building 525.x264_r base none: (build_base_none.0000) [timestamp]
+  Building 531.deepsjeng_r base none: (build_base_none.0000) [timestamp]
+  Building 541.leela_r base none: (build_base_none.0000) [timestamp]
+  Building 548.exchange2_r base none: (build_base_none.0000) [timestamp]
+  Building 557.xz_r base none: (build_base_none.0000) [timestamp]
+  Building 999.specrand_ir base none: (build_base_none.0000) [timestamp]
+  Building 500.perlbench_r peak none: (build_peak_none.0000) [timestamp]
+    (From config) $env_vars = "yes"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 502.gcc_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 505.mcf_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 520.omnetpp_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 523.xalancbmk_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 525.x264_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 531.deepsjeng_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 541.leela_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 548.exchange2_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 557.xz_r peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Building 999.specrand_ir peak none: (build_peak_none.0000) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Running Benchmarks
+  Running 500.perlbench_r test base none (1 copy) [timestamp]
+  Running 502.gcc_r test base none (1 copy) [timestamp]
+  Running 505.mcf_r test base none (1 copy) [timestamp]
+  Running 520.omnetpp_r test base none (1 copy) [timestamp]
+  Running 523.xalancbmk_r test base none (1 copy) [timestamp]
+  Running 525.x264_r test base none (1 copy) [timestamp]
+  Running 531.deepsjeng_r test base none (1 copy) [timestamp]
+  Running 541.leela_r test base none (1 copy) [timestamp]
+  Running 548.exchange2_r test base none (1 copy) [timestamp]
+  Running 557.xz_r test base none (1 copy) [timestamp]
+  Running 999.specrand_ir test base none (1 copy) [timestamp]
+  Running 500.perlbench_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 502.gcc_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 505.mcf_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 520.omnetpp_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 523.xalancbmk_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 525.x264_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 531.deepsjeng_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 541.leela_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 548.exchange2_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 557.xz_r test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 999.specrand_ir test peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+        Disabling 'env_vars' for base runs.
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Running Benchmarks
+  Running 500.perlbench_r train base none (1 copy) [timestamp]
+  Running 502.gcc_r train base none (1 copy) [timestamp]
+  Running 505.mcf_r train base none (1 copy) [timestamp]
+  Running 520.omnetpp_r train base none (1 copy) [timestamp]
+  Running 523.xalancbmk_r train base none (1 copy) [timestamp]
+  Running 525.x264_r train base none (1 copy) [timestamp]
+  Running 531.deepsjeng_r train base none (1 copy) [timestamp]
+  Running 541.leela_r train base none (1 copy) [timestamp]
+  Running 548.exchange2_r train base none (1 copy) [timestamp]
+  Running 557.xz_r train base none (1 copy) [timestamp]
+  Running 999.specrand_ir train base none (1 copy) [timestamp]
+  Running 500.perlbench_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 502.gcc_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 505.mcf_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 520.omnetpp_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 523.xalancbmk_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 525.x264_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 531.deepsjeng_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 541.leela_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 548.exchange2_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 557.xz_r train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running 999.specrand_ir train peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+        Disabling 'env_vars' for base runs.
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Running Benchmarks
+  Running (#1) 500.perlbench_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 502.gcc_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 505.mcf_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 520.omnetpp_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 523.xalancbmk_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 525.x264_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 531.deepsjeng_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 541.leela_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 548.exchange2_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 557.xz_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 999.specrand_ir refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 500.perlbench_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 502.gcc_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 505.mcf_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 520.omnetpp_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 523.xalancbmk_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 525.x264_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 531.deepsjeng_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 541.leela_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 548.exchange2_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 557.xz_r refrate (ref) base none (1 copy) [timestamp]
+  Running (#2) 999.specrand_ir refrate (ref) base none (1 copy) [timestamp]
+  Running (#1) 500.perlbench_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 502.gcc_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 505.mcf_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 520.omnetpp_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 523.xalancbmk_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 525.x264_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 531.deepsjeng_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 541.leela_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 548.exchange2_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 557.xz_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#1) 999.specrand_ir refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+  Running (#2) 500.perlbench_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 502.gcc_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 505.mcf_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 520.omnetpp_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 523.xalancbmk_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 525.x264_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 531.deepsjeng_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 541.leela_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 548.exchange2_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 557.xz_r refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+Setting(config) environment variable "TRAC532CHECK" to "intrate_peak"
+  Running (#2) 999.specrand_ir refrate (ref) peak none (1 copy) [timestamp]
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"
+Setting(config) environment variable "TRAC532CHECK" to "999peak999"

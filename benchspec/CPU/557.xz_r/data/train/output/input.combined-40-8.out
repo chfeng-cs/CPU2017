@@ -1,0 +1,14 @@
+SPEC CPU XZ driver: input=input.combined.xz insize=40
+Loading Input Data
+Compressed size: 8252524; Uncompressed size: 53779568
+SHA-512 of decompressed data compared successfully!
+Decompressed data too large; truncating to requested size 41943040
+SHA-512 of input file: 11aeecd491024699eb4eccd6f9349ea136b97837d067851e0eb62f2d387d2920c40bbb71a8850bb5e97e8c5099d1637a068da2483d2e9fff680a90a5735c031b
+Input data 41943040 bytes in length
+Compressing Input Data, level 8
+Compressed data length is 6356684 bytes in length
+Finished compressing data
+Uncompressing previously compressed data
+Uncompressed data 41943040 bytes in length
+Uncompressed data compared correctly
+Tested 40 MiB buffer: OK!

@@ -1,0 +1,436 @@
+#!/bin/bash
+# extract info about number of miscompares
+# J.Henning updated 4/2014
+# $Id: summarize_miscompares 3144 2015-04-20 00:23:44Z JohnHenning $
+
+SUITE=CPU
+PERL=perl
+#PERL=$SPEC/bin/specperl
+#PERL=/usr/bin/perl
+default_match_str="ref"
+tol_width=11 # width for the reltol/abstol columns; note that 'g' format needs 11
+
+BASE0=$(basename $0)
+star='*'
+dirlist=/tmp/tmp$$
+trap "rm -f $dirlist" 0
+
+declare -a intro
+declare -a report
+declare -a table_head
+declare format                   # report and header format string
+declare look_for_dir                  # substring for directories where we look for .mis
+declare seen_at_least_one_tol=
+
+#------------------------------------------------------------------------
+# subroutine order is: usage first, then alphabetical
+#------------------------------------------------------------------------
+function usage() {
+   cat <<EOF
+
+   $BASE0: report number of .mis files, and 
+          an md5sum "Fingerprint" of the offending output files.
+
+   Usage: go benchmark [run|build] and then 
+          $BASE0 [-aq] [-b bmark] [-m str]
+
+          -a       Do not restrict dirs by matching string
+                   (opposite of '-m')
+          -b bmark Look for .mis files in matching benchmarks.  
+                   If -b is not present, then .mis files will be reported
+                   for the current directory or its children.
+          -m str   Only look in directories matching 'str'
+                   Patterns may be used, such as '*test*0000'
+EOF
+   if [[ $default_match_str ]] ; then
+      cat <<EOF
+                   Default: '-m ref' (To unset, use '-a')
+EOF
+   fi
+   cat <<EOF
+          -q       No 'heartbeat' while prepping report
+
+The "Fingerprint" is computed as the concatenation of the output for 
+all files that miscompared, like so:
+
+   for file in *mis; do 
+      cat \$(basename \$file .mis)   
+   done | specmd5sum               
+
+EXAMPLES
+   (1) go 999 run; $BASE0 -m train   
+   Look for miscompares at 999.specrand/run/*train*
+
+   (2) go 999; $BASE0 -m apr25a
+   Look in 999.specrand/build/*apr25a* and
+           999.specrand/rund/*apr25a*
+
+   (3) $BASE0 -b body -m peak*m64
+   Look in *body*/build/*peak*m64* and
+           *body*/run/*peak*m64* 
+
+EOF
+
+   exit
+}
+
+
+#------------------------------------------------------------------------
+function get_dirlist()   # Find directories with .mis files.  
+                         # WARNING/NOTE: If -b is used, *MAY* (repeat MAY) 
+{                        #               change current dir to bmarktop
+   local path_end=$(basename $PWD)
+   local match_dir='*'
+   local match_dir_and_files='*/*mis'
+   if [[ $look_for_dir ]] ; then
+      match_dir='*'$look_for_dir'*'
+      match_dir_and_files='*'$look_for_dir'*/*mis'
+   fi
+   #
+   if [[ ! $benchmarks ]] ; then # handle the (slightly) simpler case first
+      subsetting="Looking for '$match_dir_and_files'"
+      #
+      # if current dir is mumble/run or mumble/build, look just below it
+      if [[ $path_end == "run" || $path_end == "build" ]] ; then
+         ls $match_dir_and_files 2>/dev/null \
+         | cut -f1 -d/ | sort | uniq  > $dirlist
+      #
+      # if current dir is nnn.mumble, look in run/mumble and build/mumble
+      elif [[ $path_end =~ ^[0-9][0-9][0-9]. && ( -d run || -d build ) ]] ; then
+         subsetting="Looking for '{run,build}/$match_dir_and_files'"
+         ls {run,build}/$match_dir_and_files 2>/dev/null \
+         | cut -f1-2 -d/ | sort | uniq > $dirlist
+      #
+      # Dunno where we are.  But does a dir underneath us match requested string?
+      elif ls -l $match_dir_and_files >/dev/null 2>&1 ; then
+         ls $match_dir_and_files 2>/dev/null \
+         | cut -f1 -d/ | sort | uniq > $dirlist
+      #
+      # last resort - how about where we are now (fallback here ONLY if it is useful)
+      elif ls *mis >/dev/null 2>&1 ; then      
+         # explain the adjustment from what was requested
+         if [[ $look_for_dir ]] ; then
+            subsetting="NOTICE: did not find a directory matching '$star$look_for_dir$star', reporting on current dir instead"
+         else
+            subsetting="Reporting on current directory"
+         fi
+         echo '.' > $dirlist 
+      else
+         rm -f $dirlist
+      fi
+   #
+   # User requested specific benchmarks.  Look around for them.
+   else 
+      subsetting="Looking for '$star$benchmarks$star/{run,build}/$match_dir_and_files'"
+      #
+      # check first for matches where I am now
+      dirs=$(ls -d *$benchmarks*/{build,run}/$match_dir 2>/dev/null)
+      for d in $dirs ; do
+         if ls $d/*mis >/dev/null 2>&1 ; then
+            echo $d >> $dirlist
+         fi
+      done
+      [[ -s $dirlist ]]  && return
+      # 
+      # Nope, not in current dir. We will need $SPEC
+      if [[ -z $SPEC ]] ; then
+         echo "$BASE0: When using -b, the \$SPEC variable must be defined"
+         echo "Use '-h' for help"
+         exit
+      fi
+      local bmarktop
+      if [[ $GO ]] ; then # Using output_root?
+         bmarktop=$(compgen -o dirnames $GO/benchspec/$SUITE)
+      else
+         bmarktop=$(compgen -o dirnames $SPEC/benchspec/$SUITE)
+      fi
+      if [[ ! -d $bmarktop ]] ; then
+         echo "$BASE0: cannot find benchmarks.  Maybe this script's variable"
+         echo "\$SUITE needs to be changed.  It is currently set to '$SUITE'"
+         exit
+      fi
+      if ! cd $bmarktop ; then
+         echo "$BASE0 could not cd to '$bmarktop', exiting"
+         exit
+      fi
+      dirs=$(ls -d *$benchmarks*/{build,run}/$match_dir 2>/dev/null)
+      for d in $dirs ; do
+         if ls $d/*mis >/dev/null 2>&1 ; then
+            echo $d >> $dirlist
+         fi
+      done
+      return
+   fi
+}
+
+
+#------------------------------------------------------------------------
+# 'maxmax' - hunka perl because we are looking at perlish FP numbers
+# Print max tols across group of files (so, max of max)
+# Looks for these, tells you the biggest:
+#     Maximum reltol: 3.68754e-02
+#     Maximum abstol: 5.61770e+04
+#
+# Usage: 
+#   maxes=$(grep tol bunchafiles | perl this_hunk)
+#
+maxmax='
+use strict;
+use warnings;
+sub no_leading_zero { 
+   my $fnum = sprintf "%*g", _tolerance_width_, shift; 
+   if ($fnum !~ m{e}g) { 
+      $fnum =~ s{^(\s*)0\.(\d+)}{$1 .$2};
+   }
+   $fnum =~ s{\s+}{}g; # no blanks
+   return $fnum;
+}
+my %max;
+$max{"abs"} = 0;
+$max{"rel"} = 0;
+while (<>) {
+   if (m{Maximum (rel|abs)tol:\s+(\S+)}) {
+      my $type = $1;
+      my $val  = $2;
+      if ($val > $max{$type}) {
+         $max{$type} = $val;
+      }
+   }
+}
+print no_leading_zero($max{"rel"}) . " " .  no_leading_zero($max{"abs"});
+'
+maxmax=${maxmax/_tolerance_width_/$tol_width}
+
+
+#------------------------------------------------------------------------
+function prepare_headers()   # writes various globals: intro, table_head, 
+{                            #   format, separator
+   longest_intro_line=0
+   local longest_dirlen=9    # Minimum: length of "Directory"
+   local dir_sep="-"
+   local nmis_sep="------"
+   local md5sum_sep="--------------------------------"
+   local tol_sep="-"
+   while [[ ${#tol_sep} -lt $tol_width ]] ; do
+      tol_sep="-$tol_sep"
+   done
+   #
+   # underbar colon is a magical marker that gets stretched, then erased, later on
+   #
+   intro+=("Summary of miscompares_: $(date)")
+   intro+=("System: ${HOSTNAME}_:    Starting point: $PWD")
+   if [[ $subsetting ]] ; then
+      intro+=("$subsetting")
+   fi
+   # 
+   while read dir ; do 
+      if [[ ${#dir} -gt $longest_dirlen ]] ; then 
+         longest_dirlen=${#dir} 
+      fi
+   done <$dirlist
+   #
+   while [[ ${#dir_sep} -lt $longest_dirlen ]] ; do
+      dir_sep="-$dir_sep"
+   done
+   #
+   format=" %6s  %${tol_width}s  %${tol_width}s  %-32s  %-${longest_dirlen}s"
+   #
+   local str1=$(printf "$format"  "#.mis"   "Maximum" "Maximum"    "Fingerprint"               ""           )
+   local str2=$(printf "$format"  "files"   "reltol"  "abstol"     "(Use '-h' for definition)" "Directory"  )
+   local str3=$(printf "$format"  $nmis_sep $tol_sep  $tol_sep      $md5sum_sep                 $dir_sep    )
+   #
+   table_head=("$str1" "$str2" "$str3")
+   #
+   # Create separators for full report
+   for str in "${intro[@]}" "${table_head[@]}"
+   do
+      if [[ ${#str} -gt $longest_intro_line ]] ; then
+         longest_intro_line=${#str}
+      fi
+   done
+   separator="-"
+   while [[ ${#separator} -lt $longest_intro_line ]] ; do
+      separator="-$separator"
+   done
+}
+
+#------------------------------------------------------------------------
+function prepare_report
+{
+   local orig_dir=$PWD
+   [[ $DEBUG ]] && echo dirlist lines: $(wc -l $dirlist)
+   [[ $DEBUG ]] && echo "subsetting: '$subsetting'"
+   while read dir ; do
+      [[ $DEBUG ]] && echo "dir='$dir';"
+      [[ -z $quiet ]] && echo -n '.'
+      count=$(ls $dir/*mis 2>/dev/null | wc -l)
+      if [[ $count -gt 0 ]] ; then
+         cd $dir
+         tols=$(grep 'Maximum ...tol:' *mis | $PERL -e "$maxmax")
+         if [[ $tols =~ " " ]] ; then
+            t1=${tols% *}
+            t2=${tols#* }
+            seen_at_least_one_tol="yes"
+            #echo "t1 '$t1' t2 '$t2'"
+         else
+            t1=" "
+            t2=" "
+         fi
+         local found_at_least_one=
+         local orig_list=
+         for m in *mis ; do
+            orig=$(basename $m .mis)
+            if [[ -r $orig ]] ; then
+               orig_list="$orig_list $orig"
+               found_at_least_one=yes
+            fi
+         done
+         if [[ $orig_list ]] ; then
+            sum="$(cat $orig_list | specmd5sum | cut -f1 -d' ')"  
+         else
+            sum="could not open original file"
+            [[ $count -gt 1 ]] && sum="${sum}s"
+         fi
+         aline=$(printf "$format\n" $count "$t1" "$t2" "$sum" $dir)
+         report+=("$aline")
+         cd $orig_dir
+      fi
+   done <$dirlist 
+   [[ -z $quiet ]] && echo 
+}
+
+#------------------------------------------------------------------------
+function print_headers() 
+{
+   # Introductory stuff 
+   echo "$separator"
+   for str in "${intro[@]}" 
+   do
+      local tmp=$str
+      if [[ $tmp =~ _: ]] ; then
+         until [[ ${#tmp} -ge ${#separator} ]] ; do
+            tmp=${tmp/_:/_: }
+         done
+         tmp=${tmp/_:/  }
+         echo "$tmp"
+      else
+         echo "$str"
+      fi
+   done
+   echo "$separator"
+   #
+   # Table header
+   for str in "${table_head[@]}"
+   do
+      echo "$str"
+   done
+}
+
+
+#------------------------------------------------------------------------
+function print_report
+{
+   for line in "${report[@]}" ; do
+      echo "$line"
+#   done | sort -nk1 -nk2
+   done | $PERL -e "$triplesort"
+   echo -e "$separator \n"
+   if [[ -z $seen_at_least_one_tol ]] ; then
+      cat <<EOF
+
+NOTE:The columns for tolerance are blank because calctol was not used.
+You can generate the calctol output without re-running the benchmark, 
+using commands similar to these:
+
+   cd run_directory_of_interest
+   specinvoke -nn compare.cmd | specperl \\
+      -ne 's{specdiff}{specdiff --calctol}; print if m{^cd|specdiff};' \\
+      > tmp.sh
+   Review tmp.sh for sanity, and if ok, run it. 
+
+EOF
+   fi
+
+}
+
+#------------------------------------------------------------------------
+# 'triplesort' sigh, a bit more perl
+triplesort='
+use strict;
+use warnings;
+use Scalar::Util qw(looks_like_number);
+sub numerically { looks_like_number($a) && looks_like_number($b) ? $a <=> $b : $a cmp $b }
+my %hash = ();
+while (<>) {
+   my ($a, $b, $c) = split(/\s+/);
+   $hash{$a}{$b}{$c} .= $_;
+}
+for my $key1 (sort numerically keys %hash) {
+   for my $key2 (sort numerically keys %{$hash{$key1}}) {
+      for my $key3 (sort numerically keys %{$hash{$key1}{$key2}}) {
+         my @lines = split "\n", $hash{$key1}{$key2}{$key3};
+         for my $line (sort numerically @lines) {
+            print $line, "\n";
+         }
+      }
+   }
+}
+'
+
+
+
+#------------------------------------------------------------------------
+# main starts here
+
+look_for_dir=$default_match_str
+quiet=
+while getopts ":ab:hm:q" opt
+do
+   case $opt in 
+      a)
+         look_for_dir=
+         ;;
+      b)
+         benchmarks="$OPTARG"
+         ;;
+      h)
+         usage
+         ;;
+      m)
+         look_for_dir="$OPTARG"
+         ;;
+      q)
+         quiet="shhh"
+         ;;
+      ?)
+         echo "$BASE0: No such option '-$OPTARG', use '-h' for help"
+         exit
+         ;;
+   esac
+done
+if [[ $OPTIND -le $# ]] ; then 
+   shift $(( $OPTIND - 1 ))
+   echo "$BASE0: unrecognized argument '$1', use '-h' for help"
+   exit
+fi
+
+get_dirlist
+#
+# Exit if nothing to be analyzed
+#
+if [[ ! -s $dirlist ]] ; then 
+   echo "No .mis files found ${subsetting/Looking/looking}"
+   if [[ $look_for_dir ]] ; then
+      echo "  (To search all directories, add '-a')"
+   elif [[ ! $(basename $PWD) =~ (run|build) ]] ; then
+      echo "  Try: 'go nnn.bmark run' "
+   fi
+   exit
+fi
+#
+
+prepare_headers
+prepare_report
+print_headers
+print_report
+

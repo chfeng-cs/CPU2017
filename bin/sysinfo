@@ -1,0 +1,2042 @@
+#!/usr/bin/perl -w
+(my $sysinfo_revision = '$Rev: 6365 $') =~ s/^.Rev: (\d+) .*/r$1/;
+(my $sysinfo_date = '$Date: 2019-08-21 15:57:46 -0400 (Wed, 21 Aug 2019) $') =~ s/^.Date: (\S+) .*/$1/;
+
+# This is a 'sysinfo' program, for use with SPEC CPU. It can help
+# you get started filling out some important SUT (System Under Test) disclosure
+# fields, but it does NOT remove the need for a human being to understand the
+# SUT.
+
+# Updates
+#
+#     This program is likely to evolve.  To check for updates, run
+#         runcpu --update
+#     See https://www.spec.org/cpu2017/Docs/runcpu.html#update for details
+
+# Usage
+#
+#   (1) In your config file, put the following near the top:
+#
+#            sysinfo_program = specperl $[top]/bin/sysinfo
+#
+#       Optional switches:
+#           -f   Do not write fields; instead, write comments
+#           -p   Do not write platform notes; instead, write comments
+#
+#   (2) Unless you use the optional -f switch, be sure to search for
+#       "promisedfields", below, to find the list of fields that will
+#       be written by this file.  If your config file also sets those fields,
+#       you have several choices for what to do about duplicate fields, which
+#       are described at:
+#
+#          https://www.spec.org/cpu2017/Docs/config.html#sysinfo
+
+# Outputs
+#
+#   Unless one of the above switches is set, writes some free-form platform
+#   notes plus various sw_xx and hw_xx fields.  To find the list of fields
+#   output, search for "promisedfields", below.
+#
+#   If you choose to write comments, these go to the *output* copy of the config
+#   file that goes to the *result* directory.  For more info on this point, See
+#   the sysinfo documentation:
+#
+#       https://www.spec.org/cpu2017/Docs/config.html#sysinfo
+
+
+# Structure of this script
+#
+#   The main routine detects the OS, and dispatches to a system-specific
+#   subroutine.
+#
+#   The system-specific subroutine talks to useful utilities and as it does
+#   so, (1) calls notesout() to format platform notes, and (2) builds the
+#   global data structure
+#
+#        $hw_fields{fieldname}
+#
+#   where the "fieldnames" are the familiar fields such as "hw_model",
+#   "sw_os" and so forth.
+#
+#   After visiting the system-specific subroutine,
+#
+#        write_fields()
+#
+#   actually writes them.
+
+
+# Changing or customizing this script
+#
+#   To add free-form information:
+#      - In the OS-specific routine, visit the system utility that you are
+#        interested in, capture its output, and just send it to notesout()
+#      - Notice that notesout() doesn't mind if you hand it one line or
+#        multiple lines.
+#
+#   To add a field:
+#      - (1) add code that assigns to $hw_fields{newfield}
+#      - (2) add newfield to the data structure promisedfields
+#
+#   To delete a field:
+#      - (1) remove (or comment out) the assignment to $hw_fields{whatever}
+#      - (2) remove it from the data structure promisedfields
+
+# j.henning jun 2011
+# Copyright 2011-2019 Standard Performance Evaluation Corporation
+# $Id: sysinfo 6365 2019-08-21 19:57:46Z CloyceS $
+#
+
+#-------------------------------------------------------------------------
+# main routine
+
+use strict;
+use Text::Tabs;
+use Cwd;
+use Sys::Hostname;
+use IO::File;
+use IO::Dir;
+use List::Util qw(max);
+use Scalar::Util qw(looks_like_number);
+eval { require Digest::SHA; Digest::SHA->import() };
+my $has_SHA = $@ eq '';
+
+use Text::Wrap qw(wrap $columns);
+$Text::Wrap::unexpand = 0;
+$columns = 90;   # wrap notes here
+
+my $scriptdir = cwd;
+
+# globals
+
+my $notes_section = "notes_plat_sysinfo";  # which notes setion to use
+my $punt = "could not determine";          # the last, last resort
+my $fieldsok = 1;              # If this is 1, some output goes to hw_xxx/sw_xxx
+my $notesok  = 1;              # If this is 1, some output goes to notes section
+my $quiet    = 0;              # If 1, be less chatty.
+
+my $fnwidth = 14;              # (minimum) width of field names, to align
+                               # when pretty-printing.   This is used for
+                               # both sw_xx, hw_xx, and within some notes
+
+
+my $notenum = 0;               # global to recall what notenum we are on
+my %fields;                    # global for any fields we figure out
+
+my @lscpu;                     # if 'lscpu' utility is present, lines as reported
+my %lscpu;                     # and broken into key/value pairs
+
+my $pc4_format = "'N GB (N x N GB nRxn PC4-nnnnX-X)'";
+
+sub notesout;
+sub write_fields;
+
+# process arguments
+
+while (my $arg = shift) {
+   if ($arg eq "-f") {
+      $fieldsok = 0;
+   } elsif ($arg eq "-p") {
+      $notesok = 0;
+   } elsif ($arg eq "-q") {
+      $quiet = 1;
+   } else {
+      print "# unrecognized argument '$arg' given to $0\n";
+      print "log 0 unrecognized argument '$arg'\n";
+   }
+}
+
+# Do we know this OS?  If so, dispatch
+
+begin_report();
+my $os = ""; # canonical spelling for key to field list
+if ($^O =~ /mswin/i) {
+   $os = "mswin";
+   print "log 0 Getting system information for Windows...\n" unless $quiet;
+   sysinfo_mswin();
+} elsif ($^O =~ /linux/i) {
+   $os = "linux";
+   print "log 0 Getting system information for Linux...\n" unless $quiet;
+   sysinfo_linux();
+} elsif ($^O =~ /solaris/i) {
+   $os = "solaris";
+   print "log 0 Getting system information for Solaris...\n" unless $quiet;
+   sysinfo_solaris();
+} elsif ($^O =~ /darwin/i) {
+   $os = "macosx";
+   print "log 0 Getting system information for MacOS X...\n" unless $quiet;
+   sysinfo_macosx();
+} elsif ($^O =~ /aix/i) {
+   $os = "aix";
+   print "log 0 Getting system information for AIX...\n" unless $quiet;
+   sysinfo_aix();
+} else {
+   print "log 0 ==============================================================================\n"
+      . "log 0 ERROR: $^O is not supported by $0.\n"
+      . "log 0 WARNING: If you plan to publish your results, you will need a working sysinfo.\n"
+      . "log 0          For help, contact SPEC technical support.\n"
+      . "log 0 ==============================================================================\n";
+   notesout(
+      "\n=============================================================================\n"
+      . "ERROR:   $^O is not supported by $0\n"
+      . "WARNING: If you plan to publish your results, you will need a working\n"
+      . "         sysinfo.  For help, contact SPEC technical support.\n"
+      . "=============================================================================\n");
+}
+
+notesout "\n(End of data from sysinfo program)";
+
+write_fields();
+
+exit;
+
+
+
+#========================================================================
+# Utility subroutines (alphabetical order, please)
+#========================================================================
+
+#---------------------------------
+sub begin_report {
+    my $hostname = hostname();
+    chomp $hostname;
+    my $date = localtime();
+    my $selfsum;
+    if ($has_SHA) {
+        $selfsum = filedigest($0, 512, 128);
+    } else {
+        $selfsum = "NOHASH: Could not compute self-sum.";
+        $selfsum .= "  To fix, try running $0 under specperl." if ($^X !~ /specperl/);
+    }
+
+   print "log 0 $sysinfo_revision of $sysinfo_date ($selfsum)\n" unless $quiet;
+   notesout <<EOF
+
+Sysinfo program $0
+Rev: $sysinfo_revision of $sysinfo_date $selfsum
+running on $hostname $date
+
+SUT (System Under Test) info as seen by some common utilities.
+For more information on this section, see
+   https://www.spec.org/cpu2017/Docs/config.html#sysinfo
+
+EOF
+   ;
+}
+
+#---------------------------------
+sub bytes_to_integral_other_unit {
+   my $bytes   = shift;
+   my $tb      = 1024 * 1024 * 1024 * 1024;
+   my $gb      = 1024 * 1024 * 1024;
+   my $mb      = 1024 * 1024;
+   my $kb      = 1024;
+   if      ($bytes >= $tb and ($bytes % $tb) == 0) { return $bytes / $tb . " TB";
+   } elsif ($bytes >= $gb and ($bytes % $gb) == 0) { return $bytes / $gb . " GB";
+   } elsif ($bytes >= $mb and ($bytes % $mb) == 0) { return $bytes / $mb . " MB";
+   } elsif ($bytes >= $kb and ($bytes % $kb) == 0) { return $bytes / $kb . " KB";
+   } else                                          { return $bytes; 
+   }
+}
+
+
+#---------------------------------
+sub divide_maybe {
+   my $top    = shift;
+   my $bottom = shift;
+   my $answer = "(?)";
+   if (looks_like_number($top) and ($top != 0) and
+      looks_like_number($bottom) and ($bottom != 0) and
+      (int($top/$bottom) == $top/$bottom)
+   ) {
+      $answer = $top/$bottom;
+   }
+   return $answer;
+}
+
+
+#---------------------------------
+sub filedigest {
+    my ($fname, $bits, $trim) = @_;
+    $bits = $bits // 512;
+    $trim = $trim // $bits;
+    my $ctx = Digest::SHA->new($bits);
+
+    if (!defined($ctx)) {
+        print "log 0 sysinfo: Error getting Digest::SHA context for SHA-$bits\n";
+        return "NOHASH: Error getting Digest::SHA context for SHA-$bits";
+    }
+
+    if (-e $fname) {
+        my $ifh = new IO::File $fname, O_RDONLY|O_BINARY;
+        if (!defined($ifh)) {
+            print "log 0 sysinfo: Error opening $fname for reading\n";
+            return  "NOHASH: Error opening $fname for reading";
+        }
+        $ctx->addfile($ifh);
+        my $hash = $ctx->hexdigest();
+        return substr($hash, -($trim / 4));
+    }
+
+    return "NOHASH: $fname does not exist";
+}
+
+
+#---------------------------------
+sub linux_power_chip {
+   my $nchips;
+   my $ppc64cmd = 'ppc64_cpu --cores-present';
+   my @ppc64 = qx{$ppc64cmd};
+   my $ncores = 0;
+   if (! @ppc64) {
+      notesout "\n$ppc64cmd\n   No result available";
+   } else {
+      chomp @ppc64;
+      (my $ignore, $ncores) = split "=", $ppc64[0];
+      chomp $ncores;
+      notesout "\nNumber of cores, from '$ppc64cmd' : $ncores\n";
+   }
+   notesout "\nWARNING regarding the output of 'lscfg':  this utility reports resources"
+   . " for the system, not the current partition.  Therefore, for a partition"
+   . " that has a subset of the full system resources:";
+   notesout "   (1) The tester may need to adjust the sysinfo-supplied 'hw_ncores'.";
+   notesout "   (2) The tester may need to adjust the sysinfo-supplied 'hw_nchips'.";
+   my $lcmd = 'lscfg -vp';
+   my @lscfg = qx{$lcmd};
+   if (! @lscfg) {
+      notesout "\n$lcmd\n   No result available. Consider installing lscfg.";
+   } elsif ((scalar @lscfg < 5) && (grep /root/, @lscfg)) {
+      notesout "\nCannot run lscfg; consider running as root.";
+   } else {
+      chomp @lscfg;
+      # hw_nchips
+      my @wayProc;
+      my $ways    = 0;
+      my $looking = 0;
+      for my $line (@lscfg) {
+         if ($line =~ m/(\d+)-WAY\s+PROC/) {
+            # PowerVM systems take this path.
+            $ways += $1;
+            $looking = $line;
+            $looking =~ s/^\s+//;
+            push @wayProc, "$looking";
+         } elsif ($line =~ m/Node:  cpu@/) {
+            # POWER servers running OPAL firmware go here...
+            $ways += 1;
+         } elsif ($line =~ m/Node:  processor@/) {
+            # ... and here.
+            $looking = $line;
+            $looking =~ s/^\s+//;
+            push @wayProc, "$looking";
+         }
+         next;
+      }
+      notesout "\nProcessors, from $lcmd\n   " . join "\n   ", @wayProc;
+      $nchips = scalar @wayProc;
+      if (! defined $ncores) {
+         $ncores = $ways;
+      } elsif ($ncores != $ways) {
+         notesout "   ^^^Note: sum of ways = $ways, differs from 'ppc64_cpu --cores-present'\n";
+         $ncores = "$ncores (?)";
+      }
+      notesout "";
+   }
+   my $nthreads = qx'grep -c -P "^processor\s+:" /proc/cpuinfo';
+   chomp $nthreads;
+   notesout "      $nthreads \"processors\"";
+   my $nthreads_per_core = divide_maybe($nthreads, $ncores);
+   return ($nchips, $ncores, $nthreads_per_core);
+}
+
+#---------------------------------
+sub linux_sparc_chip {
+   my $nchips            = $punt;
+   my $ncores            = $punt;
+   my $nthreads_per_core = $punt;
+   my $ncores_per_chip   = $punt;
+   if (! lscpu()) {
+      notesout "lscpu utility not available; please consider adding it";
+      $nchips = $ncores = $nthreads_per_core = $punt;
+   } else {
+      #
+      if (defined($lscpu{"Socket(s)"}) and defined($lscpu{"NUMA node(s)"})) {
+         if ($lscpu{"Socket(s)"} == $lscpu{"NUMA node(s)"}) {
+            notesout "   WARNING: the 'lscpu' utility may not be able to correctly report "
+            . "some systems, for example virtual machines. The tester should verify "
+            . 'chip/core/threads independently.';
+         } else {
+            notesout "   WARNING the 'lscpu' utility might confuse its "
+            . 'concept of "sockets" with the SPARC concept of "core clusters".  Although the '
+            . "SPEC 'sysinfo' utility tries to adjust, the tester should verify "
+            . 'chip/core/threads independently.';
+         }
+         # the above-mentioned adjustment: believe whichever is smaller.
+         if ($lscpu{"Socket(s)"} < $lscpu{"NUMA node(s)"}) {
+            $nchips         = $lscpu{"Socket(s)"};
+         } else {
+            $nchips         = $lscpu{"NUMA node(s)"};
+         }
+      }
+      if (defined($lscpu{"Core(s) per socket"}) and defined($lscpu{"Socket(s)"}) ) {
+         $ncores            = $lscpu{"Core(s) per socket"} * $lscpu{"Socket(s)"};
+      }
+      if (defined ($lscpu{"Thread(s) per core"})) {
+         $nthreads_per_core = $lscpu{"Thread(s) per core"};
+      }
+      return ($nchips, $ncores, $nthreads_per_core);
+   }
+}
+
+#---------------------------------
+sub linux_x86_chip {
+   my $nchips = qx{grep "physical id" /proc/cpuinfo | sort | uniq | wc -l};
+   chomp $nchips;
+   if ($nchips == 0) {
+      $nchips = $punt;
+      notesout <<EOF;
+*
+* 0 "physical id" tags found.  Perhaps this is an older system,
+* or a virtualized system.  Not attempting to guess how to
+* count chips/cores for this system.
+*
+EOF
+   } else {
+      notesout "      $nchips " . ' "physical id"s (chips)';
+   }
+   #
+   my $nthreads = qx{grep -c processor /proc/cpuinfo};
+   chomp $nthreads;
+   notesout "      $nthreads \"processors\"";
+   #
+   #  siblings + cores table, with caution
+   #
+   notesout "   cores, siblings (Caution: counting these is hw and system dependent."
+   . " The following excerpts from /proc/cpuinfo might not be reliable."
+   . "  Use with caution.)";
+   my @sibs = qx{grep -e 'siblings' -e 'cpu cores' /proc/cpuinfo | grep : |sort | uniq};
+   for my $s (@sibs) {
+      notesout "      $s";
+   }
+   my @lines = qx{grep -e "physical id" -e "core id" /proc/cpuinfo};
+   my $pid = "";
+   my %phys;  # key = processor, contents = cores mentioned for it
+   for my $line (@lines) {
+      if ($line =~ m/physical id\s*:\s*(\d+)/) {
+         $pid = $1;
+      } elsif ($line =~ m/core id\s*:\s*(\d+)/) {
+         my $cid = $1;
+         $phys{$pid} .= "$cid " unless defined $phys{$pid} && $phys{$pid} =~ m/$cid /;
+      }
+   }
+   for my $p (sort numerically keys %phys) {
+      my @c = sort numerically (split " ", $phys{$p});
+      notesout "      physical $p: cores " . join(" ", @c);
+   }
+   #
+   # The 'lscpu' utility might have some other ideas
+   #
+   if (! lscpu()) {
+      notesout "lscpu utility not available; please consider adding it";
+   } else {
+      if ($nchips ne $punt and defined($lscpu{"Socket(s)"}) and ($lscpu{"Socket(s)"} != $nchips)) {
+            notesout "   WARNING: the 'lscpu' utility claims that " .  $lscpu{"Socket(s)"}
+            . ' "Socket(s)" were seen, which does not match the ' . $nchips . ' "physyical id"s'
+            . " seen in /proc/cpuinfo.  The tester should verify the count independently.";
+      }
+   }
+   #
+   return $nchips;
+}
+
+#---------------------------------
+sub lscpu {   # present on many Linux systems
+   @lscpu  = qx{lscpu | expand};
+   if (@lscpu) {
+      chomp @lscpu;
+      notesout "\nFrom lscpu:";
+      for my $line (@lscpu) {
+         notesout "     $line";
+         my ($key, $content) = split ":", $line;
+         $content     =~ s/^\s*(.*)\s*$/$1/; # drop blanks at front and rear
+         $lscpu{$key} = $content;
+      }
+      # Let's ensure that the fields we will treat as numbers are acutally numbers
+      for my $key ('Socket(s)', 'CPU(s)', 'Thread(s) per core',
+                   'Core(s) per socket', 'NUMA node(s)') {
+         no warnings; # without -w on the script, we wouldn't need this code
+         $lscpu{$key} += 0 if exists($lscpu{$key});
+      }
+   }
+   return scalar @lscpu;
+}
+
+#---------------------------------
+sub notesout {
+   # output noteslines with wrapping
+   # Note that you can call this with a single line, or with multiple lines
+   while (@_) {
+      my $arg = shift;
+
+      # prevent auto-delete of empty lines
+      $arg =~ s/\n/ \n/g;
+
+      my @lines = split "\n", $arg;
+      chomp @lines;
+
+      for my $line (@lines) {
+         $line =~ s/(\S)\s+$/$1/; # no trailing blanks
+         my $indent = "";
+         if ($line =~ m/^(\s+)/) {   # respect incoming indents
+            $indent = $1;
+         }
+         my @split_lines = split "\n", wrap("", $indent, $line);
+         push (@split_lines, " ") if ! @split_lines;  # respect incoming blank lines
+         for my $sl (@split_lines) {
+            if ($notesok) {
+               printf "%s_%03d = ", $notes_section, ($notenum * 5);
+               $notenum++;
+            } else {
+               printf "# ";
+            }
+            print "$sl\n";
+         }
+      }
+   }
+}
+
+#---------------------------------
+sub numerically { $a <=> $b; }
+
+#---------------------------------
+sub read_vuln_file {
+   # Read the contents of a file out, prepending the tag to the first line and
+   # padding subsequent lines to line up with the first.
+   # Report "No status reported" if the file does not exist or is empty.
+    my ($tag, $fn) = @_;
+    my @rc = ();
+    my $indent = (' ' x length($tag));
+
+    my $ifh = new IO::File '<'.$fn;
+    if (defined($ifh)) {
+        while(defined(my $line = $ifh->getline())) {
+            chomp($line);
+            push @rc, wrap("", $indent.' ', "${tag} ${line}");
+            $tag = $indent;
+        }
+    }
+    return @rc if @rc;
+    return ("${tag} No status reported");
+}
+
+
+#---------------------------------
+sub read_directory_files {
+    my ($dir) = @_;
+
+    my $dh = new IO::Dir $dir;
+
+    return grep { defined } map { -f $dir.'/'.$_ and $_ or undef } $dh->read() if defined($dh);
+    return ();
+}
+
+
+#---------------------------------
+sub simplify_cpu_name {
+   my $cpu = shift;
+   $cpu =~ s/\((R|tm)\)//ig;
+   $cpu =~ s/CPU//g;
+   $cpu =~ s/processor//ig;
+   $cpu =~ s/\@\s+[\d\.]+\s*GHz//i; # at best nominal speed
+   $cpu =~ s/^\s+//;
+   $cpu =~ s/\s+/ /g;
+   return $cpu;
+}
+
+#---------------------------------
+sub write_fields {
+   #
+   # This subroutine actually writes the fields.  It also serves as a
+   # backstop, in case the OS-specific subroutines somehow fail to come up
+   # with information about some field(s) that were promised:  if we do not
+   # have useful information, then insert at least a  minimal template.
+   #
+   my %promisedfields;
+   $promisedfields{"aix"} = <<EOF;
+      fw_bios
+      hw_cpu_name
+      hw_cpu_nominal_mhz
+      hw_disk
+      hw_memory
+      hw_model
+      hw_nchips
+      hw_ncores
+      prepared_by
+      sw_os
+EOF
+   $promisedfields{"mswin"} = <<EOF;
+      fw_bios
+      hw_cpu_nominal_mhz
+      hw_cpu_name
+      hw_disk
+      hw_memory
+      hw_model
+      hw_nchips
+      hw_ncores
+      hw_nthreadspercore
+      sw_os001
+      sw_os002
+      hw_scache
+      hw_tcache
+      hw_vendor
+      prepared_by
+EOF
+   $promisedfields{"linux"} = <<EOF;
+      hw_cpu_name
+      hw_disk
+      hw_memory001
+      hw_memory002
+      hw_nchips
+      prepared_by
+      sw_file
+      sw_os001
+      sw_os002
+      sw_state
+EOF
+   $promisedfields{"macosx"} = <<EOF;
+      hw_cpu_name
+      hw_cpu_nominal_mhz
+      hw_disk
+      hw_memory001
+      hw_memory002
+      hw_model
+      hw_nchips
+      hw_ncores
+      hw_pcache
+      hw_scache
+      hw_tcache
+      prepared_by
+      sw_os
+      sw_other
+EOF
+   $promisedfields{"solaris"} = <<EOF;
+      hw_cpu_name
+      hw_cpu_nominal_mhz
+      hw_nchips
+      hw_ncores
+      hw_nthreadspercore
+      hw_memory001
+      hw_memory002
+      prepared_by
+      sw_os
+      sw_state
+EOF
+
+   # if a promised field was NOT set by the OS-specific routine, then use
+   # these to explain template
+
+   my %templatef = (
+      hw_cpu_nominal_mhz => "99999 (integer MHz, as specified by the chip vendor)",
+      hw_cpu_name        => "cpu name",
+      hw_disk            => "size, type, other perf-relevant char of SPEC disk",
+      hw_memory          => "format is $pc4_format", 
+      hw_model           => "model name",
+      hw_nchips          => "number of chips enabled",
+      hw_ncores          => "number of cores enabled",
+      hw_nthreadspercore => "number of threads enabled per core",
+      hw_pcache          => "size, type, location: e.g. 99 KB I + 99 KB D on chip per core",
+      hw_scache          => "size, type, location: e.g. 99 MB I+D on chip per chip",
+      hw_tcache          => "size, type, location: e.g. 99 MB I+D off chip per system board",
+      hw_vendor          => "hardware manufacturer",
+      sw_os              => "operating system",
+      sw_other           => "Other performance relevant sw",
+      sw_state           => "software state (e.g runlevel)",
+   );
+
+   # Verify that we have *something* for all promised fields
+
+   unless (!defined $promisedfields{$os}) {
+      for my $f (split " ", $promisedfields{$os}) {
+         if (!defined $fields{$f}) {
+            if (defined $templatef{$f}) {
+               $fields{$f} = $templatef{$f};
+            } else {
+               if ($f =~ m/^([^0-9]+)([0-9]+)$/) {
+                  my $basef = $1;
+                  my $fnum  = $2;
+                  if (defined $templatef{$basef}) {
+                     $fields{$f} = $templatef{$basef} . " part $fnum";
+                  } else {
+                     $fields{$f} = $punt;
+                  }
+               } else {
+                  $fields{$f} = $punt;
+               }
+            }
+         }
+      }
+   }
+
+   print "\n";
+   # use fnwidth global as the minimum, but expand if needed
+   for my $key (sort keys %fields) {
+      $fnwidth = length $key if (length($key) > $fnwidth);
+   }
+
+   for my $key (sort keys %fields) {
+      print "# " if ! $fieldsok;
+      $fields{$key} =~ s/^\s+//;
+      $fields{$key} =~ s/\s+$//;
+      printf "%-${fnwidth}s = %s\n", $key, $fields{$key};
+   }
+}
+
+
+
+#========================================================================
+# The actual sysinfo_xxx routines.
+#========================================================================
+
+
+#--------------------------------- AIX ----------------
+sub sysinfo_aix {
+
+   print "log 0 ...getting prtconf info\n" unless $quiet;
+   my @prtconf_lines = qx{/usr/sbin/prtconf};
+   chomp @prtconf_lines;
+   notesout "WARNING regarding the output of 'prtconf':";
+   notesout "   (1) The tester may need to adjust the sysinfo-supplied 'hw_nominal_mhz'.";
+   notesout "   (2) The 'Number of Processors' reported by prtconf is the number of cores available to the partition.";
+   notesout "From prtconf:";
+
+   (my $host) = map m/(Host Name:.*)/, @prtconf_lines;
+   notesout "   $host\n" if defined $host;
+
+   # hw_model
+   (my $model) = grep m/System Model:/, @prtconf_lines;
+   if (defined $model and $model =~ m/System Model:\s*(.*)/) {
+      my $tmp = $1;
+      $tmp =~ s/^IBM,//;
+      $fields{"hw_model"} = $tmp;
+      notesout "   $model\n";
+   }
+
+   # hw_cpu_name
+   my @proctype = grep m/Processor Type:/, @prtconf_lines;
+   if (@proctype) {
+      (my $name) = ($proctype[0] =~ m/Type:\s*(.*)/);
+      if ($name =~ m/PowerPC_(POWER\d.*)/) {
+         $name = $1;
+      }
+      ($fields{"hw_cpu_name"}) = $name;
+   }
+
+   # hw_cpu_nominal_mhz
+   my @mhz_lines = grep /Processor Clock Speed/, @prtconf_lines;
+   if ((@mhz_lines == 1) && ($mhz_lines[0] =~ m/Processor Clock Speed:\s+(\d+)\s+MHz/)) {
+      my $mhz = $1;
+      notesout "   " . $mhz_lines[0];
+      $fields{"hw_cpu_nominal_mhz"} = $mhz;
+   } elsif (@mhz_lines > 1) {
+      notesout "\nMore than one line about Processor Clock Speed from prtconf:\n";
+      notesout join "\n   ", @mhz_lines;
+   }
+
+   # hw_ncores
+   my $ncores;
+   (my $nprocs) = grep /Number Of Processors/, @prtconf_lines;
+   if (defined $nprocs) {
+      if ($nprocs =~ m/Number Of Processors:\s*(\d+)/) {
+         $ncores = $1;
+      }
+      notesout "   $nprocs";
+   }
+
+   # hw_memory
+   (my $memsize) = grep m/^Memory Size:/, @prtconf_lines;
+   if (defined $memsize and $memsize =~ m/(\d+.*)/) {
+      $fields{"hw_memory"} = $1 .
+      "  fixme: format is: $pc4_format";
+      notesout "   $memsize\n";
+   }
+
+   # fw_bios
+   (my $firmware) = grep m/^Firmware Version:/, @prtconf_lines;
+   (my $ignore, $firmware) = split ":", $firmware;
+   if (defined $firmware and $firmware ne '') {
+      $firmware =~ s/.*\(|\)//g;
+      $fields{"fw_bios"} = $firmware;
+      notesout "   BIOS Version: $firmware\n";
+   }
+
+   print "log 0 ...getting chip/core/memory info\n" unless $quiet;
+
+   my $lcmd = 'lscfg -vplsysplanar0';
+   my @lscfg = qx{$lcmd};
+   if (! @lscfg) {
+      notesout "\n$lcmd\n   No result available";
+   } else {
+      notesout "\nWARNING regarding the output of 'lscfg':  this utility reports resources"
+      . " for the system, not the current partition.  Therefore, for a partition"
+      . " that has a subset of the full system resources:";
+      notesout "   (1) The tester may need to adjust the sysinfo-supplied 'hw_ncores'.";
+      notesout "   (2) The tester may need to adjust the sysinfo-supplied 'hw_nchips'.";
+      notesout "   (3) Be aware that 'hw_memory' is set from 'prtconf', and is correct"
+      . " for the partition, but \"Memory DIMM info from lscfg\" reports the"
+      . " number of DIMMs in the entire server. ";
+      chomp @lscfg;
+      # hw_nchips, hw_ncores
+      my @wayProc;
+      my $ways    = 0;
+      my $looking = 0;
+      for my $line (@lscfg) {
+         if ($line =~ m/(\d+)-WAY\s+PROC/) {
+            $ways += $1;
+            $looking = $line;
+            $looking =~ s/^\s+//;
+            next;
+         }
+         next unless $looking;
+         if ($line =~ m/FRU Number[.]+(\S+)/) {
+            push @wayProc, "$looking $1";
+            $looking = 0;
+         }
+      }
+      notesout "Processors, from $lcmd\n   " . join "\n   ", @wayProc;
+      my $nchips = scalar @wayProc;
+      if (! defined $ncores) {
+         $ncores = $ways;
+      } elsif ($ncores != $ways) {
+         notesout "   ^^^Note: sum of ways = $ways, differs from prtconf 'Number Of Processors'\n";
+         $ncores = "$ncores (?)";
+      }
+      $fields{"hw_nchips"} = $nchips;
+      $fields{"hw_ncores"} = $ncores;
+      #
+      # memory detail
+      my %dimms;
+      $looking = 0;
+      for my $line (@lscfg) {
+         $looking = 1 if ($line =~ m/Memory DIMM:/);
+         next unless $looking;
+         if ($line =~ m/FRU Number[.]+(\S+)/) {
+            $dimms{$1}++;
+            $looking = 0;
+         }
+      }
+      notesout "Memory DIMM info from lscfg:\n";
+      for my $type (sort keys %dimms) {
+         notesout sprintf "   %4dx %s", $dimms{$type}, $type;
+      }
+   }
+
+   print "log 0 ...getting os info\n" unless $quiet;
+
+   # sw_os
+   my $formal_os_name = qx{uname -s};
+   my $oslevel        = qx{oslevel};
+   my $oslevel_detail = qx{oslevel -s};
+   chomp $formal_os_name;
+   chomp $oslevel;
+   chomp $oslevel_detail;
+   notesout "\nOperating System: $formal_os_name $oslevel   $oslevel_detail\n";
+   $fields{"sw_os"} = "$formal_os_name $oslevel";
+
+   print "log 0 ...getting disk info\n" unless $quiet;
+
+   # hw_disk
+   my $s = defined($ENV{"SPEC"}) ? $ENV{'SPEC'} : '.';
+   my $dcmd = "df -k $s";
+   my @dlines = qx{$dcmd};
+   if (@dlines) {
+      chomp @dlines;
+      notesout "\ndisk: $dcmd\n   " . join "\n   ", @dlines;
+      (undef, my $blocks) = split " ", $dlines[$#dlines];
+      my @unit = ("KB", "MB", "GB", "TB");
+      my $n = 0;
+      while ($blocks > 1024) {
+         $blocks /= 1024;
+         $n++;
+      }
+      $fields{"hw_disk"} = sprintf "%.1f %s (add: type, other perf-relevant info)", $blocks, $unit[$n];
+   }
+
+   #--------- prepared by ----
+   my $who;
+   $who = $ENV{"LOGNAME"};
+   chomp $who;
+   $fields{"prepared_by"} = "$who  (is never output, only tags rawfile)";
+
+}
+
+
+#--------------------------------- Solaris ---------------
+sub sysinfo_solaris {
+
+   #--------- cpu name ----
+   print "log 0 ...getting CPU info\n" unless $quiet;
+
+   # Seen at least three formats output
+   #
+   #The physical processor has 1 virtual processor (0)
+   #  UltraSPARC-III (portid 0 impl 0x14 ver 0x34 clock 750 MHz)
+   #
+   #The physical processor has 4 virtual processors (0 4 8 12)
+   #  x86 (GenuineIntel 6FB family 6 model 15 step 11 clock 2933 MHz)
+   #        Intel(r) Xeon(r) CPU           X7350  @ 2.93GHz
+   #
+   #The physical processor has 8 cores and 64 virtual processors (0-63)
+   #  The core has 8 virtual processors (0-7)
+   #  The core has 8 virtual processors (8-15)
+   #  ...
+
+   notesout "From /usr/sbin/psrinfo \n";
+   my @cpuname = qx(/usr/sbin/psrinfo -pv | grep -v "processor has" | grep -v "core has" | sort | uniq);
+   for my $c (@cpuname) {
+      $c =~ s/\s+/ /g; # compress blanks
+      notesout "  $c";
+   }
+   if ($#cpuname == -1) {
+      $cpuname[0] = "Did not find cpu model name";
+   }
+   # try to reduce the number by ignoring stuff not needed
+   my @newcpuname;
+   for my $c (@cpuname) {
+      next if $c =~ m/^\s*x86\s+\(.*MHz\)\s*$/; # skip lines that say x86 (mumble)
+      $c =~ s/\((chipid|portid).*MHz\)//;       # remove port/chip numbers
+      my $seenit = 0;
+      for my $new (@newcpuname) {
+         $seenit = 1 if $new eq $c;
+      }
+      push (@newcpuname, $c) unless $seenit;
+   }
+   @cpuname = @newcpuname;
+   my $cpu;
+   if ($#cpuname > 0 ) {
+      $cpu = "more than one type";
+   } elsif ($#cpuname < 0) {
+      $cpu = "none found";
+   } else {
+      $cpu = $cpuname[0];
+   }
+   $fields{"hw_cpu_name"} =  simplify_cpu_name($cpu);
+
+   #--------- nchips ----
+
+   my $nchips = qx{/usr/sbin/psrinfo -p"};
+   chomp $nchips;
+   notesout "   $nchips chips\n";
+   $fields{"hw_nchips"} = $nchips;
+
+
+   #--------- threads ----
+
+   my $nthreads = qx{/usr/sbin/psrinfo | wc -l};
+   chomp $nthreads;
+   $nthreads =~ s/^\s+//;
+   $nthreads =~ s/\s+$//;
+   notesout "   $nthreads threads\n";
+
+   #--------- MHz ----
+
+   my $cmd = '/usr/sbin/psrinfo -v | grep processor | grep MHz | sort | uniq';
+   my @mhz_lines = qx{$cmd};
+   if ((@mhz_lines == 1) && ($mhz_lines[0] =~ m/(\d+)\s+MHz/)) {
+      my $mhz = $1;
+      notesout "   $mhz MHz";
+      $fields{"hw_cpu_nominal_mhz"} = $mhz;
+   } elsif (@mhz_lines > 1) {
+      notesout "\nMore than one MHz found!\n$cmd";
+      notesout join "\n   ", @mhz_lines;
+      $fields{"hw_cpu_nominal_mhz"} = "mixed!";
+   }
+
+   #--------- cores, threads ----
+
+   my $ncores = qx{/usr/bin/kstat cpu_info | grep -w core_id | sort -u | wc -l};
+   chomp $ncores;
+   if ($ncores != 0) {
+      notesout "\nFrom kstat: $ncores cores\n";
+      $fields{"hw_ncores"} = $ncores;
+   }
+   $fields{"hw_nthreadspercore"} = divide_maybe($nthreads, $ncores);
+
+   #--------- memory ----
+   print "log 0 ...getting memory info\n" unless $quiet;
+
+   my $memsize = qx{/usr/sbin/prtconf | grep \"Memory size:\"};
+   chomp $memsize;
+   $memsize =~ s/Memory size:\s*//;
+   if ($memsize =~ m/(\d+)\s*Megabytes/i) {
+       notesout "\nFrom prtconf: $memsize\n";
+       my $megabytes = $1;
+       $fields{"hw_memory001"} = sprintf "%.3f GB fixme: If using DDR4, the format is:", $megabytes / 1024;
+       $fields{"hw_memory002"} = $pc4_format;
+   }
+
+   #--------- sw OS ----
+   print "log 0 ...getting OS info\n" unless $quiet;
+   if (-e "/etc/release") {
+       my $etc_release;
+       $etc_release = qx{head -1 /etc/release};
+       $etc_release =~ s/^\s+//;
+       notesout "\n/etc/release:\n   $etc_release";
+       $etc_release =~ s/(Oracle|Sun)//;
+       $etc_release =~ s/(SPARC|X86)//i;
+       $etc_release =~ s/\s+/ /g;
+       $etc_release =~ s/^\s//;
+       $fields{"sw_os"} = $etc_release; 
+   }
+   if (-x "/usr/bin/pkg") {
+       my $pkg_release = qx{/usr/bin/pkg info entire | grep \"Version:\"};
+       $pkg_release =~ s/^\s+//;
+       notesout "From pkg info entire:\n   $pkg_release";
+       $fields{"sw_os"} = $1  if ($pkg_release =~ m/\s\((.+)\)$/);
+   }
+   my $uname = qx{uname -a};
+   notesout "uname -a:\n   $uname";
+
+   #--------- run level ----
+   my $whoami;
+   if (-x        "/usr/gnu/bin/who") {
+       $whoami = "/usr/gnu/bin/who";
+   } elsif (-x "/bin/who") {
+       $whoami = "who";
+   }
+   my $rline = qx{$whoami -r};
+   $rline =~ s/^\s+//;
+   notesout      "$whoami -r\n   $rline";
+   if ($rline =~ m/run-level\s+(\S)/i) {
+      $fields{"sw_state"} = "Run level $1 (add definition here)";
+   } else {
+      $fields{"sw_state"} = "Run level N (add definition here)";
+   }
+
+   #--------- disk ----
+   print "log 0 ...getting disk info\n" unless $quiet;
+
+   # is -h likely to be supported?
+   my $s = defined($ENV{"SPEC"}) ? $ENV{'SPEC'} : '.';
+   $cmd = "df -h $s";
+   my @dlines = qx{$cmd};
+   if ($? != 0) {
+      $cmd = "df -k $s";
+      @dlines = qx{$cmd};
+   }
+   notesout "\ndisk: $cmd";
+   notesout @dlines;
+
+   #--------- prepared by ----
+   my $who;
+   $who = $ENV{"LOGNAME"};
+   chomp $who;
+   $fields{"prepared_by"} = "$who  (is never output, only tags rawfile)";
+
+}
+
+
+#--------------------------------- Windows --------------
+sub sysinfo_mswin {
+   my $processor_next;
+   my $nchips = 0;
+   my $ncores = 0;
+   my $logical_procs = 0;
+   my $kount = 0;
+
+   #--------- talk to 'wmic' -----
+
+   #
+   # ==== System name, etc ====
+   #
+   print "log 0 ...getting SUT info\n" unless $quiet;
+   notesout "System\n";
+   notesout "...wmic computersystem, wmic bios\n";
+
+   # Model=
+   # Manufacturer=
+   my $cmd = "wmic computersystem get model,manufacturer /value";
+   my @wmicout = qx{$cmd 2>&1};
+   if (@wmicout < 3 || $wmicout[0] =~ m/not recognized/) {
+      my $tryhere = "$ENV{'SystemRoot'}/System32/Wbem/WMIC.exe";
+      if (-e $tryhere) {
+         $cmd =~ s/^wmic/$tryhere/;
+         @wmicout = qx{$cmd 2>&1};
+      }
+   }
+
+   for my $aline (@wmicout) {
+      chomp $aline;
+      # somehow chomp not killing return... and i'm afraid to mess with $/
+      $aline =~ s/\r/ /g;
+      $aline =~ s/\s+/ /g;
+      $aline =~ s/\s+$//;
+      next if $aline !~ m/=/;
+      (my $fname, my $fcontent) = split("=", $aline, 2);
+      if ($fname =~ m/^Model$/) {
+         notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+         $fields{"hw_model"} = $fcontent;
+      } elsif ($fname =~ m/^Manufacturer$/) {
+         notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+         $fields{"hw_vendor"} = $fcontent;
+      }
+   }
+
+   # Add the BIOS to SUT output
+   print "log 0 ...getting BIOS info\n" unless $quiet;
+
+   # SMBIOSVersion=
+   # Manufacturer=
+   # ReleaseDate=
+
+   my $bios_oem;
+   my $bios_version;
+   my $bios_releasedate;
+
+   $cmd = "wmic bios get manufacturer,releasedate,smbiosbiosversion /value";
+   @wmicout = qx{$cmd 2>&1};
+   if (@wmicout < 3 || $wmicout[0] =~ m/not recognized/) {
+      my $tryhere = "$ENV{'SystemRoot'}/System32/Wbem/WMIC.exe";
+      if (-e $tryhere) {
+         $cmd =~ s/^wmic/$tryhere/;
+         @wmicout = qx{$cmd 2>&1};
+      }
+   }
+
+   for my $aline (@wmicout) {
+      chomp $aline;
+      # somehow chomp not killing return... and i'm afraid to mess with $/
+      $aline =~ s/\r/ /g;
+      $aline =~ s/\s+/ /g;
+      $aline =~ s/\s+$//;
+      next if $aline !~ m/=/;
+      (my $fname, my $fcontent) = split("=", $aline, 2);
+
+      if ($fname =~ m/^Manufacturer$/) {
+         $bios_oem = $fcontent;
+      } elsif ($fname =~ m/^ReleaseDate$/) {
+         $bios_releasedate = $fcontent;
+      } elsif ($fname =~ m/^SMBIOSBIOSVersion$/) {
+          $bios_version = $fcontent;
+      }
+   }
+   $fields{"fw_bios"} = sprintf "%s %s, %s/%s/%s", $bios_oem, $bios_version,
+                                                                   substr($bios_releasedate,4,2),
+                                                                   substr($bios_releasedate,6,2),
+                                                                   substr($bios_releasedate,0,4);
+
+   notesout sprintf "%-${fnwidth}s: %s\n","BIOS", $fields{"fw_bios"};
+
+   #
+   # ==== OS ====
+   #
+   print "log 0 ...getting OS info\n" unless $quiet;
+   notesout "\nOS\n";
+   notesout "...wmic os\n";
+
+   # Caption=
+   # Version=
+   $cmd = "wmic os get caption, OSArchitecture, version /value";
+
+   @wmicout = qx{$cmd 2>&1};
+   if (@wmicout < 3 || $wmicout[0] =~ m/not recognized/) {
+      my $tryhere = "$ENV{'SystemRoot'}/System32/Wbem/WMIC.exe";
+      if (-e $tryhere) {
+         $cmd =~ s/^wmic/$tryhere/;
+         @wmicout = qx{$cmd 2>&1};
+      }
+   }
+
+   my $os_name;
+   my $os_bitness;
+
+   for my $aline (@wmicout) {
+      chomp $aline;
+      # somehow chomp not killing return... and i'm afraid to mess with $/
+      $aline =~ s/\r/ /g;
+      $aline =~ s/\s+/ /g;
+      $aline =~ s/\s+$//;
+      next if $aline !~ m/=/;
+      (my $fname, my $fcontent) = split("=", $aline, 2);
+      if ($fname =~ m/^Caption$/) {
+         notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+         $os_name = $fcontent;
+      } elsif ($fname =~ m/^OSArchitecture$/) {
+         notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+         $os_bitness = $fcontent;
+      } elsif ($fname =~ m/^Version$/) {
+         notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+         $fields{"sw_os002"} = sprintf "Build %s",$fcontent;
+      }
+   }
+
+   $fields{"sw_os001"} = sprintf "%s (%s)", $os_name, $os_bitness;
+
+   #
+   # ==== CPU ====
+   #
+   print "log 0 ...getting CPU info\n" unless $quiet;
+   notesout "\nCPU\n";
+   notesout "...wmic cpu\n";
+
+   # We'll first list the names only - display order from wmic can't be controlled - we always want the CPU name first
+
+   # Name=Intel(R) Core(TM) i5 CPU       M 520  @ 2.40GHz
+
+   $cmd = "wmic cpu get name /value";
+   @wmicout = qx{$cmd 2>&1};
+   if (@wmicout < 3 || $wmicout[0] =~ m/not recognized/) {
+      my $tryhere = "$ENV{'SystemRoot'}/System32/Wbem/WMIC.exe";
+      if (-e $tryhere) {
+         $cmd =~ s/^wmic/$tryhere/;
+         @wmicout = qx{$cmd 2>&1};
+      }
+   }
+
+   for my $aline (@wmicout) {
+      chomp $aline;
+      # somehow chomp not killing return... and i'm afraid to mess with $/
+      $aline =~ s/\r/ /g;
+      $aline =~ s/\s+/ /g;
+      $aline =~ s/\s+$//;
+      next if $aline !~ m/=/;
+      (my $fname, my $fcontent) = split("=", $aline, 2);
+
+      if ($nchips <= 0) {
+         notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+         $fields{"hw_cpu_name"} = simplify_cpu_name($fcontent);
+     }
+     $nchips++;
+   }
+
+   # Show how many chips were found
+   if ($nchips > 0) {
+      my $chip_noun = "chip";
+
+      if ($nchips > 1) {
+          $chip_noun = $chip_noun . "s";
+      }
+      notesout sprintf "%-${fnwidth}s: (%d %s)\n", " ", $nchips,$chip_noun;
+      $fields{"hw_nchips"} = $nchips;
+   }
+
+   # Now, we'll get the characteristics (assumption is made that only one type is supported on x86)
+
+   # L2CacheSize=256
+   # L3CacheSize=3072
+   # MaxClockSpeed=2400
+   # Name=Intel(R) Core(TM) i5 CPU       M 520  @ 2.40GHz
+   # NumberOfCores=2
+   # NumberOfLogicalProcessors=4
+
+   $cmd = "wmic cpu get l2cachesize,l3cachesize,maxclockspeed,numberofcores,numberoflogicalprocessors /value";
+   @wmicout = qx{$cmd 2>&1};
+   if (@wmicout < 3 || $wmicout[0] =~ m/not recognized/) {
+      my $tryhere = "$ENV{'SystemRoot'}/System32/Wbem/WMIC.exe";
+      if (-e $tryhere) {
+         $cmd =~ s/^wmic/$tryhere/;
+         @wmicout = qx{$cmd 2>&1};
+      }
+   }
+
+   $kount = 0;
+
+   for my $aline (@wmicout) {
+      chomp $aline;
+      # somehow chomp not killing return... and i'm afraid to mess with $/
+      $aline =~ s/\r/ /g;
+      $aline =~ s/\s+/ /g;
+      $aline =~ s/\s+$//;
+      next if $aline !~ m/=/;
+      (my $fname, my $fcontent) = split("=", $aline, 2);
+
+      # wmic will do this for each CPU, but we only need to collect it once
+      if ($kount <= 0) {
+         if ($fname =~ m/^L2CacheSize$/) {
+            notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+            $fields{"hw_scache"} = "$fcontent KB I+D on/off chip per ____";
+         } elsif ($fname =~ m/^L3CacheSize$/) {
+            notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+            $fields{"hw_tcache"} =  "$fcontent KB I+D on/off chip per ____";
+         } elsif ($fname =~ m/^MaxClockSpeed$/) {
+            notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+            $fields{"hw_cpu_nominal_mhz"} = $fcontent;
+         } elsif ($fname =~ m/^Name$/) {
+            notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+            $fields{"hw_cpu_name"} = simplify_cpu_name($fcontent);
+         } elsif ($fname =~ m/^NumberOfCores$/) {
+            notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+            $ncores = $fcontent;
+            $fields{"hw_ncores"} = $fcontent;
+         } elsif ($fname =~ m/^NumberOfLogicalProcessors$/) {
+            notesout sprintf "%-${fnwidth}s: %s\n", $fname, $fcontent;
+            $logical_procs = $fcontent;
+            $kount++;
+        }
+    }
+   }
+
+   $fields{"hw_nthreadspercore"} = divide_maybe($logical_procs, $ncores);
+
+   #
+   # ==== Memory DIMM  ====
+   #
+   print "log 0 ...getting memory info\n" unless $quiet;
+   notesout "\nMemory\n";
+   notesout "...wmic memorychip\n";
+
+   # Capacity
+   # ConfiguredClockSpeed
+   # Manufacturer
+   # PartNumber
+   # Speed
+
+   # Don't want to get specific with this wmic command - not all fields are supported on all systems
+   $cmd = "wmic memorychip get /value";
+   @wmicout = qx{$cmd 2>&1};
+   if (@wmicout < 3 || $wmicout[0] =~ m/not recognized/) {
+      my $tryhere = "$ENV{'SystemRoot'}/System32/Wbem/WMIC.exe";
+      if (-e $tryhere) {
+         $cmd =~ s/^wmic/$tryhere/;
+         @wmicout = qx{$cmd 2>&1};
+      }
+   }
+
+   # We're not going to simply display output from WMIC as it's printed
+   # Instead, we will use the data to keep track of the different part numbers AND each of their characteristics
+   # That way the list is short (n x part) rather than listing each one, per line.
+   my $mem_capacityGB;
+   my $mem_capacityRaw;
+   my $mem_configuredclock = 0;
+   my $mem_manufacturer;
+   my $mem_partnumber;
+   my $mem_speed;
+
+   my $mem_total = 0;
+   my $mem_dimms_kount = 0;
+   my $mem_dimm_index = 0;
+   my $mem_print;
+
+   my @all_capacityGB;
+   my @all_capacityRaw;
+   my @all_configuredclock;
+   my @all_manufacturer;
+   my @all_partnumber;
+   my @all_speed;
+   my @all_dimms_kount;
+
+   for my $aline (@wmicout) {
+       chomp $aline;
+       # somehow chomp not killing return... and i'm afraid to mess with $/
+       $aline =~ s/\r/ /g;
+       $aline =~ s/\s+/ /g;
+       $aline =~ s/\s+$//;
+       next if $aline !~ m/=/;
+       (my $fname, my $fcontent) = split("=", $aline, 2);
+       if ($fname =~ m/^Capacity$/) {
+           $mem_capacityGB = $fcontent/(1024*1024*1024);
+           $mem_capacityRaw = $fcontent;
+           $mem_total += $mem_capacityGB;
+       } elsif ($fname =~ m/^ConfiguredClockSpeed$/) {
+           $mem_configuredclock = $fcontent;
+       } elsif ($fname =~ m/^Manufacturer$/) {
+           $mem_manufacturer = $fcontent;
+       } elsif ($fname =~ m/^PartNumber$/) {
+           $mem_partnumber = $fcontent;
+       } elsif ($fname =~ m/^Speed$/) {
+           # The following logic assumes that Speed is the last atrribute in the list from wmic
+           $mem_speed = $fcontent;
+
+           # Check to see if we've seen this part before
+           my $found = 0;
+           $kount = 0;
+
+           # Look through the part arrays to see if we've seen this part (after first pass)
+           if ($mem_dimms_kount > 0) {
+               while ($kount <= $mem_dimm_index) {
+                   if ($all_partnumber[$kount] eq $mem_partnumber) {
+                       $found++;
+                   }
+                   $kount++;
+               }
+
+               if (not $found) {
+                   $mem_dimm_index++;
+               }
+           }
+
+           # Add the new part if we haven't seen it yet
+           if ( not $found) {
+               $all_capacityGB[$mem_dimm_index] = $mem_capacityGB;
+               $all_capacityRaw[$mem_dimm_index] = $mem_capacityRaw;
+               $all_configuredclock[$mem_dimm_index] = $mem_configuredclock;
+               $all_manufacturer[$mem_dimm_index] = $mem_manufacturer;
+               $all_partnumber[$mem_dimm_index] = $mem_partnumber;
+               $all_speed[$mem_dimm_index] = $mem_speed;
+           } else {
+               $found = 0;
+           }
+           $all_dimms_kount[$mem_dimm_index]++;
+
+           #keep this counter here because it's used above for first-pass logic
+           $mem_dimms_kount++;
+       }
+   }
+
+   # Some useful information for the user - include the characteristics we already know.
+   $mem_print = sprintf "%d GB (%d x %d GB nRxn PCn-%dT", $mem_total,$mem_dimms_kount,$mem_capacityGB,$mem_speed;
+   if ($mem_configuredclock != 0 and $mem_configuredclock != $mem_speed) {
+       $mem_print = $mem_print . sprintf ", configured at %s", $mem_configuredclock;
+   }
+   $fields{"hw_memory"} = sprintf "%s) ** fixme **\n",$mem_print;
+
+   # Display each different type of part, with the number of occurrences
+   $kount = 0;
+   while ($kount <= $mem_dimm_index) {
+
+       $mem_print = sprintf "%4d x %s %s %d GB (%d) at %s", $all_dimms_kount[$kount],
+                                                            $all_manufacturer[$kount],
+                                                            $all_partnumber[$kount],
+                                                            $all_capacityGB[$kount],
+                                                            $all_capacityRaw[$kount],
+                                                            $all_speed[$kount];
+
+      if ($all_configuredclock[$kount] != 0 and  $all_configuredclock[$kount] != $all_speed[$kount]) {
+          $mem_print = $mem_print . sprintf ", configured at %s", $all_configuredclock[$kount];
+      }
+      notesout sprintf "%s\n",$mem_print;
+      $kount++;
+   }
+
+   # Total should appear first in the notes section
+   notesout sprintf "%-${fnwidth}s: %s GB\n","Total Memory",$mem_total;
+
+   #
+   # ==== Disks  ====
+   #
+   print "log 0 ...getting disk info\n" unless $quiet;
+   notesout "\nDisks\n";
+   notesout "...wmic diskdrive\n";
+
+   # Model
+   # Size
+   $cmd = "wmic diskdrive get model,size /value";
+   @wmicout = qx{$cmd 2>&1};
+   if (@wmicout < 3 || $wmicout[0] =~ m/not recognized/) {
+      my $tryhere = "$ENV{'SystemRoot'}/System32/Wbem/WMIC.exe";
+      if (-e $tryhere) {
+         $cmd =~ s/^wmic/$tryhere/;
+         @wmicout = qx{$cmd 2>&1};
+      }
+   }
+
+   my $disk_model;
+   my $disk_size;
+
+   for my $aline (@wmicout) {
+      chomp $aline;
+      # somehow chomp not killing return... and i'm afraid to mess with $/
+      $aline =~ s/\r/ /g;
+      $aline =~ s/\s+/ /g;
+      $aline =~ s/\s+$//;
+      next if $aline !~ m/=/;
+      (my $fname, my $fcontent) = split("=", $aline, 2);
+      if ($fname =~ m/^Model$/) {
+        $disk_model = $fcontent;
+      } elsif ($fname =~ m/^Size$/) {
+          $disk_size = $fcontent/(1024*1024*1024);
+          notesout sprintf "%s %d GB", $disk_model,$disk_size;
+      }
+   }
+
+   $fields{"hw_disk"} = sprintf "n x %d GB SATA/SSD/SAS nnnn RPM ** fixme **",$disk_size;
+
+   #--------- prepared by----
+
+   my $who;
+   $who = $ENV{"USERNAME"};
+   chomp $who;
+   $fields{"prepared_by"} = "$who  (is never output, only tags rawfile)";
+}
+
+#--------------------------------- Mac OS X
+sub sysinfo_macosx {
+
+   #--------- talk to system_profiler ----
+   print "log 0 ...getting system info from system profiler\n" unless $quiet;
+
+   my $profile_app = "/usr/sbin/system_profiler";
+   my @profile_lines;
+   if (! -e $profile_app || ! -x $profile_app) {
+      notesout "could not access system profiler";
+   } else {
+      @profile_lines = qx{$profile_app SPHardwareDataType SPSoftwareDataType SPMemoryDataType SPDeveloperToolsDataType 2>/dev/null};
+      if (! @profile_lines) {
+         notesout "no info returned by system profiler";
+      } else {
+         notesout @profile_lines;
+      }
+   }
+   for my $line (@profile_lines) {
+      chomp $line;
+      if ($line =~ m/Model Name:\s+(.*)/) { # a good thing to find
+         $fields{"hw_model"} = $1;
+      } elsif ($line =~ m/Model Identifier:\s+(.*)/) { # even better
+         $fields{"hw_model"} = $1;
+      } elsif ($line =~ m/Processor Name:\s+(.*)/) {
+         $fields{"hw_cpu_name"} = $1;
+      } elsif ($line =~ m/Processor Speed:\s+(.*)\s*GHz/) {
+         my $ghz = $1;
+         my $mhz = $1 * 1000;
+         $fields{"hw_cpu_nominal_mhz"} = $mhz;
+      } elsif ($line =~ m/Number Of Processors:\s+(.*)/i) {
+         $fields{"hw_nchips"} = $1;
+      } elsif ($line =~ m/Total Number Of Cores:\s+(.*)/i) {
+         $fields{"hw_ncores"} = $1;
+      }
+      #                 L2 Cache (per Core): 256 KB
+      elsif ($line =~ m/L2 Cache(?:\s+\(([^)]+)\))?:\s+(.*)/) {
+         $fields{"hw_scache"} = $2;
+         if (defined($1) && $1 ne '') {
+            $fields{"hw_scache"} .= lc " $1";
+         }
+      } elsif ($line =~ m/L3 Cache(?:\s+\(([^)]+)\))?:\s+(.*)/) {
+         $fields{"hw_tcache"} = $2;
+         if (defined($1) && $1 ne '') {
+            $fields{"hw_tcache"} .= lc " $1";
+         }
+      } elsif ($line =~ m/Memory:\s+(\d+)\s*(.*)/) {
+         my $memory = $1;
+         my $unit = $2;
+         $fields{"hw_memory001"} = sprintf(
+            "%.1f %s fixme: If using DDR4, the format is:",
+            $memory, $unit);
+         $fields{"hw_memory002"} = $pc4_format;
+      } elsif ($line =~ m/System Version:\s+(.*)/) {
+         $fields{"sw_os"} = $1;
+      } elsif ($line =~ m/Xcode:\s+(.*)/) {
+         $fields{"sw_other"} = "Xcode $1";
+      }
+   }
+
+   my $sysctl = "/usr/sbin/sysctl";
+   if (-x $sysctl) {
+      my @wantstrings = qw(hw.memsize
+      cache
+      hw.memsize
+      hw.activecpu
+      hw.physicalcpu
+      hw.logicalcpu
+      hw.pagesize
+      hw.cpufrequency
+      machdep.cpu.vendor
+      machdep.cpu.brand_string
+      machdep.cpu.*features
+      machdep.cpu.microcode_version
+      machdep.cpu.core_count
+      machdep.cpu.thread_count
+      );
+      my $regexp = join "|", @wantstrings;
+      print "log 0 ...getting system info from sysctl\n" unless $quiet;
+      my @sysctl_lines = grep /$regexp/, qx{$sysctl machdep.cpu hw 2>/dev/null};
+      if (!@sysctl_lines) {
+         notesout "\nNo info available from sysctl";
+      } else {
+         notesout "\nFrom sysctl:\n";
+         my $l1_isize;
+         my $l1_dsize;
+         for my $line (@sysctl_lines) {
+            chomp $line;
+            notesout "   ".$line;
+            if ($line =~ m/^hw.l1icachesize:\s+(\d+)/) {
+               $l1_isize = bytes_to_integral_other_unit($1);
+            } elsif ($line =~ m/^hw.l1dcachesize:\s+(\d+)/) {
+               $l1_dsize = bytes_to_integral_other_unit($1);
+            } elsif ($line =~ m/machdep.cpu.brand_string:\s+(.*)/) {
+               my $cpu_brand_string = $1;
+               $fields{"hw_cpu_name"} = simplify_cpu_name $1;
+            }
+         }
+         if (defined $l1_isize and defined $l1_dsize) {
+            $fields{"hw_pcache"} = "$l1_isize I + $l1_dsize D on/off chip per something";
+         }
+      }
+   }
+
+   #--------- hw_disk  ----
+   print "log 0 ...getting disk info\n" unless $quiet;
+
+   my $s = defined($ENV{'SPEC'}) ? $ENV{'SPEC'} : '.';
+   if ($s ne '.') {
+      notesout "\nSPEC is set to: $s";
+   } else {
+      notesout "\ndf -h .";
+   }
+   my @dlines = qx{/bin/df -H $s};
+   for my $d (@dlines) {
+      notesout "   $d";
+   }
+   # expecting:
+   #    Filesystem     Size   Used  Avail Capacity  Mounted on
+   #    /dev/disk0s2   320G   161G   158G    51%    /
+   if ((scalar @dlines == 2) && ($dlines[0] =~ m/Filesystem/)) {
+      my $fssize = (split " ", $dlines[1])[1];
+      $fssize =~ s{(\d+)(M|G|T)$}{$1 $2B};
+      if (defined $ENV{"SPEC"}) {
+         $fields{"hw_disk"} = "";
+      } else {
+         $fields{"hw_disk"} .= "SPEC not defined; current disk has: ";
+      }
+      $fields{"hw_disk"} .= "$fssize  add more disk info here";
+   } else {
+      $fields{"hw_disk"} = " add disk info here";
+   }
+
+   #--------- prepared by ----
+
+   my $who;
+   $who = $ENV{"LOGNAME"};
+   chomp $who;
+   $fields{"prepared_by"} = "$who  (is never output, only tags rawfile)";
+}
+
+
+#--------------------------------- Linux --------------------------------------
+sub sysinfo_linux {
+
+   # There is code below that looks for various possible matches in /etc for
+   # possible release or version info.  If there are multiple hits, then the
+   # first match from this list wins.
+
+   my @prefer_id = qw(
+   /etc/oracle-release
+   /etc/enterprise-release
+   /etc/redhat-release
+   /etc/SuSE-release
+   /etc/sles-release
+   /etc/debian_version
+   /etc/mandrake-release
+   /etc/UnitedLinux-release
+   /etc/gentoo-release
+   /etc/linuxppc-release
+   /etc/nld-release
+   /etc/slackware-version
+   /etc/yellowdog-release
+   );
+   my %prefer_id;
+   for (my $i=0; $i <= $#prefer_id; $i++) {
+      $prefer_id{$prefer_id[$i]} = $i;
+   }
+   # after the above loop, $prefer_id{OS} contains a number indicating its priority
+
+   #--------- cpu name ----
+   print "log 0 ...getting CPU info\n" unless $quiet;
+
+   notesout "From /proc/cpuinfo";
+   my @cpuname = qx'grep "model name" /proc/cpuinfo | sort | uniq';
+   my @cpumoreinfo;
+   if (@cpuname == 0) {
+      # hmmm... maybe power or sparc?
+      @cpuname = qx'grep -P "^cpu\s+:" /proc/cpuinfo | uniq';
+      if (@cpuname) {
+         if ($cpuname[0] =~ m/power/i) {  #
+            notesout "  'clock : ' reported by /proc/cpuinfo may not be reliable. Use with caution.\n";
+            push (@cpumoreinfo,
+               qx'grep -P "(clock|revision|platform|model|machine)\s+" /proc/cpuinfo | sort | uniq'
+            );
+            notesout "";
+         } elsif ($cpuname[0] =~ m/sparc/i) {
+            push (@cpumoreinfo,
+               qx'grep -P "(pmu|prom|type|ncpus probed|ncpus active|cpucaps)\s+" /proc/cpuinfo'
+            );
+         }
+      }
+   }
+   for my $c (@cpuname, @cpumoreinfo) {
+      $c =~ s/\s+/ /g;   # make multiple spaces one
+      $c =~ s/^\s*/   /; # but do indent a little
+      notesout $c;
+   }
+   my $cpu;
+   if (@cpuname == 0) {
+      notesout <<EOF;
+*
+* Did not identify cpu model.  If you would
+* like to write your own sysinfo program, see
+* www.spec.org/cpu2017/config.html#sysinfo
+*
+EOF
+      $cpu = $punt;
+   } elsif (@cpuname > 1 ) {
+      $cpu = "more than one type";
+   } else {
+      (my $ignore, $cpu) = split ":", $cpuname[0];
+      chomp $cpu;
+      $cpu = simplify_cpu_name($cpu);
+   }
+   $fields{"hw_cpu_name"} = $cpu;
+
+   #--------- chip-dependent stuff -----
+
+   if ($cpu =~ m/power/i) {
+      ($fields{"hw_nchips"},
+         $fields{"hw_ncores"},
+         $fields{"hw_nthreadspercore"}) = linux_power_chip();
+   } elsif ($cpu =~ m/sparc/i) {
+      ($fields{"hw_nchips"},
+         $fields{"hw_ncores"},
+         $fields{"hw_nthreadspercore"}) = linux_sparc_chip();
+   } else {
+      #
+      # assume some sort of x86, where we do not try to guess number of cores/chips
+      #
+      $fields{"hw_nchips"} = linux_x86_chip();
+   }
+
+   #--------- cache ----
+
+   my @cache = qx{grep -i cache /proc/cpuinfo | grep -v alignment | sort | uniq};
+   if (@cache) {
+      notesout "\n/proc/cpuinfo cache data";
+      for my $c (@cache) {
+         $c =~ s/\s+/ /g;
+         notesout "   $c";
+      }
+   }
+
+   # ---- Get the view of cpu and memory according to numactl
+   print "log 0 ...getting info from numactl\n" unless $quiet;
+   notesout "\nFrom numactl --hardware  "
+   . "WARNING: a numactl 'node' might or might not correspond to a physical chip.";
+   for my $nline (qx{numactl --hardware}) {
+      notesout "  $nline";
+   }
+
+   #--------- memory ----
+   print "log 0 ...getting memory info\n" unless $quiet;
+
+   # MemTotal:     65995536 kB
+   notesout "\nFrom /proc/meminfo";
+   (my $memtotal) = qx{grep MemTotal: /proc/meminfo};
+   if (defined($memtotal) and $memtotal =~ /MemTotal:\s+(\d+)\s+kb/i) {
+      my $memory = $1;
+      notesout "   $memtotal";
+      my $unit = "GB";
+      $memory = $memory / 1024 / 1024;
+      $fields{"hw_memory001"} = sprintf
+      "%.3f %s fixme: If using DDR4, the format is:",
+      $memory, $unit;
+      $fields{"hw_memory002"} = $pc4_format;
+   } else {
+      notesout "Did not find total memory in /proc/meminfo";
+      $fields{"hw_memory"} = $pc4_format;
+   }
+   # HugePages_Total:     0
+   (my $hugetotal) = qx{grep HugePages_Total: /proc/meminfo};
+   notesout "   $hugetotal" if defined $hugetotal;
+   # Hugepagesize:     2048 kB
+   (my $hugesize) = qx{grep Hugepagesize: /proc/meminfo};
+   notesout "   $hugesize" if defined $hugesize;
+
+   #--------- sw_os1 ----
+   print "log 0 ...getting OS info\n" unless $quiet;
+
+   my $sw_os1 = "";
+   my $sw_os1_filled_by = 9999; # preference rank of current content
+   #
+   # try lsb_release first; if found, it gets top preference
+   #
+   if (-x "/usr/bin/lsb_release") {
+      my $cmd = "/usr/bin/lsb_release -d";
+      if (my $lsb = qx{$cmd}) {
+         chomp $lsb;
+         $lsb =~ s/\s*Description:\s*//;
+         $lsb =~ s/\s+/ /g;
+         notesout "\n$cmd\n   $lsb";
+         if ($lsb !~ /^\s*$/) {
+            $sw_os1 = $lsb;
+            $sw_os1_filled_by = -1;
+         }
+      }
+   }
+   #
+   # check out other methods too
+   #
+   notesout "\n";
+   my @rfiles = qx{ls /etc/*release* /etc/*version* 2>/dev/null};
+   if (@rfiles < 1 && $sw_os1 eq "") {
+      notesout "Did not find /etc/*release* nor /etc/*version*/";
+   }
+   my $printed_rlshdr = 0;
+   for my $rfile (@rfiles) {
+      chomp $rfile;
+      # plain file, readable, nonzero, text
+      next unless (-f $rfile && -r $rfile && -s $rfile && -T $rfile);
+      next if $rfile eq "/etc/lsb-release";
+      notesout "From /etc/*release* /etc/*version*" unless $printed_rlshdr;
+      $printed_rlshdr = 1;
+      my $this_rank;
+      if (defined $prefer_id{$rfile}) {
+         $this_rank = $prefer_id{$rfile};
+      } else {
+         $this_rank = 9999;
+      }
+      my @rlines = qx{head -8 $rfile};
+      my $rs = $rfile; #shorter handle
+      $rs =~ s{/etc/}{};
+      if (@rlines == 1) {
+         my $l = $rlines[0];
+         $l =~ s/\s+/ /;
+         $l =~ s/^\s*//;
+         notesout "   $rs: $l";
+      } else {
+         notesout "   $rs:\n";
+         for my $l (@rlines) {
+            $l =~ s/\s+/ /;
+            $l =~ s/^\s*/      /;
+            notesout $l;
+         }
+      }
+      if (($sw_os1 eq "") || ($sw_os1_filled_by > $this_rank)) {
+         chomp $rlines[0];
+         $rlines[0] = "debian " . $rlines[0] if $rfile =~ m/debian/;
+         $sw_os1 = $rlines[0];
+         $sw_os1_filled_by = $this_rank;
+      }
+   }
+
+   #--------- sw_os2 ----
+
+   my $un = qx{uname -a};
+   chomp $un;
+   notesout "\nuname -a:\n   $un";
+   my $sw_os2 = qx{uname -r};
+   chomp $sw_os2;
+   $sw_os1 =~ s/^\s+//;
+   $sw_os2 =~ s/^\s+//;
+   $fields{"sw_os001"} = $sw_os1;
+   $fields{"sw_os002"} = $sw_os2;
+
+   #--------- vulnerability status ----
+
+   my $kernel_vuln_dir = '/sys/devices/system/cpu/vulnerabilities';
+   my @vuln_files = read_directory_files($kernel_vuln_dir);
+   # Constructing the map like
+   my %kernel_vuln_files = (
+      (map { $_ => $_ } @vuln_files),
+      'mds'               => 'Microarchitectural Data Sampling',
+      'l1tf'              => 'CVE-2018-3620 (L1 Terminal Fault)',
+      'meltdown'          => 'CVE-2017-5754 (Meltdown)',
+      'spectre_v1'        => 'CVE-2017-5753 (Spectre variant 1)',
+      'spectre_v2'        => 'CVE-2017-5715 (Spectre variant 2)',
+      'spec_store_bypass' => 'CVE-2018-3639 (Speculative Store Bypass)',
+   );
+   print "log 0 ...getting CPU vulnerability status from the kernel\n";
+   notesout " ";
+   notesout "Kernel self-reported vulnerability status:";
+   notesout " ";
+   my $label_width = max(map { length } values %kernel_vuln_files) + 1;
+   foreach my $vuln_file (sort keys %kernel_vuln_files) {
+      my $vuln_label = sprintf '%*s', -$label_width, $kernel_vuln_files{$vuln_file}.':';
+      notesout read_vuln_file($vuln_label, $kernel_vuln_dir.'/'.$vuln_file);
+   }
+
+   #--------- runlevel ----
+
+   my $rline = qx{who -r};
+   chomp $rline;
+   $rline =~ s/\s+/ /g;
+   $rline =~ s/^\s+//;
+   notesout "\n$rline";
+   if ($rline =~ m/^\s*run-level\s(\S)/) {
+      my $rl = $1;
+      $fields{"sw_state"} = "Run level $1 (add definition here)";
+   } else {
+      $fields{"sw_state"} = "Run level N (add definition here)";
+   }
+
+   #--------- disk ----
+   print "log 0 ...getting disk info\n" unless $quiet;
+
+   my $s = defined($ENV{'SPEC'}) ? $ENV{'SPEC'} : '.';
+   if ($s ne '.') {
+      notesout "\nSPEC is set to: $s";
+   } else {
+      notesout "\ndf -h .";
+   }
+   my @dlines = qx{df -Th $s};
+   for my $d (@dlines) {
+      notesout "   $d";
+   }
+   # expecting a header line plus a data line, which might be split over
+   # 2 actual lines
+   if ((@dlines <= 3) and (@dlines and $dlines[0] =~ m/^Filesystem/)) {
+      my $dl = $dlines[1];
+      $dl .= " $dlines[2]" if defined $dlines[2];
+      (my $ignore, my $fstype, my $fssize) = split " ", $dl;
+      $fields{"sw_file"} = $fstype;
+      $fssize =~ s{(\d+)(G|T)$}{$1 $2B};
+      if (defined $ENV{"SPEC"}) {
+         $fields{"hw_disk"} = "";
+      } else {
+         $fields{"hw_disk"} .= "SPEC not defined; current disk has: ";
+      }
+      $fields{"hw_disk"} .= "$fssize  add more disk info here";
+   } else {
+      $fields{"hw_disk"} = " add disk info here";
+   }
+
+   # Firmware version for POWER servers
+   my $bios = "";
+   if (@cpuname and $cpuname[0] =~ m/power/i) {
+       print "log 0 ...firmware version for POWER\n" unless $quiet;
+       my $platform = qx{grep platform /proc/cpuinfo};
+       (my $ignore, $platform) = split ":", $platform if $platform =~ /:/;
+       if ($platform =~ m/pSeries/i) {
+           # Firmware version for PowerVM systems
+           $bios = qx{cat /proc/device-tree/openprom/ibm,fw-vernum_encoded};
+           $bios =~ s/.*\(|\)//g;
+           $fields{"fw_bios"} = $bios;
+           notesout "BIOS Version: $bios";
+       } elsif ($platform =~ m/PowerNV/i) {
+           # Firmware version for POWER servers running OPAL firmware
+           notesout "Unfortunately, there is no direct way to get FW version for OPAL.";
+           notesout "Use the BMC commandline for PNOR and BMC levels to verify the FW version.";
+           notesout "For PNOR level, use";
+           notesout "    cat /var/lib/phosphor-software-manager/pnor/ro/VERSION";
+           notesout "For BMC level, use";
+           notesout "    cat /etc/os-release";
+       } else {
+           print "log 100 ...unable to determine platform type for POWER Linux server\n" unless $quiet;
+       }
+   }
+
+   #--------- prepared by ----
+
+   my $who;
+   $who = $ENV{"LOGNAME"};
+   chomp $who;
+   $fields{"prepared_by"} = "$who  (is never output, only tags rawfile)";
+
+   # /sys/devices/virtual/dmi/id
+   print "log 0 ...trying to get info from /sys/devices/virtual/dmi/id\n" unless $quiet;
+   my $id_bios = "";
+   my @id_tmp;
+   if (-r "/sys/devices/virtual/dmi/id/bios_vendor") {
+       push @id_tmp, qx{cat /sys/devices/virtual/dmi/id/bios_vendor}
+   }
+   if (-r "/sys/devices/virtual/dmi/id/bios_version") {
+       push @id_tmp, qx{cat /sys/devices/virtual/dmi/id/bios_version};
+   }
+   if (-r "/sys/devices/virtual/dmi/id/bios_date") {
+       push @id_tmp, qx{cat /sys/devices/virtual/dmi/id/bios_date 2>&1};
+   }
+   if (@id_tmp) {
+       chomp @id_tmp;
+       $id_bios = join " ", @id_tmp;
+   }
+   my $id_system_vendor = "";
+   if (-r "/sys/devices/virtual/dmi/id/sys_vendor") {
+       ($id_system_vendor) = qx{cat /sys/devices/virtual/dmi/id/sys_vendor};
+       chomp $id_system_vendor;
+       $id_system_vendor = "" if $id_system_vendor =~ m/^($|to be filled|default string|default value)/i;
+   }
+   my $id_product_name = "";
+   if (-r "/sys/devices/virtual/dmi/id/product_name") {
+       ($id_product_name) = qx{cat /sys/devices/virtual/dmi/id/product_name};
+       chomp $id_product_name;
+       $id_product_name = "" if $id_product_name =~ m/^($|to be filled|default string|default value)/i;
+   }
+   my $id_product_family = "";
+   if (-r "/sys/devices/virtual/dmi/id/product_family") {
+       ($id_product_family) = qx{cat /sys/devices/virtual/dmi/id/product_family};
+       chomp $id_product_family;
+       $id_product_family = "" if $id_product_family =~ m/^($|to be filled|default string|default value)/i;
+   }
+   my $id_product_serial = "";
+   if (-r "/sys/devices/virtual/dmi/id/product_serial") {
+       ($id_product_serial) = qx{cat /sys/devices/virtual/dmi/id/product_serial};
+       chomp $id_product_serial;
+       $id_product_serial = "" if $id_product_serial =~ m/^($|to be filled|default string|default value)/i;
+   }
+   if ($id_bios . $id_system_vendor . $id_product_name . $id_product_family . $id_product_serial) {
+       notesout "\nFrom /sys/devices/virtual/dmi/id";
+       notesout "    BIOS:    $id_bios" if $id_bios;
+       notesout "    Vendor:  $id_system_vendor" if $id_system_vendor;
+       notesout "    Product: $id_product_name" if $id_product_name;
+       notesout "    Product Family: $id_product_family" if $id_product_family;
+       notesout "    Serial:  $id_product_serial" if $id_product_serial;
+   }
+
+   #
+   # ------- sorta bonus: is dmidecode available? --------
+   #
+   my $dmidecode_loc = "/usr/sbin/dmidecode";
+   if (-x $dmidecode_loc) {
+      print "log 0 ...trying to get info from dmidecode\n" unless $quiet;
+      my @dmidecode = qx{$dmidecode_loc -t memory 2>&1};
+      if (grep /Permission denied/, @dmidecode) {
+         notesout "\nCannot run dmidecode; consider saying (as root)\n   chmod +s $dmidecode_loc";
+      } else {
+         notesout "\nAdditional information from dmidecode follows.  WARNING: Use caution when"
+         . " you interpret this section. The 'dmidecode' program reads system data"
+         . " which is \"intended to allow hardware to be accurately determined\", but"
+         . " the intent may not be met, as there are frequent changes to hardware,"
+         . " firmware, and the \"DMTF SMBIOS\" standard.";
+         my %mem;
+         my ($msize, $msize_unit, $mspeed, $mmanu, $mpart, $mrank, $mcspeed);
+         for my $line (@dmidecode) {
+             chomp $line;
+             if ($line =~ m/^(Memory Device|Handle)/) {
+                 ($msize, $msize_unit, $mspeed, $mmanu, $mpart, $mrank, $mcspeed) =
+                 ("",     "",          "",      "",     "",     "",     "");
+             } elsif ($line =~ m/Size:\s*(\d+)\s*(\S+)/) {
+                 $msize = $1;
+                 $msize_unit = $2;
+                 if (($msize_unit eq "MB") && (($msize % 1024) == 0)) {
+                     $msize /= 1024;
+                     $msize_unit = "GB";
+                 }
+             } elsif ($line =~ m/^\s+Speed:\s*(\d+)\s*/) {
+                 $mspeed = $1;
+             } elsif ($line =~ m/Manufacturer:\s*(.*)/) {
+                 ($mmanu = $1) =~ s/\s+$//;
+             } elsif ($line =~ m/Part Number:\s*(.*)/) {
+                 ($mpart = $1) =~ s/\s+$//;
+             } elsif ($line =~ m/^\s+Rank:\s*(\d+)\s*/) {
+                 ($mrank = $1) =~ s/\s+$//;
+             } elsif ($line =~ m/Configured Clock Speed:\s*(\d+)\s*/) {
+                 $mcspeed = $1;
+             }
+             # last line?
+             if ($line =~ m/^(\s*$|Configured Clock Speed)/) {
+                 if (defined $mmanu) {
+                     my $mem = "$mmanu $mpart $msize $msize_unit ";
+                     $mem .= "$mrank rank " if $mrank ne "";
+                     $mem .= $mspeed;
+                     if ($mcspeed ne '' and $mspeed ne $mcspeed) {
+                         $mem .= ", configured at $mcspeed";
+                     }
+                     $mem{$mem}++;
+                 }
+             }
+         }
+         notesout "  Memory:" if %mem;
+         for my $mem (sort keys %mem) {
+            next if $mem =~ m/^\s*$/;
+            notesout "    $mem{$mem}x $mem";
+         }
+         # Presumably we got these earlier, but if not, perhaps it is vaguely worth asking dmidecode
+         my $dm_bios = "";
+         if (!$id_bios) {
+             @dmidecode = qx{$dmidecode_loc -s bios-vendor 2>&1};
+             push @dmidecode, qx{$dmidecode_loc -s bios-version 2>&1};
+             push @dmidecode, qx{$dmidecode_loc -s bios-release-date 2>&1};
+             chomp @dmidecode;
+             $dm_bios = join " ", @dmidecode;
+         }
+         notesout "  BIOS:                $dm_bios" if $dm_bios;
+      }
+   }
+}
+
+#
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab colorcolumn=120 mouse= :

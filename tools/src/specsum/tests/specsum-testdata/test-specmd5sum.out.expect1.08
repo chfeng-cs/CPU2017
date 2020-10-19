@@ -1,0 +1,2 @@
+specmd5sum:
+test-specmd5sum.in.expect1.08: no properly formatted MD5 checksum lines found

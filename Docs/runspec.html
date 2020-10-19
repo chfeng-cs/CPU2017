@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>runspec is gone</title>
+<!-- $Id: runspec.html 6317 2019-07-28 22:50:53Z JohnHenning $ -->
+<!-- You'll want a nice wide screen (132 columns) when editing this ............................................................ -->
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+body { width:800px; background: white; color: black; }
+p.big:first-letter {font-size:175%;}
+
+</style>
+
+</head>
+<body>
+
+<h1>Why is the runspec gone?</h1>
+<table class="version">
+   <tr>
+      <th>$Id: runspec.html 6317 2019-07-28 22:50:53Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+<h2>Redirect, with explanation.  <span style="font-size:75%;">(Short version)</span></h2>
+
+<p class="l1">
+For SPEC CPU&reg;2017, the 
+<kbd style="font-size:110%;font-weight:normal;">runspec</kbd>
+utility has been renamed 
+<kbd style="font-size:110%;">runcpu</kbd></p>
+<p class="l1"> SPEC&reg; has many benchmarks, covering many areas; the term
+<kbd style="font-size:110%;">runcpu</kbd> 
+specifically designates the area being measured.</p>
+
+<p class="l1">The documentation is in the SPEC CPU 2017 User Guide, <a class="external" href="runcpu.html">runcpu.html</a>.</p>
+
+<h2 style="border-top:thin solid gray;margin-top:3em;">Redirect 
+  <span style="font-size:75%">(Longer, with story of benchmark origins)</span></h2>
+
+<table class="noborder">
+  <tr>
+     <td style="white-space:nowrap;">
+        <p class="big"><i>O<span style="font-size:150%;">nce upon a time</span></i></p>
+     </td>
+     <td>
+        <pre style="font-family:arial;margin:1em .4em .3em;">
+Performance Wizards ran Dhrystone and Whetstone;
+Measured Waarden Integration, and RIGGS calibration;
+Ran Livermore Loops, and Prime Number Sieves;
+Plus Jacobi, Gauss, and Tower of Hanoi.
+Some systems were rated with VUPs and 
+Some with megaflops guaranteed-not-to-exceed.
+        </pre>
+     </td>
+  </tr>
+  <tr>
+     <td style="white-space:nowrap;">
+        <p class="big" ><i> M<span style="font-size:150%">eaning&nbsp;unclear</span></i></p>
+     </td>
+     <td>
+        <p style="margin:1em .4em .3em;"> What source code did you use, did you modify it, did the benchmark get the correct
+        answers, can customers reproduce what you did, has anyone reviewed your methods, and can I <em><span
+        class="u">compare</span></em> your results to others?  </p>
+     </td>
+  </tr>
+</table>
+
+<p class="big" style="margin-bottom:.4em;"><i>I<span style="font-size:140%;">n 1989,</span></i> SPEC was formed to fix the above, with:</p>
+
+<table class="noborder" style="margin:.4em 2em;">
+   <tr>
+      <td style="padding:.4em 2em;">
+               <img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Comparable scores.
+         <br /><img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Known source code.
+         <br /><img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Portable code.
+         <br /><img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Answer checking.
+         <br /><img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Reproducibility.
+      </td>
+      <td style="padding:.4em;">
+               <img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Derived from real applications.
+         <br /><img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Documented conditions of observation.
+         <br /><img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> No "benchmark specials".
+         <br /><img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Written run rules.
+         <br /><img alt="check" style="height:12px;width:12px;" src="images/checkmark.png" /> Publication venue requiring peer review.
+      </td>
+   </tr>
+</table>
+
+<p class="l1snugtop">It is not difficult to remember this history because it keeps being repeated.  
+<br />When you encounter a newly-invented benchmark, try the above checklist on it. </p> 
+
+
+<p style="margin-bottom:.4em;" class="big"><i> T<span style="font-size:140%;">ime went by.  </span></i> SPEC made many new benchmarks.</p>
+
+<table class="noborder" style="margin:.4em 2em;">
+   <tr>
+      <td style="white-space:nowrap;text-align:right;padding-right:3px;">The first SPECmark tested:</td>
+      <td>CPU, memory hierarchy, compiler</td>
+   </tr>
+   <tr>
+      <td style="white-space:nowrap;text-align:right;padding-right:3px;">Other SPEC benchmarks test: </td>
+      <td>file servers, web servers, Java, graphics, virtualized systems, distributed systems, power, and more.</td>
+   </tr>
+</table>
+
+<p class="l1">For over 20 years, it has been wildly ambiguous to speak of running "SPEC".</p>
+
+<p style="margin-bottom:.4em;" class="big"><i>N</i><span style="font-size:140%"><i>o such benchmark </i> <kbd style="font-weight:100;">SPECyear</kbd></span></p>
+
+
+<table class="noborder" style="margin:.4em 2em;">
+   <tr>
+      <td colspan="4">
+         For over 20 years, to avoid ambiguity, it has been necessary to add the benchmarking area.
+         <br />Certainly, it is not enough to just add a year.
+      </td>
+   </tr>
+   <tr>
+      <td style="white-space:nowrap;text-align:right;padding-right:3px;">
+         SPEC never released: 
+         <span id="No-Such-Benchmark"> </span>        <span id="Spec2000"> </span>
+         <span id="No.Such.Benchmark"> </span>        <span id="SPEC2000"> </span>
+         <span id="NoSuchBenchmark"> </span>          <span id="spec2000"> </span>
+         <span id="No_Such_Benchmark"> </span>        <span id="Spec2006"> </span>
+         <span id="no-such-benchmark"> </span>        <span id="SPEC2006"> </span>
+         <span id="no.such.benchmark"> </span>        <span id="spec2006"> </span>
+         <span id="noSuchBenchmark"> </span>          <span id="Spec2017"> </span>
+         <span id="no_such_benchmark"> </span>        <span id="SPEC2017"> </span>
+         <span id="nosuchbenchmark"> </span>          <span id="spec2017"> </span>
+      </td>
+         <td><kbd style="font-weight:100;text-decoration:line-through;">spec2000</kbd></td>
+         <td><kbd style="font-weight:100;text-decoration:line-through;">spec2006</kbd></td>
+         <td><kbd style="font-weight:100;text-decoration:line-through;">spec2017</kbd></td>
+   </tr>
+   <tr>
+      <td style="white-space:nowrap;text-align:right;padding-right:3px;">
+         These are: 
+      </td>
+      <td> <kbd>SPEC CPU 2000</kbd></td>
+      <td><kbd> SPEC CPU 2006</kbd></td>
+      <td><kbd>SPEC CPU 2017</kbd></td>
+</tr>
+</table>
+
+<p><b>Summary:</b> If the command must be short and easy to type, 'runcpu' is a less ambiguous shortening.  </p>
+
+
+<h4 style="border-top:thin solid gray;margin:3em 0em .7em;">Redirect, with musical non-explanation</h4> 
+
+<p class="l1snugtop">q. Why is the runspec gone?
+<br />a. Yes, the runspec is gone.
+<br />q. Why is the runspec gone?
+<br />a. Yes, the runspec is gone.
+<br />q. Why is the runspec gone?
+<br />a. Reasons <a class="external"
+   style="text-decoration:none;" href="https://www.youtube.com/watch?v=JImcvtJzIK8">One, Two</a><span style="font-size:xx-small;">[youtube]</span></p>
+
+<p>Please try <kbd>runcpu</kbd></p>
+
+
+<p style="border-top:thin solid black;">
+Why is the runspec gone?:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+</body>
+</html>
+
+

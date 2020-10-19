@@ -1,0 +1,1 @@
+-p 'TRAC532CHECK=pre-exec' -P 'unset TRAC532CHECK' -f 'egrep "(env_vars|Setting.*TRAC532CHECK|Building|Running)"'

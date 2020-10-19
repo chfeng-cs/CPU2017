@@ -1,0 +1,8 @@
+remove -ggdb from Makefile
+work on multithreading
+test and tweak workload
+test and tweak profile
+test how loose I can make the accuracy of the inner solver to keep overall
+   convergence
+
+provide documentation

@@ -1,0 +1,6 @@
+ &dlnd_nml
+   lnd_in = 'dlnd_lnd_in'
+   rof_in = 'dlnd_rof_in'
+   sno_in = 'dlnd_sno_in'
+   decomp = '1d'
+ /

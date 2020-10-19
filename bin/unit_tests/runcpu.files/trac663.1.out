@@ -1,0 +1,17 @@
+  INFO: a       "this"
+  INFO: b       "That"
+  INFO: c       "Other"
+  INFO: abc abc "thisThatOther"
+  INFO: 1 no quoted matches const
+  INFO: 2 yes dotted matches const
+  INFO: 3 no  const matches qr dotted
+  INFO: 3a yes const matches multiple qr dotted
+  INFO: 4 no  const matches m/concatenate/
+  INFO: 5 no  const matches /contatenate/
+  INFO: 6 yes quoted abc matches const
+  INFO: 7 yes bare abc matches const
+  INFO: 8 no  const matches qr abc
+  INFO: 9 yes  const matches bare abc
+  INFO: 10 yes bare abc eq quoted const
+  INFO: 11 yes quoted  abc eq quoted const
+  INFO: 14 yes dotted eq quoted const

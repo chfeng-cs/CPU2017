@@ -1,0 +1,92 @@
+master (0) [2]: Starting master...
+master (0) [2]: New master parameter discretization: 32 parameter dofs.
+GaussNewton [1]: Step 0: N=154088, m(u-z)=2.07e-07, beta r(a)=0, J=2.07e-07, error=0.884
+GaussNewton [0]: 
+GaussNewton [0]: Step 1: starting
+GaussNewton [1]: Step 1: solving...
+GaussNewton [1]: Step 1: inner solver failed with residual reduction of 3.91e-23; accepting anyway
+GaussNewton [1]: Step 1: computing state/adjoint updates
+GaussNewton [2]: Step 1: computing step length
+GaussNewton [1]: Step 1, alpha: 1, final residual: 3.0068e-09
+GaussNewton [1]: Step 1: Writing solutions...
+GaussNewton [1]: Step 1: postprocessing
+GaussNewton [1]: Step 1: N=154088, m(u-z)=1.19e-12, beta r(a)=3.25e-14, J=1.23e-12, error=0.884
+GaussNewton [0]: Step 1: stop
+GaussNewton [0]: 
+GaussNewton [0]: Step 2: starting
+GaussNewton [1]: Step 2: solving...
+GaussNewton [1]: Step 2: inner solver failed with residual reduction of 1.06e-17; accepting anyway
+GaussNewton [1]: Step 2: computing state/adjoint updates
+GaussNewton [2]: Step 2: computing step length
+GaussNewton [1]: Step 2, alpha: 0.993, final residual: 2.7135e-12
+GaussNewton [1]: Step 2: Writing solutions...
+GaussNewton [1]: Step 2: postprocessing
+GaussNewton [1]: Step 2: N=154088, m(u-z)=1.1e-12, beta r(a)=4.28e-14, J=1.14e-12, error=0.884
+GaussNewton [0]: Step 2: stop
+GaussNewton [0]: 
+GaussNewton [0]: Step 3: starting
+GaussNewton [1]: Step 3: solving...
+GaussNewton [1]: Step 3: inner solver failed with residual reduction of 6.97e-25; accepting anyway
+GaussNewton [1]: Step 3: computing state/adjoint updates
+GaussNewton [2]: Step 3: computing step length
+GaussNewton [1]: Step 3, alpha: 1, final residual: 2.9422e-16
+GaussNewton [1]: Step 3: Writing solutions...
+GaussNewton [1]: Step 3: postprocessing
+GaussNewton [1]: Step 3: N=154088, m(u-z)=1.1e-12, beta r(a)=4.32e-14, J=1.14e-12, error=0.884
+GaussNewton [0]: Step 3: stop
+GaussNewton [0]: 
+GaussNewton [2]: Forcing refinement: initial reduction goal 1.03e-12 reached
+GaussNewton [1]: Estimating error...
+GaussNewton [2]: New parameter discretization: 74 dofs.
+GaussNewton [2]: Refining slaves and recomputing measurements... 
+GaussNewton [0]: 
+GaussNewton [0]: Step 4: starting
+GaussNewton [1]: Step 4: solving...
+GaussNewton [1]: Step 4: inner solver failed with residual reduction of 5.97e-14; accepting anyway
+GaussNewton [1]: Step 4: computing state/adjoint updates
+GaussNewton [2]: Step 4: computing step length
+GaussNewton [1]: Step 4, alpha: 1, final residual: 1.933e-09
+GaussNewton [1]: Step 4: Writing solutions...
+GaussNewton [1]: Step 4: postprocessing
+GaussNewton [1]: Step 4: N=126387, m(u-z)=1.12e-12, beta r(a)=5.82e-14, J=1.18e-12, error=1.22
+GaussNewton [0]: Step 4: stop
+GaussNewton [0]: 
+GaussNewton [0]: Step 5: starting
+GaussNewton [1]: Step 5: solving...
+GaussNewton [1]: Step 5: inner solver failed with residual reduction of 9e-14; accepting anyway
+GaussNewton [1]: Step 5: computing state/adjoint updates
+GaussNewton [2]: Step 5: computing step length
+GaussNewton [1]: Step 5, alpha: 1, final residual: 6.0299e-16
+GaussNewton [1]: Step 5: Writing solutions...
+GaussNewton [1]: Step 5: postprocessing
+GaussNewton [1]: Step 5: N=126387, m(u-z)=1.12e-12, beta r(a)=5.92e-14, J=1.18e-12, error=1.22
+GaussNewton [0]: Step 5: stop
+GaussNewton [0]: 
+GaussNewton [2]: Forcing refinement: reduction goal 1.93e-13 reached
+GaussNewton [1]: Estimating error...
+GaussNewton [2]: New parameter discretization: 137 dofs.
+GaussNewton [2]: Refining slaves and recomputing measurements... 
+GaussNewton [0]: 
+GaussNewton [0]: Step 6: starting
+GaussNewton [1]: Step 6: solving...
+GaussNewton [1]: Step 6: inner solver failed with residual reduction of 4.15e-16; accepting anyway
+GaussNewton [1]: Step 6: computing state/adjoint updates
+GaussNewton [2]: Step 6: computing step length
+GaussNewton [1]: Step 6, alpha: 1, final residual: 4.9194e-10
+GaussNewton [1]: Step 6: Writing solutions...
+GaussNewton [1]: Step 6: postprocessing
+GaussNewton [1]: Step 6: N=198633, m(u-z)=1.07e-12, beta r(a)=9.65e-14, J=1.16e-12, error=1.47
+GaussNewton [0]: Step 6: stop
+GaussNewton [0]: 
+GaussNewton [0]: Step 7: starting
+GaussNewton [1]: Step 7: solving...
+GaussNewton [1]: Step 7: inner solver failed with residual reduction of 2.51e-14; accepting anyway
+GaussNewton [1]: Step 7: computing state/adjoint updates
+GaussNewton [2]: Step 7: computing step length
+GaussNewton [1]: Step 7, alpha: 1, final residual: 1.0374e-15
+GaussNewton [1]: Step 7: Writing solutions...
+GaussNewton [1]: Step 7: postprocessing
+GaussNewton [1]: Step 7: N=198633, m(u-z)=1.07e-12, beta r(a)=9.69e-14, J=1.16e-12, error=1.47
+GaussNewton [0]: Step 7: stop
+GaussNewton [0]: 
+main 0 [0]: Done! Closing down master

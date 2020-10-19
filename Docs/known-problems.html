@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <title>Known Problems - CPU 2017</title>
+      <!-- You'll want a nice wide (132 column) screen when editing this ......................................................... -->
+
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+      <style type="text/css">
+body { background: white; color: black; }
+li { margin-top:.4em; margin-bottom:.4em; }
+h2 { border-top: medium solid black; }
+h3 { font-size:110%; border-top:thin solid gray;}
+.ticket { font-size:90%; font-family:monospace;}
+      </style>
+
+   </head>
+   <body>
+
+      <h1>SPEC CPU&reg;2017 Known Problems</h1>
+      <table class="version">
+         <tr>
+            <th>$Id: known-problems.html 6360 2019-08-16 23:27:46Z JohnHenning $</th>
+            <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+         </tr>
+      </table>
+
+      <p class="contents">Contents</p>
+      <p class="contentsl1"><a href="#intro">Introduction</a></p>
+      <p class="contentsl1"><a href="#open">Open Problem Reports</a></p>
+      <p class="contentsl2"><a href="#problem03">3. </a>Headings may appear to be off-center in ASCII plain text reports. </p>
+      <p class="contentsl2"><a href="#problem05">5. </a>Why can't I override fields from sysinfo?</p>
+      <p class="contentsl2"><a href="#problem08">8.</a> When measuring power, <samp>runcpu</samp> may hang.</p>
+      <!-- Template
+         <p class="contentsl2"><a href="#problemNN">NN.</a> <samp class="nb">message</samp> with such-and-such mumble  </p>
+      -->
+
+      <p class="contentsl1"><a href="#closed">Closed Problem Reports</a></p>
+      <p class="contentsl2"><a href="#problem01">1. </a>Some lines may be tiny in PDF reports. </p>
+      <p class="contentsl2"><a href="#problem02">2. </a>Some lines may be too wide in HTML reports. </p>
+      <p class="contentsl2"><a href="#problem04">4. </a>Plain text columns should have better alignment.</p>
+      <p class="contentsl2"><a href="#problem06">6. </a>The runcpu <samp class="nb">--comment</samp> option must not contain any
+      blanks.</p>
+      <p class="contentsl2"><a href="#problem07">7. </a><samp class="nb">Can't use an undefined value as an ARRAY
+         reference</samp> while formatting results. </p>
+
+
+      <h2 id="intro">Introduction</h2>
+
+      <p>This document describes known problems in SPEC CPU&reg;2017, a product of the SPEC&reg; non-profit corporation <a
+          href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.</p>
+
+      <!-- ReUsableBegin: Problems? Try these ......................................................................  -->
+      <div class="l1" style="width:500px;padding:3px 5px;border:thin solid gray;">
+         <p class="snug">Do you have a problem with SPEC CPU 2017?  
+         <br />Try these,  <span class="u">in this order</span>:</p>
+         <ol class="snug">
+            <li>Update your copy with 
+               <a class="external" href="https://www.spec.org/cpu2017/Docs/runcpu.html#update">runcpu --update</a>.</li>
+            <li>Check the latest version of 
+               <a class="external" href="https://www.spec.org/cpu2017/Docs/faq.html">Frequently Asked Questions</a>.</li>
+            <li>Check the latest version of 
+               <a class="external" href="https://www.spec.org/cpu2017/Docs/known-problems.html">Known Problems</a>. </li>
+            <li>Check the 
+               <a  class="external" href="https://www.spec.org/cpu2017/src.alt/">src.alt</a> list. &nbsp;&nbsp; 
+               <span style="font-size:smaller;"> 
+                  [<a class="external" href="https://www.spec.org/cpu2017/Docs/config.html#src.alt">What is a src.alt?</a>]
+               </span>
+            </li> 
+            <li><a class="external" href="https://www.spec.org/cpu2017/Docs/techsupport.html">Contact SPEC</a>.</li>
+         </ol> 
+      </div>
+      <!-- Problems? Try these ReUsableEnd ......................................................................  -->
+
+
+      <p>SPEC CPU 2017 was tested on a variety of systems prior to release, including Unix, Linux, and Windows systems.
+      Nevertheless, as with any software product, problems may be found too late in the testing process to be fixed in the
+      release, or may be discovered after release.</p>
+
+      <p>If you discover problems that are not listed here or in the 
+      <a class="external" href="https://www.spec.org/cpu2017/Docs/faq.html">FAQ</a>, please 
+      <a class="external" href="techsupport.html">report them to SPEC</a>.</p> 
+
+      <p>About the format of this document:</p>
+      <ul>
+         <li>Problems may be added in the <a href="#open">Open</a> section from time to time.  In each case, a workaround is
+            given, if one is known.  </li>
+         <li>When problems are fixed, they are moved to the <a href="#closed">Closed</a> section. </li>
+      </ul>
+
+      <p style="font-size:80%">Notice to maintainers: When updating this document, please do not ever re-use problem numbers.</p>
+
+
+      <!--  ======================================================================================= -->
+      <h2 id="open">Open Problem Reports</h2>
+
+      <p>Please see the latest on-line version of this document for information on open problems and suggested workarounds.</p>
+
+      <!--
+
+         Ticket 705 simultaneous runcpu
+         Ticket 477 make bundle
+         clusters 483 484
+         ticket 538 killing install.sh
+
+      -->
+
+
+
+
+      <!-- 
+         ======================================================================================================================= 
+         Template 
+         (NN = next available problem number).  Please do not ever re-use problem numbers.
+         ======================================================================================================================= 
+         <h3 id="problemNN">NN.  <samp class="nb">message</samp> with such-and-such mumble  </h3>
+         <ul>
+         <li><p><b>Problem summary:</b> one or two lines, emphasizing the SYMPTOMS
+               <span class="ticket">(#TracNNN)</span></p></li>
+         <li><p><b>Details:</b> explain the circumustances under which it happens, the symptoms, the cause, the effects, etc</p></li>
+         <li><p><b>Workaround:</b> </p></li>
+         </ul>
+      -->
+
+
+      <h3 id="problem03">3.  Headings may appear to be off-center in ASCII plain text reports. </h3>
+      <ul>
+         <li><b>Problem summary:</b> For text reports, when comparing report titles vs. data tables, the headings appear to
+            be too far to the right.  <span class="ticket">(#960)</span></li>
+         <li><b>Details: </b> The headings are actually centered relative to the widest line in the report.  
+            Therefore, if the report has many lines that are 80 columns wide, but one line that is 250 columns wide,
+            then the headings will be printed near to column 125.  </li>
+         <li><b>Status:</b> As of SPEC CPU 2017 v1.1, this problem is less severe, because 
+            <a href="#problem01">the common cause for very wide lines has been fixed</a>.  Nevertheless, it is possible that 
+            you might notice that headings appear further right than desired for plain text reports.</li>
+      </ul>
+
+
+
+      <h3 id="problem05">5.  Why can't I override fields from sysinfo?</h3>
+      <ul>
+         <li><b>Problem summary:</b> Unwanted lines are sometimes included for fields that are supplied by both
+            <samp>sysinfo</samp> and by the config file. <span class="ticket">(#591)</span></li> 
+         <li><p class="snug"><b>Details:</b> The documentation says that when fields (such as 
+            <a class="external" href="config.html#hw_memory">hw_memory</a>) are supplied by 
+            <a class="external" href="utility.html#sysinfo">sysinfo</a>, a config file can supply a different value by 
+            <a href="utility.html#conflict" class="external">using a higher-priority section</a>, for example:</p>
+            <pre class="l1snugish">intrate,fprate,intspeed,fpspeed:
+   hw_memory001 = 256 GB (8 x 32 GB 2Rx4 PC4-2133P-R,
+   hw_memory002 = running at 1600)</pre></li>
+
+            <li>
+               <p class="snug"><b>Limitation:</b> If you want your higher-priority section to "win", then you need to make
+            sure you supply exactly the same field names, including any line numbers:</p>
+            <pre class="snugish">If sysinfo supplies    and you supply     Then the report will have
+-------------------    --------------     -------------------------
+hw_memory001           hw_memory001       2 lines for memory description
+hw_memory002           hw_memory001
+
+hw_memory001           hw_memory100       4 lines for memory description
+hw_memory002           hw_memory200
+
+sw_os                  sw_os100           3 lines for the operating system
+                       sw_os110</pre>
+         </li>
+         <li><b>Workaround:</b> Check what sysinfo will supply, and match it. If that is not possible, then you will need
+            to <a class="external" href="utility.html#edit">edit</a> the fields prior to using 
+            <a class="external" href="utility.html#rawformat">rawformat</a> to prepare final reports.</li>
+      </ul>
+
+
+
+
+      <h3 id="problem08">8. When measuring power, <samp>runcpu</samp> may hang. </h3>
+         <ul>
+            <li><p class="snugish"><b>Problem summary:</b> Certain power measurements may hang.
+               <span class="ticket">(#963)</span></p></li>
+            <li><p class="snugish"><b>Details:</b> The problem occurs only if all the following conditions are present:</p>
+               <ol class="snugish">
+                  <li>You have selected <a class="external" href="runcpu.html#power">runcpu --power</a> or the 
+                     <a class="external" href="config.html#power">corresponding</a> config file option.</li>
+                  <li>You are running benchmarks drawn from multiple 
+                     <a class="external" href="overview.html#suites">suites</a>.</li>
+                  <li>One of the suites uses <a class="external" href="config.html#preenv">preenv</a> and another does
+                     not.</li>
+               </ol>
+            </li>
+            <li><p class="snugish"><b>Workaround:</b> Split your <samp>runcpu</samp> command into one for each suite. </p>
+            <pre class="snugish">Instead of:
+   runcpu --config=myconfig intrate fprate
+Try:
+   runcpu --config=myconfig intrate 
+   runcpu --config=myconfig fprate
+            </pre>
+            </li>
+         </ul>
+
+      <!--
+         ======================================================================================================================= 
+         ===                                       closed reports below this point                                           ===
+         ======================================================================================================================= 
+      -->
+      <h2 id="closed">Closed Problem Reports</h2>
+      <div style="background:#f0f0f0">
+
+      <h3 id="problem01">1.  Some lines may be tiny in PDF reports. </h3>
+      <ul class="snugish">
+         <li><b>Problem summary:</b> Sometimes a line may be printed that is too small to read. 
+               <span class="ticket">(#585,#598,#764,#536)</span></li>
+         <li><b>Details:</b> Commonly, the problem happened when SPEC CPU 2017 v1.0 automatically generated notes about 
+            <a class="external" href="config.html#preenv">environment variables</a>.
+         </li>
+         <li><b>Resolution:</b> As of SPEC CPU 2017 v1.1, environment variable reports are automatically wrapped.</li>
+         <li><p class="snug"><b>Can fonts still be tiny?   Maybe, but it is much less likely.</b> </p>
+            <ul>
+               <li>The SPEC CPU toolset no longer generates extra-wide environment variable notes.
+               </li>
+               <li>If you choose to create your own extra-wide <a class="external" href="config.html#notes">notes</a>, then you might
+                  still see a tiny font.</li>
+               <li><p class="snug">To avoid that problem, please avoid extra-wide notes, and please keep an eye out for
+                  messages such as:</p>
+            <pre class="l1snug">    format: PDF -&gt;
+    A line in your General Notes section is too long!</pre>
+               </li>
+            </ul>
+         </li>
+      </ul>
+
+      <h3 id="problem02">2.  Some lines may be too wide in HTML reports. </h3>
+      <ul>
+         <li><b>Problem summary:</b> Sometimes a line may be printed that is much wider than your screen.</li> 
+         <li><b>Resolution:</b> The cause of this problem, and the resolution, are the same as for the 
+            <a href="#problem01">previous</a> problem.</li>
+      </ul>
+
+      <h3 id="problem04">4.  Plain text columns should have better alignment. <span class="ticket">(#630)</span></h3>
+      <ul>
+         <li><p class="snugbot"><b>Problem summary:</b> These columns do not line up as well as they should:</p>
+            <pre>                Base     Base       Base     
+Benchmarks     Copies  Run Time     Rate      
+-------------- ------  ---------  ---------    
+500.perlbench_r     44        927       75.5  S                                 
+500.perlbench_r     44        930       75.4  *                                 
+502.gcc_r          44        846       73.6  S                                 
+502.gcc_r          44        849       73.4  *                                 
+505.mcf_r          44       1072       66.4  *                                 
+505.mcf_r          44       1064       66.8  S                                 
+520.omnetpp_r      44       1045       55.2  *                                 
+520.omnetpp_r      44       1044       55.3  S                                 
+523.xalancbmk_r     44        498       93.4  S                                 
+523.xalancbmk_r     44        499       93.1  *                                 
+525.x264_r         44        820       93.9  *                                 
+525.x264_r         44        817       94.3  S</pre></li>
+            <li><b>Resolution:</b> This problem was fixed in SPEC CPU 2017 v1.0.5.</li>
+      </ul>
+
+      <h3 id="problem06">6.  The runcpu <samp class="nb">--comment</samp> option must not contain any blanks.</h3>
+      <ul>
+         <li><b>Problem summary:</b> In v1.0.0, you could not use blanks within a <samp>runcpu</samp>
+            <a class="external" href="runcpu.html#comment">--comment</a> <span class="ticket">(#693, #783)</span></li> 
+         <li><p class="snug"><b>Details:</b> In SPEC CPU 2017 v1.0.0, if you use the 
+            <a class="external" href="runcpu.html#comment">--comment</a> feature with any blanks in the comment -- such as</p>
+            <pre class="l2snug">runcpu --comment="Some descriptive text"</pre>
+            <p class="snug">then you will see warning messages:</p>
+            <pre class="l2snug">Can't find benchmark 'descriptive'
+Can't find benchmark 'text'</pre>
+         </li>
+         <li><b>Resolution:</b> This issue was fixed in SPEC CPU 2017 update v1.0.5.</li>
+      </ul>
+
+      <h3 id="problem07">7.  <samp class="nb">Can't use an undefined value as an ARRAY reference</samp> while formatting results. 
+      <span class="ticket">(#708, #763)</span></h3>
+      <ul>
+         <li><p class="snugbot"><b>Problem:</b> After you <a class="external" href="utility.html#edit">edit</a> a rawfile,
+            you are unable to create reports with SPEC CPU 2017 v1.0.0 
+            <a class="external" href="utility.html#rawformat">rawformat</a>.  Instead of its normal termination message:</p>
+            <pre class="l2snug">rawformat finished at 2017-06-16 06:58:10; 38 total seconds elapsed</pre>
+            <p class="snug">the program just stops, after printing messages similar to:</p>
+            <pre class="l2snug">Parsing flags for 554.roms_r base: done
+Doing flag reduction: done
+    format: flags -&gt; CPU2017.001.fprate.flags.html
+Can't use an undefined value as an ARRAY reference at /cpu2017/bin/formats/html.pl line 1390.  </pre>
+         </li>
+         <li><b>Cause:</b>  This error may occur if you delete raw file fields instead of editing them.</li>
+         <li><b>Resolution:</b> SPEC CPU 2017 v1.0.5 and later are less sensitive to missing fields.</li>
+      </ul>
+
+      </div>
+
+      <p style="border-top:thin solid black;">
+      SPEC CPU&reg;2017 Known Problems:
+      Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+      <!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+         the table of contents will actually position the desired section at the top of your browser window -->
+         <p style="margin:300px 1em;">&nbsp;</p>
+
+
+
+   </body>
+</html>

@@ -1,0 +1,3 @@
+specsha256sum:
+../specsum-testdata/test-specsum.in.02: FAILED
+ERROR: 1 computed checksum did NOT match

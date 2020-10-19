@@ -1,0 +1,89 @@
+                                  641.leela_s
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   641.leela_s
+
+  Benchmark Authors
+
+   Gian-Carlo Pascutto <gcp [at] sjeng.org>
+
+  Benchmark Program General Category
+
+   Artificial Intelligence (Monte Carlo simulation, game tree search &
+   pattern recognition)
+
+  Benchmark Description
+
+   641.leela_s is a Go playing engine featuring Monte Carlo based position
+   estimation, selective tree search based on Upper Confidence Bounds, and
+   move valuation based on Elo ratings.
+
+   It won Silver and Bronze medals in the 2008 Computer Olympiad and has
+   attained ratings of 1 kyu in Internet server play.
+
+   It combines recent advances in computer go in a single package. For each
+   position, a restricted set of candidate moves is selected based on a
+   ratings calculation taking into account a set of features and the current
+   pattern on the board. For one of these moves, the program simulates the
+   game until the end, using a combination of both knowledge and randomness.
+   The score of the simulated game is backed up to the root of the game tree,
+   and the next iteration starts by selecting the next move to evaluate,
+   being the one with the current highest upper confidence bound.
+
+  Input Description
+
+   641.leela_s's input consists of a textfile containing (incomplete) Go
+   games in the Smart Game Format. Each of these games will be played until
+   the end at a fixed number of simulations per move.
+
+  Output Description
+
+   641.leela_s's output consists, per position, of some information while the
+   search is still ongoing: the number of nodes in the search tree, the
+   current percentage of simulated games won for the player to move, and the
+   best variation for both players found so far.
+
+   After each move, a table of the top moves is displayed, the number of
+   simulates done for them, their respective winning percentages and the best
+   variation for both players after each respective move.
+
+  Programming Language
+
+   C++ 2003 plus two features that are standardized by C++11:
+
+     * TR1 C++ arrays
+     * C++ tuples
+
+   In order to allow compilation by C++03 compilers, a subset of BOOST is
+   included in directory src/boost/.
+
+  Sources and Licensing
+
+   Leela is licensed directly to SPEC by the author, Gian-Carlo Pascutto. As
+   mentioned above, it includes a subset of BOOST.
+
+   Please see details in the document [1]SPEC CPU(R)2017 Licenses.
+
+  References
+
+     * Smart Game Format: [2]Official specification
+     * Computing Elo Ratings of Move Patterns in the Game of Go (Remi
+       Coulom): [3]Fundamental paper
+     * Exploration and exploitation in Go: UCT for Monte-Carlo Go (Silvain
+       Gelly) [4]Video lecture;   [5]PDF slides.
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. https://www.spec.org/cpu2017/Docs/licenses.html#bmk641.leela_s
+   2. https://www.red-bean.com/sgf/
+   3. https://www.remi-coulom.fr/Amsterdam2007/MMGoPatterns.pdf
+   4. http://videolectures.net/otee06_gelly_umc/
+   5. https://hal.archives-ouvertes.fr/hal-00115330/document

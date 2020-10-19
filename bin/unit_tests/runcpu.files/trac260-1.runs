@@ -1,0 +1,10 @@
+# Expect all workloads run; test and train to be parallel
+--reportable --copies 2
+# Expect all workloads run; nothing to be parallel
+--reportable --copies 2 --parallel_test 1
+# Expect test and train run; nothing to be parallel
+--copies 2
+# Expect test and train run; test to be parallel
+--copies 2 --parallel_test_workloads test
+# Expect test and train run; nothing to be parallel
+--copies 2 --parallel_test_workloads test,train --parallel_test 1

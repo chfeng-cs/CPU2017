@@ -1,0 +1,95 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                            Why is the runspec gone?
+
+      $Id: runspec.html 6317 2019-07-28    Latest: www.spec.org/cpu2017/Docs/
+           22:50:53Z JohnHenning $
+
+Redirect, with explanation. (Short version)
+
+   For SPEC CPU(R)2017, the runspec utility has been renamed runcpu
+
+   SPEC(R) has many benchmarks, covering many areas; the term runcpu
+   specifically designates the area being measured.
+
+   The documentation is in the SPEC CPU 2017 User Guide, runcpu.html.
+
+Redirect (Longer, with story of benchmark origins)
+
+                    Performance Wizards ran Dhrystone and Whetstone;
+                    Measured Waarden Integration, and RIGGS calibration;
+                    Ran Livermore Loops, and Prime Number Sieves;
+   Once upon a time Plus Jacobi, Gauss, and Tower of Hanoi.
+                    Some systems were rated with VUPs and
+                    Some with megaflops guaranteed-not-to-exceed.
+
+                    What source code did you use, did you modify it, did the
+   Meaning unclear  benchmark get the correct answers, can customers
+                    reproduce what you did, has anyone reviewed your methods,
+                    and can I compare your results to others?
+
+   In 1989, SPEC was formed to fix the above, with:
+
+   check Comparable scores. check Derived from real applications.
+   check Known source code. check Documented conditions of observation.
+   check Portable code.     check No "benchmark specials".
+   check Answer checking.   check Written run rules.
+   check Reproducibility.   check Publication venue requiring peer review.
+
+   It is not difficult to remember this history because it keeps being
+   repeated.
+   When you encounter a newly-invented benchmark, try the above checklist on
+   it.
+
+   Time went by. SPEC made many new benchmarks.
+
+   The first SPECmark tested:  CPU, memory hierarchy, compiler
+                               file servers, web servers, Java, graphics,
+   Other SPEC benchmarks test: virtualized systems, distributed systems,
+                               power, and more.
+
+   For over 20 years, it has been wildly ambiguous to speak of running
+   "SPEC".
+
+   No such benchmark SPECyear
+
+   For over 20 years, to avoid ambiguity, it has been necessary to add the
+   benchmarking area.
+   Certainly, it is not enough to just add a year.
+   SPEC never released:       spec2000        spec2006        spec2017
+   These are:                 SPEC CPU 2000   SPEC CPU 2006   SPEC CPU 2017
+
+   Summary: If the command must be short and easy to type, 'runcpu' is a less
+   ambiguous shortening.
+
+    Redirect, with musical non-explanation
+
+   q. Why is the runspec gone?
+   a. Yes, the runspec is gone.
+   q. Why is the runspec gone?
+   a. Yes, the runspec is gone.
+   q. Why is the runspec gone?
+   a. Reasons One, Two[youtube]
+
+   Please try runcpu
+
+   Why is the runspec gone?: Copyright (c) 2017-2019 Standard Performance
+   Evaluation Corporation (SPEC(R))
+
+

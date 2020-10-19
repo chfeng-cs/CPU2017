@@ -1,0 +1,38 @@
+This is specmd5sum and specsha*sum.
+
+See the NEWS file for info about origins, etc.
+
+Hopefully YOU will never be tasked with updating these programs.  The easy way
+out would be to just copy in the latest GNU coreutils package and call it good,
+but that way lies bloat and failed tests.
+
+To avoid situations like that, just update the md5sum sources from coreutils
+and update the GNUlib bits separately.
+
+There are only a few files taken from coreutils.  The actual bits of the
+program are md5sum.c and system.h, which are used to build the several
+variations by setting -DHASH_ALGO_xx to MD5, SHA512, SHA256, etc.  And there
+are some custom GNUlib bits for fadvise() in gl/ which come from a directory of
+the same name in the coreutils development tree.  They don't appear in the
+packaged source tarball.
+
+If you have to update this package, you should diff SPEC's versions of those
+files against the version of coreutils from which they were taken (see
+redistributable_sources/original/tools.src/coreutils-8.24.tar.xz and attempt to
+apply SPEC's diffs to the new versions of the files.  You really should diff
+ONLY those files, or there will be lots of noise introduced by autoconf and
+friends which you'll need to filter out.
+
+If you're lucky and coreutils hasn't changed much, that might be all that's
+necessary.  Otherwise, you'll get to hone your code maintenance skills a bit.
+
+After the changes are all re-applied, refresh the copy of GNUlib in
+$SPEC/tools/src/gnulib by running 'git pull' in there.  (A clone made with
+git-svn will not have gnulib's .git directory, so you'll need to do that step
+from a Subversion checkout.) SPEC-local changes are already checked in to the
+files there that need them, so if the merge fails you'll have to resolve those
+by hand.  Once GNUlib is updated, just run './bootstrap', fix up the version
+control (delete deleted files, add new files) and check it all in.  The GNUlib
+used for this version was 1956403, last updated on 18 Nov 2015.
+
+$Id: README 3674 2015-11-19 17:22:49Z CloyceS $

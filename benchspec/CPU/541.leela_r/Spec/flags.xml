@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines some of the flags seen in the source for 
+     541.leela_r, some of which may be used for portability
+
+  $Revision: 5253 $
+  $Date: 2017-01-19 09:25:09 -0500 (Thu, 19 Jan 2017) $
+-->
+
+<flagsdescription>
+
+<filename>541.leela_r.flags</filename>
+
+<title>541.leela_r Flags</title>
+
+<header>
+<![CDATA[
+<h3>Introduction</h3>
+<p>This file defines some of the preprocessor symbols in the source for 541.leela_r, a few of which are allowed to be used for
+   portability.</p>
+
+<p>541.leela_r includes a subset of BOOST, in the directory <tt>src/boost/</tt>. </p>
+
+<p>BOOST has many preprocessor symbols which are <span style="text-decoration:underline;">not</span> defined in this flags file.  It
+   is expected that most users will not need them.  </p>
+
+   <p>If you believe that you need to set a flag for a preprocessor symbol, and if it is not listed here, you should:</p>
+
+<ol>
+   <li>Update this file, and the rest of your kit, using <a href="http://www.spec.org/cpu2017/Docs/runcpu.html#update">runcpu
+         --update</a></li>
+   <li>If the flag is still not present, <a href="http://www.spec.org/cpu2017/Docs/techsupport.html">write to SPEC</a> to request
+      approval for the flag.  Explain why it is needed, relative to the criteria of the <a
+         href="http://www.spec.org/cpu2017/Docs/runrules.html#rule_2.1.5">Portability Flags Rule (2.1.5)</a>.</li>
+</ol>
+<hr />
+]]>
+</header>
+
+<flag name="DBOOST_HAS_TR1_ARRAY" class="portability">
+   If set, indicates that the TR1 arrays (standardized by C++11) are available.
+</flag>
+
+<flag name="DLITEVERSION" class="forbidden">
+   LITEVERSION causes play to take place on a smaller board.  It could 
+   conceivably be used during a debug session, but is forbidden for official 
+   SPEC runs.
+</flag>
+
+<flag name="DSPEC_AIX" class="portability">
+   If SPEC_AIX is set, changes the default for whether to create typedef int64.
+</flag>
+
+<flag name="DSPEC_DEFINE_INT64" class="portability">
+   If set, causes int64 to be defined.  This is the default, unless SPEC_AIX has been set.
+</flag>
+
+<flag name="DSPEC_NODEFINE_INT64" class="portability">
+   If set, prevents definition of int64. 
+</flag>
+
+<flag name="DUSE_PONDER" class="forbidden">
+   USE_PONDER changes how moves are evaluated.  It is not used in the SPEC version.
+</flag>
+
+</flagsdescription>

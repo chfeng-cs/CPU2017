@@ -1,0 +1,14 @@
+Filename
+ incident_W3PC_25nm.def
+Stride
+ 4000
+Skip
+ 10000
+Filenamebase
+ incident_W3PC
+Freq_no
+ 4001
+Freq_interval
+ 1.0e14 3.0e14
+Yindex
+ 100

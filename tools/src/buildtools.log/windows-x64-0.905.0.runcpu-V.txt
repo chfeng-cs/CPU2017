@@ -1,0 +1,42 @@
+runcpu v5038 - Copyright 1999-2016 Standard Performance Evaluation Corporation
+Using 'windows-x64 ' tools
+                 This is the SPEC CPU2017 benchmark tools suite.
+
+Version summary:
+    CPU2017 version: 0.904.0
+ Benchmarks version: 0.904.0
+      Tools version: 0.904.0
+    runcpu version: v5038 ($Id: runcpu 5038 2016-11-23 18:14:07Z CloyceS $)
+
+Tools information:
+ Tools package installed: windows-x64 
+ File locking method: LockFileEx (network-safe)
+Mode |  UID  |  GID  |   Size  |   Modification Time  | Name
+0777 | 0     | 0     |   23040 |  2017-02-20 19:42:33 | specperl.exe
+0777 | 0     | 0     |  224768 |  2017-02-20 19:42:32 | specmake.exe
+0777 | 0     | 0     |   84995 |  2017-02-20 19:42:32 | specinvoke.exe
+0777 | 0     | 0     |  771267 |  2017-02-20 19:42:33 | specrxp.exe
+0666 | 0     | 0     |  172011 |  2017-02-20 19:34:45 | harness/runcpu
+0777 | 0     | 0     |     348 |  2017-02-20 19:34:45 | windows/runcpu.bat
+0666 | 0     | 0     |   89747 |  2017-02-20 19:34:45 | harness/specpp
+0777 | 0     | 0     |     395 |  2017-02-20 19:34:45 | windows/specpp.bat
+0666 | 0     | 0     |    9806 |  2017-02-20 19:34:45 | harness/specdiff
+0777 | 0     | 0     |     401 |  2017-02-20 19:34:45 | windows/specdiff.bat
+0777 | 0     | 0     |  203776 |  2017-02-20 19:42:32 | specxz.exe
+0777 | 0     | 0     |  178183 |  2017-02-20 19:42:33 | specsha512sum.exe
+0777 | 0     | 0     |    2722 |  2017-02-20 19:34:45 | windows/specutil.bat
+0666 | 0     | 0     |   91136 |  2017-02-20 19:42:32 | libgcc_s_sjlj-1.dll
+0666 | 0     | 0     | 1738240 |  2017-02-20 19:42:32 | libstdc++-6.dll
+0666 | 0     | 0     |   83456 |  2017-02-20 19:42:32 | libwinpthread-1.dll
+0666 | 0     | 0     | 1879552 |  2017-02-20 19:42:32 | perl524.dll
+
+Version info for specperl (specperl): This is specperl 5, version 24, subversion 0 (v5.24.0) built for MSWin32-x64-multi-thread
+                                      Compiled at Feb 20 2017 15:41:49
+                                      For more detail on specperl, say 'specperl -V'
+Version info for specmake (specmake): GNU Make 4.2.1
+Version info for specinvoke (specinvoke): specinvoke r<dev> (OS implementation r5364)
+Version info for specrxp ($SPEC\bin\specrxp): RXP 1.5.0spec Copyright Richard Tobin, LTG, HCRC, University of Edinburgh
+                                              Modified for use in SPEC benchmarks - 14 April 2011
+Version info for specpp ($SPEC\bin\windows\specpp): filepp version 1.8.0SPEC
+Version info for specxz ($SPEC\bin\specxz): xz (XZ Utils) 5.2.2
+Version info for specsha512sum ($SPEC\bin\specsha512sum): sha512sum (specsum) 1.3

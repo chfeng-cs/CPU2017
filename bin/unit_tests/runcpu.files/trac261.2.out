@@ -1,0 +1,31 @@
+runcpu banner
+Using tools
+Reading file manifests...
+Loading runcpu modules...
+Locating benchmarks...found some benchmarks in some benchsets.
+Reading config file 'trac261.cfg'
+
+
+1 configuration selected:
+
+Action   Benchmarks
+------   ----------------------------------------------------------------------
+build    999.specrand_ir                                                        
+-------------------------------------------------------------------------------
+
+Benchmarks selected: 999.specrand_ir
+Compiling Binaries
+  Building 999.specrand_ir base none: (build_base_none.0000) [timestamp]
+ERROR: fail or fail_build set for this benchmark
+*** Error building 999.specrand_ir base
+If you wish to ignore this error, please use '-I' or ignore errors.
+
+The log for this run is in [log file]
+The debug log for this run is in [log file]
+
+*
+* Temporary files were NOT deleted; keeping temporaries such as
+*  [filename]
+* (These may be large!)
+*
+runcpu finished at [timestamp]

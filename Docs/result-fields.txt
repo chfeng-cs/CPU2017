@@ -1,0 +1,527 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                       SPEC CPU(R)2017 Result File Fields
+
+   $Id: result-fields.html 6358 2019-08-16 Latest: www.spec.org/cpu2017/Docs/
+           19:59:38Z JohnHenning $
+
+   This document provides a glossary that briefly defines terms that are used
+   in reports from the SPEC CPU(R)2017 benchmarks, a product of the SPEC(R)
+   non-profit corporation (about SPEC). Typically you arrive somewhere in the
+   middle of this document by following a link from a report; rarely would
+   someone sit down to read this top to bottom.
+   If you are that rare someone: Welcome!
+
+   Contents
+
+   Top Matter
+
+   Report Titles
+
+   Performance Metrics
+
+   Energy Metrics
+
+   Tester and Date Info
+
+   Benchmark-by-benchmark result details
+
+   Results Table
+
+   Descriptions
+
+   Tester-provided notes
+
+   Flags
+
+   Hardware description
+
+   Software description
+
+   Power and Temperature information
+
+   Other information
+
+Report Titles
+
+                                  Report for measurements that use a suite of
+                                  13 floating-point intensive benchmarks.
+   SPEC CPU(R)2017 Floating Point Higher scores = more throughput.
+            Rate Result           The tester chooses how many copies to run.
+                                  [Suites and Benchmarks] [SPECspeed(R) and
+                                  SPECrate(R)]
+                                  Report for measurements that use a suite of
+                                  10 floating-point intensive benchmarks.
+   SPEC CPU(R)2017 Floating Point Higher scores = shorter times.
+            Speed Result          One copy of one program is run at a time.
+                                  [Suites and Benchmarks] [SPECspeed(R) and
+                                  SPECrate(R)]
+                                  Report for measurements that use a suite of
+                                  10 integer intensive benchmarks.
+    SPEC CPU(R)2017 Integer Rate  Higher scores = more throughput.
+               Result             The tester chooses how many copies to run.
+                                  [Suites and Benchmarks] [SPECspeed(R) and
+                                  SPECrate(R)]
+                                  Report for measurements that use a suite of
+                                  10 integer intensive benchmarks.
+   SPEC CPU(R)2017 Integer Speed  Higher scores = shorter times.
+               Result             One copy of one program is run at a time.
+                                  [Suites and Benchmarks] [SPECspeed(R) and
+                                  SPECrate(R)]
+
+Performance Metrics
+
+           Metric               Depends on       Overall ratio    Compile
+                                                 for suite of      method
+   SPECspeed2017_int_base                                      Less
+                          Time required,         10 integer    aggressive
+   SPECspeed2017_int_peak running 1 task at a    benchmarks    More
+                          time.                                aggressive
+   SPECspeed2017_fp_base  Higher score=better    10 floating   Less
+                          performance.           point         aggressive
+   SPECspeed2017_fp_peak                         benchmarks    More
+                                                               aggressive
+   SPECrate2017_int_base                                       Less
+                          Throughput: work per   10 integer    aggressive
+   SPECrate2017_int_peak  unit of time;          benchmarks    More
+                          tester picks how much                aggressive
+    SPECrate2017_fp_base  work is attempted.     13 floating   Less
+                          Higher score=better    point         aggressive
+    SPECrate2017_fp_peak  performance.           benchmarks    More
+                                                               aggressive
+                          SPECspeed and SPECrate Suites and    Base and Peak
+                                                 Benchmarks
+
+Energy Metrics
+
+                                    Overall energy ratio running 1 integer
+    SPECspeed2017_int_energy_base   program at a time, base tuning.
+                                    Higher scores = more computing per unit
+                                    of energy.
+                                    Overall energy ratio running 1 integer
+    SPECspeed2017_int_energy_peak   program at a time, peak tuning.
+                                    Higher scores = more computing per unit
+                                    of energy.
+                                    Overall energy ratio running 1 floating
+     SPECspeed2017_fp_energy_base   point program at a time, base tuning.
+                                    Higher scores = more computing per unit
+                                    of energy.
+                                    Overall energy ratio running 1 floating
+     SPECspeed2017_fp_energy_peak   point program at a time, peak tuning.
+                                    Higher scores = more computing per unit
+                                    of energy.
+                                    Overall energy ratio running N integer
+     SPECrate2017_int_energy_base   programs (tester chooses N), base tuning.
+                                    Higher scores = more computing per unit
+                                    of energy.
+                                    Overall energy ratio running N integer
+     SPECrate2017_int_energy_peak   programs (tester chooses N), peak tuning.
+                                    Higher scores = more computing per unit
+                                    of energy.
+                                    Overall energy ratio running N floating
+                                    point programs (tester chooses N), base
+     SPECrate2017_fp_energy_base    tuning.
+                                    Higher scores = more computing per unit
+                                    of energy.
+                                    Overall energy ratio running N floating
+                                    point programs (tester chooses N), peak
+     SPECrate2017_fp_energy_peak    tuning.
+                                    Higher scores = more computing per unit
+                                    of energy.
+   (For the initial release of SPEC CPU 2017, the energy metrics were marked
+   "exp" because they were considered "experimental".)
+
+Tester and Date Info
+
+    CPU 2017 license #   The SPEC CPU license number of the organization or
+                         individual that ran the test.
+                         The date when all the hardware necessary to run the
+                         result is generally available. For example, if the
+   Hardware Availability CPU is available in Aug-2025 but the memory is not
+                         available until Jan-2026, then the hardware
+                         availability date is Jan-2026 (unless some other
+                         component pushes it out farther).
+                         The date when all the software necessary to run the
+                         result is generally available. For example, if the
+   Software Availability operating system is available in Aug-2025 but the
+                         compiler is not available until Jan-2026, then the
+                         software availability date is Jan-2026 (unless some
+                         other component pushes it out farther).
+         Test Date       The date when the test is run. This value is
+                         obtained from the system under test.
+                         The name of the organization or individual that
+       Test Sponsor      sponsored the test. Generally, this is the name of
+                         the license holder.
+                         The name of the organization or individual that ran
+         Tested by       the test. If there are installations in multiple
+                         geographic locations, sometimes that will also be
+                         listed in this field.
+
+Results Table
+
+    Result table  In addition to the graph, the results of the individual
+                  benchmark runs are also presented in table form.
+     Benchmark    The name of the benchmark.
+       Copies     For SPECrate runs, this column indicates the number of
+                  benchmark copies that were run simultaneously.
+                  For SPECspeed runs, this column indicates the number of
+      Threads     OpenMP threads that the benchmark was allowed to use
+                  simultaneously.
+                  For SPECspeed runs, this is the amount of time in seconds
+      Seconds     that the benchmark took to run.
+                  For SPECrate runs, it is the amount of time between the
+                  start of the first copy and the end of the last copy.
+                  Number of copies * (time on a reference machine / time on
+                  the system under test)
+                  Thus higher == better. When comparing systems, the system
+                  with the higher ratio does more computing per unit of time.
+                  For SPECspeed, the number of copies is always 1. For
+       Ratio      SPECrate, the tester picks the number of copies.
+                  The reference times may be found in the observations posted
+                  with www.spec.org/cpu2017/results/ 1, 2, 3, and 4.
+                  (The HTML reports round most values to 3 significant
+                  digits.
+                  If you are looking for more exact values from the reference
+                  system, use the CSV reports 1, 2, 3, and 4.)
+                  Amount of energy consumed (in kiloJoules) during the
+   Energy kJoules execution of the benchmark, computed as watts * seconds /
+                  1000.
+   Maximum Power  Maximum power consumed (in watts) during the execution of
+                  the benchmark.
+   Average Power  Average power consumed (in watts) during the execution of
+                  the benchmark.
+                  Number of copies * (energy on the reference machine /
+                  energy on the system under test)
+                  Thus higher == better. When comparing systems, the system
+                  with the higher Energy Ratio does more computing per unit
+                  of energy.
+                  For SPECspeed, the number of copies is always 1. For
+    Energy Ratio  SPECrate, the tester picks the number of copies.
+                  The reference energy may be found in the observations
+                  posted with www.spec.org/cpu2017/results/ 1, 2, 3, and 4.
+                  (The HTML reports round most values to 3 significant
+                  digits.
+                  If you are looking for more exact values from the reference
+                  system, use the CSV reports 1, 2, 3, and 4.)
+
+Tester-provided notes
+
+   Notes/Tuning Information Tester's free-form notes.
+                            Tester's notes about any compiler-specific
+        Compiler Notes      information (example: special paths, setup
+                            scripts, and so forth.)
+                            Tester's notes about how the config file submit
+         Submit Notes       option was used to assign processes to
+                            processors.
+      Portability Notes     Tester's notes about portability options and
+                            flags used to build the benchmarks.
+      Base Tuning Notes     Tester's notes about base optimization options
+                            and flags used to build the benchmarks.
+      Peak Tuning Notes     Tester's notes about peak optimization options
+                            and flags used to build the benchmarks.
+    Operating System Notes  Tester's notes about changes to the default
+                            operating system state and other OS tuning.
+        Platform Notes      Tester's notes about changes to the default
+                            hardware state and other non-OS tuning.
+       Component Notes      Tester's notes about components needed to build a
+                            particular system (for User-Built systems).
+        General Notes       Tester's notes about anything not covered in the
+                            other notes sections.
+                            This section is automatically generated.
+    Compiler Version Notes  It contains output from CC_VERSION_OPTION (and
+                            FC_VERSION_OPTION and CXX_VERSION_OPTION).
+
+Flags
+
+                          This section is generated automatically. It lists
+   Compilation Flags Used the compiler flags that were used, and links to
+                          descriptions.
+                          The compiler flags are reported according to the
+                          languages used by the benchmarks.
+      Benchmarks Using    For base, the rules require consistency by
+         <language>       language.
+                          For a list of which benchmarks use which languages,
+                          see the table of Benchmarks in the documentation
+                          index.
+    Compiler Invocation   How the compilers are invoked.
+                          Flags that are claimed to be necessary in order to
+     Portability Flags    solve platform differences, under the portability
+                          rule.
+                          Generally required to be performance-neutral.
+     Optimization Flags   Flags that improve (or are intended to improve)
+                          performance.
+        Other Flags       Compile flags that are classified as neither
+                          portability nor optimization.
+                          Flags that are not described.
+                          Results with unknown flags are marked "invalid" and
+       Unknown Flags      must not be published.
+                          If you have a result with this problem, you might
+                          be able to fix it, by editing your flags file and
+                          reloading it with rawformat.
+                          This section of the reports lists compilation flags
+      Forbidden Flags     used that are designated as "forbidden".
+                          Results using forbidden flags are marked "invalid"
+                          and must not be published.
+                          This section is automatically inserted when there
+           Errors         are errors present that prevent the result from
+                          being a valid reportable result.
+
+Hardware description
+
+   See the run rules section on Hardware Configuration disclosure.
+
+       CPU Name      A manufacturer-determined processor formal name.
+                     The maximum clock frequency of the CPU, as specified by
+    Maximum CPU MHz  the chip vendor, expressed in megahertz. For reportable
+                     runs, you need to disclose both the Nominal and the Max
+                     MHz.
+                     The nominal clock frequency of the CPU, as specified by
+    Nominal CPU MHz  the chip vendor, expressed in megahertz. For reportable
+                     runs, you need to disclose both the Nominal and the Max
+                     MHz.
+                     The number of CPUs that were enabled and active during
+    CPU(s) enabled   the benchmark run. More information about CPU counting
+                     is in the run rules.
+   CPU(s) orderable  The number of CPUs that can be ordered in a system of
+                     the type being tested.
+       L1 Cache      Description (size and organization) of the CPU's primary
+                     cache. This cache is also referred to as "L1 cache".
+                     Description (size and organization) of the CPU's
+       L2 Cache      secondary cache. This cache is also referred to as "L2
+                     cache".
+       L3 Cache      Description (size and organization) of the CPU's
+                     tertiary, or "Level 3" cache.
+      Other Cache    Description (size and organization) of any other levels
+                     of cache memory.
+                     Description of the system main memory configuration.
+        Memory       Options that affect performance, such as arrangement of
+                     memory modules, interleaving, latency, etc, are
+                     documented here.
+                     A description of the disk subsystem (size, type, and
+   Storage Subsystem RAID level if any) of the storage used to hold the
+                     benchmark tree during the run.
+    Other Hardware   Any additional equipment added to improve performance.
+
+Software description
+
+   See the run rules section on Software Configuration disclosure.
+
+                    The operating system name and version. If there are
+   Operating System patches applied that affect performance, they must be
+                    disclosed in the notes.
+       Compiler     The names and versions of all compilers, preprocessors,
+                    and performance libraries used to generate the result.
+                    This field is automatically set to "Yes" if compiler
+       Parallel     flags are used that are marked with the parallel
+                    attribute, indicating that they cause either automatic or
+                    explicit parallelism.
+   System Firmware  The customer-accessible name and version of the firmware
+                    used on the system under test.
+     File System    The type of the filesystem used to contain the run
+                    directories.
+                    The state (sometimes called "run level") of the system
+     System State   while the benchmarks were being run. Generally, this is
+                    "single user", "multi-user", "default", etc.
+                    Indicates whether all the benchmarks in base used 32-bit
+                    pointers, 64-bit pointers, or a mixture.
+    Base Pointers   For example, if the C and C++ benchmarks used 32-bit
+                    pointers, and the Fortran benchmarks used 64-bit
+                    pointers, then "32/64-bit" would be reported here.
+    Peak Pointers   Indicates whether all the benchmarks in peak used 32-bit
+                    pointers, 64-bit pointers, or a mixture.
+    Other Software  Any performance-relevant non-compiler software used,
+                    including third-party libraries, accelerators, etc.
+
+Power and Temperature information
+
+   Measured power and temperature data:
+
+      Maximum Power (W)    Maximum power (in Watts) that was measured during
+                           the entire benchmark suite run.
+                           This is a 60 second measurement of idle power (in
+       Idle Power (W)      Watts) on the machine, is made after the benchmark
+                           has been run and the system was given time 10
+                           seconds to rest.
+   Minimum Temperature (C) Lowest temperature measured (in C) that was
+                           registered during the entire benchmark suite run.
+
+   User-supplied power and temperature information:
+
+                           The elevation above sea level of the test site in
+   Test Site Elevation (m) meters. This is relevant because the reduced
+                           density of air at higher altitudes causes air
+                           cooling to be less efficient.
+                           Description of the line standards for the main AC
+                           power as provided by the local utility company
+     Power Line Standard   which is used to power the SUT. This field
+                           includes the standard voltage and frequency,
+                           followed by the number of phases and wires used to
+                           connect the SUT to the AC power line.
+                           Description of how the SUT is powered. This field
+                           can have one of three possible values:
+
+                             * "Line-powered": The SUT is powered by an
+                               external AC power source.
+                             * "Battery-powered": The SUT is designed to be
+                               able to run normal operations without an
+     Power Provisioning        external source of power.
+                             * "Other (<explanation>)": Neither line- nor
+                               battery-powered, with short explanatory text
+                               in parentheses. The explanation may be
+                               expanded upon in the power notes section.
+
+                           Note: for SPEC CPU 2017, "Battery-powered" is not
+                           an acceptable choice for reportable runs -- see
+                           rule 3.9.2 (e).
+                           This field indicates whether power management for
+      Power Management     the SUT is enabled or disabled. Details for
+                           settings are required to be in the power notes
+                           section.
+      System Management    A version number or string identifying the
+      Firmware Version     management firmware running on the SUT, or "None"
+                           if no management controller was installed.
+                           Description of how the memory subsystem on the SUT
+                           is configured. This field can have one of three
+                           possible values:
+
+                             * "Normal": Memory is configured without
+                               redundancy of any kind, and the complete
+                               installed capacity is available for use by the
+                               OS and user programs.
+                             * "Mirrored": Memory is configured so that all
+    Memory Operation Mode      locations are redundant and a failure of any
+                               installed piece of memory will not interrupt
+                               or pause system operation.
+                             * "Spare": Memory is configured so that there is
+                               some extra capacity available so that memory
+                               from a failing component can be copied to the
+                               spare in the event of a partial failure.
+                             * "Other (<explanation>)": Memory is configured
+                               in some other way, and a short explanation is
+                               provided. The explanation can be expanded upon
+                               in the power notes section of the result.
+        Power Supply       The number and rating of the power supplies used
+                           in this system for this run.
+    Power Supply Details   Additional details about the power supply, such as
+                           a part number or other identifier.
+                           If the system has options for multiple back- or
+                           center-planes to support different storage or
+     Backplane Installed   CPU/memory options, the description and part or
+                           model number of the installed parts must be
+                           disclosed.
+                           If the system has storage devices such as
+                           additional disks, optical drives, HBAs, etc, that
+   Other Installed Storage were installed but not used for the benchmark run,
+           Devices         the description and model numbers of those devices
+                           must be disclosed, as they consume power even when
+                           idle.
+                           The model numbers of the storage devices used for
+    Storage Device Model   the benchmark runs must be disclosed, as different
+           Numbers         models of identical capacity may have different
+                           power consumption characteristics.
+      Installed Network    The number and model numbers of the network
+         Interfaces        devices installed in the system.
+                           The number of installed network interfaces enabled
+                           at the firmware level and configured in the
+     Network Interfaces    operating system respectively must be disclosed,
+           Enabled         as unconfigured or inactive network interfaces may
+                           have different power consumption characteristics
+                           than interfaces which are configured or enabled.
+                           The number of network interfaces physically
+                           connected to networks and the speeds at which they
+     Network Interfaces    are connected must be disclosed, as inactive
+     Connected and Their   interfaces may consume different amounts of power
+           Speeds          than active ones, and differing speeds (even when
+                           compatible) may consume different amounts of
+                           power.
+                           If the system has hardware devices installed that
+   Model Numbers for Other consume any amount of power that are not disclosed
+     Installed Hardware    in other fields, the name and model numbers of
+                           that hardware must be disclosed.
+                           Name used to connect the PTDaemon to the power
+       Power Analyzer      analyzer. If more that one power analyzer was
+                           used, there will be multiple descriptions
+                           presented.
+                           The name used to connect the PTDaemon to the
+      Temperature Meter    temperature meter. If more that one temperature
+                           meter was used, there will be multiple
+                           descriptions presented.
+       Hardware Vendor     Name of the company that provides the power
+                           analyzer or temperature meter.
+            Model          The model of the power analyzer or temperature
+                           meter.
+        Serial Number      Serial number of the power analyzer being used.
+                           A description of the interface used to connect the
+      Input Connection     power analyzer or temperature meter to the
+                           PTDaemon host system, e.g. RS-232 (serial port),
+                           USC, GPIB, etc.
+                           Name of the accreditation organization of the
+                           institute that did the calibration of the meter
+                           (e.g. NIST, PTB, AIST, NML, CNAS, etc.).
+     Metrology Institute   A list of national metrology institutes for many
+                           countries is maintained by the United States
+                           National Institute of Standards. If the main site
+                           is unavailable, the content may be viewable on the
+                           Internet Archive's Wayback Machine.
+       Calibration By      Organization that performed the power analyzer
+                           calibration.
+                           A number or character string which uniquely
+                           identifies this meter calibration event.
+      Calibration Label    May appear on the calibration certificate or on a
+                           sticker applied to the power analyzer. The format
+                           of this number is specified by the metrology
+                           institute.
+                           The date (DD-MMM-YYYY) the calibration certificate
+      Calibration Date     was issued, from the calibration label or the
+                           calibration certificate.
+      PTDaemon Version     Version of the Power and Temperature Daemon
+                           (automatically filled out).
+                           A brief description of how the power analyzer or
+                           temperature meter was arranged with the SUT.
+      Setup Description    May include which power supply was connected to
+                           this power analyzer, or how far away this
+                           temperature meter was from the air intake of the
+                           system.
+                           A list of current (amperage) ranges used to
+     Current Ranges Used   configure the power analyzer while running the
+                           benchmarks (automatically filled out).
+                           Voltage range used to configure the power analyzer
+     Voltage Range Used    while running the benchmarks (automatically filled
+                           out).
+
+Other information
+
+                  For a reportable CPU 2017 run, two or three iterations of
+                  each benchmark are run, and either the median of the three
+   Median results runs, or the slower of the two, is selected to be part of
+                  the overall metric. In output formats that support it, the
+                  selected results are underlined in bold.
+                  When you read a results table, results are listed in the
+                  order that they were run, in column-major order. In other
+                  words, if you're interested in reading results in the same
+     Run order    order that they were produced, start in the upper-left
+                  corner and read down the first column, then read the middle
+                  column, and so forth. If both base and peak tuning are
+                  used, all base runs are completed before starting peak.
+                  [details]
+
+   SPEC CPU(R)2017 Result File Fields: Copyright (c) 2017-2019 Standard
+   Performance Evaluation Corporation (SPEC(R))
+
+

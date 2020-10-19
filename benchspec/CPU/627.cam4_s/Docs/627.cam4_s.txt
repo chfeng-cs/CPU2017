@@ -1,0 +1,167 @@
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   627.cam4_s
+
+  Benchmark Author
+
+   National Center for Atmospheric Research (NCAR)
+
+  Benchmark Program General Category
+
+   Atmosphere General Circulation Model (AGCM)
+
+  Benchmark Description
+
+   The Community Atmosphere Model (CAM) is the atmosphere component used by
+   the Community Earth System Model (CESM).
+
+   This benchmark is running code which is part of the publicly released
+   CESM-1.0.2. The version of CAM in that release is CAM-5.0. In order to
+   obtain as robust a validation procedure as possible, the benchmark runs
+   use a special configuration which employs a prescribed ocean only lower
+   boundary condition. This is the configuration used by the Aqua-Planet
+   Experiment Project.
+
+   The model is run in a backwards compatibility mode to use the "cam4"
+   physics package that was originally released in CAM-4.0, and which has
+   been used in the majority of the CESM simulations done for CMIP5, as
+   analyzed for the IPCC Fifth Assessment Report (AR5).
+
+   The validation procedure uses a perturbation growth test described
+   [1]here.
+
+  Input Description
+
+   The files atm_in and drv_in contain the Namelist groups read by CAM and
+   are documented [2]here.
+
+   The data sets are identical for all four of the SPEC(R)-provided workloads
+   (test, train, refrate, refspeed), with some differences in how they are
+   processed:
+
+     * Test and train do a smaller number of steps than the reference
+       workloads.
+     * At compile time, the speed version (627.cam4_s) includes the flag
+       -DUSE_COSP. Therefore, the speed version processes each of the
+       workloads using the COSP simulator. The rate version (627.cam4_s) does
+       not use COSP.
+     * The namelist variable [3]nhtfrq controls the write frequency for the
+       history file. For test and train, the frequency is every timestep (1).
+       For the reference workloads, the frequency is 30 timesteps.
+
+  Output Description
+
+   The log file, written to standard out, contains a summary of how the model
+   has been configured. Some global statistics of the atmospheric state are
+   printed for each model time step.
+
+   The netCDF output file, h0.nc, contains global temperature fields for the
+   written timesteps.
+
+  Validation
+
+   The program cam4_validate (which is built at the same time as the
+   benchmark binary) compares h0.nc vs. SPEC's expected outputs using a root
+   mean square differences. The validation program accepts 4 parameters:
+
+   maxf:   Maxium of failures to print
+   reltol: Allowable Relative tolerance
+   ctrl:   Expected results (provided by SPEC)
+   bench:  Results from a benchmark run
+
+   The tolerance mentioned just above is set by routine compare_commands
+   within {627.cam4_s,627.cam4_s}/Spec/object.pm.
+
+   Lastly, specdiff checks the output of cam4_validate
+
+   What this means when deciphering log files: If your run fails, you may see
+   something like the following in the $SPEC/result log file:
+
+ *** Miscompare of cam4_validate.txt; for details see
+     /path/627.cam4_s/run/run_mumble.0000/cam4_validate.txt.mis
+ 0001:   PASS:  4  points.
+         Failure at Step:  2 1 1 1
+         ^
+
+   The above message means that specdiff expected to find that cam4_validate
+   had written PASS but instead cam4_validate has written other stuff. To
+   find the details, you should cd to the run directory that was referenced
+   in the log file, and examine cam4_validate.txt.
+
+ $ head -4 cam4_validate.txt
+  Failure at Step:  2 1 1 1
+           Actual:  218.14015096246447
+         Expected:  217.62126113318524
+           Reltol:  2.384371024123735E-3
+ $
+
+   In the above example, the validation utility has printed the actual and
+   expected values, and has indicated the validation tolerance that would be
+   needed if this difference were acceptable.
+
+  Programming Language
+
+   Fortran90 and C
+
+  Version and Licensing
+
+   The CAM-5.0 code has been extracted from CESM-1.0.2 and is public domain
+   software.
+
+  Known portability issues
+
+   Depends on NETCDF as packaged with the benchmark. By default, the workload
+   will be formatted to use big endian. To use little endian formatting, set
+   the appropriate compiler option to byte-swap the input I/O or set the
+   define flag SPEC_WORDS_LITTLEENDIAN.
+
+   The OpenMP version of CAM4 uses a large amount of stack space. The exact
+   amount will vary by system, compiler, and number of threads. You will most
+   likely need to set both the process stack and the OpenMP environment
+   variable OMP_STACKSIZE to a large value, such as 128M or greater. See the
+   examples at [4]config.html#preenv.
+
+   The spec_qsort.c routine does not strictly obey the ANSI aliasing rules.
+   GCC users may need to add -fno-strict-aliasing. See the detailed
+   discussion in the documentation for [5]505.mcf_r.
+
+  Sources and Licensing
+
+   527.cam4 is based on an early version of CESM, plus netcdf and several
+   BSD-licensed components.
+
+   Please see details in the document [6]SPEC CPU(R)2017 Licenses.
+
+  References
+
+    1. [7]Community Earth System Model (CESM)
+    2. [8]Aqua-Planet Experiment Project
+    3. [9]CMIP5
+    4. [10]Validation Process
+    5. [11]Input File Description
+    6. [12]Copyright
+
+   --------------------------------------------------------------------------
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. http://www.cesm.ucar.edu/models/cesm1.0/cam/docs/port/
+   2. http://www.cesm.ucar.edu/models/cesm1.0/cam/docs/ug5_0/ug.html
+   3. http://www.cesm.ucar.edu/cgi-bin/eaton/namelist/nldef2html-pub
+   4. https://www.spec.org/cpu2017/Docs/config.html#preenv
+   5. https://www.spec.org/cpu2017/Docs/benchmarks/505.mcf_r.html#Portability
+   6. https://www.spec.org/cpu2017/Docs/licenses.html#bmk627.cam4_s
+   7. http://www.cesm.ucar.edu/models/cesm1.0/
+   8. https://pcmdi.llnl.gov/projects/ape/
+   9. https://esgf-node.llnl.gov/projects/cmip5/
+  10. http://www.cesm.ucar.edu/models/cesm1.0/cam/docs/port/
+  11. http://www.cesm.ucar.edu/models/cesm1.0/cam/docs/ug5_0/ug.html
+  12. http://www.cesm.ucar.edu/models/cesm1.0/copyright.html

@@ -1,0 +1,119 @@
+runcpu banner
+Using tools
+Reading file manifests...
+Loading runcpu modules...
+Locating benchmarks...found some benchmarks in some benchsets.
+Reading config file 'trac694.cfg'
+  INFO: in top config file trac694.cfg which is also
+        current (trac694.cfg).
+  INFO: nesting level is 0 (should be 0)
+  INFO: parent config file is "" (should be "")
+Reading included config file '$SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg'
+  INFO: in first-level included config file
+        $SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg
+  INFO: nesting level is 1 (should be 1)
+  INFO: parent config file is
+        "<cfgdir>/trac694.cfg"
+        (should be
+        "<cfgdir>/trac694.cfg")
+Reading included config file '$SPEC/bin/unit_tests/runcpu.files/trac694-inc22.cfg'
+  INFO: in second-level included config file
+        $SPEC/bin/unit_tests/runcpu.files/trac694-inc22.cfg
+  INFO: nesting level is 2 (should be 2)
+  INFO: parent config file is
+        "$SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg"
+        (should NOT be
+        "<cfgdir>/trac694.cfg")
+  INFO: end of inclusion chain
+Reading included config file '$SPEC/bin/unit_tests/runcpu.files/trac694-inc1.cfg'
+  INFO: in first-level included config file
+        $SPEC/bin/unit_tests/runcpu.files/trac694-inc1.cfg
+  INFO: nesting level is 1 (should be 1)
+  INFO: parent config file is
+        "<cfgdir>/trac694.cfg"
+        (should be
+        "<cfgdir>/trac694.cfg")
+Reading included config file '$SPEC/bin/unit_tests/runcpu.files/trac694-inc12.cfg'
+  INFO: in second-level included config file
+        $SPEC/bin/unit_tests/runcpu.files/trac694-inc12.cfg
+  INFO: nesting level is 2 (should be 2)
+  INFO: parent config file is
+        "$SPEC/bin/unit_tests/runcpu.files/trac694-inc1.cfg"
+        (should NOT be
+        "<cfgdir>/trac694.cfg")
+Reading included config file '$SPEC/bin/unit_tests/runcpu.files/trac694-inc123.cfg'
+  INFO: in third-level included config file
+        $SPEC/bin/unit_tests/runcpu.files/trac694-inc123.cfg
+  INFO: nesting level is 3 (should be 3)
+  INFO: parent config file is
+        "$SPEC/bin/unit_tests/runcpu.files/trac694-inc12.cfg"
+        (should NOT be
+        "<cfgdir>/trac694.cfg")
+  INFO: end of inclusion chain
+Reading included config file '$SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg'
+  INFO: in first-level included config file
+        $SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg
+  INFO: nesting level is 1 (should be 1)
+  INFO: parent config file is
+        "<cfgdir>/trac694.cfg"
+        (should be
+        "<cfgdir>/trac694.cfg")
+Reading included config file '$SPEC/bin/unit_tests/runcpu.files/trac694-inc22.cfg'
+  INFO: in second-level included config file
+        $SPEC/bin/unit_tests/runcpu.files/trac694-inc22.cfg
+  INFO: nesting level is 2 (should be 2)
+  INFO: parent config file is
+        "$SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg"
+        (should NOT be
+        "<cfgdir>/trac694.cfg")
+  INFO: end of inclusion chain
+Pre-processed configuration file dump follows:
+--------------------------------------------------------------------
+# Invocation command line:
+# $SPEC/bin/harness/runcpu -a configpp -c trac694.cfg
+# output_root was not used for this run
+############################################################################
+sysinfo_program =
+
+
+#include: $[top]/bin/unit_tests/runcpu.files/trac694-inc2.cfg
+#  ----- Begin inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg'
+############################################################################
+
+#include: $[top]/bin/unit_tests/runcpu.files/trac694-inc22.cfg
+#  ----- Begin inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc22.cfg'
+############################################################################
+
+# ---- End inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc22.cfg'
+# ---- End inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg'
+#include: $[top]/bin/unit_tests/runcpu.files/trac694-inc1.cfg
+#  ----- Begin inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc1.cfg'
+############################################################################
+
+#include: $[top]/bin/unit_tests/runcpu.files/trac694-inc12.cfg
+#  ----- Begin inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc12.cfg'
+############################################################################
+
+#include: $[top]/bin/unit_tests/runcpu.files/trac694-inc123.cfg
+#  ----- Begin inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc123.cfg'
+############################################################################
+
+# ---- End inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc123.cfg'
+# ---- End inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc12.cfg'
+# ---- End inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc1.cfg'
+#include: $[top]/bin/unit_tests/runcpu.files/trac694-inc2.cfg
+#  ----- Begin inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg'
+############################################################################
+
+#include: $[top]/bin/unit_tests/runcpu.files/trac694-inc22.cfg
+#  ----- Begin inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc22.cfg'
+############################################################################
+
+# ---- End inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc22.cfg'
+# ---- End inclusion of '$SPEC/bin/unit_tests/runcpu.files/trac694-inc2.cfg'
+
+--------------------------------------------------------------------
+
+The log for this run is in [log file]
+
+runcpu finished at [timestamp]

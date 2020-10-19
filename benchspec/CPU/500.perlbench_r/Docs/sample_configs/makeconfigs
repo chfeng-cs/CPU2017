@@ -1,0 +1,32 @@
+#!/bin/sh
+
+if [ "x$1" = "x" -o ! -d "$1" ]; then
+  echo please specify a directory to process
+  exit 1
+fi
+cd $1
+shift
+EXCL_RE_DEBUG=0
+if [ "x$1" = "x--debug" ]; then
+  EXCL_RE_DEBUG=1
+  shift
+fi
+if [ "x$1" = "x--debug" ]; then
+  EXCL_RE_DEBUG=2
+  shift
+fi
+export EXCL_RE_DEBUG
+
+for i in config.sh-*; do
+  ( export CONFIG_SH=$i;
+    SYSTYPE=`echo $i | sed 's/config.sh-//'`
+    export CONFIG_SYMBOLS=../$SYSTYPE.configure.symbols
+    export BENCH_SYMBOLS=../$SYSTYPE.benchmark.symbols
+    export CONFIG_H=../config.h-$SYSTYPE
+    export PERL_CONFIG_SH=foo;
+    cat $i ./config_h.SH > tmpcfg.sh;
+    sh tmpcfg.sh;
+    rm tmpcfg.sh;
+    cpp -undef -dM -DSPEC -DSPEC_CPU -DNDEBUG                                 $CONFIG_H                  | perl ./exclude_symbols | sort > $CONFIG_SYMBOLS;
+    cpp -undef -dM -DSPEC -DSPEC_CPU -DNDEBUG `cat args-$SYSTYPE 2>/dev/null` ../../../src/spec_config.h | perl ./exclude_symbols | sort > $BENCH_SYMBOLS )
+done

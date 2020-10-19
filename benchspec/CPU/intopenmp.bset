@@ -1,0 +1,14 @@
+$name             = 'intopenmp';
+$unitbase         = 'NOTAnyKindOfCPUmark';
+$metricbase       = 'int';
+$metric           = 'CINT2017';
+$ref              = 'refspeed';
+$train            = 'train';
+$test             = 'test';
+$rate_multiplier  = 0;   # Disallow rate runs with this benchset
+$output           = 0;
+@benchmarks = qw(
+        657.xz_s
+);
+
+1;

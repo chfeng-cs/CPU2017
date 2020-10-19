@@ -1,0 +1,20 @@
+runcpu banner
+Using tools
+Reading file manifests...
+Loading runcpu modules...
+Locating benchmarks...found some benchmarks in some benchsets.
+Reading config file 'trac876.cfg'
+Pre-processed configuration file dump follows:
+--------------------------------------------------------------------
+# Invocation command line:
+# $SPEC/bin/harness/runcpu -a configpp -c trac876.cfg
+# output_root was not used for this run
+############################################################################
+sysinfo_program =
+
+
+--------------------------------------------------------------------
+
+The log for this run is in [log file]
+
+runcpu finished at [timestamp]

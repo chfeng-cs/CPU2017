@@ -1,0 +1,2 @@
+echo submit command: BIND=0 1>&2; ../run_peak_refrate_trac339.0000/specrand_ir_peak.trac339 1255432124 234923 0<&- > rand.234923.out 2>> rand.234923.err
+echo submit command: BIND=0 1>&2; $SPEC/bin/specperl $SPEC/bin/harness/specdiff -m -l 10 --floatcompare --nonansupport $SPEC/benchspec/CPU/999.specrand_ir/data/refrate/output/rand.234923.out rand.234923.out 0<&- > rand.234923.out.cmp

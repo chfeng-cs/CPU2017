@@ -1,0 +1,268 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                        SPEC CPU(R)2017 Changes in v1.1
+
+       $Id: changes-in-v1.1.html 6361      Latest: www.spec.org/cpu2017/Docs/
+     2019-08-16 23:51:59Z JohnHenning $
+
+   This document briefly describes changes in SPEC CPU(R)2017 v1.1, a product
+   of the SPEC(R) non-profit corporation (about SPEC).
+
+   Contents:
+
+   Power measurement
+
+   Updates to Run and Reporting Rules
+
+   Benchmark updates
+
+   500.perlbench_r / 600.perlbench_s
+
+   502.gcc_r / 602.gcc_s
+
+   510.parest_r
+
+   520.omnetpp_r / 620.omnetpp_s
+
+   521.wrf_r / 621.wrf_s
+
+   525.x264_r/625.x264_s
+
+   526.blender_r
+
+   627.cam4_s
+
+   538.imagick_r / 638.imagick_s
+
+   Other minor updates
+
+Power measurement
+
+   Power was previously introduced as an experimental feature in CPU 2017
+   v1.0.
+   As of v1.1, the feature is now fully supported.
+
+   Power measurement is optional. You can include it, or not, as you may
+   prefer.
+
+   If you wish to measure power, you will need:
+
+     * A power analyzer.
+     * A temperature sensor.
+     * A Linux or Windows "Controller System", where you will run SPEC's
+       Power and Temperature reporting tool, SPEC PTDaemon(TM)
+
+   In your config file, you specify the network location for the controller
+   system; set the expected voltage and current ranges; and describe your
+   measurement setup for readers of your results.
+
+   For more information, see the config file documentation on Power
+   Measurement.
+
+Updates to Run and Reporting Rules
+
+     * Provide full support for power measurements and energy metrics. See:
+
+          * 1.6 Philosophy section on Power Measurement
+          * 1.7 Philosophy section on Estimates
+          * 3.9 Power and Temperature Measurement
+          * 4.1 General disclosure requirements
+          * 4.2.5 Performance changes for pre-production systems
+          * 4.3 Performance changes for production systems
+          * 4.10.3 Energy Metrics
+          * 5.6 Estimates
+
+     * 2.3.11 Clarify that 32-bit pointers may be used only for SPECrate(R)
+       (SPECspeed(R)2017 does not fit in 32 bits).
+     * 4.4 Clarify that rawformat may be used to update results after the
+       run.
+     * 4.6.b Clarify that rawformat may be used to fix flags files.
+     * 4.7 The rule about equivalent systems has been removed and replaced: A
+       result may be published for only one system.
+
+Benchmark updates
+
+  500.perlbench_r / 600.perlbench_s
+
+     * Removed signal handling, on the grounds that it is system-specific
+       (non-portable) behavior, it makes debugging difficult, and the change
+       is performance neutral (because no signals are invoked during ordinary
+       execution). The change does not affect ordinary reportable runs.
+
+     * One of the components of the (non-timed) test workload could fail if
+       more than 1000 copies of the test workload have previously been run.
+       Fixed tmpdir handling in lib/File/Spec/Unix.pm to avoid the problem.
+       The change does not affect the timed (reference) workload.
+
+  502.gcc_r / 602.gcc_s
+
+   Removed signal handling, on the grounds that it is system-specific
+   (non-portable) behavior, it makes debugging difficult, and the change is
+   performance neutral (because no signals are invoked during ordinary
+   execution). The change does not affect ordinary reportable runs.
+
+  510.parest_r
+
+   A syntax error comparing a pointer to an integer was corrected. The change
+   is performance neutral: it affects one comparison which is done 16 times
+   during a run; and empirical testing did not show any differences. (Median
+   within less than a tenth of a percent.)
+
+ --- ...old.../510.parest_r/src/source/base/parameter_handler.cc
+ +++ ...new.../510.parest_r/src/source/base/parameter_handler.cc
+ @@ -749,7 +749,7 @@
+    char *endptr;
+    double d = std::strtod (s.c_str(), &endptr);
+                                    // assert there was no error
+ -  AssertThrow ((s.c_str()!='\0') || (*endptr == '\0'),
+ +  AssertThrow ((s.c_str()[0]!='\0') || (*endptr == '\0'),
+                ExcConversionError(s));
+
+  520.omnetpp_r / 620.omnetpp_s
+
+   Removed signal handling, on the grounds that it is system-specific
+   (non-portable) behavior, it makes debugging difficult, and the change is
+   performance neutral (because no signals are invoked during ordinary
+   execution). The change does not affect ordinary reportable runs.
+
+  521.wrf_r / 621.wrf_s
+
+   In file src/read_grib.c, the file time.h is included from whatever the
+   usual location is, instead of having a hard-coded (and possibly incorrect)
+   path. The change was made after a user reported that the hard-coded path
+   was not present on his macOS 10.14 system. If for some unlikely reason it
+   were actually necessary to use the hard-coded path, a portability flag
+   could be used to request the old behavior. As with any other portability
+   flag, such usage would need to be justfied.
+
+ --- ...old...521.wrf_r/src/read_grib.c
+ +++ ...new...521.wrf_r/src/read_grib.c
+  #include <math.h>
+  #include <limits.h>
+ -#if defined(MACOS) || defined(SPEC_MACOSX)
+ +#if (defined(MACOS) || defined(SPEC_MACOSX)) && defined(SPEC_TIME_H_ABSOLUTE_PATH)
+  #include "/usr/include/time.h"
+  #else
+  #include <time.h>
+  #endif
+
+  525.x264_r/625.x264_s
+
+   Removed signal handling, on the grounds that it is system-specific
+   (non-portable) behavior, it makes debugging difficult, and the change is
+   performance neutral (because no signals are invoked during ordinary
+   execution). The change does not affect ordinary reportable runs.
+
+  526.blender_r
+
+     * Removed signal handling, on the grounds that it is system-specific
+       (non-portable) behavior, it makes debugging difficult, and the change
+       is performance neutral (because no signals are invoked during ordinary
+       execution). The change does not affect ordinary reportable runs.
+
+     * (This fix first shipped with update v1.0.5.) Fix an incompatibility
+       with GLIBC 2.26+ found in module threads.c. The problem is that
+       struct timespec does not get defined if you use gcc -std=c99 or
+       gcc -std=c11. The fix increases the _POSIX_C_SOURCE to the needed
+       level for this module.
+
+ --- ...old.../526.blender_r/src/blender/source/blender/blenlib/intern/threads.c
+ +++ ...new.../526.blender_r/src/blender/source/blender/blenlib/intern/threads.c
+ @@ -29,6 +29,12 @@
+   *  \ingroup bli
+   */
+
+ +#if defined(SPEC) && (_POSIX_C_SOURCE - 0) < 200112L
+ +   /* Needed for struct_timespec */
+ +#  undef _POSIX_C_SOURCE
+ +#  define _POSIX_C_SOURCE 200112L
+ +#endif
+ +
+  #include <stdlib.h>
+
+       Thank you to Steve Ellcey for reporting the issue.
+
+     * As a consequence of the above change, an Apple-specific include
+       located a few lines further down in threads.c ran into unknown types
+       within /usr/include/sys/sysctl.h. The solution that was picked (and
+       which first ships with SPEC CPU 2017 v1.1) causes macOS to follow the
+       same path as other Unix systems. This change is expected to be
+       performance neutral, since the threading code is not used in
+       526.blender_r; and empirical testing showed differences that are
+       smaller than run-to-run variation.
+
+ /* for checking system threads - BLI_system_thread_count */
+  #ifdef WIN32
+  #  include <windows.h>
+  #  include <sys/timeb.h>
+ -#elif defined(__APPLE__)
+ +#elif defined(__APPLE__) && !defined(SPEC)
+  #  include <sys/types.h>
+  #  include <sys/sysctl.h>
+  #else
+  #  include <unistd.h>
+  #  include <sys/time.h>
+  #endif
+
+  627.cam4_s
+
+   A potential data race condition was reported between multiple threads
+   writing and reading an implicitly SHARED variable in a parallel region. To
+   avoid the problem, line 109 of src/uv3s_update.F90 was changed to mark the
+   variable tmp as private:
+
+ !$omp parallel do private (i, j, k, tmp)
+
+   The source code in question is executed during the reference (timed)
+   benchmark run. Although SPEC tries to avoid changes to timed code after a
+   benchmark has been released, in this case an exception was made because:
+
+     * From the context of the code, it is clear that the intent was that the
+       variable should have been marked private.
+     * SPEC is not aware of any published benchmark results that were
+       actually affected by this error, and the fix avoids the potential of
+       future problems.
+     * Therefore, the error was deemed important to fix, because data races
+       are exceedingly difficult for users, often causing non-reproducible or
+       difficult-to-reproduce problems that seem to come and go without
+       explanation.
+
+  538.imagick_r / 638.imagick_s
+
+   Removed signal handling, on the grounds that it is system-specific
+   (non-portable) behavior, it makes debugging difficult, and the change is
+   performance neutral (because no signals are invoked during ordinary
+   execution). The change does not affect ordinary reportable runs.
+
+Other minor updates
+
+     * Error messages were clarified (e.g. for failed installations)
+     * More error conditions are properly recognized and dealt with (e.g.
+       incorrect config file syntax, corrupt source directories, corrupt raw
+       files)
+     * Reports were cleaned up (e.g. make compiler version reporting easier
+       to read, correctly report use of src.alt)
+     * Documentation was improved (e.g. new material for power, clarify
+       basepeak)
+     * For more detail, see the list of Revisions.
+
+   SPEC CPU(R)2017 Changes in v1.1: Copyright (c) 2019 Standard Performance
+   Evaluation Corporation (SPEC(R))
+
+

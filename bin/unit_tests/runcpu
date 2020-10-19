@@ -1,0 +1,371 @@
+#!/bin/sh
+
+# Non-unit tests for runcpu
+#
+# If runcpu were more testing-friendly, these would be lighter and involve
+# less user interaction.
+# As things are, it's just about writing config files and doing fake runs
+# (perhaps with filtering) and looking at the output.
+
+# Set SPEC ourselves so that we're testing the local runcpu
+unset SPEC
+unset SPECPERLLIB
+SPEC=$(cd $(dirname $0)/../..; pwd)
+export SPEC
+
+trap "" USR1
+
+alarm_on()
+{
+    local _timeout=$1
+    if [ -z "$_timeout" ] || [ "${_timeout}0" -le 0 ] || [ "0$_timeout" -eq 0 ]; then
+        return
+    fi
+
+    trap "alarm_off" ALRM       # Call cleanup on SIGALRM
+    sleep $_timeout & wait      # Implement the timeout period
+    kill -ALRM $$               # Set the alarm off
+}
+alarm_off()
+{
+    local _pgid
+
+    trap - ALRM                 # Stop watching for alarms
+    if [ -n "$timer" ] && kill -0 $timer 2>/dev/null; then
+        kill -ALRM $timer # Stop the timer subshell (might be running)
+    fi
+
+    # Stop the test job.
+    # If the job is stopped, we rely on the output mismatching, just like for
+    # any other runtime failure.
+    if [ -n "${_testpid}" ] && kill -0 ${_testpid} 2>/dev/null; then
+        kill -USR1 $_testpid 2>/dev/null
+    fi
+}
+
+
+runtest() {
+    _regen=0
+    _filter=
+    _teeout='cat >'
+    _diffprog="diff"
+    _diffopts="-u -w"
+    _fake=0
+    _runcfg=
+    _clean=1
+    _keep_outputs=0
+    _run_number=-1
+    _expected_failure=0
+    _prerun=
+    _postrun=
+    _timeout=0
+
+    OPTARG=
+    OPTIND=1
+    while getopts Cc:D:d:e:f:N:p:P:nrtT:kxh- opt; do
+        case $opt in
+            -)  break
+                ;;
+            C)  _clean=0
+                ;;
+            c)  _cfg="$OPTARG"
+                if [ ! -f $_cfg ]; then
+                    echo Config file $_cfg does not exist
+                    exit 1
+                fi
+                _runcfg=$SPEC/config/runtest.$$.$(basename $_cfg)
+                cp $_cfg $_runcfg
+                ;;
+            D)  _diffprog="$OPTARG"
+                ;;
+            d)  _diffopts="$OPTARG"
+                ;;
+            e)  _expected="$OPTARG"
+                if [ $_regen -eq 0 -a ! -f $_expected ]; then
+                    echo Expected output file $_expected does not exist
+                    exit 1
+                fi
+                ;;
+            f)  _filter="$OPTARG"
+                ;;
+            p)  _prerun="$OPTARG"
+                ;;
+            P)  _postrun="$OPTARG"
+                ;;
+            N)  _run_number="$OPTARG"
+                ;;
+            n)  _fake=1
+                ;;
+            r)  _regen=1
+                ;;
+            t)  _teeout=tee
+                ;;
+            T)  _timeout="$OPTARG"
+                ;;
+            k)  _keep_outputs=1
+                ;;
+            x)  _expected_failure=1
+                ;;
+            h | \?) cat<<EOU
+
+Usage: $0 [options] -c <cfgfile> -e <expected output file>
+Mandatory options:
+-c cfgfile      SPEC CPU config file to use
+-e expected     Name of expected output file to compare against or generate
+Optional options:
+-C              Skip pre-run clobber
+-D program      Set the name of the diff program to use
+-d opts         Supply options to diff
+-f filter       Command(s) through which to filter runcpu output
+-N number       Set the run number (added to output filenames, etc)
+-n              Do not actually run test
+-r              Populate expected output file
+-t              Show test output
+-k              Do not delete test outputs
+-x              Test is expected to fail
+-p file         Run file before the test
+-P file         Run file after the test
+
+EOU
+                exit
+                ;;
+        esac
+    done
+    shift $(expr $OPTIND - 1)
+
+    if [ -z "$_filter" ]; then
+        _filter=cat
+    fi
+
+    _testout=/tmp/runtest.$(basename $_cfg .cfg).$_run_number.$$.out
+
+    if [ -n "$_prerun" ]; then
+        if [ -s "$_prerun" ]; then
+            echo runtest: Running \"$_prerun\"
+            if [ $_fake -eq 0 ]; then
+                $_prerun
+            fi
+        else
+            echo runtest: Evaluating \"$_prerun\"
+            eval "$_prerun"
+        fi
+        if [ $? -ne 0 ]; then
+            echo "runtest: pre-run script failed!"
+            return 1
+        fi
+    fi
+    if [ $_clean -eq 1 ]; then
+        # Ask runcpu to clobber everything, so run directory numbers
+        # are consistent
+        echo runtest: Running \"$SPEC/bin/runcpu $* -c $(basename $_cfg) --action clobber\"
+        if [ $_fake -eq 0 ]; then
+            $SPEC/bin/runcpu "$@" -c $(basename $_runcfg) --action clobber \
+                2>&1 \
+                | eval "$_teeout /dev/null"
+        fi
+    fi
+
+
+    # Run runcpu with provided arguments and get rid of output
+    # that varies with each invocation or that might be different
+    # on a dev tree (git or subversion).
+    echo runtest: Running \"$SPEC/bin/runcpu $* -c $(basename $_cfg)\"
+    if [ $_fake -eq 0 ]; then
+        if [ $_timeout -gt 0 ]; then
+            alarm_on $_timeout & timer=$!
+            trap "alarm_off" ALRM INT
+        fi
+        trap "exit 1" USR1
+        # The runcpu invocation MUST NOT be part of a pipeline; otherwise the
+        # PID recorded in $_testpid will be that of the last item in the
+        # pipeline, and that means that a runaway runcpu will just be orphaned
+        # when the end of the pipe is killed.
+        # It would be possible to work around this problem by rewriting the
+        # test harness in Perl and putting runcpu and friends into their own
+        # process group, but it's not worth the trouble.
+        $SPEC/bin/runcpu "$@" -c $(basename $_runcfg) \
+            > ${_testout}.raw 2>&1 &
+        _testpid=$!
+        wait $_testpid
+        if [ $_timeout -gt 0 ] && kill -0 $timer 2>/dev/null; then
+            kill -ALRM $timer   # Turn the alarm off
+            wait $timer         # Wait for the timer subshell to finish
+        fi
+        # If a test fails and sed prints 'RE error: illegal byte sequence',
+        # insert the following line into the pipeline before sed and search
+        # the full output for '!XXX!' to find the output that's causing
+        # the problem.  Then fix it.  --byte-subst is probably only available
+        # on BSD-derived systems (i.e. not Linux).
+        #    | iconv -f ASCII --byte-subst='!XXX!' \
+        cat ${_testout}.raw \
+            | sed \
+            -e 's/^SPEC .* Benchmark Suite.*/runcpu banner/' \
+            -e '/^Copyright [0-9].*SPEC/ {
+                                          N
+                                          d
+                                         }' \
+            -e '/^runcpu v.*$/d' \
+            -e "s/^Using '[^']*' tools/Using tools/" \
+            -e 's/^\(Reading file manifests...\).*/\1/' \
+            -e 's/^\(Loading runcpu modules...\)\.*/\1/' \
+            -e "s/^\\(Reading config file '\\).*\\($(basename $_cfg)'\\)/\\1\\2/" \
+            -e 's/\[[A-Z][a-z][a-z] .* [0-9][0-9][0-9][0-9]\]/[timestamp]/g' \
+            -e 's/\[[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][ tT][0-9][0-9]:[0-9][0-9]:[0-9][0-9]\]/[timestamp]/g' \
+            -e 's/\(runcpu finished at\) .*/\1 [timestamp]/g' \
+            -e 's/\(log for this run is in\) .*/\1 [log file]/g' \
+            -e '/Temporary files were NOT deleted/,/These may be large/s/^\(\* \)\/.*/\1 [filename]/' \
+            -e 's/\(Locating benchmarks...found\) [0-9][0-9]* \(benchmarks in\) [0-9][0-9]* \(benchsets.\)/\1 some \2 some \3/' \
+            -e 's/\(Locating benchmarks...found\) [0-9][0-9]* \(benchmarks\) and [0-9][0-9]* src.alt.* in [0-9][0-9]* \(benchsets.\)/\1 some \2 in some \3/' \
+            -e 's/\(Running\) "[^"]*"/\1 sysinfo/' \
+            -e "s#$SPEC/config#<cfgdir>#g" \
+            -e "s#$SPEC#\\\$SPEC#g" \
+            -e "s#runtest\\.$$\\.##" \
+            | eval "$_teeout ${_testout}.full" \
+            | eval "$_filter"
+        rm -f ${_testout}.raw
+
+        if [ "$_filter" != cat ]; then
+            cat ${_testout}.full | eval "$_filter" > $_testout
+        else
+            mv ${_testout}.full $_testout
+        fi
+        rm -f $_runcfg
+        rm -f $_runcfg.[0-9]*
+
+        if [ $_keep_outputs -eq 0 ]; then
+            _badaction=cp
+        else
+            _badaction=mv
+        fi
+
+        _rc=0
+        if [ $_regen -eq 0 ]; then
+            # Compare generated output
+            eval "$_diffprog $_diffopts $_expected $_testout" > ${_testout}.diff 2>&1
+            if [ $? -eq 0 ]; then
+                echo OK
+            else
+                if [ $_expected_failure -eq 1 ]; then
+                    echo "OK (EXPECTED FAILURE)"
+                else
+                    _destname=$(basename $_testout | sed "s/\\.$$//")
+                    $_badaction -f ${_testout}.diff $SPEC/${_destname}.diff 2>/dev/null
+                    $_badaction -f ${_testout}.full $SPEC/${_destname}.full 2>/dev/null
+                    $_badaction -f ${_testout}      $SPEC/${_destname}      2>/dev/null
+                    echo
+                    cat $SPEC/${_destname}.diff
+                    echo
+                    echo "FAILED; output is in $SPEC/${_destname}*"
+                    echo
+                    _rc=1
+                fi
+            fi
+            if [ $_keep_outputs -eq 0 ]; then
+                rm -f $_testout ${_testout}.full ${_testout}.diff
+            else
+                echo Not removing test output files: $(expr "$(ls $_testout ${_testout}.full ${_testout}.diff 2>/dev/null)" \| "NONE")
+            fi
+        else
+            cat $_testout > $_expected
+            if [ $? -ne 0 ]; then
+                echo Could not regenerate expected output file $_expected
+                rm -f $_testout ${_testout}.full
+                _rc=1
+            fi
+            if [ $_keep_outputs -eq 0 ]; then
+                rm -f $_testout ${_testout}.full
+            else
+                echo Not removing test output files: $(expr "$(ls $_testout ${_testout}.full 2>/dev/null)" \| "NONE")
+            fi
+        fi
+    fi
+
+    if [ -n "$_postrun" ]; then
+        if [ -s "$_postrun" ]; then
+            echo runtest: Running \"$_postrun\"
+            if [ $_fake -eq 0 ]; then
+                $_postrun
+            fi
+        else
+            echo runtest: Evaluating \"$_postrun\"
+            eval "$_postrun"
+        fi
+        if [ $? -ne 0 ]; then
+            echo "runtest: post-run script failed!"
+            return 1
+        fi
+    fi
+
+    rm -f $_runcfg
+    if [ $_rc -gt 1 ]; then
+        exit 1
+    else
+        return $_rc
+    fi
+}
+
+testpats=
+while echo $1 | grep '^[^-]' >/dev/null; do
+    testpats="$testpats $1*.runs"
+    shift
+done
+if [ -z "$testpats" ]; then
+    testpats='*.runs'
+fi
+
+# Make up an acceptable version of the update indexes so that reportable tests
+# that aren't testing version checking can just set
+# update_url = $[top]/bin/unit_tests/runcpu.files/updates
+# and thus won't have to wait when loading the one from SPEC fails (or has
+# a different version, or whatever).
+mkdir -p $SPEC/bin/unit_tests/runcpu.files/updates
+(
+ echo "# From (Ver)      	To              	Filename                    	SHA-512                                                                                                                         	Size      	Compressed SHA-512                                                                                                              	Comp.Size 	Metadata SHA-512                                                                                                                	Release Date"
+ echo "0.000001        	$(cat $SPEC/version.txt | perl -ne '@t = split(/\./); printf "%d.%03d%03d", @t')        	not_a_real_update_name      	cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e	0         	cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e	1         	cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e	$(date '+%Y-%m-%d')"
+) > $SPEC/bin/unit_tests/runcpu.files/updates/updateindex
+
+for testpat in $testpats; do
+    for runfile in $SPEC/bin/unit_tests/runcpu.files/$testpat; do
+        if [ -n "$runfile" -a -f "$runfile" ]; then
+            runcount=0
+            runbase=$(dirname $runfile)/$(basename $runfile .runs)
+            prerun=$(dirname $runfile)/$(basename $runfile .runs).pre
+            postrun=$(dirname $runfile)/$(basename $runfile .runs).post
+            SAVEIFS=$IFS
+            IFS="
+"
+            for runargs in $(grep -v '^#' $runfile); do
+                [[ $runargs == '.' ]] && runargs=
+                runopts=
+                if echo -- $runargs | grep '#XFAIL' >/dev/null; then
+                    runargs=$(echo $runargs | sed 's/[ 	]*#XFAIL//')
+                    runopts=-x
+                fi
+                if [ -s $prerun ]; then
+                    runopts="$runopts -p $prerun"
+                fi
+                if [ -s $postrun ]; then
+                    runopts="$runopts -P $postrun"
+                fi
+                IFS=$SAVEIFS
+                runcount=$(expr $runcount + 1)
+                eval "runtest $* -N $runcount -c ${runbase}.cfg -e ${runbase}.${runcount}.out $(cat "${runbase}.opts" 2>/dev/null) $runopts -- $runargs"
+                if [ $? -ne 0 ]; then
+                    echo $(basename $runfile) test \#$runcount FAILED
+                else
+                    echo $(basename $runfile) test \#$runcount OK
+                fi
+            done
+        else
+            echo "No run definition file found for '$runfile'"
+        fi
+    done
+done
+
+rm -rf $SPEC/bin/unit_tests/runcpu.files/updates
+
+exit 0
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=sh syntax=sh shiftwidth=4 tabstop=8 expandtab nosmarttab:
+

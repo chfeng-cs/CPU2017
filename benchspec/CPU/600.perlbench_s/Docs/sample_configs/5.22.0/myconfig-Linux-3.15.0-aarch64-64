@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# This script is designed to provide a handy summary of the configuration
+# information being used to build perl. This is especially useful if you
+# are requesting help from comp.lang.perl.misc on usenet or via mail.
+
+# Note that the text lines /^Summary of/ .. /^\s*$/ are copied into Config.pm.
+cat <<'!NO!SUBS!'
+Summary of my perl5 (revision 5 version 22 subversion 0) configuration:
+   
+  Platform:
+    osname=linux, osvers=3.15.0-rc8+, archname=aarch64-linux
+    uname='linux localhost.localdomain 3.15.0-rc8+ #1 smp preempt thu jun 25 12:50:22 ist 2015 aarch64 aarch64 aarch64 gnulinux '
+    config_args='-dOes -Uusedl -Uuse5005threads -Uusethreads -D libswanted=nm -A libswanted=malloc -A libswanted=ld -A libswanted=m -A libswanted=sec -A libswanted=util -A libswanted=c -A libswanted=cposix -A libswanted=posix -A libswanted=bsd -A libswanted=BSD -Dcc=gcc -D ccflags=-O3'
+    hint=recommended, useposix=true, d_sigaction=define
+    useithreads=undef, usemultiplicity=undef
+    use64bitint=define, use64bitall=define, uselongdouble=undef
+    usemymalloc=n, bincompat5005=undef
+  Compiler:
+    cc='gcc', ccflags ='-O3 -fwrapv -fno-strict-aliasing -pipe -fstack-protector-strong -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64',
+    optimize='-O2',
+    cppflags='-O3 -fwrapv -fno-strict-aliasing -pipe -fstack-protector-strong -I/usr/local/include'
+    ccversion='', gccversion='5.1.0', gccosandvers=''
+    intsize=4, longsize=8, ptrsize=8, doublesize=8, byteorder=12345678, doublekind=3
+    d_longlong=define, longlongsize=8, d_longdbl=define, longdblsize=16, longdblkind=1
+    ivtype='long', ivsize=8, nvtype='double', nvsize=8, Off_t='off_t', lseeksize=8
+    alignbytes=8, prototype=define
+  Linker and Libraries:
+    ld='ld', ldflags =' -fstack-protector-strong -L/usr/local/lib'
+    libpth=/usr/local/lib /usr/lib/gcc/aarch64-linux-gnu/5/include-fixed /usr/include/aarch64-linux-gnu /usr/lib /lib/aarch64-linux-gnu /lib/../lib /usr/lib/aarch64-linux-gnu /usr/lib/../lib /lib
+    libs=-lm -lutil -lc
+    perllibs=-lm -lutil -lc
+    libc=libc-2.19.so, so=so, useshrplib=false, libperl=libperl.a
+    gnulibc_version='2.21'
+  Dynamic Linking:
+    dlsrc=dl_none.xs, dlext=none, d_dlsymun=undef, ccdlflags=''
+    cccdlflags='', lddlflags=''
+
+!NO!SUBS!

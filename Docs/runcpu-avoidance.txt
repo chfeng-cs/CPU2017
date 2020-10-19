@@ -1,0 +1,477 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                                Avoiding runcpu
+  Using the SPEC CPU(R)2017 benchmarks while making minimal use of the SPEC(R)
+                                    tool set
+
+       $Id: runcpu-avoidance.html 6307     Latest: www.spec.org/cpu2017/Docs/
+     2019-07-28 21:35:52Z JohnHenning $
+
+   Contents
+
+   Introduction
+
+   Environment
+
+   Steps
+
+   Review one rule
+
+   Install
+
+   Pick a benchmark
+
+   Pick a config file
+
+   Fake it
+
+   Find the log
+
+   Find the build dir
+
+   Copy the build dir (triple only)
+
+   Build it
+
+   Place the binary in the run dir
+
+   Copy the run dir
+
+   Run it
+
+   Save your work
+
+   Repeat
+
+   Validation
+
+Introduction
+
+   This document describes how to use the SPEC CPU(R)2017 benchmarks while
+   avoiding most of the tools. SPEC CPU 2017 is a product of the SPEC(R)
+   non-profit corporation (about SPEC). You might be interested in this
+   document if you have a need for more direct access to the benchmarks. For
+   example:
+
+     * Some users want to work directly with benchmark source code and
+       compile by hand, rather than through the SPEC supplied tools. Perhaps
+       an experimental compiler is under development, and it is more
+       convenient to just issue "cc" commands in a sandbox. Perhaps a custom
+       build process is needed in order to add instrumentation.
+
+     * Some users want to run the benchmarks directly from the command line,
+       rather than via the SPEC supplied tools. Perhaps this is part of a
+       debugging effort, or is needed in order to collect a performance
+       "trace".
+
+   If the above describes you, here is a suggested path which should lead
+   quickly to your desired state. This document shows you how to use SPEC's
+   tools for the minimal purpose of just generating work directories, for use
+   as a private sandbox. Note, however, that you cannot do formal,
+   "reportable" runs without using SPEC's toolset.
+
+   Caution: Examples below use size=test in order to demonstrate working with
+   a benchmark with its simplest workload. The test workload would be wildly
+   inappropriate for performance work. Once you understand the techniques
+   shown here, use the ref workload. If you are unable to do that (perhaps
+   because you are using a slow simulator), you still should not use test,
+   because it is likely to lead your research in the wrong direction. For
+   example, the 500.perlbench_r test workload is a subset of the Perl
+   installation validation tests. Various other benchmark test workloads just
+   do a quick check that the binary starts and can open its files, then take
+   the rest of the day off to go get a cup of tea (that is, do almost none of
+   their real work). If you are really unable to simulate the ref workload, a
+   more defensible choice would be either train or (better) to sample traces
+   from ref.
+
+   License reminder: Various commands below demonstrate copying benchmarks
+   among systems. These examples assume that all the systems belong to
+   licensed users of SPEC CPU 2017. For the SPEC CPU license, see
+   www.spec.org/cpu2017/Docs/licenses/SPEC-License.pdf and for information
+   about all the licensed software in SPEC CPU 2017, see SPEC CPU 2017
+   Licenses.
+
+Environments
+
+   Three different environments are referenced in this document, using these
+   labels:
+
+     * "Unified": The SPEC toolset, the compilers, and the run environment
+       are all on the same system.
+
+     * "Cross compile": The SPEC toolset and the compilers are on one system;
+       the run time environment is a different system.
+
+     * "Triple": The SPEC toolset is on one system, the compiler is on a
+       second, and the run time environment is a third.
+
+Steps
+
+    1. Review one rule: Please read the rule on research/academic usage. It
+       is understood that the suite may be used in ways other than the formal
+       environment that the tools help to enforce. If you plan to publish
+       your results, you must state how your usage of the suite differs from
+       the standard usage.
+
+       So even if you skip over the tools and the run rules today, you should
+       plan a time to come back and learn them later.
+
+    2. Install: Get through a successful installation, even if it is on a
+       different system than the one that you care about. Yes, we are about
+       to teach you how to mostly bypass the tools, but there will still be
+       some minimal use. So you need a working toolset and a valid
+       installation. If you have troubles with the install procedures
+       described in install-guide-unix.html or install-guide-windows.html,
+       please see techsupport.html and we'll try to help you.
+
+    3. Pick a benchmark: Pick a benchmark that will be your starting point.
+
+       Choose one benchmark from the CPU 2017 suite that you'd like to start
+       with. For example, you might start with 503.bwaves_r (Fortran) or
+       519.lbm_r (C). These are two of the shortest benchmarks for lines of
+       code, and therefore relatively easy to understand.
+
+    4. Pick a config file: Pick a config file for an environment that
+       resembles your environment. You'll find a variety of config files in
+       the directory $SPEC/config/ on Unix systems, or %SPEC%\config\ on
+       Windows, or at www.spec.org/cpu2017 with the submitted CPU 2017
+       results. Don't worry if the config file you pick doesn't exactly match
+       your environment; you're just looking for a somewhat reasonable
+       starting point.
+
+    5. Fake it: Execute a "fake" run to set up run directories, including a
+       build directory for source code, for the benchmark.
+
+       For example, let's suppose that you want to work with 503.bwaves_r and
+       your environment is at least partially similar to the environment
+       described in the comments for Example-gcc-linux-aarch64.cfg:
+
+ $ pwd
+ /Users/reiner/spec/cpu2017/rc6
+ $ source shrc
+ $ cd config
+ $ cp Example-gcc-macosx.cfg my_test.cfg
+ $ runcpu --fake --loose --size test --tune base --config my_test 519.lbm_r   [warning: size=test]
+ runcpu v5577 - Copyright 1999-2017 Standard Performance Evaluation Corporation
+ .
+ .
+ . (lots of stuff goes by)
+ .
+ .
+
+ Success: 1x519.lbm_r
+
+ The log for this run is in /reiner/cpu2017/result/CPU2017.007.log
+
+ runcpu finished at 2017-05-15 11:12:09; 4 total seconds elapsed
+ $  (Notes about examples)
+
+       This command should report a success for the build, run and validation
+       phases of the test case, but the actual commands have not been run. It
+       is only a report of what would be run according to the config file
+       that you have supplied.
+
+    6. Find the log: Near the bottom of the output from the previous step,
+       notice the location of the log file for this run -- in the example
+       above, log number 007. The log file contains a record of the commands
+       as reported by the "fake" run. You can find the commands by searching
+       for "%%".
+
+    7. Find the build dir: To find the build directory that was set up in the
+       fake run, you can search for the string build/ in the log:
+
+ $ cd $SPEC/result
+ $ grep build/ CPU2017.005.log
+ Wrote to makefile '/reiner/cpu2017/benchspec/CPU/519.lbm_r/build/build_base_mytest-m64.0000/Makefile.deps':
+ Wrote to makefile '/reiner/cpu2017/benchspec/CPU/519.lbm_r/build/build_base_mytest-m64.0000/Makefile.spec':
+ $
+
+       Or, you can just go directly to the benchmark build directories and
+       look for the most recent one. For example:,
+
+ $ go 519.lbm build
+ /reiner/cpu2017/benchspec/CPU/519.lbm_r/build
+ $ ls -gtd build*
+ drwxrwxr-x  17 staff  578 May 15 11:12 build_base_mytest-m64.0000
+ $
+
+       In the example above, go is shorthand for getting us around the SPEC
+       tree. The ls -gtd command prints the names of each build subdirectory,
+       with the most recent first. If this is your first time here, there
+       will be only one directory listed, as in the example above. (On
+       Windows, the "go" command is not available; use cd to get to the
+       analogous directory, which would be spelt with reversed slashes. The
+       top of the SPEC tree is "%SPEC%", not "$SPEC". Instead of "ls -gtd",
+       you would say something like "dir build*/o:d".)
+
+       You can work in this build directory, make source code changes, and
+       try other build commands without affecting the original sources.
+
+    8. Copy the build dir (triple only): If you are using a unified or
+       cross-compile environment, you can skip to the next step. But if you
+       are using a triple environment, then you will want to package up the
+       build directory with a program such as tar -- a handy copy is in the
+       bin directory of your SPEC installation, as spectar. You can compress
+       it with specxz. Then, you will move the package off to whatever system
+       has compilers.
+
+       For example, you might say something like this:
+
+ $ spectar -cf - build_base_mytest-m64.0000/ | specxz > mybuild.tar.xz
+ $ scp mybuild.tar.xz john@somesys:                                  [reminder: copying]
+ mybuild.tar.xz                          100%   11KB 181.7KB/s   00:00
+ $
+
+       Note that the above example assumes that you have versions of xz and
+       tar available on the system that has compilers, which you will use to
+       unpack the compressed tarfile, typically with a command similar to
+       this:
+
+       xz -dc mybuild.tar.xz | tar -xvf -
+
+       If you don't have xz available, you might try bzip2 or gzip on both
+       the sending and receiving systems. If you use some other compression
+       utility, be sure that it does not corrupt the files by destroying line
+       endings, re-wrapping long lines, or otherwise subtracting value.
+
+    9. Build it: Generate an executable using the build directory. If you are
+       using a unified or cross-compile environment, then you can say
+       commands such as these:
+
+ $ cd build_base_mytest-m64.0000/
+ $ specmake clean
+ rm -rf *.o  lbm.out
+ find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+ rm -rf lbm_r
+ rm -rf lbm_r.exe
+ rm -rf core
+ rm -rf compiler-version.err options.err compiler-version.out make.out options.out
+ $ specmake
+ /SW/compilers/gcc-6.2.0/bin/gcc -std=c99 -m64 -c -o lbm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP
+   -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize
+   -DSPEC_LP64  lbm.c
+ specmake: /SW/compilers/gcc-6.2.0/bin/gcc: Command not found
+ specmake: *** [/reiner/cpu2017/benchspec/Makefile.defaults:347: lbm.o] Error 127
+
+       Note above that the config file expected the compiler to be in a
+       different location than where it is on this system. At this point, we
+       have three choices: redo the runcpu after editing the config file; or
+       edit Makefile.spec; or override the location by setting the makevar
+       SPECLANG on the command line.
+       SPECLANG, despite its name, is just an ordinary user-created make
+       variable, indicating the directory where compilers can be found for
+       use with our SPEC CPU tests.
+
+ $ which gcc
+ /davidz6.2/bin/gcc
+ $ specmake SPECLANG=/davidz6.2/bin/
+ /davidz6.2/bin/gcc -std=c99 -m64 -c -o lbm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP
+    -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize
+   -DSPEC_LP64  lbm.c
+ /davidz6.2/bin/gcc -std=c99 -m64 -c -o main.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP
+    -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize
+   -DSPEC_LP64  main.c
+ /davidz6.2/bin/gcc -std=c99 -m64
+   -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize
+    lbm.o main.o -lm  -o lbm_r
+ $
+
+       You can also carry out a dry run of the build, which will display the
+       build commands without attempting to run them, by adding -n to the
+       specmake command line. You might find it useful to capture the output
+       of specmake -n to a file, so it can easily be edited, and used as a
+       script.
+
+       If you are trying to debug a new system, you can prototype changes to
+       Makefile.spec or even to the benchmark sources.
+
+       If you are using a triple environment, then presumably it's because
+       you don't have specmake working on the system where the compiler
+       resides. But fear not: specmake is just GNU make under another name,
+       so whatever make you have handy on the target system might work fine
+       with the above commands. If not, then you'll need to extract the build
+       commands from the log and try them on the system that has the
+       compilers, using commands such as the following:
+
+ $ go result
+ /reiner/cpu2017/result
+ $ grep -n %% CPU2017.007.log | grep make | grep build
+ 403:%% Fake commands from make (specmake -n --output-sync --jobs=4 build):
+ 407:%% End of fake output from make (specmake -n --output-sync --jobs=4 build)
+ $ head -407 CPU2017.007.log | tail -5
+ %% Fake commands from make (specmake -n --output-sync --jobs=4 build):
+ /SW/compilers/gcc-6.2.0/bin/gcc -std=c99 -m64 -c -o lbm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP
+    -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize
+    -DSPEC_LP64  lbm.c
+ /SW/compilers/gcc-6.2.0/bin/gcc -std=c99 -m64 -c -o main.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP
+    -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize
+    -DSPEC_LP64  main.c
+ /SW/compilers/gcc-6.2.0/bin/gcc -std=c99 -m64
+    -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize
+    lbm.o main.o -lm  -o lbm_r
+ %% End of fake output from make (specmake -n --output-sync --jobs=4 build)
+ $
+
+       The first command above uses grep -n to find the line numbers of
+       interest, and the second command prints them.
+
+   10. Find the run directory, and add the binary to it: Using techniques
+       similar to those used to find the build directory, find the run
+       directory established above, and place the binary into it. If you are
+       using a unified or cross-compile environment, you can copy the binary
+       directly into the run directory; if you are using a triple
+       environment, then you'll have to retrieve the binary from the
+       compilation system using whatever program you use to communicate
+       between systems.
+
+       In a unified environment, the commands might look something like this:
+
+ $ go result
+ /reiner/cpu2017/result
+ $ grep 'Setting up' CPU2017.007.log
+ Setting up environment for running 519.lbm_r...
+   Setting up 519.lbm_r test base mytest-m64 (1 copy): run_base_test_mytest-m64.0000
+ $ go 519.lbm run
+ /reiner/cpu2017/benchspec/CPU/519.lbm_r/run
+ $ cd run_base_test_mytest-m64.0000/
+ $ cp ../../build/build_base_mytest-m64.0000/lbm_r .
+ $
+
+       In the result directory, we search log 007 to find the correct name of
+       the directory, go there, and copy the binary into it.
+
+   11. Copy the run dir: If you are using a unified environment, you can skip
+       this step. Otherwise, you'll need to package up the run directory and
+       transport it to the system where you want to run the benchmark. For
+       example:
+
+ $ go 519.l run
+ /reiner/cpu2017/benchspec/CPU/519.lbm_r/run
+ $ spectar cf - run_base_test_mytest-m64.0000/ | specxz > myrun.tar.xz
+ $ scp myrun.tar.xz john@mysys:                                   [reminder: copying]
+ myrun.tar.xz                    100%   43KB 329.2KB/s   00:00
+ $
+
+       Note that the above example assumes that you have versions of xz and
+       tar available on the run time system, which you will use to unpack the
+       compressed tarfile, typically with something like this:
+
+       xz -dc myrun.tar.xz | tar -xvf -
+
+       If you don't have xz available, you might try bzip2 or gzip on both
+       the sending and receiving systems. If you use some other compression
+       utility, be sure that it does not corrupt the files by destroying line
+       endings, re-wrapping long lines, or otherwise subtracting value.
+
+   12. Run it: If you are using a unified environment, you can use specinvoke
+       to see the command lines that run the benchmark, and/or capture them
+       to a shell script. You can also run them using judicious(*) cut and
+       paste:
+
+ $ go 519.lbm run run_base_test_mytest-m64.0000
+ /reiner/cpu2017/benchspec/CPU/519.lbm_r/run/run_base_test_mytest-m64.0000
+ $ cp ../../build/build_base_mytest-m64.0000/lbm_r .
+ $ specinvoke -n
+ # specinvoke r<dev>
+ #  Invoked as: specinvoke -n
+ # timer ticks over every 1000 ns
+ # Use another -n on the command line to see chdir commands and env dump
+ # Starting run for copy #0
+ ../run_base_test_mytest-m64.0000/lbm_r_base.mytest-m64 20 reference.dat 0 1 100_100_130_cf_a.of
+    0<&- > lbm.out 2>> lbm.err
+ specinvoke exit: rc=0
+
+       (*) Note above that the lbm_r binary to include additional identifiers
+       (_base.mytest-m64) - which we simply ignore in the command that is
+       cut-and-pasted, because the binary built by hand is just lbm_r.
+
+ $ ./lbm_r 20 reference.dat 0 1 100_100_130_cf_a.of 0<&- > lbm.out 2>> lbm.err [warning: size=test]
+ $ cat lbm.out
+ MAIN_printInfo:
+         grid size      : 100 x 100 x 130 = 1.30 * 10^6 Cells
+         nTimeSteps     : 20
+         result file    : reference.dat
+         action         : nothing
+         simulation type: channel flow
+         obstacle file  : 100_100_130_cf_a.of
+
+ LBM_showGridStatistics:
+         nObstacleCells:  498440 nAccelCells:       0 nFluidCells:  801560
+         minRho: 1.000000 maxRho: 1.000000 Mass: 1.300000e+06
+         minU  : 0.000000 maxU  : 0.000000
+
+ LBM_showGridStatistics:
+         nObstacleCells:  498440 nAccelCells:       0 nFluidCells:  801560
+         minRho: 1.000000 maxRho: 1.040865 Mass: 1.300963e+06
+         minU  : 0.000000 maxU  : 0.012647
+ $
+
+       If you are using a cross-compile or triple environment, you can
+       capture the commands to a file and execute that. Be sure to follow the
+       instructions carefully for how to do that, noting in particular the
+       items above your environment, at the specinvoke chapter of SPEC CPU
+       2017 Utilities.
+
+       Alternatively, you can extract the run commands from the log.
+
+ $ go result
+ /reiner/cpu2017/result
+ $ grep -n %% CPU2017.007.log | grep benchmark_run
+ 498:%% Fake commands from benchmark_run (/reiner/cpu2017/bin/spe...):
+ 605:%% End of fake output from benchmark_run (/reiner/cpu2017/bin/spe...)
+ $ head -605 CPU2017.007.log | tail -4
+ cd /reiner/cpu2017/benchspec/CPU/519.lbm_r/run/run_base_test_mytest-m64.0000
+ ../run_base_test_mytest-m64.0000/lbm_r_base.mytest-m64 20 reference.dat 0 1 100_100_130_cf_a.of
+    0<&- > lbm.out 2>> lbm.err
+ specinvoke exit: rc=0
+ %% End of fake output from benchmark_run (/reiner/cpu2017/bin/spe...)
+ $
+
+   13. Save your work: Important: if you are at all interested in saving your
+       work, move the build/build* and run/run* directories to some safer
+       location. That way, your work areas will not be accidentally deleted
+       the next time someone comes along and uses one of runcpu cleanup
+       actions..
+
+   14. Repeat: Admittedly, the large number of steps that it took to get here
+       may seem like a lot of trouble. But that's why you started with a
+       simple benchmark and the simplest workload (--size test in the fake
+       step). Now that you've got the pattern down, it is hoped that it will
+       be straightforward to repeat the process for the other available
+       workloads: --size=train and --size=ref, and then for additional
+       benchmarks.
+
+       But if you're finding it tedious... then maybe this is an opportunity
+       to sell you on the notion of using runcpu after all, which automates
+       all this tedium. If the reason you came here was because runcpu
+       doesn't work on your brand-new environment, then perhaps you'll want
+       to try to get it built, using the hints in tools-build.html.
+
+Validation
+
+   Note that this document has only discussed getting the benchmarks built
+   and running. Presumably at some point you'd like to know whether your
+   system got the correct answer. At that point, you can use specdiff, which
+   is explained in utility.html.
+
+   Avoiding runcpu: Using the SPEC CPU(R)2017 benchmarks while making minimal
+   use of the SPEC tool set: Copyright (c) 2017-2019 Standard Performance
+   Evaluation Corporation (SPEC(R))
+
+

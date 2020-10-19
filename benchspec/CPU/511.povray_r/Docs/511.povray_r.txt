@@ -1,0 +1,92 @@
+                                  511.povray_r
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   511.povray_r
+
+  Benchmark Author
+
+   Thorsten Froehlich <thorsten [at] trf.de>
+
+   Chris Cason <spec001 [at] povray.org>
+
+  Benchmark Program General Category
+
+   Computer Visualization / Raytracing
+
+  Benchmark Description
+
+   POV-Ray is a free and open source ray-tracing application. The CPU 2017
+   version is based on POV-Ray version 3.7.
+
+  Input Description
+
+   The benchmark's input consists of:
+
+     * An ASCII text POV-Ray parameters (.ini) file. The included .ini file
+       specifies the name of the input geometry file, the output log file,
+       and the output image file name.
+     * A POV-Ray scene description language (.pov) geometry file. The input
+       geometry file represents a chess board scene constructed in the
+       POV-Ray scene description language.
+
+  Output Description
+
+   The benchmark renders a 2560 x 2048 pixel image of a chess board, with the
+   pieces placed on the board in the starting position. The rendered scene
+   image is saved as a Targa (.tga) file.
+
+   This output image is compared with the reference output image using the
+   SPEC(R) utility [1]imagevalidate, which calculates a the structural
+   similarity (SSIM) index between corresponding 8x8 groups of pixels in each
+   image. The SSIM index has a range of -1 (maximal difference) to 1
+   (identical). The benchmark requires that all computed SSIM indices be
+   greater than 0.996 in order for the run to be considered successful.
+
+   A log of the execution is also generated, but its contents are not used to
+   validate correction operation of the benchmark.
+
+  Programming Language
+
+   ISO C++
+
+  Threading Model
+
+   None
+
+  Known portability issues
+
+     * Users of the Intel^(R) Compiler on Windows may get the mathimf.h and
+       direct.h header files included by defining the SPEC_WINDOWS_ICL
+       preprocessor macro.
+     * The spec_qsort.c routine does not strictly obey the ANSI aliasing
+       rules. GCC users may need to add -fno-strict-aliasing. See the
+       detailed discussion in the documentation for [2]505.mcf_r.
+
+  Sources and Licensing
+
+   POV-Ray (which became 511.povray_r) was contributed to CPU 2017 by one of
+   the developers, Thorsten Froehlich, under the GNU Affero License v3.
+
+   Please see details in the document [3]SPEC CPU(R)2017 Licenses.
+
+  References
+
+     * Persistence of Vision Raytracer home page: [4]http://www.povray.org/
+     * Structural Similarity:
+       [5]https://en.wikipedia.org/wiki/Structural_similarity
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. http://www.spec.org/cpu2017/Docs/utility.html#imagevalidate
+   2. https://www.spec.org/cpu2017/Docs/benchmarks/505.mcf_r.html#Portability
+   3. https://www.spec.org/cpu2017/Docs/licenses.html#bmk511.povray_r
+   4. http://www.povray.org/
+   5. https://en.wikipedia.org/wiki/Structural_similarity

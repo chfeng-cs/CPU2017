@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription
+    SYSTEM "http://www.spec.org/dtd/cpuflags2.dtd"
+>
+
+<!-- This file defines flags in the 'mandatory' class; that is, flags which are
+     automatically supplied by the tools for ALL benchmarks.
+     Flags in this class are ignored when doing per-flag checks for a
+     particular run (because they are always present), but _are_
+     output in the full flag report.
+
+  Copyright 2008-2017 Standard Performance Evaluation Corporation
+
+  $Revision$
+  $Date$
+-->
+<flagsdescription>
+
+<!-- Normal flags files should suggest a name for themselves. -->
+<filename>flags_mandatory</filename>
+
+<title>SPEC CPU2017 Default Flags</title>
+
+<header>
+<![CDATA[
+<h2>SPEC CPU2017 Default Flags</h2>
+
+<p>These are the flags that are universally supplied by the tools harness.</p>
+]]>
+</header>
+
+<flag name="DSPEC" class="mandatory">
+The preprocessor macro SPEC is defined for all benchmarks compiled
+by the CPU2017 tools harness.
+</flag>
+
+<flag name="USPEC" class="forbidden">
+It is forbidden to undefine this mandatory flag.
+</flag>
+
+<flag name="DSPEC_CPU" class="mandatory">
+  The preprocessor macro SPEC_CPU was previously defined for all benchmarks
+  compiled by the CPU2017 tools harness.  It no longer is, but this flag
+  definition is left so that older results may be formatted without running
+  into "unknown flags" errors.
+</flag>
+
+<flag name="DNDEBUG" class="mandatory">
+The preprocessor macro NDEBUG is defined for all benchmarks compiled
+by the CPU2017 tools harness.  It is used to disable asserts() in codes
+that use them.
+</flag>
+
+<flag name="UNDEBUG" class="forbidden">
+It is forbidden to undefine this mandatory flag.
+</flag>
+
+<flag name="DSPEC_WINDOWS" class="mandatory">
+The preprocessor macro SPEC_WINDOWS is defined for all benchmarks
+compiled by the CPU2017 tools harness on Microsoft Windows systems.
+</flag>
+
+<flag name="SPEC_AUTO_BYTEORDER" class="mandatory" regexp="-DSPEC_AUTO_BYTEORDER=0x(?:1234|12345678|4321|87654321)(?=\s|$)">
+  <example>-DSPEC_AUTO_BYTEORDER=0x87654321</example>
+<![CDATA[
+<p>This flag is automatically provided by the tools for some benchmarks.  It is
+  used to communicate to the benchmark source code the byte order that was in
+  effect when the tools were built.  In cases when this byte order clue is
+  incorrect for the target system, its action can be disabled by using
+  <tt>-DSPEC_NO_AUTO_BYTEORDER</tt>.</p>
+]]>
+</flag>
+
+<flag name="compile_opt" class="mandatory" regexp="(?:^|(?&lt;=\s))-c\b">
+This is a part of the default setting for OBJOPT for all platforms.  It
+causes an object file to be generated from source.
+</flag>
+
+<flag name="unix_output" class="mandatory" regexp="(?:^|(?&lt;=\s))-o [^\s\&quot;]+">
+This option is used to specify the name of the output file on non-Windows platforms.
+</flag>
+
+<flag name="unix_mathlib" class="mandatory" regexp="(?:^|(?&lt;=\s))-lm\b">
+This is the default setting for MATHLIBOPT on non-Windows platforms.
+</flag>
+
+<flag name="windows_compout" class="mandatory" regexp="(?:^|(?&lt;=\s))-Fo\S+\b">
+This option is used to specify the name of the output object file on Windows platforms.
+</flag>
+
+<flag name="windows_ldout" class="mandatory" regexp="(?:^|(?&lt;=\s))-Fe\S+\b">
+This option is used to specify the name of the output executable on Windows platforms.
+</flag>
+
+<flag name="currdir_inc" class="mandatory" regexp="-I\s*\./?(?=\s|$)">
+<example>-I.</example>
+This flag indicates that the compiler should search the current directory for
+header files.
+</flag>
+
+<flag name="common_inc" class="mandatory" regexp="-I\s*(?:\./)?(?:image_validator|libpng|sha-2|spec_mem_io|spec_qsort|specrand|specrand-common|zlib)(?=\s|$)">
+<example>
+-Iimage_validator,
+-Ilibpng,
+-Isha-2,
+-Ispec_mem_io,
+-Ispec_qsort,
+-Ispecrand,
+-Ispecrand-common,
+-Izlib
+</example>
+This flag indicates that the compiler should search the directory containing
+common sources for header files.
+</flag>
+
+<flag name="DSPEC_MEM_IO" class="mandatory">
+This flag indicates that the benchmark should use the SPEC in-memory I/O
+shim.
+</flag>
+
+<flag name="spec_mem_io_inc" class="mandatory" regexp="-I\s*spec_mem_io/?(?=\s|$)">
+<example>-Ispec_mem_io</example>
+This flag specifies the directory that holds the header files for the SPEC
+in-memory I/O shim.
+</flag>
+
+<flag name="md5_inc" class="mandatory" regexp="-I\s*md5/?(?=\s|$)">
+<example>-Imd5</example>
+This flag specifies the directory that holds the header files for the common
+MD5 hash implementation.
+</flag>
+
+<flag name="sha2_inc" class="mandatory" regexp="-I\s*sha-2/?(?=\s|$)">
+<example>-Isha-2</example>
+This flag specifies the directory that holds the header files for the common
+SHA-512 hash implementation.
+</flag>
+
+<flag name="specrand_inc" class="mandatory" regexp="-I\s*specrand\S*(?=\s|$)">
+<example>-Ispecrand-common</example>
+This flag specifies the directory that holds the header files for the common
+Mersenne-Twister implementation.
+</flag>
+
+<flag name="libpng_inc" class="mandatory" regexp="-I\s*libpng/?(?=\s|$)">
+<example>-Ilibpng</example>
+This flag specifies the directory that holds the header files for the common
+PNG library.
+</flag>
+
+<flag name="zlib_inc" class="mandatory" regexp="-I\s*zlib/?(?=\s|$)">
+<example>-Izlib</example>
+This flag specifies the directory that holds the header files for the common
+zlib library.
+</flag>
+
+<flag name="specpp_boundary" class="mandatory" regexp="-w\b" compilers="specpp">
+<example>
+-w
+</example>
+This flag enables word-boundaries in the specpp source preprocessor.
+</flag>
+
+<flag name="specpp_literal" class="mandatory" regexp="-m literal(?:-single)?\.pm\b" compilers="specpp">
+<example>
+  -m literal.pm,
+  -m literal-single.pm
+</example>
+This flag selects the "literal" preprocessor module for the specpp source
+preprocessor.  This module allows literal strings to pass through the
+preprocessor without any macros in the string being replaced.
+</flag>
+
+<flag name="specpp_c_comment" class="mandatory" regexp="-m c-comment\.pm\b" compilers="specpp">
+<example>
+-m c-comment.pm
+</example>
+This flag selects the "c-comment" preprocessor module for the specpp
+source preprocessor.  This module allows C- and C++-style comments to
+be used in the Fortran sources by removing them from the code that is
+presented to the compiler.
+</flag>
+
+<flag name="DSPEC_ILP32" class="portability">
+This option is used to indicate that the host system's integers, longs, and
+pointers are 32-bits wide.  Not all benchmarks recognize this macro, but
+the preferred practice for data model selection applies the flags to all
+benchmarks; this flag description is a placeholder for those benchmarks that
+do not recognize this macro.
+</flag>
+
+<flag name="DSPEC_P64" class="portability">
+This option is used to indicate that the host system's integers and longs,
+are 32-bits wide, and pointers are 64-bits wide.  Not all benchmarks
+recognize this macro, but the preferred practice for data model selection
+applies the flags to all benchmarks; this flag description is a placeholder
+for those benchmarks that do not recognize this macro.
+</flag>
+
+<flag name="DSPEC_LP64" class="portability">
+This option is used to indicate that the host system's integers are 32-bits
+wide, and longs and pointers are 64-bits wide.  Not all benchmarks
+recognize this macro, but the preferred practice for data model selection
+applies the flags to all benchmarks; this flag description is a placeholder
+for those benchmarks that do not recognize this macro.
+</flag>
+
+<flag name="DSPEC_ILP64" class="portability">
+This option is used to indicate that the host system's integers, longs,
+and pointers are 64-bits wide.  Not all benchmarks recognize this macro,
+but the preferred practice for data model selection applies the flags to
+all benchmarks; this flag description is a placeholder for those benchmarks
+that do not recognize this macro.
+</flag>
+
+<flag name="DSPEC_SUPPRESS_OPENMP" class="optimization">
+  Definition of this macro indicates that compilation for parallel operation
+  is disabled, and that any OpenMP directives or pragmas will not be visible
+  to the compiler.  This macro overrides the behavior of -DSPEC_OPENMP when
+  they both appear in the list of compilation flags.
+</flag>
+
+<flag name="DSPEC_AUTO_SUPPRESS_OPENMP" class="mandatory">
+  Definition of this macro indicates that compilation for parallel operation
+  is disabled, and that any OpenMP directives or pragmas will not be visible
+  to the compiler.  This variant has the same behavior as SPEC_SUPPRESS_OPENMP
+  and is only used by the benchmark harness.  Users must use
+  SPEC_SUPPRESS_OPENMP.
+</flag>
+
+<flag name="DSPEC_OPENMP" class="optimization">
+  Definition of this macro indicates that compilation for parallel operation
+  is enabled, and that any OpenMP directives or pragmas will be visible to
+  the compiler.  The behavior of this macro is overridden if
+  -DSPEC_SUPPRESS_OPENMP also appears in the list of compilation flags.
+</flag>
+
+<flag name="DSPEC_NO_AUTO_BYTEORDER" class="portability">
+This flag may be used when the byte order of the system being benchmarked
+differs from the byte order which with the tools were built.
+</flag>
+
+</flagsdescription>

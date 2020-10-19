@@ -1,0 +1,640 @@
+#!/usr/bin/env perl
+
+# Copyright 2010-2019 Standard Performance Evaluation Corporation
+
+# Generate metadata and packages for updates from the last 3 devel versions and
+# all release versions to the current version.
+
+# Overall update metadata includes (of course) version numbers both from and
+# to, and the filename containing the archive with the update.
+
+# Per-update metadata contains an (optional) update message for the user,
+# whether the message needs to be just printed, printed and acknowledged, or
+# printed and accepted, whether a reinstall will happen (as for binary tools
+# update), and a list of all files removed or changed.
+
+# It is expected that runcpu will be used to apply this update, so there's no
+# need for writing anything to be executed.
+
+# $Id: genupdates 6136 2019-04-09 22:10:49Z CloyceS $
+
+use strict;
+use IO::File;
+use IO::Dir;
+use IO::String;
+use Archive::Tar;
+use File::Temp qw(tempfile);
+use MIME::Base64 qw(encode_base64);
+use Getopt::Long;
+use Cwd qw(cwd abs_path);
+use File::Basename;
+use File::Path;
+use List::Util qw(max);
+use File::Spec;
+
+our (@current_manifest, %cleanup_files, $tar, $xz, $xzargs, $version);
+my $archive_ext = '.upd';
+my $hash_ext = '.sha512';
+my $hash_bits = 512;
+my $index_filename = 'updateindex';
+
+# Exclude stuff in install_archives from change consideration
+my $excludere = qr{(install_archives/|redistributable_sources/)};
+
+$version = get_version();
+print "genupdates $version\n";
+
+my %opts = (
+    'debug'  => 0,
+    'help'   => 0,
+    'force'  => 0,
+    'deltas' => 3,
+);
+
+my $rc = GetOptions(\%opts, qw(
+                                deltas=i
+                                debug|d:i
+                                force|f
+                                help|h
+                              )
+                   );
+
+usage(0) if $opts{'help'};
+
+my ($manifest_dir, $updates_dir, $bmarkdir) = @ARGV;
+
+usage(1, "Manifest directory must be specified!\n") unless $manifest_dir ne '';
+usage(1, "Manifest directory at '$manifest_dir' does not exist!\n") unless -d $manifest_dir;
+usage(1, "Manifest directory at '$manifest_dir/devel' does not exist!\n") unless -d "$manifest_dir/devel";
+usage(1, "Manifest directory at '$manifest_dir/release' does not exist!\n") unless -d "$manifest_dir/release";
+$manifest_dir = abs_path($manifest_dir);
+usage(1, "Updates directory must be specified!\n") unless $updates_dir ne '';
+usage(1, "Updates directory at '$updates_dir' does not exist!\n") unless -d $updates_dir;
+usage(1, "Updates directory at '$updates_dir/devel' does not exist!\n") unless -d "$updates_dir/devel";
+usage(1, "Updates directory at '$updates_dir/release' does not exist!\n") unless -d "$updates_dir/release";
+$updates_dir = abs_path($updates_dir);
+
+if (!defined($bmarkdir) or $bmarkdir eq '') {
+    if (!exists($ENV{'SPEC'}) or $ENV{'SPEC'} eq '') {
+        $bmarkdir = cwd();
+    } else {
+        $bmarkdir = $ENV{'SPEC'};
+    }
+}
+
+if (-d $bmarkdir) {
+    chdir $bmarkdir;
+    unless (-f 'MANIFEST' and -r 'bin/harness/runcpu' and -r 'version.txt' and -d 'config') {
+        usage(1, "The benchmark directory ($bmarkdir) does not look like it contains a benchmark.\n\n");
+    }
+} else {
+    usage(1, "The benchmark directory ($bmarkdir) is not a directory.\n\n");
+}
+
+unshift @INC, $bmarkdir.'/bin/common';
+# Get vars_common to pull in the suite name, etc.
+require 'vars_common.pl';
+# Get util_common and setup_common to pull in some handy routines
+require 'util_common.pl';
+require 'setup_common.pl';
+
+# Get the various versions
+$::bin_version   = read_version('bin/version.txt');
+$::bmark_version = read_version('benchset/version.txt');
+$::top_version   = read_version('version.txt');
+$::release_timestamp = timeformat('full-date', (stat('MANIFEST'))[9]);
+
+die "Version from vars_common.pl ($::current_version) does not match contents of version.txt ($::top_version)\n" unless normalize_version($::current_version) == $::top_version;
+
+my $kit_version = max($::bin_version, $::bmark_version, $::current_version);
+my $is_release = is_release($::current_version);
+
+# Read in the current manifest
+my $ifh = new IO::File '<MANIFEST';
+die "Current manifest couldn't be opened for reading: $!\n" unless defined($ifh);
+print "Reading current MANIFEST...";
+my $count = 0;
+while(defined(my $line = <$ifh>)) {
+  if ($line !~ /^([[:xdigit:]]{128}) [ *] ([[:xdigit:]]{16}) (\S.*)$/) {
+    die "Current manifest is not a valid manifest file.\n";
+  }
+  my ($sum, $size, $path) = ($1, $2, $3);
+  next if $path =~ /$excludere/;
+  push @current_manifest, [ $path, $size, $sum ];
+  $count++;
+}
+print "$count entries\n";
+my $tohash = filedigest('MANIFEST', $hash_bits);
+
+# Find utility programs
+$xz = find_prereq('-9vT0', 'specxz', 'xz');
+$xzargs = '-9vT0';
+($xz, $xzargs) = (find_prereq('-9v', 'specxz', 'xz'), '-9v') unless defined($xz);
+die "Can't find prereq xz that understands -9vT0\nStopped" unless defined($xz);
+
+print "Found '$xz $xzargs' for xz\n";
+
+# Figure out which previous kits to make deltas from.  Find MANIFESTs for
+# previous three devel kits.
+my %seen_releases = ();
+my @manifests = (
+    reverse(sort (list_all_files($manifest_dir.'/devel'))),
+);
+# Only make updates from a release to another release
+push @manifests, sort (list_all_files($manifest_dir.'/release')) if $is_release;
+
+while(@manifests) {
+
+    my $old_manifest = shift @manifests;
+    next unless $old_manifest =~ m#/MANIFEST\.([[:digit:].]+)$#;
+    my $old_ver_str = $1;
+    my $old_ver = normalize_version($old_ver_str);
+    my $releasever = '';
+    next if $old_ver eq $::top_version;
+    if (is_release($old_ver)) {
+        next if $seen_releases{$old_ver_str};
+        $seen_releases{$old_ver_str}++;
+        $releasever = $old_ver_str;
+    } else {
+        next if $opts{'deltas'} <= 0;
+    }
+    # Only updates from a release to a newer release go in the release dir
+    my $destdir = $updates_dir.'/'.(($is_release and $releasever ne '') ? 'release' : 'devel');
+
+    # Attempt to avoid going backwards
+    redo if $old_ver > $::top_version and !($is_release and $releasever eq '');
+
+    print "-----------\n";
+    print "Making update from $old_ver to $::top_version";
+    if ($opts{'deltas'} > 0) {
+        print ' ('.($opts{'deltas'} - 1)." dev releases left)";
+    } else {
+        print ' (up to '.(@manifests+0).' release versions left)';
+    }
+    print "\n";
+
+    my ($outfile, $fromver, $tover, $metahash, $release_date) = generate_update_file($old_manifest, $old_ver, $destdir);
+    next unless defined($outfile);
+
+    $opts{'deltas'}-- if $releasever eq '';
+
+    if ($outfile ne '') {
+        update_index($destdir, $fromver, $tover, $metahash, $release_date, $outfile);
+        print "Files for this update are in ".dirname($outfile)." and begin with '".basename($outfile)."'\n";
+    } elsif (!-f $destdir.'/'.$index_filename) {
+        # Ensure that it's at least present
+        my $fh = new IO::File '>'.$destdir.'/'.$index_filename;
+        $fh->close() if defined($fh);
+    }
+    print "\n";
+}
+
+sub generate_update_file {
+    my ($old_manifest, $old_ver, $destdir) = @_;
+    my $fromver = $old_ver;
+    my $tover   = $::top_version;
+    my $release_date = $::release_timestamp;
+    my $outfile = $destdir.'/'.$::suite.'.'.$fromver.'-'.$tover;
+    my ($uncomp_hash, $comp_hash);
+    my @written = ();
+
+    if (!$opts{'force'}
+            and (-s $outfile.$archive_ext or -s $outfile.$archive_ext.'.xz')
+            and (-s $outfile.$archive_ext.$hash_ext or -s $outfile.$archive_ext.'.xz'.$hash_ext)
+            and -s $outfile.'.meta') {
+        warn 'Update file '.basename($outfile)." for $old_ver to $::top_version already exists!\n";
+        return '';
+    }
+
+    my %remove_files  = ();
+    my %remove_dirs   = ();
+    my %keep          = ();
+    my @add           = ();
+    my @remove        = ();
+    file_cleanup() if %cleanup_files;
+    %cleanup_files = ();
+    # MANIFEST is always marked as "changed"
+    my %changed = ( 'MANIFEST' => { 'nocheck' => 1 } );
+
+    # Read in the old manifest
+    my $ifh = new IO::File '<'.$old_manifest;
+    if (!defined($ifh)) {
+        warn "Old manifest ($old_manifest) couldn't be opened for reading: $!\n";
+        return undef;
+    }
+    print "Reading $old_manifest..." if $opts{'debug'};
+    my $fromhash = filedigest($old_manifest, $hash_bits);
+    my $count = 0;
+    while(defined(my $line = <$ifh>)) {
+        if ($line !~ /^([[:xdigit:]]{128}) [ *] ([[:xdigit:]]{16}) (\S.*)$/) {
+            warn "Old manifest ($old_manifest) is not a valid manifest file.\n";
+            return undef;
+        }
+        my ($sum, $size, $path) = ($1, $2, $3);
+        next if $path =~ /$excludere/;
+        $remove_files{$path} = { 'hash' => $sum, 'size' => $size };
+        $count++;
+    }
+    $ifh->close();
+    print "$count entries\n" if $opts{'debug'};
+
+    foreach my $fileref (@current_manifest) {
+        my ($path, $size, $sum) = @$fileref;
+        if (exists $remove_files{$path}) {
+            if ($remove_files{$path}->{'size'} ne $size
+                    or $remove_files{$path}->{'hash'} ne $sum) {
+                $changed{$path} = {
+                    'oldhash' => $remove_files{$path}->{'hash'},
+                    'oldsize' => $remove_files{$path}->{'size'},
+                    'hash'    => $sum,
+                    'size'    => $size,
+                };
+            }
+            delete $remove_files{$path};
+            my $tmpdir = dirname($path);
+            while($tmpdir ne '' and $tmpdir ne '.') {
+                $keep{$tmpdir}++;
+                $tmpdir = dirname($tmpdir);
+            }
+        } elsif (exists $changed{$path}) {
+            # This should never happen -- duplicate entries should only ever
+            # happen in previously installed trees, where this should never
+            # be run
+            $changed{$path}->{'nocheck'} = 1;
+        } else {
+            # New file
+            $changed{$path} = { };
+        }
+    }
+
+    # Figure out if any directories can be removed.  If any of the directory
+    # names referenced in %remove_files are not mentioned in %keep, then those
+    # directories can also be removed.
+    # Only files with directory parts are actually candidates; otherwise '.'
+    # will be marked for deletion, and that will cause the update to fail.
+    my @remove_dir_candidates = grep { basename($_) ne $_ } keys %remove_files;
+    %remove_dirs = map { dirname($_) => 1 } grep { !exists($keep{dirname($_)}) } @remove_dir_candidates;
+
+    # Summarize the magnitude of the changes
+    my @rmfiles       = sort keys %remove_files;
+    my $rmfile_count  = @rmfiles + 0;
+    my @rmdirs        = sort keys %remove_dirs;
+    my $rmdir_count   = @rmdirs + 0;
+    my @changed       = sort grep { exists($changed{$_}->{'hash'}) } keys %changed;
+    my $changed_count = @changed + 0;
+    my @added         = sort grep { !exists($changed{$_}->{'hash'}) } keys %changed;
+    my $added_count   = @added + 0;
+    print "Files to remove: $rmfile_count\n";
+    print "Directories to remove: $rmdir_count\n";
+    print "Files changed: $changed_count\n";
+    print "Files added: $added_count\n";
+    if ($opts{'debug'}) {
+      print "Files to remove:\n  ".join("\n  ", @rmfiles)."\n\n";
+      print "Directories to remove:\n  ".join("\n  ", @rmdirs)."\n\n";
+      print "Files changed:\n  ".join("\n  ", @changed)."\n\n";
+      print "Files added:\n  ".join("\n  ", @added)."\n\n";
+    }
+
+    my $update_metadata = <<"EOM";
+START
+FROM: $fromver ($fromhash)
+TO:   $tover ($tohash)
+# XXX 0.101.0 didn't have support for TO with version and hash
+TO:   $tover
+RMDIRS:  $rmdir_count
+RMS:     $rmfile_count
+CHANGED: $changed_count
+ADDED:   $added_count
+MSG:
+MSGTYPE: none
+EOM
+    # Make note of toolsets removed or changed and mark for reinstall
+    my %toolsets = map { $_ => 1 } (
+        (map { basename($_) } grep { m#^tools/bin/# } @rmdirs),
+        (map { basename(dirname($_)) } grep { m#^tools/bin/# } @changed),
+    );
+    $update_metadata .= "ACTION:  ".join(' ', map { "install:$_" } sort keys %toolsets)."\n";
+
+    $update_metadata .= join("\n", map { "RMDIR:$_" } @rmdirs)."\n" if @rmdirs;
+    $update_metadata .= join("\n", map { "RM:$_" } @rmfiles)."\n" if @rmfiles;
+    $update_metadata .= join("\n", map { "CHG:$_" } @changed)."\n" if @changed;
+    $update_metadata .= join("\n", map { "ADD:$_" } @added)."\n" if @added;
+    $update_metadata .= "END\n";
+
+    my $metahash = scalardigest($update_metadata);
+    (undef, my $compmeta, my $encmeta) = compress_encode($update_metadata);
+    if ($fromver <= 0.101000) {
+        # XXX 0.101.0 has a bug in decode_decompress XXX
+        $update_metadata = $encmeta if length($encmeta) < length($update_metadata);
+    } else {
+        $update_metadata = $compmeta if length($compmeta) < length($update_metadata);
+    }
+
+    if ($opts{'debug'} > 10) {
+        print "Stopping...\n\n";
+        return '';
+    }
+
+    exclude_from_manifest('MANIFEST', $excludere);
+
+    # Make the tarball of all the new and changed files and compress it
+    print "Making the tarball of new and changed files...\n";
+    my $at = Archive::Tar->new();
+    my $tarfile = $outfile.$archive_ext;
+    unlink $tarfile;
+    unlink $tarfile.'.xz';
+    unlink $tarfile.$hash_ext;
+    unlink $tarfile.'.xz'.$hash_ext;
+    unlink $outfile.'.meta';
+
+    if (!defined($at)) {
+        warn "Couldn't get an Archive::Tar\n";
+        return undef;
+    }
+
+    my $rc = $at->add_data(basename($outfile).'.meta', $update_metadata);
+    if (!defined($rc)) {
+        warn "Couldn't put metadata file into the archive!\n";
+        return undef;
+    }
+    $rc = $at->add_data(basename($outfile).'.metahash', $metahash);
+    if (!defined($rc)) {
+        warn "Couldn't put metadata file hash into the archive!\n";
+        return undef;
+    }
+
+    my @filelist = ('MANIFEST', grep { $_ ne 'MANIFEST' } sort keys %changed);
+    $at->add_files( @filelist );
+
+    my $fh = new IO::File '>'.$tarfile;
+    if (!defined($fh)) {
+        warn "Couldn't open '$tarfile' for writing: $!\n";
+        return undef;
+    }
+    $at->write($fh);
+    $fh->close();
+    push @written, $tarfile;
+    $uncomp_hash = filedigest($tarfile, $hash_bits);
+    $fh = new IO::File '>'.$tarfile.$hash_ext;
+    if (defined($fh)) {
+        $fh->print("$uncomp_hash *".basename($tarfile)."\n");
+        $fh->close();
+        push @written, $tarfile.$hash_ext;
+    } else {
+        warn "Couldn't open '$tarfile$hash_ext' for writing: $!\n";
+    }
+    print "Compressing it...\n";
+    system ($xz, $xzargs, $tarfile);
+    if ($?) {
+        unlink $tarfile;
+        warn "$xz failed while compressing the tarball\n";
+        return undef;
+    } else {
+        if (-f $tarfile.'.xz') {
+            $tarfile .= '.xz';
+            push @written, $tarfile;
+            $comp_hash = filedigest($tarfile, $hash_bits);
+            $fh = new IO::File '>'.$tarfile.$hash_ext;
+            if (defined($fh)) {
+                $fh->print("$comp_hash *".basename($tarfile)."\n");
+                $fh->close();
+                push @written, $tarfile.$hash_ext;
+            } else {
+                warn "Couldn't open '$tarfile.xz$hash_ext' for writing: $!\n";
+            }
+        } else {
+            unlink @written;
+            warn "Huh? Can't find compressed tarball!\n";
+            return undef;
+        }
+    }
+    if (!defined($comp_hash) and !defined($uncomp_hash)) {
+        unlink @written;
+        warn "Huh? Couldn't generate $hash_ext files for compressed or uncompressed update file!\n";
+        return undef;
+    }
+
+    $fh = new IO::File '>'.$outfile.'.meta';
+    $fh->binmode(':bytes');
+    if (!defined($fh)) {
+        unlink @written;
+        warn "Couldn't open '${outfile}.meta' for writing: $!\n";
+        return undef;
+    }
+    $fh->print($update_metadata);
+    $fh->close();
+
+    file_cleanup();
+
+    return ($outfile, $fromver, $tover, $metahash, $release_date);
+}
+
+file_cleanup(); # In case some aborts have left things around
+print "All done!\n";
+
+sub usage {
+  my ($rc, $msg) = @_;
+
+  print $msg if defined($msg);
+  print << "EOUSAGE";
+
+Usage: $0 [options] <manifest directory> <updates directory> [benchmark directory]
+ [benchmark directory] is optional.  If not specified, the value of the SPEC
+     environment variable will be used if set; otherwise the current directory
+     be used.
+Options:
+  --deltas=i           Number of previous kits against which to make updates
+  --debug[=i], -d[ i]  Increase verbosity while making the patch
+  --force              Overwrite preexisting destination file
+  --help, -h           Print this message
+
+EOUSAGE
+
+  exit($rc) if defined($rc);
+}
+
+# Go through the manifest file in $file and remove any filenames from it that
+# match any of the items in $excludere.
+sub exclude_from_manifest {
+    my ($file, $excludere) = @_;
+
+    die "'$file' does not exist!\n" unless -r $file;
+    return unless ref($excludere) eq 'Regexp';
+
+    my $oldfile = $file.'.'.$$;
+    unlink $oldfile;    # Just in case
+
+    if (rename $file, $oldfile) {
+        my $ifh = new IO::File $oldfile;
+        die "Could not open '$oldfile' for reading: $!\n" unless defined($ifh);
+        my $ofh = new IO::File '>'.$file;
+        die "Could not open '$file' for writing: $!\n" unless defined($ifh);
+        while (my $line = <$ifh>) {
+            $line =~ tr/\015\012//d;
+            if ($line !~ /$excludere/) {
+                $ofh->print($line."\n");
+            }
+        }
+        $ifh->close();
+        $ofh->close();
+
+        # Make the permissions match
+        my $perm = (stat($oldfile))[2];
+        chmod $perm, $file;
+
+        $cleanup_files{$file} = $oldfile;
+
+    } else {
+        die "exclude_from_manifest: Could not rename '$file' to '$oldfile': $!\n";
+    }
+}
+
+# Do a best-effort cleanup of files that may have been modified
+sub file_cleanup {
+    foreach my $file (keys %cleanup_files) {
+        unlink $file;
+        if ($cleanup_files{$file} ne '') {
+            rename $cleanup_files{$file}, $file;
+        }
+        delete $cleanup_files{$file};
+    }
+}
+$SIG{__DIE__} = \&::file_cleanup;
+
+# Look for a program.  If not found in PATH, see if there's a usable copy in
+# $SPEC/tools/bin/<whatever> and add it to PATH if so.
+sub find_prereq {
+  my ($args, @candidates) = @_;
+
+  my $nulldev = ($^O =~ /MSWin/i) ? 'NUL:' : '/dev/null';
+  my $spec_path_added = 0;
+  my $found = '';
+  foreach my $try (@candidates) {
+    my $tmp = qx($try $args < $nulldev > $nulldev 2>&1);
+    if ($? != 0 and $spec_path_added == 0) {
+      # See if we can use one of the ones in tools/bin
+      my $tmppath = '';
+      foreach my $dir (glob("$ENV{SPEC}/tools/bin/*")) {
+        if (-d $dir and -x "$dir/$try" and ":$ENV{'PATH'}:" !~ /:$dir:/) {
+          $tmp = qx($dir/$try $args < $nulldev > $nulldev 2>&1);
+          if ($? == 0) {
+            {
+              local $ENV{PATH} = "${dir}:$ENV{PATH}";
+              $tmp = qx($try $args < $nulldev > $nulldev 2>&1);
+            }
+            if ($? == 0) {
+              $ENV{PATH} = "${dir}:$ENV{PATH}";
+              $spec_path_added = $dir;
+              last;
+            }
+          }
+        }
+      }
+    }
+    if ($? == 0) {
+      $found = $try;
+      last;
+    }
+  }
+  if ($? != 0) {
+    warn "No $candidates[0] found.  Please add it to your PATH.";
+    return undef;
+  } elsif ($spec_path_added != 0) {
+    print "Using tools binaries in $spec_path_added\n";
+  }
+
+  return $found;
+}
+
+sub get_version {
+    my $version = '$LastChangedRevision: 6136 $ '; # Make emacs happier
+    if ($version =~ /^\044LastChangedRevision: (\d+) \$ $/) {
+        $version = "v$1";
+    } else {
+        # This should never happen unless you're running from a git clone.
+        if ($version eq "\044LastChangedRevision\044 ") {
+            $version = 'v.unknown';
+            # Assume git is at work here; try harder to get version information
+            my $tmpver = qx{git svn info $0 2>/dev/null};
+            my ($rev) = ($tmpver =~ /^Last changed rev\S*:\s+(\d+)$/mi);
+            if ($rev ne '') {
+                chomp($tmpver = qx{git svn find-rev r$rev 2>/dev/null});
+                if ($tmpver ne '') {
+                    $tmpver = qx/git log -n 1 --format="format:%h %ct" ${tmpver}...HEAD -- $0/;
+                    if ($tmpver eq '') {
+                        $version = 'v'.$rev;
+                    } elsif ($tmpver =~ /^([[:xdigit:]]+) (\d+)$/) {
+                        $version = 'v'.$rev."(...$1)";
+                    }
+                }
+            }
+        } else {
+            $version = '??';
+        }
+    }
+    return $version;
+}
+
+sub read_version {
+    my ($file) = @_;
+
+    my ($tmp) = read_file($file);
+    return $tmp unless defined($tmp);
+    $tmp =~ tr/\012\015//d;
+    die "Version number '$tmp' (read from '$file') has non-numeric characters\n" unless $tmp =~ /^[[:digit:].]+$/;
+    my $num = normalize_version($tmp);
+    warn "Version number '$num' derived from '$tmp' does not match its number representation (".($num+0).")\n" if ($num != $num+0);
+    return $num;
+}
+
+sub update_index {
+    my ($dir, $fromver, $tover, $metahash, $release_timestamp, $outfile) = @_;
+
+    my $filebase = basename($outfile);
+    my $uncomp_size = -s $outfile.$archive_ext;
+    my ($uncomp_hash) = read_file($outfile.$archive_ext.$hash_ext);
+    if ($uncomp_hash =~ /^([[:xdigit:]]{128}) [ *]/) {
+        $uncomp_hash = $1;
+    } else {
+        $uncomp_hash = 'N/A';
+    }
+    my $comp_size = -s $outfile.$archive_ext.'.xz';
+    my ($comp_hash)   = read_file($outfile.$archive_ext.'.xz'.$hash_ext);
+    if ($comp_hash =~ /^([[:xdigit:]]{128}) [ *]/) {
+        $comp_hash = $1;
+    } else {
+        $comp_hash = 'N/A';
+    }
+    my @updlines = ();
+    my $fh = new IO::File '<'.$dir.'/'.$index_filename;
+    if (defined($fh)) {
+        while(defined(my $line = $fh->getline())) {
+            push @updlines, $line unless $line =~ /^(?:#|\Q$fromver\E\s+\Q$tover\E\s+)/;
+        }
+        $fh->close();
+    }
+    my $hashlen = $hash_bits / 4;
+    unshift @updlines, (
+        sprintf("# %-16s\t%-16s\t%-28s\t%*s\t%-10s\t%*s\t%-10s\t%*s\t%-10s\n",
+            'From (Ver)', 'To',
+            'Filename',
+            -$hashlen, 'SHA-'.$hash_bits, 'Size',
+            -$hashlen, 'Compressed SHA-'.$hash_bits, 'Comp.Size',
+            -$hashlen, 'Metadata SHA-'.$hash_bits,
+            'Release Date'),
+        sprintf("%-16s\t%-16s\t%-28s\t%*s\t%-10d\t%*s\t%-10d\t%*s\t%-10s\n",
+            $fromver, $tover,
+            $filebase,
+            -$hashlen, $uncomp_hash, $uncomp_size,
+            -$hashlen, $comp_hash, $comp_size,
+            -$hashlen, $metahash,
+            $release_timestamp)
+                    );
+    $fh = new IO::File '>'.$dir.'/'.$index_filename;
+    die "Couldn't open ${dir}/updateindex for writing: $!\nStopped" unless defined($fh);;
+    $fh->print(@updlines);
+    $fh->close();
+}
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab:

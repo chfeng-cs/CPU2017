@@ -1,0 +1,1 @@
+-f "sed -ne '/Fake commands from options/,/End of fake output from options/p' | egrep '^(%|(FPP|COMP|LINK|[CPO]): )'"

@@ -1,0 +1,118 @@
+#!/bin/zsh
+
+testdir=$SPEC/tmp/tests/specdiff
+rm -rf $testdir
+mkdir -p $testdir
+output=$testdir/$(basename $0).out
+rm -f $output
+
+if [ -d "$SPEC" ]; then
+  . $SPEC/shrc
+fi
+
+if ! specperl -e 1 || [ ! -d "$SPEC" ]; then
+  echo I need specperl to be able to run, and I need to know where '$SPEC' is
+  echo PATH=$PATH
+  echo SPEC=$SPEC
+  echo specperl is at $(which specperl)
+  exit 1
+fi
+
+run_specdiff() {
+  _testdir=$1
+  _ref_file=$2
+  _test_val=$3
+  _specdiff_args=$4
+  _tag=$5
+  _xfail=0$(echo "$_tag" | grep XFAIL >/dev/null && echo 1)
+
+  if [ ! -d $_testdir -o ! -f $_testdir/$_ref_file ]; then
+    echo run_specdiff: argument problem with test directory or reference file
+    exit 1
+  fi
+
+  rm -f $_testdir/testval
+  echo "$_test_val" > $_testdir/testval
+  echo "-------------------------- ${_tag}: $_num"
+  _out=$(eval "specperl $SPEC/bin/harness/specdiff $args $_testdir/$_ref_file $_testdir/testval")
+  if [ $? -eq 0 ]; then
+    echo "$_test_val OK"
+  elif [ $_xfail -ne 0 ]; then
+    echo "$_test_val XFAIL OK"
+  else
+    echo $_out | sed -ne '/specdiff run complete/n;p'
+    echo "$_test_val FAIL"
+  fi
+}
+
+echo Interrupt this process manually if it more than a few seconds elapse between dots
+
+testnums=('1.200' '1200e-3' '1200e-00003' '1.202' '1.202e-0' '12.02e-1' '120.2e-2' '1202e-3' '1202e-03' '1202e-0003' '1.203' '12.03e-1' '120.3e-2' '1203e-3' '1203e-03' '1203e-0003')
+testargs=('--obiwan')
+
+sectiontag="testing first number decimal, no exponent"
+echo -n $sectiontag
+(echo; echo ============; echo $sectiontag; echo ============) >> $output
+echo "1.201" > $testdir/good
+for args in $testargs; do
+  for _num in $testnums; do
+    tag=$(echo $_num | sed 's/[.e-]//g; s/1203.*/XFAIL:/; s/[0-9]*//')"test group 1"
+    run_specdiff $testdir good "$_num" "$args" "$tag" >> $output
+    echo -n '.'
+  done
+done
+echo done
+
+sectiontag="testing first number no decimal, with exponent"
+echo -n $sectiontag
+(echo; echo ============; echo $sectiontag; echo ============) >> $output
+echo "1201e-3" > $testdir/good
+for args in $testargs; do
+  for _num in $testnums; do
+    tag=$(echo $_num | sed 's/[.e-]//g; s/1203.*/XFAIL:/; s/[0-9]*//')"test group 2"
+    run_specdiff $testdir good "$_num" "$args" "$tag" >> $output
+    echo -n '.'
+  done
+done
+echo done
+
+sectiontag="testing first number decimal, with exponent"
+echo -n $sectiontag
+(echo; echo ============; echo $sectiontag; echo ============) >> $output
+echo "120.1e-2" > $testdir/good
+for args in $testargs; do
+  for _num in $testnums; do
+    tag=$(echo $_num | sed 's/[.e-]//g; s/1203.*/XFAIL:/; s/[0-9]*//')"test group 3"
+    run_specdiff $testdir good "$_num" "$args" "$tag" >> $output
+    echo -n '.'
+  done
+done
+echo done
+
+sectiontag="testing first number decimal, with zero-padded exponent"
+echo -n $sectiontag
+(echo; echo ============; echo $sectiontag; echo ============) >> $output
+echo "120.1e-02" > $testdir/good
+for args in $testargs; do
+  for _num in $testnums; do
+    tag=$(echo $_num | sed 's/[.e-]//g; s/1203.*/XFAIL:/; s/[0-9]*//')"test group 4"
+    run_specdiff $testdir good "$_num" "$args" "$tag" >> $output
+    echo -n '.'
+  done
+done
+echo done
+
+sectiontag="testing first number no decimal, with zero-padded exponent"
+echo -n $sectiontag
+(echo; echo ============; echo $sectiontag; echo ============) >> $output
+echo "1201e-03" > $testdir/good
+for args in $testargs; do
+  for _num in $testnums; do
+    tag=$(echo $_num | sed 's/[.e-]//g; s/1203.*/XFAIL:/; s/[0-9]*//')"test group 5"
+    run_specdiff $testdir good "$_num" "$args" "$tag" >> $output
+    echo -n '.'
+  done
+done
+echo done
+
+diff -u $0.ref $output && echo looks okay || echo FAIL

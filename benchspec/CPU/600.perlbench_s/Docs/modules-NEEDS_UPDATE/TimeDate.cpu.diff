@@ -1,0 +1,56 @@
+diff -wur data/all/input/lib/Date/Format.pm TimeDate-1.16/lib/Date/Format.pm
+--- data/all/input/lib/Date/Format.pm	2009-05-12 12:23:09.000000000 -0700
++++ TimeDate-1.16/lib/Date/Format.pm	2003-06-02 10:16:42.000000000 -0700
+@@ -120,9 +120,7 @@
+   }
+  else
+   {
+-# SPEC CPU is always on GMT
+-#   @$me = localtime($time);
+-   @$me = gmtime($time);
++   @$me = localtime($time);
+   }
+  $me->[9] = $time;
+  _subs($me,$fmt);
+@@ -149,8 +147,6 @@
+            'X' => "%H:%M:%S",
+           );
+ 
+-# No locales for SPEC CPU
+-if (0) {        # CPU
+ my @locale;
+ my $locale = "/usr/share/lib/locale/LC_TIME/default";
+ local *LOCALE;
+@@ -167,7 +163,6 @@
+   @format{"X","x","C"} =  @locale[38 .. 40];
+   @AMPM = @locale[41 .. 42];
+  }
+-}       # CPU
+ 
+ sub wkyr {
+     my($wstart, $wday, $yday) = @_;
+diff -wur data/all/input/lib/Date/Parse.pm TimeDate-1.16/lib/Date/Parse.pm
+--- data/all/input/lib/Date/Parse.pm	2009-05-12 12:23:35.000000000 -0700
++++ TimeDate-1.16/lib/Date/Parse.pm	2003-06-03 02:00:25.000000000 -0700
+@@ -232,9 +232,7 @@
+ 	unless @t;
+ 
+  my($ss,$mm,$hh,$day,$month,$year,$zone) = @t;
+- # SPEC CPU is always on GMT
+- #my @lt  = localtime(time);
+- my @lt  = gmtime(time);
++ my @lt  = localtime(time);
+ 
+  $hh    ||= 0;
+  $mm    ||= 0;
+@@ -279,9 +277,7 @@
+      if !defined $result
+         or $result == -1
+            && join("",$ss,$mm,$hh,$day,$month,$year)
+-# SPEC CPU is always on GMT
+-#    	        ne join("",(localtime(-1))[0..5]);
+-     	        ne join("",(gmtime(-1))[0..5]);
++     	        ne join("",(localtime(-1))[0..5]);
+  }
+ 
+  return $result + $frac;

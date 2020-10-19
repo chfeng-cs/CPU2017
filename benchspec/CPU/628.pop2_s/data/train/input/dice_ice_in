@@ -1,0 +1,6 @@
+ &shr_strdata_nml
+   dataMode       = 'SSTDATA'
+   domainFile     = './domain.ocn.gx3v7.090903.nc'
+   streams        = 'ssmi_ifrac.clim.x0.5.txt 1 1 1 '
+   vectors        = 'null'
+  /

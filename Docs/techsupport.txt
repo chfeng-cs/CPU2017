@@ -1,0 +1,254 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                       SPEC CPU(R)2017 Technical Support
+
+    $Id: techsupport.html 6310 2019-07-28  Latest: www.spec.org/cpu2017/Docs/
+           22:06:36Z JohnHenning $
+
+   Contents
+
+   1. Introduction
+
+   2. Before contacting SPEC
+
+   3. Contact Information
+
+   4. Limitations on support
+
+   5. Useful information to include when contacting SPEC
+
+   6. Benchmark source code change requests
+
+1. Introduction
+
+   SPEC CPU(R)2017 (a product of the SPEC(R) non-profit corporation (about
+   SPEC)) is a source code benchmark. Using SPEC CPU 2017 requires access to
+   a computer system running a supported operating system with the necessary
+   compilers and tools to generate executable binaries for the system. The
+   benchmarks require the use of compiler commands as well as other commands
+   via a shell or command prompt window (aka "terminal window", "console",
+   "CMD window", "terminal emulator", etc.)
+
+   SPEC can provide limited technical support for:
+
+     * Installing CPU 2017 on a UNIX/Linux, Windows or Mac OS X system.
+     * Using the CPU 2017 tools to run the benchmarks.
+     * Building the CPU 2017 tools.
+     * Updates for known issues.
+
+2. Before contacting SPEC
+
+   Do you have a problem with SPEC CPU 2017?
+   Try these, in this order:
+
+    1. Update your copy with runcpu --update.
+    2. Check the latest version of Frequently Asked Questions.
+    3. Check the latest version of Known Problems.
+    4. Check the src.alt list.    [What is a src.alt?]
+    5. Contact SPEC.
+
+3. Contact Information
+
+   SPEC CPU 2017 technical support can be reached by sending email to:
+
+   cpu2017support at spec.org
+
+   Additional/updated contact information can also be found at SPEC's primary
+   Web Site: www.spec.org
+
+4. Limitations on support
+
+   SPEC can provide only limited advice regarding:
+
+     * Miscompares. If your system gets an answer that the tools consider to
+       be incorrect, the usual advice is try asking your optimizer to be less
+       aggressive. If you do report a miscompare, and if we recognize it, we
+       can tell you so. But if the miscompare requires digging through the
+       entrails, you'll probably have to use a debugger, and you may have to
+       report a bug to your compiler vendor.
+
+     * New platforms. The list of supported platforms is in the document SPEC
+       CPU 2017 System Requirements. If you install on a platform that does
+       not have tools, see Building the SPEC CPU 2017 Toolset. If you report
+       problems with the build, we might or might not be able to help you.
+       Often, the problem needs to be taken apart on the system where the
+       build is being attempted.
+
+   In general, SPEC can provide technical assistance with its benchmarks, but
+   SPEC does not have the ability to provide support on other vendor's
+   products. Examples of support that SPEC can not provide include:
+
+     * Hardware installation issues.
+     * Hardware problems.
+     * Non-SPEC software installation issues.
+     * Non-SPEC software problems.
+     * Hardware specific tuning.
+
+   If known, SPEC will provide a pointer to the appropriate source of
+   information. Otherwise for these and similar issues, it is suggested that
+   the hardware or software vendor be contacted directly.
+
+5. Useful information to include when contacting SPEC
+
+   When writing to SPEC to request help with a problem, please attach your
+   config file and the relevant log files, preferably as a compressed
+   tarball.
+
+For example, if you are using myconfig.cfg and the failure was seen during the 17th run,
+then you could create a file called problem.tar.xz using commands similar to these.
+ Unix   cd $SPEC
+        spectar cvf - config/myconfig.cfg result/CPU2017.017.log | specxz > problem.tar.xz
+        cd %SPEC%
+Windows spectar cvf problem.tar config/myconfig.cfg result/CPU2017.017.log
+        specxz problem.tar
+(Both of the above create a file called problem.tar.xz
+In the Unix example, the output of spectar is piped to specxz on a single command line.
+In the Windows example, the same operations are done as 2 separate commands.
+In both cases, the file problem.tar.xz is created, which you can attach to your email.)
+
+   In addition to your config file and log file, the following information
+   should also be provided when requesting help with an issue:
+
+    1. The revision of the benchmark suite that you're using - please say
+       "runcpu -V"
+    2. The specific nature of the problem and the symptoms. Please give the
+       exact error message. If the message says "see file x/y/z.err", then
+       please include the contents of x/y/z.err.
+    3. Type of hardware/name of system being used.
+    4. Name and version of the operating system.
+    5. Name and version of the compiler.
+    6. If a compilation issue:
+
+          * list of flags being used
+          * check if problems exist at lowest level of optimization.
+
+    7. Has this issue been tried or seen on other systems?
+
+   Additional details related to the problem are also appreciated.
+
+6. Benchmark source code change requests
+
+   Although the SPEC CPU 2017 benchmarks are very portable, new systems or
+   language standard changes may require source code modifications. Under the
+   run rules, no publication of results may be done using modified source
+   code, unless SPEC has approved the change. This section describes how to
+   go about making a request to SPEC for a source change.
+
+   By including all the relevant information, you will make it easier for
+   SPEC to consider your request. Nevertheless, please note that SPEC may or
+   may not grant your requested change. SPEC will consider a request for a
+   source change in a similar manner to how it considers portability flags,
+   weighing aspects such as performance neutrality, amount of code affected,
+   and impact on the original intent of the program.
+
+   Proposals for changes to benchmark source code should include the
+   information mentioned in the previous section, plus:
+
+    8. A "context diff", typically via diff -u (or, if that is unavailable,
+       diff -C). Specify the original file FIRST.
+
+   diff -u  somefile.original.cxx  somefile.proposed.cxx
+
+       If the changes are extensive, or if your diff utility does not know
+       how to provide concext-sensitive diffs, then attach the files. You can
+       package them up and compress them by saying something like this:
+
+   spectar cvf - newsrc/* | specxz > proposed.tar.xz
+
+    9. A clear statement of what happens without the proposed change.
+   10. A clear statement of whether a workaround exists. Are there any
+       conditions under which the benchmark can be made to work without the
+       proposed change?
+   11. If possible, a specific reference to the relevant portion of the
+       compiler language standard.
+   12. If possible, results of testing for both correctness and performance
+       when the same change is applied on some hw/sw platform other than the
+       one where the problem was observed.
+   13. If the problem has been reported to the compiler vendor, a reference
+       to a specific bug number, case number, mail archive message number,
+       web forum address, or compiler developer email address.
+   14. If the problem has not been reported to the compiler vendor, a brief
+       statement as to why not.
+   15. If the problem needs to be solved by a certain date, please say so,
+       and why.
+
+   Example change request: with [cross references] to above list
+
+   I would like to propose a change to benchmark 997.oldfort. Using SPEC CPU
+   2017 V1.0.3 [1], 997.oldfort fails to compile with error message:
+
+   FATAL ERROR: foo.f, line 1814: DO loops must end with CONTINUE or END DO [2]
+
+   The error occurs on the TurboBlaster Mark I system [3] using
+   TurboBlasterUnix V1.0 [4] and TurboBlaster Fortran V1.0. [5] The compiler
+   supports only two language dialects; neither one will compile the
+   benchmark: --standard:Fortran2003 and --standard:Fortran2008 both fail.
+   Lower optimization levels have no effect. [6]
+
+   The problem occurs only on the TurboBlaster. Other compilers (on other
+   systems) issue a warning about the same line of source code, but not a
+   fatal error. [7]
+
+   With the following change to 997.oldfort/src/foo.f, I can compile the
+   benchmark: [8]
+
+    $ diff -u foo.f.orig foo.f
+    --- foo.f.orig       Fri Jul 15 14:09:28 2011
+    +++ foo.f    Sat Jul 29 10:06:34 2009
+    @@ -1811,7 +1811,8 @@
+           FFY(I) = ZERO
+           DDT(I) = ZERO
+           DDQ(I) = ZERO
+    -  100 DDE(I) = ZERO
+    +      DDE(I) = ZERO
+    +  100 CONTINUE
+           NYQBTTS = 20
+           IF(QPM) NYQBTTS=21
+     C
+    $
+
+   Without the change, the compiler complains: [9]
+
+ FATAL ERROR: foo.f, line 1814: DO loops must end  either with CONTINUE or END DO
+    100 DDE(I) = ZERO
+  --^
+
+   I am unable to workaround the problem on this system, because no other
+   Fortran compiler is available, and TurboBlaster Fortran is quite insistent
+   about this point. [10]
+
+   Although I do not have a copy of the standard, a Fortran 95 compiler on
+   another system does warn about the same statement and specifically claims
+   that it is nonstandard. [11] On that other system, the above source change
+   was tested, and performance was the same (within run-to-run variation -
+   much less than 1% different). [12] The problem has been reported to the
+   compiler vendor, at
+   www.turboblasterfortran.com/emailforum/msg00416.html, [13] and you can see
+   in the replies attached to that message that the vendor seems quite proud
+   of its assertion that it has a fully compliant Fortran2003 compiler with
+   no support for older variations of the language.
+
+   It would be very much appreciated if you could consider this change
+   request within the next month, so that I can publish my PhD dissertation
+   before my parents arrive from overseas for a six-month visit. [15]
+
+   SPEC CPU(R)2017 Technical Support: Copyright (c) 2017-2019 Standard
+   Performance Evaluation Corporation (SPEC(R))
+
+

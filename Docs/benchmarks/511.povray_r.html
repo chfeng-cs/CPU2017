@@ -1,0 +1,101 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+      <link rel="STYLESHEET" href="https://www.spec.org/cpu2017/Docs/css/cpudocs.css" type="text/css" />
+<title>511.povray_r</title>
+<meta name="generator" content="Cloyce+VIM 6.2" />
+<meta name="revision"
+      content="$Id: povray.html 6320 2019-07-28 23:29:02Z JohnHenning $" />
+</head>
+
+<body>
+<div style="text-align: center">
+<h1>511.povray_r<br />
+SPEC CPU&reg;2017 Benchmark Description</h1>
+</div>
+ 
+<h3>Benchmark Name</h3>
+<p>511.povray_r</p>
+
+<h3>Benchmark Author</h3>
+<p>Thorsten Fr&ouml;hlich &lt;thorsten &#x5b;at&#x5d; trf.de&gt;</p>
+<p>Chris Cason &lt;spec001 &#x5b;at&#x5d; povray.org&gt;</p>
+
+<h3>Benchmark Program General Category</h3>
+<p>Computer Visualization / Raytracing</p>
+ 
+<h3>Benchmark Description</h3>
+<p>POV-Ray is a free and open source ray-tracing application.  The CPU 2017
+version is based on POV-Ray version 3.7.</p>
+
+
+<h3>Input Description</h3>
+<p>The benchmark's input consists of:</p>
+ <ul>
+  <li>An ASCII text POV-Ray parameters (.ini) file.  The included .ini file
+      specifies the name of the input geometry file, the output log file, and
+      the output image file name.</li>
+
+  <li>A POV-Ray scene description language (.pov) geometry file. The input
+      geometry file represents a chess board scene constructed in the POV-Ray
+      scene description language.</li>
+ </ul>
+
+<h3>Output Description</h3>
+<p>The benchmark renders a 2560 x 2048 pixel image of a chess board, with the
+pieces placed on the board in the starting position.  The rendered scene image
+is saved as a Targa (.tga) file.</p>
+
+<p>This output image is compared with the reference output image using the SPEC&reg;
+utility <a class="external" 
+   href="http://www.spec.org/cpu2017/Docs/utility.html#imagevalidate">imagevalidate</a>,
+which calculates a the structural similarity (SSIM) index between corresponding
+8x8 groups of pixels in each image.  The SSIM index has a range of -1 (maximal
+difference) to 1 (identical).  The benchmark requires that all computed SSIM
+indices be greater than 0.996 in order for the run to be considered
+successful.</p>
+
+<p>A log of the execution is also generated, but its contents are not used to
+validate correction operation of the benchmark.</p>
+
+<h3>Programming Language</h3>
+<p>ISO C++</p>
+
+<h3>Threading Model</h3>
+<p>None</p>
+
+<h3>Known portability issues</h3>
+ <ul>
+  <li>Users of the Intel<sup>&reg;</sup> Compiler on Windows may get the
+      <tt>mathimf.h</tt> and <tt>direct.h</tt> header files included by
+      defining the <tt>SPEC_WINDOWS_ICL</tt> preprocessor macro.</li>
+  <li>The <tt>spec_qsort.c</tt> routine does not strictly obey the ANSI aliasing rules.  GCC users may need to add <tt
+   style="white-space:nowrap;">-fno-strict-aliasing</tt>.  See the detailed 
+         discussion in the documentation for 
+         <a href="https://www.spec.org/cpu2017/Docs/benchmarks/505.mcf_r.html#Portability">505.mcf_r</a>.</li>
+ </ul>
+
+<h3 id="license">Sources and Licensing</h3>
+
+<p>POV-Ray (which became 511.povray_r) was contributed to CPU 2017 by one of the developers, Thorsten Froehlich, under the GNU Affero License v3.</p> 
+
+  <p>Please see details in the document <a
+    href="https://www.spec.org/cpu2017/Docs/licenses.html#bmk511.povray_r">SPEC CPU&reg;2017 Licenses</a>.</p>
+
+
+
+
+<h3>References</h3>
+<ul>
+ <li>Persistence of Vision Raytracer home page:
+     <a class="external"  href="http://www.povray.org/">http://www.povray.org/</a></li>
+ <li>Structural Similarity: <a class="external"  href="https://en.wikipedia.org/wiki/Structural_similarity">https://en.wikipedia.org/wiki/Structural_similarity</a></li>
+</ul>
+
+<p>Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $</p>
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+</body>
+</html>

@@ -1,0 +1,2334 @@
+ 
+========================================================================
+ 
+  I/O:
+ 
+ io_nml namelist settings:
+ 
+  &IO_NML
+  num_iotasks =  1
+  lredirect_stdout =  T
+  log_filename = ./ocn.log
+  luse_pointer_files =  T
+  pointer_filename = ./rpointer.ocn
+  luse_nf_64bit_offset =  T
+  /
+ 
+========================================================================
+ 
+  Context:
+ 
+  context_nml namelist settings:
+ 
+  &CONTEXT_NML 
+  lcoupled =  T
+  lccsm =  T
+  b4b_flag =  F
+  lccsm_control_compatible =  F
+  /
+ 
+ 
+========================================================================
+ 
+ Parallel Ocean Program (POP) 
+ Based on Version 2.1alpha Jan 2005
+ Modified for CESM  2005-2010
+ 
+ 
+========================================================================
+ 
+ Overflows:
+ 
+ 
+ overflows_nml namelist settings:
+ 
+  &OVERFLOWS_NML
+  overflows_on =  T
+  overflows_interactive =  T
+  overflows_infile = ./gx3v7_overflow
+  overflows_diag_outfile = ./casespec.pop.do
+  overflows_restart_type = ccsm_startup
+  overflows_restfile = ./casespec.pop.ro
+  /
+ 
+ after open nu   ovf_error=    0
+reading overflows_infile: contents echoed
+-------------------------------------------------------------------------------------- 1
+                                                                                       2
+  Notes for Overflow Info file: First line total number of overflows. Then follows     3
+  blocks of lines having the same logical structure, one for each overflow. Each       4
+  overflow block starts with the number of the overflow, then a character descriptor.  5
+  The next seven lines are parameters specific to each overflow; note that the order   6
+  is important. Next block is for kmt changes; note, first line should be set to 0     7
+  if there are no kmt changes; each kmt change is i,j, old and new kmt indices. Next   8
+  block gives the inflow, source and entrainment regional average index boundaries,    9
+  after a blank comment line; each line is imin,imax,jmin,jmax,kmin,kmax. Next block  10
+  is the source grid box ijk values and sidewall orientation, with the first line the 11
+  number of boxes, followed by each ijk and orientation value, ordered to increase in 12
+  i or j, whichever is appropriate. Then follows entrainment grid box ijk and orienta-13
+  tion, similar to source, and finally the product grid boxes. Product grid boxes     14
+  have one or more sets ordered by increasing k (i.e. depth), one for each group of   15
+  gridboxes; first the number of product sets, then each set as number, ijk and       16
+  orientation.                                                                        17
+                                  Conventions                                         18
+                                                                                      19
+  Source (src) and entrainment (ent) grid values refer to the grid box that the       20
+  overflows flow INTO; product (prd) grid values refer to the grid box from which     21
+  the overflow flows OUT OF. All indices refer to the POP T-grid. All of the overflow 22
+  grid boxes (i.e. ijk values) are below the bottom topography but have sidewalls     23
+  adjacent to active ocean points from which overflow waters flow from or into.       24
+                                                                                      25
+  Orientation of overflow sidewalls: 1=increasing x direction, 2=increasing y         26
+  direction, 3=decreasing x direction and 4=decreasing y direction. As src,ent always 27
+  flow INTO an overflow gridbox and prd flows OUT, there should be no ambiguity. (!)  28
+  Looking down onto an overflow grid box:                                             29
+                                             2                                        30
+                                          ________                                    31
+                      y ^                |        |                                   32
+                        |               3|   ijk  |1                                  33
+                        +--->            |        |                                   34
+                            x            |________|                                   35
+                                             4                                        36
+  Bruce P. Briegleb  24 August 2009                                                   37
+  gx3v7    kmt pop-ups                30 Nov 2009  remove dms src reg next to sill    38
+  28 Sept 2009  all product levels restricted to bottom of step---5 Oct 2009 fill pnt 39
+--------------------------------------------------------------------------------------40
+ 4
+ 1 Denmark Strait                  
+ 65.0
+ 5000000.0
+ 45000.0
+ 10000000.0
+ 0.03
+ 3.0E-3
+ 3
+ 7 111 33 32
+ 7 110 33 32
+ 7 109 33 32
+ 3 5 104 107 33 33
+ 8 10 109 112 33 33
+ 3 5 104 107 39 39
+ 4
+ 7 109 33 1
+ 7 110 33 1
+ 7 111 33 1
+ 7 112 33 1
+ 3
+ 6 105 39 3
+ 6 106 39 3
+ 6 107 39 3
+ 4
+ 3
+ 5 102 44 3
+ 5 103 44 3
+ 5 104 44 3
+ 3
+ 4 102 46 3
+ 4 103 46 3
+ 4 104 46 3
+ 3
+ 3 100 48 3
+ 3 101 48 3
+ 3 102 48 3
+ 3
+ 2 95 49 3
+ 2 96 49 3
+ 2 97 49 3
+ Computed source adjacent ijk min/max =   8     8   109   112    33    33
+ Computed entrainment adjacent ijk min/max =   5     5   105   107    39    39
+ Computed product adjacent, set=  1 ijk min/max =   4     4   102   104    44    44
+ Computed product adjacent, set=  2 ijk min/max =   3     3   102   104    46    46
+ Computed product adjacent, set=  3 ijk min/max =   2     2   100   102    48    48
+ Computed product adjacent, set=  4 ijk min/max =   1     1    95    97    49    49
+ 2 Faroe Bank Channel              
+ 62.0
+ 1500000.0
+ 30000.0
+ 25000000.0
+ 0.02
+ 3.0E-3
+ 3
+ 12 93 38 37
+ 12 94 38 37
+ 12 95 38 37
+ 7 10 93 95 38 38
+ 13 15 93 97 38 38
+ 7 10 93 96 40 40
+ 3
+ 12 93 38 1
+ 12 94 38 1
+ 12 95 38 1
+ 3
+ 11 93 40 3
+ 11 94 40 3
+ 11 95 40 3
+ 5
+ 3
+ 10 93 44 3
+ 10 94 44 3
+ 10 95 44 3
+ 3
+ 9 93 46 3
+ 9 94 46 3
+ 9 95 46 3
+ 3
+ 8 93 48 3
+ 8 94 48 3
+ 8 95 48 3
+ 3
+ 6 90 49 3
+ 6 91 49 3
+ 6 92 49 3
+ 3
+ 3 90 50 4
+ 4 90 50 4
+ 5 90 50 4
+ Computed source adjacent ijk min/max =  13    13    93    95    38    38
+ Computed entrainment adjacent ijk min/max =  10    10    93    95    40    40
+ Computed product adjacent, set=  1 ijk min/max =   9     9    93    95    44    44
+ Computed product adjacent, set=  2 ijk min/max =   8     8    93    95    46    46
+ Computed product adjacent, set=  3 ijk min/max =   7     7    93    95    48    48
+ Computed product adjacent, set=  4 ijk min/max =   5     5    90    92    49    49
+ Computed product adjacent, set=  5 ijk min/max =   3     5    89    89    50    50
+ 3 Ross Sea                        
+ 75.0
+ 10000000.0
+ 40000.0
+ 15000000.0
+ 0.032
+ 3.0E-3
+ 3
+ 60 4 34 33
+ 61 4 34 33
+ 62 4 34 33
+ 60 62 5 7 34 34
+ 59 62 2 3 34 34
+ 59 61 6 8 40 40
+ 3
+ 60 4 34 4
+ 61 4 34 4
+ 62 4 34 4
+ 3
+ 59 5 40 2
+ 60 5 40 2
+ 61 5 40 2
+ 4
+ 3
+ 59 6 44 2
+ 60 6 44 2
+ 61 6 44 2
+ 3
+ 59 7 46 2
+ 60 7 46 2
+ 61 7 46 2
+ 3
+ 59 8 48 2
+ 60 8 48 2
+ 61 8 48 2
+ 3
+ 59 9 50 2
+ 60 9 50 2
+ 61 9 50 2
+ Computed source adjacent ijk min/max =  60    62     3     3    34    34
+ Computed entrainment adjacent ijk min/max =  59    61     6     6    40    40
+ Computed product adjacent, set=  1 ijk min/max =  59    61     7     7    44    44
+ Computed product adjacent, set=  2 ijk min/max =  59    61     8     8    46    46
+ Computed product adjacent, set=  3 ijk min/max =  59    61     9     9    48    48
+ Computed product adjacent, set=  4 ijk min/max =  59    61    10    10    50    50
+ 4 Weddell Sea                     
+ 75.0
+ 10000000.0
+ 30000.0
+ 15000000.0
+ 0.032
+ 3.0E-3
+ 3
+ 98 4 36 35
+ 99 4 36 35
+ 100 4 36 35
+ 98 100 5 7 36 36
+ 98 100 2 3 36 36
+ 96 98 6 8 40 40
+ 3
+ 98 4 36 4
+ 99 4 36 4
+ 100 4 36 4
+ 3
+ 96 5 40 2
+ 97 5 40 2
+ 98 5 40 2
+ 4
+ 3
+ 96 6 44 2
+ 97 6 44 2
+ 98 6 44 2
+ 3
+ 96 7 46 2
+ 97 7 46 2
+ 98 7 46 2
+ 3
+ 96 8 48 2
+ 97 8 48 2
+ 98 8 48 2
+ 3
+ 97 9 50 1
+ 97 10 50 1
+ 97 11 50 1
+ Computed source adjacent ijk min/max =  98   100     3     3    36    36
+ Computed entrainment adjacent ijk min/max =  96    98     6     6    40    40
+ Computed product adjacent, set=  1 ijk min/max =  96    98     7     7    44    44
+ Computed product adjacent, set=  2 ijk min/max =  96    98     8     8    46    46
+ Computed product adjacent, set=  3 ijk min/max =  96    98     9     9    48    48
+ Computed product adjacent, set=  4 ijk min/max =  98    98     9    11    50    50
+------------------------------------------------------------------------
+ 
+Domain Information
+ 
+------------------------------------------------------------------------
+  Horizontal domain: nx =    100
+                     ny =    116
+  Vertical   domain: km =     60
+  Number of tracers: nt =      3
+  Block size:  nx_block =     54
+               ny_block =      8
+      max_blocks_clinic =     58
+      max_blocks_tropic =     58
+  Processors for baroclinic:      1
+  Processors for barotropic:      1
+  Distribution for baroclinic:  cartesian
+  Distribution for barotropic:  cartesian
+  Number of ghost cells:  2
+ 
+========================================================================
+ 
+  Grid:
+ 
+  grid_nml namelist settings:
+ 
+  &GRID_NML 
+  horiz_grid_opt = file
+  vert_grid_opt = file
+  topography_opt = file
+ horiz_grid_file = ./horiz_grid_20030806.ieeer8
+  vert_grid_file = ./gx3v7_vert_grid
+ topography_file = ./topography_20100105.ieeei4
+  topography_outfile = ./casespec.pop.h.topography_bathymetry.ieeer8
+  bathymetry_file = unknown_bathymetry
+  n_topo_smooth =  0
+  flat_bottom =  F
+  lremove_points =  F
+ region_mask_file = ./region_mask_20090831.ieeei4
+  region_info_file = ./gx3v7_region_ids
+  sfc_layer_opt = varthick
+  partial_bottom_cells =  F
+  bottom_cell_file = unknown_bottom_cell
+  kmt_kmin =  3
+  /
+ Active Ocean blocks:     58
+ Reading topography from file:./topography_20100105.ieeei4
+ init_overflows_kmt: KMT =    34 at global (i,j) =    60     4  changed to    33
+ init_overflows_kmt: KMT =    34 at global (i,j) =    61     4  changed to    33
+ init_overflows_kmt: KMT =    34 at global (i,j) =    62     4  changed to    33
+ init_overflows_kmt: KMT =    36 at global (i,j) =    98     4  changed to    35
+ init_overflows_kmt: KMT =    36 at global (i,j) =    99     4  changed to    35
+ init_overflows_kmt: KMT =    36 at global (i,j) =   100     4  changed to    35
+ init_overflows_kmt: KMT =    38 at global (i,j) =    12    93  changed to    37
+ init_overflows_kmt: KMT =    38 at global (i,j) =    12    94  changed to    37
+ init_overflows_kmt: KMT =    38 at global (i,j) =    12    95  changed to    37
+ init_overflows_kmt: KMT =    33 at global (i,j) =     7   109  changed to    32
+ init_overflows_kmt: KMT =    33 at global (i,j) =     7   110  changed to    32
+ init_overflows_kmt: KMT =    33 at global (i,j) =     7   111  changed to    32
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  1   95
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  1   96
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  2  100
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  1   97
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  3  104
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  4  104
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  5  104
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  3  104
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  4  104
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  5  104
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  4  102
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  4  103
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  4  104
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  3  102
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  3  103
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  3  104
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  2  101
+ Overflow: Denmark Strait           Product adjacent mask at global (ij)=  2  102
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  3  105
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  4  105
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  5  105
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  3  105
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  4  105
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  5  105
+ Overflow: Denmark Strait           Entrainment adjacent mask at global (ij)=  5  105
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  3  106
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  4  106
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  5  106
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  3  106
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  4  106
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  5  106
+ Overflow: Denmark Strait           Entrainment adjacent mask at global (ij)=  5  106
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  3  107
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  4  107
+ Overflow: Denmark Strait           Inflow region mask at global (ij)=  5  107
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  3  107
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  4  107
+ Overflow: Denmark Strait           Entrainment region mask at global (ij)=  5  107
+ Overflow: Denmark Strait           Entrainment adjacent mask at global (ij)=  5  107
+ Overflow: Denmark Strait           Source region mask at global (ij)=  8  109
+ Overflow: Denmark Strait           Source region mask at global (ij)=  9  109
+ Overflow: Denmark Strait           Source region mask at global (ij)= 10  109
+ Overflow: Denmark Strait           Source adjacent mask at global (ij)=  8  109
+ Overflow: Denmark Strait           Source region mask at global (ij)=  8  110
+ Overflow: Denmark Strait           Source region mask at global (ij)=  9  110
+ Overflow: Denmark Strait           Source region mask at global (ij)= 10  110
+ Overflow: Denmark Strait           Source adjacent mask at global (ij)=  8  110
+ Overflow: Denmark Strait           Source region mask at global (ij)=  8  111
+ Overflow: Denmark Strait           Source region mask at global (ij)=  9  111
+ Overflow: Denmark Strait           Source region mask at global (ij)= 10  111
+ Overflow: Denmark Strait           Source adjacent mask at global (ij)=  8  111
+ Overflow: Denmark Strait           Source region mask at global (ij)=  8  112
+ Overflow: Denmark Strait           Source region mask at global (ij)=  9  112
+ Overflow: Denmark Strait           Source region mask at global (ij)= 10  112
+ Overflow: Denmark Strait           Source adjacent mask at global (ij)=  8  112
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  5   90
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  5   91
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  5   92
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  3   89
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  4   89
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  5   89
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  7   93
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  8   93
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  9   93
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)= 10   93
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 13   93
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 14   93
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 15   93
+ Overflow: Faroe Bank Channel       Source adjacent mask at global (ij)= 13   93
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  7   93
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  8   93
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  9   93
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)= 10   93
+ Overflow: Faroe Bank Channel       Entrainment adjacent mask at global (ij)= 10   93
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  7   94
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  8   94
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  9   94
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)= 10   94
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 13   94
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 14   94
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 15   94
+ Overflow: Faroe Bank Channel       Source adjacent mask at global (ij)= 13   94
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  7   94
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  8   94
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  9   94
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)= 10   94
+ Overflow: Faroe Bank Channel       Entrainment adjacent mask at global (ij)= 10   94
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  7   95
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  8   95
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)=  9   95
+ Overflow: Faroe Bank Channel       Inflow region mask at global (ij)= 10   95
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 13   95
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 14   95
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 15   95
+ Overflow: Faroe Bank Channel       Source adjacent mask at global (ij)= 13   95
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  7   95
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  8   95
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  9   95
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)= 10   95
+ Overflow: Faroe Bank Channel       Entrainment adjacent mask at global (ij)= 10   95
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 13   96
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 14   96
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 15   96
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  7   96
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  8   96
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)=  9   96
+ Overflow: Faroe Bank Channel       Entrainment region mask at global (ij)= 10   96
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  9   93
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  9   94
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  9   95
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  8   93
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  8   94
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  8   95
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  7   93
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  7   94
+ Overflow: Faroe Bank Channel       Product adjacent mask at global (ij)=  7   95
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 13   97
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 14   97
+ Overflow: Faroe Bank Channel       Source region mask at global (ij)= 15   97
+ Overflow: Ross Sea                 Source region mask at global (ij)= 59    2
+ Overflow: Ross Sea                 Source region mask at global (ij)= 60    2
+ Overflow: Ross Sea                 Source region mask at global (ij)= 61    2
+ Overflow: Ross Sea                 Source region mask at global (ij)= 62    2
+ Overflow: Ross Sea                 Source region mask at global (ij)= 59    3
+ Overflow: Ross Sea                 Source region mask at global (ij)= 60    3
+ Overflow: Ross Sea                 Source region mask at global (ij)= 61    3
+ Overflow: Ross Sea                 Source region mask at global (ij)= 62    3
+ Overflow: Ross Sea                 Source adjacent mask at global (ij)= 60    3
+ Overflow: Ross Sea                 Source adjacent mask at global (ij)= 61    3
+ Overflow: Ross Sea                 Source adjacent mask at global (ij)= 62    3
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 60    5
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 61    5
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 62    5
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 60    6
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 61    6
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 62    6
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 59    6
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 60    6
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 61    6
+ Overflow: Ross Sea                 Entrainment adjacent mask at global (ij)= 59    6
+ Overflow: Ross Sea                 Entrainment adjacent mask at global (ij)= 60    6
+ Overflow: Ross Sea                 Entrainment adjacent mask at global (ij)= 61    6
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 60    7
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 61    7
+ Overflow: Ross Sea                 Inflow region mask at global (ij)= 62    7
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 59    7
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 60    7
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 61    7
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 59    8
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 60    8
+ Overflow: Ross Sea                 Entrainment region mask at global (ij)= 61    8
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 59    7
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 60    7
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 61    7
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 59    8
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 60    8
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 61    8
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 59    9
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 60    9
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 61    9
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 59   10
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 60   10
+ Overflow: Ross Sea                 Product adjacent mask at global (ij)= 61   10
+ Overflow: Weddell Sea              Source region mask at global (ij)= 98    2
+ Overflow: Weddell Sea              Source region mask at global (ij)= 99    2
+ Overflow: Weddell Sea              Source region mask at global (ij)=100    2
+ Overflow: Weddell Sea              Source region mask at global (ij)= 98    3
+ Overflow: Weddell Sea              Source region mask at global (ij)= 99    3
+ Overflow: Weddell Sea              Source region mask at global (ij)=100    3
+ Overflow: Weddell Sea              Source adjacent mask at global (ij)= 98    3
+ Overflow: Weddell Sea              Source adjacent mask at global (ij)= 99    3
+ Overflow: Weddell Sea              Source adjacent mask at global (ij)=100    3
+ Overflow: Weddell Sea              Inflow region mask at global (ij)= 98    5
+ Overflow: Weddell Sea              Inflow region mask at global (ij)= 99    5
+ Overflow: Weddell Sea              Inflow region mask at global (ij)=100    5
+ Overflow: Weddell Sea              Inflow region mask at global (ij)= 98    6
+ Overflow: Weddell Sea              Inflow region mask at global (ij)= 99    6
+ Overflow: Weddell Sea              Inflow region mask at global (ij)=100    6
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 96    6
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 97    6
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 98    6
+ Overflow: Weddell Sea              Entrainment adjacent mask at global (ij)= 96    6
+ Overflow: Weddell Sea              Entrainment adjacent mask at global (ij)= 97    6
+ Overflow: Weddell Sea              Entrainment adjacent mask at global (ij)= 98    6
+ Overflow: Weddell Sea              Inflow region mask at global (ij)= 98    7
+ Overflow: Weddell Sea              Inflow region mask at global (ij)= 99    7
+ Overflow: Weddell Sea              Inflow region mask at global (ij)=100    7
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 96    7
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 97    7
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 98    7
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 96    8
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 97    8
+ Overflow: Weddell Sea              Entrainment region mask at global (ij)= 98    8
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 96    7
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 97    7
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 98    7
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 96    8
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 97    8
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 98    8
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 96    9
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 97    9
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 98    9
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 98    9
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 98   10
+ Overflow: Weddell Sea              Product adjacent mask at global (ij)= 98   11
+------------------------------------------------------------------------
+ 
+ Grid options
+ 
+ Reading horizontal grid from file:./horiz_grid_20030806.ieeer8
+ 
+ Using variable thickness surface layer
+  Reading vertical grid from file:./gx3v7_vert_grid
+ 
+ Vertical grid:
+    k    Thickness (cm)    Depth (cm) 
+   ---   --------------   ------------
+     1     1.00000E+03     5.00000E+02
+     2     1.00000E+03     1.50000E+03
+     3     1.00000E+03     2.50000E+03
+     4     1.00000E+03     3.50000E+03
+     5     1.00000E+03     4.50000E+03
+     6     1.00000E+03     5.50000E+03
+     7     1.00000E+03     6.50000E+03
+     8     1.00000E+03     7.50000E+03
+     9     1.00000E+03     8.50000E+03
+    10     1.00000E+03     9.50000E+03
+    11     1.00000E+03     1.05000E+04
+    12     1.00000E+03     1.15000E+04
+    13     1.00000E+03     1.25000E+04
+    14     1.00000E+03     1.35000E+04
+    15     1.00000E+03     1.45000E+04
+    16     1.00000E+03     1.55000E+04
+    17     1.01968E+03     1.65098E+04
+    18     1.05645E+03     1.75479E+04
+    19     1.10600E+03     1.86291E+04
+    20     1.16781E+03     1.97660E+04
+    21     1.24241E+03     2.09711E+04
+    22     1.33097E+03     2.22578E+04
+    23     1.43514E+03     2.36409E+04
+    24     1.55713E+03     2.51370E+04
+    25     1.69968E+03     2.67654E+04
+    26     1.86621E+03     2.85484E+04
+    27     2.06090E+03     3.05119E+04
+    28     2.28885E+03     3.26868E+04
+    29     2.55625E+03     3.51093E+04
+    30     2.87057E+03     3.78228E+04
+    31     3.24084E+03     4.08785E+04
+    32     3.67777E+03     4.43378E+04
+    33     4.19403E+03     4.82737E+04
+    34     4.80422E+03     5.27728E+04
+    35     5.52475E+03     5.79373E+04
+    36     6.37319E+03     6.38863E+04
+    37     7.36694E+03     7.07563E+04
+    38     8.52089E+03     7.87002E+04
+    39     9.84366E+03     8.78825E+04
+    40     1.13325E+04     9.84706E+04
+    41     1.29672E+04     1.10620E+05
+    42     1.47053E+04     1.24457E+05
+    43     1.64807E+04     1.40050E+05
+    44     1.82091E+04     1.57395E+05
+    45     1.98022E+04     1.76400E+05
+    46     2.11860E+04     1.96894E+05
+    47     2.23165E+04     2.18646E+05
+    48     2.31865E+04     2.41397E+05
+    49     2.38194E+04     2.64900E+05
+    50     2.42572E+04     2.88938E+05
+    51     2.45468E+04     3.13340E+05
+    52     2.47310E+04     3.37979E+05
+    53     2.48443E+04     3.62767E+05
+    54     2.49120E+04     3.87645E+05
+    55     2.49513E+04     4.12577E+05
+    56     2.49736E+04     4.37539E+05
+    57     2.49860E+04     4.62519E+05
+    58     2.49927E+04     4.87508E+05
+    59     2.49962E+04     5.12503E+05
+    60     2.49981E+04     5.37500E+05
+ 
+ Partial bottom cells disabled
+ 
+ # surface (T,U) points        7911        7210
+ # ocean   (T,U) points      380280      344498
+ T-area,   U-area   (km^2)    3.604644004769229E+08    3.310082549831731E+08
+ T-volume, U-volume (km^3)    1.320276874002848E+09    1.172183146229491E+09
+ 
+Region masks initialized from file: ./region_mask_20090831.ieeei4
+Region # 4 is a marginal sea
+  area (km^2) =  0.32170E+06  volume (km^3) =  0.25736E+05
+Region # 5 is a marginal sea
+  area (km^2) =  0.55561E+06  volume (km^3) =  0.55653E+05
+Region #12 is a marginal sea
+  area (km^2) =  0.37046E+06  volume (km^3) =  0.17449E+05
+Region #13 is a marginal sea
+  area (km^2) =  0.45088E+06  volume (km^3) =  0.32911E+06
+Region #14 is a marginal sea
+  area (km^2) =  0.25075E+06  volume (km^3) =  0.75224E+04
+ 
+                              +-----------------------+
+                              |  Marginal Seas Only   |
+  Region        Region        |  Area        Volume   |
+  Number        Name          | (km^2)       (km^3)   |
+  ------ -------------------  -----------  -----------
+     1        Southern Ocean
+     2         Pacific Ocean
+     3          Indian Ocean
+    -4          Persian Gulf  3.21703E+05  2.57362E+04
+    -5               Red Sea  5.55613E+05  5.56528E+04
+     6        Atlantic Ocean
+     7     Mediterranean Sea
+     8          Labrador Sea
+     9               GIN Sea
+    10          Arctic Ocean
+    11            Hudson Bay
+   -12            Baltic Sea  3.70458E+05  1.74489E+04
+   -13             Black Sea  4.50883E+05  3.29115E+05
+   -14           Caspian Sea  2.50748E+05  7.52244E+03
+ 
+
+    Marginal Sea (E+P+M+R) Balancing Information
+  Region        Region         Bal.    Bal.    Search
+  Number        Name           Lat     Lon     Area
+                                               (cm^2)
+  ------ -------------------  ------  ------  -----------
+   -4        Persian Gulf      22.00   60.00  4.25000E+15
+   -5             Red Sea      12.00   45.00  2.25000E+15
+  -12          Baltic Sea      70.00   20.00  7.00000E+15
+  -13           Black Sea      36.00  354.00  3.25000E+15
+  -14         Caspian Sea      75.00  130.00  3.25000E+15
+ 
+ 
+========================================================================
+ 
+  Time Management:
+ 
+  time_manager_nml namelist settings:
+ 
+  &time_manager_nml
+  runid = casespec
+  time_mix_opt = avgfit
+  time_mix_freq =  17
+  impcor =  T
+  laccel =  F
+  accel_file = ./gx3v7_depth_accel
+  dtuxcel =  1.0
+  iyear0 =  1
+  imonth0 =  1
+  iday0 =  2
+  ihour0 =  0
+  iminute0 =  0
+  isecond0 =  0
+  dt_option = steps_per_day
+  dt_count =  12.0
+  stop_option = nyear
+  stop_count =  1000
+  date_separator = -
+  allow_leapyear =  F
+  fit_freq =  1
+  /
+ 
+ 
+ The following information documents the time-step 
+ distribution for one full model day. 
+ 
+  time_mix_freq            =      17
+  fullsteps_per_day        =      12
+  halfsteps_per_day        =       1
+  nsteps_per_day           =      13
+
+     Step     Full/        Time in
+     Number   Half         Seconds
+
+      1        F     6912.000000000000000
+      2        H    10368.000000000000000
+      3        F    17280.000000000000000
+      4        F    24192.000000000000000
+      5        F    31104.000000000000000
+      6        F    38016.000000000000000
+      7        F    44928.000000000000000
+      8        F    51840.000000000000000
+      9        F    58752.000000000000000
+     10        F    65664.000000000000000
+     11        F    72576.000000000000000
+     12        F    79488.000000000000000
+     13        F    86400.000000000000000 <-- LAST STEP in day
+  
+                                           hour, min, sec at end of interval =    0   0   0
+ 
+========================================================================
+ 
+Equation of state options
+ 
+------------------------------------------------------------------------
+Using McDougall, Wright ,Jackett and Feistel EOS
+EOS computed as if in valid T,S range
+ 
+========================================================================
+ 
+ Topographic stress options
+ 
+------------------------------------------------------------------------
+ Topographic stress disabled
+ 
+========================================================================
+ 
+  Tidal mixing information
+ 
+  tidal_nml namelist settings:
+ 
+  &tidal_nml
+  ltidal_mixing =  T
+  local_mixing_fraction =  0.33
+  mixing_efficiency =  0.2
+  vertical_decay_scale =  50000.0
+ tidal_energy_file = ./tidal_energy_gx3v7_20100107.ieeer8
+  tidal_mix_max =  100.0
+ tidal_energy_file_fmt = bin
+  /
+ 
+ ltidal_mixing          =         T
+ local_mixing_fraction  =    3.30000E-01
+ mixing_efficiency      =    2.00000E-01
+ vertical_decay_scale   =    5.00000E+04
+ tidal_energy_file      =   ./tidal_energy_gx3v7_20100107.ieeer8                                            
+ WARNING: Input header file does not exist
+for file: ./tidal_energy_gx3v7_20100107.ieeer8.hdr
+ Assuming fields will be read in sequential order
+ 
+ file read: ./tidal_energy_gx3v7_20100107.ieeer8
+ 
+------------------------------------------------------------------------
+ Solver options (barotropic solver)
+------------------------------------------------------------------------
+ 
+Solver choice: ChronGear
+Solver converged for err <  1.000000000000000E-13
+Solver maximum iterations:       1000
+Check convergence every         10 iterations
+Preconditioner choice: diagonal
+ 
+========================================================================
+ 
+ Pressure gradient options
+ 
+------------------------------------------------------------------------
+ Pressure averaging enabled 
+ Density correction disabled
+ 
+========================================================================
+ 
+  Baroclinic:
+ 
+  baroclinic_nml namelist settings:
+ 
+  &baroclinic_nml
+  reset_to_freezing =  F
+  /
+ 
+------------------------------------------------------------------------
+Baroclinic options
+ 
+------------------------------------------------------------------------
+Surface temperature reset to freezing off
+ define_tavg_field: id =  1  UDP
+ define_tavg_field: id =  2  U1_1
+ define_tavg_field: id =  3  V1_1
+ define_tavg_field: id =  4  U1_8
+ define_tavg_field: id =  5  V1_8
+ define_tavg_field: id =  6  T1_8
+ define_tavg_field: id =  7  S1_8
+ define_tavg_field: id =  8  UVEL
+ define_tavg_field: id =  9  UVEL2
+ define_tavg_field: id =  10  VVEL
+ define_tavg_field: id =  11  VVEL2
+ define_tavg_field: id =  12  KE
+ define_tavg_field: id =  13  TEMP
+ define_tavg_field: id =  14  TEMP_MAX
+ define_tavg_field: id =  15  TEMP_MIN
+ define_tavg_field: id =  16  dTEMP_POS_3D
+ define_tavg_field: id =  17  dTEMP_POS_2D
+ define_tavg_field: id =  18  dTEMP_NEG_3D
+ define_tavg_field: id =  19  dTEMP_NEG_2D
+ define_tavg_field: id =  20  SST
+ define_tavg_field: id =  21  SST2
+ define_tavg_field: id =  22  SALT
+ define_tavg_field: id =  23  TEMP2
+ define_tavg_field: id =  24  SALT2
+ define_tavg_field: id =  25  ST
+ define_tavg_field: id =  26  RHO
+ define_tavg_field: id =  27  RHO_VINT
+ define_tavg_field: id =  28  UV
+ define_tavg_field: id =  29  RESID_T
+ define_tavg_field: id =  30  RESID_S
+ define_tavg_field: id =  31  SU
+ define_tavg_field: id =  32  SV
+ define_tavg_field: id =  33  SSH
+ define_tavg_field: id =  34  SSH2
+ define_tavg_field: id =  35  H3
+ 
+========================================================================
+ 
+ Ice:
+ 
+  ice_nml namelist settings:
+ 
+  &ice_nml
+  kmxice =  1
+  ice_freq_opt = coupled
+  ice_freq =  100000
+  lactive_ice =  F
+  /
+------------------------------------------------------------------------
+Ice formation computed on coupler time steps
+Ice salinity(ppt) =  0.000E+00
+Ice formation computed in top   1 levels only.
+ 
+========================================================================
+ 
+  Initial T,S:
+ 
+  init_ts_nml namelist settings:
+ 
+  &init_ts_nml
+  init_ts_option = ccsm_startup
+ init_ts_file = ./ts_PHC2_jan_ic_gx3v7_20100107.ieeer8
+  init_ts_file_fmt = bin
+  init_ts_suboption = null
+ init_ts_outfile = ./casespec.pop.h.ts_ic
+  init_ts_outfile_fmt = nc
+  /
+ 
+Initial 3-d T,S read from file:./ts_PHC2_jan_ic_gx3v7_20100107.ieeer8
+ WARNING: Input header file does not exist
+for file: ./ts_PHC2_jan_ic_gx3v7_20100107.ieeer8.hdr
+ Assuming fields will be read in sequential order
+ 
+ file read: ./ts_PHC2_jan_ic_gx3v7_20100107.ieeer8
+ 
+========================================================================
+ 
+       Time Information
+ 
+------------------------------------------------------------------------
+ 
+Run id: casespec
+ 
+This simulation started from
+       date(month-day-year):  01-02-0001
+                      hour:           0
+                    minute:           0
+                    second:           0
+ 
+This run        started from
+       date(month-day-year):  01-02-0001
+                      hour:           0
+                    minute:           0
+                    second:           0
+ 
+This run will terminate 
+at the end of the day on
+       date(month-day-year):  01-02-1001
+after running for    1000 years
+unless a stop signal is received from external source (eg, cpl)
+ 
+Starting elapsed time in    
+                     years:             0.003
+                    months:             0.032
+                      days:             0.000
+                     hours:             0.000
+                   seconds:             0.000
+ 
+Automatic time step option (auto_dt) disabled
+ 
+dt_count = 1.200000E+01
+There are     12 full  steps each day
+There are      1 half  steps each day
+There are     13 total steps each day
+ 
+time_mix_freq =     17
+Time mixing option:
+  avgfit -- time averaging
+  with timestep chosen to fit exactly into one day or coupling interval
+ 
+Averaging time steps at the 2nd and    17th step of every day or coupled interval 
+ 
+Surface tracer     time step = 6.912000E+03 seconds
+Surface momentum   time step = 6.912000E+03 seconds
+Surface barotropic time step = 6.912000E+03 seconds
+ 
+Tracer acceleration disabled
+ 
+Leap years not allowed
+ 
+Implicit treatment of Coriolis terms (impcor):  ON
+ 
+========================================================================
+ 
+Forcing options
+ 
+------------------------------------------------------------------------
+No Surface Wind Stress
+ 
+ WARNING: Input header file does not exist
+for file: ./shf_20090831.ieeer8.hdr
+ Assuming fields will be read in sequential order
+ 
+ SHF Monthly file read: ./shf_20090831.ieeer8
+Surface Heat Flux:monthly-calendar partially-coupled
+Surface Heat Flux data interpolated every timestep
+Surface Heat Flux Interpolation type: linear
+ 
+ WARNING: Input header file does not exist
+for file: ./sfwf_mm_PHC2_salx_flxio_20090831.ieeer8.hdr
+ Assuming fields will be read in sequential order
+ 
+ SFWF Monthly file read: ./sfwf_mm_PHC2_salx_flxio_20090831.ieeer8
+Surface Fresh Water Flux:monthly-calendar partially-coupled
+Surface Fresh Water Flux data interpolated every timestep
+Surface Fresh Water Flux Interpolation type: linear
+ 
+    Fresh water flux input as virtual salt flux
+No Interior Potential Temperature Forcing
+ 
+No Interior Salinity Forcing
+ 
+No Surface Atmospheric Pressure
+ 
+ define_tavg_field: id =  36  SHF
+ define_tavg_field: id =  37  SHF_QSW
+ define_tavg_field: id =  38  SFWF
+ define_tavg_field: id =  39  SFWF_WRST
+ define_tavg_field: id =  40  TAUX
+ define_tavg_field: id =  41  TAUX2
+ define_tavg_field: id =  42  TAUY
+ define_tavg_field: id =  43  TAUY2
+ define_tavg_field: id =  44  FW
+ define_tavg_field: id =  45  TFW_T
+ define_tavg_field: id =  46  TFW_S
+ 
+========================================================================
+ 
+  Coupling:
+ 
+  coupled_nml namelist settings:
+ 
+  &coupled_nml
+  coupled_freq_opt = nhour
+  coupled_freq =  24
+  qsw_distrb_opt = cosz
+  /
+ 
+ define_tavg_field: id =  47  EVAP_F
+ define_tavg_field: id =  48  PREC_F
+ define_tavg_field: id =  49  SNOW_F
+ define_tavg_field: id =  50  MELT_F
+ define_tavg_field: id =  51  ROFF_F
+ define_tavg_field: id =  52  IOFF_F
+ define_tavg_field: id =  53  SALT_F
+ define_tavg_field: id =  54  SENH_F
+ define_tavg_field: id =  55  LWUP_F
+ define_tavg_field: id =  56  LWDN_F
+ define_tavg_field: id =  57  MELTH_F
+ define_tavg_field: id =  58  IFRAC
+  
+  Document Namelist Parameters:
+  ============================ 
+  
+  &passive_tracers_on_nml
+  ecosys_on =  F
+  cfc_on =  F
+  iage_on =  T
+  /
+  
+------------------------------------------------------------------------
+ IAGE ind_begin =  3
+ IAGE ind_end   =  3
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+  Initial 3-d Ideal Age set to all zeros
+------------------------------------------------------------------------
+ define_tavg_field: id =  59  IAGE_RESET_TEND
+------------------------------------------------------------------------
+ TRACER INDEX    TRACER NAME
+      1          TEMP
+      2          SALT
+      3          Ideal Age
+------------------------------------------------------------------------
+ define_tavg_field: id =  60  IAGE
+ define_tavg_field: id =  61  IAGE_SQR
+ define_tavg_field: id =  62  IAGE_SURF
+ define_tavg_field: id =  63  IAGE_zint_100m
+ define_tavg_field: id =  64  J_IAGE
+ define_tavg_field: id =  65  Jint_IAGE
+ define_tavg_field: id =  66  Jint_100m_IAGE
+ define_tavg_field: id =  67  tend_zint_100m_IAGE
+ define_tavg_field: id =  68  STF_IAGE
+ define_tavg_field: id =  69  RESID_IAGE
+ define_tavg_field: id =  70  FvPER_IAGE
+ define_tavg_field: id =  71  FvICE_IAGE
+ 
+========================================================================
+ 
+    Vertical mixing options
+ 
+------------------------------------------------------------------------
+ Implicit vertical mixing enabled
+  Using KPP vertical mixing     
+  aidif         =   1.00000E+00
+  bottom_drag   =   1.00000E-03
+ Convection simulated by strong diffusion
+   convect_diff =  1.000E+04
+   convect_visc =  1.000E+04
+ Bottom geothermal heat flux disabled
+------------------------------------------------------------------------
+ 
+  vmix_kpp_nml namelist settings:
+ 
+  &vmix_kpp_nml
+  bckgrnd_vdc1 =  0.16
+  bckgrnd_vdc2 =  0.0E+0
+  bckgrnd_vdc_eq =  0.01
+  bckgrnd_vdc_psim =  0.13
+  bckgrnd_vdc_ban =  1.0
+  bckgrnd_vdc_dpth =  100000.0
+  bckgrnd_vdc_linv =  4.5E-5
+  Prandtl =  10.0
+  rich_mix =  50.0
+  num_v_smooth_Ri =  1
+  lrich =  T
+  ldbl_diff =  T
+  lshort_wave =  T
+  lcheckekmo =  F
+  lhoriz_varying_bckgrnd =  T
+  llangmuir =  F
+  linertial =  F
+  /
+ 
+   bckgrnd_vdc1              =   1.60000E-01
+   bckgrnd_vdc2              =   0.00000E+00
+   bckgrnd_vdc_dpth          =   1.00000E+05
+   bckgrnd_vdc_linv          =   4.50000E-05
+   bckgrnd_vdc_eq            =   1.00000E-02
+   bckgrnd_vdc_psim          =   1.30000E-01
+   bckgrnd_vdc_ban           =   1.00000E+00
+   Prandtl                   =   1.00000E+01
+   rich_mix                  =   5.00000E+01
+   Ri mixing                 =        T
+   double-diff               =        T
+   short_wave                =        T
+   lcheckekmo                =        F
+   num_smooth_Ri             =      1
+   lhoriz_varying_bckgrnd    =        T
+   langmuir parameterization =        F
+   inertial mixing param.    =        F
+ define_tavg_field: id =  72  QSW_HBL
+ define_tavg_field: id =  73  KVMIX
+ define_tavg_field: id =  74  VDC_BCK
+ define_tavg_field: id =  75  KVMIX_M
+ define_tavg_field: id =  76  VVC_BCK
+ define_tavg_field: id =  77  TPOWER
+ define_tavg_field: id =  78  KPP_SRC_TEMP
+ define_tavg_field: id =  79  KPP_SRC_SALT
+ define_tavg_field: id =  80  KPP_SRC_IAGE
+ define_tavg_field: id =  81  VDC_T
+ define_tavg_field: id =  82  VDC_S
+ define_tavg_field: id =  83  VVC
+ define_tavg_field: id =  84  VUF
+ define_tavg_field: id =  85  VVF
+ define_tavg_field: id =  86  DIA_IMPVF_TEMP
+ define_tavg_field: id =  87  DIA_IMPVF_SALT
+ define_tavg_field: id =  88  DIA_IMPVF_IAGE
+ 
+========================================================================
+ 
+Horizontal mixing options
+ 
+  hmix_nml namelist settings:
+ 
+  &hmix_nml
+  hmix_momentum_choice = anis
+  hmix_tracer_choice = gent
+  lsubmesoscale_mixing =  T
+  /
+ 
+------------------------------------------------------------------------
+Anisotropic horizontal momentum mixing used.
+Gent-McWilliams tracer mixing used.
+ 
+Submesoscale mixed layer parameterization is on.
+ 
+========================================================================
+Anisotropic viscosity options:
+ 
+  &hmix_aniso_nml
+  hmix_alignment_choice = grid
+  lvariable_hmix_aniso =  T
+  lsmag_aniso =  F
+  visc_para =  1.0
+  visc_perp =  1.0
+  c_para =  0.0E+0
+  c_perp =  0.0E+0
+  u_para =  0.0E+0
+  u_perp =  0.0E+0
+  vconst_1 =  10000000.0
+  vconst_2 =  24.5
+  vconst_3 =  0.2
+  vconst_4 =  1.0E-8
+  vconst_5 =  3
+  vconst_6 =  10000000.0
+  vconst_7 =  90.0
+  smag_lat =  20.0
+  smag_lat_fact =  0.98
+  smag_lat_gauss =  98.0
+  var_viscosity_infile = ccsm-internal
+  var_viscosity_infile_fmt = bin
+  var_viscosity_outfile = unknown_var_viscosity_outfile
+  var_viscosity_outfile_fmt = bin
+  /
+ 
+  Anisotropy aligned along grid coordinates
+Using input anisotropic viscosities:
+   visc_para =    1.00000E+00
+   visc_perp =    1.00000E+00
+Using variable anisotropic parameters:
+   vconst_1  =    1.00000E+07
+   vconst_2  =    2.45000E+01
+   vconst_3  =    2.00000E-01
+   vconst_4  =    1.00000E-08
+   vconst_5  =        3
+   vconst_6  =    1.00000E+07
+   vconst_7  =    9.00000E+01
+  vertical level =   1
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =   2
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =   3
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =   4
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =   5
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =   6
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =   7
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =   8
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =   9
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  10
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  11
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  12
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  13
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  14
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  15
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  16
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  17
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  18
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  19
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  20
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  21
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  22
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  23
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  24
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  25
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  26
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  27
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  28
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  29
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  30
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  31
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  32
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  33
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  34
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  35
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  36
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  37
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  38
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  39
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  40
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  41
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  42
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  43
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  44
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  45
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  46
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  47
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  48
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  49
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  50
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  51
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  52
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  53
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  54
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  55
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  56
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  57
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  58
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  59
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+  vertical level =  60
+  Min F_PARA =  1.00000E+07   Max F_PARA =  2.93697E+09
+  Min F_PERP =  1.00000E+07   Max F_PERP =  2.93697E+09
+ 
+  
+  Document Namelist Parameters:
+  ============================ 
+  
+  &hmix_gm_nml
+  kappa_isop_choice = bfre
+  kappa_thic_choice = bfre
+  kappa_freq_choice = once_a_day
+  slope_control_choice = notanh
+  kappa_depth_1 =  1.0
+  kappa_depth_2 =  0.0E+0
+  kappa_depth_scale =  150000.0
+  ah =  40000000.0
+  ah_bolus =  40000000.0
+  use_const_ah_bkg_srfbl =  T
+  ah_bkg_srfbl =  40000000.0
+  ah_bkg_bottom =  0.0E+0
+  slm_r =  0.3
+  slm_b =  0.3
+  diag_gm_bolus =  T
+  transition_layer_on =  T
+  read_n2_data =  F
+  buoyancy_freq_filename = ./buoyancy_freq
+  buoyancy_freq_fmt = nc
+  const_eg =  1.2
+  gamma_eg =  500.0
+  kappa_min_eg =  3500000.0
+  kappa_max_eg =  20000000.0
+  /
+  
+   Gent-McWilliams options:
+     kappa_isop choice is bfre
+     kappa_thic choice is bfre
+     kappa computation frequency choice is once_a_day
+     slope control choice is notanh
+ isopycnal diffusion      =  4.000000E+07
+ thickness diffusion      =  4.000000E+07
+ backgroud diff. (bottom) =  0.000000E+00
+ backgroud diff. (srfbl)  =  4.000000E+07
+ max. slope for redi      =  3.000000E-01
+ max. slope for bolus     =  3.000000E-01
+    diagnostic bolus velocity computation is on
+
+ Maximum horizontal background diffusion coefficient
+  within the boundary layer is constant at ah_bkg_srfbl.
+  transition layer scheme is on. 
+ using model data to compute N^2. 
+ define_tavg_field: id =  89  KAPPA_ISOP
+ define_tavg_field: id =  90  KAPPA_THIC
+ define_tavg_field: id =  91  HOR_DIFF
+ define_tavg_field: id =  92  DIA_DEPTH
+ define_tavg_field: id =  93  TLT
+ define_tavg_field: id =  94  INT_DEPTH
+ define_tavg_field: id =  95  UISOP
+ define_tavg_field: id =  96  VISOP
+ define_tavg_field: id =  97  WISOP
+ define_tavg_field: id =  98  ADVT_ISOP
+ define_tavg_field: id =  99  ADVS_ISOP
+ define_tavg_field: id =  100  VNT_ISOP
+ define_tavg_field: id =  101  VNS_ISOP
+  
+  Document Namelist Parameters:
+  ============================ 
+  
+  &mix_submeso_nml
+  efficiency_factor =  0.07
+  time_scale_constant =  86400.0
+  luse_const_horiz_len_scale =  F
+  hor_length_scale =  500000.0
+  /
+  
+  Submesoscale mixing options:
+ efficiency factor =  7.000000E-02
+ time scale constant =  8.640000E+04
+ horizontal length scale varies both in space and time
+ define_tavg_field: id =  102  USUBM
+ define_tavg_field: id =  103  VSUBM
+ define_tavg_field: id =  104  WSUBM
+ define_tavg_field: id =  105  HLS_SUBM
+ define_tavg_field: id =  106  ADVT_SUBM
+ define_tavg_field: id =  107  ADVS_SUBM
+ define_tavg_field: id =  108  VNT_SUBM
+ define_tavg_field: id =  109  VNS_SUBM
+ define_tavg_field: id =  110  HDIFT
+ define_tavg_field: id =  111  HDIFS
+ define_tavg_field: id =  112  HDIFE_TEMP
+ define_tavg_field: id =  113  HDIFN_TEMP
+ define_tavg_field: id =  114  HDIFB_TEMP
+ define_tavg_field: id =  115  HDIFE_SALT
+ define_tavg_field: id =  116  HDIFN_SALT
+ define_tavg_field: id =  117  HDIFB_SALT
+ define_tavg_field: id =  118  HDIFE_IAGE
+ define_tavg_field: id =  119  HDIFN_IAGE
+ define_tavg_field: id =  120  HDIFB_IAGE
+ 
+========================================================================
+ 
+  Advection:
+ 
+  advect_nml namelist settings:
+ 
+  &advect_nml
+  tadvect_ctype = upwind3
+  /
+ 
+------------------------------------------------------------------------
+ 
+Advection options
+ 
+------------------------------------------------------------------------
+ Using upwind3 for all tracers.
+ define_tavg_field: id =  121  WVEL
+ define_tavg_field: id =  122  WVEL2
+ define_tavg_field: id =  123  UEU
+ define_tavg_field: id =  124  VNU
+ define_tavg_field: id =  125  UEV
+ define_tavg_field: id =  126  VNV
+ define_tavg_field: id =  127  WTU
+ define_tavg_field: id =  128  WTV
+ define_tavg_field: id =  129  UET
+ define_tavg_field: id =  130  VNT
+ define_tavg_field: id =  131  WTT
+ define_tavg_field: id =  132  UES
+ define_tavg_field: id =  133  VNS
+ define_tavg_field: id =  134  WTS
+ define_tavg_field: id =  135  ADVT
+ define_tavg_field: id =  136  ADVS
+ define_tavg_field: id =  137  UE_IAGE
+ define_tavg_field: id =  138  VN_IAGE
+ define_tavg_field: id =  139  WT_IAGE
+ define_tavg_field: id =  140  ADV_IAGE
+ define_tavg_field: id =  141  PV
+ define_tavg_field: id =  142  Q
+ define_tavg_field: id =  143  PD
+ define_tavg_field: id =  144  RHOU
+ define_tavg_field: id =  145  RHOV
+ define_tavg_field: id =  146  URHO
+ define_tavg_field: id =  147  VRHO
+ define_tavg_field: id =  148  WRHO
+ define_tavg_field: id =  149  PVWM
+ define_tavg_field: id =  150  PVWP
+ define_tavg_field: id =  151  UPV
+ define_tavg_field: id =  152  VPV
+ define_tavg_field: id =  153  UQ
+ define_tavg_field: id =  154  VQ
+ 
+========================================================================
+ 
+  Short-wave absorption:
+ 
+  sw_absorption namelist  
+ 
+  &sw_absorption_nml
+  sw_absorption_type = chlorophyll
+  jerlov_water_type =  3
+  chl_option = file
+ chl_filename = ./chl_mm_SeaWiFs97-01_20031205.ieeer8
+  chl_file_fmt = bin
+  /
+ 
+ 
+  Chlorophyll transmission table computed
+ WARNING: Input header file does not exist
+for file: ./chl_mm_SeaWiFs97-01_20031205.ieeer8.hdr
+ Assuming fields will be read in sequential order
+ 
+ CHL monthly file read: ./chl_mm_SeaWiFs97-01_20031205.ieeer8
+ define_tavg_field: id =  155  QSW_HTP
+ define_tavg_field: id =  156  QSW_3D
+ define_tavg_field: id =  157  QFLUX
+ 
+------------------------------------------------------------------------
+ 
+Diagnostic options
+ 
+------------------------------------------------------------------------
+Global    diagnostics computed every        1 months 
+Global diagnostics written to file: ./casespec.pop.dd.0001-01-02-00000
+Equatorial velocities written to file: ./casespec.pop.dv.0001-01-02-00000
+CFL       diagnostics computed every        1 months 
+CFL diagnostics written to file: ./casespec.pop.dd.0001-01-02-00000
+Transport diagnostics computed every        1 months 
+Transport diagnostics written to file: ./casespec.pop.dt.0001-01-02-00000
+ 
+The following    4 transports will be computed
+  Drake Passage
+  Bering Strait
+  Indonesian Throughflow
+  Florida Strait
+ define_tavg_field: id =  158  HMXL
+ define_tavg_field: id =  159  HMXL_2
+ define_tavg_field: id =  160  XMXL
+ define_tavg_field: id =  161  XMXL_2
+ define_tavg_field: id =  162  TMXL
+ define_tavg_field: id =  163  HBLT
+ define_tavg_field: id =  164  XBLT
+ define_tavg_field: id =  165  TBLT
+  
+    Velocity diagnostics will be computed at the following locations:
+  ( 72, 49)   (        0.000000000000000,      220.700000000000017)
+  ( 72, 52)   (        1.813311712720589,      220.700077373585799)
+  (  4, 49)   (        0.000000000000000,      335.899999999999977)
+  (  4, 52)   (        1.804684831023963,      335.899980550874716)
+  ( 80, 49)   (        0.000000000000000,      249.500000000000057)
+ 
+------------------------------------------------------------------------
+ 
+End Diagnostic opt
+ 
+------------------------------------------------------------------------
+Overflow diagnostics written to file: ./casespec.pop.do.0001-01-02-00000
+regular restart writes will start at step        0
+ 
+========================================================================
+ 
+ History output options
+ 
+------------------------------------------------------------------------
+History output disabled
+------------------------------------------------------------------------
+ 
+Movie option
+ 
+------------------------------------------------------------------------
+ 
+========================================================================
+ 
+  Movie:
+ 
+  movie_nml namelist settings:
+ 
+  &movie_nml
+  movie_freq_opt = never
+  movie_freq =  1
+  movie_outfile = ./casespec.pop.hm
+  movie_contents = ./gx3v7_movie_contents
+  movie_fmt = nc
+  /
+ 
+movie diagnostics off
+ 
+========================================================================
+ 
+       Tavg:
+ 
+------------------------------------------------------------------------
+ 
+ tavg_nml namelist settings:
+ 
+  &tavg_nml
+  tavg_freq_opt = nmonthndayoncenevernevernevernevernevernever
+ tavg_freq =        1       1       1  100000  100000  100000  100000  100000  100000
+  tavg_infile = ./casespec.pop.hrestart.end
+  tavg_outfile = ./casespec.pop.h
+  tavg_contents = ./gx3v7_tavg_contents
+  tavg_start_opt = nstepnstepnstepnstepnstepnstepnstepnstepnstep
+ tavg_start =        0       0       0       0       0       0       0       0       0
+  tavg_fmt_in = ncncncncncncncncnc
+  tavg_fmt_out = ncncncncncncncncnc
+  tavg_stream_filestrings = nmonth1nday1once
+  ltavg_nino_diags_requested =  T
+  n_tavg_streams =  3
+  ltavg_ignore_extra_streams =  F
+  ltavg_streams_index_present =  T
+  ltavg_has_offset_date =  F F F F F F F F F
+ tavg_offset_years =        1       1       1       1       1       1       1       1       1
+ tavg_offset_months =        1       1       1       1       1       1       1       1       1
+ tavg_offset_days =        2       2       2       2       2       2       2       2       2
+  ltavg_one_time_header =  F F F F F F F F F
+ tavg_file_freq_opt =   nmonth  nmonth    once   never   never   never   never   never   never
+ tavg_file_freq =        1       1       1  100000  100000  100000  100000  100000  100000
+  /
+ 
+  There will be  3  tavg output streams created during this run
+ 
+------------------------------------------------------------------------
+stream #  1: tavg diagnostics every      1 months 
+stream #  1: tavg sums accumulated starting at step        0
+stream #  1: tavg diagnostics every      1 months 
+stream #  2: tavg diagnostics every      1 days   
+stream #  2: tavg sums accumulated starting at step        0
+stream #  2: tavg diagnostics every      1 months 
+stream #  3tavg fields written once (time-invariant fields)
+stream #  3: tavg sums accumulated starting at step        0
+stream #  3tavg file written once (time-invariant fields)
+ define_tavg_field: id =  166  BSF
+ There are  100  tavg fields requested via tavg_contents.
+ (init_tavg) total number of lines in tavg_contents file =  100
+tavg diagnostics requested for fields:
+     (init_tavg) inactive tavg_contents field:  = An integer [1,9] in the first column identifies the field's output stream number.
+     (init_tavg) inactive tavg_contents field:  = To deactivate a field, replace the output stream number with  # or !
+ 1   QFLUX
+ 1   BSF
+ 1   TFW_T
+ 1   TFW_S
+ 1   RESID_T
+ 1   RESID_S
+ 1   QSW_HTP
+ 1   QSW_HBL
+ 1   SHF
+ 1   SHF_QSW
+ 1   SFWF
+ 1   PREC_F
+ 1   SNOW_F
+ 1   EVAP_F
+ 1   MELT_F
+ 1   ROFF_F
+ 1   IOFF_F
+ 1   SALT_F
+ 1   SENH_F
+ 1   LWUP_F
+ 1   LWDN_F
+ 1   MELTH_F
+ 1   IFRAC
+ 1   SSH
+ 1   TAUX
+ 1   TAUY
+ 1   SU
+ 1   SV
+ 1   HMXL
+ 2   HMXL_2
+ 1   XMXL
+ 2   XMXL_2
+ 1   TMXL
+ 1   HBLT
+ 1   XBLT
+ 1   TBLT
+ 1   FW
+ 1   ADVT
+ 1   ADVS
+ 1   HDIFT
+ 1   HDIFS
+ 1   UVEL
+ 1   VVEL
+ 1   WVEL
+ 1   TEMP
+ 1   dTEMP_POS_2D
+ 1   dTEMP_NEG_2D
+ 1   SALT
+ 1   PD
+ 1   Q
+ 1   RHO
+ 1   UET
+ 1   UES
+ 1   VNT
+ 1   VNS
+ 1   WTT
+ 1   WTS
+ 1   KAPPA_ISOP
+ 1   KAPPA_THIC
+ 1   HOR_DIFF
+ 1   PV
+ 1   UISOP
+ 1   VISOP
+ 1   WISOP
+ 1   ADVT_ISOP
+ 1   ADVS_ISOP
+ 1   VNT_ISOP
+ 1   VNS_ISOP
+ 1   KVMIX
+ 1   TPOWER
+ 1   DIA_DEPTH
+ 1   TLT
+ 1   INT_DEPTH
+ 1   USUBM
+ 1   VSUBM
+ 1   WSUBM
+ 1   ADVT_SUBM
+ 1   ADVS_SUBM
+ 1   VNT_SUBM
+ 1   VNS_SUBM
+ 1   HLS_SUBM
+ 2   SST
+ 2   SST2
+ 1   VDC_T
+ 1   VDC_S
+ 1   UVEL2
+ 1   VVEL2
+ 1   WVEL2
+ 1   RHO_VINT
+ 1   SFWF_WRST
+ 1   TAUX2
+ 1   TAUY2
+ 1   SSH2
+ 1   VVC
+ 3   VDC_BCK
+ 3   VVC_BCK
+ 1   KVMIX_M
+ 1   IAGE
+     (init_tavg) Total number of tavg fields requested  =         98
+ (init_tavg)  tavg_streams( 1 )%ltavg_qflux_method_on =  T
+ (init_tavg)  tavg_streams( 2 )%ltavg_qflux_method_on =  F
+ (init_tavg)  tavg_streams( 3 )%ltavg_qflux_method_on =  F
+ 
+========================================================================
+ 
+  Transport Diagnostics:
+ 
+  transports_nml namelist settings:
+ 
+  &transports_nml
+  lat_aux_grid_type = southern
+  lat_aux_begin =  -90.0
+  lat_aux_end =  90.0
+  n_lat_aux_grid =  180
+  moc_requested =  T
+  n_heat_trans_requested =  T
+  n_salt_trans_requested =  T
+ transport_reg2_names = Atlantic OceanMediterranean SeaLabrador SeaGIN SeaArctic OceanHudson Bay
+
+  n_transport_reg =  2
+  /
+ 
+ 
+Transport Diagnostics Information
+_________________________________
+
+Latitudinal Auxiliary Grid Choice is:
+ ... based on flipped Southern Hemisphere latititude grid
+ 
+Transport diagnostics include:
+MOC
+N_HEAT
+N_SALT
+ 
+The following   6 regions will be included in the n_transport_reg = 2 transports:
+  Atlantic Ocean                     ( 6)
+  Mediterranean Sea                  ( 7)
+  Labrador Sea                       ( 8)
+  GIN Sea                            ( 9)
+  Arctic Ocean                       (10)
+  Hudson Bay                         (11)
+     (init_moc_ts_transport_arrays) allocate TR_TRANS_G
+ 
+ End of transport regions initialization
+ 
+========================================================================
+ 
+ 
+========================================================================
+ 
+  Barotropic Streamfunction Diagnostic:
+ 
+  bsf_diagnostic_nml namelist settings:
+ 
+  &bsf_diagnostic_nml
+  ldiag_bsf =  T
+  /
+ 
+ Initializing diagnostic BSF variables ....
+  
+  number of islands =  11
+  
+  island  1  # points on boundary =  148
+  island  2  # points on boundary =  350
+  island  3  # points on boundary =  506
+  island  4  # points on boundary =  24
+  island  5  # points on boundary =  20
+  island  6  # points on boundary =  20
+  island  7  # points on boundary =  54
+  island  8  # points on boundary =  24
+  island  9  # points on boundary =  36
+  island  10  # points on boundary =  18
+  island  11  # points on boundary =  12
+  
+  island coefficients: 
+  island  1  coefficient =  -107.06380049409591
+  island  2  coefficient =  -233.37128499910773
+  island  3  coefficient =  -334.86363200423
+  island  4  coefficient =  -21.40248601325145
+  island  5  coefficient =  -16.10917244119505
+  island  6  coefficient =  -18.75629259230226
+  island  7  coefficient =  -39.93449895978468
+  island  8  coefficient =  -19.15000072070447
+  island  9  coefficient =  -42.83928497489613
+  island  10  coefficient =  -16.040479082780493
+  island  11  coefficient =  -11.721352558829146
+ 
+ Internal tavg Diagnostics Control Variables:
+ 
+    (init_tavg) ldiag_bsf      =  T
+    (init_tavg) ldiag_gm_bolus =  T
+    (init_tavg) lsubmeso       =  T
+ 
+------------------------------------------------------------------------
+ define_tavg_field: id =  1  MOC
+ define_tavg_field: id =  2  N_HEAT
+ define_tavg_field: id =  3  N_SALT
+ 
+========================================================================
+ 
+  Budget Diagnostics:
+ 
+  budget_diagnostics_nml namelist settings:
+ 
+  &budget_diagnostics_nml 
+  ldiag_global_tracer_budgets =  T
+  /
+ 
+------------------------------------------------------------------------
+ 
+Budget Diagnostic Options
+ 
+------------------------------------------------------------------------
+ Global tracer budgets diagnostics will be computed
+(init_budget_diagnostics): tracer budgets are for every    1 months
+ 
+========================================================================
+ 
+  POP_check: Check for Option Inconsistencies
+ 
+     (POP_check) WARNING:  time-averaging and coupling frequency may be incompatible; tavg must be integer multiple of coupling freq
+     (POP_check) WARNING:  time-averaging and coupling frequency may be incompatible; tavg must be integer multiple of coupling freq
+     (POP_check) WARNING:  time-averaging and coupling frequency may be incompatible; tavg must be integer multiple of coupling freq
+     (POP_check) No fatal error conditions detected
+========================================================================
+ 
+  Constants used in this run:
+ 
+                     grav =     9.806160000000000E+02  cm/s^2
+                    omega =     7.292123516990375E-05  rad/s
+                   radius =     6.371220000000000E+08  cm
+                    cp_sw =     3.996000000000000E+07  erg/g/K
+                   cp_air =     1.004640000000000E+03  J/kg/K
+                  rho_air =     1.292318284692468E+00  kg/m^3
+                   rho_sw =     1.026000000000000E+00  g/cm^3
+                   rho_fw =     1.000000000000000E+00  g/cm^3
+                    sound =     1.500000000000000E+05  cm/s
+                   vonkar =     4.000000000000000E-01   
+               emissivity =     1.000000000000000E+00   
+         stefan_boltzmann =     5.670000000000000E-08  W/m^2/K^4
+     latent_heat_vapor_mk =     2.501000000000000E+06  J/kg
+       latent_heat_fusion =     3.337000000000000E+09  erg/g
+         ocn_ref_salinity =     3.470000000000000E+01  psu
+         sea_ice_salinity =     0.000000000000000E+00  psu
+                T0_Kelvin =     2.731500000000000E+02  K
+                       pi =     3.141592653589793E+00   
+ 
+========================================================================
+ 
+     (ocn_init_mct) iday0      =          2
+     (ocn_init_mct) start_day  =          1
+  
+     (ocn_import_mct) orb_eccen    =  1.6707719799280658E-02
+     (ocn_import_mct) orb_mvelpp   =  4.9344679089867318E+00
+     (ocn_import_mct) orb_lambm0   = -3.2503635878519378E-02
+     (ocn_import_mct) orb_obliqr   =  4.0912382465788016E-01
+ 
+========================================================================
+ 
+  Time Flags 
+ 
+ 
+ time_flag id =  1
+    name               = stop_now
+    owner              = init_time1
+    has_default        =  T
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  0
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  2
+    name               = coupled_ts
+    owner              = pop_init_coupled
+    has_default        =  F
+    default            =  F
+    freq_opt           =  4   (nhour)
+    freq               =  24
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  3
+    name               = ice
+    owner              = init_ice
+    has_default        =  T
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  100000
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  4
+    name               = diag_global
+    owner              = init_diagnostics
+    has_default        =  T
+    default            =  F
+    freq_opt           =  2   (nmonth)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  5
+    name               = diag_cfl
+    owner              = init_diagnostics
+    has_default        =  T
+    default            =  F
+    freq_opt           =  2   (nmonth)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  6
+    name               = diag_transp
+    owner              = init_diagnostics
+    has_default        =  T
+    default            =  F
+    freq_opt           =  2   (nmonth)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  7
+    name               = restart
+    owner              = init_restart
+    has_default        =  T
+    default            =  F
+    freq_opt           =  1   (nyear)
+    freq               =  100000
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  8
+    name               = evenodd
+    owner              = init_restart
+    has_default        =  T
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  100000
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  9
+    name               = cpl_write_restart
+    owner              = ocn_init_mct
+    has_default        =  F
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  0
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  10
+    name               = history
+    owner              = init_history
+    has_default        =  T
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  11
+    name               = movie
+    owner              = init_movie
+    has_default        =  T
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  12
+    name               = tavg1
+    owner              = init_tavg
+    has_default        =  T
+    default            =  F
+    freq_opt           =  2   (nmonth)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  13
+    name               = tavg_file1
+    owner              = init_tavg
+    has_default        =  T
+    default            =  F
+    freq_opt           =  2   (nmonth)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  14
+    name               = tavg2
+    owner              = init_tavg
+    has_default        =  T
+    default            =  F
+    freq_opt           =  3   (nday)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  15
+    name               = tavg_file2
+    owner              = init_tavg
+    has_default        =  T
+    default            =  F
+    freq_opt           =  2   (nmonth)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  16
+    name               = tavg3
+    owner              = init_tavg
+    has_default        =  T
+    default            =  F
+    freq_opt           =  7   (once)
+    freq               =  1
+    value              =  T
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  17
+    name               = tavg_file3
+    owner              = init_tavg
+    has_default        =  T
+    default            =  F
+    freq_opt           =  7   (once)
+    freq               =  1
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  18
+    name               = cpl_write_history
+    owner              = ocn_init_mct
+    has_default        =  F
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  0
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  19
+    name               = cpl_write_tavg
+    owner              = ocn_init_mct
+    has_default        =  F
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  0
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  20
+    name               = cpl_diag_global
+    owner              = ocn_init_mct
+    has_default        =  F
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  0
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+ time_flag id =  21
+    name               = cpl_diag_transp
+    owner              = ocn_init_mct
+    has_default        =  F
+    default            =  F
+    freq_opt           =  0   (never)
+    freq               =  0
+    value              =  F
+    old_value          =  F
+    done               =  F
+    has_offset_date    =  F
+    
+ 
+========================================================================
+ 
+ 
+ End of initialization
+ 
+========================================================================
+ovf_loc_prd: nsteps_total=           1 ovf=           1 swap ovf UV old/new prd set old/new=           1           4
+ovf_loc_prd: nsteps_total=           1 ovf=           2 swap ovf UV old/new prd set old/new=           1           3
+ovf_loc_prd: nsteps_total=           1 ovf=           3 swap ovf UV old/new prd set old/new=           1           4
+ovf_loc_prd: nsteps_total=           1 ovf=           4 swap ovf UV old/new prd set old/new=           1           2
+ 
+ Global Time Averages: 01-02-0001 01:55:12
+ VDC_BCK:  0.1605642091163332
+ VVC_BCK:  1.605642093366535
+
+          VOLUME AND TRACER BUDGET INITIALIZATION:
+          ========================================
+      volume_t (cm^3)           = 0.132027687400E+25
+      SUM [volume*T] (C   cm^3) = 0.489757182022E+25
+      SUM [volume*S] (ppt cm^3) = 0.458466214848E+26
+ (time_manager) ocn date 0001-jan-03, 0.000000E+00 sec
+ 
+ Global Time Averages: 01-03-0001 00:00:00
+ SST:  18.12408831010946
+ SST2:  426.33325394178956
+ HMXL_2:  4620.850663111448
+ XMXL_2:  8442.636991448935
+ (time_manager) ocn date 0001-jan-04, 0.000000E+00 sec
+ 
+ Global Time Averages: 01-04-0001 00:00:00
+ SST:  18.154095666750166
+ SST2:  427.81131067527843
+ HMXL_2:  4950.088116233907
+ XMXL_2:  5784.786056061092
+ (time_manager) ocn date 0001-jan-05, 0.000000E+00 sec
+ 
+ Global Time Averages: 01-05-0001 00:00:00
+ SST:  18.134478127176088
+ SST2:  426.8198789087164
+ HMXL_2:  4870.050819578929
+ XMXL_2:  5430.495941854287
+     (ocn_comp_mct(run):) driver requests restart file at eod  0001/01/05
+ (time_manager) ocn date 0001-jan-06, 0.000000E+00 sec
+ 
+ Global Time Averages: 01-06-0001 00:00:00
+ UVEL:  2.0481806220214284E-3
+ UVEL2:  7.244075092072546
+ VVEL:  0.07192981933110171
+ VVEL2:  5.25717077595052
+ TEMP:  3.7092044829690454
+ dTEMP_POS_2D:  0.24938344362138118
+ dTEMP_NEG_2D:  -0.2864855705447349
+ SALT:  0.034724936760253976
+ RHO:  1.0371127931083863
+ RHO_VINT:  567246.0313922276
+ RESID_T:  0.0E+0
+ RESID_S:  0.0E+0
+ SU:  698.5475326027586
+ SV:  25434.981484608918
+ SSH:  2.5098724336052523E-7
+ SSH2:  2541.868440437254
+ SHF:  49.3919530833092
+ SHF_QSW:  182.4244270646199
+ SFWF:  1.4720443334349208E-5
+ SFWF_WRST:  -9.239602845414356E-16
+ TAUX:  0.04212466965183743
+ TAUX2:  1.0618432909427968
+ TAUY:  -0.04920348949613959
+ TAUY2:  0.47341084160185315
+ FW:  0.0E+0
+ TFW_T:  0.0E+0
+ TFW_S:  0.0E+0
+ EVAP_F:  -3.499601146142332E-5
+ PREC_F:  3.497439105856156E-5
+ SNOW_F:  8.869923789177067E-7
+ MELT_F:  1.274672298639731E-5
+ ROFF_F:  3.658313102928603E-6
+ IOFF_F:  0.0E+0
+ SALT_F:  0.0E+0
+ SENH_F:  -13.854663175643337
+ LWUP_F:  -370.80860000136335
+ LWDN_F:  342.4227386181182
+ MELTH_F:  -4.253581446525492
+ IFRAC:  0.04916168850979855
+ IAGE:  5.3341398570858544E-3
+ QSW_HBL:  151.07554109781637
+ KVMIX:  0.9400897306185322
+ KVMIX_M:  9.40089737837785
+ TPOWER:  2.2161515599643167E-6
+ VDC_T:  161.39284187502483
+ VDC_S:  161.39440336175988
+ VVC:  129.24440149628305
+ KAPPA_ISOP:  5653286.312001514
+ KAPPA_THIC:  6139045.215341564
+ HOR_DIFF:  559761.5940971136
+ DIA_DEPTH:  4855.079629174285
+ TLT:  452.9402918999206
+ INT_DEPTH:  5308.01993244014
+ UISOP:  -1.5660646610551597E-4
+ VISOP:  -1.1888089151118064E-3
+ WISOP:  -1.4345023180595563E-13
+ ADVT_ISOP:  1.0391426147136839E-11
+ ADVS_ISOP:  2.0930248938255054E-15
+ VNT_ISOP:  3.57394457531717E-10
+ VNS_ISOP:  -1.128400301960937E-12
+ USUBM:  -3.938872535307819E-5
+ VSUBM:  2.9928063833360197E-5
+ WSUBM:  -3.6577153251700856E-10
+ HLS_SUBM:  892195.0137558264
+ ADVT_SUBM:  -1.3316177624944943E-12
+ ADVS_SUBM:  -2.4705125745343326E-15
+ VNT_SUBM:  1.1790789534054554E-10
+ VNS_SUBM:  1.2795173969551117E-13
+ HDIFT:  -2.0119110401012735E-11
+ HDIFS:  -1.881702046767427E-16
+ WVEL:  1.5746640876087386E-6
+ WVEL2:  2.2960385088722514E-5
+ UET:  -1.3680966733112412E-8
+ VNT:  6.879952928623547E-8
+ WTT:  1.0986287254038649E-7
+ UES:  4.1221162485910545E-11
+ VNS:  1.154714984160805E-10
+ WTS:  6.147207938734801E-12
+ ADVT:  -4.841698712381925E-10
+ ADVS:  -6.169043012464378E-14
+ PV:  8.542923865219856E-14
+ Q:  -9.316654431907922E-9
+ PD:  1.027507809581557
+ QSW_HTP:  133.4900922231816
+ QFLUX:  0.3426690979693761
+ HMXL:  4855.50411498738
+ XMXL:  8626.926122550749
+ TMXL:  1972.3795451754877
+ HBLT:  3077.526588476524
+ XBLT:  12108.317225986708
+ TBLT:  778.4012050461635
+ BSF:  0.0E+0
+ 
+ Global Time Averages: 01-06-0001 00:00:00
+ SST:  18.127965976264054
+ SST2:  426.52919142745674
+ HMXL_2:  4981.026888612916
+ XMXL_2:  5390.7556357088115
+ ovf_write_restart  unit (mu) =    85 file name = ./casespec.pop.ro.0001-01-06-00000                              
+ ovf write restart   cdate yyyymmdd = 00010106  
+ 
+  overflow restart pointer file written: ./rpointer.ocn.ovf
+ 
+------------------------------------------------------------------------
+ 
+Successful completion of POP model
+ 
+------------------------------------------------------------------------
+ 
+ ===================
+ completed POP_Final
+ ===================

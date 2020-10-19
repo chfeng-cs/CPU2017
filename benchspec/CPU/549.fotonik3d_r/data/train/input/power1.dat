@@ -1,0 +1,14 @@
+Filename
+ incident_W3PC.def
+Stride
+ 2000
+Skip  
+ 5000
+Filenamebase
+ incident_W3PC
+Freq_no
+ 501
+Freq_interval
+ 1.0e14 3.0e14
+Yindex
+ 50

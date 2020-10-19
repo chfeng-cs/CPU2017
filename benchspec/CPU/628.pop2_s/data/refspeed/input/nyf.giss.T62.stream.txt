@@ -1,0 +1,54 @@
+<streamstemplate>
+      <general_comment>
+         streams template for datm in CCSM4
+      </general_comment>
+<stream>
+      <comment>
+         GISS "normal year" data
+      </comment>
+      <dataSource>
+         GISS
+      </dataSource>
+      <domainInfo>
+         <variableNames>
+            time  time
+            lon    lon
+            lat    lat
+            area  area
+            mask  mask
+         </variableNames>
+         <filePath>
+            ./
+         </filePath>
+         <fileNames>
+            nyf.giss.T62.051007.nc
+         </fileNames>
+      </domainInfo>
+      <fieldInfo>
+         <variableNames>
+            lwdn  lwdn
+            swdn  swdn
+            swup  swup
+         </variableNames>
+         <filePath>
+            ./
+         </filePath>
+         <tInterpAlgo>
+            linear
+         </tInterpAlgo>
+         <offset>
+            0
+         </offset>
+         <fileNames>
+            nyf.giss.T62.051007.nc
+         </fileNames>
+      </fieldInfo>
+      <!-- Information on the program that created this file -->
+      <build_streams_documentation>
+         This CCSM stream text file was created by build_streams using the command line:
+               /cesm1_0_2/scripts/ccsm_utils/Tools/build_streams -t datm.template.streams.xml -s NYF.GISS   
+         For more information on build_streams:  
+             /cesm1_0_2/scripts/ccsm_utils/Tools/build_streams -help          
+      </build_streams_documentation>
+</stream>
+</streamstemplate>

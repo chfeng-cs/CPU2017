@@ -1,0 +1,3 @@
+  INFO: top-level macro: %{toplevel}
+  INFO: included macro: 
+# $SPEC/bin/harness/runcpu -S inclevel -c trac367.cfg

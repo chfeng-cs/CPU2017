@@ -1,0 +1,26 @@
+nabmd 1am0 1122214447
+
+Reading .pdb file (1am0/1am0.pdb)
+Reading .prm file (1am0/1am0.prm)
+title:
+                                                                                
+      iter    Total
+ff:     0 266253.88
+Initial energy is 266253.8755290
+Starting molecular dynamics with Born solvation energy...
+
+      iter    Total
+ff:     0 266253.88
+ff:   122 -33213.22
+
+...Done, md returns 0
+      iter    Total
+ff:     0 -13147.76
+Initial energy is -13147.7555390
+Starting molecular dynamics with in vaccuo non-bonded energy...
+
+      iter    Total
+ff:     0 -13147.76
+ff:   122 -27446.76
+
+...Done, md returns 0

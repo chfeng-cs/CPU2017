@@ -1,0 +1,5 @@
+&modelio
+   diri    = "./atm   "
+   diro    = "./      "
+   logfile = "atm.log  "
+/

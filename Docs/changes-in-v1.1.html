@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <title>Changes in v1.1 - CPU 2017</title>
+      <!-- You'll want a nice wide screen when editing this .......................................................................... -->
+
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+      <style type="text/css">
+h3 {margin-left:.5em; margin-bottom:.2em; font-size:90%;}
+      </style>
+   </head>
+   <body>
+
+
+      <h1>SPEC CPU&reg;2017 Changes in v1.1</h1>
+      <table class="version">
+         <tr>
+            <th>$Id: changes-in-v1.1.html 6361 2019-08-16 23:51:59Z JohnHenning $</th>
+            <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+         </tr>
+      </table>
+
+
+
+      <p>This document briefly describes changes in SPEC CPU&reg;2017 v1.1, a product of the SPEC&reg; non-profit corporation
+      <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  </p>
+
+      <p class="snugbot">Contents: </p>
+      <p class="contentsrl3"><a href="#power">Power measurement</a></p>
+      <p class="contentsrl3"><a href="#rules">Updates to Run and Reporting Rules</a> </p>
+      <p class="contentsrl3"><a href="#benchmarks">Benchmark updates</a></p>
+      <p class="contentsrl4"><a href="#perlbench">500.perlbench_r / 600.perlbench_s</a></p>
+      <p class="contentsrl4"><a href="#gcc">502.gcc_r / 602.gcc_s</a> </p>
+      <p class="contentsrl4"><a href="#parest">510.parest_r</a></p>
+      <p class="contentsrl4"><a href="#omnetpp">520.omnetpp_r / 620.omnetpp_s</a> </p>
+      <p class="contentsrl4"><a href="#wrf">521.wrf_r / 621.wrf_s</a></p>
+      <p class="contentsrl4"><a href="#x264">525.x264_r/625.x264_s</a></p>
+      <p class="contentsrl4"><a href="#blender">526.blender_r</a></p>
+      <p class="contentsrl4"><a href="#cam4">627.cam4_s</a></p>
+      <p class="contentsrl4"><a href="#imagick">538.imagick_r / 638.imagick_s</a></p>
+      <p class="contentsrl3"><a href="#other">Other minor updates</a></p>
+
+
+      <h2 id="power">Power measurement </h2>
+      <div class="l1">
+         <p class="snug">Power was previously introduced as an experimental feature in CPU 2017 v1.0.  
+         <br /><span class="u"><b>As of v1.1, the feature is now fully supported.  </b></span></p>
+
+         <p>Power measurement is optional.  You can include it, or not, as you may prefer.</p>
+
+         <p class="snugbot">If you wish to measure power, you will need:</p>
+         <ul class="snug">
+            <li>A power analyzer.</li>
+            <li>A temperature sensor.</li>
+            <li>A Linux or Windows "Controller System", where you will run SPEC's Power and Temperature
+               reporting tool, SPEC PTDaemon&#8482; </li>
+         </ul>
+
+         <p>In your config file, you specify the network location for the controller system; set the expected voltage and current
+         ranges; and describe your measurement setup for readers of your results.</p>
+
+         <p>For more information, see the config file documentation on 
+         <a class="external" href="config.html#PowerMeasurement">Power Measurement</a>.</p> 
+
+      </div>
+
+      <h2 id="rules">Updates to 
+         <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html">Run and Reporting Rules</a> </h2>
+      <ul class="snug">
+         <li><p class="snug">Provide full support for power measurements and energy metrics. See: </p>
+            <ul class="snug">
+               <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_1.6">1.6</a> Philosophy section on Power Measurement</li>
+               <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_1.7">1.7</a> Philosophy section on Estimates </li>
+               <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_3.9">3.9</a> Power and Temperature Measurement</li> 
+               <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_4.1">4.1</a> General disclosure requirements</li> 
+               <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_4.2.5">4.2.5</a> Performance changes for pre-production systems</li> 
+               <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_4.3">4.3</a> Performance changes for production systems</li> 
+               <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_4.10.3">4.10.3</a> Energy Metrics</li> 
+               <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_5.6">5.6</a> Estimates</li>
+            </ul>
+         </li>
+         <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_2.3.11">2.3.11</a> Clarify that
+            32-bit pointers may be used only for SPECrate&reg; (SPECspeed&reg;2017 does not fit in 
+            32 bits).</li>
+         <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_4.4">4.4</a> Clarify that rawformat may be used to update results after the run.</li>
+         <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_4.6.b">4.6.b</a> Clarify that rawformat may be used to fix flags files.</li>
+         <li><a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_4.7">4.7</a> The rule about equivalent systems has been removed and replaced: 
+            <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#rule_4.7">A result may be published for only one system</a>.</li>
+      </ul>
+
+      <h2 id="benchmarks">Benchmark updates</h2>
+
+      <h3 id="perlbench">500.perlbench_r / 600.perlbench_s</h3>
+      <ul>
+         <li>
+            <p class="snugtop">Removed signal handling, on the grounds that it is system-specific (non-portable) behavior, it
+            makes debugging difficult, and the change is performance neutral (because no signals are invoked during ordinary
+            execution).  The change does not affect ordinary reportable runs.</p>  
+         </li>
+         <li>
+            <p class="snugbot">One of the components of the (non-timed) test workload could fail if more than 1000 copies of
+            the test workload have previously been run.  Fixed <samp>tmpdir</samp> handling in
+            <samp>lib/File/Spec/Unix.pm</samp> to avoid the problem.  The change does not affect the timed (reference)
+            workload. </p>
+         </li>
+      </ul>
+
+      <h3 id="gcc">502.gcc_r / 602.gcc_s </h3>
+      <div class="l1snugtop">
+         <p class="snugtop">Removed signal handling, on the grounds that it is system-specific (non-portable) behavior, it
+         makes debugging difficult, and the change is performance neutral (because no signals are invoked during ordinary
+         execution).  The change does not affect ordinary reportable runs.</p>  
+      </div>
+
+      <h3 id="parest">510.parest_r</h3>
+      <div class="l1snugtop">
+         <p class="snug">A syntax error comparing a pointer to an integer was corrected.  The change is performance neutral:
+         it affects one comparison which is done 16 times during a run; and empirical testing did not show any differences.
+         (Median within less than a tenth of a percent.)</p>
+         <pre class="snugish">--- ...old.../510.parest_r/src/source/base/parameter_handler.cc
++++ ...new.../510.parest_r/src/source/base/parameter_handler.cc
+@@ -749,7 +749,7 @@
+   char *endptr;
+   double d = std::strtod (s.c_str(), &amp;endptr);
+                                   // assert there was no error
+-  AssertThrow ((s.c_str()!='\0') || (*endptr == '\0'),
++  AssertThrow ((s.c_str()[0]!='\0') || (*endptr == '\0'),
+               ExcConversionError(s));</pre>
+      </div>
+
+      <h3 id="omnetpp">520.omnetpp_r / 620.omnetpp_s </h3>
+      <div class="l1snugtop">
+         <p class="snugtop">Removed signal handling, on the grounds that it is system-specific (non-portable) behavior, it
+         makes debugging difficult, and the change is performance neutral (because no signals are invoked during ordinary
+         execution).  The change does not affect ordinary reportable runs.</p>  
+      </div>
+
+      <h3 id="wrf">521.wrf_r / 621.wrf_s</h3>
+      <div class="l1snugtop">
+         <p class="snug">In file <samp class="snugr">src/read_grib.c</samp>, the file <samp>time.h</samp> is included from
+         whatever the usual location is, instead of having a hard-coded (and possibly incorrect) path.  The change was made
+         after a user reported that the hard-coded path was not present on his macOS&nbsp;10.14 system.  If for some unlikely
+         reason it were actually necessary to use the hard-coded path, a portability flag could be used to request the old
+         behavior.  As with any other portability flag, such usage would need to be 
+         <a class="external" href="runrules.html#portability">justfied</a>.</p>
+         <pre class="snugish">--- ...old...521.wrf_r/src/read_grib.c
++++ ...new...521.wrf_r/src/read_grib.c
+ #include &lt;math.h&gt;
+ #include &lt;limits.h&gt;
+-#if defined(MACOS) || defined(SPEC_MACOSX)
++#if (defined(MACOS) || defined(SPEC_MACOSX)) &amp;&amp; defined(SPEC_TIME_H_ABSOLUTE_PATH)
+ #include "/usr/include/time.h"
+ #else
+ #include &lt;time.h&gt;
+ #endif</pre>
+      </div>
+
+      <h3 id="x264">525.x264_r/625.x264_s</h3>
+      <div class="l1snugtop">
+         <p class="snugtop">Removed signal handling, on the grounds that it is system-specific (non-portable) behavior, it
+         makes debugging difficult, and the change is performance neutral (because no signals are invoked during ordinary
+         execution).  The change does not affect ordinary reportable runs.</p>  
+      </div>
+
+      <h3 id="blender">526.blender_r</h3>
+      <ul class="snugtop">
+         <li>
+            <p class="snugtop">Removed signal handling, on the grounds that it is system-specific (non-portable) behavior, it
+            makes debugging difficult, and the change is performance neutral (because no signals are invoked during ordinary
+            execution).  The change does not affect ordinary reportable runs.</p>  
+         </li>
+         <li>
+            <p class="snugbot"><i>(This fix first shipped with update v1.0.5.)</i> Fix an incompatibility with <samp>GLIBC
+               2.26+</samp> found in module <samp class="snugr">threads.c</samp>.  The problem is that
+            <samp>struct&nbsp;timespec</samp> does not get defined if you use <samp>gcc&nbsp;-std=c99</samp> or
+            <samp>gcc&nbsp;-std=c11</samp>.  The fix increases the <samp>_POSIX_C_SOURCE</samp> to the needed level for this
+            module.</p>
+            <pre class="l1snugish">
+--- ...old.../526.blender_r/src/blender/source/blender/blenlib/intern/threads.c
++++ ...new.../526.blender_r/src/blender/source/blender/blenlib/intern/threads.c
+@@ -29,6 +29,12 @@
+  *  \ingroup bli
+  */
+
++#if defined(SPEC) &amp;&amp; (_POSIX_C_SOURCE - 0) &lt; 200112L
++   /* Needed for struct_timespec */
++#  undef _POSIX_C_SOURCE
++#  define _POSIX_C_SOURCE 200112L
++#endif
++
+ #include &lt;stdlib.h&gt; </pre>
+            <p class="snugtop">Thank you to Steve Ellcey for reporting the issue.</p>
+         </li>
+         <li><p class="snugbot">As a consequence of the above change, an Apple-specific <samp>include</samp> located a few
+            lines further down in <samp>threads.c</samp> ran into unknown types within <samp
+               class="snugr">/usr/include/sys/sysctl.h</samp>.  The solution that was picked (and which first ships with SPEC
+            CPU 2017 v1.1) causes macOS to follow the same path as other Unix systems.  This change is expected to be
+            performance neutral, since the threading code is not used in <samp class="snugr">526.blender_r</samp>; and
+            empirical testing showed differences that are smaller than run-to-run variation.</p>
+            <pre class="l1snugish">/* for checking system threads - BLI_system_thread_count */
+ #ifdef WIN32
+ #  include &lt;windows.h&gt;
+ #  include &lt;sys/timeb.h&gt;
+-#elif defined(__APPLE__)
++#elif defined(__APPLE__) &amp;&amp; !defined(SPEC)
+ #  include &lt;sys/types.h&gt;
+ #  include &lt;sys/sysctl.h&gt;
+ #else
+ #  include &lt;unistd.h&gt;
+ #  include &lt;sys/time.h&gt;
+ #endif</pre>
+         </li>
+      </ul>
+
+      <h3 id="cam4">627.cam4_s</h3>
+      <div class="l1snugtop">
+         <p class="snug">A potential data race condition was reported between multiple threads writing and reading an
+         implicitly SHARED variable in a parallel region.  To avoid the problem, line 109 of <samp>src/uv3s_update.F90</samp>
+         was changed to mark the variable <samp>tmp</samp> as <samp class="snugr">private</samp>: </p>
+         <pre class="l1snugish">!$omp parallel do private (i, j, k, tmp)</pre>
+         <p class="snugish">The source code in question is executed during the reference (timed) benchmark run.  Although
+         SPEC tries to avoid changes to timed code after a benchmark has been released, in this case an exception was made
+         because:</p>
+         <ul class="snugtop">
+            <li>From the context of the code, it is clear that the intent was that the variable should have been marked 
+               <samp class="snugr">private</samp>.</li>
+            <li>SPEC is not aware of any published benchmark results that were actually affected by this error, and the fix
+               avoids the potential of future problems.</li>
+            <li>Therefore, the  error was deemed important to fix, because data races are exceedingly difficult for users,
+               often causing non-reproducible or difficult-to-reproduce problems that seem to come and go without
+               explanation.</li>
+         </ul>
+      </div>
+
+      <h3 id="imagick">538.imagick_r / 638.imagick_s</h3>
+      <div class="l1snugtop">
+         <p class="snugtop">Removed signal handling, on the grounds that it is system-specific (non-portable) behavior, it
+         makes debugging difficult, and the change is performance neutral (because no signals are invoked during ordinary
+         execution).  The change does not affect ordinary reportable runs.</p>  
+      </div>
+
+
+
+      <h2 id="other">Other minor updates</h2>
+      <ul>
+      <li>Error messages were clarified (e.g. for failed installations)</li>
+      <li>More error conditions are properly recognized and dealt with (e.g. incorrect config file syntax, corrupt source directories, corrupt raw files)</li>
+      <li>Reports were cleaned up (e.g. make compiler version reporting easier to read, correctly report use of src.alt)</li>
+      <li>Documentation was improved (e.g. new material for 
+         <a class="external" href="config.html#PowerMeasurment">power</a>, 
+         clarify <a class="external" href="config.html#basepeak">basepeak</a>)</li>
+      <li>For more detail, see the list of <a class="external" href="Docs/Revisions.txt">Revisions</a>.</li>
+      </ul>
+
+
+
+      <p style="border-top:thin solid black;">
+      SPEC CPU&reg;2017 Changes in v1.1:
+      Copyright&nbsp;&copy;&nbsp;2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+      <!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+         the table of contents will actually position the desired section at the top of your browser window -->
+         <p style="margin:300px 1em;">&nbsp;</p>
+
+
+   </body>
+</html>
+
+
+

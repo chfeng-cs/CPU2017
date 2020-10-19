@@ -1,0 +1,87 @@
+#!/$SPEC/bin/specperl
+#
+#  toolsver - a tool for displaying version strings stored in a raw result file
+#  Copyright 2005-2016 Standard Performance Evaluation Corporation
+#
+#  Author: Cloyce D. Spradling
+#
+# $Id: toolsver 4406 2016-06-09 19:53:17Z CloyceS $
+
+use MIME::Base64;
+use IO::File;
+use File::Basename;
+use strict;
+require 'vars.pl';
+require 'util.pl';
+
+our (%info, $processed);
+
+if (-t and @ARGV == 0) {
+    # No input; don't hang.
+    my $base = basename($0);
+    print "$base: No input supplied.\n\n";
+    print "Usage: $base <rawfile> [rawfile ...]\n";
+    print "-or-\n";
+    print "       $base < <rawfile>\n";
+    if ($^O !~ /Win32/i) {
+        print "-or-\n";
+        print "       cat <rawfile> [rawfile ...] | $base\n";
+    }
+    exit(1);
+}
+
+$processed = 0;
+%info = ();
+
+# We'll use Perl's magic <> so that files can be piped in through stdin
+# or given on the command line.
+# This will process any number of files.
+
+my ($curr, $what, $idx, $data);
+while (<>) {
+    tr/\015\012//d;
+    next unless /^(?:spec\.${main::lcsuite}\.)?tool(set|vers)(\d*)(?: =|:) (.*)$/o;
+    ($what, $idx, $data) = ($1, $2, $3);
+    if ($what ne $curr && exists($info{'set'}) && exists($info{'vers'})) {
+        do_output($processed++, $info{'set'}, $info{'vers'});
+        %info = ();
+    }
+    $curr = $what;
+    if (defined($idx) && $idx ne '') {
+        $info{$what}->[$idx+0] = $data;
+    } else {
+        $info{$what} = $data;
+    }
+}
+if (exists($info{'set'}) && exists($info{'vers'})) {
+    do_output($processed++, $info{'set'}, $info{'vers'});
+}
+
+sub do_output {
+    my ($processed, $set, $enc) = @_;
+
+    if ($processed > 1) {       # Output a separator if necessary
+        print "\n --- CUT HERE --- CUT HERE --- CUT HERE --- CUT HERE --- CUT HERE ---\n\n";
+    }
+    if (ref($enc) eq 'ARRAY') {
+        $enc = join('', @$enc);
+    }
+    my $vers = decode_decompress($enc)."\n";
+    print "$ARGV:\n";
+    print " Binary toolset used was '$set'\n";
+    print " Versions of Perl-based tools:\n";
+    foreach my $item (sort byfile split(/,/, $vers)) {
+        my ($file, $ver) = split(/:/, $item, 2);
+        printf "  %6d $file\n", $ver;
+    }
+    print "\n\n";
+}
+
+sub byfile {
+    return -1 if ($a =~ /run(?:cpu|spec)/);
+    return 1 if ($b =~ /run(?:cpu|spec)/);
+    return $a cmp $b;
+}
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab:

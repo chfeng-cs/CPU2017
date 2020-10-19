@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file define flags that appear in the sources of 620.omnetpp_s.
+
+  Copyright 2009-2017 Standard Performance Evaluation Corporation
+
+  $Revision: 5894 $
+  $Date: 2018-04-13 18:53:49 -0400 (Fri, 13 Apr 2018) $
+-->
+<flagsdescription>
+
+<!-- Normal flags file should suggest a name for themselves -->
+<filename>620.omnetpp_s.flags</filename>
+
+<title>620.omnetpp_s Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+]]>
+</header>
+
+
+<flag name="DSPEC_WINDOWS_UNDERSCORE" class="portability">
+This macro causes an underscore to be prepended to a standard function name (hypot) that isn't standard in the Microsoft runtime libraries. 
+</flag>
+
+<flag name="DSPEC_HPUX_NO_GNUC_UNDERBAR" class="portability">
+Insures that proper (GNU style) name mangling/demangling is used for HP UX systems.  
+</flag>
+
+<flag name="DSPEC_NEED_TRUNC" class="portability">
+This macro may be used to indicate that there is no trunc() function in the system library available for truncating doubles and then enables a replacement function. 
+</flag>
+
+<flag name="DSPEC_GCC_MANGLE" class="portability">
+This macro insures that proper (GNU style) name mangling/demangling is used by compilers that do not identify as GCC.
+</flag>
+
+<flag name="DSPEC_DEBUG" class="forbidden">
+  This macro causes the benchmark to output lots of debug information on
+  stdout.  It will not cause validation to fail, but for large rate runs can
+  induce significant I/O load, and so may not be used for a reportable run.
+</flag>
+
+<flag name="bench_includes" class="mandatory" regexp="-I(?:\.|model|simulator|simulator/platdep)(?:\s+|$)">
+<example>-I., -Imodel, -Isimulator, -Isimulator/platdep</example>
+This flag is included to set the list of directories to be search for header files.
+</flag>
+
+<flag name="DWITH_NETBUILDER" class="mandatory">
+  <!-- XXX Description needed -->
+This flag is included to dynamically load the NED simulation files. 
+</flag>
+
+<flag name="WITH_AKAROA" class="forbidden">
+Enables alternative RNG and vector manager.
+</flag>
+
+<flag name="USE_PORTABLE_COROUTINES" class="forbidden">
+Enables Stig Kofoed's "Portable Multitasking" coroutine library.
+</flag>
+
+<flag name="USE_WIN32_FIBERS" class="forbidden">
+Enables use of uses the Win32 Fiber API.
+</flag>
+
+<flag name="FSM_DEBUG" class="forbidden">
+Enable reporting all state changes to ev.
+</flag>
+
+<flag name="WITHOUT_CPACKET" class="forbidden">
+Turns on a compatibility mode, where older models that use cMessage instead of cMessage for network packets can be compiled; this feature may make porting existing models to 4.0 easier.
+</flag>
+
+<flag name="NDEBUG" class="forbidden">
+Enables debug options.
+</flag>
+
+<flag name="YYLTYPE" class="forbidden">
+Will trigger error "defined before expryydefs.h -- type clash?"
+</flag>
+
+<flag name="USE_NAMESPACE" class="forbidden">
+Defines omnetpp namespace and can trigger build errors.
+</flag>
+
+<flag name="USE_DOUBLE_SIMTIME" class="forbidden">
+This macro forces the use of a double precision floating point based timer which can trigger verification errors on certain platforms.
+</flag>
+
+<flag name="CMDENV_EXPORT" class="forbidden">
+Macro for DLL support.
+</flag>
+
+<flag name="COMMON_EXPORT" class="forbidden">
+Macro for DLL support.
+</flag>
+
+<flag name="ENVIR_EXPORT" class="forbidden">
+Macro for DLL support.
+</flag>
+
+<flag name="NEDXML_EXPORT" class="forbidden">
+Macro for DLL support.
+</flag>
+
+<flag name="SIM_EXPORT" class="forbidden">
+Macro for DLL support.
+</flag>
+
+<flag name="OMNETPPLIBS_IMPORT" class="forbidden">
+Macro for DLL support.
+</flag>
+
+<flag name="SPEC_HYPOT" class="forbidden">
+Used with SPEC_WINDOWS_UNDERSCORE to define hypot function.
+</flag>
+
+<flag name="SWIG" class="forbidden">
+Enables alternative to stdint.h support.
+</flag>
+
+</flagsdescription>

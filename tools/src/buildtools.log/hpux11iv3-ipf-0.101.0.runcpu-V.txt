@@ -1,0 +1,37 @@
+runcpu v4814 - Copyright 1999-2016 Standard Performance Evaluation Corporation
+Using 'hpux11iv3-ipf' tools
+                 This is the SPEC CPU2017 benchmark tools suite.
+
+Version summary:
+    CPU2017 version: 0.101.0
+ Benchmarks version: 0.101.0
+      Tools version: 0.101.0
+    runcpu version: v4814 ($Id: runcpu 4814 2016-09-01 20:54:01Z CloyceS $)
+
+Tools information:
+ Tools package installed: hpux11iv3-ipf
+ File locking method: fcntl(2) (probably network-safe)
+Mode |  UID  |  GID  |   Size  |   Modification Time  | Name
+0755 | 0     | 116   | 5838628 |  2016-09-08 01:00:29 | specperl
+0755 | 0     | 116   |  686592 |  2016-09-08 01:00:29 | specmake
+0755 | 0     | 116   |  135784 |  2016-09-08 01:00:33 | specinvoke
+0755 | 0     | 116   |  673368 |  2016-09-08 01:00:29 | specrxp
+0775 | 0     | 116   |    1530 |  2016-06-10 01:20:26 | runcpu
+0775 | 0     | 116   |  170146 |  2016-09-02 02:24:01 | harness/runcpu
+0775 | 0     | 116   |    1530 |  2016-06-10 01:20:26 | specpp
+0775 | 0     | 116   |   89747 |  2016-06-10 01:20:26 | harness/specpp
+0775 | 0     | 116   |    1530 |  2016-06-10 01:20:26 | specdiff
+0775 | 0     | 116   |    9806 |  2016-06-10 01:20:26 | harness/specdiff
+0755 | 0     | 116   |  658216 |  2016-09-08 01:00:29 | specxz
+0755 | 0     | 116   |  150656 |  2016-09-08 01:00:33 | specsha512sum
+
+Version info for specperl (specperl): This is specperl 5, version 24, subversion 0 (v5.24.0) built for IA64.ARCHREV_0
+                                      Compiled at Sep  7 2016 13:03:12
+                                      For more detail on specperl, say 'specperl -V'
+Version info for specmake (specmake): GNU Make 4.1
+Version info for specinvoke (specinvoke): specinvoke r4356 (OS implementation r4356)
+Version info for specrxp ($SPEC/bin/specrxp): RXP 1.5.0 Copyright Richard Tobin, LTG, HCRC, University of Edinburgh
+                                              Modified for use in SPEC benchmarks - 14 April 2011
+Version info for specpp ($SPEC/bin/specpp): filepp version 1.8.0SPEC
+Version info for specxz ($SPEC/bin/specxz): xz (XZ Utils) 5.2.2
+Version info for specsha512sum ($SPEC/bin/specsha512sum): sha512sum (specsum) 1.3

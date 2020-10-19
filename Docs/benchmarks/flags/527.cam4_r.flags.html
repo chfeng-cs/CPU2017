@@ -1,0 +1,4345 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="generator" content="SPEC CPU2017 Tools  (flags v5178)" />
+<meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+<style type="text/css" id="internalScreen" media="screen">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Most of the screen-specific CSS is also the common CSS */
+
+/* Style for the non-image W3C marking at the bottom of the page, courtesy of
+ * Marek Prokop (http://www.sovavsiti.cz/css/w3c_buttons.html)
+ */
+.w3cbutton3 {
+  margin: 1em 1em 0 0;
+  width: 9em;
+  border: 1px solid #ccc;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 70%;
+  font-weight: bold;
+  float: left;
+}
+.w3cbutton3 a {
+  display: block;
+  width: 100%;
+}
+.w3cbutton3 a:link,
+.w3cbutton3 a:visited,
+.w3cbutton3 a:hover {
+  background-color: #fc6;
+  color: #000;
+  text-decoration: none;
+  border-bottom: none;
+}
+.w3cbutton3 span.w3c {
+  padding: 0 0.4em;
+  background-color: #fff;
+  color: #0c479d;
+}
+
+-->
+</style>
+<style type="text/css" id="internalPrint" media="print">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Classes that contain links - useless on paper */
+.flagTOC, .SubMenu, .NoPrint {
+  display: none;
+}
+
+/* Don't decorate links - they're not clickable */
+a {
+  text-decoration: none;
+  background: inherit;
+  color: inherit;
+}
+
+.resultpage {
+  width: 100%;
+}
+
+.w3cbutton3 {
+  display: none;
+}
+-->
+</style>
+<title>527.cam4_r Flags</title>
+</head><body>
+<h1>527.cam4_r Flags</h1>
+
+
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+
+<div class="NoPrint">
+<h3>Sections</h3>
+<p>Selecting one of the following will take you directly to that section:</p>
+<ul>
+<li><a href="#Section_portability">Portability Flags</a></li>
+<li><a href="#Section_mandatory">Mandatory Flags</a></li>
+<li><a href="#Section_forbidden">Forbidden Flags</a></li>
+</ul>
+</div>
+
+<hr />
+
+<div class="flagClass" id="portability">
+<h2><a name="Section_portability" id="Section_portability">Portability Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b527.cam4_r_DALLOCA_ARG_T">-DALLOCA_ARG_T</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_AIX">-DSPEC_AIX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_AIX_OLD">-DSPEC_AIX_OLD</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_CASE_FLAG">-DSPEC_CASE_FLAG</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_CATAMOUNT">-DSPEC_CATAMOUNT</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_CRAY">-DSPEC_CRAY</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_DOUBLE_UNDERSCORE">-DSPEC_DOUBLE_UNDERSCORE</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_HPUX">-DSPEC_HPUX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_HPUX_IA64">-DSPEC_HPUX_IA64</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_IBMXL">-DSPEC_IBMXL</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_IRIX">-DSPEC_IRIX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_IRIX64">-DSPEC_IRIX64</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_LINUX">-DSPEC_LINUX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_LINUX64_IPF">-DSPEC_LINUX64_IPF</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_LINUX_PPC">-DSPEC_LINUX_PPC</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_LINUX_SPARC">-DSPEC_LINUX_SPARC</a></li>
+ <li><a href="#b527.cam4_r_logical_strict">-DLOGICAL_STRICT,
+-DSPEC_LOGICAL_STRICT</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_MACOSX">-DSPEC_MACOSX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_MACOSX_BE">-DSPEC_MACOSX_BE</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NAG">-DSPEC_NAG</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NEC_SX">-DSPEC_NEC_SX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NEED_IO_H">-DSPEC_NEED_IO_H</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NOI8">-DSPEC_NOI8</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_FILE_OFFSET_BITS">-DSPEC_NO_FILE_OFFSET_BITS</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_HAVE_ALLOCA">-DSPEC_NO_HAVE_ALLOCA</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_HAVE_ALLOCA_H">-DSPEC_NO_HAVE_ALLOCA_H</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_HAVE_FTRUNCATE">-DSPEC_NO_HAVE_FTRUNCATE</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_MALLOC_H">-DSPEC_NO_MALLOC_H</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_NCCONFIG_AIX">-DSPEC_NO_NCCONFIG_AIX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_NCCONFIG_GENERIC">-DSPEC_NO_NCCONFIG_GENERIC</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_NCCONFIG_IRIX">-DSPEC_NO_NCCONFIG_IRIX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_NCCONFIG_LINUX">-DSPEC_NO_NCCONFIG_LINUX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_NCCONFIG_MACOSX">-DSPEC_NO_NCCONFIG_MACOSX</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_NCCONFIG_SOLARIS">-DSPEC_NO_NCCONFIG_SOLARIS</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_NCCONFIG_WINDOWS">-DSPEC_NO_NCCONFIG_WINDOWS</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_SIZEOF">-DSPEC_NO_SIZEOF</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_SPEC_CRAY_POINTERS">-DSPEC_NO_SPEC_CRAY_POINTERS</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_STDC_HEADERS">-DSPEC_NO_STDC_HEADERS</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_ST_BLKSIZE">-DSPEC_NO_ST_BLKSIZE</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_UNDERSCORE">-DSPEC_NO_UNDERSCORE</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_NO_VPRINTF">-DSPEC_NO_VPRINTF</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_OSF1">-DSPEC_OSF1</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_SEQUENCE">-DSPEC_SEQUENCE</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_SOLARIS">-DSPEC_SOLARIS</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_SOLARIS_X86">-DSPEC_SOLARIS_X86</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_UCHAR_DEFINED">-DSPEC_UCHAR_DEFINED</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_UNICOS">-DSPEC_UNICOS</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_UPPER_CASE">-DSPEC_UPPER_CASE</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_WINDOWS_ICL">-DSPEC_WINDOWS_ICL</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_WORDS_LITTLEENDIAN">-DSPEC_WORDS_LITTLEENDIAN</a></li>
+ <li><a href="#b527.cam4_r_DSPEC_X86">-DSPEC_X86</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DALLOCA_ARG_T" id="b527.cam4_r_DALLOCA_ARG_T">-DALLOCA_ARG_T</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALLOCA_ARG_T(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines the type of argument that the alloca() function takes.  It
+defaults to 'int'.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_AIX" id="b527.cam4_r_DSPEC_AIX">-DSPEC_AIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_AIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for AIX.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_AIX_OLD" id="b527.cam4_r_DSPEC_AIX_OLD">-DSPEC_AIX_OLD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_AIX_OLD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for older AIX version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_CASE_FLAG" id="b527.cam4_r_DSPEC_CASE_FLAG">-DSPEC_CASE_FLAG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_CASE_FLAG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Fortran to C symbol naming.  C symbol names are lower case with one underscore.
+_symbol
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_CATAMOUNT" id="b527.cam4_r_DSPEC_CATAMOUNT">-DSPEC_CATAMOUNT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_CATAMOUNT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Catamount.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_CRAY" id="b527.cam4_r_DSPEC_CRAY">-DSPEC_CRAY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_CRAY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Cray.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_DOUBLE_UNDERSCORE" id="b527.cam4_r_DSPEC_DOUBLE_UNDERSCORE">-DSPEC_DOUBLE_UNDERSCORE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_DOUBLE_UNDERSCORE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Fortran to C symbol naming.  C symbol names are lower case with two appended underscores.
+symbol##__
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_HPUX" id="b527.cam4_r_DSPEC_HPUX">-DSPEC_HPUX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_HPUX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for HPUX.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_HPUX_IA64" id="b527.cam4_r_DSPEC_HPUX_IA64">-DSPEC_HPUX_IA64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_HPUX_IA64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for HPUX on Itanium.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_IBMXL" id="b527.cam4_r_DSPEC_IBMXL">-DSPEC_IBMXL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_IBMXL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for the IBM XL compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_IRIX" id="b527.cam4_r_DSPEC_IRIX">-DSPEC_IRIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_IRIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for IRIX.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_IRIX64" id="b527.cam4_r_DSPEC_IRIX64">-DSPEC_IRIX64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_IRIX64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for IRIX64.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_LINUX" id="b527.cam4_r_DSPEC_LINUX">-DSPEC_LINUX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_LINUX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Linux.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_LINUX64_IPF" id="b527.cam4_r_DSPEC_LINUX64_IPF">-DSPEC_LINUX64_IPF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_LINUX64_IPF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Linux IPF.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_LINUX_PPC" id="b527.cam4_r_DSPEC_LINUX_PPC">-DSPEC_LINUX_PPC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_LINUX_PPC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Linux PPC.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_LINUX_SPARC" id="b527.cam4_r_DSPEC_LINUX_SPARC">-DSPEC_LINUX_SPARC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_LINUX_SPARC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Linux on SPARC.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_logical_strict" id="b527.cam4_r_logical_strict">
+-DLOGICAL_STRICT,
+-DSPEC_LOGICAL_STRICT
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:SPEC_)?LOGICAL_STRICT\b</span></li>
+<li class="descText">
+<p>
+LOGICAL_STRICT is a NetCDF macro that should be defined for Fortran compilers
+that treat .eqv./.neqv. as .eq./.ne..
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_MACOSX" id="b527.cam4_r_DSPEC_MACOSX">-DSPEC_MACOSX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_MACOSX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Mac OSX
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_MACOSX_BE" id="b527.cam4_r_DSPEC_MACOSX_BE">-DSPEC_MACOSX_BE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_MACOSX_BE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Mac OSX on a big-endian architecture.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NAG" id="b527.cam4_r_DSPEC_NAG">-DSPEC_NAG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NAG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use NAG's F90_UNIX_IO module for the flush routine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NEC_SX" id="b527.cam4_r_DSPEC_NEC_SX">-DSPEC_NEC_SX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NEC_SX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+System settings from NEC_SX.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NEED_IO_H" id="b527.cam4_r_DSPEC_NEED_IO_H">-DSPEC_NEED_IO_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NEED_IO_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if "io.h" needs to be included.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NOI8" id="b527.cam4_r_DSPEC_NOI8">-DSPEC_NOI8</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NOI8(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define when shr_kind_i8 is not supported.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_FILE_OFFSET_BITS" id="b527.cam4_r_DSPEC_NO_FILE_OFFSET_BITS">-DSPEC_NO_FILE_OFFSET_BITS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_FILE_OFFSET_BITS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't impliclty define "_FILE_OFFSET_BITS=64".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_HAVE_ALLOCA" id="b527.cam4_r_DSPEC_NO_HAVE_ALLOCA">-DSPEC_NO_HAVE_ALLOCA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_ALLOCA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't use alloca.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_HAVE_ALLOCA_H" id="b527.cam4_r_DSPEC_NO_HAVE_ALLOCA_H">-DSPEC_NO_HAVE_ALLOCA_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_ALLOCA_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include "alloca.h".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_HAVE_FTRUNCATE" id="b527.cam4_r_DSPEC_NO_HAVE_FTRUNCATE">-DSPEC_NO_HAVE_FTRUNCATE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_FTRUNCATE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't use ftruncate.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_MALLOC_H" id="b527.cam4_r_DSPEC_NO_MALLOC_H">-DSPEC_NO_MALLOC_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_MALLOC_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if your compilation system doesn't provide malloc.h, or if the system
+version doesn't work with your compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_NCCONFIG_AIX" id="b527.cam4_r_DSPEC_NO_NCCONFIG_AIX">-DSPEC_NO_NCCONFIG_AIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_AIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If SPEC_AIX is set, but the ncconfig_aix header file should not be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_NCCONFIG_GENERIC" id="b527.cam4_r_DSPEC_NO_NCCONFIG_GENERIC">-DSPEC_NO_NCCONFIG_GENERIC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_GENERIC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Do not use the generic ncconfig header file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_NCCONFIG_IRIX" id="b527.cam4_r_DSPEC_NO_NCCONFIG_IRIX">-DSPEC_NO_NCCONFIG_IRIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_IRIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If SPEC_AIX is set, but the ncconfig_aix header file should not be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_NCCONFIG_LINUX" id="b527.cam4_r_DSPEC_NO_NCCONFIG_LINUX">-DSPEC_NO_NCCONFIG_LINUX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_LINUX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If SPEC_LINUX is set, but the ncconfig_linux header file should not be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_NCCONFIG_MACOSX" id="b527.cam4_r_DSPEC_NO_NCCONFIG_MACOSX">-DSPEC_NO_NCCONFIG_MACOSX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_MACOSX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If SPEC_MACOSX is set, but the ncconfig_macosx header file should not be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_NCCONFIG_SOLARIS" id="b527.cam4_r_DSPEC_NO_NCCONFIG_SOLARIS">-DSPEC_NO_NCCONFIG_SOLARIS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_SOLARIS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If SPEC_SOLARIS is set, but the ncconfig_solaris header file should not be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_NCCONFIG_WINDOWS" id="b527.cam4_r_DSPEC_NO_NCCONFIG_WINDOWS">-DSPEC_NO_NCCONFIG_WINDOWS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_WINDOWS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If SPEC_WINDOWS is set, but the ncconfig_windows header file should not be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_SIZEOF" id="b527.cam4_r_DSPEC_NO_SIZEOF">-DSPEC_NO_SIZEOF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_SIZEOF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if Fortran compiler does not have a sizeof routine available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_SPEC_CRAY_POINTERS" id="b527.cam4_r_DSPEC_NO_SPEC_CRAY_POINTERS">-DSPEC_NO_SPEC_CRAY_POINTERS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_SPEC_CRAY_POINTERS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set if the Fortran compiler does not support the Cray pointer's extension.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_STDC_HEADERS" id="b527.cam4_r_DSPEC_NO_STDC_HEADERS">-DSPEC_NO_STDC_HEADERS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_STDC_HEADERS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined if the standard C headers are not available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_ST_BLKSIZE" id="b527.cam4_r_DSPEC_NO_ST_BLKSIZE">-DSPEC_NO_ST_BLKSIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_ST_BLKSIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set if ST_BLKSIZE is not available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_UNDERSCORE" id="b527.cam4_r_DSPEC_NO_UNDERSCORE">-DSPEC_NO_UNDERSCORE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_UNDERSCORE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Fortran to C symbol naming.  C symbol names are lower case without underscores.
+symbol
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_NO_VPRINTF" id="b527.cam4_r_DSPEC_NO_VPRINTF">-DSPEC_NO_VPRINTF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_VPRINTF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if the vprintf routine is not available in C.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_OSF1" id="b527.cam4_r_DSPEC_OSF1">-DSPEC_OSF1</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_OSF1(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings from OSF1.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_SEQUENCE" id="b527.cam4_r_DSPEC_SEQUENCE">-DSPEC_SEQUENCE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_SEQUENCE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add the Fortran sequence attribute to user defined data types.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_SOLARIS" id="b527.cam4_r_DSPEC_SOLARIS">-DSPEC_SOLARIS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_SOLARIS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platfrom settings for Solaris.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_SOLARIS_X86" id="b527.cam4_r_DSPEC_SOLARIS_X86">-DSPEC_SOLARIS_X86</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_SOLARIS_X86(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform setting flag for Solaris on an x86 architecture.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_UCHAR_DEFINED" id="b527.cam4_r_DSPEC_UCHAR_DEFINED">-DSPEC_UCHAR_DEFINED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_UCHAR_DEFINED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define "uchar" as "unsigned char".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_UNICOS" id="b527.cam4_r_DSPEC_UNICOS">-DSPEC_UNICOS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_UNICOS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for UNICOS.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_UPPER_CASE" id="b527.cam4_r_DSPEC_UPPER_CASE">-DSPEC_UPPER_CASE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_UPPER_CASE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Fortran to C symbol naming.  C symbol names are upper case without underscores.
+SYMBOL
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_WINDOWS_ICL" id="b527.cam4_r_DSPEC_WINDOWS_ICL">-DSPEC_WINDOWS_ICL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_WINDOWS_ICL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Windows ICL.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_WORDS_LITTLEENDIAN" id="b527.cam4_r_DSPEC_WORDS_LITTLEENDIAN">-DSPEC_WORDS_LITTLEENDIAN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_WORDS_LITTLEENDIAN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if NetCDF should store words in little endian format instead of the default big endian.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPEC_X86" id="b527.cam4_r_DSPEC_X86">-DSPEC_X86</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_X86(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+On x86, the floating point rounding mode is not inherited by OpenMP threads and could cause differences in results.  The flag enables a save and restore the floating point rounding mode when using OpenMP.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="mandatory">
+<h2><a name="Section_mandatory" id="Section_mandatory">Mandatory Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b527.cam4_r_bench_includes">-I., -Iinclude, -Inetcdf/include</a></li>
+ <li><a href="#b527.cam4_r_DPLAT">-DPLAT</a></li>
+ <li><a href="#b527.cam4_r_DPLON">-DPLON</a></li>
+ <li><a href="#b527.cam4_r_DPLEV">-DPLEV</a></li>
+ <li><a href="#b527.cam4_r_DPCNST">-DPCNST</a></li>
+ <li><a href="#b527.cam4_r_DPCOLS">-DPCOLS</a></li>
+ <li><a href="#b527.cam4_r_DPTRM">-DPTRM</a></li>
+ <li><a href="#b527.cam4_r_DPTRN">-DPTRN</a></li>
+ <li><a href="#b527.cam4_r_DPTRK">-DPTRK</a></li>
+ <li><a href="#b527.cam4_r_F-D_NETCDF">-D_NETCDF</a></li>
+ <li><a href="#b527.cam4_r_F-D_MPISERIAL">-D_MPISERIAL</a></li>
+ <li><a href="#b527.cam4_r_DCO2A">-DCO2A</a></li>
+ <li><a href="#b527.cam4_r_DHEAVYNEW">-DHEAVYNEW</a></li>
+ <li><a href="#b527.cam4_r_DHIDE_MPI">-DHIDE_MPI</a></li>
+ <li><a href="#b527.cam4_r_DINNER_OMP">-DINNER_OMP</a></li>
+ <li><a href="#b527.cam4_r_DNO_GETTIMEOFDAY">-DNO_GETTIMEOFDAY</a></li>
+ <li><a href="#b527.cam4_r_DNO_MPI2">-DNO_MPI2</a></li>
+ <li><a href="#b527.cam4_r_DNO_R16">-DNO_R16</a></li>
+ <li><a href="#b527.cam4_r_DNO_SHR_VMATH">-DNO_SHR_VMATH</a></li>
+ <li><a href="#b527.cam4_r_DPERGRO">-DPERGRO</a></li>
+ <li><a href="#b527.cam4_r_DSTAGGERED">-DSTAGGERED</a></li>
+ <li><a href="#b527.cam4_r_DSTUBMPI">-DSTUBMPI</a></li>
+ <li><a href="#b527.cam4_r_DTHREADED_OMP">-DTHREADED_OMP</a></li>
+ <li><a href="#b527.cam4_r_DUSE_COSP">-DUSE_COSP</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_bench_includes" id="b527.cam4_r_bench_includes">-I., -Iinclude, -Inetcdf/include</a></li>
+<li class="flagDescRE"><span class="tt">-I(?:\.|netcdf/include|include)(?:\s+|$)</span></li>
+<li class="descText">
+<p>
+This flag is included automatically by Spec/object.pm.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPLAT" id="b527.cam4_r_DPLAT">-DPLAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPLAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Number of latitudes.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPLON" id="b527.cam4_r_DPLON">-DPLON</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPLON(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Number of longitudes.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPLEV" id="b527.cam4_r_DPLEV">-DPLEV</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPLEV(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Number of vertical levels.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPCNST" id="b527.cam4_r_DPCNST">-DPCNST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPCNST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Number of advected constituents (including water vapor).
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPCOLS" id="b527.cam4_r_DPCOLS">-DPCOLS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPCOLS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Number of columns.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPTRM" id="b527.cam4_r_DPTRM">-DPTRM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPTRM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+M truncation parameter.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPTRN" id="b527.cam4_r_DPTRN">-DPTRN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPTRN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+N truncation parameter
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPTRK" id="b527.cam4_r_DPTRK">-DPTRK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPTRK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+K truncation parameter
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_F-D_NETCDF" id="b527.cam4_r_F-D_NETCDF">-D_NETCDF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))-D_NETCDF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag indicates that NetCDF is being used for I/O.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_F-D_MPISERIAL" id="b527.cam4_r_F-D_MPISERIAL">-D_MPISERIAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))-D_MPISERIAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag indicates that the benchmark is built without support for MPI.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCO2A" id="b527.cam4_r_DCO2A">-DCO2A</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCO2A(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the C02A model.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHEAVYNEW" id="b527.cam4_r_DHEAVYNEW">-DHEAVYNEW</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHEAVYNEW(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use a faster code version when calculating pwaut.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHIDE_MPI" id="b527.cam4_r_DHIDE_MPI">-DHIDE_MPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHIDE_MPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable MPI from the ESMF routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DINNER_OMP" id="b527.cam4_r_DINNER_OMP">-DINNER_OMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINNER_OMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable OpenMP routines in cd_core.F90 and sw_core.F90. 
+??? May need this one on in ocam4 ???
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNO_GETTIMEOFDAY" id="b527.cam4_r_DNO_GETTIMEOFDAY">-DNO_GETTIMEOFDAY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_GETTIMEOFDAY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disables the use of the gettimeofday system routine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNO_MPI2" id="b527.cam4_r_DNO_MPI2">-DNO_MPI2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_MPI2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag indicates that the benchmark is built without support for MPI.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNO_R16" id="b527.cam4_r_DNO_R16">-DNO_R16</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_R16(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use if not using quad precision floating point data types.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNO_SHR_VMATH" id="b527.cam4_r_DNO_SHR_VMATH">-DNO_SHR_VMATH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_SHR_VMATH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable the use of platform specific vector math routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPERGRO" id="b527.cam4_r_DPERGRO">-DPERGRO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPERGRO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use pergro model.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSTAGGERED" id="b527.cam4_r_DSTAGGERED">-DSTAGGERED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTAGGERED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Required for compiling CAM4.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSTUBMPI" id="b527.cam4_r_DSTUBMPI">-DSTUBMPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTUBMPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Create stub versions of MPI routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DTHREADED_OMP" id="b527.cam4_r_DTHREADED_OMP">-DTHREADED_OMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTHREADED_OMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define get_num_threads in gptl.c when using the pthreads.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUSE_COSP" id="b527.cam4_r_DUSE_COSP">-DUSE_COSP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_COSP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the CFMIP Observational Simulator Package.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="forbidden">
+<h2><a name="Section_forbidden" id="Section_forbidden">Forbidden Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b527.cam4_r_DAIX">-DAIX</a></li>
+ <li><a href="#b527.cam4_r_DALWAYS_NC_SHARE">-DALWAYS_NC_SHARE</a></li>
+ <li><a href="#b527.cam4_r_DANSI_C_preprocessor">-DANSI_C_preprocessor</a></li>
+ <li><a href="#b527.cam4_r_DAbsoftProFortran">-DAbsoftProFortran</a></li>
+ <li><a href="#b527.cam4_r_DAbsoftUNIXFortran">-DAbsoftUNIXFortran</a></li>
+ <li><a href="#b527.cam4_r_DBFB_CAM_SCAM_IOP">-DBFB_CAM_SCAM_IOP</a></li>
+ <li><a href="#b527.cam4_r_DBGL">-DBGL</a></li>
+ <li><a href="#b527.cam4_r_DBGP">-DBGP</a></li>
+ <li><a href="#b527.cam4_r_DBGx">-DBGx</a></li>
+ <li><a href="#b527.cam4_r_DBGxisbroken">-DBGxisbroken</a></li>
+ <li><a href="#b527.cam4_r_DBIT64">-DBIT64</a></li>
+ <li><a href="#b527.cam4_r_DCAF">-DCAF</a></li>
+ <li><a href="#b527.cam4_r_DCAM_MODE">-DCAM_MODE</a></li>
+ <li><a href="#b527.cam4_r_DCDF_ROUTINE_NAME">-DCDF_ROUTINE_NAME</a></li>
+ <li><a href="#b527.cam4_r_DCFSUBASFUN">-DCFSUBASFUN</a></li>
+ <li><a href="#b527.cam4_r_DCHECKS">-DCHECKS</a></li>
+ <li><a href="#b527.cam4_r_DCO2B">-DCO2B</a></li>
+ <li><a href="#b527.cam4_r_DCO2C">-DCO2C</a></li>
+ <li><a href="#b527.cam4_r_DCO2_DMSA">-DCO2_DMSA</a></li>
+ <li><a href="#b527.cam4_r_DCOMMENT">-DCOMMENT</a></li>
+ <li><a href="#b527.cam4_r_DCOMMON_BLOCK">-DCOMMON_BLOCK</a></li>
+ <li><a href="#b527.cam4_r_DCOUP_DOM">-DCOUP_DOM</a></li>
+ <li><a href="#b527.cam4_r_DCOUP_SOM">-DCOUP_SOM</a></li>
+ <li><a href="#b527.cam4_r_DCPP_VECTOR">-DCPP_VECTOR</a></li>
+ <li><a href="#b527.cam4_r_DCPRXLF">-DCPRXLF</a></li>
+ <li><a href="#b527.cam4_r_DCRAYFLOAT">-DCRAYFLOAT</a></li>
+ <li><a href="#b527.cam4_r_DCTEM_DIAGS">-DCTEM_DIAGS</a></li>
+ <li><a href="#b527.cam4_r_DDEBUG">-DDEBUG</a></li>
+ <li><a href="#b527.cam4_r_DDIAGNS">-DDIAGNS</a></li>
+ <li><a href="#b527.cam4_r_dll_stuff">-DDLL_EXPORT,
+-DDLL_NETCDF</a></li>
+ <li><a href="#b527.cam4_r_DDM_PARALLEL">-DDM_PARALLEL</a></li>
+ <li><a href="#b527.cam4_r_DDOUBLE_PRECISION">-DDOUBLE_PRECISION</a></li>
+ <li><a href="#b527.cam4_r_DENABLE_UNIX_ABORT">-DENABLE_UNIX_ABORT</a></li>
+ <li><a href="#b527.cam4_r_DESMF_DEFINES">-DESMF_DEFINES</a></li>
+ <li><a href="#b527.cam4_r_DESMF_INTERFACE">-DESMF_INTERFACE</a></li>
+ <li><a href="#b527.cam4_r_DFCALLSC_QUALIFIER">-DFCALLSC_QUALIFIER</a></li>
+ <li><a href="#b527.cam4_r_DFILTER_MASS_FLUXES">-DFILTER_MASS_FLUXES</a></li>
+ <li><a href="#b527.cam4_r_old_sun_stuff">-DFLOATFUNCTIONTYPE=XXX,
+-DASSIGNFLOAT=XXX,
+-DRETURNFLOAT=XXX</a></li>
+ <li><a href="#b527.cam4_r_DFORTRAN_REAL">-DFORTRAN_REAL</a></li>
+ <li><a href="#b527.cam4_r_DGCC_VERSION">-DGCC_VERSION</a></li>
+ <li><a href="#b527.cam4_r_DGEOS_MODE">-DGEOS_MODE</a></li>
+ <li><a href="#b527.cam4_r_DGLC_NEC_1">-DGLC_NEC_1</a></li>
+ <li><a href="#b527.cam4_r_DGLC_NEC_10">-DGLC_NEC_10</a></li>
+ <li><a href="#b527.cam4_r_DGLC_NEC_3">-DGLC_NEC_3</a></li>
+ <li><a href="#b527.cam4_r_DGLC_NEC_5">-DGLC_NEC_5</a></li>
+ <li><a href="#b527.cam4_r_DGPTL_H">-DGPTL_H</a></li>
+ <li><a href="#b527.cam4_r_DHANDLE_INFO">-DHANDLE_INFO</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_ALLOCA">-DHAVE_ALLOCA</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_ALLOCA_H">-DHAVE_ALLOCA_H</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_C99_INLINE">-DHAVE_C99_INLINE</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_COMM_F2C">-DHAVE_COMM_F2C</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_GETPAGESIZE">-DHAVE_GETPAGESIZE</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_GETTIMEOFDAY">-DHAVE_GETTIMEOFDAY</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_LIBRT">-DHAVE_LIBRT</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_MPI">-DHAVE_MPI</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_NANOTIME">-DHAVE_NANOTIME</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_PAPI">-DHAVE_PAPI</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_SLASHPROC">-DHAVE_SLASHPROC</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_ST_BLKSIZE">-DHAVE_ST_BLKSIZE</a></li>
+ <li><a href="#b527.cam4_r_DHAVE_TIMES">-DHAVE_TIMES</a></li>
+ <li><a href="#b527.cam4_r_DINFO">-DINFO</a></li>
+ <li><a href="#b527.cam4_r_netcdf_debug">-DLN_TEST,
+-DINSTRUMENT,</a></li>
+ <li><a href="#b527.cam4_r_DIRIX64">-DIRIX64</a></li>
+ <li><a href="#b527.cam4_r_DLIBSCI_FFT">-DLIBSCI_FFT</a></li>
+ <li><a href="#b527.cam4_r_DLINUX">-DLINUX</a></li>
+ <li><a href="#b527.cam4_r_DLISTMAIN">-DLISTMAIN</a></li>
+ <li><a href="#b527.cam4_r_DLOCKNUMREC">-DLOCKNUMREC</a></li>
+ <li><a href="#b527.cam4_r_DMAKE_PROGRAM">-DMAKE_PROGRAM</a></li>
+ <li><a href="#b527.cam4_r_DMALL_ON">-DMALL_ON</a></li>
+ <li><a href="#b527.cam4_r_DMCT_INTERFACE">-DMCT_INTERFACE</a></li>
+ <li><a href="#b527.cam4_r_DMEMCHK">-DMEMCHK</a></li>
+ <li><a href="#b527.cam4_r_DMODAL_AERO">-DMODAL_AERO</a></li>
+ <li><a href="#b527.cam4_r_DMODAL_AERO_3MODE">-DMODAL_AERO_3MODE</a></li>
+ <li><a href="#b527.cam4_r_DMODAL_AERO_7MODE">-DMODAL_AERO_7MODE</a></li>
+ <li><a href="#b527.cam4_r_DMODCM_DP_TRANSPOSE">-DMODCM_DP_TRANSPOSE</a></li>
+ <li><a href="#b527.cam4_r_DMODCM_TIMING">-DMODCM_TIMING</a></li>
+ <li><a href="#b527.cam4_r_DMOD_SPECIFIED_SHAPE">-DMOD_SPECIFIED_SHAPE</a></li>
+ <li><a href="#b527.cam4_r_DMPI2">-DMPI2</a></li>
+ <li><a href="#b527.cam4_r_DMPICH_">-DMPICH_</a></li>
+ <li><a href="#b527.cam4_r_DMSIS_DIAGS">-DMSIS_DIAGS</a></li>
+ <li><a href="#b527.cam4_r_DMY_ALLTOALL">-DMY_ALLTOALL</a></li>
+ <li><a href="#b527.cam4_r_DNAMING">-DNAMING</a></li>
+ <li><a href="#b527.cam4_r_DNAVY10">-DNAVY10</a></li>
+ <li><a href="#b527.cam4_r_DNC_ARRAY_GROWBY">-DNC_ARRAY_GROWBY</a></li>
+ <li><a href="#b527.cam4_r_nc_retcodes">-DNC_ENOMEM=XXX,
+-DNC_ERANGE=XXX</a></li>
+ <li><a href="#b527.cam4_r_netcdf_type_flags">-DNF_DOUBLEPRECISION_IS_C_FLOAT=XXX,
+-DNF_INT1_IS_C_SIGNED_CHAR=XXX,
+-DNF_INT2_IS_C_SHORT=XXX,
+-DNF_INT_IS_C_INT=XXX,
+-DNF_REAL_IS_C_DOUBLE=XXX,
+-DNF_REAL_IS_C_FLOAT=XXX</a></li>
+ <li><a href="#b527.cam4_r_DNO_IEEE_FLOAT">-DNO_IEEE_FLOAT</a></li>
+ <li><a href="#b527.cam4_r_DNO_LEAP_CALENDAR">-DNO_LEAP_CALENDAR</a></li>
+ <li><a href="#b527.cam4_r_DNO_NETCDF_2">-DNO_NETCDF_2</a></li>
+ <li><a href="#b527.cam4_r_DNO_STRERROR">-DNO_STRERROR</a></li>
+ <li><a href="#b527.cam4_r_DOFFLINE_DYN">-DOFFLINE_DYN</a></li>
+ <li><a href="#b527.cam4_r_DPAREXCH">-DPAREXCH</a></li>
+ <li><a href="#b527.cam4_r_DPIO_GPFS_HINTS">-DPIO_GPFS_HINTS</a></li>
+ <li><a href="#b527.cam4_r_DPIO_LUSTRE_HINTS">-DPIO_LUSTRE_HINTS</a></li>
+ <li><a href="#b527.cam4_r_DRTTOV">-DRTTOV</a></li>
+ <li><a href="#b527.cam4_r_DSCYC_MASSBGT">-DSCYC_MASSBGT</a></li>
+ <li><a href="#b527.cam4_r_DSGI_FFT">-DSGI_FFT</a></li>
+ <li><a href="#b527.cam4_r_DSPMD">-DSPMD</a></li>
+ <li><a href="#b527.cam4_r_DSPMDSTATS">-DSPMDSTATS</a></li>
+ <li><a href="#b527.cam4_r_DSTAND_ALONE">-DSTAND_ALONE</a></li>
+ <li><a href="#b527.cam4_r_DSYSDARWIN">-DSYSDARWIN</a></li>
+ <li><a href="#b527.cam4_r_DSYS_SX">-DSYS_SX</a></li>
+ <li><a href="#b527.cam4_r_DSunOS">-DSunOS</a></li>
+ <li><a href="#b527.cam4_r_DTESTCALCDECOMP">-DTESTCALCDECOMP</a></li>
+ <li><a href="#b527.cam4_r_DTHREADED_PTHREADS">-DTHREADED_PTHREADS</a></li>
+ <li><a href="#b527.cam4_r_DTIMING">-DTIMING</a></li>
+ <li><a href="#b527.cam4_r_DTIMING_BARRIERS">-DTIMING_BARRIERS</a></li>
+ <li><a href="#b527.cam4_r_DTODO">-DTODO</a></li>
+ <li><a href="#b527.cam4_r_DTRACER_CHECK">-DTRACER_CHECK</a></li>
+ <li><a href="#b527.cam4_r_DTROPCHEM">-DTROPCHEM</a></li>
+ <li><a href="#b527.cam4_r_DUNICOSMP">-DUNICOSMP</a></li>
+ <li><a href="#b527.cam4_r_DUNSIGNED_BYTE">-DUNSIGNED_BYTE</a></li>
+ <li><a href="#b527.cam4_r_DUSEMPIIO">-DUSEMPIIO</a></li>
+ <li><a href="#b527.cam4_r_DUSE_CSM_SHARE">-DUSE_CSM_SHARE</a></li>
+ <li><a href="#b527.cam4_r_DUSE_ESMF_LIB">-DUSE_ESMF_LIB</a></li>
+ <li><a href="#b527.cam4_r_DUSE_MASTERPROC">-DUSE_MASTERPROC</a></li>
+ <li><a href="#b527.cam4_r_DUSE_NEW_DELETE">-DUSE_NEW_DELETE</a></li>
+ <li><a href="#b527.cam4_r_DUSE_OMP">-DUSE_OMP</a></li>
+ <li><a href="#b527.cam4_r_DVECTORIZE">-DVECTORIZE</a></li>
+ <li><a href="#b527.cam4_r_DVECTOR_MATH">-DVECTOR_MATH</a></li>
+ <li><a href="#b527.cam4_r_DVOC">-DVOC</a></li>
+ <li><a href="#b527.cam4_r_DWACCM_MOZART">-DWACCM_MOZART</a></li>
+ <li><a href="#b527.cam4_r_DWACCM_PHYS">-DWACCM_PHYS</a></li>
+ <li><a href="#b527.cam4_r_DWORDS_BIGENDIAN">-DWORDS_BIGENDIAN</a></li>
+ <li><a href="#b527.cam4_r_DWRAP_MPI_TIMING">-DWRAP_MPI_TIMING</a></li>
+ <li><a href="#b527.cam4_r_DZTRINGV_ARGS_allows_Pvariables">-DZTRINGV_ARGS_allows_Pvariables</a></li>
+ <li><a href="#b527.cam4_r_posix_stuff">-DENOERR=XXX,
+-DFLT_MAX=XXX,
+-DFLT_MAX_EXP=XXX,
+-DINT_MAX=XXX,
+-DLONG_MAX=XXX,
+-DO_BINARY=XXX,
+-DSEEK_SET=XXX,
+-DSHORT_MAX=XXX</a></li>
+ <li><a href="#b527.cam4_r_cfortran_internals">-D__CF_KnR=XXX,
+-D__CF__APOLLO67=XXX,
+-D__CF__KnR=XXX,
+-DOLD_VAXC=XXX</a></li>
+ <li><a href="#b527.cam4_r_header_guards">-DUD_FORT_LIB_H,
+-DUD_NCFORTRAN_H,
+-DUD_NETCDF_CPP_INC,
+-D_NETCDF_,
+-D_FBITS_H_,
+-D__CFORTRAN_LOADED,
+-D_ONSTACK_H_,
+-D_NCCONFIG_AIX_H_,
+-D_NCCONFIG_GENERIC_H_,
+-D_NCCONFIG_H_,
+-D_NCCONFIG_IRIX_H_,
+-D_NCCONFIG_LINUX_H_,
+-D_NCCONFIG_MACOSX_H_,
+-D_NCCONFIG_SOLARIS_H_,
+-D_NCCONFIG_WINDOWS_H_,
+-D_NCIO_H_,
+-D_NCX_H_,
+-D_NC_H_,
+-DESMF_MACROS_INC,
+-DESMF_TimeMgr_INC</a></li>
+ <li><a href="#b527.cam4_r_comp_implicit">-Dextname=XXX,
+-Dsun=XXX,
+-DsunFortran=XXX,
+-Dunix=XXX,
+-Dvax=XXX,
+-Dvms=XXX,
+-DvmsFortran=XXX,
+-DhpuxFortran=XXX,
+-DhpuxFortran800=XXX,
+-Dlynx=XXX,
+-Dmips=XXX,
+-DmipsFortran=XXX,
+-Dapollo=XXX,
+-DapolloFortran=XXX,
+-D__CYGWIN32__=XXX,
+-D__GNUC__=XXX,
+-D__PATHCC__=XXX,
+-D__STDCPP__=XXX,
+-D__STDC__=XXX,
+-D__VAXC=XXX,
+-D__alpha=XXX,
+-D__convex__=XXX,
+-D__cplusplus=XXX,
+-D__hpux=XXX,
+-D__mips=XXX,
+-D__sgi=XXX,
+-D__sun=XXX,
+-D__ultrix__=XXX,
+-D__unix__=XXX,
+-D__vax__=XXX,
+-D__vms=XXX,
+-D_SC_PAGESIZE=XXX,
+-D_SC_PAGE_SIZE=XXX,
+-D_SX=XXX,
+-D__64BIT__=XXX,
+-D_MSC_VER=XXX,
+-D_IBMR2=XXX,
+-D_CRAY=XXX,
+-D_CRAYC=XXX,
+-D_CRAYIEEE=XXX,
+-D_CRAYMPP=XXX,
+-D_CRAYT3E=XXX,
+-D_INT64=XXX,
+-DVAXC=XXX,
+-DVAXUltrix=XXX,
+-DVISUAL_CPLUSPLUS=XXX,
+-DWIN32=XXX,
+-DS_IRUSR=XXX,
+-DSXFortran=XXX,
+-DCLIPPERFortran=XXX,
+-DCONVEXFortran=XXX,
+-DCRAY=XXX,
+-DCRAYFortran=XXX,
+-DDECFortran=XXX,
+-DIBMR2Fortran=XXX,
+-DPowerStationFortran=XXX</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DAIX" id="b527.cam4_r_DAIX">-DAIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+AIX platform flag.  Use SPEC_AIX.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DALWAYS_NC_SHARE" id="b527.cam4_r_DALWAYS_NC_SHARE">-DALWAYS_NC_SHARE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALWAYS_NC_SHARE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes NetCDF to attempt to set NC_SHARE on files it opens.  It is
+used for debugging, and changing its value from the default is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DANSI_C_preprocessor" id="b527.cam4_r_DANSI_C_preprocessor">-DANSI_C_preprocessor</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DANSI_C_preprocessor(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag is used by cfortran.h to determine whether it can use preprocessor
+features defined by the ANSI C standard.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DAbsoftProFortran" id="b527.cam4_r_DAbsoftProFortran">-DAbsoftProFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAbsoftProFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft Pro Fortran compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DAbsoftUNIXFortran" id="b527.cam4_r_DAbsoftUNIXFortran">-DAbsoftUNIXFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAbsoftUNIXFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft UNIX F77 compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DBFB_CAM_SCAM_IOP" id="b527.cam4_r_DBFB_CAM_SCAM_IOP">-DBFB_CAM_SCAM_IOP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBFB_CAM_SCAM_IOP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable SCAM I/O timing.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DBGL" id="b527.cam4_r_DBGL">-DBGL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBGL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add Blue Gene L data structures for MPI.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DBGP" id="b527.cam4_r_DBGP">-DBGP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBGP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add Blue Gene P data structures for MPI.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DBGx" id="b527.cam4_r_DBGx">-DBGx</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBGx(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use Blue Gene MPI data structures.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DBGxisbroken" id="b527.cam4_r_DBGxisbroken">-DBGxisbroken</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBGxisbroken(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add debugging infor for Blue Gene MPI.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DBIT64" id="b527.cam4_r_DBIT64">-DBIT64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBIT64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used in gptl.c in nanosecond routine which is disabled for SPEC.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCAF" id="b527.cam4_r_DCAF">-DCAF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCAF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable Co-Array Fortran.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCAM_MODE" id="b527.cam4_r_DCAM_MODE">-DCAM_MODE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCAM_MODE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If CAM_MODE is defined, the user may use FVstartclock/FVstopclock exactly like the CAM utilities t_startf and t_stopf.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCDF_ROUTINE_NAME" id="b527.cam4_r_DCDF_ROUTINE_NAME">-DCDF_ROUTINE_NAME</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCDF_ROUTINE_NAME(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes the variable cdf_routine_name to be set to the current
+function name in the NetCDF-2 bindings.  This flag may not be used for
+CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCFSUBASFUN" id="b527.cam4_r_DCFSUBASFUN">-DCFSUBASFUN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCFSUBASFUN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes cfortran.h to replace subroutines with function calls.  It
+may not be used for 521.wrf_r.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCHECKS" id="b527.cam4_r_DCHECKS">-DCHECKS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCHECKS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add interal debugging checks.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCO2B" id="b527.cam4_r_DCO2B">-DCO2B</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCO2B(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the C02B model.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCO2C" id="b527.cam4_r_DCO2C">-DCO2C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCO2C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the C02C model.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCO2_DMSA" id="b527.cam4_r_DCO2_DMSA">-DCO2_DMSA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCO2_DMSA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the C02_DMSA model.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCOMMENT" id="b527.cam4_r_DCOMMENT">-DCOMMENT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOMMENT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add C-style comments in the shr_isnan.h header file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCOMMON_BLOCK" id="b527.cam4_r_DCOMMON_BLOCK">-DCOMMON_BLOCK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOMMON_BLOCK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines a method to refer to Fortran common blocks from C functions.
+Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCOUP_DOM" id="b527.cam4_r_DCOUP_DOM">-DCOUP_DOM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOUP_DOM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add CAM DOM History fields.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCOUP_SOM" id="b527.cam4_r_DCOUP_SOM">-DCOUP_SOM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOUP_SOM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add COM Component.  Can't be used with aquaplanet.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCPP_VECTOR" id="b527.cam4_r_DCPP_VECTOR">-DCPP_VECTOR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCPP_VECTOR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the use of a Vector directive.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCPRXLF" id="b527.cam4_r_DCPRXLF">-DCPRXLF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCPRXLF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defines the Xlf compiler.  Use SPEC_AIX.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCRAYFLOAT" id="b527.cam4_r_DCRAYFLOAT">-DCRAYFLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCRAYFLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that CRAY floating point (real*16) should be used.  This
+may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DCTEM_DIAGS" id="b527.cam4_r_DCTEM_DIAGS">-DCTEM_DIAGS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCTEM_DIAGS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable intermediate output in the ctemp.F90 file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DDEBUG" id="b527.cam4_r_DDEBUG">-DDEBUG</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:O|C)?DEBUG\S*(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debugging information
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DDIAGNS" id="b527.cam4_r_DDIAGNS">-DDIAGNS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDIAGNS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable diagnostics.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_dll_stuff" id="b527.cam4_r_dll_stuff">
+-DDLL_EXPORT,
+-DDLL_NETCDF
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DDLL_(?:EXPORT|NETCDF)\b</span></li>
+<li class="descText">
+<p>
+These macros are used when building parts of the WRF library as a DLL.  They
+are not used for CPU2017 and may not be set.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DDM_PARALLEL" id="b527.cam4_r_DDM_PARALLEL">-DDM_PARALLEL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDM_PARALLEL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use write to unit 0 instead of print in a MPI context when using wrf_messages.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DDOUBLE_PRECISION" id="b527.cam4_r_DDOUBLE_PRECISION">-DDOUBLE_PRECISION</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDOUBLE_PRECISION(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro contains the name of the C type which can hold a double precision
+Fortran number.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DENABLE_UNIX_ABORT" id="b527.cam4_r_DENABLE_UNIX_ABORT">-DENABLE_UNIX_ABORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DENABLE_UNIX_ABORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Call abort directly instead of MP_abort.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DESMF_DEFINES" id="b527.cam4_r_DESMF_DEFINES">-DESMF_DEFINES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DESMF_DEFINES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Guard against double defines for ESMF.  Defined in the program.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DESMF_INTERFACE" id="b527.cam4_r_DESMF_INTERFACE">-DESMF_INTERFACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DESMF_INTERFACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add ESMF routine interfaces.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DFCALLSC_QUALIFIER" id="b527.cam4_r_DFCALLSC_QUALIFIER">-DFCALLSC_QUALIFIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFCALLSC_QUALIFIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro holds the qualifier (if any) needed for C functions called from
+Fortran.  The default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DFILTER_MASS_FLUXES" id="b527.cam4_r_DFILTER_MASS_FLUXES">-DFILTER_MASS_FLUXES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFILTER_MASS_FLUXES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add mass flux filtering.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_old_sun_stuff" id="b527.cam4_r_old_sun_stuff">
+-DFLOATFUNCTIONTYPE=XXX,
+-DASSIGNFLOAT=XXX,
+-DRETURNFLOAT=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:FLOATFUNCTIONTYPE|ASSIGNFLOAT|RETURNFLOAT)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+This flag (if necessary) is defined by the compilation system.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DFORTRAN_REAL" id="b527.cam4_r_DFORTRAN_REAL">-DFORTRAN_REAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFORTRAN_REAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro contains the name of the C type which can hold a Fortran REAL
+number.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DGCC_VERSION" id="b527.cam4_r_DGCC_VERSION">-DGCC_VERSION</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGCC_VERSION(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Internal macro used to determine the GNU version being used and if it supports the 'isnan' intrinsic.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DGEOS_MODE" id="b527.cam4_r_DGEOS_MODE">-DGEOS_MODE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGEOS_MODE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use GEOS Mode.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DGLC_NEC_1" id="b527.cam4_r_DGLC_NEC_1">-DGLC_NEC_1</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGLC_NEC_1(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add additional g2x sequence states.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DGLC_NEC_10" id="b527.cam4_r_DGLC_NEC_10">-DGLC_NEC_10</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGLC_NEC_10(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add additional g2x sequence states.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DGLC_NEC_3" id="b527.cam4_r_DGLC_NEC_3">-DGLC_NEC_3</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGLC_NEC_3(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add additional g2x sequence states.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DGLC_NEC_5" id="b527.cam4_r_DGLC_NEC_5">-DGLC_NEC_5</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGLC_NEC_5(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add additional g2x sequence states.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DGPTL_H" id="b527.cam4_r_DGPTL_H">-DGPTL_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGPTL_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Guard against double defines for GPTL header file.  Defined in the program.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHANDLE_INFO" id="b527.cam4_r_DHANDLE_INFO">-DHANDLE_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHANDLE_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print handle information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_ALLOCA" id="b527.cam4_r_DHAVE_ALLOCA">-DHAVE_ALLOCA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ALLOCA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that alloca is available as a macro or function.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_ALLOCA_H" id="b527.cam4_r_DHAVE_ALLOCA_H">-DHAVE_ALLOCA_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ALLOCA_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the alloca.h header file is available.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA_H.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_C99_INLINE" id="b527.cam4_r_DHAVE_C99_INLINE">-DHAVE_C99_INLINE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_C99_INLINE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if C99 inline support is available.  The inline keyword is only used with timing routines disabled in the SPEC version of CAM4.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_COMM_F2C" id="b527.cam4_r_DHAVE_COMM_F2C">-DHAVE_COMM_F2C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_COMM_F2C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the use of MPI_comm_f2c.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_GETPAGESIZE" id="b527.cam4_r_DHAVE_GETPAGESIZE">-DHAVE_GETPAGESIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_GETPAGESIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined, use the getpagesize system routine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_GETTIMEOFDAY" id="b527.cam4_r_DHAVE_GETTIMEOFDAY">-DHAVE_GETTIMEOFDAY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_GETTIMEOFDAY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define that the gettimeofday system routine is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_LIBRT" id="b527.cam4_r_DHAVE_LIBRT">-DHAVE_LIBRT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_LIBRT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if the RT library is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_MPI" id="b527.cam4_r_DHAVE_MPI">-DHAVE_MPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_MPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if building CAM with MPI support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_NANOTIME" id="b527.cam4_r_DHAVE_NANOTIME">-DHAVE_NANOTIME</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_NANOTIME(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if the nanotime system routine is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_PAPI" id="b527.cam4_r_DHAVE_PAPI">-DHAVE_PAPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_PAPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if the system has PAPI support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_SLASHPROC" id="b527.cam4_r_DHAVE_SLASHPROC">-DHAVE_SLASHPROC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_SLASHPROC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Determine size in bytes of memory usage info presented by the OS. Method: allocate a
+known amount of memory and see how much bigger the process becomes.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_ST_BLKSIZE" id="b527.cam4_r_DHAVE_ST_BLKSIZE">-DHAVE_ST_BLKSIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ST_BLKSIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that "struct stat" has a member named "st_blksize".
+It is set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ST_BLKSIZE.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DHAVE_TIMES" id="b527.cam4_r_DHAVE_TIMES">-DHAVE_TIMES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_TIMES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define to enable CPU statistic information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DINFO" id="b527.cam4_r_DINFO">-DINFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print intermediary information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_netcdf_debug" id="b527.cam4_r_netcdf_debug">
+-DLN_TEST,
+-DINSTRUMENT,
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:LN_TEST|INSTRUMENT)\b</span></li>
+<li class="descText">
+<p>
+These flags enable some NetCDF debugging output.  They may not be used for
+CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DIRIX64" id="b527.cam4_r_DIRIX64">-DIRIX64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DIRIX64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+System specific information for IRIX64.  Use SPEC_IRIX64.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DLIBSCI_FFT" id="b527.cam4_r_DLIBSCI_FFT">-DLIBSCI_FFT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLIBSCI_FFT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use FFT routines from the SCI library.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DLINUX" id="b527.cam4_r_DLINUX">-DLINUX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLINUX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+System portability flag.  Use SPEC_LINUX.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DLISTMAIN" id="b527.cam4_r_DLISTMAIN">-DLISTMAIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLISTMAIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add a main routine to list.c for debugging purposes.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DLOCKNUMREC" id="b527.cam4_r_DLOCKNUMREC">-DLOCKNUMREC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLOCKNUMREC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag enables locking for NC.numrecs.  It may not be used for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMAKE_PROGRAM" id="b527.cam4_r_DMAKE_PROGRAM">-DMAKE_PROGRAM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAKE_PROGRAM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Creates a test program for testing function nc_inq_libvers().  This may not
+be used for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMALL_ON" id="b527.cam4_r_DMALL_ON">-DMALL_ON</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMALL_ON(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the mall routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMCT_INTERFACE" id="b527.cam4_r_DMCT_INTERFACE">-DMCT_INTERFACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMCT_INTERFACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the MCT Interface.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMEMCHK" id="b527.cam4_r_DMEMCHK">-DMEMCHK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEMCHK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add memory debugging information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMODAL_AERO" id="b527.cam4_r_DMODAL_AERO">-DMODAL_AERO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMODAL_AERO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the Aero Model.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMODAL_AERO_3MODE" id="b527.cam4_r_DMODAL_AERO_3MODE">-DMODAL_AERO_3MODE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMODAL_AERO_3MODE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the Aero Model with mode 3.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMODAL_AERO_7MODE" id="b527.cam4_r_DMODAL_AERO_7MODE">-DMODAL_AERO_7MODE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMODAL_AERO_7MODE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the Aero Model with mode 7.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMODCM_DP_TRANSPOSE" id="b527.cam4_r_DMODCM_DP_TRANSPOSE">-DMODCM_DP_TRANSPOSE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMODCM_DP_TRANSPOSE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the CM for dynamics/physics transpose method for nonlocal load-balance.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMODCM_TIMING" id="b527.cam4_r_DMODCM_TIMING">-DMODCM_TIMING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMODCM_TIMING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable CAM timing routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMOD_SPECIFIED_SHAPE" id="b527.cam4_r_DMOD_SPECIFIED_SHAPE">-DMOD_SPECIFIED_SHAPE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMOD_SPECIFIED_SHAPE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Communicate a number of contiguous parcels to/from arbitrary set of PEs.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMPI2" id="b527.cam4_r_DMPI2">-DMPI2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMPI2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if MPI2 support is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMPICH_" id="b527.cam4_r_DMPICH_">-DMPICH_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMPICH_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define is MPICH is being used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMSIS_DIAGS" id="b527.cam4_r_DMSIS_DIAGS">-DMSIS_DIAGS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMSIS_DIAGS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Display diagnositic messages.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DMY_ALLTOALL" id="b527.cam4_r_DMY_ALLTOALL">-DMY_ALLTOALL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMY_ALLTOALL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use a local version for all-to-all MPI communication if MPI_ALLTOALL is not available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNAMING" id="b527.cam4_r_DNAMING">-DNAMING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNAMING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Sets the Fortran to C symbol nameing.  Use SPEC_UPPER_CASE, SPEC_NO_UNDERSCORE, SPEC_DOUBLE_UNDERSCORE instead.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNAVY10" id="b527.cam4_r_DNAVY10">-DNAVY10</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNAVY10(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if using US NAVY 10-min terrain data.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNC_ARRAY_GROWBY" id="b527.cam4_r_DNC_ARRAY_GROWBY">-DNC_ARRAY_GROWBY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNC_ARRAY_GROWBY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro holds the size (in elements) that arrays in NetCDF should be grown
+at one time.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_nc_retcodes" id="b527.cam4_r_nc_retcodes">
+-DNC_ENOMEM=XXX,
+-DNC_ERANGE=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DNC_(?:ENOMEM|ERANGE)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros contain the values of return codes used internally by NetCDF.
+Their default values may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_netcdf_type_flags" id="b527.cam4_r_netcdf_type_flags">
+-DNF_DOUBLEPRECISION_IS_C_FLOAT=XXX,
+-DNF_INT1_IS_C_SIGNED_CHAR=XXX,
+-DNF_INT2_IS_C_SHORT=XXX,
+-DNF_INT_IS_C_INT=XXX,
+-DNF_REAL_IS_C_DOUBLE=XXX,
+-DNF_REAL_IS_C_FLOAT=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DNF_(?:NF_DOUBLEPRECISION_IS_C_FLOAT|NF_INT1_IS_C_SIGNED_CHAR|NF_INT2_IS_C_SHORT|NF_INT_IS_C_INT|NF_REAL_IS_C_DOUBLE|NF_REAL_IS_C_FLOAT)(?:=\S*)\b</span></li>
+<li class="descText">
+<p>
+These macros are used by NetCDF to determine which native C types fit which
+native Fortran types.  Their default values may not be changed directly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNO_IEEE_FLOAT" id="b527.cam4_r_DNO_IEEE_FLOAT">-DNO_IEEE_FLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_IEEE_FLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro should be set if the system does not use IEEE floating point
+representation.  It may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNO_LEAP_CALENDAR" id="b527.cam4_r_DNO_LEAP_CALENDAR">-DNO_LEAP_CALENDAR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_LEAP_CALENDAR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When defined, Feburary is set to 28 days, and not adjusted for leap years.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNO_NETCDF_2" id="b527.cam4_r_DNO_NETCDF_2">-DNO_NETCDF_2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_NETCDF_2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag turns off backward compatibility definitions in NetCDF.  Its
+default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DNO_STRERROR" id="b527.cam4_r_DNO_STRERROR">-DNO_STRERROR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_STRERROR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the strerror function is not available.  Its
+default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DOFFLINE_DYN" id="b527.cam4_r_DOFFLINE_DYN">-DOFFLINE_DYN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOFFLINE_DYN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable offline diagnostic field information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPAREXCH" id="b527.cam4_r_DPAREXCH">-DPAREXCH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPAREXCH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Activate Pilgrim calls.  Used for debugging geopk.F90.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPIO_GPFS_HINTS" id="b527.cam4_r_DPIO_GPFS_HINTS">-DPIO_GPFS_HINTS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPIO_GPFS_HINTS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set PIO hints.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DPIO_LUSTRE_HINTS" id="b527.cam4_r_DPIO_LUSTRE_HINTS">-DPIO_LUSTRE_HINTS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPIO_LUSTRE_HINTS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set PIO hints for lustre.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DRTTOV" id="b527.cam4_r_DRTTOV">-DRTTOV</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRTTOV(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use output from RTTOV.  Not use in SPEC workload.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSCYC_MASSBGT" id="b527.cam4_r_DSCYC_MASSBGT">-DSCYC_MASSBGT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSCYC_MASSBGT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+?? Need to get a description
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSGI_FFT" id="b527.cam4_r_DSGI_FFT">-DSGI_FFT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSGI_FFT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use FFT routines from the SGI system libraries.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPMD" id="b527.cam4_r_DSPMD">-DSPMD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPMD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable distributed memory version of the code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSPMDSTATS" id="b527.cam4_r_DSPMDSTATS">-DSPMDSTATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPMDSTATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Display distributed memory statistics.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSTAND_ALONE" id="b527.cam4_r_DSTAND_ALONE">-DSTAND_ALONE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTAND_ALONE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use portions of the code as stand alone libraries and not as part of CAM4.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSYSDARWIN" id="b527.cam4_r_DSYSDARWIN">-DSYSDARWIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYSDARWIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platform settings for Darwin.  Use SPEC_MACOSX.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSYS_SX" id="b527.cam4_r_DSYS_SX">-DSYS_SX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_SX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use sys_sx method when changing the COSP vertical grid.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DSunOS" id="b527.cam4_r_DSunOS">-DSunOS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSunOS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Sun OS platform setting.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DTESTCALCDECOMP" id="b527.cam4_r_DTESTCALCDECOMP">-DTESTCALCDECOMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTESTCALCDECOMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Compile calcdecomp.F90 as a stand-alone test.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DTHREADED_PTHREADS" id="b527.cam4_r_DTHREADED_PTHREADS">-DTHREADED_PTHREADS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTHREADED_PTHREADS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define when use gptl.c with pthreads.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DTIMING" id="b527.cam4_r_DTIMING">-DTIMING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTIMING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable timing information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DTIMING_BARRIERS" id="b527.cam4_r_DTIMING_BARRIERS">-DTIMING_BARRIERS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTIMING_BARRIERS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable timing barriers.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DTODO" id="b527.cam4_r_DTODO">-DTODO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTODO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable development code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DTRACER_CHECK" id="b527.cam4_r_DTRACER_CHECK">-DTRACER_CHECK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTRACER_CHECK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable tracer checking.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DTROPCHEM" id="b527.cam4_r_DTROPCHEM">-DTROPCHEM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTROPCHEM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the tropchem model.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUNICOSMP" id="b527.cam4_r_DUNICOSMP">-DUNICOSMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUNICOSMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable UNICOS specific system information routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUNSIGNED_BYTE" id="b527.cam4_r_DUNSIGNED_BYTE">-DUNSIGNED_BYTE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUNSIGNED_BYTE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUSEMPIIO" id="b527.cam4_r_DUSEMPIIO">-DUSEMPIIO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSEMPIIO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable MPI I/O
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUSE_CSM_SHARE" id="b527.cam4_r_DUSE_CSM_SHARE">-DUSE_CSM_SHARE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_CSM_SHARE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the sharing of performance timer information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUSE_ESMF_LIB" id="b527.cam4_r_DUSE_ESMF_LIB">-DUSE_ESMF_LIB</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_ESMF_LIB(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the ESMF Library.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUSE_MASTERPROC" id="b527.cam4_r_DUSE_MASTERPROC">-DUSE_MASTERPROC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_MASTERPROC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When using MPI, this flag forces only the master process to read in data.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUSE_NEW_DELETE" id="b527.cam4_r_DUSE_NEW_DELETE">-DUSE_NEW_DELETE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_NEW_DELETE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Implicitly set when using C++ compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DUSE_OMP" id="b527.cam4_r_DUSE_OMP">-DUSE_OMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_OMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the use of Cray CSD OpenMP-like directives.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DVECTORIZE" id="b527.cam4_r_DVECTORIZE">-DVECTORIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DVECTORIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable platform specific vector routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DVECTOR_MATH" id="b527.cam4_r_DVECTOR_MATH">-DVECTOR_MATH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DVECTOR_MATH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable platform specific vector math routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DVOC" id="b527.cam4_r_DVOC">-DVOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DVOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add VOC Flux data.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DWACCM_MOZART" id="b527.cam4_r_DWACCM_MOZART">-DWACCM_MOZART</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWACCM_MOZART(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+WACCM-derived relation between mass concentration and wet aerosol radius in meters.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DWACCM_PHYS" id="b527.cam4_r_DWACCM_PHYS">-DWACCM_PHYS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWACCM_PHYS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+WACCM-derived relation between mass concentration and wet aerosol radius in meters.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DWORDS_BIGENDIAN" id="b527.cam4_r_DWORDS_BIGENDIAN">-DWORDS_BIGENDIAN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWORDS_BIGENDIAN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+By default, NetCDF is using big endian data format.  To use Little Endian, define SPEC_WORDS_LITTLEENDIAN.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DWRAP_MPI_TIMING" id="b527.cam4_r_DWRAP_MPI_TIMING">-DWRAP_MPI_TIMING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRAP_MPI_TIMING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Put wrappers around MPI timing routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_DZTRINGV_ARGS_allows_Pvariables" id="b527.cam4_r_DZTRINGV_ARGS_allows_Pvariables">-DZTRINGV_ARGS_allows_Pvariables</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DZTRINGV_ARGS_allows_Pvariables(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This allows Pvariables for ARGS.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_posix_stuff" id="b527.cam4_r_posix_stuff">
+-DENOERR=XXX,
+-DFLT_MAX=XXX,
+-DFLT_MAX_EXP=XXX,
+-DINT_MAX=XXX,
+-DLONG_MAX=XXX,
+-DO_BINARY=XXX,
+-DSEEK_SET=XXX,
+-DSHORT_MAX=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:ENOERR|FLT_MAX_EXP|(?:INT|FLT|LONG|SHORT)_MAX|O_BINARY|O_CREAT|O_TRUNC|O_WRONLY|SEEK_SET)(?:=\S*)\b</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_cfortran_internals" id="b527.cam4_r_cfortran_internals">
+-D__CF_KnR=XXX,
+-D__CF__APOLLO67=XXX,
+-D__CF__KnR=XXX,
+-DOLD_VAXC=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:OLD_VAXC|__CF_(?:_?KnR|_APOLLO67))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros are used internally by cfortran.h and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_header_guards" id="b527.cam4_r_header_guards">
+-DUD_FORT_LIB_H,
+-DUD_NCFORTRAN_H,
+-DUD_NETCDF_CPP_INC,
+-D_NETCDF_,
+-D_FBITS_H_,
+-D__CFORTRAN_LOADED,
+-D_ONSTACK_H_,
+-D_NCCONFIG_AIX_H_,
+-D_NCCONFIG_GENERIC_H_,
+-D_NCCONFIG_H_,
+-D_NCCONFIG_IRIX_H_,
+-D_NCCONFIG_LINUX_H_,
+-D_NCCONFIG_MACOSX_H_,
+-D_NCCONFIG_SOLARIS_H_,
+-D_NCCONFIG_WINDOWS_H_,
+-D_NCIO_H_,
+-D_NCX_H_,
+-D_NC_H_,
+-DESMF_MACROS_INC,
+-DESMF_TimeMgr_INC
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:UD_(?:FORT_LIB_H|NCFORTRAN_H|NETCDF_CPP_INC)|_NETCDF_|_FBITS_H_|__CFORTRAN_LOADED|_ONSTACK_H_|_NCCONFIG_(?:AIX|GENERIC|IRIX|LINUX|MACOSX|SOLARIS|WINDOWS)_H_|_NCCONFIG_H_|_NCIO_H_|_NCX_H_|_NC_H_|ESMF_(?:MACROS|TimeMgr)_INC)\b</span></li>
+<li class="descText">
+<p>
+These macros are used to prevent multiple header inclusion; setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b527.cam4_r_comp_implicit" id="b527.cam4_r_comp_implicit">
+-Dextname=XXX,
+-Dsun=XXX,
+-DsunFortran=XXX,
+-Dunix=XXX,
+-Dvax=XXX,
+-Dvms=XXX,
+-DvmsFortran=XXX,
+-DhpuxFortran=XXX,
+-DhpuxFortran800=XXX,
+-Dlynx=XXX,
+-Dmips=XXX,
+-DmipsFortran=XXX,
+-Dapollo=XXX,
+-DapolloFortran=XXX,
+-D__CYGWIN32__=XXX,
+-D__GNUC__=XXX,
+-D__PATHCC__=XXX,
+-D__STDCPP__=XXX,
+-D__STDC__=XXX,
+-D__VAXC=XXX,
+-D__alpha=XXX,
+-D__convex__=XXX,
+-D__cplusplus=XXX,
+-D__hpux=XXX,
+-D__mips=XXX,
+-D__sgi=XXX,
+-D__sun=XXX,
+-D__ultrix__=XXX,
+-D__unix__=XXX,
+-D__vax__=XXX,
+-D__vms=XXX,
+-D_SC_PAGESIZE=XXX,
+-D_SC_PAGE_SIZE=XXX,
+-D_SX=XXX,
+-D__64BIT__=XXX,
+-D_MSC_VER=XXX,
+-D_IBMR2=XXX,
+-D_CRAY=XXX,
+-D_CRAYC=XXX,
+-D_CRAYIEEE=XXX,
+-D_CRAYMPP=XXX,
+-D_CRAYT3E=XXX,
+-D_INT64=XXX,
+-DVAXC=XXX,
+-DVAXUltrix=XXX,
+-DVISUAL_CPLUSPLUS=XXX,
+-DWIN32=XXX,
+-DS_IRUSR=XXX,
+-DSXFortran=XXX,
+-DCLIPPERFortran=XXX,
+-DCONVEXFortran=XXX,
+-DCRAY=XXX,
+-DCRAYFortran=XXX,
+-DDECFortran=XXX,
+-DIBMR2Fortran=XXX,
+-DPowerStationFortran=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:extname|sun|sunFortran|unix|vax|vms|vmsFortran|hpuxFortran|hpuxFortran800|lynx|mips|mipsFortran|apollo|apolloFortran|__CYGWIN32__|_WIN32|__WIN64|__PGI|__GNUC__|__PATHCC__|__STDCPP__|__STDC__|__VAXC|__alpha|__convex__|__cplusplus|__hpux|__mips|__sgi|__sun|__ultrix__|__unix__|__vax__|__vms|_SC_PAGESIZE|_SC_PAGE_SIZE|_SX|__64BIT__|_MSC_VER|_IBMR2|crayx1|_CRAY|_CRAYC|_CRAYIEEE|_CRAYMPP|_CRAYT3E|_INT64|VAXC|VAXUltrix|VISUAL_CPLUSPLUS|WIN32|S_IRUSR|SXFortran|CLIPPERFortran|CONVEXFortran|CRAY|CRAYFortran|DECFortran|IBMR2Fortran|PowerStationFortran)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These flags are set implicitly by the compilation system and may not be
+set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+</body>
+</html>

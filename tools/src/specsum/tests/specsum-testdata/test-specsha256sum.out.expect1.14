@@ -1,0 +1,2 @@
+specsha256sum:
+test-specsha256sum.in.expect1.14: no properly formatted SHA256 checksum lines found

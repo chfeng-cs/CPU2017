@@ -1,0 +1,21 @@
+runcpu banner
+Using tools
+Reading file manifests...
+Loading runcpu modules...
+Locating benchmarks...found some benchmarks in some benchsets.
+Reading config file 'trac274-2.cfg'
+  INFO: bits is defined to '19'
+Pre-processed configuration file dump follows:
+--------------------------------------------------------------------
+# Invocation command line:
+# $SPEC/bin/harness/runcpu --configpp -c trac274-2.cfg
+# output_root was not used for this run
+############################################################################
+sysinfo_program =
+
+
+--------------------------------------------------------------------
+
+The log for this run is in [log file]
+
+runcpu finished at [timestamp]

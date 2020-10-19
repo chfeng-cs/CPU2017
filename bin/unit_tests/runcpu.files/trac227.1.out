@@ -1,0 +1,6 @@
+Compiling Binaries
+  Building 999.specrand_ir base none: (build_base_none.0000) [timestamp]
+LetterBetweenBandD -c -o main.o -DSPEC -DNDEBUG -Ispecrand-common                   main.c
+Build successes for whatever: 999.specrand_ir(base)
+Build errors for whatever: None
+Build Complete

@@ -1,0 +1,494 @@
+# 01: Global number of degrees of freedom
+# 02: Data misfit
+# 03: Model misfit
+# 04: Chosen step length
+# 05: Final residual
+# 06: Final parameter error
+# 07: Number of inner CG iterations
+# 08: Experiment 00: Number of cells
+# 09: Experiment 00: Number of primal dofs
+# 10: Experiment 00: Number of global dofs
+# 11: Experiment 00: Data misfit
+# 12: Experiment 01: Number of cells
+# 13: Experiment 01: Number of primal dofs
+# 14: Experiment 01: Number of global dofs
+# 15: Experiment 01: Data misfit
+# 16: Experiment 02: Number of cells
+# 17: Experiment 02: Number of primal dofs
+# 18: Experiment 02: Number of global dofs
+# 19: Experiment 02: Data misfit
+# 20: Experiment 03: Number of cells
+# 21: Experiment 03: Number of primal dofs
+# 22: Experiment 03: Number of global dofs
+# 23: Experiment 03: Data misfit
+# 24: Experiment 04: Number of cells
+# 25: Experiment 04: Number of primal dofs
+# 26: Experiment 04: Number of global dofs
+# 27: Experiment 04: Data misfit
+# 28: Experiment 05: Number of cells
+# 29: Experiment 05: Number of primal dofs
+# 30: Experiment 05: Number of global dofs
+# 31: Experiment 05: Data misfit
+# 32: Experiment 06: Number of cells
+# 33: Experiment 06: Number of primal dofs
+# 34: Experiment 06: Number of global dofs
+# 35: Experiment 06: Data misfit
+# 36: Experiment 07: Number of cells
+# 37: Experiment 07: Number of primal dofs
+# 38: Experiment 07: Number of global dofs
+# 39: Experiment 07: Data misfit
+# 40: Experiment 08: Number of cells
+# 41: Experiment 08: Number of primal dofs
+# 42: Experiment 08: Number of global dofs
+# 43: Experiment 08: Data misfit
+# 44: Experiment 09: Number of cells
+# 45: Experiment 09: Number of primal dofs
+# 46: Experiment 09: Number of global dofs
+# 47: Experiment 09: Data misfit
+# 48: Experiment 10: Number of cells
+# 49: Experiment 10: Number of primal dofs
+# 50: Experiment 10: Number of global dofs
+# 51: Experiment 10: Data misfit
+# 52: Active constraints
+# 53: Number of parameter dofs
+# 54: Regularization parameter
+    154088
+2.06639e-07
+         0
+         0
+ 0.0102598
+  0.883883
+         0
+         0
+         0
+         0
+1.88062e-08
+         0
+         0
+         0
+1.87987e-08
+         0
+         0
+         0
+1.87987e-08
+         0
+         0
+         0
+1.88062e-08
+         0
+         0
+         0
+1.87987e-08
+         0
+         0
+         0
+1.87583e-08
+         0
+         0
+         0
+1.87583e-08
+         0
+         0
+         0
+1.87987e-08
+         0
+         0
+         0
+1.87987e-08
+         0
+         0
+         0
+1.87583e-08
+         0
+         0
+         0
+1.87583e-08
+         0
+         0
+         0
+
+    154088
+1.19322e-12
+3.25492e-14
+  0.999911
+3.00675e-09
+  0.883867
+        32
+      1152
+      6428
+     14008
+2.05005e-14
+      1152
+      6428
+     14008
+5.67857e-14
+      1152
+      6428
+     14008
+5.66246e-14
+      1152
+      6428
+     14008
+2.02638e-14
+      1152
+      6428
+     14008
+5.67063e-14
+      1152
+      6428
+     14008
+2.18871e-13
+      1152
+      6428
+     14008
+2.17676e-13
+      1152
+      6428
+     14008
+5.65266e-14
+      1152
+      6428
+     14008
+6.06803e-14
+      1152
+      6428
+     14008
+2.14218e-13
+      1152
+      6428
+     14008
+2.14365e-13
+         0
+        32
+     1e-07
+
+    154088
+1.10206e-12
+4.27914e-14
+  0.993075
+2.71349e-12
+  0.883863
+        32
+      1152
+      6428
+     14008
+2.01164e-14
+      1152
+      6428
+     14008
+5.33802e-14
+      1152
+      6428
+     14008
+5.29477e-14
+      1152
+      6428
+     14008
+1.9524e-14
+      1152
+      6428
+     14008
+5.30471e-14
+      1152
+      6428
+     14008
+2.01104e-13
+      1152
+      6428
+     14008
+1.98813e-13
+      1152
+      6428
+     14008
+5.23996e-14
+      1152
+      6428
+     14008
+5.87682e-14
+      1152
+      6428
+     14008
+1.9439e-13
+      1152
+      6428
+     14008
+1.97567e-13
+         0
+        32
+     1e-07
+
+    154088
+1.10165e-12
+4.32217e-14
+  0.999553
+2.94223e-16
+  0.883863
+        32
+      1152
+      6428
+     14008
+2.0265e-14
+      1152
+      6428
+     14008
+5.33578e-14
+      1152
+      6428
+     14008
+5.29147e-14
+      1152
+      6428
+     14008
+1.96609e-14
+      1152
+      6428
+     14008
+5.30434e-14
+      1152
+      6428
+     14008
+2.00879e-13
+      1152
+      6428
+     14008
+1.98567e-13
+      1152
+      6428
+     14008
+5.2413e-14
+      1152
+      6428
+     14008
+5.89222e-14
+      1152
+      6428
+     14008
+1.94128e-13
+      1152
+      6428
+     14008
+1.97495e-13
+         7
+        32
+     1e-07
+
+    126387
+1.11794e-12
+5.81993e-14
+  0.999999
+1.93301e-09
+   1.21526
+        50
+       942
+      5668
+     12278
+2.09395e-14
+       921
+      5532
+     11985
+5.37194e-14
+       921
+      5504
+     11929
+5.35321e-14
+       928
+      5544
+     12016
+2.05808e-14
+       893
+      5396
+     11685
+5.35128e-14
+       865
+      5232
+     11329
+2.04145e-13
+       851
+      5136
+     11123
+2.04366e-13
+       851
+      5136
+     11123
+5.38837e-14
+       879
+      5300
+     11479
+4.94883e-14
+       837
+      5068
+     10973
+2.02921e-13
+       795
+      4836
+     10467
+2.00851e-13
+         7
+        74
+     1e-07
+
+    126387
+1.11597e-12
+5.91656e-14
+   1.00001
+6.02994e-16
+   1.21526
+        50
+       942
+      5668
+     12278
+2.11307e-14
+       921
+      5532
+     11985
+5.37646e-14
+       921
+      5504
+     11929
+5.35612e-14
+       928
+      5544
+     12016
+2.07585e-14
+       893
+      5396
+     11685
+5.35602e-14
+       865
+      5232
+     11329
+2.03315e-13
+       851
+      5136
+     11123
+2.0358e-13
+       851
+      5136
+     11123
+5.39392e-14
+       879
+      5300
+     11479
+4.93881e-14
+       837
+      5068
+     10973
+2.02449e-13
+       795
+      4836
+     10467
+2.0052e-13
+         6
+        74
+     1e-07
+
+    198633
+1.06771e-12
+9.65234e-14
+         1
+4.91943e-10
+   1.47393
+        50
+      1404
+      8304
+     18012
+1.39095e-14
+      1383
+      8184
+     17751
+4.81776e-14
+      1425
+      8388
+     18201
+4.8232e-14
+      1516
+      8848
+     19212
+1.39336e-14
+      1383
+      8184
+     17751
+4.83738e-14
+      1383
+      8184
+     17751
+2.02182e-13
+      1411
+      8320
+     18051
+2.01377e-13
+      1453
+      8524
+     18501
+4.8097e-14
+      1383
+      8184
+     17751
+4.77842e-14
+      1383
+      8184
+     17751
+1.98605e-13
+      1397
+      8252
+     17901
+1.97034e-13
+         9
+       137
+     1e-07
+
+    198633
+1.06637e-12
+9.69144e-14
+  0.999652
+1.03744e-15
+   1.47393
+        50
+      1404
+      8304
+     18012
+1.38902e-14
+      1383
+      8184
+     17751
+4.81052e-14
+      1425
+      8388
+     18201
+4.81585e-14
+      1516
+      8848
+     19212
+1.39126e-14
+      1383
+      8184
+     17751
+4.83024e-14
+      1383
+      8184
+     17751
+2.01876e-13
+      1411
+      8320
+     18051
+2.01053e-13
+      1453
+      8524
+     18501
+4.80277e-14
+      1383
+      8184
+     17751
+4.77266e-14
+      1383
+      8184
+     17751
+1.98424e-13
+      1397
+      8252
+     17901
+1.96893e-13
+         0
+       137
+     1e-07
+

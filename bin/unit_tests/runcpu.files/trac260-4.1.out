@@ -1,0 +1,72 @@
+  Running (#1) 500.perlbench_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 502.gcc_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 505.mcf_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 520.omnetpp_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 523.xalancbmk_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 525.x264_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 531.deepsjeng_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 541.leela_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 548.exchange2_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 557.xz_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#1) 999.specrand_ir refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 500.perlbench_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 502.gcc_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 505.mcf_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 520.omnetpp_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 523.xalancbmk_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 525.x264_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 531.deepsjeng_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 541.leela_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 548.exchange2_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 557.xz_r refrate (ref) base none (4 copies) [timestamp]
+  Running (#2) 999.specrand_ir refrate (ref) base none (4 copies) [timestamp]
+  Running 500.perlbench_r test base none (1 copy) [timestamp]
+  Running 500.perlbench_r train base none (1 copy) [timestamp]
+  Running 502.gcc_r test base none (1 copy) [timestamp]
+  Running 502.gcc_r train base none (1 copy) [timestamp]
+  Running 505.mcf_r test base none (1 copy) [timestamp]
+  Running 505.mcf_r train base none (1 copy) [timestamp]
+  Running 520.omnetpp_r test base none (1 copy) [timestamp]
+  Running 520.omnetpp_r train base none (1 copy) [timestamp]
+  Running 523.xalancbmk_r test base none (1 copy) [timestamp]
+  Running 523.xalancbmk_r train base none (1 copy) [timestamp]
+  Running 525.x264_r test base none (1 copy) [timestamp]
+  Running 525.x264_r train base none (1 copy) [timestamp]
+  Running 531.deepsjeng_r test base none (1 copy) [timestamp]
+  Running 531.deepsjeng_r train base none (1 copy) [timestamp]
+  Running 541.leela_r test base none (1 copy) [timestamp]
+  Running 541.leela_r train base none (1 copy) [timestamp]
+  Running 548.exchange2_r test base none (1 copy) [timestamp]
+  Running 548.exchange2_r train base none (1 copy) [timestamp]
+  Running 557.xz_r test base none (1 copy) [timestamp]
+  Running 557.xz_r train base none (1 copy) [timestamp]
+  Running 999.specrand_ir test base none (1 copy) [timestamp]
+  Running 999.specrand_ir train base none (1 copy) [timestamp]
+  Starting runcpu for 500.perlbench_r test base none
+  Starting runcpu for 500.perlbench_r train base none
+  Starting runcpu for 502.gcc_r test base none
+  Starting runcpu for 502.gcc_r train base none
+  Starting runcpu for 505.mcf_r test base none
+  Starting runcpu for 505.mcf_r train base none
+  Starting runcpu for 520.omnetpp_r test base none
+  Starting runcpu for 520.omnetpp_r train base none
+  Starting runcpu for 523.xalancbmk_r test base none
+  Starting runcpu for 523.xalancbmk_r train base none
+  Starting runcpu for 525.x264_r test base none
+  Starting runcpu for 525.x264_r train base none
+  Starting runcpu for 531.deepsjeng_r test base none
+  Starting runcpu for 531.deepsjeng_r train base none
+  Starting runcpu for 541.leela_r test base none
+  Starting runcpu for 541.leela_r train base none
+  Starting runcpu for 548.exchange2_r test base none
+  Starting runcpu for 548.exchange2_r train base none
+  Starting runcpu for 557.xz_r test base none
+  Starting runcpu for 557.xz_r train base none
+  Starting runcpu for 999.specrand_ir test base none
+  Starting runcpu for 999.specrand_ir train base none
+Running Benchmarks
+Running Benchmarks (up to 4 concurrent processes)
+Running Benchmarks (up to 4 concurrent processes)
+Running sysinfo to gather system information.
+Waiting for running processes to finish...
+Waiting for running processes to finish...

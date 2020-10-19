@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ -z "$SPEC" -o ! -d "$SPEC" ]; then
+  echo SPEC not set
+  exit 1
+fi
+mkdir -p $SPEC/trac312
+chmod 755 $SPEC/trac312
+if [ ! -d $SPEC/trac312 ]; then
+  echo Could not create test output_root directory
+  exit 1
+fi

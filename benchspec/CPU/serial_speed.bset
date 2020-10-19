@@ -1,0 +1,30 @@
+# This file contains a list of the benchmarks written in
+# any language that have a refspeed workload but no OpenMP version.
+# It is automatically generated.
+
+$name        = 'serial_speed';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+602.gcc_s
+603.bwaves_s
+605.mcf_s
+607.cactuBSSN_s
+619.lbm_s
+621.wrf_s
+627.cam4_s
+628.pop2_s
+631.deepsjeng_s
+638.imagick_s
+644.nab_s
+649.fotonik3d_s
+654.roms_s
+657.xz_s
+);
+
+1;

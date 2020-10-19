@@ -1,0 +1,279 @@
+                                   505.mcf_r
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   505.mcf_r
+
+  Benchmark Author
+
+   Dr. Andreas Loebel <loebel [at] zib.de>
+
+ Dr. Andreas Loebel
+ Konrad-Zuse-Zentrum Berlin (ZIB)
+ Takustr. 7
+ D-14195 Berlin, Germany
+
+ Phone:     +49 (0)30 841 85 - 239
+ Fax:                        - 269
+ Secretary:                  - 208
+
+  Benchmark Program General Category
+
+   Combinatorial optimization / Single-depot vehicle scheduling
+
+  Benchmark Description
+
+   505.mcf_r is a benchmark which is derived from MCF, a program used for
+   single-depot vehicle scheduling in public mass transportation. The program
+   is written in C. The benchmark version uses almost exclusively integer
+   arithmetic.
+
+   The program is designed for the solution of single-depot vehicle
+   scheduling (sub-)problems occurring in the planning process of public
+   transportation companies. It considers one single depot and a homogeneous
+   vehicle fleet. Based on a line plan and service frequencies, so-called
+   timetabled trips with fixed departure/arrival locations and times are
+   derived. Each of these timetabled trips has to be serviced by exactly one
+   vehicle. The links between these trips are so-called dead-head trips. In
+   addition, there are pull-out and pull-in trips for leaving and entering
+   the depot.
+
+   Cost coefficients are given for all dead-head, pull-out, and pull-in
+   trips. It is the task to schedule all timetabled trips to so-called blocks
+   such that the number of necessary vehicles is as small as possible and,
+   subordinate, the operational costs among all minimal fleet solutions are
+   minimized.
+
+   For simplification in the benchmark test, we assume that each pull-out and
+   pull-in trip is defined implicitly with a duration of 15 minutes and a
+   cost coefficient of 15.
+
+   For the considered single-depot case, the problem can be formulated as a
+   large-scale minimum-cost flow problem that we solve with a network simplex
+   algorithm accelerated with a column generation. The core of the benchmark
+   505.mcf_r is the network simplex code "MCF Version 1.2 -- A network
+   simplex implementation", For this benchmark, MCF is embedded in the column
+   generation process.
+
+   The network simplex algorithm is a specialized version of the well known
+   simplex algorithm for network flow problems. The linear algebra of the
+   general algorithm is replaced by simple network operations such as finding
+   cycles or modifying spanning trees that can be performed very quickly. The
+   main work of our network simplex implementation is pointer and integer
+   arithmetic.
+
+   Because there have been no significant errors or changes during the years
+   2000 - 2004, most of the source code of the CPU2000 benchmark 181.mcf was
+   not changed in the transition to CPU2017 benchmark 505.mcf_r. However,
+   several central type definitions were changed for the CPU2017 version by
+   the author:
+
+     * Whenever possible, long typed attributes of struct node and struct arc
+       are replaced by 32 bit integer, for example if used as boolean type.
+       Pointers remain unaffected and map to 32 or 64 bit long, depending on
+       the compilation model, to ensure compatibility to 64 bit systems for
+       truly large scale problem instances.
+
+     * To reduce cache misses and accelerate program performance somewhat,
+       the elements of struct node and struct arc, respectively, are
+       rearranged according to the proposals made in "Memory Profiling using
+       Hardware Counters" by Marty Itzkowitz, Brian Wylie, Christopher Aoki,
+       and Nicolai Kosche
+       ([1]http://www.sc-conference.org/sc2003/paperpdfs/pap182.pdf)
+
+  Input Description
+
+   The input file contains line by line
+
+     * the number of timetabled and dead-head trips (first line),
+     * for each timetabled trip its starting and ending time,
+     * for each dead-head trip its starting and ending timetabled trip and
+       its cost.
+
+   Worst case execution time is pseudo-polynomial in the number timetabled
+   and dead-head trips and in the amount of the maximal cost coefficient. The
+   expected execution time, however, is in the order of a low-order
+   polynomial.
+
+  Output Description
+
+   The benchmark writes to two output files, inp.out and mcf.out.
+
+     * inp.out contains log information and a checksum
+     * mcf.out contains check output values describing an optimal schedule
+       computed by the program.
+
+  Programming Language
+
+   ANSI C, mathematical library (libm) required.
+
+   Regarding OpenMP: Although the source code for the benchmark includes
+   OpenMP directives, these are intentionally suppressed for the
+   SPECspeed2017(R) version of MCF, due to validation differences across
+   different platforms that were encountered during testing by SPEC(R).
+
+  Portability issues
+
+   The module spec_qsort.c does not obey strict ANSI aliasing rules. You may
+   need to add your compiler's flag that informs it not to assume strict ANSI
+   compliance.
+
+   In particular, the problem has been observed with GCC as described in the
+   section below.
+
+    Known portability issue: Incorrect answers with GCC LTO+FDO
+
+   Some users of GCC 6 (and later) have reported that 505.mcf_r gets wrong
+   answers when compiled with both link-time optimization (LTO) and
+   feedback-directed optimization (FDO), for example at [2]GCC bugzilla
+   83201. The problem can be seen when this is used with GCC version 7.2.1:
+
+ default=peak:
+    OPTIMIZE       = -g -O3 -flto
+    PASS1_OPTIMIZE = -fprofile-generate
+    PASS2_OPTIMIZE = -fprofile-use
+
+   the output from the 505.mcf_r section of runcpu includes:
+
+ *** Miscompare of inp.out; for details see
+     /spec/cpu2017/benchspec/CPU/505.mcf_r/run/run_peak_test_apr21d-m64.0000/inp.out.mis
+
+   and the referenced file begins:
+
+ $ head -6 inp.out.mis
+ 0010:  simplex iterations         : 107102
+        simplex iterations         : 107124
+                                         ^
+ 0014:  simplex iterations         : 152479
+        simplex iterations         : 149776
+                                      ^
+ $
+
+   Analysis It was demonstrated that the problem can occur even when
+   optimization is reduced to:
+
+ default=peak:
+    OPTIMIZE       = -g -O1 -flto -finline-small-functions -fstrict-aliasing
+    PASS1_OPTIMIZE = -fprofile-generate
+    PASS2_OPTIMIZE = -fprofile-use
+
+   as inlining decisions are made for modules pbeampp.c and spec_qsort.c.
+   On careful examination, it appears that the swap macros in spec_qsort.c
+   violate strict ANSI aliasing rules.
+
+   q1. Will SPEC fix spec_qsort.c?
+
+   a1. No. There are two reasons:
+
+     * That's the way it is in real life
+       The module spec_qsort.c is based directly on the BSD version, as
+       updated Thu Mar 5 17:17:11 2015 UTC in revision 279666:
+       [3]https://svnweb.freebsd.org/base/head/lib/libc/stdlib/qsort.c?revision=279666.
+     * No moving targets
+       SPEC CPU(R)2017 has already been released. Once source code has been
+       released for a benchmark, SPEC strongly prefers not to change the
+       source code unless there are compelling portability reasons.
+
+   Note, therefore, that the patch attached to GCC bug 83201 [4]is not
+   approved by SPEC and would not be allowed in a reportable run.
+
+   q2. Does SPEC care about language standards?
+
+   a2. Yes, SPEC cares about language standards.
+   The time to demonstrate such caring is prior to release of a benchmark
+   suite. During benchmark development, SPEC constantly pushes benchmarks
+   away from proprietary methods and closer to standard methods. Pre-release
+   testers are encouraged to help find such problems by using their
+   compiler's --standard=picky switches.
+
+   q3. So what should I do?
+
+   a3. If you are using GCC, add -fno-strict-aliasing to your flags, for
+   example:
+
+ 505.mcf_r=peak:
+     EXTRA_COPTIMIZE = -fno-strict-aliasing
+
+   Note that in base, where the [5]rules require consistent flags for all
+   benchmarks, you may already have that flag, because 500.perlbench_r needs
+   it. For example, your config file may have:
+
+ intrate,intspeed=base:
+     EXTRA_COPTIMIZE = -fno-strict-aliasing -fgnu89-inline
+
+   (For information on the -fgnu89-inline flag, see the documentation for
+   [6]502.gcc_r.)
+
+   q4. What about other compilers?
+
+   a4. Spelling varies.
+   You will need to look in your compiler documentation for the flag that
+   tells the optimizer that it cannot assume strict ANSI conformance.
+
+   q5. Several other benchmarks use spec_qsort.c. Are they affected?
+
+   a5. It's possible. The same workaround would apply.
+   Specifically, spec_qsort.c is also used by 502.gcc_r, 602.gcc_s,
+   511.povray_r, 611.povray_s, 527.cam4_r, and 627.cam4_s.
+   It is conceivable that they might also need -fno-strict-aliasing.
+
+  Sources and Licensing
+
+   MCF was licensed directly to SPEC by the authors. SPEC modified qsort and
+   added win32/inttypes.h, both under BSD license.
+
+   Please see details in the document [7]SPEC CPU(R)2017 Licenses.
+
+  Other information, WWW Resource
+
+   Background information about the vehicle scheduling problem can be found
+   in the author's Ph.D. thesis "Optimal Vehicle scheduling in public
+   transit", which is available via WWW at the author's homepage
+   [8]www.zib.de/members/loebel or at
+   ftp://ftp.zib.de/pub/zib-publications/books/Loebel.disser.ps.
+
+   The work horse in the benchmark 505.mcf_r is the code "MCF Version X.X --
+   A network simplex implementation", which is available for academic use
+   free of charge via WWW at www.zib.de. Information about MCF is available
+   in [9]http://www.zib.de/opt-long_projects/Software/Mcf/
+
+   An excellent text book about the network simplex algorithm and network
+   flow in general is Ahuja, Magnanti, and Orlin: "Network Flows: Theory,
+   Algorithms, and Applications", Prentice-Hall, Inc., Englewood Cliffs, New
+   Jersey, 1993.
+
+   MCF had originally been developed for application in the public
+   transportation systems of Hamburg and Berlin (BVG). For BVG, bus
+   scheduling was optimized in 1998 on the basis of MCF; BVG also owns usage
+   rights to the software that has been integrated into their planning system
+   BERTA.
+
+   The MCF method for vehicle scheduling later has been integrated, into the
+   vehicle and personnel planning system MICROBUS. This system in now
+   marketed by IVU Traffic Technologies AG ([10]https://www.ivu.de) to public
+   transportation companies; the bus service divions of the German and the
+   Austrian railway companies are among the licencees.
+
+   Compared with the original and the commercial versions, the benchmark
+   version has been simplified in the I/O area, to keep the I/O content
+   small. The main algorithmic part, however, has been retained.
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. http://www.sc-conference.org/sc2003/paperpdfs/pap182.pdf
+   2. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83201
+   3. https://svnweb.freebsd.org/base/head/lib/libc/stdlib/qsort.c?revision=279666
+   4. https://gcc.gnu.org/bugzilla/show_bug.cgi?id=83201#c21
+   5. https://www.spec.org/cpu2017/Docs/runrules.html#BaseFlags
+   6. https://www.spec.org/cpu2017/Docs/benchmarks/502.gcc_r.html#portability
+   7. https://www.spec.org/cpu2017/Docs/licenses.html#bmk505.mcf_r
+   8. http://www.zib.de/members/loebel
+   9. http://www.zib.de/opt-long_projects/Software/Mcf/
+  10. https://www.ivu.de/

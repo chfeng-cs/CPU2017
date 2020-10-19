@@ -1,0 +1,44 @@
+# 01: Global number of degrees of freedom
+# 02: Data misfit
+# 03: Model misfit
+# 04: Chosen step length
+# 05: Final residual
+# 06: Final parameter error
+# 07: Number of inner CG iterations
+# 08: Experiment 0: Number of cells
+# 09: Experiment 0: Number of primal dofs
+# 10: Experiment 0: Number of global dofs
+# 11: Experiment 0: Data misfit
+# 12: Active constraints
+# 13: Number of parameter dofs
+# 14: Regularization parameter
+     14008
+5.95813e-07
+         0
+         0
+ 0.0211499
+  0.883883
+         0
+         0
+         0
+         0
+5.95813e-07
+         0
+         0
+         0
+
+     14008
+1.24603e-11
+3.86419e-13
+  0.999245
+7.84016e-08
+  0.883824
+        32
+      1152
+      6428
+     14008
+1.24603e-11
+         0
+        32
+     1e-07
+

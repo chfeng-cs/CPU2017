@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Index - CPU 2017</title>
+<!-- You'll want a nice wide screen when editing this .......................................................................... -->
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+.newterm   {font-style:italic; font-weight:bold;}
+p.docname  {font-size:120%; margin: 1.7em 0em .3em; font-family: sans-serif;}
+p.docdescr {margin:.2em 2em 1em; font-family:serif; }
+a:link, a:visited {white-space:nowrap; text-decoration:none; color: blue; }
+td.first   {border:none;}
+td.last    {padding-bottom:9px;}
+td.only    {border:none;padding-bottom:9px;}
+th         {vertical-align:middle; text-align:left; padding:2px;border:none;} 
+th.bold    {padding-left:1.2em; font-family:sans-serif; text-decoration:bold; font-size:100%; vertical-align:middle;}
+.Major     {text-align:left; font-family:sans-serif; padding:2px 3px 2px 3px; color:white; background:#446688; font-size:100%;}
+.MajorCent {text-align:center; font-family:sans-serif; padding:2px 3px 2px 3px; color:white; background:#446688; font-size:100%;}
+</style>
+</head>
+<body>
+
+
+<table class="version">
+   <tr>
+      <th>$Id: index.html 6362 2019-08-19 17:54:29Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+<table class="noborder">
+   <tr>
+      <td>
+         <h1 style="background:white;color:black;padding:2px;text-align:left;font-size:16px;margin:2px 4px 2px;">
+            <span class="Major">SPEC CPU&reg;2017 Documentation Index</span></h1>
+      </td>
+      <td>
+         <p class="snug">
+         [<a  href="#updates"    >Updates</a>]&nbsp;&nbsp;
+         [<a  href="#tools"      >Tools</a>]&nbsp;&nbsp;
+         [<a  href="#benchmarks" >Benchmarks</a>]&nbsp;&nbsp;
+         [<a  href="#openSource">Open Source</a>]</p>
+      </td>
+   </tr>
+</table>
+
+
+<h4 style="margin-top:1em;" id="updates">Updates</h4>
+<div class="l2">
+
+<p class="snugbot">SPEC CPU 2017 may be updated from time to time.  
+To update your copy, use <a href="runcpu.html#update">runcpu --update</a>.</p>
+
+<p class="snugish">History:</p>
+<ul class="snug">
+   <li>v1.1.0, Sep-2019: fully support power measurement.  See <a href="changes-in-v1.1.html">SPEC CPU 2017 Changes in
+         v1.1</a>.</li>
+   <li>v1.0.5, May-2018: improve Spectre/Meltdown vulnerability reporting; improve GCC compatibility for both
+      examples and documentation.</li> 
+   <li>The list of <a href="Revisions.txt">Revisions</a> has more detail.</li>
+</ul>
+
+</div>
+
+
+
+<h4 style="margin-top:1em;" id="tools">Tools</h4>
+
+<div class="l1">
+
+   <table>
+      <tr>
+         <th colspan="2" class="Major">Getting Started</th>
+      </tr>
+      <tr>
+         <td class="first"><a  href="quick-start.html">Quick Start</a></td>
+         <td class="first">A one-pager to get you started quickly.</td>
+      </tr>
+
+      <tr>
+         <td ><a  href="overview.html">Overview/What's&nbsp;New</a></td>
+         <td >Overview of the suite and the process, including 
+            <a href="overview.html#Q7">Why</a> this benchmark?
+            What are the <a href="overview.html#metrics">metrics</a>?  
+            How does CPU 2017 <a href="overview.html#new">differ</a> from previous suites?
+         </td>
+      </tr>
+
+      <tr>
+         <td><a  href="system-requirements.html">System Requirements</a> </td>
+         <td>Hardware and software needed to use SPEC CPU 2017.</td>
+      </tr>
+      <tr>
+         <td class="last"><a  href="install-guide-unix.html">Installing on Unix</a> <br/> <a class="local"
+               href="install-guide-windows.html">Installing on Windows</a></td>
+         <td class="last">Installation guides.  The "Unix" guide applies to AIX, HP-UX, Linux, Mac OS X, Solaris and similar systems.  The
+            Windows guide is for Microsoft Windows systems.</td>
+      </tr>
+
+
+      <tr>
+         <th style="white-space:nowrap;" colspan="2" class="Major">Basic Use </th>
+      </tr>
+      <tr>
+         <td class="first"><a  href="runcpu.html">Using SPEC CPU 2017<br />(runcpu)</a></td>
+         <td class="first">The <kbd>runcpu</kbd> command is the primary user interface for running SPEC CPU 2017 benchmarks and reporting
+            results.  Everyone using the suite will need this document.</td> 
+      </tr>
+      <tr>
+         <td class="last"><a href="runrules.html">SPEC CPU 2017<br />Run and Reporting
+               Rules</a></td>
+         <td class="last">The rules  must be studied carefully prior to submitting results to SPEC for publication, and prior
+            to quoting results in public.  <span class="caution">Caution:</span> the rules may be updated. Published result
+            must comply with the current version 
+            at&nbsp;<a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html">www.spec.org/cpu2017/Docs/runrules.html</a>.</td>
+   </tr>
+
+      <tr>
+         <th colspan="2" class="Major">Customizing Your Testing</th>
+      </tr>
+      <tr>
+         <td class="first"><a  href="config.html">Config Files</a> </td>
+         <td class="first">SPEC CPU 2017 provides benchmarks in source code form.  A "config file" specifies how to compile them and controls
+            many aspects of how they are run.  If you are a new user, you will probably start with an existing config file,
+            such as one downloaded from <a class="external" href="https://www.spec.org/cpu2017/">www.spec.org/cpu2017</a>.  </td> 
+      </tr>
+      <tr>
+         <td><a  href="flag-description.html">Flag Description Files</a> </td>
+         <td><p class="snug">When the benchmarks are compiled, compilation flags (such as <samp class="nb">-O2</samp>
+            or <samp class="nbsnugr">-unroll</samp>) are detected and automatically reported.  Flag description files help the
+            tools recognize flags and report on them.   Your compiler vendor may supply a flag description file for you,
+            which you can reference via the config file <a  href="config.html#flagsurl">flagsurl</a> field.
+            <br />
+            In addition to compiler flags files, there are also "platform" flags files, where you describe items
+            such as Operating System tuning and BIOS settings.  It is likely that you will need to write your own Platform Flags
+            File.</p>
+         </td>
+      </tr>
+
+      <tr>
+         <th colspan="2" class="Major">Advanced Topics</th>
+      </tr>
+      <tr>
+         <td class="first"><a  href="makevars.html">Make Variables</a> </td>
+         <td class="first">To understand exactly how the benchmarks are built, use this document to help you decipher the process.</td>
+      </tr>
+      <tr>
+         <td><a  href="monitors.html">Monitoring Facility</a> </td>
+         <td>Information about monitoring hooks.</td>
+      </tr>
+      <tr>
+         <td ><a  href="utility.html">Utilities</a> </td>
+         <td >How to use specinvoke, specdiff, specmake and other utilities. Also, manpages are available for FILEPP 
+            (<a  href="specpp.html">specpp</a>) and RXP (<a class="local" href="specrxp.html">specrxp</a>).  </td>
+      </tr>
+      <tr>
+         <td class="last"><a  href="runcpu-avoidance.html">Avoiding runcpu</a> </td>
+         <td class="last">Although <samp>runcpu</samp> automates many benchmarking tasks, sometimes you may prefer to work "by hand",
+            perhaps because you want to modify a benchmark, collect traces for a simulator, or debug an experimental compiler. This
+            document describes how to minimize use of SPEC's toolset.</td>
+      </tr>
+
+      <tr>
+         <th colspan="2" class="Major">Trouble</th>
+      </tr>
+      <tr>
+         <td class="first"><a  href="faq.html">FAQ</a> </td>
+         <td class="first">Frequently asked technical questions</td>
+      </tr>
+      <tr>
+         <td><a  href="known-problems.html">Known Problems</a> </td>
+         <td>Known problems and errata information.</td>
+      </tr>
+      <tr>
+         <td><a  href="techsupport.html">Technical Support</a> </td>
+         <td>Information on SPEC technical support.</td>
+      </tr>
+      <tr>
+         <td class="last"><a  href="tools-build.html">Building the Toolset</a> </td>
+         <td class="last">How to build (or re-build) the tools (Hint: you probably don't need to.)</td>
+      </tr>
+
+      <tr>
+         <th colspan="2" class="Major">Miscellany</th>
+      </tr>
+      <tr>
+         <td class="first"><a  href="credits.html">Credits</a> </td>
+         <td class="first"> Information about the contributors to SPEC CPU 2017.</td>
+      </tr>
+      <tr>
+         <td class="last"><a  href="licenses.html">Licenses</a> </td>
+         <td class="last">Copyright notice and license information.</td>
+      </tr>
+
+   </table>
+
+</div>
+
+
+
+<h4 id="benchmarks">The <span id="benchdocs">Benchmarks</span></h4>
+
+<p class="snug">SPEC CPU 2017 has 43 benchmarks, organized into 4 suites:</p>
+<pre class="snugish">
+ SPECrate 2017 Integer            SPECspeed 2017 Integer
+ SPECrate 2017 Floating Point     SPECspeed 2017 Floating Point
+</pre>
+<p class="snug">Benchmark pairs shown as:</p> 
+<pre class="snugish">
+ 5nn.benchmark_r / 6nn.benchmark_s
+</pre>
+<p class="snug">are similar to each other.  
+Differences include: compile flags; workload sizes; and run rules.
+See: [<a href="config.html#openmp">OpenMP</a>] &nbsp; 
+[<a  href="system-requirements.html#memory">memory</a>] &nbsp;
+[<a  href="runrules.html#compilerParallel">rules</a>]
+</p>
+
+
+<div class="l1">
+
+   <!-- ReUsableBegin benchmarkList -->
+         <!-- no class="external" here:
+            This section's primary home is the doc index, where nothing gets marked class=external, because that is
+            the point of the index. -->
+   <table id="benchmarkList">
+      <tr>
+         <th id="intrate" class="MajorCent">SPECrate&reg;2017<br />Integer</th>
+         <th id="intspeed" class="MajorCent">SPECspeed&reg;2017<br />Integer</th>
+         <th class="bold" style="text-align:center;">Language<a style="font-size:small;margin-left:2px;" href="#linkNote">[1]</a></th>
+         <th class="bold" style="text-align:right;">KLOC<a style="font-size:small;margin-left:2px;" href="#klocNote">[2]</a></th>
+         <th class="bold">Application Area</th>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/500.perlbench_r.html">500.perlbench_r</a></td> 
+         <td><a href="benchmarks/600.perlbench_s.html">600.perlbench_s </a></td> 
+         <td class="ttc">C       </td> 
+         <td class="ttr">362</td>
+         <td> Perl interpreter</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/502.gcc_r.html">502.gcc_r      </a></td> 
+         <td><a href="benchmarks/602.gcc_s.html">602.gcc_s       </a></td> 
+         <td class="ttc">C       </td> 
+         <td class="ttr">1,304</td>
+         <td> GNU C compiler</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/505.mcf_r.html">505.mcf_r      </a></td> 
+         <td><a href="benchmarks/605.mcf_s.html">605.mcf_s       </a></td> 
+         <td class="ttc">C       </td> 
+         <td class="ttr">3</td>
+         <td> Route planning</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/520.omnetpp_r.html">520.omnetpp_r  </a></td> 
+         <td><a href="benchmarks/620.omnetpp_s.html">620.omnetpp_s   </a></td> 
+         <td class="ttc">C++     </td> 
+         <td class="ttr">134</td>
+         <td> Discrete Event simulation - computer network </td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/523.xalancbmk_r.html">523.xalancbmk_r</a></td> 
+         <td><a href="benchmarks/623.xalancbmk_s.html">623.xalancbmk_s </a></td> 
+         <td class="ttc">C++     </td> 
+         <td class="ttr">520</td>
+         <td> XML to HTML conversion via XSLT</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/525.x264_r.html">525.x264_r     </a></td> 
+         <td><a href="benchmarks/625.x264_s.html">625.x264_s      </a></td> 
+         <td class="ttc">C       </td> 
+         <td class="ttr">96</td>
+         <td> Video compression</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/531.deepsjeng_r.html">531.deepsjeng_r</a></td> 
+         <td><a href="benchmarks/631.deepsjeng_s.html">631.deepsjeng_s </a></td> 
+         <td class="ttc">C++     </td> 
+         <td class="ttr">10</td>
+         <td> Artificial Intelligence: alpha-beta tree search (Chess)</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/541.leela_r.html">541.leela_r    </a></td> 
+         <td><a href="benchmarks/641.leela_s.html">641.leela_s     </a></td> 
+         <td class="ttc">C++     </td> 
+         <td class="ttr">21</td>
+         <td> Artificial Intelligence: Monte Carlo tree search (Go)</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/548.exchange2_r.html">548.exchange2_r</a></td> 
+         <td><a href="benchmarks/648.exchange2_s.html">648.exchange2_s </a></td> 
+         <td class="ttc">Fortran </td> 
+         <td class="ttr">1</td>
+         <td> Artificial Intelligence: recursive solution generator (Sudoku)</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/557.xz_r.html">557.xz_r       </a></td> 
+         <td><a href="benchmarks/657.xz_s.html">657.xz_s        </a></td> 
+         <td class="ttc">C       </td> 
+         <td class="ttr">33</td>
+         <td> General data compression</td>
+      </tr>
+
+
+      <tr>
+         <td colspan="5">&nbsp;</td>
+      </tr>
+      <tr>
+         <th id="fprate" class="MajorCent">SPECrate&reg;2017<br /> Floating Point</th>
+         <th id="fpspeed" class="MajorCent">SPECspeed&reg;2017<br />Floating Point</th>
+         <th class="bold" style="text-align:center;">Language<a style="font-size:small;margin-left:2px;" href="#linkNote">[1]</a></th>
+         <th class="bold" style="text-align:right;">KLOC<a style="font-size:small;margin-left:2px;" href="#klocNote">[2]</a></th>
+         <th class="bold">Application Area</th>
+      </tr> 
+      <tr>
+         <td><a href="benchmarks/503.bwaves_r.html">503.bwaves_r   </a></td> 
+         <td><a href="benchmarks/603.bwaves_s.html">  603.bwaves_s   </a> </td>  
+         <td class="ttc">Fortran         </td> 
+         <td class="ttr">1</td>
+         <td> Explosion modeling</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/507.cactuBSSN_r.html">507.cactuBSSN_r</a></td> 
+         <td><a href="benchmarks/607.cactuBSSN_s.html">  607.cactuBSSN_s</a> </td>  
+         <td class="ttc">C++, C, Fortran </td> 
+         <td class="ttr">257</td>
+         <td> Physics: relativity</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/508.namd_r.html">508.namd_r     </a></td> 
+         <td class="empty">  &nbsp;                         </td>  
+         <td class="ttc">C++             </td> 
+         <td class="ttr">8</td>
+         <td> Molecular dynamics</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/510.parest_r.html">510.parest_r   </a></td> 
+         <td class="empty">  &nbsp;                         </td>  
+         <td class="ttc">C++             </td> 
+         <td class="ttr">427</td>
+         <td> Biomedical imaging: optical tomography with finite elements</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/511.povray_r.html">511.povray_r   </a></td> 
+         <td class="empty">  &nbsp;                         </td>  
+         <td class="ttc">C++, C          </td> 
+         <td class="ttr">170</td>
+         <td> Ray tracing</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/519.lbm_r.html">519.lbm_r      </a></td> 
+         <td><a href="benchmarks/619.lbm_s.html">619.lbm_s      </a> </td>  
+         <td class="ttc">C               </td> 
+         <td class="ttr">1</td>
+         <td> Fluid dynamics</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/521.wrf_r.html">521.wrf_r      </a></td> 
+         <td><a href="benchmarks/621.wrf_s.html">  621.wrf_s      </a> </td>  
+         <td class="ttc">Fortran, C      </td> 
+         <td class="ttr">991</td>
+         <td> Weather forecasting</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/526.blender_r.html">526.blender_r  </a></td> 
+         <td class="empty">  &nbsp;                         </td>  
+         <td class="ttc">C++, C          </td> 
+         <td class="ttr">1,577</td>
+         <td>3D rendering and animation</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/527.cam4_r.html">527.cam4_r     </a></td> 
+         <td><a href="benchmarks/627.cam4_s.html">  627.cam4_s </a>     </td>  
+         <td class="ttc">Fortran, C      </td> 
+         <td class="ttr">407</td>
+         <td> Atmosphere modeling</td>
+      </tr>
+      <tr>
+         <td class="empty">&nbsp;                                                  </td> 
+         <td><a href="benchmarks/628.pop2_s.html">  628.pop2_s   </a>   </td>  
+         <td class="ttc">Fortran, C      </td> 
+         <td class="ttr">338</td>
+         <td>Wide-scale ocean modeling (climate level)</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/538.imagick_r.html">538.imagick_r  </a></td> 
+         <td><a href="benchmarks/638.imagick_s.html">  638.imagick_s  </a> </td>  
+         <td class="ttc">C               </td> 
+         <td class="ttr">259</td>
+         <td> Image manipulation</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/544.nab_r.html">544.nab_r      </a></td> 
+         <td><a href="benchmarks/644.nab_s.html">  644.nab_s      </a> </td>  
+         <td class="ttc">C               </td> 
+         <td class="ttr">24</td>
+         <td> Molecular dynamics</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/549.fotonik3d_r.html">549.fotonik3d_r</a></td> 
+         <td><a href="benchmarks/649.fotonik3d_s.html">  649.fotonik3d_s</a> </td>  
+         <td class="ttc">Fortran         </td> 
+         <td class="ttr">14</td>
+         <td> Computational Electromagnetics</td>
+      </tr>
+      <tr>
+         <td><a href="benchmarks/554.roms_r.html">554.roms_r     </a></td> 
+         <td><a href="benchmarks/654.roms_s.html">  654.roms_s     </a> </td>  
+         <td class="ttc">Fortran         </td> 
+         <td class="ttr">210</td>
+         <td> Regional ocean modeling</td>
+      </tr>
+
+      <tr>
+         <td colspan="2">&nbsp;</td>
+         <td colspan="3" style="font-size:85%;" id="linkNote">[1] For multi-language benchmarks, the first one
+            listed determines library and link options (<a href="makevars.html#linkNote">details</a>)</td>
+      </tr>
+      <tr>
+         <td colspan="3">&nbsp;</td>
+         <td colspan="2" style="font-size:85%;" id="klocNote">[2] KLOC = line count (including comments/whitespace) for
+            source files used in a build / 1000</td>
+      </tr>
+
+   </table>
+   <!-- benchmarkList ReUsableEnd -->
+
+</div>
+
+<p>Some individual benchmark in the suite have additional documents, found in the benchmark "Docs" subdirectory on your installed
+benchmark tree, or on the SPEC CPU 2017 distribution media.  For example, additional information about 554.roms_r may be found in your
+installed copy of SPEC CPU 2017 at:</p>
+
+<p class="codeexample">&nbsp;&nbsp;&nbsp;$SPEC/benchspec/CPU/554.roms_r/Docs/ (Unix) 
+<br />or
+<br />&nbsp;&nbsp;&nbsp;%SPEC%\benchspec\CPU\554.roms_r\Docs\ (Windows) </p>
+
+
+<h4 id="openSource">Open Source Components</h4>
+
+<p>On the SPEC distribution media (ISO image), you will find:</p>
+
+<pre>
+redistributable_sources/README Information about freely-available sources
+                               that have been incorporated in SPEC CPU 2017
+</pre>
+
+<p>Information about which components are used and their licenses is in <a href="licenses.html">SPEC CPU 2017
+   Licenses</a>.</p>
+
+
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Documentation Index:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+</body>
+</html>
+

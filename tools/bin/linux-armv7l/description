@@ -1,0 +1,4 @@
+For Linux systems with ARM Cortex-A7-compatible
+                              CPUs. Built on a Raspberry Pi 2 running
+                              Raspbian GNU/Linux 7 (wheezy) with GCC
+                              4.6.3 (Debian 4.6.3-14+rpi1)

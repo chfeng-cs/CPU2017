@@ -1,0 +1,127 @@
+Version 1.9.1 - July, 2019
+
+New Devices
+------------------
+added Yokogawa WT5000 as accepted AC, DC and 3-phase power measurement device
+
+General Code Changes
+--------------------
+fix for buffer overflow during RL command
+added network capability bit to Linux Hioki 3334, 3335 and 3336 devices
+
+Version 1.9.0 - February, 2019
+
+New Features
+------------------
+added support for frequency readings to compatible devices
+added 1-wire Linux support for temperature sensors
+updated banner text per legal guidance
+
+New Devices
+------------------
+added Chroma 66205 as accepted AC and DC power measurement device
+added support for Yokogawa WT1800E (enhanced model of WT1800)
+added PCsensor.com USB9097+DS18B20 as an accepted temperature sensor
+
+Version 1.8.1 - December, 2016
+
+New Features
+------------------
+added USBTMC support for Windows using Keysight drivers
+added CRC and build date to banner
+
+New Devices
+------------------
+added Hioki PW3335 as accepted DC device
+
+
+Version 1.8.0 - January, 2016
+
+New Features
+------------------
+Consistent range setting and reporting for 3-phase devices
+
+New Devices
+------------------
+added Yokogawa WT310e and WT330e (single-channel and 3-phase) as accepted AC devices
+added Hioki PW3335, PW3336 and PW3337 (single-channel)  as accepted AC devices
+added Hioki PW3336 (multichannel) and PW3337 (multichannel and 3-phase) as accepted AC devices
+
+
+Version 1.7.1 - February, 2015
+
+New Devices
+------------------
+added Tektronix PA1000 as an accepted AC and DC device
+added Chroma 66203 and 66204 as accepted DC measurement devices
+
+
+Version 1.7.0 - August, 2014
+
+New Features
+------------------
+Official support for DC power measurements
+
+New Devices
+------------------
+added Yokogawa WT330 (single-channel and 3-phase) as an accepted AC device
+added N4L PPA5X0, Yokogawa WT210, WT310, WT500 and ZES LMG95 as accepted DC devices
+
+Version 1.6.3 - March 26, 2014
+
+New Device support
+------------------
+added Chroma 66203 and 66204 as accepted devices
+
+Version 1.6.2 - December, 2013
+
+New Features
+------------
+added -X argument to output XML-formatted device list
+
+New Device support
+------------------
+added Newtons4th PPA5x0 as an accepted device
+added support for HC and LC models of all Newtons4th devices
+
+Version 1.6.1 - June, 2013
+
+New Device support
+------------------
+added channel 2 and 3 support for Newtons4th PPA15x0
+added Newtons4th PPA55x0 as an accepted device
+
+General code changes
+--------------------
+added additional calibration date formats for better SERT compatibility
+
+Version 1.6.0 - March 14, 2013
+
+New Device support
+------------------
+added Yokogawa WT310
+added iButtonLink + T-Probe/T-Sense temperature sensors
+
+General code changes
+--------------------
+added infrastructure to support DC measurements
+added "-B <baud rate>" command-line switch for users to override the device default baud rate
+
+
+
+Version 1.5.0 - December 13, 2012
+
+New Device support
+------------------
+added WT500 multichannel and multiphase support
+
+General code changes
+--------------------
+added 4 additional fields to Identify command output to ease parsing and multiphase and DC support
+fixed OS version parsing bug seen with Windows 8 host
+fixed multichannel duplicate output bug
+changed version expiration warning from 6 months to 1 year
+fixed bug in multichannel analyzer timeout reporting
+changed RR output in multichannel mode to be consistent with other multichannel commands
+fix for timing issue with RL command
+mark sum channel volts, amps and PF as invalid when in multichannel non-multiphase mode

@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Quick Start - CPU 2017</title>
+<!-- $Id: quick-start.html 6309 2019-07-28 22:01:05Z JohnHenning $ -->
+<!-- You'll want a nice wide screen (132 columns) when editing this ............................................................ -->
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+body { background: white; color: black; }
+a:link, a:visited    { text-decoration:none; }
+
+</style>
+
+</head>
+<body>
+
+<h1 style="margin-bottom:0">SPEC CPU&reg;2017 Quick Start</h1>
+<table class="version">
+   <tr>
+      <th>$Id: quick-start.html 6309 2019-07-28 22:01:05Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+<p>This document provides a quick start for SPEC CPU&reg;2017, a product of the SPEC&reg; non-profit corporation 
+<a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  </p>
+
+<p class="snugbot"><b>Do you want to start here? </b></p>
+<ul class="snugish">
+   <li>If you are new to SPEC CPU, benchmarking, compilers, 
+   response time vs. throughput, SPECspeed vs.  SPECrate, please see: <a class="external" href="overview.html">Overview</a>.</li> 
+   <li>Just want to dive in?  &nbsp;&nbsp;&nbsp;&nbsp;This document is for you. </li>
+   <li>Just want an <b>example</b>? Scroll to bottom.</li>
+</ul> 
+<p class="snug">All users should read the <a class="external" href="runrules.html">rules</a> before using results in <a
+   class="external" href="https://www.spec.org/fairuse.html">public</a>.</p>
+                                                                       
+<p id="benchmarks" class="hanging1snugbot">
+<b>Decide which benchmark(s) to start with:</b> &nbsp; SPEC CPU 2017 includes 43 benchmarks
+arranged in 4 suites. 
+You can run one or more individual benchmarks, such as <samp class="nbsnugr">500.perlbench_r</samp>, or you 
+can run entire suites, using one of the Short Tags below.</p>
+<div class="l1">
+
+         <!-- ReUsable: benchmarks, tags, and suites -->
+         <table class="snugtop">
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;"><b>Short<br />Tag</b></td>
+               <td style="vertical-align:middle;"><b>Suite</b></td>
+               <td style="vertical-align:middle;"><b>Contents</b></td>
+               <td style="vertical-align:middle;"><b>Metrics</b></td>
+               <td style="font-size:85%;"><b>How many copies?<br />What do Higher Scores Mean?</b></td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">intspeed</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#intspeed">SPECspeed&reg;2017 Integer</a> </td>
+               <td style="vertical-align:middle;">10 integer benchmarks</td>
+               <td style="font-family:monospace;">SPECspeed2017_int_base<br />SPECspeed2017_int_peak</td>
+               <td style="font-size:85%;vertical-align:middle;" rowspan="2">SPECspeed suites always run one copy of each benchmark.
+                  <br />Higher scores indicate that less time is needed.
+               </td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">fpspeed</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#fpspeed">SPECspeed&reg;2017 Floating Point</a> </td>
+               <td style="vertical-align:middle;">10 floating point benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECspeed2017_fp_base<br />SPECspeed2017_fp_peak</td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">intrate</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#intrate">SPECrate&reg;2017 Integer</a> </td>
+               <td style="vertical-align:middle;">10 integer benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECrate2017_int_base<br />SPECrate2017_int_peak</td>
+               <td style="font-size:85%;vertical-align:middle;" rowspan="2">SPECrate suites run multiple concurrent copies of
+                  each benchmark.  
+                  <br />The tester selects how many.
+                  <br />Higher scores indicate more <var>throughput</var> (work per unit of time). </td>
+            </tr>
+            <tr>
+               <td style="vertical-align:middle;font-family:monospace;vertical-align:middle;">fprate</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#fprate">SPECrate&reg;2017 Floating Point</a> </td>
+               <td style="vertical-align:middle;">13 floating point benchmarks</td>
+               <td style="font-family:monospace;">SPECrate2017_fp_base<br />SPECrate2017_fp_peak</td>
+            </tr>
+            <tr>
+               <td colspan="5" style="padding-top:3px;font-size:80%;">
+                  The "Short Tag" is the canonical abbreviation for use with <samp class="snugr">runcpu</samp>, where context
+                  is defined by the tools.  In a published document, context may not be clear.
+                  <br /> 
+                  To avoid ambiguity in published documents, the Suite Name or the Metrics should be spelled as
+                  shown above.
+               </td>
+            </tr>
+         </table>
+         <!-- end of ReUsable benchmarks, tags, and suites -->
+
+</div>
+
+
+<p class="hanging1"><b>Verify requirements:</b> &nbsp; <span style="font-size:90%;"><i>(<span class="u">Brief</span> summary;
+      see detail in <a class="external" href="system-requirements.html">System Requirements</a>)</i></span>
+<br />&nbsp; - 1 to 2 GB of main <a class="external" href="system-requirements.html#memory">memory</a> to run SPECrate (per
+copy); 16 GB for SPECspeed.
+<br />&nbsp; - 250 GB <a class="external" href="system-requirements.html#disk">disk space</a> is recommended; a minimal
+installation needs 10 GB.
+<br />&nbsp; - C, C++, and Fortran <a class="external" href="system-requirements.html#compilers">compilers</a> (or a set of
+pre-compiled binaries from another CPU 2017 user).  
+<br />A variety of <a class="external" href="system-requirements.html#chips">chips</a> and 
+<a class="external" href="system-requirements.html#operatingSystems">operating systems</a> are supported. </p>
+
+<p class="hanging1"><b>Install it:</b> &nbsp; 
+   Mount <span style="font-size:90%">(<a class="external" href="install-guide-unix.html#mount">Unix</a>, 
+      <a class="external" href="install-guide-windows.html#mount">Windows</a>)</span>  the ISO image, then use
+   <kbd>install.sh</kbd> or <kbd class="snugr">install.bat</kbd>.  Install guides: 
+   <a class="external" href="install-guide-unix.html" >Unix</a>, 
+   <a class="external" href="install-guide-windows.html" >Windows</a></p>
+
+
+
+<p class="hanging1snugbot"><b>Find a Config File</b>:
+<span id="AboutConfig"> </span>
+<span id="about-config"> </span>
+<span id="about.config"> </span>
+<span id="aboutConfig"> </span>
+<span id="about_config"> </span>
+<span id="aboutconfig"> </span>
+<span id="AboutConfigFiles"> </span>
+<span id="about-config-files"> </span>
+<span id="about.config.files"> </span>
+<span id="aboutConfigFiles"> </span>
+<span id="about_config_files"> </span>
+<span id="aboutconfigfiles"> </span>
+<span id="ConfigFiles"> </span>
+<span id="config-files"> </span>
+<span id="config.files"> </span>
+<span id="configFiles"> </span>
+<span id="config_files"> </span>
+<span id="configfiles"> </span>
+<span id="config"> </span>
+
+To use <kbd class="snugr">runcpu</kbd>, you need a <var>config file</var> - 
+ a file that defines how to build, run, and report on the SPEC CPU benchmarks in a particular environment, including any
+ needed PORTABILITY flags for your compilers.</p>
+
+<ol class="l1snugish"> 
+   <li class="snugish"><p class="snug">There are examples on your installed copy of SPEC CPU 2017.  Look for an Example that
+      matches your compiler, operating system, and hardware, in directory:</p>
+   <pre class="l2snug">$SPEC/config/Example*        (Unix) or
+%SPEC%\config\Example*       (Windows)</pre></li>
+
+   <li>Or, look for results for a system similar to yours at 
+      <a class="external" href="https://www.spec.org/cpu2017/results/">www.spec.org/cpu2017/results</a>.  Click the 'config'
+      link.</li> 
+
+   <li class="snugish">Or, if you are using <a class="external" href="system-requirements.html#binaries">binaries</a>
+      supplied by another user of CPU 2017, that person should also supply the config file.</li>
+
+   <li class="snugish">Or, <a class="external" href="config.html" >write</a> your own.</li>
+</ol>
+
+<p class="hanging1snugbot"><b>Name it:</b> &nbsp; Copy your selection to a new file in the config directory.
+Do not use blanks in the name. Hint: make the name something useful to *you*. </p>
+<pre class="l2snugish">%SPEC%\config\Rahuls_first_test.cfg     
+$SPEC/config/JeffWantsYetAnotherTest.Compiler.v11.beta4.cfg</pre>  
+
+
+<p class="hanging1snugish"><b>Edit the label:</b> &nbsp;&nbsp; Look for a line like one of these: </p>
+<pre class="l2snug">%define label something</pre>
+<p class="l1snug">or</p>
+<pre class="l2snug">label = something</pre>
+<p class="l1snug">The <a class="external" href="config.html#label" >label</a> is an arbitrary tag added to your binaries and
+directories, which comes in handy when you need to hunt them down.  As with the config file name, make it something
+meaningful to *you*.  No blanks are allowed.</p>
+
+<p class="hanging1snugbot"><b>Other Edits:</b></p>
+<ol class="snugish">
+   <li>Look for any locations marked EDIT and make changes as needed.</li>
+   <li>Look for paths and adjust if needed (example: your compiler is in <kbd>/opt/bin</kbd> but the config file uses <kbd
+      class="snugr">/usr/bin</kbd>).  </li>
+   <li><p class="snug">Look for any commands in the config file, and verify that they will not cause surprises.</p>
+
+         <!-- ReUsableBegin: shell commands  ......................................................................  -->
+         <p style="margin:.5em 1em .2em 6em; text-indent:-4em;"> 
+         <span class="alarm">Warning:</span> SPEC CPU config files can execute <span class="caution"> arbitrary </span>
+         <a class="external" href="config.html#shell" >shell</a> commands.  
+         <br />Read a config file before using it.  
+         <br />Don't be <a class="external" href="system-requirements.html#root" >root</a>.  
+         Don't run as <a class="external" href="system-requirements.html#root" >Administrator</a>. 
+         Turn privileges off.  </p>
+         <!-- shell commands ReUsableEnd   ......................................................................  -->
+
+
+   </li>
+</ol>
+
+<p class="hanging1"><b>Open a terminal window (Unix) or cmd window (Microsoft Windows)</b> if you have not already done so.</p>
+
+
+<!-- Similar sections: quick-start, install-guide-unix, install-guide-windows -->
+
+<p class="hanging1">
+   <span id="Path"> </span>         <span id="Paths"> </span>
+   <span id="path"> </span>         <span id="paths"> </span>
+   <span id="Cshrc"> </span>      <span id="Shrc"> </span>     <span id="Shrc.bat"> </span>
+   <span id="cshrc"> </span>      <span id="shrc"> </span>     <span id="shrc.bat"> </span>
+   <span id="Set-path"> </span>       <span id="Set-paths"> </span>
+   <span id="Set.path"> </span>       <span id="Set.paths"> </span>
+   <span id="SetPath"> </span>        <span id="SetPaths"> </span>
+   <span id="Set_path"> </span>       <span id="Set_paths"> </span>
+   <span id="Setpath"> </span>        <span id="Setpaths"> </span>
+   <span id="set-path"> </span>       <span id="set-paths"> </span>
+   <span id="set.path"> </span>       <span id="set.paths"> </span>
+   <span id="setPath"> </span>        <span id="setPaths"> </span>
+   <span id="set_path"> </span>       <span id="set_paths"> </span>
+   <span id="setpath"> </span>        <span id="setpaths"> </span>
+
+<b>Set paths:</b> Use a path command from the table below.  On Unix systems, determine whether you are
+using a C-compatible-shell (such as <kbd class="snugr">csh, tcsh</kbd>) or a Bourne-compatible shell (such as <kbd
+class="snugr"> sh, bash, ksh, zsh</kbd>).</p>
+
+<table class="l1">
+   <tr>
+      <td>System</td>
+      <td>shell</td>
+      <td>Example</td>
+      <td>Instructions</td>
+   </tr>
+   <tr>
+      <td>Microsoft<br />Windows</td>
+      <td><kbd>cmd.exe</kbd></td>
+      <td><pre style="margin:.1em 3em .1em .1em;">C:\&gt; <b>f:</b> 
+F:\&gt; <b>cd diego\cpu2017</b>
+F:\diego\cpu2017\&gt; <b>shrc</b></pre>
+      </td>
+      <td>Edit the file <kbd>shrc.bat</kbd> before using it, as explained in the Windows 
+         <a class="external" href="install-guide-windows.html#shrc"> Install Guide</a>.  If you have done so, <kbd>cd</kbd>
+         to your top directory and use: 
+         <br /><kbd>shrc.bat</kbd>
+      </td>
+   </tr>
+   <tr>
+      <td rowspan="2">Unix</td>
+      <td>C-shell<br />compatible</td>
+      <td><pre style="margin:.1em;">% <b>cd /home/subhash/cpu2017</b>
+% <b>source cshrc</b></pre></td>
+      <td><kbd>cd</kbd> to the directory where you installed SPEC CPU 2017 and say: 
+         <br /><kbd class="nb">source cshrc</kbd>
+      </td>
+   </tr>
+   <tr>
+      <td>Bourne<br />compatible</td>
+      <td><pre style="margin:.1em;">$ <b>cd /home/subhash/cpu2017</b>
+$ <b>source shrc</b></pre></td>
+      <td>
+         <p class="snug"><kbd>cd</kbd> to the directory where you installed SPEC CPU 2017 and try: 
+         <br /><kbd class="nb">source shrc</kbd>  
+         <br />If your shell is sufficiently old that it responds 
+         <samp class="gray">source: not found</samp> then try:</p>
+         <pre class="snugish"> <b>. ./shrc</b>&nbsp;&nbsp;&nbsp; <span style="font-family:arial;"> &lt;--<i>that's dot-space-dot-slash-shrc</i></span></pre>
+      </td>
+   </tr>
+</table>
+
+<p class="hanging1"><b>Check disk space:</b> Verify your free disk space  
+<a class="external" href="system-requirements.html#disk">(Recommendations)</a>.  On Unix, use <kbd>df</kbd> and on Windows notice the last
+line on any <kbd>dir</kbd> command.</p>
+
+
+<p class="hanging1"><b>Ready to run:</b> You're ready to give it a try.  Enter <kbd class="nb">runcpu --config=<i>name</i></kbd>
+followed by a list of benchmarks or suites (see <a class="external" href="#benchmarks">table</a> above). Examples: </p>
+
+<pre class="l2snugish">runcpu --config=eniac.cfg    --action=build 519.lbm_r
+runcpu --config=colossus.cfg --threads=16   628.pop2_s
+runcpu --config=z3.cfg       --copies=64    fprate </pre>
+
+<p class="l1">The first example compiles the benchmark named 519.lbm_r.  The second runs the SPECspeed benchmark 628.pop2_s
+using 16 OpenMP threads.  The third runs 64 copies of all the SPECrate 2017 Floating Point benchmarks.  The Install Guide
+   chapter on "Testing Your Installation" has suggestions that start small and build up 
+   (<a class="external" href="install-guide-unix.html#test">Unix</a>, <a class="external"
+      href="install-guide-windows.html#test">Windows</a>).</p>
+
+<p class="hanging1"><b>Example Install:</b> This example presumes that your name is Walter, your compiler is GCC, your operating
+system is Linux, and your hardware is x86.</p>
+
+<pre>
+$ sudo mount -t iso9660 -o ro,exec,loop cpu2017.iso /mnt
+$ cd /mnt
+$ ./install.sh                                       # Specify destination - for example, /home/walter/cpu2017
+$ cd /home/walter/cpu2017/
+$ source shrc
+$ cd config
+$ cp Example-gcc-linux-x86.cfg walter-try1.cfg       # Pick one matching *your* system!
+$ vi walter-try1.cfg                                 # Customize paths and other items marked EDIT in the example
+$ runcpu --config=walter-try1 SPECspeed2017_int_base
+</pre>
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Quick Start:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+</body>
+</html>

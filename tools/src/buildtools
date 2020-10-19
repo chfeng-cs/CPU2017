@@ -1,0 +1,840 @@
+#!/bin/sh
+
+# Provide our PID to children in a nice, portable way
+MYPID=$$
+export MYPID
+
+BTVERS_=$(echo '$Revision: 5242 $' | sed 's/\$Revision\$/<dev>/; s/$Revision: //; s/[ 	]*\$$//')
+if [ "$BTVERS_" = "<dev>" ]; then
+    # git-svn at work; try harder to get the revision number
+    tmpver_=$(git svn info $0 2>/dev/null | awk '/^Revision: [0-9]*$/{print $2}')
+    if [ -n "$tmpver_" ]; then
+        githash_=$(git svn find-rev r$tmpver_)
+        if [ -n "$githash_" ]; then
+            gitinfo_=$(git log -n 1 --format="format: + git %H of %ci" ${githash_}...HEAD -- $0)
+        fi
+        if [ -n "$gitinfo_" ]; then
+            BTVERS_="$tmpver_$gitinfo_"
+        else
+            BTVERS_=$tmpver_
+        fi
+    fi
+fi
+
+testordie() {
+    if test $? -ne 0; then
+        echo "!!! $*";
+        if [ -z "$BUILDTOOLS_KEEP_GOING" ]; then
+            # Just exiting is no good, since we're probably in a subshell
+            # So kill the main buildtools, and *then* exit
+            kill -TERM $MYPID
+            exit 1
+        fi
+    fi
+}
+
+trap 'echo "!!!!! buildtools killed"; exit 1' 1
+trap 'echo "!!!!! buildtools killed"; exit 1' 15
+
+unset SPECPERLOPT
+unset SPECPERLLIB
+
+# Avoid locale-related problems
+CONFIGFLAGS="--disable-nls $CONFIGFLAGS"
+LC_LANG="C"
+LC_ALL="C"
+export LC_LANG LC_ALL
+
+# Try to get in to tools/src
+cd `dirname $0`
+INSTALLDIR=`pwd`
+INSTALLDIR=`dirname $INSTALLDIR`/output
+SPECBIN=../../bin
+PERLVER=5.24.0
+TARSRC=tar-1.28
+export INSTALLDIR SPECBIN PERLVER TARSRC
+
+# Attempt to get the suite name
+eval `perl -e 'unshift @INC, "$ENV{SPECBIN}/common"; require "vars_common.pl"; suiteinfo();' 2>/dev/null`
+if [ -z "$lcsuite" ]; then
+    lcsuite="<benchmark>"
+    suite=SPEC
+elif [ "$suite" != SPEC ]; then
+    suite="SPEC $suite"
+fi
+
+echo
+echo $suite buildtools r$BTVERS_
+echo
+
+# This is supposed to ensure that we use the tools we just built,
+# but sometimes the shell being used doesn't rehash its directories quickly
+# enough, and we end up using the crappy system utilities instead.  Thus:
+MYMAKE=$INSTALLDIR/bin/make
+INSTALLBIN=$INSTALLDIR/bin
+PATH=$INSTALLBIN:$PATH
+export PATH
+
+# Help make sure that copied files have permissions that won't cause trouble
+umask 002
+
+if test -n "${ZSH_VERSION+set}"; then
+    # ZSH has different (arguably, better) word splitting semantics than
+    # bash/ksh.  See http://zsh.sourceforge.net/FAQ/zshfaq03.html for details.
+    # In the interest of portability, we'll do it everyone else's way...
+    setopt SH_WORD_SPLIT
+fi
+
+# Allow the user to specify a make not named "make" to aid with cleaning.
+if [ -z "$MAKE" ]; then
+    MAKE=make
+fi
+
+setspecperllib() {
+  SPECPERLLIB=""
+  for i in \
+      $INSTALLDIR                               \
+      $INSTALLDIR/lib                           \
+      $INSTALLDIR/lib/perl5                     \
+      $INSTALLDIR/lib/perl5/$PERLVER            \
+      $INSTALLDIR/lib/perl5/site_perl           \
+      $INSTALLDIR/lib/perl5/site_perl/$PERLVER
+  do
+      if [ -d $i ]; then
+        if [ "$SPECPERLLIB" = '' ]; then
+            SPECPERLLIB=$i
+        else
+            case ":$SPEC:" in
+                *:$i:*)                             ;;
+                *)      SPECPERLLIB=$SPECPERLLIB:$i ;;
+            esac
+        fi
+      fi
+  done
+  export SPECPERLLIB
+}
+
+unset SKIPINFOHEADER
+
+if [ -n "$CLEANONLY" ]; then
+    SKIPALL=1
+    SKIPINFOHEADER=1
+    DOCLEAN=1
+    DOTOOLSRM=1
+fi
+
+if [ -n "$INSTALLONLY" ]; then
+    SKIPTOOLSINTRO=1
+    SKIPINFOHEADER=1
+    SKIPCLEAN=1
+    SKIPNONPERL=1
+    SKIPPERL=1
+    SKIPPERL2=1
+fi
+
+if [ -n "$SKIPALL" ]; then
+    SKIPTOOLSINTRO=1
+    SKIPTOOLSRM=1
+    SKIPCLEAN=1
+    SKIPNONPERL=1
+    SKIPPERL=1
+    SKIPPERL2=1
+    SKIPCOPY=1
+fi
+
+if [ -n "$BUILDTOOLS_KEEP_GOING" ]; then
+    cat <<EOW
+
+!!!!!!
+WARNING!  The "BUILDTOOLS_KEEP_GOING" environment variable is set!
+
+Setting this environment variable effectively disables the self-
+testing for packages being built.  Tools built with this setting
+WILL NOT be approved for use in generating reportable runs.
+!!!!!!
+
+EOW
+fi
+
+if [ -n "$DOTOOLSINTRO" ] || [ -z "$SKIPTOOLSINTRO" ] ; then
+    cat <<EOM
+This script builds various $suite tools.  WARNING: if you are here because
+the install procedure told you that it could not find tools for your
+architecture, you should stop and first check:
+ (1) Do you have the genuine $suite kit, or only a subset of it?
+ (2) Do you have the latest version?
+ (3) Have you checked for updated tools at SPEC?  See:
+     https://www.spec.org/$lcsuite/src.alt/
+Many people have invested time building tools, and written sad tales
+to the support alias, only to find that they did not need to.
+
+If you really do need to be here, you should read
+      ../../Docs/tools-build.html
+      or
+     https://www.spec.org/$lcsuite/Docs/tools-build.html
+before starting.  Note especially:
+  - You may need to set environment variables prior to starting.
+  - The document has hints about these by OS type.
+  - You should turn on your OS session recorder.  Often this is the
+    script(1) command
+
+To skip this message next time, set the "SKIPTOOLSINTRO" environment variable
+to a non-empty value.
+
+Enter 'y' to continue, or anything else to exit
+EOM
+   read foo
+   if [ "x$foo" = "xy" ]; then
+      echo "Continuing..."
+      echo
+   else
+      exit
+   fi
+fi
+
+if [ -n "$CFLAGS" -a -z "$SKIPPERLOPTIMIZE" ]; then
+    # Set Perl optimization flags based on what's in CFLAGS
+    tmpflags_=
+    for flag_ in $CFLAGS; do
+        if ! echo $flag_ | grep '^-D' >/dev/null; then
+            tmpflags_="$tmpflags_ -Aoptimize=$flag_"
+        fi
+    done
+    if [ -n "$tmpflags_" ] && echo ' ' $tmpflags_ | grep '[^ ]' >/dev/null; then
+        if [ -n "$PERLFLAGS" ]; then
+            if echo -- $PERLFLAGS | grep -- -.optimize= >/dev/null; then
+                # User has already done some optimize manipulation; do not
+                # un-do it.
+                PERLFLAGS="${PERLFLAGS}$tmpflags_"
+            else
+                PERLFLAGS="$PERLFLAGS -Uoptimize=$tmpflags_"
+            fi
+        else
+            PERLFLAGS=-Uoptimize=$tmpflags_
+        fi
+        export PERLFLAGS
+    fi
+fi
+
+if [ -z "$SKIPINFOHEADER" ]; then
+    compiler_version_output() {
+        dumpname_=$1
+        shift
+        for cc_ in $*; do
+            for veropt_ in -v -V -qversion; do
+                $cc_ $veropt_ > /tmp/buildtools.$$.verout 2>&1
+                if [ $? -eq 0 ]; then
+                    # Winner!
+                    [ "$dumpname_" -ne 0 ] && echo "${cc_}:"
+                    cat /tmp/buildtools.$$.verout
+                    break
+                fi
+            done
+            rm /tmp/buildtools.$$.verout
+        done
+    }
+
+    dumpenv() {
+        what_=$1
+        envre_=$2
+        if [ -n "$what_" -a -n "$envre_" ]; then
+            tmpfile_=/tmp/buildtools.$$.tmp
+            for varname_ in $(env | egrep $envre_ | sed 's/=.*//' | sort); do
+                eval "echo ${varname_}=\"\${$varname_}\" >> $tmpfile_"
+            done
+            if [ -s $tmpfile_ ]; then
+                echo " ${what_}:"
+                cat $tmpfile_ | sed -e 's/^/  /'
+            fi
+            rm -f $tmpfile_
+        fi
+    }
+
+    # Dump an intro section with information that I include in my build logs and
+    # that I wish everyone else would too:
+    echo PATH is $PATH
+    echo
+    echo I am
+    id
+    echo
+    echo This system is
+    uname -a
+    echo
+    if [ -n "$CC" ]; then
+        echo The C compiler I will use today is from CC: $CC
+        compiler_version_output 0 $CC
+    else
+        echo The C compiler I will use today will be determined by the program
+        echo auto-configuration processes, and will likely be one of:
+        compiler_version_output 1 gcc cc clang xlc
+    fi
+    echo
+    if [ -n "$CXX" ]; then
+        echo The C++ compiler I will use today is from CXX: $CXX
+        compiler_version_output 0 $CXX
+    else
+        echo The C++ compiler I will use today will be determined by the program
+        echo auto-configuration processes, and will likely be one of:
+        compiler_version_output 1 g++ CC clang++ xlC
+    fi
+    echo
+    echo "Begin environment variables likely to affect the build: ========"
+    dumpenv "buildtools controls" '^(DO|SKIP|SPECP)'
+    echo
+    dumpenv "configure flags" '^(ac_cv_|gl_cv_|(CONFIG|MAKECONFIG|PERL|RXP|SPECINVOKE|SUM|TAR|XZ)FLAGS=)'
+    echo
+    # Match tool-specific CFLAGS, CPPFLAGS, LDFLAGS, and LIBS, since the
+    # general versions are overridden before configure is run.
+    # Also match non-tool-specific configure variables that are NOT
+    # overridden, as well as "hints" to autoconf about things that do
+    # or don't work as expected.
+    dumpenv "build options" '^(((MAKE|XZ|TAR|SUM|SPECINVOKE|RXP|EXPAT|PERL)((C|CPP|LD)FLAGS|LIBS))|(CC|CXX|CCAS|YACC|(C|CPP|LD|CXX|CCAS|Y)FLAGS))='
+    echo
+    dumpenv "make options" '^(MAKE|MAKEFLAGS)='
+    echo "End environment variables likely to affect the build: ========"
+fi
+
+# See if we're using GNU xargs, which can be told to not run its
+# argument if there's no input.  This isn't absolutely necessary;
+# it just reduces some noise in the build logs.
+XARGS_NORUN=
+echo foo | xargs --no-run-if-empty echo >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+    XARGS_NORUN=--no-run-if-empty
+fi
+
+if [ -n "$DOTOOLSRM" ] || [ -z "$SKIPTOOLSRM" ]; then
+    # Remove previously-installed tools, if any
+    echo Removing previous tools installation...
+    for sumfile in TOOLS.sha512 SUMS.tools; do
+        if [ -f $SPECBIN/../$sumfile ]; then
+            (cd $SPECBIN/..; awk '/ bin\// {print $4}' $sumfile | xargs $XARGS_NORUN rm -f)
+            rm -f $SPECBIN/../$sumfile
+        fi
+    done
+    # At this point bin/lib is probably empty, but just to be sure...
+    rm -rf $SPECBIN/lib
+    rm -f $SPECBIN/packagename
+    # These are almost certainly present:
+    for i in xz bzip2 gzip invoke invoke_pm make md5sum sha256sum sha512sum perl tar; do
+        rm -f $SPECBIN/spec$i
+    done
+fi
+
+if [ -n "$DOCLEAN" ] || [ -z "$SKIPCLEAN" ]; then
+    echo "==========================================="
+    echo "=== Don't worry about errors below this ==="
+    echo "==========================================="
+    # On MacOS X the tar configure process makes a directory hierarchy that
+    # can't be removed.  Renaming the directories to a shorter name allows
+    # the hierarchy to be removed
+    (cd tar-*; while [ -d confdir-* ]; do mv confdir-* a; cd a; done)
+    [ -d tar-*/a ] && rm -rf tar-*/a
+    # Make sure that files can be removed
+    find . \( -name .svn -prune \) -o \( -type d -exec chmod u+rwx {} \; \)
+    for i in */.; do (cd $i; MAKEFLAGS= $MAKE -k realclean; MAKEFLAGS= $MAKE -k distclean; MAKEFLAGS= $MAKE -k clean) 2>&1 | grep -v "No rule to make target" | grep -v "Nothing to be done"; done
+    echo Now doing extra-special cleaning...
+    (cd perl*; /usr/bin/perl distclean)
+    find perl-* -depth -type d -print | grep -v '/\.svn/' | xargs $XARGS_NORUN rmdir 2>/dev/null
+    find . \( -name config.cache -o -name Makefile.old -o -name autom4te.cache \) -exec rm -rf {} \;
+    find . \( -name \*.exe -o -name \*.dll -o -name \*.lib -o -name \*.a -o -name WinRel -o -name WinDebug \) -exec rm -rf {} \;
+    rm -rf ../output
+    # Special stuff for special components
+    rm -rf IO-stringy*/testout
+    rm -f libwww-perl*/t/CAN_TALK_TO_OURSELF
+    rm -rf XML-SAX*/t/lib
+    rm -f XML-SAX-ExpatXS*/lib/XML/SAX/ExpatXS/Preload.pm
+    rm -rf MIME-tools*/testout
+    find perl-* \( -name .svn -prune \) -o \( \! -name tmpdir.t \( -name '*tmp*' -o -name 'results-[01]' \) -exec rm -f {} \; \)
+    rm -rf perl-*/t/runltmp* perl*/t/Recurs perl*/t/err perl*/t/swtest.pm
+    rm -rf perl-*/UU perl-*/.config perl-*/config.sh perl-*/Policy.sh perl-*/config.over
+    rm -rf perl-*/ext/Test-Harness/t/ext
+    rm -rf perl-*/cpan/Module-Build/MB-????????
+    rm -f File-NFSLock-*/File-NFSLock.spec
+    rm -f MIME-tools-*/msg*html
+    rm -f MailTools-*/*ppd
+    rm -f List-MoreUtils-*/config.log
+    rm -rf XSLoader-*/lib
+    rm -f expat*/tests/*.o*
+    rm -rf tar*/rmt/.deps
+    rm -f tar*/rmt/rmt
+    rm -f tar*/rmt/Makefile
+    rmdir tar*/lib/attr 2>/dev/null
+    rm -f */.gdb*
+    rm -f make-*/guile.tmp
+    rm -rf make-*/tests/work
+    rm -rf make-*/tests/test*.c
+    rm -f rxp*/stamp-h.in
+    rm -f [a-mo-zA-Z]*/config.h
+    rm -f xz*/windows/*.def
+    rm -f xz*/compress_generated_*
+    rm -f xz*/tests/compress_generated_*
+    # Something in the buildtools process MAY set exec bits on things that a
+    # Perl test expects to not have exec bits set on.  So clear all those
+    find perl-* -perm -0001 -type f | fgrep -vf perl-*/Porting/exec-bit.txt | xargs chmod -x perl-*/README
+    echo "Cleaning finished!"
+    if [ -n "$CLEANONLY" ]; then exit 0; fi
+    echo "=================================================="
+    echo "=== Okay... Start worrying about errors again! ==="
+    echo "=================================================="
+fi
+unset MAKE
+
+# Some packages (XML::SAX::ExpatXS) rely on libs/include files built earlier
+# in the process.
+# Also, allow per-component tweaking of CFLAGS and LDFLAGS
+ALLCFLAGS=$CFLAGS
+ALLCPPFLAGS="-I${INSTALLDIR}/include $CPPFLAGS"
+ALLLDFLAGS="-L${INSTALLDIR}/lib $LDFLAGS"
+
+# Touch files that autoconf/automake generate so that the build process
+# will not attempt to regenerate them.  (There are lots of things that
+# can happen that cause the file timestamps to get messed up.)
+fool_autoconf_in() {
+    dir_=$1
+    if [ -z "$dir_" ]; then
+        dir_=.
+    else
+        shift
+    fi
+    echo Fixing autoconf/automake file timestamps in $dir_
+    pats_=$*
+    if [ -z "$pats_" -o "$1" = "<" -o "$1" = ">" ]; then
+        pats_="aclocal.m4 configure testsuite Makefile.in config.*in"
+    fi
+    if [ "$1" = ">" ]; then
+        shift
+        pats_="$pats_ $@"
+    elif [ "$1" = "<" ]; then
+        shift
+        pats_="$@ $pats_"
+    fi
+    set -f
+    for filepat_ in $pats_; do
+        find $dir_ -name $filepat_ -print | xargs $XARGS_NORUN -t touch
+        sleep 1
+    done
+    set +f
+}
+
+mkdir -p $INSTALLDIR
+mkdir -p $INSTALLDIR/bin
+mkdir -p $INSTALLDIR/lib
+mkdir -p $INSTALLDIR/include
+
+if [ -n "$DOMAKE" ] || [ -z "$SKIPNONPERL" ] && [ -z "$SKIPMAKE" ]; then
+    echo "================================================================"
+    echo "=== Building make                                            ==="
+    echo "================================================================"
+    (cd make-*
+    fool_autoconf_in config '*m4'
+    fool_autoconf_in . '<' 'ac*m4'
+    fool_autoconf_in doc version.texi 'make.info*' stamp-vti
+    fool_autoconf_in . config.status stamp-h1 config.h
+    set -x
+    CFLAGS="$ALLCFLAGS $MAKECFLAGS"; export CFLAGS
+    CPPFLAGS="$ALLCPPFLAGS $MAKECPPFLAGS"; export CPPFLAGS
+    LDFLAGS="$ALLLDFLAGS $MAKELDFLAGS"; export LDFLAGS
+    LIBS="$ALLLIBS $MAKELIBS"; export LIBS
+    ./configure $CONFIGFLAGS $MAKECONFIGFLAGS --prefix=$INSTALLDIR --disable-job-server; testordie "error configuring make"
+    sh build.sh; testordie "error building make with build.sh"
+    PATH=`pwd`:$PATH
+    export PATH
+    make; testordie "error rebuilding make with make"
+    MAKEFLAGS= make check; testordie "error testing make"
+    MAKEFLAGS= make install; testordie "error installing make")
+fi
+
+if [ -n "$DOXZ" ] || [ -z "$SKIPNONPERL" ] && [ -z "$SKIPXZ" ]; then
+    echo "================================================================"
+    echo "=== Building xz                                              ==="
+    echo "================================================================"
+    (cd xz-*
+    set -x
+    fool_autoconf_in config '*m4'
+    fool_autoconf_in . '<' 'ac*m4' config.status
+    CFLAGS="$ALLCFLAGS $XZCFLAGS"; export CFLAGS
+    CPPFLAGS="$ALLCPPFLAGS $XZCPPFLAGS"; export CPPFLAGS
+    LDFLAGS="$ALLLDFLAGS $XZLDFLAGS"; export LDFLAGS
+    LIBS="$ALLLIBS $XZLIBS"; export LIBS
+    INSTALL="../$TARSRC/build-aux/install-sh" \
+      ./configure --disable-option-checking --disable-silent-rules \
+                  --disable-assembler --enable-assume-ram=1024 \
+                  --enable-shared=no \
+                  $CONFIGFLAGS $XZFLAGS \
+                  --prefix=$INSTALLDIR \
+                  --disable-xzdec --disable-lzmadec --disable-lzmainfo \
+                  --disable-lzma-links \
+                  --disable-scripts --disable-doc
+    testordie "error configuring xz"
+    $MYMAKE; testordie "error building xz"
+    MAKEFLAGS= $MYMAKE check; testordie "error testing xz"
+    MAKEFLAGS= $MYMAKE install; testordie "error installing xz")
+fi
+
+if [ -n "$DOTAR" ] || [ -z "$SKIPNONPERL" ] && [ -z "$SKIPTAR" ]; then
+    echo "================================================================"
+    echo "=== Building tar                                             ==="
+    echo "================================================================"
+    (cd $TARSRC
+    fool_autoconf_in . '<' 'ac*m4'
+    fool_autoconf_in doc version.texi 'tar.info*' stamp-vti
+    fool_autoconf_in tests package.m4 testsuite config.status
+    set -x
+    CFLAGS="$ALLCFLAGS $TARCFLAGS"; export CFLAGS
+    CPPFLAGS="$ALLCPPFLAGS $TARCPPFLAGS"; export CPPFLAGS
+    LDFLAGS="$ALLLDFLAGS $TARLDFLAGS"; export LDFLAGS
+    LIBS="$ALLLIBS $TARLIBS"; export LIBS
+    DEFAULT_ARCHIVE_FORMAT="GNU"; export DEFAULT_ARCHIVE_FORMAT
+    ./configure --disable-silent-rules \
+                $CONFIGFLAGS $TARFLAGS --prefix=$INSTALLDIR \
+                --with-xz=specxz --disable-acl --without-posix-acls \
+                --without-selinux --without-xattrs
+    testordie "error configuring tar"
+    $MYMAKE; testordie "error building tar"
+    MAKEFLAGS= $MYMAKE check; testordie "error testing tar"
+    MAKEFLAGS= $MYMAKE install; testordie "error installing tar")
+fi
+
+if [ -n "$DOSUM" ] || [ -z "$SKIPNONPERL" ] && [ -z "$SKIPSUM" ]; then
+    echo "================================================================"
+    echo "=== Building *sum                                            ==="
+    echo "================================================================"
+    (cd specsum
+    fool_autoconf_in .
+    set -x
+    CFLAGS="$ALLCFLAGS $SUMCFLAGS"; export CFLAGS
+    CPPFLAGS="$ALLCPPFLAGS $SUMCPPFLAGS"; export CPPFLAGS
+    LDFLAGS="$ALLLDFLAGS $SUMLDFLAGS"; export LDFLAGS
+    LIBS="$ALLLIBS $SUMLIBS"; export LIBS
+    ./configure $CONFIGFLAGS $SUMFLAGS --prefix=$INSTALLDIR --disable-nls --with-openssl=no; testordie "error configuring specsum package"
+    $MYMAKE; testordie "error building specsum"
+    MAKEFLAGS= $MYMAKE check; testordie "error testing specsum"
+    MAKEFLAGS= $MYMAKE install; testordie "error installing specsum")
+fi
+
+if [ -n "$DOSPECINVOKE" ] || [ -z "$SKIPNONPERL" ] && [ -z "$SKIPSPECINVOKE" ]; then
+    echo "================================================================"
+    echo "=== Building specinvoke                                      ==="
+    echo "================================================================"
+    (cd specinvoke*
+    fool_autoconf_in .
+    set -x
+    CFLAGS="$ALLCFLAGS $SPECINVOKECFLAGS"; export CFLAGS
+    CPPFLAGS="$ALLCPPFLAGS $SPECINVOKECPPFLAGS"; export CPPFLAGS
+    LDFLAGS="$ALLLDFLAGS $SPECINVOKELDFLAGS"; export LDFLAGS
+    LIBS="$ALLLIBS $SPECINVOKELIBS"; export LIBS
+    ./configure $CONFIGFLAGS $SPECINVOKEFLAGS --prefix=$INSTALLDIR; testordie "error configuring specinvoke"
+    $MYMAKE; testordie "error building specinvoke"
+    MAKEFLAGS= $MYMAKE install; testordie "error installing specinvoke")
+fi
+
+if [ -n "$DORXP" ] || [ -z "$SKIPNONPERL" ] && [ -z "$SKIPRXP" ]; then
+    echo "================================================================"
+    echo "=== Building rxp                                             ==="
+    echo "================================================================"
+    (cd rxp*
+    fool_autoconf_in . '<' 'ac*m4'
+    set -x
+    CFLAGS="$ALLCFLAGS $RXPCFLAGS"; export CFLAGS
+    CPPFLAGS="$ALLCPPFLAGS $RXPCPPFLAGS"; export CPPFLAGS
+    LDFLAGS="$ALLLDFLAGS $RXPLDFLAGS"; export LDFLAGS
+    LIBS="$ALLLIBS $RXPLIBS"; export LIBS
+    ./configure $CONFIGFLAGS $RXPFLAGS --prefix=$INSTALLDIR --enable-shared=no; testordie "error configuring rxp"
+    $MYMAKE; testordie "error building rxp"
+    MAKEFLAGS= $MYMAKE install; testordie "error installing rxp")
+fi
+
+SPEC_EXPAT_OK=0
+if [ -n "$DOEXPAT" ] || [ -z "$SKIPPERL" ] && [ -z "$SKIPEXPAT" ]; then
+    echo "================================================================"
+    echo "=== Building expat                                           ==="
+    echo "================================================================"
+    SPEC_EXPAT_OK=1
+    echo 1 > /tmp/spec_expat_ok
+    (cd expat-*
+    fool_autoconf_in .
+    set -x
+    CFLAGS="$ALLCFLAGS $EXPATCFLAGS"; export CFLAGS
+    CPPFLAGS="$ALLCPPFLAGS $EXPATCPPFLAGS"; export CPPFLAGS
+    LDFLAGS="$ALLLDFLAGS $EXPATLDFLAGS"; export LDFLAGS
+    LIBS="$ALLLIBS $EXPATLIBS"; export LIBS
+    ./configure --prefix=$INSTALLDIR --enable-shared=no --with-pic $EXPATFLAGS;
+    if test $? != 0; then
+      echo 0 > /tmp/spec_expat_ok
+      SPEC_EXPAT_OK=0
+      echo "!!! Configuring expat failed, but don't worry about it"
+    fi
+    if test $SPEC_EXPAT_OK -eq 1; then
+      $MYMAKE;
+      if test $? -ne 0; then
+        echo 0 > /tmp/spec_expat_ok
+        SPEC_EXPAT_OK=0
+        echo "!!! Building expat failed, but don't worry about it"
+      fi
+    fi
+    if test $SPEC_EXPAT_OK -eq 1; then
+      MAKEFLAGS= $MYMAKE install
+      if test $? -ne 0; then
+        echo 0 > /tmp/spec_expat_ok
+        SPEC_EXPAT_OK=0
+        echo "!!! Installing expat failed, but don't worry about it"
+      fi
+    fi
+    if test $SPEC_EXPAT_OK -eq 1; then
+      MAKEFLAGS= $MYMAKE check
+      if test $? -ne 0; then
+        echo 0 > /tmp/spec_expat_ok
+        SPEC_EXPAT_OK=0
+        echo "!!! libexpat tests failed, but don't worry about it"
+      fi
+    fi
+    )
+    SPEC_EXPAT_OK=`cat /tmp/spec_expat_ok`
+    rm -f /tmp/spec_expat_ok
+fi
+
+if [ -n "$DOPERL" ] || [ -z "$SKIPPERL" ]; then
+    echo "================================================================"
+    echo "=== Building perl                                            ==="
+    echo "================================================================"
+    # If parallel make is requested, also run Perl tests in parallel
+    if [ "x$MAKEFLAGS" != x ]; then
+        TEST_JOBS=`echo -- $MAKEFLAGS | sed -ne 's/.*-j *\([0-9][0-9]*\).*/\1/p'`
+        if [ "$TEST_JOBS" -le 1 ]; then
+            TEST_JOBS=
+        else
+            echo Perl test parallelism set to $TEST_JOBS
+        fi
+    else
+        TEST_JOBS=
+    fi
+    export TEST_JOBS
+    (cd perl-$PERLVER
+    touch perly.[ch]
+    # Perl does not remove these for realclean!
+    rm -f Policy.sh
+    rm -f config.sh
+    rm -f config.over
+    set -x
+    CFLAGS="$ALLCFLAGS $PERLCFLAGS"; export CFLAGS
+    CPPFLAGS="$ALLCPPFLAGS $PERLCPPFLAGS"; export CPPFLAGS
+    LDFLAGS="$ALLLDFLAGS $PERLLDFLAGS"; export LDFLAGS
+    LD_LIBRARY_PATH=`pwd`
+    DYLD_LIBRARY_PATH=`pwd`
+    export LD_LIBRARY_PATH DYLD_LIBRARY_PATH
+    ./Configure -dOes -Ud_flock $PERLFLAGS \
+                -Ddosuid=undef \
+                -Dprefix=$INSTALLDIR \
+                -Dd_bincompat3=undef \
+                -A ldflags=-L${INSTALLDIR}/lib \
+                -A ccflags=-I${INSTALLDIR}/include \
+                -Uuse5005threads \
+                -Uuseshrplib \
+                -Duserelocatableinc \
+                -Dnoextensions=B-Debug,B-Lint,CPAN,CPANPLUS,CPANPLUS-Dist-Build,DB_File,Devel-PPPort,IPC-SysV,Locale-Codes,Locale-Maketext-Simple,Pod-LaTeX,Sys-Syslog,Term-ANSIColor,Term-Cap,Term-UI,B,Devel-Peek,Devel-SelfStubber,GDBM_File,I18N-Langinfo,NDBM_File,ODBM_File,VMS-DCLsym
+    testordie "error configuring perl"
+    $MYMAKE; testordie "error building Perl"
+    ./perl installperl; testordie "error installing Perl"
+    setspecperllib
+    if [ "x$TEST_JOBS" != x ]; then
+        # Parallel tests have been requested; only harness runs
+        # that way, so try that first.  If it bombs, run the
+        # regular old TEST
+        MAKEFLAGS= TESTFILE=harness $MYMAKE test
+    fi
+    if [ $? -ne 0 -o "x$TEST_JOBS" = x ]; then
+        MAKEFLAGS= $MYMAKE test
+    fi
+    if [ $? -ne 0 ]; then
+      set +x
+      echo
+      echo
+      echo "Hey!  Some of the Perl tests failed!"
+      if [ -z "$BUILDTOOLS_KEEP_GOING" ]; then
+          echo "If you think this is okay, enter y now:"
+          read foo
+          if [ "x$foo" = "xy" ]; then
+              true
+          else
+              false
+          fi
+      fi
+    fi
+    testordie "error in Perl tests")
+
+    # Only copy libperl if Perl is built to use the shared object
+    (cd perl-$PERLVER
+    if [ `./perl -Ilib -MConfig -e 'print $Config{useshrplib}'` = 'true' ]
+    then
+        for i in `find . -type f -print | grep -i 'libperl\.[^ot]'`; do
+            echo cp -f $i $INSTALLBIN/`basename $i`
+            cp -f $i $INSTALLBIN/`basename $i`
+        done
+        # Last one found wins!
+    fi)
+fi
+
+if [ -n "$DOPERL2" ] || [ -z "$SKIPPERL2" ]; then
+    # SPECPERLLIB needs to be set to build the Perl modules
+    setspecperllib
+    env | grep SPECPERL
+    [ -f libnet.cfg ] && cp libnet.cfg libnet-*
+    # Arrange for the Font::AFM tests to be able to find fonts
+    METRICS=`pwd`/../../bin/fonts
+    export METRICS
+    for i in \
+        SVG-* \
+        IO-stringy* \
+        TimeDate-* \
+        MailTools-* \
+        Test-Deep-* \
+        MIME-tools-* \
+        IO-String-* \
+        Font-TTF-* \
+        PDF-API2-* \
+        Text-CSV_XS-* \
+        URI-* \
+        XML-SAX-Base-* \
+        XML-NamespaceSupport-* \
+        XML-SAX-[0-9]* \
+        Algorithm-Diff-* \
+        Font-AFM-* \
+        File-NFSLock-* \
+        String-ShellQuote-* \
+        XSLoader-* \
+        Exporter-Tiny-* \
+        List-MoreUtils-* \
+# This line intentionally left blank
+    do
+      echo
+      echo "================================================================"
+      echo "=== Building $i"
+      echo "================================================================"
+      (cd $i
+      set -x
+      $INSTALLBIN/perl Makefile.PL -n; testordie "error making Makefile for $i"
+      MAKEFLAGS= $MYMAKE install; testordie "error building/installing $i"
+      # The tests are done after the install; because of the lib path munging,
+      # the tests will actually use the installed modules.  It does not really
+      # matter either way -- if the test fails, the whole run is scrapped.
+      [ -f $i/spec_do_no_tests ] || ($MYMAKE test; testordie "error running $i test suite")
+      )
+    done
+
+    # XML::SAX::ExpatXS is special, because we shouldn't even TRY unless
+    # SPEC_EXPAT_OK is set.  And it's also okay if it fails.
+    if test $SPEC_EXPAT_OK -eq 1; then
+      echo
+      echo "================================================================"
+      echo "=== Building XML::SAX::ExpatXS"
+      echo "================================================================"
+      (cd XML-SAX-ExpatXS*
+        set -x
+        $INSTALLBIN/perl Makefile.PL -n EXPATLIBPATH="${INSTALLDIR}/lib" EXPATINCPATH="${INSTALLDIR}/include"
+        if test $? -ne 0; then
+          SPEC_EXPAT_OK=0
+          echo "!!! Making Makfile for XML::SAX::ExpatXS failed, but don't worry about it"
+        fi
+        if test $SPEC_EXPAT_OK -eq 1; then
+          MAKEFLAGS= $MYMAKE install
+          if test $? -ne 0; then
+            SPEC_EXPAT_OK=0
+            echo "!!! Building and installing XML::SAX::ExpatXS failed, but don't worry about it"
+          fi
+        fi
+        if test $SPEC_EXPAT_OK -eq 1; then
+          MAKEFLAGS= $MYMAKE test
+          if test $? -ne 0; then
+            SPEC_EXPAT_OK=0
+            echo "!!! Tests for XML::SAX::ExpatXS failed, but don't worry about it"
+            $MYMAKE uninstall
+          fi
+        fi
+      )
+    fi
+
+    # Some of the Perl modules copy their .svn directories (if any) into the
+    # lib dir with them.  This isn't BAD, but it's messy.
+    find $INSTALLDIR -name .svn -type d -exec rm -rf {} \;
+fi
+
+if [ -n "$DOCOPY" ] || [ -z "$SKIPCOPY" ]; then
+    chmod -R u+w $SPECBIN
+    for i in $INSTALLBIN/libperl*
+    do
+       cp $i $SPECBIN/`basename $i`
+    done
+    for i in make tar xz rxp
+    do
+        if cp $INSTALLBIN/$i $SPECBIN/spec$i; then
+            if [ -n "$DOSTRIP" ] || [ -z "$SKIPSTRIP" ]; then
+                strip $SPECBIN/spec$i || :
+            else
+                true
+            fi
+        else
+            echo "Uh-oh! I appear to have had problems building '$i'"
+            error=yes
+        fi
+    done
+    if cp $INSTALLBIN/perl $SPECBIN/specperl; then
+        true
+    else
+        echo "Uh-oh! I appear to have had problems building 'perl'"
+        error=yes
+    fi
+    mkdir $SPECBIN/lib
+    cp -p $INSTALLDIR/bin/pod2* $SPECBIN/lib
+    # Arrange for bin/lib to be flat (i.e. no 5.22.0 or site_perl subdirs)
+    if [ -d $INSTALLDIR/lib/perl5/site_perl/$PERLVER ]; then
+        if $SPECBIN/spectar -C $INSTALLDIR/lib/perl5/site_perl/$PERLVER --exclude=.svn --exclude=CVS -cf - . | $SPECBIN/spectar -C $SPECBIN/lib -xvf -; then
+            true
+        else
+            echo "Uh-oh! I appear to have had problems building 'perl'"
+            error=yes
+        fi
+    elif [ -d $INSTALLDIR/lib/perl5/site_perl ]; then
+        if $SPECBIN/spectar -C $INSTALLDIR/lib/perl5/site_perl --exclude=.svn --exclude=CVS -cf - . | $SPECBIN/spectar -C $SPECBIN/lib -xvf -; then
+            true
+        else
+            echo "Uh-oh! I appear to have had problems building 'perl'"
+            error=yes
+        fi
+    fi
+    if [ -d $INSTALLDIR/lib/perl5/$PERLVER ]; then
+        if $SPECBIN/spectar -C $INSTALLDIR/lib/perl5/$PERLVER --exclude=.svn --exclude=CVS -cf - . | $SPECBIN/spectar -C $SPECBIN/lib -xvf -; then
+            true
+        else
+            echo "Uh-oh! I appear to have had problems building 'perl'"
+            error=yes
+        fi
+    elif $SPECBIN/spectar -C $INSTALLDIR/lib/perl5 --exclude=.svn --exclude=CVS -cf - . | $SPECBIN/spectar -C $SPECBIN/lib -xvf -; then
+        true
+    else
+        echo "Uh-oh! I appear to have had problems building 'perl'"
+        error=yes
+    fi
+
+    for i in invoke md5sum sha256sum sha512sum
+    do
+        if cp $INSTALLBIN/spec$i* $SPECBIN; then
+            if [ -n "$DOSTRIP" ] || [ -z "$SKIPSTRIP" ]; then
+                strip $SPECBIN/spec$i* || :
+            else
+                true
+            fi
+        else
+            echo "Uh-oh! I appear to have had problems building 'spec$i'"
+            error=yes
+        fi
+    done
+    chmod -R u+w $SPECBIN
+    if [ -z "$error" ]; then
+        echo "Tools built successfully.  Go to the top of the tree and"
+        echo "source the shrc file.  Then you should be ready."
+    fi
+fi
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=sh syntax=sh shiftwidth=4 tabstop=8 expandtab nosmarttab:

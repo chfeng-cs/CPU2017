@@ -1,0 +1,13 @@
+cc-files = $(shell echo source/*/*cc source/*/*/*cc source/*/*/*/*cc)
+o-files = $(cc-files:.cc=.o)
+
+%.o : %.cc
+	g++ -O3 -ggdb -Iinclude -I. -c $^ -o $@
+
+target: $(o-files)
+	g++ -O3 -ggdb -o parest $(o-files)
+
+clean:
+	-rm -f $(o-files) parest
+
+.PHONE: target clean

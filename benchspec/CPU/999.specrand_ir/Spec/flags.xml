@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags that appear in the sources for 999.specrand.
+
+  Copyright 2008-2013 Standard Performance Evaluation Corporation
+
+  $Revision: 2066 $
+  $Date: 2013-04-30 13:06:11 -0400 (Tue, 30 Apr 2013) $
+-->
+<flagsdescription>
+
+<!-- Normal flags file should suggest a name for themselves -->
+<filename>999.specrand.flags</filename>
+
+<title>999.specrand Flags</title>
+
+<header>
+<![CDATA[
+<p>There are only a few preprocessor macros used in 999.specrand.
+Because they are either set automatically by the compilation system or would
+break the build or run, attempting to change them is not allowed.</p>
+]]>
+</header>
+
+<flag name="F-Ispecrand-common" class="mandatory">
+This macro just tells the C preprocessor where to find the specrand.h header file.
+</flag>
+
+<flag name="DTRY_REENTRANT_VERSIONS" class="forbidden">
+At one time in the past, there were reentrant versions of the specrand calls.  Those are gone, and so defining this macro would break the build.  The code is left in in case those reentrant versions are ever recreated.
+</flag>
+
+<flag name="D__cplusplus" class="forbidden">
+This macro indicates that the benchmark is being built with a C++ compiler.  It
+may not be set by hand.
+</flag>
+
+<flag name="DCLINK" class="forbidden">
+When the benchmark is built with a C++ compiler, this macro contains text that
+causes the exported functions to be built with C-style linkage.  It is set
+automatically and may not be set by hand.
+</flag>
+
+</flagsdescription>

@@ -1,0 +1,449 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags that appear in the sources for 523.xalancbmk_r.
+
+  Copyright 2006-2014 Standard Performance Evaluation Corporation
+
+  $Revision: 3534 $
+  $Date: 2015-10-09 07:13:48 -0400 (Fri, 09 Oct 2015) $
+-->
+<flagsdescription>
+
+<!-- Normal flags file should suggest a name for themselves -->
+<filename>523.xalancbmk_r.flags</filename>
+
+<title>523.xalancbmk_r Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+whether they are portability candidates, mandatory, or forbidden.
+</p>
+]]>
+</header>
+
+<flag name="includes" class="mandatory" regexp="-I(?:\.|xercesc(?:/dom|/dom/impl|/sax|/util/MsgLoaders/InMemory|/util/Transcoders/Iconv)?|xalanc/include)(?:\s+|$)">
+<example>-I., -Ixercesc, -Ixercesc/dom, -Ixercesc/dom/impl, -Ixercesc/sax, -Ixercesc/util/MsgLoaders/InMemory, -Ixercesc/util/Transcoders/Iconv, -Ixalanc/include</example>
+This flag is set for all builds in Spec/object.pm.
+</flag>
+
+<flag name="DXML_USE_INMEM_MESSAGELOADER" class="mandatory">
+This macro selects the in-memory message loader.  It is set in Spec/object.pm
+and may not be changed.
+</flag>
+
+<flag name="header_guard" class="forbidden" regexp="[-/]D(?:___\S+_h___|\S*1357924680|(?:UCNV|UTYPES)_H|\S*(?:(?:_HPP|_GUARD|_INCLUDED)(?:_\d*)?))(?:\s|$)">
+This macro prevents multiple inclusion of header files.  Setting it explicitly
+is forbidden.
+</flag>
+
+<flag name="DAPP_NO_THREADS" class="mandatory">
+For every platform, this separates code that is the multi-threaded version fro mthe single threaded version. This is always defined in the object.pm to force the single threaded version.
+</flag>
+
+<flag name="DBEOS" class="forbidden">
+Sets platform specific definitions for BEOS. Will automatically define. No need to set.
+</flag>
+
+<flag name="DENDIANMODE_LITTLE" class="forbidden">
+Will set little endianmode based on the platform specifci definitons.Will automatically define. No need to set.
+</flag>
+
+<flag name="DEXM_OS390" class="portability">
+This flag can be set for the 390 platform.
+</flag>
+
+<flag name="DFALSE" class="forbidden">
+This is an internal macro for true and false. Do not set.
+</flag>
+
+<flag name="DFREEBSD" class="forbidden">
+Sets platform specific definitions for FREEBSD. Will automatically define. No need to set.
+</flag>
+
+<flag name="DHPUX" class="forbidden">
+Sets platform specific definitions for HPUX. Will automatically define. No need to set.
+</flag>
+
+<flag name="DLINUX" class="forbidden">
+Sets platform specific definitions for LINUX. Will automatically define. No need to set.
+</flag>
+
+<flag name="DNDEBUG_SYMBOLS" class="forbidden">
+This macro turns on additonal debug code. Do not set.
+</flag>
+
+<flag name="DNEED_TO_GEN_ELEM_ATT_MAP_TABLE" class="forbidden">
+This flag turns on alternate path for character flag table. Do not set.
+</flag>
+
+<flag name="DNEED_TO_GEN_TABLE" class="forbidden">
+This flag turns on alternate path for character flag table. Do not set.
+</flag>
+
+<flag name="DNETBSD" class="forbidden">
+Sets platform specific definitions for NETSD. Will automatically define. No need to set.
+</flag>
+
+<flag name="DNO_NATIVE_BOOL" class="forbidden">
+This flag determines if compiler has native BOOL type support. Determined automatically. Do not set.
+</flag>
+
+<flag name="DNULL" class="forbidden">
+This flag sets the NULL value. Do not set.
+</flag>
+
+<flag name="DOBSOLETED" class="forbidden">
+This flag guards unoptimized code. Do not set.
+</flag>
+
+<flag name="DOS390" class="portability">
+This flag can be set for the 390 platform.
+</flag>
+
+<flag name="DOS400" class="portability">
+This flag can be set for the OS400 platform.
+</flag>
+
+<flag name="DOS400SETDEFS_H" class="forbidden">
+Sets platform specific definitions for OS400. Will automatically define. No need to set.
+</flag>
+
+<flag name="DPROJ_DOM" class="mandatory">
+This flag turns on DOM project code. Must be set in object.pm.
+</flag>
+
+<flag name="DPROJ_PARSERS" class="mandatory">
+This flag turns on Parsers project code. Must be set in object.pm.
+</flag>
+
+<flag name="DPROJ_SAX2" class="mandatory">
+This flag turns on Sax2 project code. Must be set in object.pm.
+</flag>
+
+<flag name="DPROJ_SAX4C" class="mandatory">
+This flag turns on Sax4c project code. Must be set in object.pm.
+</flag>
+
+<flag name="DPROJ_VALIDATORS" class="mandatory">
+This flag turns on Validation project code. Must be set in object.pm.
+</flag>
+
+<flag name="DPROJ_XMLPARSER" class="mandatory">
+This flag turns on XMLParser project code. Must be set in object.pm.
+</flag>
+
+<flag name="DPROJ_XMLUTIL" class="mandatory">
+This flag turns on XMLUntil project code. Must be set in object.pm.
+</flag>
+
+<flag name="DPTX" class="forbidden">
+Sets platform specific definitions for Dynix PTX. Will automatically define. No need to set.
+</flag>
+
+<flag name="DRWSTD_MULTI_THREAD" class="forbidden">
+This flag sets the HPUX thread safe mode. No need to set
+</flag>
+
+<flag name="DSIZE_MAX" class="forbidden">
+This flag determies maximum size for XML types. Do not set.
+</flag>
+
+<flag name="DSOLARIS" class="portability">
+This flag can be set for the Solaris platform.
+</flag>
+
+<flag name="DSPEC_AIX" class="portability">
+This flag can be set for SPEC compilation for AIX using default compiler.
+</flag>
+
+<flag name="DSPEC_AIX_GCC" class="portability">
+This flag can be set for SPEC compilation for AIX using GCC compiler.
+</flag>
+
+<flag name="DSPEC_HPUX" class="portability">
+This flag can be set for SPEC compilation for HPUX using default compiler.
+</flag>
+
+<flag name="DSPEC_HPUX_HPPA" class="portability">
+This flag can be set for SPEC compilation for HPUX on HPPA using default compiler.
+</flag>
+
+<flag name="DSPEC_HPUX_IA64" class="portability">
+This flag can be set for SPEC compilation for HPUX on IA64 using default compiler.
+</flag>
+
+<flag name="DSPEC_IRIX" class="portability">
+This flag can be set for SPEC compilation for IRIX using default compiler.
+</flag>
+
+<flag name="DSPEC_LINUX" class="portability">
+This flag can be set for SPEC compilation for LINUX using default compiler.
+</flag>
+
+<flag name="DSPEC_LINUX_XLC" class="portability">
+This flag can be set for SPEC compilation for LINUX using XLC compiler.
+</flag>
+
+<flag name="DSPEC_MACOSX" class="portability">
+This flag can be set for SPEC compilation for MACOSX using default compiler.
+</flag>
+
+<flag name="DSPEC_MACOSX_GCC" class="portability">
+This flag can be set for SPEC compilation for MACOSX using GCC compiler.
+</flag>
+
+<flag name="DSPEC_SOLARIS" class="portability">
+This flag can be set for SPEC compilation for SOLARIS using default compiler.
+</flag>
+
+<flag name="DSSIZE_MAX" class="forbidden">
+This flag determies maximum size for XML types. Do not set.
+</flag>
+
+<flag name="DTRU64" class="forbidden">
+Sets platform specific definitions for Tru64. Will automatically define. No need to set.
+</flag>
+
+<flag name="DTRUE" class="forbidden">
+This flag sets TRUE value. Do not set.
+</flag>
+
+<flag name="DWEAVEPATH_CPP" class="forbidden">
+This flag sets path value. Do not set.
+</flag>
+
+<flag name="DWIN32" class="portability">
+This flag can be set for the Win32 platform.
+</flag>
+
+<flag name="D_GNU_SOURCE" class="portability">
+  This macro should normally be set automatically by the compilation system.
+  In some cases where it isn't, the source code requires it to be set
+  manually.
+</flag>
+
+<flag name="DXALAN_INMEM_MSG_LOADER" class="mandatory">
+This flag can be set for inmemory message loader. Must be set in object.pm.
+</flag>
+
+<flag name="D_XERCES_VERSION" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="DXML_USE_NETACCESSOR_SOCKET" class="mandatory">
+This flag sets the net accessort socket. Must be set in object.pm.
+</flag>
+
+<flag name="DXERCES_NO_ASM" class="mandatory">
+  This flag eliminates the x86 assembly version of the compare-and-exchange routine on
+  32-bit Windows systems.
+</flag>
+
+<flag name="XML" class="forbidden" regexp="[-/]D\SXML_*\S*\b">
+This macro determines if specific XML types are avaialble. Will be determined internally.
+</flag>
+
+<flag name="DXP_CPLUSPLUS" class="forbidden">
+This is a cross-platform symbole defined automatically when using C++. Do not set.
+</flag>
+
+<flag name="D_BOOL" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D_DEBUG" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D_HP_NAMESPACE_STD" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D_OS400PLATFORMUTILS_H" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D_SIZE_T" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D_SSIZE_T" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D_WIN32" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D_WIN64" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__APPLE__" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__BOOL__" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__BYTE_ORDER" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__HPACC_THREAD_SAFE_RB_TREE" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__IBMCPP__" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__LITTLEENDIAN__" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__MACH__" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__OS400__" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__STD_STRICT_ANSI" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__STD_STRICT_ANSI_ERRORS" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__TANDEM" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="D__i386__" class="forbidden">
+This is an autodetected variable based on builtin platform macro that is set either by the compiler or the OS. Do not set.
+</flag>
+
+<flag name="comp_implicit" class="forbidden" regexp="[-/]D(?:_AIX|_AIX43|_ALPHA_|_CRAYMPP|_CRTIMP|_MSC_(?:VER|EXTENSIONS)|_UNICOS|__ALPHA|__BEOS__|__BIG_ENDIAN__|__BORLANDC__|__BORLAND__|__CRTL_VER|__CYGWIN__|__DECC|__DECC_VER|__DGUX|__DYNAMIC__|__EMX__|__FreeBSD__|__FreeBSD_version|__GLIBC__|__GNUC_MINOR__|__GNUC__|__GNUG__|__GNU_LIBRARY__|__IEEE_FP|__INTEL_COMPILER|__LITTLE_ENDIAN__|__Lynx__|__MINGW32_MAJOR_VERSION|__MINGW32__|__MINT__|__NeXT|__NeXT__|__NetBSD__|__OPEN_VM|__OpenBSD__|__POSIX_SOURCE|__QNXNTO__|__QNX__|__SCO_VERSION__|__SC__|__STDC__|__STRICT_ANSI__|__SVR4|__UCLIBC__|__VAX|__VMS|__VMS_VER|__VOS__|__alpha|__attribute__|__attribute__(?:format|malloc|nonnull|noreturn|pure|unused|warn_unused_result)__|__bsdi__|__cplusplus|__hpux|__hpux__|__int64|__osf__|__sgi|__sparc64__|__stdc__|__sun|__sun__|__svr4__|__ux_version|_cplusplus|apollo|atarist|convex|cray|i860|lint|S_SPLINT_S|m88k|mc300|mc500|mc6000|mc700|mips|sun|ultrix|uts|_SVID3|hp9000s500|PLAN9|pyr|vax11c|gould|hcx|UTS|NeXT|OEMVS|OS2|NETWARE|POSIX_BC|__riscos__|__irix__|__VC32__|__PGI|__SUNPRO_C|__SUNPRO_CC|__STDC_VERSION__|__STDIO_LOADED|__SYMBIAN32__|WINVER)(?:=\S*)?\b">
+These flags are set implicitly by the compilation system and may not be
+set explicitly.
+<example>
+-D_AIX=XXX,
+-D_AIX43=XXX,
+-D_ALPHA_=XXX,
+-D_CRAYMPP=XXX,
+-D_CRTIMP=XXX,
+-D_MSC_VER=XXX,
+-D_MSC_EXTENSIONS=XXX,
+-D_UNICOS=XXX,
+-D__ALPHA=XXX,
+-D__BEOS__=XXX,
+-D__BIG_ENDIAN__=XXX,
+-D__BORLANDC__=XXX,
+-D__BORLAND__=XXX,
+-D__CRTL_VER=XXX,
+-D__CYGWIN__=XXX,
+-D__DECC=XXX,
+-D__DECC_VER=XXX,
+-D__DGUX=XXX,
+-D__DYNAMIC__=XXX,
+-D__EMX__=XXX,
+-D__FreeBSD__=XXX,
+-D__FreeBSD_version=XXX,
+-D__GLIBC__=XXX,
+-D__GNUC_MINOR__=XXX,
+-D__GNUC__=XXX,
+-D__GNUG__=XXX,
+-D__GNU_LIBRARY__=XXX,
+-D__IEEE_FP=XXX,
+-D__INTEL_COMPILER=XXX,
+-D__LITTLE_ENDIAN__=XXX,
+-D__Lynx__=XXX,
+-D__MINGW32_MAJOR_VERSION=XXX,
+-D__MINGW32__=XXX,
+-D__MINT__=XXX,
+-D__NeXT=XXX,
+-D__NeXT__=XXX,
+-D__NetBSD__=XXX,
+-D__OPEN_VM=XXX,
+-D__OpenBSD__=XXX,
+-D__POSIX_SOURCE=XXX,
+-D__QNXNTO__=XXX,
+-D__QNX__=XXX,
+-D__SCO_VERSION__=XXX,
+-D__SC__=XXX,
+-D__STDC__=XXX,
+-D__STRICT_ANSI__=XXX,
+-D__SVR4=XXX,
+-D__UCLIBC__=XXX,
+-D__VAX=XXX,
+-D__VMS=XXX,
+-D__VMS_VER=XXX,
+-D__VOS__=XXX,
+-D__alpha=XXX,
+-D__attribute__=XXX,
+-D__attribute__format__=XXX,
+-D__attribute__malloc__=XXX,
+-D__attribute__nonnull__=XXX,
+-D__attribute__noreturn__=XXX,
+-D__attribute__pure__=XXX,
+-D__attribute__unused__=XXX,
+-D__attribute__warn_unused_result__=XXX,
+-D__bsdi__=XXX,
+-D__cplusplus=XXX,
+-D__hpux=XXX,
+-D__hpux__=XXX,
+-D__int64=XXX,
+-D__osf__=XXX,
+-D__sgi=XXX,
+-D__sparc64__=XXX,
+-D__stdc__=XXX,
+-D__sun=XXX,
+-D__sun__=XXX,
+-D__svr4__=XXX,
+-D__ux_version=XXX,
+-D_cplusplus=XXX,
+-Dapollo=XXX,
+-Datarist=XXX,
+-Dconvex=XXX,
+-Dcray=XXX,
+-Di860=XXX,
+-Dlint=XXX,
+-DS_SPLINT_S=XXX,
+-Dm88k=XXX,
+-Dmc300=XXX,
+-Dmc500=XXX,
+-Dmc6000=XXX,
+-Dmc700=XXX,
+-Dmips=XXX,
+-Dsun=XXX,
+-Dultrix=XXX,
+-Duts=XXX,
+-D_SVID3=XXX,
+-Dhp9000s500=XXX,
+-DPLAN9=XXX,
+-Dpyr=XXX,
+-Dgould=XXX,
+-Dhcx=XXX,
+-DUTS=XXX,
+-DNeXT=XXX,
+-DOEMVS=XXX,
+-DOS2=XXX,
+-DNETWARE=XXX,
+-DPOSIX_BC,
+-Dvax11c=XXX,
+-D__PGI=XXX,
+-D__SUNPRO_C=XXX,
+-D__SUNPRO_CC=XXX,
+-D__SYMBIAN32__=XXX,
+-DWINVER=XXX
+</example>
+</flag>
+
+</flagsdescription>

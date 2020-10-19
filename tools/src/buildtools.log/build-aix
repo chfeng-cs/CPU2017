@@ -1,0 +1,154 @@
+#!/usr/bin/bash
+
+# Build SPEC CPU tools for AIX
+
+if [ -z "$SPEC" ]; then
+  if pwd | grep tools/src; then
+    SPEC=$(dirname $(dirname $(pwd)))
+  elif [ -f bin/runcpu -a -f MANIFEST -a -d tools/src ]; then
+    SPEC=$(pwd)
+  else
+    echo SPEC is not set, and I do not know what to set it to
+    exit 1
+  fi
+fi
+
+if [ $(ifconfig -a | grep inet6 | wc -l) -eq 1 ]; then
+  # IPv6 enabled on lo0 only, probably.  (If there's more than
+  # one, then presumably it's actually configured and thus might
+  # actually work.)
+  # This will make some IPv6 Perl tests hang when Perl is built
+  # without -Duseshrplib, which we must do in order to not mess
+  # up usage of the system Perl after shrc is sourced.  See
+  # CPUv6 Trac #291
+  echo IPv6 is enabled but not configured.
+  echo This will cause some Perl tests to hang.
+  echo Try something like
+  echo
+  echo sudo ifconfig lo0 inet6 ::1/0 delete
+  echo
+  echo to temporarily disable IPv6.
+  exit 1
+fi
+
+if [ "x$1" != "xdoit" ]; then
+  # Log the session
+  arch=$(uname -p | sed 's/powerpc/ppc/')
+  suitever=$(cat $SPEC/version.txt)
+  echo Starting build of aix-${arch} tools for kit $suitever
+  echo
+  echo Build log is in $SPEC/aix-${arch}-${suitever}.buildlog.txt
+  echo
+  echo Tail the log manually if you want to watch the progress.
+  exec $0 doit $* >$SPEC/aix-${arch}-${suitever}.buildlog.txt 2>&1
+else
+  shift
+fi
+PATH=/usr/bin:/usr/sbin:/sbin
+
+if [ "x$SPECLANG" != x ]; then
+  PATH=$SPECLANG:$PATH
+else
+  PATH=/opt/IBM/xlC/13.1.0/bin:/opt/IBM/xlc/13.1.0/bin:$PATH
+fi
+export PATH
+CC=xlc
+export CC
+CXX=xlC
+export CXX
+
+# Informationals
+echo PATH is $PATH
+echo
+echo I am
+id
+echo
+echo My location is `pwd`
+echo
+echo This system is
+uname -a
+echo
+echo Running
+echo AIX $(oslevel) "("$(oslevel -r)")"
+echo
+echo The compiler I will use today is
+$CC -qversion
+echo
+
+# make everything 64 bit - all supported AIX levels have it.
+export OBJECT_MODE=64
+
+# Set a good optimization level, large file support, and C++ comments
+export CFLAGS="-O3 $(getconf XBS5_LP64_OFF64_CFLAGS) -qsuppress=1500-036 -qlanglvl=extc99 -qarch=pwr4 -qtune=balanced:balanced"
+export LDFLAGS=$(getconf XBS5_LP64_OFF64_LDFLAGS)
+
+# Make xz link to static liblzma.  Shouldn't be necessary now but won't hurt
+export XZFLAGS='--enable-static --disable-shared'
+
+# Perl takes its flags in the makeflag variable.
+# buildtools automatically populates optimization flags from CFLAGS
+export PERLFLAGS='-Dcc=xlc_r -Duse64bitall -Dusethreads -Uuseshrplib'
+
+# At -O3 there's a single test failure in infnan.t (pack f NaN not-equals NaN at
+# op/infnan.t line 338).  At -O2 it doesn't fail.
+# The SKIPPERLOPTIMIZE keeps buildtools from filling optimize with stuff from
+# CFLAGS, which which is why it is being repeated here.
+export SKIPPERLOPTIMIZE=1
+export PERLFLAGS="$PERLFLAGS -Uoptimize= -Aoptimize=-O2 -Aoptimize=-qarch=pwr4 -Aoptimize=-qtune=balanced:balanced"
+
+# The POSIX module includes a bunch of math stuff that is SUPPOSED to be
+# compiler built-in inline functions.  Nevertheless, the linker somehow
+# figures out a way to turn those into external references which can't
+# be resolved.
+# -U__MATH__ turns off all the built-in math functions,
+# which is bad from a performance standpoint, but slow and working is
+# better than fast and broken.  Building the POSIX module statically
+# (-Dstatic_ext=POSIX) only moves the failure to link time.
+export PERLFLAGS="$PERLFLAGS -Accflags=-U__MATH__"
+
+# AIX's realpath() doesn't work the way that make expects it to, so
+# arrange for the replacement to be used
+export ac_cv_func_realpath=no
+
+# autoconf's test for stdbool.h yields a false negative on AIX,
+# so set it straight:
+export ac_cv_header_stdbool_h=yes
+
+# Preserve sanity
+export SKIPTOOLSINTRO="yes, please"
+
+cd tools/src
+time ./buildtools
+if [ $? -ne 0 ]; then
+  echo
+  echo Build failed
+  echo
+else
+  echo
+  echo Small proof of success:
+  echo
+  cd ../..
+  . ./shrc
+  specperl -V
+  echo
+  touch TOOLS.sha512
+  specperl $SPEC/bin/runcpu -V
+  echo
+  specperl $SPEC/bin/runcpu --test
+  if [ $? -eq 0 ]; then
+    echo
+    echo runcpu tests passed
+    echo
+    echo Here is a copy of this script:
+    echo =======================================================================
+    cat $0
+    echo =======================================================================
+    echo
+  else
+    echo
+    echo runcpu tests failed
+    echo
+  fi
+  echo
+  echo $(basename $0) run finished on $(date)
+fi

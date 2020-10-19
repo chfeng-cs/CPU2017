@@ -1,0 +1,26 @@
+$name             = 'intspeed';
+$unitbase         = 'SPEC';
+$metricbase       = 'int';
+$metric           = 'CINT2017';
+$ref              = 'refspeed';
+$train            = 'train';
+$test             = 'test';
+$rate_multiplier  = 0;   # Disallow rate runs with this benchset
+$output           = 1;
+@benchmarks = qw(
+        600.perlbench_s
+        602.gcc_s
+        605.mcf_s
+        620.omnetpp_s
+        623.xalancbmk_s
+        625.x264_s
+        631.deepsjeng_s
+        641.leela_s
+        648.exchange2_s
+        657.xz_s
+        998.specrand_is
+);
+
+$no_output = { '998.specrand_is' => 1 };
+
+1;

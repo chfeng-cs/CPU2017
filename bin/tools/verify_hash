@@ -1,0 +1,134 @@
+#!/$SPEC/bin/specperl
+#
+#  verify_hash - a tool to verify that the "untouchable" part of a raw results
+#                file hasn't been modified
+#  Copyright 1999-2019 Standard Performance Evaluation Corporation
+#
+#  Author: Cloyce D. Spradling
+#
+# $Id: verify_hash 6105 2019-03-25 00:39:26Z CloyceS $
+
+use strict;
+use Data::Dumper;
+use File::Basename;
+require 'vars.pl';
+require 'util_common.pl';
+
+$Data::Dumper::Sortkeys = 1;
+
+my $debug = 0;
+
+if (@ARGV == 0) {
+    if (-t) {
+        # No input; don't hang.
+        my $base = basename($0);
+        print "$base: No input supplied.\n\n";
+        print "Usage: $base <rawfile> ...\n";
+        print "-or-\n";
+        print "       $base < <rawfile>\n";
+        if ($^O !~ /Win32/i) {
+            print "-or-\n";
+            print "       cat <rawfile> | $base\n";
+        }
+        exit(1);
+    } else {
+        push @ARGV, '-';
+    }
+}
+
+my $rc = 0;
+foreach my $file (@ARGV) {
+    my $ctx = undef;
+    my $mode = 'SHA';
+    my $recording = 0;
+    my %fields = ();
+    my (%genhash, %savedhash) = ((), ());
+    my ($bits, $exthash);
+    my $curr_file = undef;
+
+    if ($file ne '-') {
+        print "\nChecking $file:\n";
+    }
+
+    my $fh = new IO::File '<'.$file;
+    if (!defined($fh)) {
+        print "\tCouldn't open '$file' for reading: $!\n";
+        next;
+    }
+
+    while(defined(my $line = $fh->getline())) {     # Raw file input
+        $line =~ tr/\015\012//d; # Lose line endings
+        if ($line =~ /^spec\.\Q${main::lcsuite}\E\.rawhash: ([[:xdigit:]]{32,})/) {
+            $savedhash{'rawhash'} = $1;
+            ($ctx, $bits, $mode) = get_hash_context(length($savedhash{'rawhash'}) * 4);
+            die "Unrecognized rawhash type in $ARGV (no $mode algorithm found).\nStopped" unless defined($ctx);
+            $recording = 1;
+            next;
+        } elsif ($line =~ /^spec\.\Q${main::lcsuite}\E\.exthash(\d*): ([-A-Za-z0-9+\/=*\@&]+)$/) {
+            $savedhash{'exthash'}->[$1+0] = $2;
+            next;
+        }
+        next unless ($recording == 1);
+        last if $line =~ /^-SUBMIT-$/;
+        $ctx->add($line);
+        if ($line =~ /^spec\.\Q${main::lcsuite}\E\.(\S+?)_?(\d*): (.*)/) {
+            my ($field, $idx, $val) = ($1, $2+0, $3);
+            $val =~ s/\s+$//;       # Trim trailing whitespace, as the formatter parser does
+            $fields{$field}->[$idx] = $val;
+        }
+    }
+    $genhash{'rawhash'} = defined($ctx) ? $ctx->hexdigest : '';
+
+    ($bits, $exthash) = (0, undef);
+    if ($savedhash{'rawhash'} ne '') {
+        if (lc($savedhash{'rawhash'}) ne lc($genhash{'rawhash'})) {
+            print "Result file $mode hash is inconsistent with stored data!\n";
+            $rc = 1;
+        } else {
+            print "Basic verification hashes match.\n";
+        }
+        if ($debug) {
+            print "  Stored $mode hash: $savedhash{'rawhash'}\n";
+            print "Observed $mode hash: $genhash{'rawhash'}\n";
+        }
+    } else {
+        print "Result file contains no basic verification hash.\n";
+        exit 2;
+    }
+
+    if (exists($savedhash{'exthash'})) {
+        # Do per-item checking
+        ($exthash, $bits) = unpack_exthash($savedhash{'exthash'});
+        if (!defined($exthash) || ref($exthash) ne 'HASH') {
+            print "Could not unpack result file extended verification hash.\n";
+            exit 1;
+        }
+
+        # Do per-item checking so we can tell the user why the check failed
+        my ($bad, $added, $changed, $removed) = check_per_item_hash(\%fields, $exthash, $bits);
+        foreach my $item (@{$added}) {
+            print "The '$item' field was added.\n";
+        }
+        foreach my $item (@{$removed}) {
+            print "The '$item' field was removed.\n";
+        }
+        foreach my $changedref (@{$changed}) {
+            my ($item, $stored, $generated) = @{$changedref};
+            print "The '$item' field was changed.\n";
+            print "\tCurrent value: '$generated'\n";
+        }
+        if ($bad) {
+            print "Result file extended hash is inconsistent with stored data!\n";
+            $rc = 1;
+        } else {
+            print "Extended verification hashes match.\n";
+        }
+    } else {
+        print "Result file contains no extended verification hash.\n";
+    }
+}
+
+exit $rc;
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab:

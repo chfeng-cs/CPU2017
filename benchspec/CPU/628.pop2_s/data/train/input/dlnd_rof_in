@@ -1,0 +1,10 @@
+ &shr_strdata_nml
+   dataMode       = 'RX1'
+   domainFile     = 'null'
+   streams        = 'runoff.1x1.stream.txt 1 1 1 ' ,
+                    'null' ,
+                    'null' 
+   tintalgo       = 'upper',
+                    'null' ,
+                    'null' 
+  /

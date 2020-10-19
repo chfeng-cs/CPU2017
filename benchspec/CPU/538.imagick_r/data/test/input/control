@@ -1,0 +1,4 @@
+# Format is:
+# exename outputfile errfile time? arg [arg...]
+convert test_convert.out test_convert.err -limit disk 0 test_input.tga -shear 25 -resize 640x480 -negate -alpha Off test_output.tga
+imagevalidate test_validate.out test_validate.err -avg -threshold 0.95 -maxthreshold 0.001 test.tga

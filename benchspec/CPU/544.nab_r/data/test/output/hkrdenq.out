@@ -1,0 +1,26 @@
+nabmd hkrdenq 1930344093
+
+Reading .pdb file (hkrdenq/hkrdenq.pdb)
+Reading .prm file (hkrdenq/hkrdenq.prm)
+title:
+                                                                                
+      iter    Total
+ff:     0   -680.86
+Initial energy is -680.8606420
+Starting molecular dynamics with Born solvation energy...
+
+      iter    Total
+ff:     0   -680.86
+ff:  1000   -647.23
+
+...Done, md returns 0
+      iter    Total
+ff:     0   -198.97
+Initial energy is -198.9739930
+Starting molecular dynamics with in vaccuo non-bonded energy...
+
+      iter    Total
+ff:     0   -198.97
+ff:  1000   -471.99
+
+...Done, md returns 0

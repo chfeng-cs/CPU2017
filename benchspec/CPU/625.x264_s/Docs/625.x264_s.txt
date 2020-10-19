@@ -1,0 +1,192 @@
+                                   625.x264_s
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   625.x264_s
+
+  Benchmark Author
+
+   Submitted to SPEC(R) by:
+
+     * Jason Garrett-Glaser
+     * Email: darkshikari AT gmail DOT com
+     * Principal author for: x86 asm, 1pass VBV, adaptive quantization,
+       inline asm, various speed optimizations, bugfixes.
+
+   Additional Authors
+
+     * Alex Izvorski aizvorski AT gmail DOT com x86 asm (sse2)
+     * Alex Wright, alexw0885 AT hotmail DOT com, Motion estimation (subpel
+       and mixed refs), B-RDO
+     * bobololo, Avisynth input, MP4 muxing
+     * Christian Heine, sennindemokrit AT gmx DOT net, x86 asm
+     * David Wolstencroft, Altivec optimizations
+     * Eric Petit, eric.petit AT lapsus DOT org, titer, Altivec asm, BeOS and
+       MacOS X ports.
+     * Gabriel Bouvigne, gabriel.bouvigne AT joost DOT com 2pass VBV
+     * Guillaume Poirier, gpoirier CHEZ mplayerhq POINT hu, Altivec
+       optimizations
+     * Laurent Aimar, fenrir AT via.ecp DOT fr, Intial import, former
+       maintainer, x86 asm (mmx/mmx2)
+     * Loren Merritt, lorenm AT u.washington DOT edu, maintainer, All areas
+       of encoder analysis and algorithms, Motion estimation, rate control,
+       macroblock & frame decisions, RDO, etc., Multithreading, x86 and
+       x86_64 asm (mmx/mmx2/sse2)
+     * Mans Rullgard, mru AT inprovide DOT com, Rate control
+     * Michael Niedermayer, michaelni AT gmx DOT at, Rate control
+     * Mike Matsnev, mike AT po DOT cs DOT msu DOT su, Matroska muxing
+     * Min Chen, chenm001 AT 163 DOT com, Win32/VC 6.0 port, gcc asm to nasm
+       conversion
+     * Phil Jensen, philj AT csufresno DOT edu, SPARC asm
+     * Radek Czyz, radoslaw AT syskin DOT cjb DOT net, Cached motion
+       compensation
+     * Tuukka Toivonen, tuukkat AT ee DOT oulu DOT fi, Visualization
+
+  Benchmark Program General Category
+
+   Video compression
+
+  Benchmark Description
+
+   x264 is a free software library and application for encoding video streams
+   into the H.264/MPEG-4 AVC format. x264 is distributed and maintained by
+   the VideoLan project
+
+   The 625.x264_s source code, which is part of the SPEC CPU(R) suite, was
+   ported from the source obtain from the May 15, 2009 daily snapshot
+   downloaded from VideoLan.
+
+  Input Description
+
+   625.x264_s uses the Blender Open Movie Project's "Big Buck Bunny",
+   Copyright 2008, Blender Foundation / [1]www.bigbuckbunny.org. Each
+   workload uses a portion of the movie.
+
+   To save space on the SPEC CPU(R) media, the movie is first decoded to YUV
+   format in a (non-timed) setup phase, using the decoder 'ldecod' from the
+   H.264/AVC reference software implementation. (The H.264/AVC encoder was
+   used in SPEC CPU(R)2006 benchmark [2]464.h264ref.)
+
+   The reference workload encodes back to MPEG-4. It is run two separate ways
+   on different parts of the movie. First a two pass method uses the options:
+
+     * --pass 1 --stats x264_stats.log --bitrate 1000 --frames 1000
+     * --pass 2 --stats x264_stats.log --bitrate 1000 --frames 1000
+
+   Followed by a single pass method:
+
+     * --seek 500 --frames 1250
+
+  Output Description
+
+   625.x264_s creates individual frames from the movie as it is being
+   encoded. The option --dumpyuv 200 writes every 200th frame to a .yuv file.
+   Therefore,
+
+   The 2-pass method    The single-pass method
+   creates output files creates output files
+
+    frame_0.yuv          frame_500.yuv
+    frame_200.yuv        frame_700.yuv
+    frame_400.yuv        frame_900.yuv
+    frame_600.yuv        frame_1100.yuv
+    frame_800.yuv        frame_1249.yuv
+    frame_999.yuv
+
+   Frames 0 and 500 are simply dumps of the starting points, and are not
+   validated. The others from the lists just above are validated using the
+   SPEC utility [3]imagevalidate, which calculates the Structural SIMilarity
+   (SSIM) index over 8x8 pixel areas between the benchmark-produced image and
+   a SPEC-provided expected image. SSIM indexes range from -1 (maximally
+   different) to 1 (identical) for each of those regions.
+
+   You can see the validation commands if you go to a run directory and use
+   specinvoke -n compare.cmd. The commands can be entered by hand if you
+   wish. A brief (one line) report is sent to the .out file, and a longer
+   report that you might wish to examine is sent to the .err. For example:
+
+ $ ./imagevalidate_r_base.aug23b -avg -dumpfile -threshold 0.5 \
+   -maxthreshold 20 frame_999.yuv frame_999.org.tga \
+   > imageValidate_frame_999.out 2> imageValidate_frame_999.err
+ $ cat imageValidate_frame_999.out
+ frame_999.yuv: AVG SSIM = 0.952274876
+ $ cat imageValidate_frame_999.err
+ frame_999.yuv: INFO:
+   Number below threshold: 1  (out of 14400)
+                 AVG SSIM: 0.952274876
+                 MIN SSIM: 0.485218018
+        SSIM distribution:
+           0.800 to 1.000: 14146
+           0.600 to 0.800: 249
+           0.400 to 0.600: 5
+           0.200 to 0.400: 0
+           0.000 to 0.200: 0
+           -0.200 to 0.000: 0
+           -0.400 to -0.200: 0
+           -0.600 to -0.400: 0
+           -0.800 to -0.600: 0
+           -1.000 to -0.800: 0
+ $
+
+
+   The option -dumpfile for imagevalidate can be used to output the generated
+   file in TGA format, which can then be viewed by a suitable image viewer.
+
+   In all cases, the expected output from imagevalidate is:
+
+  <filename>: AVG SSIM = 1.000000000
+
+   which is then checked by [4]specdiff to verify that the overall average of
+   SSIM indexes is at least 0.85.
+
+  Programming Language
+
+   C
+
+  Known portability issues
+
+     * The benchmark uses some C99 features so you may need a compiler flag
+       such as GCC's "-std=c99".
+
+     * On most platforms, the benchmark source code assumes that your
+       compiler supports the non-standard extension
+       __attribute__((aligned(n))).
+
+     * The original benchmark source code assumed that the "char" data type
+       is signed, which is not true on all platforms. SPEC has attempted to
+       edit the code to mark the affected declarations with the 'signed'
+       keyword; however, it is possible that some instances may have been
+       missed, in which case platforms where "char" is by default unsigned
+       may need a compiler portability flag such as GCC's "-fsigned-char".
+
+  Sources and Licensing
+
+   As noted above, the encoder is from the VideoLan x264 project (GPL); Big
+   Buck Bunny is from the Blender Foundation (Creative Commons); and the
+   (non-timed) decoder is from the H.264/AVC reference implementation.
+
+   Please see details in the document [5]SPEC CPU(R)2017 Licenses.
+
+  References
+
+     * [6]VideoLan project
+     * [7]Big Buck Bunny
+     * [8]Structural Similarity Index (SSIM)
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. https://peach.blender.org/
+   2. http://www.spec.org/cpu2006/Docs/464.h264ref.html
+   3. http://www.spec.org/cpu2017/Docs/utility.html#imagevalidate
+   4. http://www.spec.org/cpu2017/Docs/utility.html#specdiff
+   5. https://www.spec.org/cpu2017/Docs/licenses.html#bmk625.x264_s
+   6. http://www.videolan.org/developers/x264.html
+   7. https://peach.blender.org/
+   8. https://en.wikipedia.org/wiki/Structural_similarity

@@ -1,0 +1,692 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+      <title>Licenses - CPU 2017</title>
+      <!-- $Id: licenses.html 6307 2019-07-28 21:35:52Z JohnHenning $ -->
+      <!-- You'll want a nice wide screen (132 columns) when editing this ............................................................ -->
+
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <style type="text/css">
+table.license {width:900px;margin-left:2em;}
+table.license th    {font-family:sans-serif; font-weight:bold; }
+table.license tr    {padding-top:22px;}
+td.src {font-family:monospace; }
+      </style>
+      </head>
+      <body>
+
+      <h1>SPEC CPU&reg;2017 Licenses </h1>
+      <table class="version">
+         <tr>
+            <th>$Id: licenses.html 6307 2019-07-28 21:35:52Z JohnHenning $</th>
+            <td>Latest: <a href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+         </tr>
+      </table>
+
+      <p class="contents">Contents</p>
+      <p class="contentsl2"><a href="#SPEClicense">Introduction to the SPEC CPU 2017 License Agreement</a></p>
+      <p class="contentsl2"><a href="#free">Freely-redistributable sources </a></p>
+      <p class="contentsl3"><a href="#GPLtarballs">Note 1:</a> Licenses and bug reporting</p>
+      <p class="contentsl3"><a href="#BSD">Note 2:</a> about "BSD" licenses</p>
+      <p class="contentsl2"><a href="#benchmarks">Benchmarks</a></p>
+      <p class="contentsl2last"><a href="#tools">SPEC CPU 2017 Tools</a></p>
+
+
+
+      <h2 id="SPEClicense">Introduction to the SPEC CPU&reg;2017 License Agreement</h2>
+
+      <p class="l1">SPEC CPU&reg;2017 is a product of the SPEC&reg; non-profit corporation 
+      <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  The SPEC CPU 2017 source code and tools are
+      provided under a
+      <a href="https://www.spec.org/cpu2017/Docs/licenses/SPEC-License.pdf">SPEC License Agreement</a><span
+         style="font-size:85%;">(pdf format; plain text is also  <a
+         href="https://www.spec.org/cpu2017/Docs/licenses/SPEC-License.txt">available</a>)</span>
+      The license contains the terms and conditions of your agreement with SPEC.  Read it carefully before using the
+      product.  A copy is also on your distribution media, in the <samp class="snugr">Docs/licenses/</samp> directory.</p>
+
+      <p class="l1snugbot">The following points are not a substitute for that License Agreement, but may be helpful as an
+      introduction:</p>
+      <ul class="l1snugish">
+         <li>If your corporation buys SPEC CPU 2017, you may share it within your corporation.</li>
+         <li>Don't send it elsewhere.</li>
+         <li>Don't post it to the public.</li>
+         <li>Use it only for benchmarking.</li>
+         <li><p class="snug">Public use is governed by:</p>
+         <ul class="snugish">
+            <li>The SPEC-wide Fair Use Rule
+            <a href="https://www.spec.org/fairuse.html">www.spec.org/fairuse.html</a> and</li>
+            <li>The SPEC CPU 2017 rules
+            <a href="https://www.spec.org/cpu2017/Docs/runrules.html">www.spec.org/cpu2017/Docs/runrules.html</a></li>
+         </ul>
+         </li>
+         <li>Freely-redistributable source components included within SPEC CPU 2017 are licensed separately, and
+         remain freely redistributable.</li>
+      </ul>
+
+
+      <h2 id="free">Freely-redistributable sources </h2>
+
+      <div class="l1">
+         <p>SPEC gratefully acknowledges the many free and open source software contributions that are used in SPEC CPU 2017. </p>
+         <ul>
+            <li>The directory <samp>redistributable_sources/original</samp> contains archives of original sources that were
+               used.</li>
+            <li>The directory <samp>redistributable_sources/modified</samp> contains archives of sources as modified by
+               SPEC.</li>
+            <li>The directory <samp>Docs/licenses</samp> contains copies of the license documents for both SPEC and for
+               redistributable sources.</li>
+            <li>The file <samp>Docs/licenses.html</samp> (which you are reading now) identifies which licenses apply to which
+               source components, as used by <a href="#benchmarks">benchmarks</a> and by the SPEC <a href="#tools">CPU 2017 tool
+                  set</a>.</li>
+         </ul>
+
+         <h3 id="GPLtarballs">Note 1: Licenses and bug reporting</h3>
+         <div class="l1">
+            <p>In the table below, several benchmarks are marked as using the GNU GPL.  For each, SPEC's updated sources are
+            available in the ISO image for your copy of SPEC CPU 2017, in a compressed tar file underneath
+            <samp class="snugr">redistributable_sources/modified</samp>.</p>
+
+            <p>One possible use for modified sources is for bug reporting.  If you wish to
+            provide an entire benchmark to a compiler developer, generally you are not allowed to do so, unless the developer
+            also has a license for SPEC CPU 2017.  The exception is for the GPL benchmarks: for those, you may, if you
+            wish to do so, pass along the tarball from
+            <samp class="snugr">redistributable_sources/modified</samp>.  In that situation, please note that:</p>
+
+            <ul class="l1snugtop">
+               <li>The benchmark inputs are generally not redistributable, unless marked otherwise.</li>
+               <li>SPEC's validator and SPEC's expected answers are not redistributable.</li>
+               <li>SPEC's benchmark setup and reporting harness are not redistributable.</li>
+               <li>Included within each tarball in <samp>redistributable_sources/modified</samp> is script
+                  <samp class="nbsnugr">simple-build&lt;<i>name</i>&gt;.sh</samp>, which creates a binary using gcc/g++/gfortran on
+                  Linux/x86.  Of course, to report a bug with some other compiler, you will need to modify the example.</li>
+            </ul>
+
+         </div>
+
+
+         <h3 id="BSD">Note 2: about "BSD" licenses</h3>
+         <div class="l1">
+            <p>SPEC tried to track down all software license references within all files in SPEC CPU 2017.  Many modules were found with
+            <a href="licenses/BSD.txt">BSD</a> (or similar) licenses.  Copyrights for such modules must be acknowledged in the documentation if they
+            are shipped in binary form.  Separate acknowledgment is not required if they ship as source code (which is how
+            SPEC CPU 2017 ships).</p>
+
+            <p>Nevertheless, having identified these modules, it seems only courteous to acknowledge them -- even if not legally
+            required.  Most are acknowledged in this document, with the exception of BSD contributions to 526.blender, which are in an <a
+               href="blender-appendix.html">Appendix</a>, because there are so many.</p>
+
+            <p>When considering BSD licenses, one should be careful not to confuse "acknowledgment" with "advertising".  To
+            the best of SPEC's knowledge, no BSD-licensed materials in SPEC CPU 2017 require advertisement.  (Only one source
+            file in SPEC CPU 2017 mentions such a clause, and that file is copyright by Berkeley, who have
+            <a href="licenses/BSD-Change-1999.txt">explicitly disclaimed</a> the requirement.)</p>
+         </div>
+
+      </div>
+
+
+      <h2 id="benchmarks">
+         <span id="Benchmarks"> </span>
+         Benchmarks</h2>
+
+      <p>The table lists redistributable sources used by benchmarks, and the license or licenses that apply to them.  </p>
+
+      <table class="license" id="BenchmarkLicenses">
+         <tr>
+            <th>Benchmark</th>
+            <th>Archive name</th>
+            <th>License(s)</th>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk500.perlbench_r"  rowspan="9"><a href="benchmarks/500.perlbench_r.html">500.perlbench_r</a>
+               <br /><span id="bmk600.perlbench_s"><a href="benchmarks/600.perlbench_s.html">600.perlbench_s</a></span></td>
+            <td class="src">  perl-5.22.1.tar.xz             </td>
+            <td> <a href="licenses/Artistic.txt">Perl Artistic License</a></td>
+         </tr>
+         <tr>
+            <td class="src"> HTML-Parser-3.71.tar.gz        </td>
+            <td> <a href="licenses/Artistic.txt">Perl Artistic License</a></td>
+         </tr>
+         <tr>
+            <td class="src"> IO-stringy-2.110.tar.gz        </td>
+            <td> <a href="licenses/Artistic.txt">Perl Artistic License</a></td>
+         </tr>
+         <tr>
+            <td class="src"> Mail-SpamAssassin-3.4.0.tar.bz2 (*)</td>
+            <td> <a href="licenses/Apache.v2.txt">Apache License, version 2.0</a>   </td>
+         </tr>
+         <tr>
+            <td class="src"> MailTools-2.13.tar.gz (*)         </td>
+            <td> <a href="licenses/Artistic.txt">Perl Artistic License</a></td>
+         </tr>
+         <tr>
+            <td class="src"> MHonArc-2.6.19.tar.bz2 (*)        </td>
+            <td><a href="licenses/GPL.v2.txt">GNU GPL, version 2</a> </td>
+         </tr>
+         <tr>
+            <td class="src"> TimeDate-2.30.tar.gz           </td>
+            <td> <a href="licenses/Artistic.txt">Perl Artistic License</a></td>
+         </tr>
+         <tr>
+            <td class="src"> mt19937ar.sep.tgz <a href="#mt">[description]</a>  </td>
+            <td> <a href="licenses/BSD.txt">BSD</a> License </td>
+         </tr>
+         <tr>
+            <td colspan="2"><p class="hanging1snug">(*) Items marked with an asterisk do not provide any components linked
+               into the benchmark executable.  They are only part of the runtime workload.</p>
+
+               <p class="snugbot">The benchmark includes:</p>
+               <ul class="snug">
+                  <li>Components originally copyrighted by the Regents of the University of California and/or Constantin S.
+                     Svintsoff, available under the <a href="licenses/BSD.txt">BSD</a> license (within <samp>PathTools</samp> and <samp class="snugr">File::Glob</samp>).</li>
+                  <li>Code derived from the RSA Data Security, Inc. MD5 Message-Digest Algorithm, available under the <a
+                        href="licenses/Artistic.txt">Perl Artistic License</a>  (see <samp class="snugr">Digest/MD5.pm</samp>).</li>
+                  <li> Unicode components, available under the <a href="licenses/Unicode.txt">Unicode license</a>.</li>
+               </ul>
+               <p class="snugbot" id="mt"><samp>mt19937ar.sep.tgz</samp> is the Mersenne Twister pseudorandom number
+               generator with period 2^19937-1, Copyright 1997 - 2002, Makoto Matsumoto and Takuji Nishimura; Copyright 2005,
+               Mutsuo Saito.  The source includes a <a href="licenses/BSD.txt">BSD</a> license.  It is used in
+               <samp class="snugr">specrand.c</samp>, which is used by several benchmarks.</p>
+            </td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk502.gcc_r"  rowspan="4"><a href="benchmarks/502.gcc_r.html">502.gcc_r</a>
+               <br /><span id="bmk602.gcc_s"><a href="benchmarks/602.gcc_s.html">602.gcc_s</a></span></td>
+            <td class="src">gcc-4.5.0.tar.xz</td>
+            <td> <a href="licenses/GPL.v3.txt">GNU GPL, version 3</a>
+            </td>
+         </tr>
+         <tr>
+            <td class="src">gmp-6.0.0a.tar.xz</td>
+            <td><a href="licenses/GPL.v3.txt">GNU LGPL, version 3</a>
+            </td>
+         </tr>
+         <tr>
+            <td class="src">qsort.c <a href="#qsort">[description]</a></td>
+            <td> <a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+         <tr>
+            <td colspan="2"><p class="snugtop">The source directory includes <samp>xatexit.c</samp> Copyright (c)
+               1990 Regents of the University of California; see the <a href="licenses/BSD.txt">BSD</a> License.
+               </p>
+               <p class="snugbot" id="qsort"><samp>qsort.c</samp> is used by several benchmarks to improve consistency.  It
+               is from <a class="external" href="https://svn.FreeBSD.org/base/head/lib/libc/stdlib/qsort.c">
+                  https://svn.FreeBSD.org/base/head/lib/libc/stdlib/qsort.c</a>, Copyright (c) 1992, 1993 The Regents of the
+               University of California, and on your distribution media in directory
+               <br /><samp>redistributable_sources/original/common/spec_qsort/</samp></p></td>
+          </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk503.bwaves_r"  rowspan="1"><a href="benchmarks/503.bwaves_r.html">503.bwaves_r</a>
+               <span id="bmk603.bwaves_s"><a href="benchmarks/603.bwaves_s.html">603.bwaves_s</a>
+               </span></td>
+            <td colspan="2">Blast Waves was contributed by a SPEC member company.</td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk505.mcf_r"  rowspan="3"><a href="benchmarks/505.mcf_r.html">505.mcf_r</a>
+               <br /><span id="bmk605.mcf_s"><a href="benchmarks/605.mcf_s.html">605.mcf_s</a></span></td>
+            <td class="src">msinttypes...zip <a href="#msint">[description]</a>    </td>
+            <td><a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+         <tr>
+            <td class="src">qsort.c <a href="#qsort">[description]</a></td>
+            <td> <a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+
+         <tr>
+            <td colspan="2"><p class="snugtop">MCF is licensed directly to SPEC by Dr. Andreas L&ouml;bel,
+               Konrad-Zuse-Zentrum Berlin (ZIB).</p>
+               <p id="msint" class="snugbot"> Several benchmarks, under <a href="licenses/BSD.txt">BSD</a> license, use the Microsoft Windows
+               versions of <samp>inttypes.h</samp> and/or <samp>stdint.h</samp> from
+               <samp class="nbsnugr">msinttypes-f9e7c5758ed9e3b9f4b2394de1881c704dd79de0.zip</samp>, posted at <samp
+                  class="snugr">redistributable_sources/original/</samp> and Copyright (c) 2006-2013 Alexander Chemeris.
+               </p></td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk507.cactuBSSN_r"  rowspan="1"><a href="benchmarks/507.cactuBSSN_r.html">507.cactuBSSN_r</a>
+               <br /><span id="bmk607.cactuBSSN_s"><a href="benchmarks/607.cactuBSSN_s.html">607.cactuBSSN_s</a></span></td>
+            <td class="src">CactusBSSN.tgz</td>
+            <td><a href="licenses/GPL.v2.txt">GNU GPL, version 2</a></td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk508.namd_r"  rowspan="1"><a href="benchmarks/508.namd_r.html">508.namd_r</a></td>
+            <td colspan="2">NAMD is licensed directly to SPEC by the University of Illinois.</td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk510.parest_r"   ><a href="benchmarks/510.parest_r.html">510.parest_r</a></td>
+            <td colspan="2"><p class="snug">PAREST is licensed directly to SPEC by the author, Wolfgang Bangerth.  </p>
+               <p class="hanging1snug"><b>Note:</b> <i>Therefore, source code
+               references to other terms under which the program may be available are not relevant for the SPEC CPU 2017
+               version.</i> </p>
+               <p class="snugbot"> The source directory includes files from BOOST, used under the terms of the
+               <a href="licenses/Boost.v1.txt">Boost Software License</a>.</p></td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk511.povray_r"  rowspan="3"><a href="benchmarks/511.povray_r.html">511.povray_r</a></td>
+            <td class="src">spec-3.7.tar.xz</td>
+            <td><a href="licenses/AGPL.v3.txt">GNU Affero GPL, version 3</a></td>
+         </tr>
+         <tr>
+            <td class="src">qsort.c <a href="#qsort">[description]</a></td>
+            <td> <a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+         <tr>
+            <td colspan="2">POV-Ray was submitted to SPEC by one of its developers, Thorsten Froehlich, under the <a
+                href="licenses/AGPL.v3.txt">GNU Affero GPL, version 3</a></td>
+         </tr>
+
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk519.lbm_r"  rowspan="1"><a href="benchmarks/519.lbm_r.html">519.lbm_r</a>
+               <br /><span id="bmk619.lbm_s"><a href="benchmarks/619.lbm_s.html">619.lbm_s</a></span></td>
+            <td colspan="2">LBM is licensed directly to SPEC by the author, Thomas Pohl.</td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk520.omnetpp_r"   ><a href="benchmarks/520.omnetpp_r.html">520.omnetpp_r</a>
+               <br /><span id="bmk620.omnetpp_s"><a href="benchmarks/620.omnetpp_s.html">620.omnetpp_s</a></span></td>
+            <td colspan="2"><p class="snug">OMNeT++ is licensed directly to SPEC by OpenSim Ltd.  </p>
+               <p class="hanging1snug"><b>Note:</b> <i>Therefore, source code
+               references to other terms under which the program may be available are not relevant for the SPEC CPU 2017
+               version.</i> </p>
+               <p class="snugbot">Under a <a href="licenses/BSD.txt">BSD</a> license, the benchmark uses a version of the
+               Mersenne Twister pseudorandom number generator that differs somewhat from the version in <a
+                  href="#mt">mt19937ar.sep.tgz</a>.  The version in omnetpp is used under a <a href="licenses/BSD.txt">BSD</a>
+               license, Copyright 1997 - 2002, Makoto Matsumoto and Takuji Nishimura; Copyright 2000 - 2003, Richard J.
+               Wagner.</p></td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk521.wrf_r"  rowspan="2"><a href="benchmarks/521.wrf_r.html">521.wrf_r</a>
+               <br /><span id="bmk621.wrf_s"><a href="benchmarks/621.wrf_s.html">621.wrf_s</a></span></td>
+            <td class="src">netcdf-3.6.0-p1.tar.xz</td>
+            <td>Free use; see <a href="licenses/netcdf.txt">netcdf-3.6.0.license</a><br />
+               <a href="licenses/cfortran-h.txt">cfortran.h.license</a></td>
+         </tr>
+         <tr>
+            <td colspan="2"><p class="snug">WRF is licensed directly to SPEC by UCAR.  </p>
+               <p class="hanging1snug"><b>Note:</b> <i>Therefore, source code
+               references to other terms under which the program may be available are not relevant for the SPEC CPU 2017
+               version.</i> </p>
+               <p class="snugbot">The benchmark uses <samp
+                  class="snugr">mpif.h</samp>, Copyright 2001 by Argonne National Laboratory, under the
+               <a href="licenses/MCT.txt">MCT license</a>.</p>
+               </td>
+         </tr>
+
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk523.xalancbmk_r"  ><a href="benchmarks/523.xalancbmk_r.html">523.xalancbmk_r</a>
+               <br /><span id="bmk623.xalancbmk_s"><a href="benchmarks/623.xalancbmk_s.html">623.xalancbmk_s</a></span></td>
+            <td colspan="2">Xalan-C++ was submitted to SPEC by a member company, using the
+           <a href="licenses/Apache.v2.txt">Apache License, version 2.0</a></td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk525.x264_r"  rowspan="3"><a href="benchmarks/525.x264_r.html">525.x264_r</a>
+               <br /><span id="bmk625.x264_s"><a href="benchmarks/625.x264_s.html">625.x264_s</a></span></td>
+            <td class="src">x264-snapshot-20090515-2245.tar.bz2</td>
+            <td><a href="licenses/GPL.v2.txt">GNU GPL, version 2</a></td>
+         </tr>
+         <tr>
+            <td class="src">pstdint.h</td>
+            <td><a href="licenses/BSD.txt">BSD</a> (Paul Hsieh)</td>
+         </tr>
+         <tr>
+            <td colspan="2"> <p class="snugtop">X264 is contributed to SPEC by VideoLAN under the <a
+                  href="licenses/GPL.v2.txt">GNU GPL, version 2</a></p>
+
+               <p>Input files named '<samp class="snuglr">BuckBunny.264</samp>' are derived from the sources for Big Buck Bunny from the
+               Blender Foundation (<a class="external" href="https://peach.blender.org/">peach.blender.org</a>) and are
+               licensed under the <a href="licenses/CC.v3.txt">Creative Commons Attribution 3.0 license</a>.  </p>
+
+               <p class="snugbot">The decoder '<samp class="snuglr">ldecod</samp>' is from the H.264/AVC reference software implementation
+               with an ITU <a href="licenses/H.264-AVC.txt">copyright and disclaimer</a>. SPEC previously used H.264/AVC by
+               permission in SPEC CPU 2006 (<a href="https://www.spec.org/cpu2006/Docs/464.h264ref.html">464.h264ref</a>). </p>
+               </td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk526.blender_r"  rowspan="7"><a href="benchmarks/526.blender_r.html">526.blender_r</a></td>
+            <td class="src">blender_20141028_48529.tar.xz</td>
+            <td><a href="licenses/GPL.v3.txt">GNU GPL, version 3</a></td>
+         </tr>
+         <tr>
+            <td class="src">freetype-2.5.4.tar.bz2</td>
+            <td><a href="licenses/GPL.v3.txt">GNU GPL, version 3</a></td>
+         </tr>
+         <tr>
+            <td class="src">libpng-1.5.10.tar.xz</td>
+            <td>Free use; see <a href="licenses/libpng.txt">libpng license</a></td>
+         </tr>
+         <tr>
+            <td class="src">msinttypes...zip <a href="#msint">[description]</a>    </td>
+            <td><a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+         <tr>
+            <td class="src"> mt19937ar.sep.tgz <a href="#mt">[description]</a>  </td>
+            <td><a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+         <tr>
+            <td class="src">zlib-1.2.6.tar.bz2</td>
+            <td>Free use; see the <a href="licenses/zlib.txt">zlib license</a></td>
+         </tr>
+         <tr>
+            <td colspan="2"><p class="snug">Blender was contributed to SPEC CPU 2017 by the Blender Foundation, under the terms of
+               <a href="licenses/GPL.v3.txt">GNU GPL, version 3</a>.  Other redistributable sources added by SPEC are listed
+               above.  In addition, it should be noted that:</p>
+               <ul class="snugish">
+                  <li>15 source files in <samp>526.blender_r/src/blender/source/gameengine/Expressions</samp> are
+                     Copyright 1996-2000 Erwin Coumans and are acknowledged per the
+                     <a href="licenses/CoumansMustAck.txt">terms in the source files</a>.</li>
+                  <li>13 header files in <samp>526.blender_r/src/include</samp> are from the Independent JPEG Group's
+                     software.  In accordance with its <a href="licenses/IndependentJPEG.txt">license</a>, this paragraph serves
+                     as notification that the software has been modified: none of the executable code is present, only header
+                     files.  The header files have not been changed.  </li>
+                  <li><samp class="snugr">526.blender/src/blender/extern/glew/include/GL/glxew.h</samp> defines certain datatypes via excerpts from four
+                     X11 headers, in accordance with their <a href="licenses/X11-headers.txt">terms</a>.</li>
+                  <li>Many files available under <a href="licenses/BSD.txt">BSD</a> license are listed in an <a
+                   href="blender-appendix.html">appendix</a>.</li>
+               </ul>
+               </td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk527.cam4_r"  rowspan="4"><a href="benchmarks/527.cam4_r.html">527.cam4_r</a>
+               <br /><span id="bmk627.cam4_s"><a href="benchmarks/627.cam4_s.html">627.cam4_s</a></span></td>
+            <td class="src">cesm1_0_2.tar.xz</td>
+            <td> Public Domain, except as noted in the <a href="licenses/CESM.txt">CESM license</a></td>
+         </tr>
+         <tr>
+            <td class="src">netcdf-3.6.0-p1.tar.xz</td>
+            <td>Free use; see <a href="licenses/netcdf.txt">netcdf-3.6.0.license</a><br />
+               <a href="licenses/cfortran-h.txt">cfortran.h.license</a></td>
+         </tr>
+         <tr>
+            <td class="src">qsort.c <a href="#qsort">[description]</a></td>
+            <td> <a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+         <tr>
+            <td colspan="2"><p class="snugtop">The ESMF files within 527.cam4 are marked as GPL.  That marking may be
+               obsolete, and it is possible that the <a href="licenses/UoI-NCSA.txt">Illinois NCSA license</a> applies instead.
+               In any case, SPEC's version is available at directory <samp class="snugr">redistributable_sources/modified/</samp>. </p>
+               <p>The benchmark uses 4 source files for list handling, copyright
+               UNIVERSITY OF CHICAGO; see <a href="licenses/MCT.txt">MCT_license</a>.</p>
+               <p class="snugbot">The copyright holders below have contributed code under <a href="licenses/BSD.txt">BSD</a> (or similar) licenses, and
+               their contributions are gratefully acknowledged.</p>
+               <ul class="snugish">
+                  <li>"British Crown, the Met Office.": 10 files related to <samp class="snugr">cosp</samp>; plus
+                     <samp class="snugr">include/congvec.h</samp> and
+                     <samp class="snugr">scops.F90</samp>.</li>
+                  <li>"Centre National de la Recherche Scientifique":
+                     <samp class="snugr">lidar_simulator.F90</samp> and
+                     <samp class="snugr">lmd_ipsl_stats.F90</samp>.</li>
+                  <li>"Lawrence Livermore National Security Limited Liability Corporation":
+                     <samp class="snugr">icarus.F90</samp>,
+                     <samp class="snugr">llnl_stats.F90</samp>,
+                     <samp class="snugr">pf_to_mr.F90</samp>, and
+                     <samp class="snugr">prec_scops.F90</samp>.</li>
+                  <li>"Regents of the Unversity of Colorado Author: Robert Pincus, Cooperative Institute for Research in the Environmental Sciences"
+                     <samp class="snugr">cosp_modis_simulator.F90</samp>, and
+                     <samp class="snugr">modis_simulator.F90</samp>.</li>
+                  <li>"Roger Marchand, version 1.2":
+                     <samp class="snugr">MISR_simulator.F90</samp>.</li>
+               </ul>
+            </td>
+         </tr>
+
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk531.deepsjeng_r"  rowspan="1"><a href="benchmarks/531.deepsjeng_r.html">531.deepsjeng_r</a>
+               <br /><span id="bmk631.deepsjeng_s"><a href="benchmarks/631.deepsjeng_s.html">631.deepsjeng_s</a></span></td>
+            <td colspan="2">Deep Sjeng is licensed directly to SPEC by the author, Gian-Carlo Pascutto</td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk538.imagick_r"  rowspan="1"><a href="benchmarks/538.imagick_r.html">538.imagick_r</a>
+               <br /><span id="bmk638.imagick_s"><a href="benchmarks/638.imagick_s.html">638.imagick_s</a></span></td>
+            <td class="src">ImageMagick-6.8.9-1.tar.xz</td>
+            <td>Free use; see <a href="licenses/ImageMagick.txt">ImageMagick license</a></td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk541.leela_r"  rowspan="1"><a href="benchmarks/541.leela_r.html">541.leela_r</a>
+               <br /><span id="bmk641.leela_s"><a href="benchmarks/641.leela_s.html">641.leela_s</a></span></td>
+            <td colspan="2"><p class="snugtop">Leela is licensed directly to SPEC by the author, Gian-Carlo
+               Pascutto</p>
+               <p class="snugbot"> The source directory includes files from BOOST, used under the terms of the
+               <a href="licenses/Boost.v1.txt">Boost Software License</a>.</p></td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk544.nab_r"  rowspan="3"><a href="benchmarks/544.nab_r.html">544.nab_r</a>
+               <br /><span id="bmk644.nab_s"><a href="benchmarks/644.nab_s.html">644.nab_s</a></span></td>
+            <td class="src">AmberTools12.tar.xz       </td>
+            <td><a href="licenses/GPL.v3.txt">GNU GPL, version 3</a></td>
+         </tr>
+         <tr>
+            <td class="src">regex-alpha3.8p1.tar.gz   </td>
+            <td>Free use; see <a href="licenses/Spencer-regexp.txt">Spencer regexp license</a></td>
+         </tr>
+         <tr>
+            <td class="src"> mt19937ar.sep.tgz <a href="#mt">[description]</a>  </td>
+            <td><a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk548.exchange2_r"  rowspan="1"><a href="benchmarks/548.exchange2_r.html">548.exchange2_r</a>
+               <br /><span id="bmk648.exchange2_s"><a href="benchmarks/648.exchange2_s.html">648.exchange2_s</a></span></td>
+            <td colspan="2">exchange2 is licensed directly to SPEC by the author, Michael Metcalf.</td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk549.fotonik3d_r"  rowspan="1"><a href="benchmarks/549.fotonik3d_r.html">549.fotonik3d_r</a>
+               <br /><span id="bmk649.fotonik3d_s"><a href="benchmarks/649.fotonik3d_s.html">649.fotonik3d_s</a></span></td>
+            <td colspan="2">Fotonik3D is licensed directly to SPEC by the author, Ulf Andersson</td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk554.roms_r"  rowspan="2"><a href="benchmarks/554.roms_r.html">554.roms_r</a>
+               <br /><span id="bmk654.roms_s"><a href="benchmarks/654.roms_s.html">654.roms_s</a></span></td>
+            <td class="src">ROMS3.2_405.tar.xz</td>
+            <td>Free use; see <a href="licenses/ROMS.txt">ROMS license</a></td>
+         </tr>
+         <tr>
+            <td colspan="2">Note: although netcdf is mentioned in the source, the benchmark as used does not actually require
+               it, and the directory <samp>netcdf/</samp> is not present.</td>
+         </tr>
+
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk557.xz_r"  rowspan="5"><a href="benchmarks/557.xz_r.html">557.xz_r</a>
+               <br /><span id="bmk657.xz_s"><a href="benchmarks/657.xz_s.html">657.xz_s</a></span></td>
+            <td class="src">xz-5.0.5.tar.bz2</td>
+            <td>Public Domain XZ Utils</td>
+         </tr>
+         <tr>
+            <td class="src">pxz-ae808463....tar.xz</td>
+            <td><a href="licenses/GPL.v2.txt">GNU GPL, version 2</a> </td>
+         </tr>
+         <tr>
+            <td class="src">msinttypes...zip <a href="#msint">[description]</a>    </td>
+            <td><a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+         <tr>
+            <td class="src">cld.tar.xz</td>
+            <td><a href="licenses/GPL.v2.txt"> GNU GPL, version 2</a></td>
+         </tr>
+
+         <tr>
+            <td colspan="2"><p class="snugtop"><samp>cld.tar.xz</samp> is a set of virus signatures from Clam/AV, which are
+               compressed during the run.</p>
+               <p class="snugbot">The <a href="licenses/XZ-Utils.txt">XZ Utils License</a> says that liblzma is in the Public Domain,
+               but notes that this may not be true after you are done linking an executable.
+               </p></td>
+         </tr>
+
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td id="bmk628.pop2_s"  rowspan="4"><a href="benchmarks/628.pop2_s.html">628.pop2_s</a></td>
+            <td rowspan="2" class="src">cesm1_0_2.tar.xz</td>
+            <td>See <a href="licenses/POP2.txt">POP2 license</a></td>
+         </tr>
+         <tr>
+            <td>Public Domain, except as noted in the <a href="licenses/CESM.txt">CESM license</a></td>
+         </tr>
+         <tr>
+            <td class="src">netcdf-3.6.0-p1.tar.xz</td>
+            <td>Free use; see <a href="licenses/netcdf.txt">netcdf-3.6.0.license</a><br />
+               <a href="licenses/cfortran-h.txt">cfortran.h.license</a></td>
+         </tr>
+         <tr>
+            <td colspan="2"><p class="snugtop">The ESMF files within 628.pop2 are marked as GPL.  That marking may be
+               obsolete, and it is possible that the <a href="licenses/UoI-NCSA.txt">Illinois NCSA license</a> applies instead.
+               In any case, SPEC's version is available at directory <samp
+                  class="snugr">redistributable_sources/modified/</samp>.  </p>
+               <p class="snugbot">The benchmark uses 4 source files for list handling, copyright
+               UNIVERSITY OF CHICAGO; see <a href="licenses/MCT.txt">MCT_license</a>.</p>
+               </td>
+         </tr>
+
+         <!-- .................................................................................................... -->
+         <tr>
+            <td rowspan="1"><span id="bmk996.specrand_fs"><a href="benchmarks/996.specrand_fs.html">996.specrand_fs</a></span><br />
+               <span id="bmk997.specrand_fr"><a href="benchmarks/997.specrand_fr.html">997.specrand_fr</a></span><br />
+               <span id="bmk998.specrand_is"><a href="benchmarks/998.specrand_is.html">998.specrand_is</a></span><br />
+               <span id="bmk999.specrand_ir"><a href="benchmarks/999.specrand_ir.html">999.specrand_ir</a></span></td>
+            <td class="src"> mt19937ar.sep.tgz <a href="#mt">[description]</a>  </td>
+            <td><a href="licenses/BSD.txt">BSD</a> License</td>
+         </tr>
+
+
+
+      </table>
+
+
+<h2 id="tools">SPEC CPU 2017 Tools</h2>
+
+<p>The following table lists the tools components, their associated archive
+or archives, as well as the license or licenses that apply to them:</p>
+
+      <table class="license">
+         <tr>
+            <th>Archive name</th>
+            <th>License(s)</th>
+         </tr>
+
+         <tr><td class="src">  perl-5.24.0.tar.xz               </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  Algorithm-Diff-1.1903.tar.gz     </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  Core14_AFMs.tar.xz  <a href="#invisible">[Core14 Notes]</a></td>
+                                                                 <td><a href="licenses/Adobe-Core14-AFM.txt">Adobe Core 14 license</a> </td></tr>
+
+         <tr><td class="src">  Exporter-Tiny-0.042.tar.gz       </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  File-NFSLock-1.27.tar.gz         </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  Font-AFM-1.20.tar.gz             </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src" rowspan="2">  Font-TTF-1.05.tar.gz </td><td><a href="licenses/Artistic.txt">Perl Artistic License, v2</a></td></tr>
+         <tr>                                                        <td>Test suite fonts: <a href="licenses/OFL.v1.1.txt">SIL Open Font License v1.1</a></td></tr>
+         <tr><td class="src">  HTML-Parser-3.71.tar.gz          </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  IO-String-1.08.tar.gz            </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  IO-stringy-2.111.tar.gz          </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  List-MoreUtils-0.416.tar.gz      </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  MIME-tools-5.507.tar.gz          </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  MailTools-2.14.tar.gz            </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  PDF-API2-2.025.tar.gz            </td><td><a href="licenses/LGPL.v2.1.txt">GNU LGPL, version 2.1</a></td></tr>
+         <tr><td class="src">  SVG-2.64.tar.gz                  </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  String-ShellQuote-1.04.tar.gz    </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  Test-Deep-0.119.tar.gz           </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  Text-CSV_XS-1.20.tgz             </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  TimeDate-2.30.tar.gz             </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  URI-1.69.tar.gz                  </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  XML-NamespaceSupport-1.11.tar.gz </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  XML-SAX-0.99.tar.gz              </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  XML-SAX-Base-1.08.tar.gz         </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  XML-SAX-ExpatXS-1.33.tar.gz      </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  XSLoader-0.22.tar.gz             </td><td><a href="licenses/Artistic.txt">Perl Artistic License</a></td></tr>
+         <tr><td class="src">  coreutils-8.24.tar.xz            </td><td><a href="licenses/GPL.v3.txt">GNU GPL, version 3</a> or later</td></tr>
+         <tr><td class="src">  expat-2.1.0.tar.gz               </td><td><a href="licenses/MIT.txt">MIT License</a></td></tr>
+         <tr><td class="src">  filepp-1.8.0.tar.gz              </td><td><a href="licenses/GPL.v2.txt">GNU GPL, version 2</a> or later</td></tr>
+         <tr><td class="src">  make-4.2.1.tar.bz2               </td><td><a href="licenses/GPL.v3.txt">GNU GPL, version 3</a> or later</td></tr>
+         <tr><td class="src">  makedepf90-2.8.8.tar.gz          </td><td><a href="licenses/GPL.v2.txt">GNU GPL, version 2</a></td></tr>
+         <tr><td class="src">  Parts of SPEC PTD                </td><td><a href="licenses/PTD-FreeAndOpenSourceSoftware.txt">Public Domain / BSD</a></td></tr>
+         <tr><td class="src" rowspan="4">  rxp-1.5.0.tar.gz <a href="#rxpnotes">[RXP notes]</a></td>
+                                                                     <td><a href="licenses/GPL.U-Edinburgh.txt">University of Edinburgh GPL</a></td></tr>
+         <tr>                                                        <td><a href="licenses/W3C.txt">W3C software license</a></td></tr>
+         <tr>                                                        <td><a href="licenses/Unicode.txt">Unicode Character Database terms</a></td></tr>
+         <tr>                                                        <td><a href="licenses/OASIS.txt">OASIS XML Catalog copyright</a></td></tr>
+         <tr><td class="src">  tar-1.28.tar.xz                  </td><td><a href="licenses/GPL.v3.txt">GNU GPL, version 3</a> or later</td></tr>
+         <tr><td class="src" rowspan="2">  xz-5.2.2.tar.xz      </td><td>Public Domain: <a href="licenses/XZ-Utils.txt">XZ Utils license</a></td></tr>
+         <tr>                                                        <td><a href="licenses/LGPL.v2.1.txt">GNU LGPL, version 2.1</a></td></tr>
+         <tr><td class="src">  zsh.zip                          </td><td>Free use; see <a href="licenses/zsh.txt">ZSH license</a></td></tr>
+      </table>
+
+
+      <div style="width:700px;">
+         <p id="invisible" class="snugbot"><b>Adobe Core 14 Notes</b></p>
+         <p class="l1snugish">The text version of the Adobe Font Metrics license has been modified
+         to include only the visible content from the original </p>
+         <pre class="l3snug">MustRead.html</pre>
+         <p class="l1snugtop">The modifications, although invisible, are nevertheless prominently
+         noted,  as is <a href="licenses/Adobe-Core14-AFM.txt">required</a>.
+         <br />A pointer is also included to the unmodified original.
+         <br /><span style="font-size:80%;">(One cannot help but wonder if the inclusion of invisible ink was a little test?)</span></p>
+
+         <p id="rxpnotes" class="snugbot"><b>RXP notes</b></p>
+
+         <ul class="l1snugtop">
+            <li>The files nf16check.c, nf16check.h, nf16data.c, and nf16data.h
+               in RXP are covered under the <a href="licenses/W3C.txt">W3C Software Notice and License</a>.</li>
+            <li> The contents of nf16data.c in RXP are derived from the Unicode
+               Character Database files.  Those files are not included in
+               the RXP distribution, but we include a copy of the
+               <a href="licenses/Unicode.txt">Unicode Terms
+                  of Use</a>.</li>
+            <li>The contents of <samp>catalog_dtd.c</samp> in RXP are derived from the XML
+               Catalog DTD specification.  See the <a href="licenses/OASIS.txt">OASIS_XML Catalog copyright</a>.</li>
+         </ul>
+
+      </div>
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Licenses:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+   </body>
+</html>

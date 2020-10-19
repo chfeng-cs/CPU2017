@@ -1,0 +1,484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Monitoring Facility - CPU 2017</title>
+<!-- You'll want a nice wide screen when editing this .......................................................................... -->
+<!-- ........................................................................................................................... -->
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+
+.blankspace1em {margin-left:1em;}
+.blankspace2em {margin-left:2em;}
+.blankspace4em {margin-left:4em;}
+.blankspace6em {margin-left:6em;}
+.blankspace8em {margin-left:8em;}
+.red { color: rgb(153, 0 0); }
+
+p.contentsl1 { font-size:100%; }
+h2 { padding-top:.2cm; border-top: solid 1px #c0c0c0; }
+</style>
+</head>
+
+<body>
+
+<h1>SPEC CPU&reg;2017 Monitoring Facility </h1>
+<table class="version">
+   <tr>
+      <th>$Id: monitors.html 6317 2019-07-28 22:50:53Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+  <p class="contents">Contents</p>
+  <p class="contentsl1"><a href="#intro">                       Introduction              </a></p>
+  <p class="contentsl1"><a href="#monitor_hooks_in_header">     Monitoring Hooks in Header Section</a></p>
+  <p class="contentsl2"><a href="#monitor_pre_and_post">          monitor_pre and monitor_post</a></p>
+  <p class="contentsl1"><a href="#monitor_hooks_per_benchmark"> Monitoring Hooks Per Benchmark</a></p>
+  <p class="contentsl2"><a href="#monitor_pre_and_post_bench">    monitor_pre_bench and monitor_post_bench</a></p>
+  <p class="contentsl2"><a href="#monitor_specrun_wrapper">       monitor_specrun_wrapper</a></p>
+  <p class="contentsl2"><a href="#monitor_wrapper">               monitor_wrapper</a></p>
+  <p class="contentsl2"><a href="#build_pre_and_post_bench">      build_pre_bench and build_post_bench</a></p>
+  <p class="contentsl1"><a href="#considerations">              Considerations for Writing Monitoring Scripts</a></p>
+
+<!-- ........................................................................................................................... -->
+
+<h2 id="intro">Introduction</h2>
+
+<p>This document describes the monitoring facility for SPEC CPU&reg;2017, 
+a product of the SPEC&reg; non-profit corporation <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  
+While some users will use the SPEC CPU 2017 tools to benchmark systems under test (SUT) and publish results, others may use the
+tools to analyze performance bottlenecks when running the benchmarks on the SUT. Performance analysis requires performance data to
+be collected either on a suite-wide basis or for individual benchmarks. To facilitate the collection of performance data, SPEC CPU 2017
+provides several "monitoring hooks", which are available to run arbitrary commands while still running under the control of the SPEC
+CPU 2017 runcpu utility.  This document explains the various hooks that are available.  None of these hooks may be used while doing
+a reportable run. </p>
+
+         <!-- ReUsableBegin: shell commands  ......................................................................  -->
+         <p style="margin:.5em 1em .2em 6em; text-indent:-4em;"> 
+         <span class="alarm">Warning:</span> SPEC CPU config files can execute <span class="caution"> arbitrary </span>
+         <a class="external" href="config.html#shell" >shell</a> commands.  
+         <br />Read a config file before using it.  
+         <br />Don't be <a class="external" href="system-requirements.html#root" >root</a>.  
+         Don't run as <a class="external" href="system-requirements.html#root" >Administrator</a>. 
+         Turn privileges off.  </p>
+         <!-- shell commands ReUsableEnd   ......................................................................  -->
+
+
+<p>All monitoring hooks are specified in the configuration file. This document assumes that you have a working familiarity with the
+construction of SPEC CPU 2017 <a class="external" href="config.html">config files</a>. </p> 
+
+<p>The monitor hooks were first described in an ACM SIGARCH article <a class="external"
+   href="https://www.spec.org/cpu2006/publications/SIGARCH-2007-03/11_cpu2006_tools.pdf">SPEC CPU 2006 Benchmark Tools</a> and are
+explained further in this document.</p>  
+
+<p><b>For advanced users:</b> The monitor hooks provide freedom for advanced users to instrument the suite in a wide variety of
+ways: peeking, poking, prodding, and causing benchmarks to crash if you are not careful.  In general, SPEC can provide only limited
+<a class="external" href="techsupport.html">support</a> for their use; if your monitors break files or processes that the suite
+expects to find, you should be prepared to do significant diagnostic work on your own.</p> 
+
+<p> The monitoring facility in CPU 2017 is not limited to simple examples presented here. Scripts and programs of any level of
+complexity may be used to examine command arguments and executables and change their monitoring actions accordingly. In this
+way only a specific part of a benchmark's workload may be monitored while not wasting time or other resources tracing
+uninteresting workloads.  </p>
+
+<!-- um, this does not exist XXX
+
+   <p>This document uses the <samp class="nb">Example-monitors-macosx.cfg</samp> configuration file located in the <samp
+   class="nb">$SPEC/config</samp> directory of your SPEC installation tree.  You will also find on your kit an example oriented
+   toward users of Microsoft Windows: <samp class="nb">Example-monitor-windows.cfg</samp></p> -->
+
+<!-- ........................................................................................................................... -->
+
+<h2 id="monitor_hooks_in_header">Monitoring Hooks in Header Section</h2>
+<p>There are two monitoring hooks that can be set in the header section of the configuration file: </p>
+<ul>
+  <li><samp class="nb">monitor_pre</samp></li>
+  <li><samp class="nb">monitor_post</samp></li>
+</ul>
+
+<!-- 
+-->
+
+<h3 id="monitor_pre_and_post">monitor_pre and monitor_post</h3>
+<p>When the SPEC provided script <samp class="nb">runcpu</samp> is used to run the CPU 2017 suite, it breaks down
+the benchmarks specified on the command line into one or more sets and runs each set as a separate unit. A set of benchmarks that
+comprise a specific unit is defined by the tuple of data size (test, train, or ref) and label.  It is possible for runcpu to
+run multiple sets of benchmarks, one after another, for one invocation of runcpu.  The <samp id="monitor_pre"
+class="nb">monitor_pre</samp> hook is invoked <strong>before</strong> each such set, and the <samp id="monitor_post"
+class="nb">monitor_post</samp> hook is invoked <strong>after</strong> each.  Therefore, for a single runcpu invocation, these
+hooks might be executed multiple times, as shown in examples below. </p>
+
+<p>If you do not run at least one benchmark then <samp class="nb">monitor_pre</samp> and <samp
+class="nb">monitor_post</samp> are not used (e.g. if you use "<samp class="nbsnuglr">--action setup</samp>" or "<samp
+class="nbsnuglr">--action build</samp>").</p>
+
+<p><b>Note - stdout/stderr:</b>  The <samp class="nb">stdout</samp> and <samp class="nb">stderr</samp> for the <samp
+class="nb">monitor_pre</samp> and <samp class="nb">monitor_post</samp> commands are redirected to the files <samp
+class="nb">monitor_{pre|post}.out</samp> and <samp class="nb">monitor_{pre|post}.err</samp> in your current working
+directory.</p>
+
+
+<h4 id="monitor_hooks_example_one">Example Output 1</h4>
+<p>The <samp class="nb">runcpu</samp> command below requests <strong>one</strong> input data set; so <samp
+class="nb">monitor_pre</samp> and <samp class="nb">monitor_post</samp> will each be called once. Here is the sample
+output printed to the screen (<samp class="nbsnugl">monitor_pre</samp> and <samp class="nb">monitor_post</samp> markers
+are highlighted in <span class="alarm">red</span>): 
+</p>
+
+<pre>
+spec002:~/benchmarks/cpu2017-kit100 peg$ runspec -c Example-monitors-macosx.cfg -n 1 -i test 999
+<br /><span class="alarm">XXX this example must be regenerated</span><br />
+runspec v5354 - Copyright 1999-2007 Standard Performance Evaluation Corporation
+Using 'macosx' tools
+Reading MANIFEST... 18300 files
+Loading runspec modules................
+Locating benchmarks...found 31 benchmarks in 13 benchsets.
+Reading config file '/Users/peg/benchmarks/cpu2017-kit100/config/Example-monitors-macosx.cfg'
+Benchmarks selected: 999.specrand
+<span class="alarm">Executing monitor_pre: echo "monitor_pre"</span>
+Compiling Binaries
+  Up to date 999.specrand test base example-monitors default
+
+
+Setting Up Run Directories
+  Setting up 999.specrand test base example-monitors default: existing (run_base_test_example-monitors.0000)
+Running Benchmarks
+  Running 999.specrand test base example-monitors default
+Executing monitor_pre_bench: echo "monitor_pre_bench"
+Executing monitor_post_bench: echo "monitor_post_bench"
+Success: 1x999.specrand
+<span class="alarm">Executing monitor_post: echo "monitor_post"</span>
+Producing Raw Reports
+  label: example-monitors
+    size: test
+      set: int
+      set: fp
+
+The log for this run is in /Users/peg/benchmarks/cpu2017-kit100/result/CPU2017.022.log
+
+runspec finished at Mon Jul 30 12:47:13 2007; 6 total seconds elapsed
+</pre>
+
+
+<h4 id="monitor_hooks_example_two">Example Output 2</h4>
+<p>The <samp class="nb">runcpu -i test,train</samp> command below requests <strong>two</strong> input data sets, and
+effectively causes two runs; so <samp class="nb">monitor_pre</samp> and <samp class="nb">monitor_post</samp> will
+each be called twice. Here is the sample output printed to the screen: 
+</p>
+
+
+<pre>
+spec002:~/benchmarks/cpu2017-kit100 peg$ runspec -c Example-monitors-macosx.cfg -n 1 -i test,train --tune=base 999
+<br /><span class="alarm">XXX this example must be regenerated</span><br />
+runspec v5354 - Copyright 1999-2007 Standard Performance Evaluation Corporation
+Using 'macosx' tools
+Reading MANIFEST... 18300 files
+Loading runspec modules................
+Locating benchmarks...found 31 benchmarks in 13 benchsets.
+Reading config file '/Users/peg/benchmarks/cpu2017-kit100/config/Example-monitors-macosx.cfg'
+Benchmarks selected: 999.specrand
+<span class="alarm">Executing monitor_pre: echo "monitor_pre"<br/></span>
+Compiling Binaries
+  Up to date 999.specrand test base example-monitors default
+
+
+Setting Up Run Directories
+  Setting up 999.specrand test base example-monitors default: existing (run_base_test_example-monitors.0000)
+Running Benchmarks
+  Running 999.specrand test base example-monitors default
+Executing monitor_pre_bench: echo "monitor_pre_bench"
+Executing monitor_post_bench: echo "monitor_post_bench"
+Success: 1x999.specrand
+<span class="alarm">Executing monitor_post: echo "monitor_post"</span>
+Producing Raw Reports
+  label: example-monitors
+    size: test
+      set: int
+      set: fp
+Benchmarks selected: 999.specrand
+<span class="alarm">Executing monitor_pre: echo "monitor_pre"</span>
+Compiling Binaries
+  Up to date 999.specrand train base example-monitors default
+
+
+Setting Up Run Directories
+  Setting up 999.specrand train base example-monitors default: existing (run_base_train_example-monitors.0000)
+Running Benchmarks
+  Running 999.specrand train base example-monitors default
+Executing monitor_pre_bench: echo "monitor_pre_bench"
+Executing monitor_post_bench: echo "monitor_post_bench"
+Success: 1x999.specrand
+Producing Raw Reports
+<span class="alarm">Executing monitor_post: echo "monitor_post"</span>
+  label: example-monitors
+    size: train
+      set: int
+      set: fp
+
+The log for this run is in /Users/peg/benchmarks/cpu2017-kit100/result/CPU2017.024.log
+
+runspec finished at Mon Jul 30 15:41:51 2007; 13 total seconds elapsed
+</pre>
+
+<!-- ........................................................................................................................... -->
+
+<h2 id="monitor_hooks_per_benchmark">Monitoring Hooks Per Benchmark</h2>
+
+<p>The SPEC tools allow the following monitoring hooks to be set for individual benchmark: </p>
+<ul>
+<li><samp class="nb">monitor_pre_bench</samp></li>
+<li><samp class="nb">monitor_post_bench</samp></li>
+<li><samp class="nb">monitor_wrapper</samp></li>
+<li><samp class="nb">monitor_specrun_wrapper</samp></li>
+<li><samp class="nb">build_pre_bench</samp></li>
+<li><samp class="nb">build_post_bench</samp></li>
+</ul>
+
+<p>These monitoring hooks can be added to any <a class="external" href="config.html#NamedSection">named section</a>, thereby
+affecting only a subset of the benchmarks:  </p>
+
+<table><tr><td>
+         <p class="snug">In the example on the right, </p>
+         <ul class="snug">
+            <li>Floating point benchmarks are monitored by sight.</li>
+            <li>Integer benchmarks are monitored by sound.</li>
+            <li>Exception: the benchmark 997.skunk is called out by name, and is therefore monitored by smell, irrespective of
+            whether it is an integer or floating point benchmark.  </li>
+         </ul>
+      </td>
+      <td style="background:#f0f0f0;">
+         <pre>
+fp=base:
+   monitor_wrapper = sight 
+int=base:
+   monitor_wrapper = sound
+997.skunk:
+   monitor_wrapper = smell </pre>
+      </td>
+   </tr>
+</table>
+
+<p><b>Hook to what?</b></p>
+
+<p>When considering what monitor hooks you may wish to use, it is important to bear in mind the usual flow of events.  For each
+individual benchmark, <samp class="snugr">runcpu</samp>:</p>
+<ul>
+   <li><p>(i) Sets up the benchmark (for example, <samp class="snugr">nnn.benchmark/run/run_base_ref.0000</samp>)</p></li>
+
+   <li id="ii"><p>(ii) Passes control to <a class="external" href="utility.html#specinvoke">specinvoke</a>, which runs the benchmark
+   binary and records how long it takes.  A single instance of specinvoke may run the benchmark binary multiple times.  For example,
+   in SPEC CPU 2006, the 401.bzip2 binary was run 6&nbsp;times, to compress inputs of various types with varying levels of compression
+   difficulty.</p></li>
+
+   <li><p>(iii) Does post-processing, including validation of whether correct answers were obtained.</p></li>
+</ul>
+
+<p>Obviously, step (ii) above is the step of central interest.  You can attach hooks to it in three basic ways:</p>
+<ul>
+   <li><samp>monitor_pre_bench</samp> and <samp>monitor_post_bench</samp> let you attach your probes to the points in time just before or
+      just after <samp>specinvoke</samp> executes.</li>
+   <li><samp>monitor_specrun_wrapper</samp> lets you attach probes to <samp>specinvoke</samp> itself.</li>
+   <li><samp>monitor_wrapper</samp> lets you attach probes to the things that <samp>specinvoke</samp> invokes.</li>
+</ul>
+
+<p>Each of these is explained below.</p>
+
+<!-- 
+-->
+
+<h3 id="monitor_pre_and_post_bench">monitor_pre_bench and monitor_post_bench</h3>
+
+<p>The monitoring hooks <samp id="monitor_pre_bench" class="nb">monitor_pre_bench</samp> and <samp id="monitor_post_bench"
+   class="nb">monitor_post_bench</samp> allow arbitrary programs to be executed before and after the benchmark is run (that is,
+just <b>before</b> and just <b>after</b> step <a href="#ii">ii</a> above).    For example, you can can use these hooks to start and
+stop system-level profilers, to instrument binaries, or to harvest files written by an instrumented binary. The example below is
+from a config file that collected branch profiles to <a class="external"
+href="https://www.spec.org/cpu2006/publications/SIGARCH-2007-03/10_cpu2006_training.pdf">evaluate training workloads</a> in SPEC
+CPU 2006 under Solaris OS using a profiling tool called Binary Improvement Tool (<samp class="nbsnuglr">bit</samp>). </p> 
+
+<pre>
+monitor_pre_bench = bit instrument ${commandexe}; \ 
+   cp ${commandexe} ${commandexe}.orig; \
+   cp ${commandexe}.instr ${commandexe} 
+
+monitor_post_bench = bit analyze -o $[top]/analysis/branches.${benchmark}.${size}.csv -a branch ${commandexe}; \ 
+   bit analyze -o $[top]/analysis/blocks.${benchmark}.${size}.csv -a bbc ${commandexe}; \
+   cp ${commandexe}.orig ${commandexe}  
+</pre>
+
+<p>In the example above, the <samp class="nb">monitor_pre_bench</samp> option causes the Binary Improvement Tool (<samp
+   class="nbsnuglr">bit</samp>) to instrument the binary executable before it is run.  After the run, the <samp
+class="nb">monitor_post_bench</samp> option causes <samp class="nb">bit</samp> to dump statistics from the run into files in
+the <samp class="nb">$SPEC/analysis/</samp> directory.  </p>
+
+<p>The values for <samp class="nbsnugr">${commandexe}</samp>, <samp class="nb">${benchmark}</samp> and <samp
+class="nb">${size}</samp> are provided by the tools at run time; there are many other variables available.  The variables that
+are available vary depending on what is being done.  For a list of variables available for substitution, execute your <samp
+class="nb">runcpu</samp> command with verbosity set to 35 or greater.  This can be accomplished by specifying "<samp
+class="nbsnuglr">runcpu -v 35</samp>".  For more information on variable substitution, see the <a class="external"
+href="config.html#sectionI.D">config.html section on variable substitution</a>.</p> 
+
+<p class="commentary"><b>Note 1 - stdout/stderr</b>  The <samp class="nb">stdout</samp> and <samp class="nb">stderr</samp>
+for the <samp class="nb">monitor_pre_bench</samp> and <samp class="nb">monitor_post_bench</samp> commands are redirected to
+the files <samp class="nb">monitor_{pre|post}_bench.out</samp> and <samp class="nb">monitor_{pre|post}_bench.err</samp> in
+the run directory for each benchmark.</p>
+
+<p class="commentary"><b>Note 2 - not timed</b>  The execution time for the commands specified by the <samp
+class="nbsnugr">$monitor_pre_bench</samp>, and <samp class="nb">$monitor_post_bench</samp> are not included in the benchmark's
+reported time. </p>
+
+<!-- 
+-->
+<h3 id="monitor_specrun_wrapper">monitor_specrun_wrapper</h3>
+
+<p>The option <samp class="nb">monitor_specrun_wrapper</samp> allows you to monitor <samp class="nb">specinvoke</samp> (step
+<a href="#ii">ii</a> above), and by extension the entire benchmark iteration, no matter how many times it runs the benchmark binary
+(see discussion of 401.bzip2 <a href="#ii">above</a>).</p>
+
+<p>For example, to generate a system call trace for specinvoke and all of its children on a Linux system, you could set up <samp
+class="nb">monitor_specrun_wrapper</samp> as follows: </p>
+
+<pre>monitor_specrun_wrapper = strace -ff -o $benchmark.calls $command; \ 
+   mkdir -p $[top]/calls.$lognum; \ 
+   mv $benchmark.calls* $[top]/calls.$lognum
+</pre>
+
+<p>While your monitoring software is watching, <samp>specinvoke</samp> will fork the benchmark binary as many times as needed, timing
+each step separately.   </p>
+
+<p class="snugbot"><b>$command = specinvoke</b></p> 
+
+<p class="l1snugtop">In the above example, the crucial point is the <samp class="nbsnugr">$command</samp>; it expands to the full
+<samp>specinvoke</samp> command, including arguments.  
+
+If <samp class="nb">$command</samp> is omitted or replaced, something other
+than the desired command will be traced, and the benchmark will not validate.  </p>
+
+<p class="commentary">Note that the execution time for the commands specified by the <samp
+   class="nb">$monitor_specrun_wrapper</samp> will not be included in the benchmark's reported time; but the overhead of <samp
+class="nb">specinvoke</samp> <b>will</b> be included in your profiles or traces. </p>
+
+<!-- 
+-->
+
+<h3 id="monitor_wrapper">monitor_wrapper</h3>
+
+<p>You can instrument each invocation of a benchmark binary using <samp class="nbsnugr">monitor_wrapper</samp>.  This monitoring
+option allows profiling or tracing of the individual workload components, without including the overhead of specinvoke in your
+profiles or traces.  A potential disadvantage is that the execution time for your profiling commands is included as part of the
+benchmark's reported run time.   </p>
+
+<p class="snugbot"><b>$command = single binary</b></p>
+<p class="l1snugtop">Unlike the previous example, for <samp>monitor_wrapper</samp> any references to <samp>$command</samp> are references to
+single runs of a benchmark binary.  If the binary is run 6&nbsp;times with differing arguments, then <samp>$command</samp> will take on
+6&nbsp;different values.</p>
+
+<p>The example below, from a Linux system, collects system call traces for individual benchmark invocations, and saves output files
+directly to a profile directory: </p>
+
+<pre> strace -f -o $benchmark.calls.\$\$ $command; \ 
+   mkdir -p $[top]/calls.$lognum; \ 
+   mv $benchmark.calls.\$\$ $[top]/calls.$lognum
+</pre>
+
+<p><span class="alarm">Problem: which program gets which devices?</span> A very important point to note about <samp
+   class="nb">monitor_wrapper</samp> is that by default any output that the monitoring software writes to <samp
+   class="nb">stdout</samp> will be mixed with the benchmark's output.  <b>Your monitoring sw will break validation if you do not
+   plan usage of stdin / stdout / stderr.</b> </p>
+
+<p>A setting as simple as the following will cause many benchmarks to fail validation: </p>
+
+<pre>monitor_wrapper = date; $command</pre>
+
+<p>The above will cause failures because the benchmark's expected output does not include the current time of the run.  Even a
+benign status message (such as "MyMonitor status OK") will break validation if it is found where the benchmark output is supposed to
+be.</p>
+
+<p>Similarly, the benchmark will not run correctly if the monitoring software consumes input that the benchmark expects to find on
+<samp class="nbsnugr">stdin</samp>. </p>
+
+<p><b>Two solutions</b>.   There are two basic ways around problems with device handling.  </p>
+<ol>
+
+   <li><p>You may be able to explicitly send the data from your monitoring software somewhere else, for example:</p> 
+
+   <pre>monitor_wrapper = date &gt;&gt; /tmp/${benchmark}.data; $command</pre>
+   </li>
+
+   <li><p class="snugbot">More commonly, the way around the problem of misdirected <samp class="nb">stdin</samp> and <samp
+      class="nb">stdout</samp> when using <samp class="nb">monitor_wrapper</samp> is the configuration file option <a
+      class="external" href="config.html#command_add_redirect">command_add_redirect</a>.  By default, input and output files are
+      opened by specinvoke and attached directly to the file descriptors for new processes.  Setting <samp
+         class="nb">command_add_redirect</samp> in the header section of the configuration file causes that step to be skipped,
+      and instead modifies the benchmark command to include shell redirection operators. So, in Bourne shell syntax, by default </p>
+
+<pre>monitor_wrapper = date; $command</pre>
+
+   <p class="snug">translates to something like: </p>
+
+   <pre>(date; $command) &lt; <i>in</i> &gt; <i>out</i> 2&gt;&gt; err</pre>
+
+   <p>With the <samp class="nb">command_add_redirect</samp> option, the above becomes: </p>
+
+   <pre>date; $command &lt; <i>in</i> &gt; <i>out</i> 2&gt;&gt; <i>err</i> </pre>
+
+   <p> The output from the <samp class="nb">date</samp> command will be written to the file <samp
+      class="nb">speccmds.stdout</samp> in the run directory.  That file is not subject to validation. </p>
+   </li>
+</ol>
+
+<!-- 
+-->
+
+
+<h3 id="build_pre_and_post_bench">build_pre_bench and build_post_bench</h3>
+<p>The monitoring hooks <samp id="build_pre_bench" class="nb">build_pre_bench</samp> and <samp id="build_post_bench"
+class="nb">build_post_bench</samp> are executed before and after the individual benchmark is built. </p>
+
+<p><b>Note - stdout/stderr:</b>  The <samp class="nb">stdout</samp> and <samp class="nb">stderr</samp> for the <samp
+class="nb">build_pre_bench</samp> and <samp class="nb">build_post_bench</samp> commands are redirected to the
+files <samp class="nb">build_{pre|post}_bench.out</samp> and <samp class="nb">build_{pre|post}_bench.err</samp>
+in the run directory for each benchmark.</p>
+
+<!-- ........................................................................................................................... -->
+
+<h2 id="considerations">Considerations for Writing Monitoring Scripts</h2>
+<p>You can specify a lot of shell commands separated by semicolons, but for ease of understanding and maintenance, you might 
+prefer to have scripts that do the work. Here are a few things to keep in mind when writing scripts that will 
+run with the monitoring hooks: </p>
+
+<ul>
+<li><p><samp class="nb">$CWD</samp> points to the current run directory, whether you are building or running the
+benchmark. </p></li>
+
+<li><p><samp class="nb">$PATH</samp> is modified to include the <samp class="nb">$SPEC/bin</samp> directory. So if
+you put your executables or scripts in the <samp class="nb">$SPEC/bin</samp> directory, they will be in the path when the
+SPEC environment is set. </p></li>
+
+<li><p>If you are using <samp class="nbsnugr">monitor_wrapper</samp>, ensure that the monitoring applications and/or scripts
+do not use the <samp class="nb">stdin</samp> and <samp class="nb">stdout</samp> pipes.  However, if they do use them,
+set the variable <samp class="nb">command_add_redirect</samp> in the header section of the configuration file to avoid
+unintended failures with the CPU 2017 benchmarks. See section on <a href="#monitor_wrapper">monitor_wrapper</a> for more
+discussion.  </p></li>
+
+<li><p>If you are saving data collected from your monitoring run in files, they are most likely being saved in <samp
+class="nbsnugr">$CWD</samp>, which is set to the current run directory. It is a good idea to move these files from the run
+directories to some other directory which does not get modified by the SPEC's <samp class="nb">runcpu</samp> command.
+The run directories, by default, get over-written if you run the benchmark again. </p></li>
+
+</ul>
+
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Monitoring Facility:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+</body>
+</html>

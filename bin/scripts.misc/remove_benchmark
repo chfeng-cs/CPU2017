@@ -1,0 +1,98 @@
+#!/bin/sh
+
+# Remove an old benchmark
+# $Id: remove_benchmark 4403 2016-06-09 19:50:26Z CloyceS $
+
+if [ "x$SPEC" = x ]; then
+  SPEC=`pwd`
+fi
+
+cd $SPEC
+
+if [ ! -f bin/harness/runcpu -o ! -d benchspec ]; then
+    echo "Error: \$SPEC must be set, or $0 must be run in the top of the benchmark tree"
+    exit 1
+fi
+. ./shrc
+
+if [ "x$1" = x ]; then
+  echo "Usage: $0 <nnn.name>"
+  exit 1
+fi
+if [ -d .git ]; then
+  VCCMD=git
+  RMCMD='rm -r -f'
+elif [ -d .svn ]; then
+  VCCMD=svn
+  RMCMD=rm
+else
+  echo "It looks like there is no version control in use; files will just be removed"
+  VCCMD=
+  RMCMD="rm -rf"
+fi
+
+BMARK=$1
+
+BMARKPATH=
+BSET=
+for i in benchspec/[A-Z]*; do
+  if [ -d $i/$BMARK ]; then
+    BMARKPATH=$i/$BMARK
+    BSET=$i
+  fi
+done
+
+if [ "x$BSET" = x -o "x$BMARKPATH" = x ]; then
+  echo "Error: $BMARK cannot be found."
+  echo "Usage: $0 <nnn.name>"
+  exit 1
+fi
+
+echo "Found $BMARK in $BSET at $BMARKPATH"
+
+# Remove the benchmark itself
+echo Removing benchmark...
+eval "$VCCMD $RMCMD $BMARKPATH"
+if [ $? -ne 0 ]; then
+  echo "Error removing benchmark"
+  exit 1
+fi
+
+echo Removing benchmark from benchsets...
+BSETLIST=`perl -ni -e 'if (m#^\s*\Q'$BMARK'\E#) { $counts{$ARGV}++ } else { print }; END { print join("\n", sort keys %counts)."\n" }' $BSET/*bset`
+if [ $VCCMD = 'git' ]; then
+  for bset in $BSETLIST; do
+    $VCCMD add $bset
+  done
+else
+  echo $BSETLIST
+fi
+echo
+
+echo Removing benchmark from common source destinations...
+perl -ni -e 'print unless if (m#^\s*\Q'$BMARK'\E#)' $BSET/../common/*/destinations
+if [ $VCCMD = 'git' ]; then
+  $VCCMD add $BSET/../common/*/destinations
+fi
+echo
+
+echo Removing benchmark from formatter list
+# For old-style tools
+perl -ni -e "print unless m#'\Q$BMARK\E'#" bin/vars_common.pl
+# For new-style tools
+if [ -f bin/formatter/bset_list ]; then
+  perl bin/scripts.misc/generate_formatter_benchsets --silent --indent 1 benchspec/*/*.bset 2> bin/formatter/bset_list
+fi
+echo
+
+echo 'Noting in Revisions (you clean it up before check-in)...'
+(echo "   *) $BMARK: Removed"; echo; cat Revisions) > Revisions.new.$$
+cat Revisions.new.$$ > Revisions
+rm Revisions.new.$$
+echo
+
+echo Done\! Fix up the revisions file and commit everything with the following command:
+echo
+echo $VCCMD commit -m "'$BMARK: Removed'" Revisions bin/vars_common.pl $BMARKPATH $BSETLIST $BSET/../common/*/destinations
+echo
+

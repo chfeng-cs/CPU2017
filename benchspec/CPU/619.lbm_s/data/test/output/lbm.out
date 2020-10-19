@@ -1,0 +1,18 @@
+MAIN_printInfo:
+	grid size      : 200 x 200 x 260 = 10.40 * 10^6 Cells
+	nTimeSteps     : 20
+	result file    : reference.dat
+	action         : nothing
+	simulation type: channel flow
+	obstacle file  : 200_200_260_ldc.of
+
+LBM_showGridStatistics:
+	nObstacleCells: 5552328 nAccelCells:       0 nFluidCells: 4847672
+	minRho: 1.000000 maxRho: 1.000000 Mass: 1.040000e+007
+	minU  : 0.000000 maxU  : 0.000000
+
+LBM_showGridStatistics:
+	nObstacleCells: 5552328 nAccelCells:       0 nFluidCells: 4847672
+	minRho: 1.000000 maxRho: 1.042329 Mass: 1.040390e+007
+	minU  : 0.000000 maxU  : 0.012806
+

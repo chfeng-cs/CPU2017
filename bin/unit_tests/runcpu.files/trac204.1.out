@@ -1,0 +1,10 @@
+Compiling Binaries
+  Building 999.specrand_ir base none: (build_base_none.0000) [timestamp]
+Build successes for intrate: 999.specrand_ir(base)
+Build errors for intrate: None
+Running Benchmarks
+  Running 999.specrand_ir test base none (1 copy) [timestamp]
+Compiling Binaries
+  Up to date 999.specrand_ir base none
+Running Benchmarks
+  Running 999.specrand_ir train base none (1 copy) [timestamp]

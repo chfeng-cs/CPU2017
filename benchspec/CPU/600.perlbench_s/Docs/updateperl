@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# Copy new perl bits over from a new (but completely built) tree.
+# Don't forget to patch it up and comment out #line directives!
+
+# $Id: updateperl 71 2009-04-28 19:41:34Z cloyce $
+
+if pwd | grep '/src$' >/dev/null 2>&1; then
+  newtree=$1
+  shift
+  if [ "$newtree" = "" -o ! -d "$newtree" ]; then
+    echo Usage: $0 '<new perl tree (configured and built)>'
+    exit 1
+  fi
+else
+  echo "Please run this script from the existing src subdirectory"
+  exit 1
+fi
+
+# Copy over the new files
+mv $newtree/config.h $newtree/perl-orig-config.h
+for i in `find . \( -name .svn -prune \) -o \( -type f -print \) | egrep -v (Makefile)`; do
+  if cp $newtree/$i $i 2>&1 | sed "s/cp: //; s#$i##;" > /tmp/copy_prob; then
+    echo "$i copied" >> COPIES_GOOD
+  else
+    echo "PROBLEM: $i: "`cat /tmp/copy_prob`
+    echo "PROBLEM: $i: "`cat /tmp/copy_prob` >> COPIES_BAD
+  fi
+  rm -f /tmp/copy_prob
+done
+mv $newtree/perl-orig-config.h $newtree/config.h
+
+# Comment out the "#line" directives:
+find . \( -name .svn -prune \) -o \( -type f -print \) | xargs perl -pi -e 's/^(#line \d+(?: "[^"]+"))$/\/* $1 *\//;'
+
+# Remove the perl_ from perl_get_* and perl_call_*, except in the win32 stuff
+# and XSUB.h
+find . \( -name .svn -prune \) -o \( -type f -print \) | egrep -v '(perllib.c|XSUB.h)' | xargs perl -pi -e 's/^([^#].*)perl_(get|call)_/$1$2_/g;'  
+
+# Now apply the patch from the previous version
+patch -p1 < ../Docs/spec_cpu_changes.diff
+
+echo
+echo See COPIES_GOOD and COPIES_BAD for how the file copy went.
+echo
+echo "Enjoy sorting out your new mess.  Don't forget about the non-core modules,"
+echo "spec_config.h needs to be updated, and be SURE to regenerate"
+echo "Docs/spec_cpu_changes.diff when you're done."

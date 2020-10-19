@@ -1,0 +1,1253 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                                specpp (FILEPP)
+
+   $Id: specpp.html 6317 2019-07-28 Latest: www.spec.org/cpu2017/Docs/
+       22:50:53Z JohnHenning $
+    Your copy of SPEC CPU(R)2017 includes a copy of Darren Miller's filepp,
+       built as specpp to avoid any potential conflict with the original.
+                              This is its manpage.
+
+   Section: User Commands (1)
+   Updated: Feb 27 2007
+   Index Return to Main Contents
+
+   --------------------------------------------------------------------------
+
+
+
+NAME
+
+   filepp - A generic file preprocessor
+
+SYNOPSIS
+
+   filepp [options] filename(s)
+
+DESCRIPTION
+
+   filepp is a generic file preprocessor designed to allow the functionality
+   provided by the C preprocessor cpp(1) to be used with any file type.
+   filepp is designed to be easily customised and extended.
+
+OPTIONS
+
+   filepp accepts the following command line options:
+
+   -b
+           Suppress blank lines originating from include files (this has no
+           effect on the top-level file).
+   -c
+           Read input from STDIN instead of a file. Note: if both -c and
+           input files are specified, both are used as inputs in the order
+           given.
+   -Dmacro
+           Predefine macro to have a definition of `1'.
+   -Dmacro=defn
+           Predefine macro to have a definition of defn.
+   -d
+           Output debugging information.
+   -dd
+           Output verbose debugging information. This option shows all normal
+           debugging information, plus the full list of defined macros every
+           time the list changes.
+   -dl
+           Output light debugging information. This option shows minimal
+           debugging information.
+   -dprechar
+           Prefix all debugging information with char (can be character or
+           string), can be used to make debugging easier to read.
+   -dpostchar
+           Postfix all debugging information with char (can be character or
+           string), this defaults to a newline. If char does not contain a
+           newline, then no newline will be printed after debugging messages.
+           (Newlines can be put in char using the __NEWLINE__ macro.)
+   -ds
+           Print debugging info on stdout rather than stderr.
+   -e
+           Define all environment variables as macros with prefix envchar.
+   -ec char
+           Set envchar (prefix of environment variables defined as macros) to
+           char, defaults to $. (Note: this option only takes effect at the
+           time the environment variables are converted to macros).
+   -ecn
+           Set envchar (prefix of environment variables defined as macros) to
+           nothing (no prefix).
+   -h
+           Show summary of options.
+   -Idir
+           Append directory dir to the list of directories searched for
+           include files.
+   -imacros file
+           Reads in macros from file, but discards everything else in the
+           file.
+   -k
+           Turn off parsing of all keywords. This is useful if you just want
+           to use the macro expansion facilities of filepp. With this option
+           all keywords found will be ignored, filepp will just replace any
+           macros specified with the -Dmacro=defn option.
+   -kc char
+           Set keyword prefix character to char (can also be a string). All
+           filepp keywords are prefixed with the character # by default. This
+           option allows the prefix to be changed to something else.
+   -lc char
+           Set line continuation character to char (can also be a string).
+           When the line continuation character is found with a newline
+           following it, it and the newline are replaced by the line
+           continuation replacement character. Default is \ (cpp(1) style).
+   -lec char
+           Set optional keyword line end character to char (can also be a
+           string). This allows extra characters to be placed at the end of a
+           line containing a keyword. The extra characters will be ignored.
+           This is useful if keywords are to be embedded in HTML or C style
+           comments. For example, to embed keywords in an HTML comment the
+           keyword prefix character could be set to <--!# and the optional
+           keyword line end character set to -->. An example keyword would
+           then be:
+
+           <!--#include "header.h" -->
+
+           In the case the optional keyword line end characters --> would be
+           ignored.
+
+   -lr char
+           Set line continuation replacement character to char (can also be a
+           string). Default is a null string (cpp(1) style).
+   -lrn
+           Set line continuation replacement character to be a newline.
+   -m module.pm
+           Load module module.pm. module.pm is a perl(1) module which can be
+           used to extend or modify the behaviour of filepp. See section
+           FILEPP MODULES for details of modules included with filepp and
+           FILEPP MODULE API for details on how to write your own modules.
+   -Mdir
+           Append directory dir to the list of directories searched for
+           filepp modules. This list defaults to the directory the filepp
+           modules are installed (if any) plus the default Perl module paths.
+           (Note: this adds the directory to the Perl @INC list.)
+   -mp char
+           Prefix all macros with char. Macros are defined in the normal way,
+           but will only be replaced when found prefixed with char. For
+           example, filepp macros will behave similar to Bourne shell (sh(1))
+           variables if char is set to $.
+   -mpnk
+           Turns off macro prefixes within keywords. When using a macro
+           prefix character this option allows macros to be used without the
+           prefix in keyword processing. For example, if the macro prefix is
+           $ then and #if would be written as:
+
+           #if $MACRO == 1
+
+           Using the mpnk option allows the #if to be written as:
+
+           #if MACRO == 1
+
+   -o name
+           Write output to name instead of STDOUT. If there is only one input
+           file and it has the same name as the output file, the original
+           input file will be backed-up as name~.
+   -ov
+           Overwrite mode, causes the output file to overwrite the input
+           file. Useful when modifying a large number of files at once, eg:
+
+           filepp -ov -DTHIS=THAT *
+
+           The original input file(s) will be backed-up as name~.
+
+   -ovc  IN=OUT
+           Similar to overwrite mode, the difference is the output filename
+           is input filename with IN part converted to OUT. For example, to
+           process a set of files all ending with .in and have the output
+           files all ending in .out do:
+
+           filepp -ovc .in=.out *.in
+
+           In this case a file called test.in will be processed and the
+           output file will be test.out. Note: if the input file does not
+           contain IN then the output file will have the same name as the
+           input file and the original input file(s) will be backed-up as
+           name~!
+
+   -pb
+           Preserve blank lines. Using this option attempts to keep as many
+           lines in the output file as are in the input file, so all blank
+           lines which normally would not get printed are printed. Useful
+           when comparing input file with output.
+   -re
+           Treat keyword and macro prefix characters and line continuation
+           character as Perl regular expressions instead of normal strings.
+   -s
+           Run filepp in safe mode. This turns off the pragma keyword.
+   -Umacro
+           Undefine previously defined macro.
+   -u
+           Undefine all currently defined macros, including predefined ones.
+   -v
+           Show version of program.
+   -w
+           Turn on word boundaries when replacing macros. When word
+           boundaries are on, macros will only be replaced if the macro
+           appears in the text as a word. For example, by default macro would
+           be replaced in both cases of the following text:
+
+           macro as word, macroNOTaword
+
+           but only the first occurrence would be replaced with the -w
+           option.
+
+           With this option enabled filepp will only replace macros which
+           contain alphanumeric characters. International (non-ASCII)
+           character sets can be supported using Perl's locale handling.
+
+
+
+KEYWORDS
+
+   filepp supports the following keywords:
+
+   #include <FILE>
+           Include a file in the file being processed. This variant is used
+           for "system" include files. It searches for a file named FILE in a
+           list of directories specified by you. Directories are specified
+           with the command option `-I'. filepp does not predefine any system
+           directories in which to search for files.
+   #include FILE
+           Include a file in the file being processed. This variant is used
+           for include files of your own project. It searches for a file
+           named FILE first in the current directory, then in the list of
+           directories specified with the command option `-I'. The current
+           directory is the directory the base input file is in.
+   #define macro
+           Define the macro macro to have a definition of `1'. macro can then
+           be used with the keywords #ifdef and #ifndef.
+   #define macro defn
+           Define the macro macro to have the value defn. macro can then be
+           used with the keywords #ifdef and #ifndef. Also, all instances of
+           macro following the #define statement will be replaced with the
+           string defn. The string defn is taken to be all the characters on
+           the line following macro.
+   #define macro(arg1, arg2, ...) defn
+           Define the macro macro to have the value defn with arguments
+           (arg1, arg2, ...). macro can be used as follows:
+
+           #define macro(foo) defn with foo in
+
+           Now when replacing occurs:
+
+           macro(bar)
+
+           will become:
+
+           defn with bar in
+
+           Macros can have any number of comma separated arguments.
+
+           Macros can also have variable numbers of arguments if the final
+           macro ends in ..., for example:
+
+           #define error(string, args...) fprintf(stderr, string, args);
+
+           Here the first argument given becomes string and all other
+           arguments will become args. If called as: error("%d,%s", i,
+           string) it will give
+
+           fprintf(stderr, "%d,%s", i, string);
+
+           Also, if a macro with a variable number of arguments is passed no
+           arguments for the variable argument, then commas can be optionally
+           removed from the definition by preceding the definition with "##".
+           For example:
+
+           #define error(string, args...) fprintf(stderr, string, ##args);
+
+           If this is called as: error("empty") then result will be:
+
+           fprintf(stderr, "empty");
+
+           The comma immediately before ##args has been removed.
+
+   #if expr
+           A conditional statement, expr will be evaluated to true (1) or
+           false (0). If expr evaluates to true, the text between the #if and
+           the next #else or #endif will be included. If expr evaluates to
+           false, the text between the #if and the next #else or #endif will
+           be ignored. expr can use all the usual cpp style comparisons (==,
+           !=, <, >, etc.). Multiple comparisons can be combined with and
+           (&&) and or (||). The defined keyword can also be used to check if
+           macros are defined. For example:
+
+           #if defined macro && macro == defn
+
+           Note: filepp's #if does not work in exactly the same way as
+           cpp(1)'s #if. cpp(1)'s #if only does numerical style comparisons.
+           Filepp's #if statement can also compare strings and regular
+           expressions using perl(1)'s full range of comparison operations.
+           For example, to test if two strings are exactly equal use:
+
+           #if "MACRO" eq "string"
+
+           To test if strings are not equal use ne instead of eq. Regular
+           expressions can also be tested, for example to test if a macro has
+           any whitespace in it use:
+
+           #if "MACRO" =~ /\s/
+
+           To test if a macro does not have any whitespace in it =~ can be
+           replaced with !~.
+
+           Perl experts: #if works by first parsing expr for the defined
+           keyword and checking if the macro it refers to is defined,
+           replacing it with 1 if it is and 0 if it isn't. It then checks
+           expr for any other macros and replaces them with their definition.
+           Finally it passes expr through Perl's eval function, which returns
+           true or false.
+
+   #elif expr
+           #elif stands for "else if". Like #else, it goes in the middle of a
+           #if[n][def]-#endif pair and subdivides it; it does not require a
+           matching #endif of its own. Like #if, the #elif directive includes
+           an expression to be tested.
+   #ifdef macro
+           A conditional statement, if macro has been defined the text
+           between the #ifdef and the next #else or #endif will be included.
+           If macro has not been defined the text between the #ifdef and the
+           next #else or #endif will be ignored.
+   #ifndef macro
+           The reverse case of the #ifdef conditional.
+   #else
+           The #else directive can be added to a conditional to provide
+           alternative text to be used if the condition is false.
+   #endif
+           Used to terminate a conditional statement. Normal processing
+           resumes following the #endif.
+   #undef macro
+           Undefine a previously defined macro.
+   #error mesg
+           Causes filepp to exit with the error message mesg.
+   #warning mesg
+           Causes filepp to issue the warning message mesg.
+   #comment mesg
+           As filepp is supposed to be a generic file preprocessor, it cannot
+           support any known comment styles, therefore it defines its own
+           with this keyword. All lines starting with #comment are treated as
+           comments and removed by filepp.
+   #pragma filepp function arg1, arg2, ...
+           The #pragma keyword immediately followed by the word filepp allows
+           the user to execute a Perl function during parsing. The word
+           immediately following filepp is taken as the name of the function
+           and the remainder of the line is taken to be a comma separated
+           list of arguments to the function. Any of the filepp internal
+           functions (see section FILEPP MODULE API) can be called with the
+           #pragma keyword.
+
+           Warning: There are obvious security risks with allowing arbitrary
+           functions to be run, so the -s (safe mode) command line option has
+           been added which turns the #pragma keyword off.
+
+
+
+PREDEFINED MACROS
+
+   filepp supports a set of predefined macros. All the predefined macros are
+   of the form __MACRO__, where MACRO is:
+
+   FILE
+           This macro expands to the name of the current input file.
+   LINE
+           This macro expands to the current input line number.
+   DATE
+           This macro expands to a string that describes the date on which
+           the preprocessor is being run. The string contains eleven
+           characters and looks like "Feb 27 2007".
+   ISO_DATE
+           This macro expands to a string that describes the date on which
+           the preprocessor is being run. The string is in the format
+           specified by ISO 8601 (YYYY-MM-DD) and looks like "2007-02-27".
+   TIME
+           This macro expands to a string that describes the time at which
+           the preprocessor is being run. The string contains eight
+           characters and looks like "20:02:16".
+   BASE_FILE
+           This macro expands to the name of the main input file.
+   INCLUDE_LEVEL
+           This macro expands to a decimal integer constant that represents
+           the depth of nesting in include files. The value of this macro is
+           incremented on every #include directive and decremented at every
+           end of file.
+   NEWLINE
+           This macro expands to a newline.
+   TAB
+           This macro expands to a tab.
+   NULL
+           This macro expands to nothing. It is useful if you want to define
+           something to be nothing.
+   VERSION
+           This macro expands to a string constant which describes the
+           version number of filepp. The string is a sequence of decimal
+           numbers separated by periods and looks like "1.8.0".
+   FILEPP_INPUT
+           This macro expands to a string constant which says the file was
+           generated automatically from the current BASE_FILE and looks like
+           "Generated automatically from ./filepp.1.in by filepp".
+
+
+
+FILEPP MODULES
+
+   The following modules are included with the main filepp distribution:
+
+
+
+FOR MODULE - for.pm
+
+   The for module implements a simple for loop. Its file name is for.pm.
+
+   The for loop is similar in functionality to that of other programming
+   languages such as Perl or or C. It has a single variable (a filepp macro)
+   which is assigned a numerical value. This numerical value changes by a set
+   increment on each iteration through the loop. The loop terminates when the
+   value no longer passes a comparison test.
+
+   The for module implements the following keywords:
+
+   #for macro start compare end increment
+           The #for keyword is functionally equivalent to the following Perl
+           or C style loop:
+
+           for(macro=start; macro compare end; macro+=increment)
+
+           The #for keyword requires the following space separated
+           parameters:
+
+           macro : The name of the macro to which the for loop should assign
+           its numerical value.
+
+           start : The value macro should be assigned at the start of the
+           loop. start should be a numerical value.
+
+           compare : The comparison to make between the current value of
+           macro and the value end to determine when the loop should
+           terminate. Valid values for compare are <, >, >=, <=.
+
+           end : the for loop will terminate when the test
+
+             macro compare end
+
+           fails. end should be a numerical value.
+
+           increment : The value to increment macro on each iteration of the
+           loop. At the end of each iteration the value of increment is added
+           to the current value of macro. increment should be a numerical
+           value.
+
+   #endfor
+           The #endfor keyword is used to signify the end of the loop.
+           Everything within the opening #for and the closing #endfor will be
+           processed on each iteration of the loop.
+
+   Example usage:
+
+   #for COUNTER 10 > 1 -2.5
+
+     COUNTER
+
+   #endfor
+
+   In the above example COUNTER will be defined to have values 10, 7.5, 5 and
+   2.5 for each successive iteration through the loop.
+
+   Nested loops are also possible, as is changing the value of the macro
+   within the loop. start, end and increment should all be numerical values,
+   however it is possible to use macros instead provided the macros are
+   defined to have numerical values.
+
+
+
+FOREACH MODULE - foreach.pm
+
+   The foreach module implements a simple foreach loop. Its file name is
+   foreach.pm.
+
+   The foreach loop is similar in functionality to that of other programming
+   languages such as Perl. It takes a list of values separated by a user
+   definable delimiter (',' by default). It then iterates through all values
+   in the list, defining a macro to be each individual value for each
+   iteration of the loop. The loop terminates when all values have been used.
+
+   The foreach module implements the following keywords:
+
+   #foreach macro list
+           The #foreach keyword is functionally equivalent to the following
+           Perl style loop:
+
+           foreach macro (split(/delim/, list))
+
+           The #foreach keyword requires the following space separated
+           parameters:
+
+           macro : The name of the macro to which the foreach loop should
+           assign the current list value.
+
+           list : The list of values, separated by delim (see #foreachdelim
+           keyword for how to set delim). list can also be a macro or contain
+           macros.
+
+           The loop will run from the #foreach keyword to the next
+           #endforeach keyword.
+
+   #endforeach
+           The #endforeach keyword is used to signify the end of the loop.
+           Everything within the opening #foreach and the closing #endforeach
+           will be processed on each iteration of the loop.
+
+   Example usage:
+
+   #foreach VALUE one, two, three, four
+
+     VALUE
+
+   #endforeach
+
+   In the above example VALUE will be defined to have values one, two, three
+   and four for each successive iteration through the loop.
+
+   Nested loops are also possible.
+
+   #foreachdelim /delim/
+           The #foreachdelim keyword is used to set the delimiter used in
+           each list. The delimiter can be any character, string or regular
+           expression. The delimiter should be enclosed in forward slashes,
+           in the same style as Perl regular expressions. The default value
+           for delim is ','. To set the delimiter to be a single space do:
+
+           #foreachdelim / /
+
+           To set delim to be any amount of white space do:
+
+           #foreachdelim /\s+/
+
+           See the Perl documentation on regular expressions for more
+           advanced uses.
+
+
+
+LITERAL MODULE - literal.pm
+
+   The literal module prevents macros appearing in literal strings from being
+   replaced. A literal string is defined as having the form:
+
+   "literal string with macro in"
+
+   In the above example, macro will not be replaced.
+
+   The behaviour of the literal module can be reversed by defining the macro
+   LITERAL_REVERSE before loading the module, for example:
+
+   filepp -DLITERAL_REVERSE -m literal.pm <files>
+
+   This has the effect of only replacing macros which appear in strings.
+
+
+
+TOUPPER MODULE - toupper.pm
+
+   The toupper module converts all lowercase letters to uppercase.
+
+TOLOWER MODULE - tolower.pm
+
+   The tolower module converts all uppercase letters to lowercase.
+
+
+
+C/C++ COMMENT MODULE - c-comment.pm
+
+   The c-comment module removes all C style:
+
+   /* comment */
+
+   and C++ style:
+
+   // comment
+
+   comments from a file. C and C++ comments are removed after keywords have
+   been processed. If you wish to remove C and C++ comments before keywords
+   are processed, define the macro REMOVE_C_COMMENTS_FIRST before loading the
+   module, eg:
+
+   filepp -DREMOVE_C_COMMENTS_FIRST -m c-comment.pm
+
+
+
+HASH COMMENT MODULE - hash-comment.pm
+
+   The hash-comment module removes all comments of the style:
+
+   # comment
+
+   from a file. This is the commenting style used by Perl, Bourne Shell, C
+   Shell and many other programs and configuration files. Hash comments are
+   removed after keywords have been processed. If you wish to remove hash
+   comments before keywords are processed, define the macro
+   REMOVE_HASH_COMMENTS_FIRST before loading the module (Note: if you do this
+   and also use # as the keyword character then the keywords will be removed
+   BEFORE they are processed).
+
+
+
+FUNCTION MODULE - function.pm
+
+   The function module allows the user write macros which call Perl
+   functions. Its file name is function.pm.
+
+   The function module allows macros of the form:
+
+   macro(arg1, arg2, arg3, ...)
+
+   to be added to a file. When the macro is found, it will run a function
+   from a Perl module, with arguments arg1, arg2, arg3, ... passed to the
+   function. The function must return a string. The returned string will
+   replace the call to the function in the output. The function can have any
+   number of arguments. If the function has no arguments it should be called
+   with an empty argument list:
+
+   macro()
+
+   If the word macro is found in the input file without being followed by a (
+   it will be ignored.
+
+   To use the function module, the user must provide a Perl function which
+   optionally takes in arguments and returns a string. The function can
+   either be one of filepp's internal functions or one of the user's own
+   provided in a Perl module. The function can be added in two ways. The
+   first way is through the function keyword:
+
+   #function macro function
+           macro is the name of the macro which is used to signify a call to
+           the function in the input file and function is the name of the
+           function to be called.
+
+   The second method of adding a function is to call the Perl function:
+
+   Function::AddFunction($macro,$function)
+           which has the same inputs as the function keyword.
+
+   Functions can be removed either through the keyword:
+
+   #rmfunction macro
+           or through the Perl function
+   Function::RemoveFunction($macro)
+
+
+
+MATHS MODULE - maths.pm
+
+   The module provides a set of macros which perform mathematical operations.
+   When the macros are encountered in an input file, they are evaluated and
+   the result is returned in the output.
+
+   The maths module includes the following macros:
+
+   add(a, b, c, ...)
+           Takes in any number of arguments and returns their sum: (a + b + c
+           + ...)
+   sub(a, b)
+           Returns a minus b: (a - b)
+   mul(a, b, c, ...)
+           Takes in any number of arguments and returns their product: (a * b
+           * c * ...)
+   div(a, b)
+           Returns a over b: (a / b)
+   abs(a)
+           Returns the absolute value of a.
+   atan2(a, b)
+           Returns the arctangent of a/b in the range -pi to pi.
+   cos(a)
+           Returns the cosine of a in radians.
+   exp(a)
+           Returns the e to the power of a.
+   int(a)
+           Returns the integer portion of a.
+   log(a)
+           Returns the natural logarithm (base e) of a.
+   rand(a)
+           Returns a random fractional number between the range 0 and a. If a
+           is omitted, returns a value between 0 and 1.
+   sin(a)
+           Returns the sine of a in radians.
+   sqrt(a)
+           Returns the square root of a.
+   srand(a)
+           Sets the random number seed for rand().
+
+   The maths module also defines pi as M_PI as e as M_E.
+
+   The maths macros are implemented using the function.pm module. Nested
+   macros are allowed, as is passing other macros with numerical definitions
+   as arguments.
+
+
+
+FORMAT MODULE - format.pm
+
+   This module provides a set of macros for formatting strings and numbers.
+
+   The format module provides the following macros:
+
+   printf(format, arg1, arg2, ...)
+           The printf macro behaves in the same way as the Perl/C function
+           printf. It takes in a format string followed by a list of
+           arguments to print. See the printf(3) man page or Perl
+           documentation for full details of the printf function.
+   toupper(string)
+           Converts input string to upper case.
+   toupperfirst(string)
+           Converts first character of input string to upper case.
+   tolower(string)
+           Converts input string to lower case.
+   tolowerfirst(string)
+           Converts first character of input string to lower case.
+   substr(string, offset, length)
+           Extracts a substring from input string. substr behaves in the same
+           way as the Perl substr function. offset is used to specify the
+           first character of the string to output (negative for offset from
+           end of string), length is the length of the string to output. If
+           length is omitted everything from the offset is returned. For
+           further information on substr see the Perl documentation.
+
+   The format macros are implemented using the function.pm module.
+
+
+
+BIGDEF MODULE - bigdef.pm
+
+   The bigdef module allows easy definition of multi-line macros. Its file
+   name is bigdef.pm.
+
+   A multi-line macro is a macro which has a definition which spans more than
+   one line. The normal way to define these is to place a line continuation
+   character at the end of each line in the definition. However, this can be
+   annoying and unreadable for large multi-line macros. The bigdef module
+   tries to improve on this by providing two keywords:
+
+   #bigdef macro definition...
+           The #bigdef keyword has the same syntax as #define, the only
+           difference being the macro definition is everything following the
+           macro name including all following lines up to the next #endbigdef
+           keyword.
+   #endbigdef
+           Ends a bigdef. Everything between this keyword and the last
+           preceding #bigdef is included in the macro.
+
+   Any keywords found in the definition will be evaluated as normal AT THE
+   TIME THE MACRO IS DEFINED and any output from these will be included in
+   the definition.
+
+   Note: The difference between bigfunc and bigdef is the time keywords in
+   the definition are evaluated. Bigdef evaluates them as the macro is
+   DEFINED, bigfunc evaluates them whenever the macro is REPLACED.
+
+
+
+BIGFUNC MODULE - bigfunc.pm
+
+   The bigfunc module allows easy definition of multi-line macros. Its file
+   name is bigfunc.pm.
+
+   A multi-line macro is a macro which has a definition which spans more than
+   one line. The normal way to define these is to place a line continuation
+   character at the end of each line in the definition. However, this can be
+   annoying and unreadable for large multi-line macros. The bigfunc module
+   tries to improve on this by providing two keywords:
+
+   #bigfunc macro definition...
+           The #bigfunc keyword has the same syntax as #define, the only
+           difference being the macro definition is everything following the
+           macro name including all following lines up to the next
+           #endbigfunc keyword.
+   #endbigfunc
+           Ends a bigfunc. Everything between this keyword and the last
+           preceding #bigfunc is included in the macro.
+
+   Any keywords found in the definition will be evaluated as normal AT THE
+   TIME THE MACRO IS REPLACED and any output from these will be included in
+   the definition.
+
+   Note: The difference between bigfunc and bigdef is the time keywords in
+   the definition are evaluated. Bigdef evaluates them as the macro is
+   DEFINED, bigfunc evaluates them whenever the macro is REPLACED.
+
+
+
+DEFPLUS MODULE - defplus.pm
+
+   The defplus module allows extra information to be appended to an existing
+   macro. Its file name is defplus.pm.
+
+   The defplus module allows further things to be appended to existing
+   macros. The module implements one keyword:
+
+   #defplus macro definition...
+           The #defplus keyword has the same syntax as #define, the only
+           difference being if the macro is already defined then definition
+           is appended to the existing definition of the macro. If the macro
+           is undefined then #defplus behaves in exactly the same way as
+           #define.
+
+
+
+REGEXP MODULE - regexp.pm
+
+   The regexp module allows Perl regular expression replacement to be done
+   with filepp. Its file name is regexp.pm.
+
+   Perl regular expression replacement allows a regular expression to be
+   searched for and replaced with something else. Regular expressions are
+   defined as follows:
+
+   #regexp /regexp/replacement/
+           It is very similar to the Perl syntax and the following Perl code
+           will be executed on each line of the input file:
+   $line =~ s/regexp/replacement/g
+           For users who don't understand Perl, this means replace all
+           occurrences of regexp in the current line with replacement.
+
+   A full description of regular expressions and possible replacements is
+   beyond the scope of this man page. More information can be found in the
+   Perl documentation using the command:
+
+   perldoc perlre
+
+   Any number of regular expressions can be defined. Each regular expression
+   is evaluated once for each line of the input file. Regular expressions are
+   evaluated in the order they are defined.
+
+   Regular expressions can be undefined in the following way:
+
+   #rmregexp /regexp/replacement/
+           This will remove the specified regular expression.
+
+   In debugging mode the current list of regular expressions can be viewed
+   using the pragma keyword:
+
+   #pragma filepp ShowRegexp
+           When not in debugging mode, this will produce no output.
+
+   A single regular expression can also be defined on the command line using
+   the REGEXP macro, for example:
+
+   filepp -DREGEXP=/regexp/replacement/ -m regexp.pm inputfile
+
+   Note: the REGEXP macro must be defined BEFORE the regexp module is loaded,
+   putting -DREGEXP... after -m regexp.pm will not work. When using the
+   command line approach, if the REGEXP macro is successfully parsed as a
+   regular expression it will be undefined from the normal filepp macro list
+   before processing starts. Care should obviously be taken when escaping
+   special characters in the shell with command line regexps.
+
+
+
+BLC MODULE - blc.pm
+
+   The Bracket Line Continuation module causes lines to be continued if they
+   have more open brackets: "(" than close brackets: ")" on a line. The line
+   will be continued until an equal number of open and close brackets are
+   found.
+
+   Brackets can be prevented from being counted for line continuation by
+   escaping them with a backslash: "" and ")". Any brackets found with a
+   preceding backslash will be ignored when deciding if line continuation
+   should be done and then have the backslash removed once the full line has
+   been found.
+
+
+
+C MACROS MODULE - cmacros.pm
+
+   The cmacros module causes the definition of the following predefined
+   macros to be quoted: DATE, TIME, VERSION, BASE_FILE, FILE, (note:
+   predefined macros are written as __MACRO__).
+
+   This makes the macros more "C" like, as the C preprocessor also puts
+   quotes around these macros.
+
+
+
+C MACROS MODULE - cpp.pm
+
+   The cpp makes filepp behave in a similar manner to a C preprocessor
+   cpp(1).
+
+   DISCLAIMER: filepp is not meant to be a drop in replacement for a C
+   preprocessor even with this module. I would not recommend using filepp as
+   a C preprocessor unless you fully understand how it differs from a real C
+   preprocessor. The output from filepp with the cpp module will not be the
+   same as a real C preprocessor.
+
+
+
+GRAB MODULE - grab.pm
+
+   The grab module is used to grab input before processing. Its file name is
+   grab.pm.
+
+   The grab module is mainly for use in other modules, such as for.pm and
+   bigfunc.pm. It grabs all input from a file before any processing is done
+   on it. This allows other modules to do processing on the original input
+   data before the main processing is done. For example, the for module will
+   store the original input inside a loop and re-use it each time the loop is
+   processed.
+
+   #grab macro definition...
+           The grab module will start grabbing of all input from the grab
+           keyword, onwards.
+   #endgrab
+           Ends a grab. Everything between this keyword and the last
+           preceding #grab will be grabbed and stored for use in other
+           modules.
+
+   Grabs can be nested if required.
+
+   When calling grab from another module, use the following functions:
+
+   Grab::StartGrab($startkeyword,$endkeyword)
+           $startkeyword is the keyword that StartGrab is called from.
+           $endkeyword is the keyword that grabbing should stop at.
+   @List=Grab::GetInput()
+           Returns a Perl list containing all input grabbed from when grab
+           was last run.
+   $line=Grab::GetInputLine()
+           Returns the line number of the input file where grabbing last
+           started.
+
+
+
+FILEPP MODULE API
+
+   The behaviour of filepp can be modified or extended through the use of
+   modules. filepp modules are in fact perl(1) modules, and the rest of this
+   section assumes the reader has a knowledge of Perl.
+
+   filepp modules are perl(1) modules which extend or modify filepp's
+   behaviour by either calling or replacing filepp's internal functions.
+   filepp has the Perl package name Filepp so its internal functions can be
+   called within modules either as Filepp::function() or just function(). Any
+   of filepp's internal functions can be called or replaced from within a
+   filepp module, the most useful ones are:
+
+   Debug($string,$number)
+           Print $string as debugging information if debugging is enabled.
+           $number is optional and can be used to set the debugging level at
+           which $string should be printed, lower numbers being higher
+           priority. Command line option d prints all debugging info for 2
+           and below, option dd prints all debugging information for 3 and
+           below and option dl prints all debugging information for 1 and
+           below. If $number is not provided, defaults to 1.
+   AddProcessor($function,$pos,$type)
+           Allows the module to add a function named $function to filepp's
+           processing chain. The processing chain is a set of functions which
+           are run on each line of a file as it is processed. The default
+           functions in the processing chain are ParseKeywords which does
+           keyword parsing and ReplaceDefines which does macro replacement.
+           Further functions can be added to the chain, with each function
+           taking a string (the current line) as input and returning the
+           processed string as output.
+
+           By default, or if $pos is set to 0, the processor is added to the
+           end of the processing chain. If $pos is set to 1 the processor is
+           added to the start of the processing chain.
+
+           $type controls what the processor is run on. There are three
+           options for this, 0 (default): the processor runs on everything
+           passed to the processing chain; 1: the processor runs on full
+           lines only; 2: the processor runs on part lines only (a part line
+           is the text following a keyword such as if which needs to be
+           parsed for macros).
+
+           Both $pos and $type are optional parameters.
+
+   AddProcessorAfter($function,$existing,$type)
+           Adds function $function to the processing chain directly after
+           existing processor $existing. If $existing is not found then
+           $function is added to the end of the processing chain. Regular
+           expression matching is used to compare $existing with the names of
+           the functions in the processing chain.
+
+           $type is optional.
+
+   AddProcessorBefore($function,$existing,$type)
+           Adds function $function to the processing chain directly before
+           existing processor $existing. If $existing is not found then
+           $function is added to the start of the processing chain. Regular
+           expression matching is used to compare $existing with the names of
+           the functions in the processing chain.
+
+           $type is optional.
+
+   RemoveProcessor($function)
+           Removes the processor function $function from the processing
+           chain.
+   $string=ReplaceDefines($string)
+           Replaces all macros in $string with their definitions and returns
+           the processed string.
+   AddKeyword($string,$function)
+           Add the keyword named $string. When the keyword is found in text
+           processing the function named $function will be run with
+           everything following the keyword passed as a single argument.
+   RemoveKeyword($string)
+           Removes the keyword named $string.
+   RemoveAllKeywords()
+           Removes all the keywords currently defined for filepp (used for
+           the -k command line option).
+   AddIfword($string)
+           Adds keyword named $string to Ifword list. An Ifword takes in the
+           string following the keyword and optionally parses it, returning a
+           1 if the string parses to true and 0 for false. The default
+           Ifwords are if, ifdef and ifndef.
+   RemoveIfword($string)
+           Removes keyword named $string from Ifword list (note: this does
+           NOT remove the keyword, use RemoveKeyword for that).
+   AddElseword($string)
+           Adds keyword named $string to Elseword list. An Elseword takes in
+           the string following the keyword and optionally parses it,
+           returning a 1 if the string parses to true and 0 for false. The
+           default Elsewords are else and elif.
+   RemoveElseword($string)
+           Removes keyword named $string from Elseword list.
+   AddEndifword($string)
+           Adds keyword named $string to Endifword list. An Endifword should
+           return a 1 to indicate successful termination of the if block. If
+           the Endifword returns 0 the Endifword is ignored and filepp
+           assumes the current if block carries on after the Endifword. The
+           default Endifword is endif.
+   RemoveEndifword($string)
+           Removes keyword named $string from Endifword list.
+   AddIncludePath($string)
+           Adds the include path $string to the list of directories to search
+           for include files (used for the -I command line option).
+   AddModulePath($string)
+           Adds the path $string to the list of directories to search for
+           filepp modules (used for the -M command line option).
+   AddOpenInputFunc($function)
+           Adds a $function to a list of functions to be run each time a new
+           base input file is opened.
+   AddCloseInputFunc($function)
+           Adds a $function to a list of functions to be run each time a new
+           base input file is closed.
+   AddOpenOutputFunc($function)
+           Adds a $function to a list of functions to be run each time an
+           output file is opened.
+   AddCloseOutputFunc($function)
+           Adds a $function to a list of functions to be run each time an
+           output file is closed.
+   AddInputFile($string)
+           Adds another input file to the list of files to be processed (used
+           for adding input files at the command line).
+   ChangeOutputFile($string)
+           Closes the current output file and attempts to open a new one
+           named $string.
+   SetKeywordchar($string)
+           Set the initial keyword char to $string (used for the -kc command
+           line option).
+   SetContchar($string)
+           Set the line continuation char to $string (used for the -lc
+           command line option).
+   SetContrepchar($string)
+           Set the line continuation replacement char to $string (used for
+           the -lr command line option).
+   SetOptLineEndchar($string)
+           Set the optional keyword line end character to $string (used for
+           the -lec command line option).
+   SetBlankSupp(1/0)
+           Turns blank-line suppression on/off (1 = suppress, 0 = don't
+           suppress). When blank-line suppression is on, blank lines in input
+           files will not be copied to the output. Unlike the corresponding
+           command-line option (-b), this function can also have effect in
+           the top-level file. The setting of blank-line suppression applies
+           to the current file being processed and all files included in the
+           current file.
+   ResetBlankSupp()
+           Resets blank-line suppression to the command-line specified value.
+           This only affects the output of blank lines from the current file
+           being processed and all files included in the current file. In the
+           top-level file, this always turns blank-line suppression off.
+   SetEatTrail($string)
+           If $string is a macro, whenever the macro is replaced all blank
+           space between the macro's replacement and the next character on
+           the line will be eaten. For example, if macro foo is defined to
+           bar and foo has been set to have it's trail eaten, the following:
+
+            eat my foo trail
+
+           is replaced with
+
+            eat my bartrail
+
+   CheckEatTrail($string)
+           Returns 1 if macro $string will have it's tail eaten, 0 otherwise.
+   SetEnvchar($string)
+           Set the prefix of environment variables converted to macros
+           (envchar) to $string (used for -ec and -ecn command line options).
+   DefineEnv()
+           Define all environment variables as macros with prefix envchar
+           (used for -e command line option).
+   SetOutput(1/0)
+           Turns writing of parsed input file to output file on/off. This
+           takes either 1 (output on) or 0 (output off) as input. When the
+           output is turned off, the only output produced from filepp will be
+           that generated by modules.
+   SetWordBoundaries(1/0)
+           Turns on(1) or off(0) word boundary checking when replacing macros
+           (used for the -w command line option).
+   SetCharPerlre(1/0)
+           Turns on(1) or off(0) allowing of keyword prefix char and line
+           continuation char to be Perl regular expressions (used for the -re
+           command line option).
+   UndefAll()
+           Undefines all currently defined macros, including predefined ones
+           (used for the -u command line option).
+   UseModule($string)
+           Loads a perl(1) module named $string using the Perl command
+           require (used for the -m command line option).
+   SetParseLineEnd($function)
+           Sets the function to determine if line continuation should be done
+           on current line to $function.
+   $string=GetNextLine()
+           Returns the next line (after line continuation has been dealt
+           with) of the input file currently being processed. Returns NULL
+           for end of file.
+   Write($string)
+           Writes $string to the current output file.
+   Output($string)
+           Conditionally writes $string to the current output file. If output
+           is turned on then writes $string. Output is toggled off/on using
+           SetOutput function.
+
+   In addition all the standard filepp keywords have equivalent functions
+   which optionally take a single argument. The functions have the same name
+   as the keyword, only with a capital first letter (eg: #define string calls
+   the function Define(string)).
+
+   A full description of the Parse function and all the other filepp internal
+   functions is beyond the scope of this man page. The filepp script is well
+   commented and hopefully readable by a Perl programmer, so use the source
+   Luke!
+
+
+
+BUGS
+
+   filepp has no known bugs, only "features". If you find any "features",
+   please report them to the author.
+
+COPYING
+
+   Copyright (C) 2000-2007 Darren Miller
+
+   filepp is free software; you can redistribute it and/or modify it under
+   the terms of the GNU General Public License as published by the Free
+   Software Foundation; either version 2 of the License, or (at your option)
+   any later version.
+
+   This program is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+   or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+   for more details.
+
+   You should have received a copy of the GNU General Public License along
+   with this program; see the file COPYING. If not, write to the Free
+   Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.
+
+SEE ALSO
+
+   cpp(1), perl(1)
+
+AUTHOR
+
+   Darren Miller <darren@cabaret.demon.co.uk>.
+
+   --------------------------------------------------------------------------
+
+
+
+Index
+
+   NAME
+
+   SYNOPSIS
+
+   DESCRIPTION
+
+   OPTIONS
+
+   KEYWORDS
+
+   PREDEFINED MACROS
+
+   FILEPP MODULES
+
+   FOR MODULE - for.pm
+
+   FOREACH MODULE - foreach.pm
+
+   LITERAL MODULE - literal.pm
+
+   TOUPPER MODULE - toupper.pm
+
+   TOLOWER MODULE - tolower.pm
+
+   C/C++ COMMENT MODULE - c-comment.pm
+
+   HASH COMMENT MODULE - hash-comment.pm
+
+   FUNCTION MODULE - function.pm
+
+   MATHS MODULE - maths.pm
+
+   FORMAT MODULE - format.pm
+
+   BIGDEF MODULE - bigdef.pm
+
+   BIGFUNC MODULE - bigfunc.pm
+
+   DEFPLUS MODULE - defplus.pm
+
+   REGEXP MODULE - regexp.pm
+
+   BLC MODULE - blc.pm
+
+   C MACROS MODULE - cmacros.pm
+
+   C MACROS MODULE - cpp.pm
+
+   GRAB MODULE - grab.pm
+
+   FILEPP MODULE API
+
+   BUGS
+
+   COPYING
+
+   SEE ALSO
+
+   AUTHOR
+
+   --------------------------------------------------------------------------
+
+   This document was created by man2html, using the manual pages.
+   Time: 20:02:20 GMT, February 27, 2007

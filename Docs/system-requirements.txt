@@ -1,0 +1,459 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                      SPEC CPU(R)2017 System Requirements
+
+     $Id: system-requirements.html 6309    Latest: www.spec.org/cpu2017/Docs/
+     2019-07-28 22:01:05Z JohnHenning $
+
+   Contents
+
+   Overview                         System Requirements Overview
+                                                               Limitations
+   I. Introduction               CPU           ARM, Power ISA, apply. See:
+                                               SPARC, or x86.  Supported
+   II. Hardware                                                Toolsets.
+                        Physical  SPECspeed(R) 16 GB           May vary:
+   A. CPU                Memory   SPECrate(R)  1 to            memory detail.
+                                               2 GB per copy
+   B. Memory                                   250 GB. For     May vary: see
+                                  Recommended  SPECrate, add   disk detail.
+   C. Disk             Disk Space              1.2 GB per copy
+                                  Other options are available for smaller
+   III. Software                  installations: see disk detail.
+                                               AIX, Linux, Mac Limitations
+   A. Operating System    Operating System     OS X, Solaris,  apply. See:
+                                               or Windows.     Supported
+   B. Compilers or                                             Toolsets.
+   binaries                                    C99, C++2003,   All 3 are
+                                               Fortran-2003.   required for
+   IV. Install media                                           reportable.
+                              Compilers        or              See: Compilers
+   V. Don't be root.                                           and
+   Don't be                                    Pre-compiled    Precompiled
+   Administrator. Turn                         benchmarks.     binaries.
+   privileges off.
+   (Usually.)
+
+   VI. Problems?
+
+I. Introduction: Suites and Metrics
+
+   This document describes the system requirements for SPEC CPU(R)2017, a
+   product of the SPEC(R) non-profit corporation (about SPEC). SPEC CPU 2017
+   includes source code and data sets for 43 benchmarks, organized into 4
+   suites:
+
+                                                                 How many
+   Short                                                         copies?
+   Tag       Suite            Contents    Metrics                What do
+                                                                 Higher
+                                                                 Scores Mean?
+                                                                 SPECspeed
+                                                                 suites
+   intspeed  SPECspeed(R)2017 10 integer  SPECspeed2017_int_base always run
+             Integer          benchmarks  SPECspeed2017_int_peak one copy of
+                                                                 each
+                                                                 benchmark.
+                                                                 Higher
+                              10 floating                        scores
+   fpspeed   SPECspeed(R)2017 point       SPECspeed2017_fp_base  indicate
+             Floating Point   benchmarks  SPECspeed2017_fp_peak  that less
+                                                                 time is
+                                                                 needed.
+                                                                 SPECrate
+                                                                 suites run
+                                                                 multiple
+             SPECrate(R)2017  10 integer  SPECrate2017_int_base  concurrent
+   intrate   Integer          benchmarks  SPECrate2017_int_peak  copies of
+                                                                 each
+                                                                 benchmark.
+                                                                 The tester
+                                                                 selects how
+                                                                 many.
+                                                                 Higher
+                                                                 scores
+             SPECrate(R)2017  13 floating SPECrate2017_fp_base   indicate
+   fprate    Floating Point   point       SPECrate2017_fp_peak   more
+                              benchmarks                         throughput
+                                                                 (work per
+                                                                 unit of
+                                                                 time).
+   The "Short Tag" is the canonical abbreviation for use with runcpu, where
+   context is defined by the tools. In a published document, context may not
+   be clear.
+   To avoid ambiguity in published documents, the Suite Name or the Metrics
+   should be spelled as shown above.
+
+   You may choose which suite(s) you would like to run (there is no
+   requirement to run all of them), and your choice affects hardware
+   requirements: both memory and disk space differ between SPECspeed and
+   SPECrate.
+
+   Having chosen a suite, if you will use your results in public, then you
+   must run all the benchmarks in the suite (exceptions) and produce at least
+   the base metric. The peak metric is optional. If producing both base and
+   peak, you will need more disk space.
+
+II. Hardware requirements
+
+  II.A. CPU
+
+    II.A.1 CPUs supported
+
+   SPEC supplies toolsets for ARM, Power ISA, SPARC, or x86.
+   Limitations apply:
+
+   Although SPEC CPU suites are intended to be useful with a wide range of
+   chip architectures, in some cases it is possible that you may find that
+   your chip is not compatible with the available toolsets (for example, if
+   your chip is too old to run one of the supported OS+chip combinations).
+   See the section on Supported Tools.
+
+    II.A.2 CPUs: Physical, Virtual, SMP, OpenMP
+
+   You can use SPEC CPU 2017 to measure the compute performance of a system
+   with physical or virtual CPUs/processors. You can choose to measure all of
+   the processors on a system, or a subset.
+
+   Typical: full system, all its CPUs
+
+   Usually SPEC CPU has been used to measure entire systems, with all of the
+   physical CPU chips.
+
+   Alternatives: VM, partition, zone,...
+
+   There is no prohibition against using SPEC CPU 2017 to measure a subset of
+   the CPU resources on a system, for example with a Virtual Machine (VM),
+   partition, zone, domain, container, processor set, core, hardware thread,
+   or other subset.
+
+   If you use a subset (such as a VM), it must have enough memory and disk.
+   For public results, follow the usual rules. (Examples: use only methods
+   that are documented, supported, and generally available to customers;
+   fully disclose what you do, with sufficent detail so that the result can
+   be reproduced; and if you enhance performance by doing something outside
+   the subset -- such as temporarily silencing all the "noisy neighbor" VMs
+   -- fully disclose that, too.)
+
+   How many CPUs? [link].
+
+   You can use SPEC CPU 2017 to measure performance with arbitrarily large
+   numbers of processors. Usually, if your operating system can handle it,
+   the SPEC CPU toolset can also handle it; if not, contact SPEC. (Of course,
+   you must meet the other requirements of this document, such as sufficient
+   disk and memory for your intended test.)
+
+   SPECrate suites run multiple identical jobs at the same time.
+
+   Typically, your OS spreads them across CPUs using capabilities known as
+   SMP (Symmetric MultiProcessing).
+
+   SPECspeed suites run a single job at a time.
+
+   Some of the jobs can use multiple CPUs via OpenMP or compiler
+   auto-parallelization.
+
+   The above points are summarized in the table below
+
+                       SPEC CPU 2017 use of multiple CPUs
+                             SPECspeed                       SPECrate
+               Only one copy of each benchmark is run Multiple copies of each
+     Copies    at a time.                             benchmark run
+                                                      simultaneously.
+    Compiler   May be compiled using OpenMP and/or    OpenMP and compiler
+   Parallelism compiler automatic parallelism.        autopar are forbidden.
+               At build time, enable OpenMP.          Use runcpu --copies
+     How To    Use runcpu --threads=N                 or the corresponding
+               or the corresponding config file       config file feature.
+               feature.
+
+  II.B. Memory
+
+   (In this section, 1 GB = 2^30 bytes.)
+
+   Physical Memory
+
+   SPECrate  1 GB  per copy, if compiled for a 32-bit address space.
+             2 GB  per copy, if compiled for a 64-bit address space.
+   SPECspeed 16 GB minimum system main memory.
+   Your needs may vary; see warnings below.
+
+   Virtual Memory
+
+                  You may be able to choose 32-bit or 64-bit compiles,
+   SPECrate  -m32 depending on your OS, compiler, and libraries.
+             -m64 Check your compiler documentation for switches such as -m32
+                  and -m64.
+                  The SPECspeed benchmarks do not fit in 32 bits.
+   SPECspeed -m64 Compile them for 64 bits (for example via -m64).
+                  Process limits must allow large stacks.
+   Your needs may vary; see warnings below.
+
+   More detail
+
+   The nominal memory requirements are based on pre-release testing by SPEC
+   using Linux with GCC and
+
+ -m64          for SPECspeed
+ -m32          for SPECrate
+ ps -o vsz     to record memory usage
+
+   which measured the SPECrate benchmarks at 0.89 GB and SPECspeed at
+   14.99 GB, thus leaving a small margin for overhead vs. the nominal 1 GB
+   and 16 GB.
+
+   If you compile the SPECrate benchmarks in 64-bit mode, more memory will be
+   needed. On one system that was tested prior to the release of SPEC CPU
+   2017, the largest benchmark used 1450 MB when compiled with -m64. Your
+   system might need more.
+
+   The SPECspeed benchmark 627.cam4_s needs large stacks, both for the main
+   process (typically controlled via ulimit -s) and for OpenMP threads
+   (typically controlled through your config file setting of environment
+   variables). See the FAQ item on cam4.
+
+   Warnings:
+
+     * Your memory needs may differ.
+     * Some systems have more overhead than others.
+     * Memory usage may vary depending on type of hardware, operating system,
+       compiler, tuning, and other factors.
+     * Compiling SPECrate for 64-bit environments requires more memory than
+       32-bit.
+     * When an operating system runs out of memory, errors may occur that are
+       difficult to diagnose.
+     * Your memory needs may differ.
+
+  II.C. Disk space
+
+   (In this section, 1 GB = 10^9 bytes.)
+
+   The disk space recommendations below are only estimates. Your environment
+   may differ.
+
+                                                Detail: observations from one
+   Installation Type       Intended Usage       user's system. Yours may
+                                                differ!
+                       * Install, compile, and  2.5 GB Install SPEC CPU 2017
+                         run on a single        26 GB  Build base+peak for
+                         system.                       all 4 suites
+      Development      * Do tuning runs. Test          Reportable
+        250 GB           compiler options.      34 GB  directories,
+           +           * Keep 2 to 4 sets of           base+peak, 4 suites, 1
+     1.2 GB / copy       builds and runs.              copy
+                       * Eventually you will           Add another copy to
+                         still need clean up.   0.6 GB intrate and fprate,
+                                                       base+peak
+                       * Install binaries built 2.5 GB Install SPEC CPU 2017
+                         elsewhere.                    Install benchmark
+                       * Use --reportable for 1  5 GB  binaries (base+peak)
+   Reportable Basic      suite                         for all 4 suites
+         40 GB           (intrate, fprate,             Reportable
+           +             intspeed, or fpspeed)  10 GB  directories,
+     0.8 GB / copy     * Requires clean up             base+peak, 1 suite, 1
+                         between suites.               copy
+                       * Cannot select multiple 0.4 GB Add another copy,
+                         suites with one runcpu        base+peak, 1 suite
+                         command
+                       * Cannot do reportable
+                         runs.
+                       * Cannot build a full
+                         suite (intrate,        2.5 GB Install SPEC CPU 2017
+                         fprate, intspeed,             Build and run largest
+       Minimized         fpspeed)               2.5 GB single benchmark,
+         10 GB         * Can build and run 1           minimize_builddirs,
+           +             benchmark (e.g.               base only
+     0.2 GB / copy       500.perlbench_r)              Add another copy, base
+                       * Must use               0.1 GB only, largest single
+                         minimize_builddirs.           benchmark
+                       * Must runcpu
+                         --action=clobber
+                         frequently
+   The "Detail" column on the right shows actual disk space usage on one
+   particular system.
+   Your usage may differ, due to hardware, operating system, disk type, file
+   system type, compiler, and, especially, compiler tuning.
+   The far left column is a factor of 2x to 4x the detail column.
+   Once you know the space consumption pattern for your hw/sw, you might
+   adjust the above calculations to be more accurate for your needs.
+
+III. Software requirements
+
+  III.A. Operating System
+
+   The SPEC CPU 2017 toolset relies on several open source components,
+   including GNU Make, Perl, and others. SPEC supplies pre-built versions of
+   these for particular combinations of hardware and operating system, as
+   shown in the table below.
+
+                   Supported Toolsets for SPEC CPU 2017 V1.0
+          Toolset                            Intended Use
+   aix-ppc               64-bit PowerPC systems running AIX V7.1 or later.
+   linux-aarch64         64-bit AArch64 systems running Linux.
+   linux-armv7l          Linux systems with ARM Cortex-A7-compatible CPUs.
+   linux-ppc             32-bit PowerPC systems running Linux.
+   linux-ppc64           64-bit big-endian PowerPC Linux systems
+   linux-ppc64le         64-bit little-endian PowerPC Linux systems
+   linux-sparc           64-bit Linux systems on SPARC hardware
+   linux-x86_64          x86_64 Linux systems
+   macosx-x86            MacOS X 10.6+ on Intel systems.
+   solaris-sparc         64-bit SPARC systems running Solaris 10 08/11 or
+                         later, including Solaris 11 and later.
+   solaris-x86           x86 systems running Solaris 10 08/11 or later,
+                         including Solaris 11 and later.
+   windows-x64           Windows systems running Windows 7 or later
+   Limitations apply: Although SPEC has tested the above, it is possible that
+   you may enounter an OS+chip combination that is not compatible with its
+   intended toolet. In such cases:
+
+     * Please ensure that your OS+chip meets the minimum required version.
+     * Please check the list of Frequently Asked Questions
+     * If the tools still fail, please consult Technical Support.
+
+   What about other systems? For systems that are not listed in the table of
+   supported toolsets:
+
+     * It is possible that the tools might work, but SPEC has not tested
+       them.
+     * If the tools do not work, it might or might not be possible for you to
+       build them yourself.
+
+       If you would like to try to build the tools, please see the document
+       Building the SPEC CPU017 Toolset.
+       SPEC may be able to provide advice for your build; however, it will
+       not always be practical for SPEC to do so.
+       You might not succeed.
+
+     * SPEC CPU 2017 V1.0 includes two unsupported toolsets:
+
+          * tru64-alpha 64-bit Tru64 UNIX V5.1 or later
+          * hpux11iv3-ipf For IPF systems running HP-UX 11iv3 or later.
+
+       These toolsets have received less testing than other tool sets. More
+       importantly, if you try them, you are very likely to find unresolved
+       benchmark portability problems. Nevertheless, the toolsets are
+       provided as a courtesy for possible interest, perhaps when
+       benchmarking historical systems. It is doubtful that you would
+       complete a reportable run with them; you might be able to estimate
+       performance from partial runs. If you develop performance-neutral
+       source changes to allow more benchmarks to complete, you might want to
+       write to SPEC to suggest inclusion of your patches in future versions.
+
+  III.B. Compilers or binaries
+
+   SPEC supplies the benchmarks in source code form. Therefore, you will need
+   either:
+
+    1. A set of compilers. All three are needed:
+
+         1. C99
+         2. C++2003
+         3. Fortran 2003
+
+       --or--
+
+    2. A pre-compiled set of benchmark binaries (executables), given to you
+       by another user of the same revision of SPEC CPU 2017.
+       Note that SPEC does not supply binaries. As mentioned above, SPEC
+       supplies source code.
+       Binaries generated by a different revision of SPEC CPU 2017 will not
+       work.
+       You might also need a set of run-time libraries for those executables.
+       Note that even if someone else compiles the benchmarks, the tester is
+       responsible for compliance with the rules: do not accept binaries from
+       untrusted sources.
+
+   New with CPU 2017, the integer suites include a Fortran benchmark.
+   Reportable runs for all suites require compilation of all three languages
+   (C, C++, Fortran).
+
+   Config file
+
+     * To compile the benchmarks, you will need a config file: a file that
+       defines how to build, run, and report on the SPEC CPU benchmarks in a
+       particular environment.
+     * You might be able to use or modify one of the Example config files
+       that are included with your installed copy of SPEC CPU 2017, or a
+       config file from a result published at wwww.spec.org/cpu2017. The
+       installation guides provide guidance (unix, windows).
+     * Some compilers might not have working examples, and you may need to
+       write your own config file using the documentation.
+     * Occasionally, it might not be possible to create a working config file
+       because a compiler does not support features that are used in the
+       benchmarks. If that occurs, you will need to discuss such problems
+       with the compiler vendor, not with SPEC.
+
+IV. Install Media
+
+   You should be familiar either with basic shell commands for Unix (ls, cp,
+   mkdir ...) or basic commands for the Windows Command Prompt (dir, copy,
+   mkdir...).
+
+   You will need access to the SPEC CPU 2017 installation media, typically as
+   an ISO image. The Installation Guides (Unix Windows) explain how to use
+   it.
+
+   On some systems, the mount command may require privileges or may require
+   additional software. In such cases, you might need to burn a physical DVD
+   using some other system; or, you might need to use the procedure described
+   in the appendix to the Unix installation guide to extract a tarball and
+   use that instead.
+
+   Please note that the SPEC CPU 2017 license agreement does not allow you to
+   post the SPEC CPU 2017 software on any public server. If your institution
+   has a SPEC CPU 2017 license, then it's fine to post it on an internal
+   server that is accessible only to members of your institution.
+
+V. Don't be root. Don't run as Administrator. Turn privileges off. (Usually.)
+
+   Usually, you do not need privileges. The one known exception is that
+   during installation, on some systems it is possible that you might need a
+   privileged user to mount the installation media or to allocate resources,
+   for example disk space.
+
+   After installation is complete, you should not need privileges to run SPEC
+   CPU benchmarks. In general, it is recommended that you use an ordinary
+   user account for SPEC CPU; that way, if your config file accidentally
+   tries to delete the wrong directory, you are much less likely to damage
+   your system.
+
+   Warning: SPEC CPU config files can execute arbitrary shell commands.
+   Read a config file before using it.
+
+   SPEC recommends:
+
+     * Do not become "root" on Unix systems.
+     * Do not "run as administrator" on Microsoft Windows systems.
+     * On all systems, turn privileges off.
+     * If you discover that an ordinary user account cannot run a benchmark,
+       figure out what specific permission is needed (example: write
+       permission for %SPEC%) or what specific resource needs adjusting
+       (example: stack hard ulimit). Acquire privileges only long enough to
+       fix the specific permission or specific resource, then turn privileges
+       off again.
+
+VI. Problems?
+
+   In case of difficulties, please check the document SPEC CPU 2017
+   Frequently Asked Questions.
+
+   SPEC CPU(R)2017 System Requirements: Copyright (c) 2017-2019 Standard
+   Performance Evaluation Corporation (SPEC(R))
+
+

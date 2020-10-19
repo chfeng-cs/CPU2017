@@ -1,0 +1,31 @@
+    (From config) @bind = ( numactl -m 0 --physcpubind=0, numactl -m 0 --physcpubind=2, numactl -m 0 --physcpubind=4, numactl -m 0 --physcpubind=6, numactl -m 1 --physcpubind=4, numactl -m 1 --physcpubind=5, numactl -m 1 --physcpubind=6, numactl -m 1 --physcpubind=7 )
+    (From config) $submit_default = "$BIND bash -c "$command""
+submit_default   = $BIND bash -c "$command"
+  $BIND bash -c "$command"
+    -b numactl -m 0 --physcpubind=0
+    -b numactl -m 0 --physcpubind=2
+    -b numactl -m 0 --physcpubind=4
+    -b numactl -m 0 --physcpubind=6
+    -b numactl -m 1 --physcpubind=4
+    -b numactl -m 1 --physcpubind=5
+    -b numactl -m 1 --physcpubind=6
+    -b numactl -m 1 --physcpubind=7
+    -b numactl -m 0 --physcpubind=0
+    -b numactl -m 0 --physcpubind=2
+    -b numactl -m 0 --physcpubind=4
+    -b numactl -m 0 --physcpubind=6
+    -b numactl -m 1 --physcpubind=4
+    -o rand.234923.out -e rand.234923.err $BIND bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err" (timed)
+numactl -m 0 --physcpubind=0 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 0 --physcpubind=2 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 0 --physcpubind=4 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 0 --physcpubind=6 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 1 --physcpubind=4 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 1 --physcpubind=5 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 1 --physcpubind=6 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 1 --physcpubind=7 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 0 --physcpubind=0 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 0 --physcpubind=2 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 0 --physcpubind=4 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 0 --physcpubind=6 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"
+numactl -m 1 --physcpubind=4 bash -c "../run_dir/specrand_ir_base.none 1255432124 234923 > rand.234923.out 2>> rand.234923.err"

@@ -1,0 +1,10 @@
+# 219s @ 801.1 MiB VSZ
+gcc-pp.c	-O3 -finline-limit=0 -fif-conversion -fif-conversion2
+# 271s @ 828.5 MiB VSZ
+gcc-pp.c	-O2 -finline-limit=36000 -fpic
+# 233s @ 857 MiB VSZ
+gcc-smaller.c	-O3 -fipa-pta
+# 230s @ 788.2 MiB VSZ
+ref32.c		-O5
+# 360s @ 824.4 MiB VSZ
+ref32.c		-O3 -fselective-scheduling -fselective-scheduling2

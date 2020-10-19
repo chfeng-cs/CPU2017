@@ -1,0 +1,1855 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                  Using SPEC CPU(R)2017: the 'runcpu' Command
+
+      $Id: runcpu.html 6309 2019-07-28     Latest: www.spec.org/cpu2017/Docs/
+           22:01:05Z JohnHenning $
+
+   1. Basics
+
+                                                                   build
+                            1.5 Disk Usage                         buildsetup
+                                                      1.7 Actions: report run
+  1.1 Defaults              1.5.1 Directory tree                   runsetup
+                                                                   setup
+  1.2 Syntax                1.5.2 Hey! Where did all               validate
+                            my disk space go?                      clean clobber
+  1.3 Benchmarks and suites                                        onlyrun
+                            1.6 Multi-user support                 realclean
+  1.4 Run order             and limitations           cleaning:    scrub trash
+                            expid (partial solution)               (alternative:
+                            output_root (recommended)              Clean by
+                                                                   hand)
+
+   2. Commonly used options
+
+   --action --check_version --config --copies --flagsurl --help
+   --ignore_errors --iterations --loose --output_format --rawformat --rebuild
+   --reportable --threadsNew --tune
+
+   3. Less common options
+
+   --baseonly --basepeak --nobuild --comment --define --delay --deletework
+   --expid --fake --fakereport --fakereportable --[no]feedback
+   --[no]graph_auto --graph_max --graph_min --http_proxy --http_timeout
+   --info_wrap_column --keeptmp --labelNew --log_timestamp --make_no_clobber
+   --notes_wrap_column --output_root --parallel_test
+   --parallel_test_workloadsNew --[no]powerNew --preenv --reportonly --review
+   --[no]setprocgroup --size --[no]table --test --undef --update
+   --use_submit_for_compare --use_submit_for_speed --username --verbose
+   --version
+
+   4 Removed/unsupported options
+
+   4.1 No longer needed: --rate --speed
+   --parallel_setup                     4.3 Unsupported: --make_bundle
+                                        --unpack_bundle --use_bundle
+   4.2 Feature removed: --machine
+   --maxcompares
+
+   5 Quick reference
+
+1. Basics
+
+   What is runcpu?   runcpu is the primary tool for SPEC CPU(R)2017, a
+   product of the SPEC(R) non-profit corporation (about SPEC). You use it
+   from a Unix shell or the Microsoft Windows command line to build and run
+   benchmarks, with commands such as these:
+
+ runcpu --config=eniac.cfg    --action=build 519.lbm_r
+ runcpu --config=colossus.cfg --threads=16   628.pop2_s
+ runcpu --config=z3.cfg       --copies=64    fprate
+
+   The first command compiles the benchmark named 519.lbm_r. The second runs
+   the OpenMP benchmark 628.pop2_s using 16 threads. The third runs 64 copies
+   of all the SPECrate Floating Point benchmarks.
+
+   New with CPU 2017: The former runspec utility is renamed runcpu in SPEC
+   CPU 2017.   [Why?]
+
+   Before reading this document: If you have not already done so, please
+   install and test your SPEC CPU 2017 distribution (ISO image). This
+   document assumes that you have already:
+
+     * installed SPEC CPU 2017
+     * found a config file
+     * done basic edits (e.g. path)
+     * used one of the several shrc files to set your path.
+
+   If you have not done the above, please see the brief instructions in the
+   Quick Start guide, or the more detailed section "Testing Your
+   Installation" Unix, Windows.
+
+  1.1 Defaults
+
+   The SPEC CPU default settings described in this document may be adjusted
+   by config files.
+
+   The order of precedence for settings is:
+
+   Highest precedence: runcpu command
+   Middle:             config file
+   Lowest:             the tools as shipped by SPEC
+
+   Therefore, when this document tells you that something is the default,
+   bear in mind that your config file may have changed that setting. With
+   luck, the author of the config file will tell you so.
+
+  1.2 Syntax
+
+   The syntax for the runcpu command is:
+
+ runcpu [options] [list of benchmarks to run]
+
+   Options are described in the following sections. There, you will notice
+   that many options have both long and short names. The long names are
+   invoked using two dashes, and the short names use only a single dash. For
+   long names that take a parameter, you can optionally use an equals sign.
+   Long names can also be abbreviated, provided that you still enter enough
+   letters for uniqueness. For example, the following commands all do the
+   same thing:
+
+ runcpu --config=dianne_july25a --debug=99 fprate
+ runcpu --config dianne_july25a --debug 99 fprate
+ runcpu --conf dianne_july25a   --deb 99   fprate
+ runcpu -c dianne_july25a       -v 99      fprate
+
+  1.3 Benchmarks and Suites
+
+   In the list of benchmarks to run, you can use one or more individual
+   benchmarks, such as 500.perlbench_r, or you can run entire suites, using
+   one of the Short Tags below.
+
+                                                                 How many
+   Short                                                         copies?
+   Tag       Suite            Contents    Metrics                What do
+                                                                 Higher
+                                                                 Scores Mean?
+                                                                 SPECspeed
+                                                                 suites
+   intspeed  SPECspeed(R)2017 10 integer  SPECspeed2017_int_base always run
+             Integer          benchmarks  SPECspeed2017_int_peak one copy of
+                                                                 each
+                                                                 benchmark.
+                                                                 Higher
+                              10 floating                        scores
+   fpspeed   SPECspeed(R)2017 point       SPECspeed2017_fp_base  indicate
+             Floating Point   benchmarks  SPECspeed2017_fp_peak  that less
+                                                                 time is
+                                                                 needed.
+                                                                 SPECrate
+                                                                 suites run
+                                                                 multiple
+             SPECrate(R)2017  10 integer  SPECrate2017_int_base  concurrent
+   intrate   Integer          benchmarks  SPECrate2017_int_peak  copies of
+                                                                 each
+                                                                 benchmark.
+                                                                 The tester
+                                                                 selects how
+                                                                 many.
+                                                                 Higher
+                                                                 scores
+             SPECrate(R)2017  13 floating SPECrate2017_fp_base   indicate
+   fprate    Floating Point   point       SPECrate2017_fp_peak   more
+                              benchmarks                         throughput
+                                                                 (work per
+                                                                 unit of
+                                                                 time).
+   The "Short Tag" is the canonical abbreviation for use with runcpu, where
+   context is defined by the tools. In a published document, context may not
+   be clear.
+   To avoid ambiguity in published documents, the Suite Name or the Metrics
+   should be spelled as shown above.
+
+   Supersets: There are several supersets which run more than one of the
+   above.
+
+     * specspeed - both intspeed and fpspeed
+     * specrate - both intrate and fprate
+     * all - all four.
+
+   Synonyms - Suite selection is done with the short tags:    intrate fprate
+   intspeed fpspeed
+   You can also use full metric names. You can say:   runcpu
+   SPECspeed2017_int_base
+   Some alternates (such as int_rate or CPU 2017) may provoke runcpu to say
+   that it is trying to DWIM (wikipedia) but these are not recommended.
+
+   Benchmark names: Individual benchmarks can be named, numbered, or both.
+   Separate them with a space.
+   Names can be abbreviated, as long as you enter enough characters for
+   uniqueness.
+   Each of the following commands does the same thing:
+
+ runcpu -c jason_july09d --noreportable 503.bwaves_r 510.parest 603.bwaves_s
+ runcpu -c jason_july09d --noreportable 503 510 603
+ runcpu -c jason_july09d --noreportable parest bwaves_r bwaves_s
+ runcpu -c jason_july09d --noreportable pare bwaves_r bwaves_s
+
+   To exclude a benchmark: Use a hat (^, also known as carat, typically found
+   as shift-6). Note that if hat has significance to your shell, you may need
+   to protect it from interpretation by the shell, for example by putting it
+   in single quotes. On Windows, you will need to use both a hat and double
+   quotes for each benchmark you want to exclude.
+
+ bash-n.n.n$ runcpu --noreportable -c kathy_sep14c fprate ^503 ^pare
+ pickyShell% runcpu --noreportable -c kathy_sep14c fprate '^503' '^pare'
+ E:\cpu2017> runcpu --noreportable -c kathy_sep14c fprate "^503" "^pare"
+
+   Turning off reportable: If your config file sets reportable=yes then you
+   cannot run a subset unless you turn that option off.
+
+ [/usr/cathy/cpu2017]$ runcpu --config cathy_apr21b --noreportable fprate ^parest
+
+  1.4 Run order
+
+   A reportable run does these steps:
+
+    1. Test: Set up all of the benchmarks using the test workload. Run them.
+       Verify that they get correct answers. The test workloads are run
+       merely as an additional verification of correct operation of the
+       generated executables; their times are not reported and do not
+       contribute to overall metrics. Therefore multiple benchmarks can be
+       run simultaneously, as in the example below where the tester has set
+       --parallel_test to allow up to 20 simultaneous tests.
+
+    2. Train: Do the same steps for the train workload, for the same reasons,
+       with the same verification, non-reporting, and parallelism.
+
+    3. Ref: Run the refrate (5xx benchmarks) or the refspeed (6xx) workload
+
+          * Set up the directories for all benchmarks. If both base and peak
+            tuning are requested, set up both.
+          * Run one benchmark at a time, in order by benchmark number within
+            the requested set, verifying that each gets the correct answer,
+            and recording times.
+          * Repeat. (*)
+          * If --iterations=3, repeat once more. (*)
+          * If both base and peak --tuning are requested, all of base is
+            completed before starting peak.
+
+       If running refspeed, multiple --threads are optionally allowed.
+       If running refrate multiple --copies are optionally allowed, as in the
+       example below which uses 256 copies in base.
+       (*) For reportable runs, --iterations must be 2 or 3.
+
+    4. Report:
+
+          * During the reporting phase, if three runs were used, the median
+            run time is selected from each benchmark. If two runs are used,
+            then the slower of the two runs is selected.
+          * Use the selected runs to compute ratios and overall metrics.
+          * Write reports as requested in the --output_format switch.
+
+   Summarizing reportable run order: The order can be summarized as:
+
+           setup for test
+           test (*)
+           setup for train
+           train (*)
+           setup for ref
+           ref1, ref2 [, ref3] (**)
+
+   (*) Multiple benchmarks may overlap if --parallel_test > 1
+  (**) One benchmark at a time.  Third run only if --iterations=3.
+
+   Reportable order when more than one tuning is present: If you run both
+   base and peak tuning, base is always run first.
+
+           setup for test
+           test base and peak (*)
+           setup for train
+           train base and peak (*)
+           setup for ref
+           base ref1, base ref2 [, base ref3] (**)
+           peak ref1, peak ref2 [, peak ref3] (**)
+
+  (*)  Multiple benchmarks may overlap if --parallel_test > 1
+       Peak and base may also overlap.
+  (**) One benchmark at a time.  Third run only if --iterations=3.
+
+   Reportable order when more than one suite is present:       If you start a
+   reportable using more than one suite, all the work is done for one suite
+   before proceeding to the next.
+
+   For example runcpu --iterations=3 --reportable intspeed fprate would
+   cause:
+
+           intspeed setup test
+           intspeed test
+           intspeed setup train
+           intspeed train
+           intspeed setup refspeed
+           intspeed refspeed #1
+           intspeed refspeed #2
+           intspeed refspeed #3
+           fprate   setup test
+           fprate   test
+           fprate   setup train
+           fprate   train
+           fprate   setup refrate
+           fprate   refrate #1
+           fprate   refrate #2
+           fprate   refrate #3
+
+   (This is a change with CPU 2017; the prior suite would run int test, fp
+   test, int train, fp train, int ref, fp ref.)
+
+   If you request more than one suite (for example, by using all) then a
+   table is printed to show you the run order:
+
+  Action    Run Mode   Workload      Report Type      Benchmarks
+ --------   --------   --------   -----------------   --------------------------
+ validate   rate       refrate    SPECrate2017_fp     fprate
+ validate   speed      refspeed   SPECspeed2017_fp    fpspeed
+ validate   rate       refrate    SPECrate2017_int    intrate
+ validate   speed      refspeed   SPECspeed2017_int   intspeed
+
+
+   Reportable example: A log from a published reportable run is excerpted
+   below. The Unix grep command picks out lines that match one of the quoted
+   strings; Microsoft Windows users could try findstr instead.
+
+ $ grep -e 'Running B' -e 'Starting' -e '#' CPU2017.052.log
+ Running Benchmarks (up to 20 concurrent processes)
+   Starting runcpu for 500.perlbench_r test base oct12a-rate
+   Starting runcpu for 502.gcc_r       test base oct12a-rate
+   Starting runcpu for 505.mcf_r       test base oct12a-rate
+   Starting runcpu for 520.omnetpp_r   test base oct12a-rate
+   Starting runcpu for 523.xalancbmk_r test base oct12a-rate
+   Starting runcpu for 525.x264_r      test base oct12a-rate
+   Starting runcpu for 531.deepsjeng_r test base oct12a-rate
+   Starting runcpu for 541.leela_r     test base oct12a-rate
+   Starting runcpu for 548.exchange2_r test base oct12a-rate
+   Starting runcpu for 557.xz_r        test base oct12a-rate
+   Starting runcpu for 999.specrand_ir test base oct12a-rate
+   Starting runcpu for 500.perlbench_r test peak oct12a-rate
+   Starting runcpu for 502.gcc_r       test peak oct12a-rate
+   Starting runcpu for 505.mcf_r       test peak oct12a-rate
+   Starting runcpu for 520.omnetpp_r   test peak oct12a-rate
+   Starting runcpu for 523.xalancbmk_r test peak oct12a-rate
+   Starting runcpu for 525.x264_r      test peak oct12a-rate
+   Starting runcpu for 531.deepsjeng_r test peak oct12a-rate
+   Starting runcpu for 541.leela_r     test peak oct12a-rate
+   Starting runcpu for 548.exchange2_r test peak oct12a-rate
+   Starting runcpu for 557.xz_r        test peak oct12a-rate
+   Starting runcpu for 999.specrand_ir test peak oct12a-rate
+ Running Benchmarks (up to 20 concurrent processes)
+   Starting runcpu for 500.perlbench_r train base oct12a-rate
+   Starting runcpu for 502.gcc_r       train base oct12a-rate
+   Starting runcpu for 505.mcf_r       train base oct12a-rate
+   Starting runcpu for 520.omnetpp_r   train base oct12a-rate
+   Starting runcpu for 523.xalancbmk_r train base oct12a-rate
+   Starting runcpu for 525.x264_r      train base oct12a-rate
+   Starting runcpu for 531.deepsjeng_r train base oct12a-rate
+   Starting runcpu for 541.leela_r     train base oct12a-rate
+   Starting runcpu for 548.exchange2_r train base oct12a-rate
+   Starting runcpu for 557.xz_r        train base oct12a-rate
+   Starting runcpu for 999.specrand_ir train base oct12a-rate
+   Starting runcpu for 500.perlbench_r train peak oct12a-rate
+   Starting runcpu for 502.gcc_r       train peak oct12a-rate
+   Starting runcpu for 505.mcf_r       train peak oct12a-rate
+   Starting runcpu for 520.omnetpp_r   train peak oct12a-rate
+   Starting runcpu for 523.xalancbmk_r train peak oct12a-rate
+   Starting runcpu for 525.x264_r      train peak oct12a-rate
+   Starting runcpu for 531.deepsjeng_r train peak oct12a-rate
+   Starting runcpu for 541.leela_r     train peak oct12a-rate
+   Starting runcpu for 548.exchange2_r train peak oct12a-rate
+   Starting runcpu for 557.xz_r        train peak oct12a-rate
+   Starting runcpu for 999.specrand_ir train peak oct12a-rate
+ Running Benchmarks
+   Running (#1) 500.perlbench_r refrate (ref) base oct12a-rate (256 copies) [2016-10-12 22:18:24]
+   Running (#1) 502.gcc_r       refrate (ref) base oct12a-rate (256 copies) [2016-10-12 23:10:43]
+   Running (#1) 505.mcf_r       refrate (ref) base oct12a-rate (256 copies) [2016-10-13 00:11:01]
+   Running (#1) 520.omnetpp_r   refrate (ref) base oct12a-rate (256 copies) [2016-10-13 01:53:35]
+   Running (#1) 523.xalancbmk_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 02:40:23]
+   Running (#1) 525.x264_r      refrate (ref) base oct12a-rate (256 copies) [2016-10-13 03:21:31]
+   Running (#1) 531.deepsjeng_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 04:36:07]
+   Running (#1) 541.leela_r     refrate (ref) base oct12a-rate (256 copies) [2016-10-13 05:12:11]
+   Running (#1) 548.exchange2_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 05:59:16]
+   Running (#1) 557.xz_r        refrate (ref) base oct12a-rate (256 copies) [2016-10-13 07:28:53]
+   Running (#1) 999.specrand_ir refrate (ref) base oct12a-rate (256 copies) [2016-10-13 08:08:23]
+   Running (#2) 500.perlbench_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 08:11:14]
+   Running (#2) 502.gcc_r       refrate (ref) base oct12a-rate (256 copies) [2016-10-13 09:03:38]
+   Running (#2) 505.mcf_r       refrate (ref) base oct12a-rate (256 copies) [2016-10-13 10:03:57]
+   Running (#2) 520.omnetpp_r   refrate (ref) base oct12a-rate (256 copies) [2016-10-13 11:46:36]
+   Running (#2) 523.xalancbmk_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 12:33:11]
+   Running (#2) 525.x264_r      refrate (ref) base oct12a-rate (256 copies) [2016-10-13 13:14:07]
+   Running (#2) 531.deepsjeng_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 14:28:47]
+   Running (#2) 541.leela_r     refrate (ref) base oct12a-rate (256 copies) [2016-10-13 15:04:49]
+   Running (#2) 548.exchange2_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 15:51:53]
+   Running (#2) 557.xz_r        refrate (ref) base oct12a-rate (256 copies) [2016-10-13 17:21:33]
+   Running (#2) 999.specrand_ir refrate (ref) base oct12a-rate (256 copies) [2016-10-13 18:01:04]
+   Running (#1) 500.perlbench_r refrate (ref) peak oct12a-rate (224 copies) [2016-10-13 18:03:29]
+   Running (#1) 502.gcc_r       refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 18:49:17]
+   Running (#1) 505.mcf_r       refrate (ref) peak oct12a-rate  (64 copies) [2016-10-13 19:44:21]
+   Running (#1) 520.omnetpp_r   refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 20:06:29]
+   Running (#1) 523.xalancbmk_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 20:54:49]
+   Running (#1) 525.x264_r      refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 21:28:24]
+   Running (#1) 531.deepsjeng_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 22:41:43]
+   Running (#1) 541.leela_r     refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 23:16:40]
+   Running (#1) 548.exchange2_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 00:01:53]
+   Running (#1) 557.xz_r        refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 01:11:23]
+   Running (#1) 999.specrand_ir refrate (ref) peak oct12a-rate   (1 copy)   [2016-10-14 01:50:51]
+   Running (#2) 500.perlbench_r refrate (ref) peak oct12a-rate (224 copies) [2016-10-14 01:53:13]
+   Running (#2) 502.gcc_r       refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 02:39:03]
+   Running (#2) 505.mcf_r       refrate (ref) peak oct12a-rate  (64 copies) [2016-10-14 03:33:57]
+   Running (#2) 520.omnetpp_r   refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 03:56:04]
+   Running (#2) 523.xalancbmk_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 04:44:33]
+   Running (#2) 525.x264_r      refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 05:18:13]
+   Running (#2) 531.deepsjeng_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 06:31:34]
+   Running (#2) 541.leela_r     refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 07:06:33]
+   Running (#2) 548.exchange2_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 07:51:48]
+   Running (#2) 557.xz_r        refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 09:01:43]
+   Running (#2) 999.specrand_ir refrate (ref) peak oct12a-rate   (1 copy)   [2016-10-14 09:41:13]
+ $ (white space adjusted for readability)
+
+  1.5 Disk Usage
+
+    1.5.1 Directory tree
+
+   The structure of the CPU 2017 directory tree is:
+
+ $SPEC or %SPEC% - the root directory
+    benchspec    - Some suite-wide files
+       CPU         - The benchmarks
+    bin          - Tools to run and report on the suite
+    config       - Config files
+    Docs         - HTML and plaintext documentation
+    result       - Log files and reports
+    tmp          - Temporary files
+    tools        - Sources for the CPU 2017 tools
+
+   Within each of the individual benchmarks, the structure is:
+
+ nnn.benchmark - root for this benchmark
+    build      - Benchmark binaries are built here
+    data
+       all     - Data used by all runs (if needed by the benchmark)
+       ref     - The timed data set
+       test    - Data for a simple test that an executable is functional
+       train   - Data for feedback-directed optimization
+    Docs       - Documentation for this benchmark
+    exe        - Compiled versions of the benchmark
+    run        - Benchmarks are run here
+    Spec       - SPEC metadata about the benchmark
+    src        - The sources for the benchmark
+
+   Most SPECspeed benchmarks (6nn.benchmark_s) share content that is located
+   under a corresponding SPECrate benchmark (5nn.benchmark_r). Shared sources
+   files may be compiled differently for SPECspeed vs. SPECrate. For example,
+   the sources for 619.lbm_s can be found at 519.lbm_r/src/ and only
+   619.lbm_s can be compiled with OpenMP.
+
+   Look for the output of your runcpu command in the directory $SPEC/result
+   (Unix) or %SPEC%\result (Windows). There, you will find log files and
+   result files. More information about log files can be found in the Config
+   Files document.
+
+   The format of the result files depends on what was selected in your config
+   file, but will typically include at least .txt for ASCII text, and will
+   always include .rsf, for raw (unformatted) run data. More information
+   about result formats can be found below, under --output_format. Note that
+   you can always re-generate the output, using the --rawformat option, also
+   documented below.
+
+    1.5.2 Hey! Where did all my disk space go?
+
+   When you find yourself wondering "Where did all my disk space go?", the
+   answer is usually "The run directories." Most activity takes place in
+   automatically created subdirectories of $SPEC/benchspec/CPU/*/run/ (Unix)
+   or %SPEC%\benchspec\CPU\*\run\ (Windows). Other consumers of disk space
+   underneath individual nnn.benchmark directories include the build/ and
+   exe/ directories.
+
+   At the top of the directory tree, space is used by your config/ and
+   result/ directories, and for temporary directories
+
+ $SPEC/tmp
+ output_root/tmp
+
+   Usually, the largest amount of space is in the run directories. For
+   example, the tester who generated the result excerpted above is lazy about
+   cleaning, and at the moment this paragraph is written, there are many
+   SPECrate run directories on the system:
+
+ ---------------------------------------
+ One lazy user's space. Yours will vary.
+ ---------------------------------------
+ Directories                       GB
+ ----------------------------     -----
+ Top-level (config,result,tmp)      0.1
+ Benchmarks
+   $SPEC/benchspec/CPU/*/exe        2
+   $SPEC/benchspec/CPU/*/build      9
+   $SPEC/benchspec/CPU/*/run      198
+ ---------------------------------------
+
+   If you use the config file label feature, then directories are named to
+   try to make it easy for you to hunt them down, For example, suppose Bob
+   has a config file that he is using to test some new memory optimizations
+   using SPECrate (multi-copy) mode. He has set
+
+   label=BobMemoryOpt
+
+   in his config file. In that case, the tools would create directories such
+   as these:
+
+ $ pwd
+ /Users/bob/cpu2017/rc4/benchspec/CPU/505.mcf_r
+ $ ls -d */*Bob*
+ build/build_base_BobMemoryOpt.0000
+ exe/mcf_r_base.BobMemoryOpt
+ run/run_base_refrate_BobMemoryOpt.0000
+ run/run_base_refrate_BobMemoryOpt.0001
+ run/run_base_refrate_BobMemoryOpt.0002
+ run/run_base_refrate_BobMemoryOpt.0003
+ run/run_base_refrate_BobMemoryOpt.0004
+ run/run_base_refrate_BobMemoryOpt.0005
+ run/run_base_refrate_BobMemoryOpt.0006
+ run/run_base_refrate_BobMemoryOpt.0007
+ run/run_base_refrate_BobMemoryOpt.0008
+ run/run_base_refrate_BobMemoryOpt.0009
+ run/run_base_refrate_BobMemoryOpt.0010
+ run/run_base_refrate_BobMemoryOpt.0011
+ run/run_base_refrate_BobMemoryOpt.0012
+ run/run_base_test_BobMemoryOpt.0000
+ run/run_base_train_BobMemoryOpt.0000
+ $
+
+   To get your disk space back, see the documentation of the various cleaning
+   options, below.
+
+  1.6 Multi-user support
+
+   SPEC CPU 2017 supports multiple users sharing an installation; however you
+   must choose carefully regarding file protections. This section describes
+   the multi-user features and protection options.
+
+   Features that are always enabled:
+
+     * SPEC's original source and data directories are not changed during
+       testing.
+     * Work directories are created under nnn.benchmark/build and
+       nnn.benchmark/run.
+     * Usage is tracked in nnn.benchmark/{run,build}/list.
+     * Directories created for one user are not re-used for another.
+     * Multiple users can run tests at the same time. Of course, if the jobs
+       compete with each other for resources, it is likely that they will run
+       more slowly.
+
+   Limitations: The default methods impose two key limitations, which will
+   not be safe in some environments:
+
+    1. The directory tree must be writable by each of the users, which means
+       that they have to trust each other not to modify or delete each
+       others' files.
+    2. Directories such as result/ and nnn.benchmark/exe/ and
+       nnn.benchmark/run/ are not segregated by user. Therefore you can have
+       only one version of (for example)
+       500.perlbench/exe/perlbench_base.Ofast and different users will have
+       their result logs intermixed with each others in the result/
+       directory.
+
+   Partial solution(?) expid+conventions:
+   You can deal with limitation #2 if users adopt certain habits. For
+   example, Darryl could name all his config files darryl-something.cfg. He
+   could use runcpu --expid=darryl or the corresponding config file
+   expid=darryl to cause his results to be placed under $SPEC/result/darryl
+   (or %SPEC%\result\darryl\) and binaries under nnn.benchmark/exe/darryl/.
+   Unfortunately, this alleged solution still requires that the tree be
+   writeable by all users, and will not help Darryl at all when John comes
+   along and blithely does one of the alternate cleaning methods.
+
+   Solution(?) Give up:
+   You could just choose to spend the disk space to give each person their
+   own tree. For SPEC CPU 2017 V1.0, this may increase disk space requirement
+   by about 3 GB per user.
+
+   Recommended Solution: output_root. The recommended method uses 4 steps:
+
+   Step                              Example (Unix)
+   (1) Protect most of the SPEC tree chmod -R ugo-w $SPEC
+   read-only
+   (2) Allow shared access to the    chmod 1777 $SPEC/config
+   config directory                  chmod u+w $SPEC/config/*cfg
+   (3) Keep your own config files    cp config/assignment1.cfg
+                                     config/alan1.cfg
+   (4) Use the --output_root switch
+   or                                runcpu --output_root=~/cpu2017
+   add an output_root to your config output_root = /home/${username}/cpu2017
+   file.
+
+   More detail:
+
+    1. Most of the CPU 2017 tree is shared, and can be protected read-only.
+       For example, on a Unix system, you might set protections with:
+
+ chmod -R ugo-w $SPEC
+
+    2. The one exception is the config directory, $SPEC/config/ (Unix) or
+       %SPEC%\config\ (Windows), which needs to be a read/write directory
+       shared by all the users, and config files must be writeable. On most
+       Unix system, chmod 1777 is very useful: it lets anyone create files,
+       which they own, control, and protect. (1777 is commonly used for /tmp
+       for this very reason.)
+
+ chmod 1777 $SPEC/config
+ chmod u+w $SPEC/config/*cfg
+
+    3. Config files usually would not be shared between users. For example,
+       students might create their own copies of a config file:
+
+Alan enters:                                   Venkatesh enters:
+
+cd /cs403/cpu2017                              cd /cs403/cpu2017
+. ./shrc                                       . ./shrc
+cd config                                      cd config
+cp assignment1.cfg alan1.cfg                   cp assignment1.cfg venkatesh1.cfg
+chmod u+w alan1.cfg                            chmod u+w venkatesh1.cfg
+runcpu --config=alan1 --action=build 557.xz_r  runcpu --config=venkatesh1 --action=build 557.xz_r
+
+    4. Set output_root in the config files to change the destinations of the
+       outputs. For example, if config files include (near the top):
+
+ output_root=/home/${username}/spec
+ label=feb27a
+
+       then these directories will be used for the above runcpu command:
+
+Alan's      build: /home/alan/spec/benchspec/CPU/557.xz_r/build/build_base_feb27a.0001
+directories Logs:  /home/alan/spec/result
+Venkatesh's build: /home/venkatesh/spec/benchspec/CPU/557.xz_r/build/build_base_feb27a.0000
+            Logs:  /home/venkatesh/spec/result
+
+   Navigation: Unix users can easily navigate an output_root tree using ogo
+
+  1.7 Actions
+
+   Most runcpu commands perform an action on a set of benchmarks.
+
+   (Exceptions: runcpu --rawformat or update.)
+
+   The default action is validate.
+   The actions are described in two tables below: first, actions that relate
+   to building and running; and then actions regarding cleanup.
+
+   --action build      Compile the benchmarks, using the config file specmake
+                       options.
+                       Set up build directories for the benchmarks.
+                       Copy the source files to the directory, and create the
+                       needed Makefiles.
+   --action buildsetup Do not attempt to actually do the build.
+
+                       This option may be useful when debugging a build: you
+                       can set up a directory and play with it as a private
+                       sandbox.
+                       Run the benchmarks but do not verify that they got the
+                       correct answers.
+                       You cannot use this option to report performance.
+   --action onlyrun
+                       This option may be useful while applying CPU 2017 for
+                       some other purpose, such as tracing instructions for a
+                       hardware simulator, or generating a system load while
+                       debugging an operating system feature.
+   --action report     Synonym for --fakereport; see also --fakereportable.
+   --action run        Synonym for --action validate.
+                       Set up the run directory (or directories).
+                       If executables do not exist, build them.
+                       Copy executables and data to the directory(ies).
+                       Create control file specccmds.cmd but do not actually
+   --action runsetup   run any benchmarks.
+
+                       This option may be useful when debugging a run.
+                       See the runsetup sandbox example in the Utilities
+                       documentation.
+   --action setup      Synonym for --action runsetup
+                       Build (if needed), set up directories, run, check for
+   --action validate   correct answers, generate reports.
+                       This is the default action.
+
+   Cleaning actions are listed in order from least thorough to most:
+
+             Empty run and build directories for the specified benchmark set
+             for the current user. For example, if the current OS username is
+             set to jeff and this command is entered:
+   --action
+   clean     D:\cpu2017\> runcpu --action clean --config may12a fprate
+
+             then the tools will remove build and run directories with
+             username jeff for fprate benchmarks generated by config file
+             may12a.cfg.
+   --action  Clean + remove the corresponding executables.
+   clobber
+   --action  Remove run and build directories for all users and all labels
+   trash     for the specified benchmarks.
+   --action  A synonym for --action trash
+   realclean
+   --action  Trash + remove the corresponding executables.
+   scrub
+             Fake mode is not implemented for the cleaning actions.
+   Caution   For example, if you say runcpu --fake --action=clean the
+             cleaning really happens.
+
+   Clean by hand:
+   If you prefer, you can clean disk space by entering commands such as the
+   following (on Unix systems):
+
+ rm -Rf $SPEC/benchspec/C*/*/run
+ rm -Rf $SPEC/benchspec/C*/*/build
+ rm -Rf $SPEC/benchspec/C*/*/exe
+
+   The above commands not only empty the contents of the run and exe
+   directories; they also delete the directories themselves. That's fine; the
+   tools will re-create the run and exe directories if they are needed again
+   later on.
+
+   result directories can be cleaned or renamed. Don't worry about creating a
+   new directory; runcpu will do so automatically. You should be careful to
+   ensure no surprises for any currently-running users. If you move result
+   directories, it is a good idea to also clean temporary directories at the
+   same time.
+   Example:
+
+ cd $SPEC
+ mv result old-result
+ rm -Rf tmp/
+ cd output_root     # (If you use an output_root)
+ rm -Rf tmp/
+
+   Windows users: Windows users can achieve similar effects using the rename
+   command to move directories, and the rd command to remove directories.
+
+   I have so much disk space, I'll never use all of it:
+
+   Run directories are automatically re-used for subsequent runs. If you
+   prefer, you can ask the tools to never touch a used run directory. Do this
+   by setting the environment variable:
+
+      SPEC_CPU2017_NO_RUNDIR_DEL
+
+   In this case, you should be prepared to do frequent cleaning, perhaps
+   after reviewing the results of each run.
+
+2 Commonly used options
+
+   Most users of runcpu will want to become familiar with the following
+   options.
+
+   This section is organized alphabetically without regard to upper/lower
+   case and without regard to presence or absence of no at the start of the
+   switch.
+
+    --action action
+
+     * Synonym: -a action
+     * Default: validate
+     * Meaning: One of the following actions that runcpu can do for you:
+       build, buildsetup, clean, clobber, onlyrun, realclean, report, run,
+       runsetup, scrub, setup, trash, or validate. For more information, see
+       Actions, above
+
+    --check_version
+
+     * Default: check only when doing reportable runs
+     * Meaning: From time to time, SPEC may update the CPU 2017 suite.
+       Typically, SPEC will not publish results at www.spec.org/cpu2017
+       unless they have been run using the most recent update. Prior to
+       investing substantial time running your tests, it is recommended that
+       you check whether your version is up to date, either by saying runcpu
+       --check_version, or by adding the switch to whatever else you were
+       doing on your runcpu command. Note that if you are running within a
+       firewall, you may need to add a proxy server to the command line. For
+       example:
+
+    runcpu --check_version --http_proxy http://webcache.tom.spokewrenchdad.com:8080
+
+       or, equivalently, for those who prefer to abbreviate to the shortest
+       possible amount of typing:
+
+    runcpu --ch --http_p http://webcache.tom.spokewrenchdad.com:8080
+
+       The command downloads a small file (~15 bytes) from www.spec.org which
+       contains information about the most recent release, and compares that
+       to your release. If your version is out of date, a warning will be
+       printed.
+
+    --config name
+
+     * Synonym: -c name
+     * Default: default.cfg
+     * Meaning: Use config file $SPEC/config/name.cfg (Unix) or
+       %SPEC%\config\name.cfg (Windows). If not specified, the tools will try
+       default.cfg
+
+    --copies number
+
+     * Synonyms: -C number
+     * Default: 1
+     * Meaning: Use number copies for a SPECrate run.
+
+       Note that specifying the number of copies on the command line will
+       override any config file setting of copies. This behaviour is new with
+       CPU 2017: in the previous suite, there were some circumstances where
+       the config file would win, and some where the command line would win.
+       For CPU 2017, it's simple: the command line wins.
+
+    --flagsurl URL[,URL...]
+
+     * Synonym: -F URL
+     * Default: none
+     * Meaning: A "flags file" tells runcpu -- and the reader -- how to
+       interpret tuning options, for example -O3 or -Ofast.
+       If you want more than one, separate them with commas, or repeat the
+       --flagsurl switch.
+       These are equivalent:
+
+ runcpu --flagsurl=$SPEC/compiler.xml,$SPEC/platform.xml
+ runcpu --flagsurl=$SPEC/compiler.xml --flagsurl=$SPEC/platform.xml
+
+       You can use either a file path or an http:// address. If needed, add
+       an --http_proxy (or use the corresponding config file option).
+
+       The special value noflags may be used to cause rawformat to remove a
+       stored flags file when re-formatting a previously run result.
+
+       Help, I got an error message about INVALID RUN:
+
+ ##############################################################################
+ #   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+ #                                                                            #
+ # Your run was marked invalid because it has one or more flags in the        #
+ # "unknown" category. You might be able to resolve this problem without      #
+ # re-running your test; see                                                  #
+ #      https://www.spec.org/cpu2017/Docs/runcpu.html#flagsurl                #
+ # for more information.                                                      #
+ #                                                                            #
+ #   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+ ##############################################################################
+
+       Flags files are required by rule 4.6. If you don't have one, or if
+       your flags file is obsolete, you will see the above error.
+       To fix it:
+
+         1. Find the sections of the report marked "Unknown".
+
+               * If there are many unknown flags, you probably forgot to use
+                 a flags file, or you used the wrong one.
+               * If there are only a few, perhaps your flags file just needs
+                 a few updates.
+
+         2. You can ask your compiler vendor for help, or you can adapt a
+            flags file from other results, or you can fix it yourself.
+
+         3. Once your new flags files are available, make a copy of your
+            rawfile.
+            Then, insert the flags files, using either of these two
+            equivalent commands:
+
+ rawformat --flagsurl=...
+ runcpu --rawformat --flagsurl=...
+
+         4. Linux example:
+
+ cp CPU2017.138.intrate.rsf retry.rsf
+ rawformat --flagsurl $SPEC/new.compiler.xml,$SPEC/new.platform.xml retry.rsf
+
+         5. Windows example:
+
+ copy CPU2017.138.intrate.rsf retry.rsf
+ rawformat --flagsurl %SPEC%\new.compiler.xml,%SPEC%\new.platform.xml retry.rsf
+
+    --help
+
+     * Synonyms: -h | -?
+     * Default: Help text is not displayed.
+     * Meaning: Print helpful text
+
+    --ignore_errors
+
+     * Synonyms: -I | --ignoreerror
+     * Default: Stop on first error.
+     * Meaning: Continue running even if errors occur.
+
+    --iterations number
+
+     * Synonym: -n number
+     * Default: 3
+     * Meaning: How many times to run each benchmark.
+
+       Reportable runs must use 2 or 3 iterations. Here is how the settings
+       for iterations and reportable affect each other:
+
+          * If you do not specify anything for iterations, reportable runs
+            use 3.
+          * If you specify 1 iteration (i.e. less than the minimum),
+            reportable runs use 2.
+          * If you specify 4 or more iterations (i.e. more than the maximum),
+            reportable runs use 3.
+
+    --loose
+
+     * Synonyms: -l | --nostrict | --noreportable
+     * Default: loose
+     * Meaning: Unset reportable. For example, suppose that you have a golden
+       config file that is used for reportable runs, which sets the config
+       file option reportable. However, you aren't ready to do a reportable
+       run, because you first want to ensure that the system under test is
+       adequately configured to run the benchmark 523.xalancbmk_r. Since the
+       config file sets the option reportable, the following command will
+       result in an error message:
+
+ [/usr/mwong/cpu2017]$ runcpu --config golden --iterations 1 xalancbmk_r
+
+       as the SPEC tools will inform you that you cannot change the number of
+       iterations on a reportable run. But either of the following commands
+       will override the config file and just run 523.xalancbmk_r once:
+
+ [/usr/mwong/cpu2017]$ runcpu --config golden --iterations 1 --loose xalancbmk_r
+ [/usr/mwong/cpu2017]$ runcpu --config golden --iterations 1 --noreportable xalancbmk_r
+
+    --output_format format
+
+     * Synonym: -o format
+     * Default: HTML and text
+     * Meaning: Desired report format, one or more of the following. An
+       output format may be deselected by prepending any of the names with
+       the word "no". If more than one option is used, separate them by
+       commas or colons. The values are not case-sensitive.
+
+Name|synonyms...         Meaning
+          all            implies all of the following except screen, check, and
+                         mail
+                         config file used for this run, written as a numbered
+                         file in the result directory, for example,
+                         $SPEC/result/CPU2017.030.fprate.refrate.cfg
+
+                          1. The config file is saved on every run, as a
+                             compressed portion of the rawfile. Therefore, you
+                             can regenerate it later, if desired, using rawformat
+                          2. Results published by SPEC include your config file.
+                             Anyone can download it and try to reproduce your
+         config              result.
+        cfg|cfgfile       3. The config file printed by --output_format=config is
+        configfile           not identical to the original:
+         conffile
+                                * The file name matches the other files for this
+                                  result, not the name you had in your config/
+                                  directory.
+                                * It does not include protected comments
+                                * It includes a copy of the runcpu line that
+                                  invoked it.
+                                * It tells you whether output_root was defined.
+                                * It includes any result edits you make after the
+                                  run (see utility.html).
+                                * It does not include the HASH section.
+                         Reportable syntax check (automatically enabled when
+                         using --rawformat).
+         check
+         subcheck          * Causes the format of many fields to be checked,
+        reportcheck          e.g. "Nov-2018", not "11/18" for hw_avail.
+        reportable         * Consistent formats help readers, especially when
+      reportablecheck        searching.
+   chk|sub|subtest|test    * check is included by default when using --rawformat.
+                           * It can be disabled by adding nocheck to your list of
+                             formats.
+                         Comma-separated variable. If you populate spreadsheets
+                         from your runs, you probably should not cut/paste data
+          csv            from text files; you'll get more accurate data by using
+        spreadsheet      --output_format csv. The csv report includes all runs,
+                         more decimal places, system information, and even the
+                         compiler flags.
+        default          implies HTML and text
+       flag|flags        Flag report. Will also be produced when formats that use
+                         it are requested (PDF, HTML).
+          html           web page
+       xhtml|www|web
+          mail           All generated reports will be sent to an address
+       mailto|email      specified in the config file.
+                         Portable Document Format. This format is the design
+                         center for SPEC CPU 2017 reporting. Other formats
+          pdf            contain less information: text lacks graphs, postscript
+           adobe         lacks hyperlinks, and HTML is less structured. (PDF does
+                         not appear as part of "default" only because some
+                         systems may lack the ability to read it.)
+       postscript        PostScript
+     ps|printer|print
+                         The unformatted raw results, written to a numbered file
+          raw            in the result directory that ends with .rsf
+            rsf          (e.g. /spec/cpu2017/rc4/result/CPU2017.042.fpspeed.rsf).
+                         Your raw result files are your most important, because
+                         the other formats are generated from them.
+    screen|scr|disp      ASCII text output to stdout.
+   display|terminal|term
+          text           Plain ASCII text file
+       txt|ASCII|asc
+
+    --rawformat rawfiles
+
+     * Synonym: -R rawfile
+     * Default: Do not use rawformat mode.
+     * Meaning: Do not attempt to do a run; instead, just generate reports
+       from an existing rawfile.
+
+       Output will always include the results of format check unless you add
+       nocheck to your list of output_formats.
+
+       Using this option will cause any specified --actions to be ignored.
+       The runcpu program is actually exited and rawformat is executed
+       instead. These commands do the same thing:
+
+ runcpu --rawformat something
+ rawformat something
+
+       The rawformat utility or the --rawformat switch can be useful if (for
+       example) you are just doing ASCII output during most of your runs, but
+       now you would like to create additional reports for one or more
+       especially interesting runs. To create the html and PDF files for
+       experiment number 77, you could say either of these:
+
+ runcpu --rawformat --output_format html,ps $SPEC/result/CPU2017.077.fpspeed.rsf
+ rawformat          --output_format html,ps $SPEC/result/CPU2017.077.fpspeed.rsf
+
+       For more information about rawformat, please see utility.html.
+
+    --rebuild
+
+     * Synonym: -D
+     * Default: Do not rebuild unless binary is missing or does not match the
+       config file.
+     * Meaning: Delete existing binaries and recompile. Use this if, for
+       example, you have installed a new version of your compiler and want to
+       force a rebuild of the benchmarks.
+
+    --reportable
+
+     * Synonyms: -s | --strict | --noloose
+     * Default: loose
+     * Meaning: Wherever it is practical to do so in an automated fashion,
+       enforce the CPU 2017 run rules, so as to produce a result which is
+       suitable for public reporting and/or submission to SPEC. This option
+       forces various other options, for example sysinfo is required. When
+       you do a reportable run, the list of benchmarks to run must be an
+       entire suite. The order of events for reportable runs is described
+       above.
+
+       Reportable runs must use 2 or 3 iterations. Here is how the settings
+       for iterations and reportable affect each other:
+
+          * If you do not specify anything for iterations, reportable runs
+            use 3.
+          * If you specify 1 iteration (i.e. less than the minimum),
+            reportable runs use 2.
+          * If you specify 4 or more iterations (i.e. more than the maximum),
+            reportable runs use 3.
+
+    --threads N
+
+     * Synonym: none
+     * Default: 1
+     * Meaning: When the benchmarks are run, set the environment variable
+       OMP_NUM_THREADS=N
+
+       Notes
+
+         1. If you have set OMP_NUM_THREADS in your environment prior to
+            using runcpu, that setting will be ignored. To use multiple
+            benchmark threads, you must use either runcpu --threads=N or the
+            corresponding config file option threads=N.
+         2. You may prefer to set the config file option threads= because
+            setting it there allows you to vary the count for different
+            benchmarks when running peak.
+         3. If you set it on the command line with runcpu --threads=N then
+            the command line setting will override your config file settings.
+
+    --tune tuning
+
+     * Synonyms: --tuning tuning | -T tuning
+     * Default: base
+     * Meaning: Selects tuning to use: base, peak, or all. For a reportable
+       run, must be either base or all. Reportable runs do base first, then
+       (optionally) peak.
+
+3. Less common options
+
+   This section is organized alphabetically without regard to upper/lower
+   case and without regard to presence or absence of no at the start of the
+   switch.
+
+    --baseonly
+
+     * Synonym: None
+     * Default: Discard peak results and report only base.
+     * Meaning: This switch only has meaning in --rawformat mode, when
+       reformatting previously-run results.
+
+    --basepeak [bench,bench,...]
+
+     * Synonym: None
+     * Default: Do not do basepeak when reformatting results.
+     * Meaning: This switch only has meaning in --rawformat mode, when
+       reformatting previously-run results. When no arguments are specified,
+       this switch will perform base to peak substitution for all benchmarks
+       in the result file. If arguments are given, they must be the name of
+       benchmarks or benchmark suites, and the base results for only those
+       benchmarks will be copied over the peak results for only those
+       benchmarks.
+       Note: Use of this option will cause rawformat to output only a raw
+       file. This is to help ensure that there is always a raw file present
+       to match any generated results.
+
+    --nobuild
+
+     * Synonym: -N
+     * Default: normally, the tools will make their own decision of whether
+       to rebuild, based on whether the binaries exist, or whether they match
+       the expected checksums.
+     * Meaning: Do not build binaries, even if they don't exist or checksums
+       don't match.
+
+       The --nobuild feature can be very handy if, for example, you have
+       script with multiple invocations of runcpu, and you would like to
+       ensure that the build is only attempted once. (Perhaps your thought
+       process might be, "If it fails the first time, fine, just forget about
+       it until I come in Monday and look things over.") By adding --nobuild
+       --ignore_errors to all runs after the first one, no attempt will be
+       made to build the failed benchmarks after the first attempt.
+
+       The --nobuild feature also comes in handy when testing whether
+       proposed config file options would potentially force an automatic
+       rebuild.
+
+    --comment "comment text"
+
+     * Synonym: None
+     * Default: Add no comment.
+     * Meaning: Adds a comment to the log file and the stored configuration
+       file.
+
+    --define SYMBOL[=VALUE]
+    --define SYMBOL:VALUE
+
+     * Synonym: -S SYMBOL[=VALUE] or -S SYMBOL:VALUE
+     * Default: Do not define config file preprocessor macros.
+     * Meaning: Define a preprocessor macro named SYMBOL and optionally give
+       it the value VALUE.
+       If no value is specified, the macro is defined with no value.
+       SYMBOL may not contain equals signs ("=") or colons (":").
+       This option may be used multiple times.
+
+       Many of the Example config files in your config/ directory have
+       sections similar to this:
+
+ %ifndef %{build_ncpus}
+ %   define  build_ncpus 8
+ %endif
+    .
+    .
+    .
+ makeflags            = --jobs=%{build_ncpus}
+
+       If you have a large server and want compiles to complete more quickly,
+       you could say runcpu --define build_ncpus=99 and specmake will create
+       up to 99 compile jobs at a time.
+
+    --delay secs
+
+     * Synonym: None
+     * Default: Add no delay.
+     * Meaning: Add a delay of the specified number of seconds before and
+       after each benchmark (specinvoke) invocation. The delay is not counted
+       toward the benchmark runtime. This option is silently ignored during
+       reportable runs.
+
+    --deletework
+
+     * Synonym: -d
+     * Default: Do not delete working directories.
+     * Meaning: Delete run directories and re-populate. Use this if you
+       suspect that the run directories may have been corrupted, for example
+       due to a system crash during setup of an earlier run. You might also
+       use this if you just wish to ensure clean run directories, but note
+       that the tools will automatically provide what they deem to be a
+       sufficient level of cleaning.
+
+    --expid subdir
+
+     * Synonym: None
+     * Default: None
+     * Meaning: If set to a non-empty value, will cause executables, run
+       directories, results, and log files to be put in a subdirectory (with
+       the same name as the value set) in their normal directories. For
+       example, using --expid=CDS will cause benchmark binaries to end up in
+       exe/CDS, run directories to end up in run/CDS, and results and logs in
+       $SPEC/result/CDS.
+
+    --fake
+
+     * Synonyms: --dryrun | --dry-run
+     * Default: Really do the actions requested.
+     * Meaning: List, but do not execute, the commands needed to build or run
+       the benchmarks.
+
+          * Use --fake --action build to get a listing of the commands needed
+            to build a benchmark.
+          * Use --fake --action run to get a listing of the commands needed
+            to run a benchmark. (If the benchmark executable does not exist,
+            you will also get a listing of the needed build commands.)
+          * Warning: Fake mode is not implemented for the cleaning actions.
+            For example, if you say runcpu --fake --action=clean the cleaning
+            really happens.
+
+       Runcpu uses specmake -n and specinvoke -n to generate these listings.
+
+    --fakereport
+
+     * Synonyms: --action=report | --reportonly
+     * Default: Not set
+     * Meaning: Process the config file and generate output as if a run had
+       been done. The results will all be zero, but otherwise the report will
+       be correctly formatted, as if it had come from an actual run. Note
+       that if your config file or command line includes options that would
+       cause a real run to be marked invalid (for example, setting
+       iterations=1 or --size=test), then the tools will also mark the fake
+       report as invalid. If your goal is to get a preview of what the final,
+       golden run will look like, you might prefer --fakereportable.
+
+    --fakereportable
+
+     * Synonyms: --mockup
+     * Default: Not set
+     * Meaning: Process the config file and generate output as if a
+       "reportable" run had been done. The results will all be zero, but
+       otherwise the report will be correctly formatted, as if it had come
+       from a reportable run.
+
+    --[no]feedback
+
+     * Synonyms: none
+     * Default: --feedback
+     * Meaning: enable or disable FDO options in the config file.
+       Normally, when Feedback-Directed Optimization (FDO) options are set in
+       the config file, multiple-pass compilation is done, along with
+       training runs. Using --nofeedback will cause the config file FDO
+       settings to be ignored and a single-pass compilation will occur.
+       Explicitly specifying --feedback will have an effect only if there are
+       appropriate FDO options in the configuration file.
+
+       New with CPU 2017: The command line wins unconditionally over the
+       config file.
+       See FDO Example 7 in SPEC CPU 2017 Config Files.
+
+    --[no]graph_auto
+
+     * Synonyms: --[no]graphauto
+     * Default: --nograph_auto
+     * Meaning: frees the tools to pick a value that they think appropriate
+       for the top and bottom of the Y axis. The maximum and minimum chosen
+       will attempt to let the viewer observe differences among the
+       benchmarks. By default, the minimum will instead be anchored to zero.
+
+    --graph_max N
+
+     * Synonyms: --graphmax
+     * Default: big enough (plus a little)
+     * Meaning: Allows you to specify a new value for the maximum point on
+       the graph scale.
+
+    --graph_min N
+
+     * Synonyms: --graphmin N
+     * Default: 0
+     * Meaning: Allows you to specify a new value for the minimum point on
+       the graph scale.
+
+    --http_proxy proxy[:port]
+
+     * Synonyms: none
+     * Default: none
+     * Meaning: In some cases, such as when doing version checks and loading
+       flag description files, runcpu will attempt to fetch a file, using
+       http. If your web browser needs a proxy server in order to access the
+       outside world, then runcpu will probably want to use the same proxy
+       server. The proxy server can be set by:
+
+          * The runcpu --http_proxy switch, or
+          * The environment variable http_proxy, or
+          * Using the config file http_proxy option
+
+       For example, a failure of this form:
+
+ $ runcpu --rawformat --output_format txt \
+    --flagsurl http://portlandcyclers.net/evan.xml CPU2017.007.fprate.rsf
+ ...
+ Retrieving flags file (http://portlandcyclers.net/evan.xml)...
+
+ ERROR: Specified flags URL (http://portlandcyclers.net/evan.xml) could not be retrieved.
+        The error returned was: 500 Can't connect to portlandcyclers.net:80
+        (Bad hostname 'portlandcyclers.net')
+
+       improves when a proxy is provided:
+
+ $ runcpu --rawformat --output_format txt \
+    --flagsurl http://portlandcyclers.net/evan.xml  \
+    --http_proxy=http://webcache.tom.spokewrenchdad.com:8080 CPU2017.007.fprate.rsf
+
+       Note that this setting will override the value of the http_proxy
+       environment variable, as well as any setting in the config file.
+
+       By default, no proxy is used. The special value none may be used to
+       unset any proxies set in the environment or via config file.
+
+    --http_timeout N
+
+     * Synonyms: none
+     * Default: 30 seconds
+     * Meaning: This is the amount of time (in seconds) to wait while
+       attempting to fetch a file via HTTP. If the connection cannot be
+       established in this amount of time, the attempt will be aborted.
+
+    --info_wrap_columns N
+
+     * Synonym: --infowrap N
+     * Default: 50
+     * Meaning: When set to a value greater than 0, attempts to split
+       non-notes informational lines such that they are no longer than N
+       columns wide. Lines are split on whitespace, and newly created lines
+       are guaranteed to have at least the same indentation as the original
+       line.
+       If a line contains an item that is longer than N, a warning is logged
+       and the original line is left unchanged.
+
+    --[no]keeptmp
+
+     * Synonym: None
+     * Default: --nokeeptmp
+     * Meaning: When set, temporary files such as compiler option output and
+       temporary log files will not be removed. For a list of temporary file
+       locations, see the discussion in config.html.
+
+    --label name
+
+     * Synonyms: -L name
+     * Default: none
+     * Meaning: Label to build or run. Normally used only if the config file
+       has been written to handle more than one label. The config file author
+       should tell you what labels to enter under which circumstances.
+       Note: The label used may only consist of alphanumeric characters,
+       underscores, hyphens, and periods.
+
+    --[no]log_timestamp
+
+     * Synonym: --[no]log-timestamp
+     * Default: --nolog_timestamp
+     * Meaning: When set, lines output to the log file will have a time stamp
+       prepended. The timestamp is always present in the debug log.
+
+    --make_no_clobber
+
+     * Synonym: -M
+     * Default: clobber
+     * Meaning: Do not delete existing object files before attempting to
+       build. This option should only be used for troubleshooting a
+       problematic compile. It cannot be used for a reportable run.
+
+       Rather than using this option, it would probably be easier to just go
+       to the build directory and use specmake
+
+    --notes_wrap_columns N
+
+     * Synonym: --noteswrap
+     * Default: 0 (disabled)
+     * Meaning: When set to a value greater than 0, attempts to split notes
+       lines such that they are no longer than N columns wide. Lines are
+       split on whitespace, and newly created lines are guaranteed to have at
+       least the same indentation as the original line.
+       If a line contains an item that is longer than N, a warning is logged
+       and the original line is left unchanged.
+
+    --output_root directory
+
+     * Synonym: --output-root directory
+     * Default: None
+     * Meaning: If set to a non-empty value, all output files will be rooted
+       under the named directory, instead of under $SPEC (or %SPEC%).
+       If directory is not an absolute path (one that begins with "/" on
+       Unix, or a device name on Windows), the path will be created under
+       $SPEC.
+
+       This option can be useful for sharing an installation.
+       It can also be useful if you want to optimize your I/O, as discussed
+       in the corresponding SPEC CPU 2017 Config Files section on
+       output_root.
+
+    --parallel_test processes
+
+     * Synonyms: --parallel-test processes
+     * Default: 1 (or number of copies for SPECrate runs)
+     * Meaning: For reportable runs, the number of (untimed, but mandatory)
+       test and train workloads to run in parallel.
+       Because these are untimed, it is often convenient to run many of them
+       at once.
+       See also the discussion in the corresponding SPEC CPU 2017 Config
+       Files section on parallel_test
+
+       SPECspeed note: If you set both --parallel_test=N and --threads=M
+       (which is only meaningful for SPECspeed testing), the thread request
+       is silently ignored during the test and train runs. This is done in
+       order to prevent accidental system overload with N x M threads.
+
+    --parallel_test_workloads workload,...
+
+     * Synonyms: --parallel-test-workloads workload,...
+     * Default: None
+     * Meaning: When set to one or more of test, train, or ref, will enable
+       parallel runs up to the number of processes allowed by the setting for
+       parallel_test.
+
+    --power, --nopower
+
+     * Synonym: none
+     * Default: --nopower
+     * Meaning: Enable/disable the optional power measurement mode of the
+       benchmark.
+
+       If you wish to measure power, you will need:
+
+          * A power analyzer.
+          * A temperature sensor.
+          * A Linux or Windows "Controller System", where you will run SPEC's
+            Power and Temperature reporting tool, SPEC PTDaemon(TM)
+
+       In your config file, you specify the network location for the
+       controller system; set the expected voltage and current ranges; and
+       describe your measurement setup for readers of your results. See the
+       config file documentation on Power Measurement.
+
+       Once your hardware and config file are set up, then:
+
+          * Power measurement can be enabled or disabled using either this
+            runcpu command line option or by setting the config file power
+            option.
+          * In case of disagreement between the command line and the config
+            file, the command line will win.
+
+       Usage with rawformat: It is permitted to reformat a power+performance
+       run as performance-only, using the rawformat utility with the
+       --nopower option. You may wish to do so if a run is marked invalid due
+       to sampling or other problems detected during power measurement.
+
+    --preenv, --nopreenv
+
+     * Synonym: none
+     * Default: True (preENV_ lines are used)
+     * Meaning: When set, causes preENV_ lines in the config file to be used.
+       Use of --nopreenv will disable this behavior.
+
+    --review, --noreview
+
+     * Synonym: none
+     * Default: --noreview
+     * Meaning: Format results for review, meaning that additional detail
+       will be printed that normally would not be present.
+
+          * In lists of Portability Flags, benchmarks that do not use any
+            flags are nevertheless listed, along with the notation "No flags
+            used".
+          * Flags that are normally hidden (via display enable="0") will be
+            displayed anyway, along with the word NODISPLAY, to indicate that
+            by default they are hidden.
+            This feature is normally used only for splitters; any other usage
+            would need to be justified.
+
+    --setprocgroup, --nosetprocgroup
+
+     * Synonyms: none
+     * Default: --setprocgroup
+     * Meaning: Attempt to create all processes in a single group. Improves
+       the chances that ^C will get the whole run, not just one of the
+       children.
+
+    --size size[,size...]
+
+     * Synonyms: -i size[,size...] | --input size[,size...]
+     * Default: ref
+     * Meaning: Selects size of input data to run: test, train, or ref.
+       The reference workload ("ref") is the only size whose time appears in
+       reports.
+
+       You might choose to use runcpu --size=test while debugging a new set
+       of compilation options.
+
+       Reportable runs automatically invoke all three sizes: they ensure that
+       your binaries can produce correct results with the test and train
+       workloads and then run the ref workload either 2 or 3 times for the
+       actual measurements.
+
+       Caution: When requesting workloads, it is best to stick with the above
+       three: test, train, and ref. Other options (or synonyms) may be useful
+       to benchmark developers or with other suites that use this toolset;
+       they are not documented here because it is not possible to generate
+       SPEC CPU 2017 metrics using workloads other than the ones that
+       correspond to these three.
+
+    --table, --notable
+
+     * Synonyms: none
+     * Default: --table
+     * Meaning: For ASCII reports, include a detailed table of all runs.
+
+    --test
+
+     * Synonyms: none
+     * Default: Do not run the Perl test suite
+     * Meaning: Run the Perl test suite to verify correct operation of
+       specperl, the SPEC CPU pre-compiled version of Perl.
+       When this option is used, runcpu will not perform any other actions.
+
+       specperl is added when you run install.sh or install.bat.
+       If something goes wrong while installing and you want support, the
+       output of runcpu --test may be needed.
+
+    --train_with WORKLOAD
+
+     * Synonyms: none
+     * Default: train
+     * Meaning: Select the workload to use for training binaries built using
+       feedback-directed optimization. Note that the training workload used
+       is considered one of the build options, so this option (with identical
+       argument) must be used each time the binaries themselves are used in
+       order to prevent an automatic re-build. It's probably best to just set
+       it in the config file instead. Note: it is unlikely that a CPU 2017
+       user would use this feature; see the additional detail on this topic
+       in config.html.
+
+    --undef SYMBOL
+
+     * Synonym: None
+     * Default:
+     * Meaning: Removes the definition of any preprocessor macro named
+       SYMBOL.
+       This option may be used multiple times.
+
+    --update
+
+     * Synonym: None
+     * Default: do not check
+     * Meaning: Check www.spec.org for updates. Apply them if there are any.
+       When this option is used, runcpu will not perform any other actions.
+       If you set --verbose to 7 or higher, you will get a list of files that
+       are checked.
+
+       Example:
+
+ $ cd $SPEC
+ $ cat version.txt
+ 1.0.1
+ $ time runcpu --update
+ SPEC CPU(r) 2017 Benchmark Suites
+ Copyright 1995-2017 Standard Performance Evaluation Corporation (SPEC)
+
+ runcpu v5749
+ Using 'linux-x86_64' tools
+ Reading file manifests... read 32325 entries from 2 files in 0.18s (175442 files/s)
+ Loading runcpu modules.................
+ Locating benchmarks...found 47 benchmarks in 53 benchsets.
+
+ CPU2017 update mode selected
+ Downloading update information...
+
+ Selected update:
+         From v1.0.1 to v1.0.2
+         Update size: 3190 KB
+
+ Downloading update metadata: 1312 B (5989 B/s)
+ Update metadata parsed successfully.
+
+ Update summary:
+         Files to remove: 6
+         Directories to remove: 0
+         Files to change: 134
+         Files to add: 6
+ Update metadata downloaded and verified.
+
+ Checking files that will be changed or removed by the update...
+ Checks completed.
+ Update: Downloading update: 3192 KB/3190 KB (100%; 932 KB/s)
+ Update downloaded and verified.
+
+ Uncompressing update file
+
+ Proceed with update? (y/n)
+ y
+
+ Suite update successful!
+
+ There is no log file for this run.
+
+ runcpu finished at 2018-05-18 11:27:29; 8 total seconds elapsed
+
+ real    0m9.038s
+ user    0m1.598s
+ sys     0m0.680s
+ $ cat version.txt
+ 1.0.2
+ $
+
+
+    --use_submit_for_compare
+
+     * Synonym: --use-submit-for-compare
+     * Default: --no-use-submit-for-compare
+     * Meaning: Use submit commands during the comparison phase of the run,
+       if submit was used for the measurement phase of the run.
+
+    --use_submit_for_speed
+
+     * Synonym: --use-submit-for-speed
+     * Default: --no-use-submit-for-speed
+     * Meaning: Use submit commands for SPECspeed runs. The submit facility
+       is by default only used for SPECrate runs.
+
+    --username name
+
+     * Synonym: -U name
+     * Default: same as current process
+     * Meaning: Name of user. Useful if multiple users are sharing a SPEC CPU
+       2017 directory tree.
+
+    --verbose n
+
+     * Synonyms: --debug n | -v n
+     * Default: 5
+     * Meaning: Set verbosity level to a level between 1 and 99. The levels
+       are defined in config.html
+
+    --version
+
+     * Synonym: -V
+     * Default: Print short version information.
+     * Meaning: Print detailed version information, including versions of:
+       specdiff
+       specinvoke
+       specmake
+       specperl
+       specpp
+       specrxp
+       specxz
+
+       When this option is used, runcpu will not perform any other actions.
+       If something goes wrong and you want support, the output of runcpu
+       --version may be needed.
+
+4 Removed/unsupported options
+
+  4.1 Options that are no longer needed
+
+   Rate and Speed
+
+   The CPU 2006 feature --rate[link goes to CPU 2006]
+   and the CPU 2006 feature --speed[link goes to CPU 2006]
+   are not needed in SPEC CPU 2017 because of a change of how benchmarks are
+   defined.
+
+   In SPEC CPU 2006, a given benchmark had a single source code version and a
+   single workload version.
+   The workload could be run in two ways: either single-copy (SPECspeed) or
+   multi-copy (SPECrate).
+
+   For SPEC CPU 2017 the SPECrate and SPECspeed versions of a benchmark:
+
+     * Have different names.
+     * Are built with differing rules.
+     * May use different source code.
+     * May use different data sets.
+
+   For example:
+
+     * The SPECrate version of the XZ compression code is called 557.xz_r,
+       has no OpenMP directives, and
+       uses a workload that requires about 800 MB per copy.
+     * The SPECspeed version of the XZ compression code is called 657.xz_s,
+       includes OpenMP directives, and
+       requires about 15 GB.
+
+   For more information, see the System Requirements discussion of Using
+   Multiple CPUs.
+
+   Parallel setup
+
+   The SPEC CPU 2006 feature --parallel_setup[link goes to CPU 2006]
+   and the CPU 2006 feature --parallel_setup_prefork[link goes to CPU 2006]
+   and the CPU 2006 feature --parallel_setup_type[link goes to CPU 2006]
+   are not needed in SPEC CPU 2017 because of a change in how benchmarks are
+   set up.
+
+   For SPEC CPU 2006, every SPECrate copy was set up with its own unique copy
+   of the input data. For large SPECrate runs, large amounts of space were
+   needed, and a lot of time (in some cases, hours).
+
+   For SPEC CPU 2017, file system hard links are used to avoid copying such
+   large amounts of data, and the features for parallel setup are no longer
+   needed.
+
+   For example, on one particular system,
+
+     * A single run directory for benchmark 525.x264_r occupies 1.6 GB,
+       according to du -hs prior to doing a run (that is, after
+       action=runsetup).
+     * After setting up 100 directories, the grand total for all 525.x264_r
+       directories is: 1.6 GB, according to du -hs.
+       Hard links are useful.
+     * Setting up one copy on this particular system required 47 seconds.
+     * Setting up 100 copies required 57 seconds.
+
+   (One particular system, your space may vary.)
+
+  4.2 Features removed
+
+   The SPEC CPU 2006 feature --machine[link goes to CPU 2006]
+   was removed because it was rarely used; and the additional complexity and
+   confusion that it caused was deemed not worthwhile.
+
+   The CPU 2006 feature --maxcompares[link goes to CPU 2006]
+   was removed due to complexity considerations when implementing the new
+   parallel setup methods.
+
+  4.3 Unsupported
+
+   The SPEC CPU 2006 feature --make_bundle[link goes to CPU 2006]
+   and the CPU 2006 feature --unpack_bundle[link goes to CPU 2006]
+   and the CPU 2006 feature --use_bundle[link goes to CPU 2006]
+   have not been tested in the CPU 2017 environment.
+   It is not known whether anyone uses the features, and they were deemed not
+   a priority for V1.
+   It is possible that you might be able to get them to work by following the
+   CPU 2006 instructions linked above, but no promises are made.
+
+   --------------------------------------------------------------------------
+
+5 Quick reference
+
+   (This table is organized alphabetically, without regard to upper/lower
+   case, and without regard to the presence of a leading "no").
+
+           -a            Same as --action
+                         Do: build|buildsetup|clean|clobber|
+    --action action      onlyrun|realclean|report|run|runsetup|scrub|
+                         setup|trash|validate
+       --basepeak        Copy base results to peak (use with --rawformat)
+       --nobuild         Do not attempt to build binaries
+           -c            Same as --config
+           -C            Same as --copies
+    --check_version      Check whether an updated version of CPU 2017 is
+                         available
+    --comment "text"     Add a comment to the log and the stored configfile.
+     --config file       Set config file for runcpu to use
+        --copies         Set the number of copies for a SPECrate run
+           -D            Same as --rebuild
+           -d            Same as --deletework
+        --debug          Same as --verbose
+--define SYMBOL[=VALUE]  Define a config preprocessor macro
+      --delay secs       Add delay before and after benchmark invocation
+      --deletework       Force work directories to be rebuilt
+        --dryrun         Same as --fake
+       --dry-run         Same as --fake
+      --expid=dir        Experiment id, a subdirectory to use for
+                         results/runs/exe
+           -F            Same as --flagsurl
+         --fake          Show what commands would be executed.
+      --fakereport       Generate a report without compiling codes or doing a
+                         run.
+    --fakereportable     Generate a fake report as if "--reportable" were set.
+     --[no]feedback      Control whether builds use feedback directed
+                         optimization
+     --flagsurl url      Location (url or filespec) where to find your flags file
+      --graph_auto       Let the tools pick minimum and maximum for the graph
+     --graph_min N       Set the minimum for the graph
+     --graph_max N       Set the maximum for the graph
+           -h            Same as --help
+         --help          Print usage message
+      --http_proxy       Specify the proxy for internet access
+     --http_timeout      Timeout when attempting http access
+           -I            Same as --ignore_errors
+           -i            Same as --size
+    --ignore_errors      Continue with benchmark runs even if some fail
+     --ignoreerror       Same as --ignore_errors
+  --info_wrap_column N   Set wrap width for non-notes informational items
+       --infowrap        Same as --info_wrap_column
+        --input          Same as --size
+     --iterations N      Run each benchmark N times
+       --keeptmp         Keep temporary files
+           -L            Same as --label
+           -l            Same as --loose
+     --label label       Set the label for executables, build directories, and
+                         run directories
+        --loose          Do not produce a reportable result
+       --noloose         Same as --reportable
+           -M            Same as --make_no_clobber
+   --make_no_clobber     Do not delete existing object files before building.
+        --mockup         Same as --fakereportable
+           -n            Same as --iterations
+           -N            Same as --nobuild
+ --notes_wrap_column N   Set wrap width for notes lines
+       -noteswrap        Same as --notes_wrap_column
+           -o            Same as --output_format
+    --output_format      Generate:
+   format[,format...]    all|cfg|check|csv|flags|html|mail|pdf|ps|raw|screen|text
+   --output_root=dir     Write all files here instead of under $SPEC
+    --parallel_test      Number of test/train workloads to run in parallel
+      --[no]power        Control power measurement during run
+        --preenv         Allow environment settings in config file to be applied
+           -R            Same as --rawformat
+      --rawformat        Format raw file
+       --rebuild         Force a rebuild of binaries
+      --reportable       Produce a reportable result
+     --noreportable      Same as --loose
+      --reportonly       Same as --fakereport
+      --[no]review       Format results for review
+           -s            Same as --reportable
+   -S SYMBOL[=VALUE]     Same as --define
+    -S SYMBOL:VALUE      Same as --define
+   --[no]setprocgroup    [Don't] try to create all processes in one group.
+ --size size[,size...]   Select data set(s): test|train|ref
+        --strict         Same as --reportable
+       --nostrict        Same as --loose
+           -T            Same as --tune
+      --[no]table        Do [not] include a detailed table of results
+      --threads=N        Set number of OpenMP threads for a SPECspeed run
+         --test          Run various perl validation tests on specperl
+      --train_with       Change the training workload
+         --tune          Set the tuning levels to one of: base|peak|all
+        --tuning         Same as --tune
+     --undef SYMBOL      Remove any definition of this config preprocessor macro
+           -U            Same as --username
+        --update         Check www.spec.org for updates to benchmark and example
+                         flag files, and config files
+       --username        Name of user to tag as owner for run directories
+--use_submit_for_compare If submit was used for the run, use it for comparisons
+                         too.
+ --use_submit_for_speed  Use submit commands for SPECspeed (default is only for
+                         SPECrate).
+           -v            Same as --verbose
+       --verbose         Set verbosity level for messages to N
+           -V            Same as --version
+       --version         Output lots of version information
+           -?            Same as --help
+
+   Using SPEC CPU(R)2017: the 'runcpu' Command: Copyright (c) 2017-2019
+   Standard Performance Evaluation Corporation (SPEC(R))

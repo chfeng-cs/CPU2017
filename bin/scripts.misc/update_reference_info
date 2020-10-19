@@ -1,0 +1,139 @@
+#!/$SPEC/bin/specperl
+#
+#  update_reference_info - a tool to extract run times for benchmarks
+#                          and use them for future reference times.
+#                 No support is provided for this script.
+
+#  Copyright 2016-2019 Standard Performance Evaluation Corporation
+#
+#  Author: Cloyce D. Spradling
+#
+# $Id: update_reference_info 6093 2019-03-13 04:04:33Z CloyceS $
+
+use IO::File;
+use File::Spec::Functions qw(rel2abs);
+use File::Basename;
+use POSIX;
+use strict;
+
+$| = 1;
+
+die '$SPEC not set!' unless ($ENV{'SPEC'} ne '' and -d $ENV{'SPEC'});
+
+my %value_adjust = (
+    'reported_time' => sub { return POSIX::ceil($_[0]) },
+    'avg_power'     => sub { return POSIX::ceil($_[0]) },
+);
+
+
+foreach my $file (@ARGV) {
+    print "Working on $file...\n";
+    my $fh = new IO::File '<'.$file;
+    if (!defined($fh)) {
+        warn "Couldn't open '$file' for reading: $!\n";
+        next;
+    }
+    my %cur = ();
+    my %bench = ();
+    my ($curbench, $curidx);
+    while(defined(my $line = $fh->getline())) {
+        if ($line =~ /^spec\.[^.]+\.size:\s+(\S+)(?:\s+\((\S+)\)\s*)?$/) {
+            $cur{'size'} = $1;
+            $cur{'class'} = (defined($2) and $2 ne '') ? $2 : $1;
+        } elsif ($line =~ /^spec\.[^.]+\.power:\s+(\S+)$/) {
+            $cur{'power'} = $1;
+        } elsif ($line =~ /^spec\.[^.]+\.results.(\d+_[^.]+)\.base\.(\d+)\.([^:]+): ([.[:digit:]]+|--$)/) {
+            my ($bench, $idx, $item, $val) = ($1, $2, $3, $4);
+            next unless $item =~ /^(?:avg_power|reported_time|reference_power|reference|selected)$/;
+            if ($bench ne $curbench or $idx != $curidx) {
+                update_references($curbench, \%cur, \%bench) if $bench{'selected'};
+                %bench = ();
+                ($curbench, $curidx) = ($bench, $idx);
+            }
+            if (exists($value_adjust{$item})) {
+                $val = $value_adjust{$item}($val);
+            }
+            $bench{$item} = $val;
+        }
+    }
+    update_references($curbench, \%cur, \%bench) if $bench{'selected'};
+}
+
+sub update_references {
+    my ($bench, $resinfo, $benchinfo) = @_;
+
+    # Modify the benchmark name so it can be used to match directories
+    $bench =~ s/^\d//;
+    $bench =~ s/_/./;
+    $bench =~ s/_[rs]$//;
+    my $lookre = qr/^$resinfo->{'size'}\s+$resinfo->{'class'}/;
+    my $refdata = ($benchinfo->{'reference'} eq '--') ? '[.[:digit:]]+' : $benchinfo->{'reference'};
+    # Do time
+    my $done = 0;
+    if ($benchinfo->{'reference'} ne '--' and $benchinfo->{'reference'} == $benchinfo->{'reported_time'}) {
+        warn "No update needed for ?$bench* $resinfo->{'size'} reftime\n";
+    } else {
+        foreach my $file (glob("$ENV{'SPEC'}/benchspec/*/?$bench*/data/*/reftime")) {
+            my $fh = new IO::File "<$file";
+            die "Couldn't open $file for reading: $!\n" unless defined($fh);
+            my @lines = $fh->getlines();
+            $fh->close();
+            if (grep { /${lookre}\s+$refdata\s*$/ } @lines) {
+                print "Updating $file $resinfo->{'size'}: $benchinfo->{'reference'} => $benchinfo->{'reported_time'}\n";
+                $done += do_file_update($file, $resinfo->{'size'}, $resinfo->{'class'}, $benchinfo->{'reported_time'}, @lines);
+            }
+        }
+        if ($done == 0) {
+            warn "No updates found for ?$bench* reftime (looked for '$resinfo->{'size'} $resinfo->{'class'} $refdata')\n";
+        }
+    }
+
+    if ($resinfo->{'power'}) {
+        # Also do power
+        $refdata = ($benchinfo->{'reference_power'} eq '--') ? '[.[:digit:]]+' : $benchinfo->{'reference_power'};
+        if ($benchinfo->{'reference_power'} == $benchinfo->{'avg_power'}) {
+            warn "No update needed for ?$bench* $resinfo->{'size'} refpower\n";
+        } else {
+            $done = 0;
+            foreach my $file (glob("$ENV{'SPEC'}/benchspec/*/?$bench*/data/*/refpower")) {
+                my $fh = new IO::File "<$file";
+                die "Couldn't open $file for reading: $!\n" unless defined($fh);
+                my @lines = $fh->getlines();
+                $fh->close();
+                if (grep { /${lookre}\s+$refdata\s*$/ } @lines) {
+                    print "Updating $file $resinfo->{'size'}: $benchinfo->{'reference_power'} => $benchinfo->{'avg_power'}\n";
+                    $done += do_file_update($file, $resinfo->{'size'}, $resinfo->{'class'}, $benchinfo->{'avg_power'}, @lines);
+                }
+            }
+            if ($done == 0) {
+                warn "No updates found for ?$bench* refpower (looked for '$resinfo->{'size'} $resinfo->{'class'} $refdata')\n";
+            }
+        }
+    }
+}
+
+sub do_file_update {
+    my ($file, $size, $class, $val, @lines) = @_;
+
+    # 0 and 1 are both special values for reference time or power
+    if ($val < 2) {
+        warn "Bumping reference value for $size($class) in $file to 2 (was $val)\n";
+        $val = 2;
+    }
+    my $fh = new IO::File ">$file";
+    die "Couldn't open $file for writing: $!\n" unless defined($fh);
+    my $touched = 0;
+    foreach my $line (@lines) {
+        if ($line =~ /^${size}\s+${class}\s+/) {
+            $fh->print("$size $class $val\n");
+            $touched++;
+        } else {
+            $fh->print($line);
+        }
+    }
+    $fh->close();
+
+    return $touched;
+}
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab:

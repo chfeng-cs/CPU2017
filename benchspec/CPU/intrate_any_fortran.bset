@@ -1,0 +1,17 @@
+# This file contains a list of the benchmarks written in
+# Fortran (in whole or in part), from the intrate benchset.
+# It is automatically generated.
+
+$name        = 'intrate_any_fortran';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+        548.exchange2_r
+);
+
+1;

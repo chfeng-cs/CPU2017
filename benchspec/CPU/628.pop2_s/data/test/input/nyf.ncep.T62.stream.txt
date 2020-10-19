@@ -1,0 +1,57 @@
+<streamstemplate>
+      <general_comment>
+         streams template for datm in CCSM4
+      </general_comment>
+<stream>
+      <comment>
+         NCEP "normal year" data
+      </comment>
+      <dataSource>
+         NCEP
+      </dataSource>
+      <domainInfo>
+         <variableNames>
+            time   time
+            lon    lon
+            lat    lat
+            area   area
+            mask   mask
+         </variableNames>
+         <filePath>
+            ./
+         </filePath>
+         <fileNames>
+            nyf.ncep.T62.050923.nc
+         </fileNames>
+      </domainInfo>
+      <fieldInfo>
+         <variableNames>
+            dn10  dens
+            slp_  pslv
+            q_10  shum
+            t_10  tbot
+            u_10  u
+            v_10  v
+         </variableNames>
+         <filePath>
+            ./
+         </filePath>
+         <tInterpAlgo>
+            linear
+         </tInterpAlgo>
+         <offset>
+            0
+         </offset>
+         <fileNames>
+            nyf.ncep.T62.050923.nc
+         </fileNames>
+      </fieldInfo>
+      <!-- Information on the program that created this file -->
+      <build_streams_documentation>
+         This CCSM stream text file was created by build_streams using the command line:
+               /cesm1_0_2/scripts/ccsm_utils/Tools/build_streams -t datm.template.streams.xml -s NYF.NCEP   
+         For more information on build_streams:  
+             /cesm1_0_2/scripts/ccsm_utils/Tools/build_streams -help          
+      </build_streams_documentation>
+</stream>
+</streamstemplate>

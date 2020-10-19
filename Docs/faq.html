@@ -1,0 +1,947 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <title>FAQ - CPU 2017</title>
+      <!-- $Id: faq.html 6307 2019-07-28 21:35:52Z JohnHenning $ -->
+      <!-- You'll want a nice wide screen when editing this .......................................................................... -->
+
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+      <style type="text/css">
+body { background: white; color: black; }
+
+h2   { margin-top:4em; color:#eeeeef; background:#446688; padding:10px; text-align: center; margin-right:66%; }
+h3   { font-size:100%; margin-top:2em; margin-bottom:1em; border-top: solid 1px #c0c0c0;} 
+pre  { margin-left:5em; }
+      </style>
+
+   </head>
+   <body>
+
+      <h1 style="margin-bottom:0">SPEC CPU&reg;2017 Frequently Asked Questions</h1>
+      <table class="version">
+         <tr>
+            <th>$Id: faq.html 6307 2019-07-28 21:35:52Z JohnHenning $</th>
+            <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+         </tr>
+      </table>
+
+      <p>This document has frequently asked technical questions and answers about SPEC CPU&reg;2017, a product of the
+      SPEC&reg; non-profit corporation <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  
+      </p> 
+
+<!-- ReUsableBegin: Problems? Try these ......................................................................  -->
+<div class="l1" style="width:500px;padding:3px 5px;border:thin solid gray;">
+   <p class="snug">Do you have a problem with SPEC CPU 2017?  
+   <br />Try these,  <span class="u">in this order</span>:</p>
+   <ol class="snug">
+      <li>Update your copy with 
+         <a class="external" href="https://www.spec.org/cpu2017/Docs/runcpu.html#update">runcpu --update</a>.</li>
+      <li>Check the latest version of 
+         <a class="external" href="https://www.spec.org/cpu2017/Docs/faq.html">Frequently Asked Questions</a>.</li>
+      <li>Check the latest version of 
+         <a class="external" href="https://www.spec.org/cpu2017/Docs/known-problems.html">Known Problems</a>. </li>
+      <li>Check the 
+         <a  class="external" href="https://www.spec.org/cpu2017/src.alt/">src.alt</a> list. &nbsp;&nbsp; 
+         <span style="font-size:smaller;"> 
+            [<a class="external" href="https://www.spec.org/cpu2017/Docs/config.html#src.alt">What is a src.alt?</a>]
+         </span>
+      </li> 
+      <li><a class="external" href="https://www.spec.org/cpu2017/Docs/techsupport.html">Contact SPEC</a>.</li>
+   </ol> 
+</div>
+<!-- Problems? Try these ReUsableEnd ......................................................................  -->
+
+
+
+      <!-- ....................... Contents ...................................................................................  -->
+      <!-- Contents Template
+         <p class="contentsl2"><a href="#Section.nn">Section.nn</a> mumble mumble</p>
+      -->
+
+      <p class="contents">Contents</p>
+      <p class="contentsl1">Installation</p>
+      <p class="contentsl2"><a href="#Install.01">Install.01</a> <samp>./install.sh: /bin/sh: bad interpreter: Permission denied</samp></p>
+      <p class="contentsl2"><a href="#Install.02">Install.02</a> The system manager won't let me use the <samp>mount</samp>
+      command.  What do I do?</p>
+      <p class="contentsl2"><a href="#Install.03">Install.03</a> How do I uninstall?</p>
+      <p class="contentsl2"><a href="#Install.04">Install.04</a> Why does installation fail on Redhat Enterprise Linux 8.0.0 and similar systems? </p>
+
+      <p class="contentsl1">runcpu</p>
+      <p class="contentsl2"><a href="#runcpu.01">runcpu.01</a> Why does <samp>runcpu</samp> exit instantly, with a pile of messages
+      about <samp class="snugr">compilation failed</samp>?</p>
+      <p class="contentsl2"><a href="#runcpu.02">runcpu.02</a> Why does Windows reject my <kbd>runcpu</kbd> command, claiming it is
+      not recognized, or the syntax is incorrect, or the path unexpected?</p>
+      <p class="contentsl2"><a href="#runcpu.03">runcpu.03</a> Why am I getting errors about <samp>libnsl.so.1</samp>?</p>
+
+      <p class="contentsl1">Building benchmarks</p>
+      <p class="contentsl2"><a href="#Build.01">Build.01</a> <samp>zsh: command not found </samp></p>
+      <p class="contentsl2"><a href="#Build.02">Build.02</a> Why is it rebuilding the benchmarks?</p>
+      <p class="contentsl2"><a href="#Build.03">Build.03</a> Is there a config file for Visual C++?</p>
+      <p class="contentsl2"><a href="#Build.04">Build.04</a> Why does 510.parest fail with a message such as "error: ISO C++ 
+      forbids comparison between pointer and integer"?</p>
+      <p class="contentsl2"><a href="#Build.05">Build.05</a> I'm using a gcc Example config.  Why can't it find my copy of
+      gcc?  I set 'gcc_dir'.</p>
+
+      <p class="contentsl1">Setting up</p>
+      <p class="contentsl2"><a href="#Setup.01">Setup.01</a> <samp>Target file doesn't match after copy</samp></p>
+      <p class="contentsl2"><a href="#Setup.02">Setup.02</a> <samp>Copying executable failed</samp></p>
+
+      <p class="contentsl1">Running benchmarks</p>
+      <p class="contentsl2"><a href="#Run.01">Run.01</a> What's this <samp>specrand</samp> thing?</p>
+      <p class="contentsl2"><a href="#Run.02">Run.02</a> How long will the <samp>runcpu</samp> command take? </p>
+      <p class="contentsl2"><a href="#Run.03">Run.03</a> Why was there this cryptic message from the operating system?</p>
+      <p class="contentsl2"><a href="#Run.04">Run.04</a> Console Window Host has stopped working; specinvoke unable to start 0xc0000142</p>
+      <p class="contentsl2"><a href="#Run.05">Run.05</a>  Why did 621.wrf_s abort / hang / get a run time error?  I'm using
+      GCC 7.</p>
+
+      <p class="contentsl1">Miscompares</p>
+      <p class="contentsl2"><a href="#Miscompare.01">Miscompare.01</a> I got a message about a miscompare </p>
+      <p class="contentsl2"><a href="#Miscompare.02">Miscompare.02</a> The benchmark took less than 1 second </p>
+      <p class="contentsl2"><a href="#Miscompare.03">Miscompare.03</a> The <samp>.mis</samp> file says "short" </p>
+      <p class="contentsl2"><a href="#Miscompare.04">Miscompare.04</a> My compiler is generating bad code! </p>
+      <p class="contentsl2"><a href="#Miscompare.05">Miscompare.05</a> The code is bad even with low optimization! </p>
+      <p class="contentsl2"><a href="#Miscompare.06">Miscompare.06</a> The <samp>.mis</samp> file is just a bunch of numbers. </p>
+      <p class="contentsl2"><a href="#Miscompare.07">Miscompare.07</a> Why is <samp>627.cam4_s</samp> failing? </p>
+      <p class="contentsl2"><a href="#Miscompare.08">Miscompare.08</a> Why is <samp>505.mcf_r</samp> miscomparing? </p>
+
+      <p class="contentsl1">Results reporting</p>
+
+      <p class="contentsl2"><a href="#Results.01">Results.01</a> It's hard to cut/paste into my spreadsheet</p>
+      <p class="contentsl2"><a href="#Results.02">Results.02</a> What is a "flags file"?  What does <samp>Unknown Flags </samp> mean?</p>
+      <p class="contentsl2"><a href="#Results.03">Results.03</a> <samp class="nb">Submission Check -&gt; FAILED</samp></p>
+
+      <p class="contentsl1">Power</p>
+
+      <p class="contentsl2"><a href="#Power.01">Power.01</a> How do I measure power?</p>
+      <p class="contentsl2"><a href="#Power.02">Power.02</a> What settings are required for the power analyzer?</p> 
+      <p class="contentsl2"><a href="#Power.03">Power.03</a> The <samp>runcpu</samp> command reported uncertainty errors, what can I do?</p>
+      <p class="contentsl2"><a href="#Power.04">Power.04</a> Is it possible to retrieve all of the sample data collected from the power analyzer?</p>
+
+      <p class="contentsl1">Temperature</p>
+
+      <p class="contentsl2last"><a href="#Temp.01">Temperature.01</a> I got an error about it being too cold, what can I do?</p>
+
+
+
+
+
+      <!-- ....................................... Body .......................................................................... -->
+      <!-- Body Template
+         <h3 id="Section.nn"><span id="OptionalExtraHandle">Section.nn</span>
+         <span class="questionc">&nbsp;q. mumble mumble mumble
+         </span></h3>
+
+         <p class="question">continued question (if neeeded)
+         </p>
+
+         <p class="answer">a. grumble grumble grumble
+         </p>
+      --> 
+
+
+      <!-- ...................... Installation .......................................  -->
+
+      <h2 id="installation">Installation</h2>
+
+      <h3 id="Install.01"><span id="installpermission">Install.01 </span> <span class="questionc">&nbsp;q. Why am I getting a
+            message such as <samp class="snugr">./install.sh: /bin/sh: bad interpreter: Permission denied</samp>"?
+         </span>
+      </h3>
+
+      <p class="answer">a. If you are installing from the SPEC CPU 2017 ISO image, check to be sure that your operating system
+      allows programs to be executed from it. For example, some Linux systems may need the <samp>exec</samp> property on the
+      <samp>mount</samp> command -- as shown in 
+      <a class="external" href="install-guide-unix.html#mount">Installing SPEC CPU 2017 on Unix Systems</a>.</p>
+
+      <p class="answernh">Or, perhaps <samp>install.sh</samp> lacks correct permissions because of problems as you copied
+      directory trees from one place to another.  Please don't do that - there's an easier way.   See the next question.</p>
+
+      <h3 id="Install.02"><span id="nomount">Install.02</span>
+         <span class="questionc">&nbsp;q.  The system manager won't let me use the <samp>mount</samp> command. </span></h3>
+
+      <p class="answer">a. As a fallback, you can install from a tarfile.  See Installing SPEC CPU 2017 on Unix Systems
+      <a class="external" href="install-guide-unix.html#appendix2">Appendix 2</a>.</p>
+
+
+
+      <h3 id="Install.03"><span id="uninstall">Install.03</span>
+         <span class="questionc">&nbsp;q. How do I uninstall? This script <samp>uninstall.sh</samp> doesn't seem to be it.
+         </span>
+      </h3>
+
+      <p class="answer">a. You are correct that <samp>uninstall.sh</samp> does not remove the whole product; it only
+      removes the SPEC CPU 2017 tool set, and does not affect the benchmarks (which consume the bulk of the disk space).
+      At this time, SPEC does not provide an uninstall utility for the suite as a whole.  But it's easy to do: on Unix
+      systems, use <samp class="nb">rm -Rf</samp> on the directory where you installed the suite, for example:</p>  
+
+      <pre class="answerc">  rm -Rf /home/cs3000/saturos/spec/cpu2017</pre>
+
+      <p class="answernh">On Windows systems, select the top directory in Windows Explorer and delete it.</p>
+
+      <p class="answernh">If you have been using the <a class="external" href="runcpu.html#output_root">output_root</a> feature,
+      you will have to track those down separately.  See the suggested commands in the appendix about uninstalling, in the 
+      <a class="external" href="install-guide-unix.html#uninstall">install guides</a>.</p> 
+
+      <p class="answernh">Note: instead of deleting the entire directory tree, some users find it useful to keep the
+      <samp>config</samp> and <samp>result</samp> subdirectories, while deleting everything else.  </p>
+
+
+      <h3 id="Install.04"><span id="rhel8">Install.04</span>
+         <span class="questionc">&nbsp;q. Why does installation fail on Redhat Enterprise Linux 8.0.0 and similar systems? 
+         </span>
+      </h3>
+      <p class="questionnhsnug">The system prints several lines of complaints, including lines similar to these:</p>
+      <pre class="questionc">Error running runcpu tests.  See /cpu2017/runcpu-test.linux-x86_64.out for details.
+Installation of linux-x86_64 aborted.</pre>
+      <p class="questionnhsnug">and the file <samp>runcpu-test.linux-x86_64.out</samp> contains</p>
+      <pre class="questionc">specperl: error while loading shared libraries: libnsl.so.1: cannot open shared object file: No such file or directory</pre>
+
+
+      <p class="answer">a. Your system is missing a library that is no longer installed by default starting with Redhat
+      Enterprise Linux 8.  If you install the <samp>libnsl</samp> package, the correct library will be available and the SPEC
+      CPU 2017 installation will succeed.  For example:</p>
+
+      <pre class="answerc">  yum install libnsl</pre>
+
+      <p class="answernh">(See also question <a href="#runcpu.03">runcpu.03</a> below.)</p>
+
+
+      <!-- ...................... runcpu .......................................  -->
+
+      <h2 id="runcpu">runcpu</h2>
+
+      <h3 style="margin-bottom:2px;" id="runcpu.01">runcpu.01 
+         <span class="questionc">&nbsp;q. Why does <kbd>runcpu</kbd> exit instantly, with a pile of messages about <samp class="snugr">compilation
+               failed</samp>?</span>
+      </h3>
+      <div style="text-indent:0em;margin-top:2px;margin-left:7em;" class="question">
+         The system prints several lines of complaints, typically including one or more of the following:
+         <div class="l2">
+            <samp class="nb">runcpu: Perl lib version (n.nn.n) doesn't match executable
+               <br />Compilation failed in require at /path/.../Time/HiRes.pm line 7.
+               <br />Compilation failed in require at /path/.../DynaLoader.pm line 22.
+               <br />BEGIN failed--compilation aborted at /path/.../DynaLoader.pm line 22.
+               <br />BEGIN failed--compilation aborted at /path/.../bin/harness/runcpu line 84.
+               <br />Can't continue after import errors at /path/.../bin/harness/runcpu line 84.
+               <br />"all" is not exported by the List::Util module
+            </samp>
+         </div>
+      </div>
+      <p class="answer">a. Your environment variables are not correctly set.  Use one of the 
+      <a class="external" href="quick-start.html#path">path-setting scripts</a> to fix them.</p>
+      <p class="answernhsnugbot">Maybe you did something like the following? (Don't do this.)</p>
+      <pre class="snug">cd /cpu2017
+source shrc
+cd /cpu2006
+source shrc
+runcpu </pre>
+      <p class="answernhsnugtop">For SPEC CPU 2006, use the CPU 2006 path scripts and use the 
+      <a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html">runspec</a> command. 
+      <br />For SPEC CPU 2017, use the CPU 2017 path scripts and the 
+      <a class="external" href="runcpu.html">runcpu</a> command.  (<a href="runspec.html" class="external">Why did the name change?</a>).  
+      </p>
+
+      <h3 style="margin-bottom:1px;" id="runcpu.02"><span id="make.clean.err">runcpu.02 </span> <span class="questionc">
+            Why does Windows reject my <kbd>runcpu</kbd> command, claiming it is not recognized, or the syntax is
+            incorrect, or the path unexpected?</span>
+      </h3> 
+      <div style="text-indent:0em;margin-top:2px;margin-left:7em;" class="question">I am seeing messages such as: 
+         <pre>The syntax of the command is incorrect
+runcpu is not recognized
+mumble\path was unexpected at this time</pre>
+      </div>
+      <p class="answersnugbot">a. A variety of odd error messages on Microsoft Windows have been traced to paths in
+      <samp>shrc.bat</samp> that use semicolons within quoted strings, such as: </p>
+      <pre class="answerc">set PATH="%PATH%;d:\My Compiler Path\bin" <span class="alarm"> &lt;--- wrong</span>
+set PATH="%PATH%;d:\mycompiler\bin"       <span class="alarm"> &lt;--- wrong</span>
+      </pre>
+      <p class="answersnug">The correct way to do it is:</p>
+      <pre class="answerc">    set PATH=%PATH%;"d:\My Compiler Path\bin" 
+or
+    set PATH=%PATH%;d:\mycompiler\bin     
+      </pre>
+      <p class="answer">Notice that in both cases, there are no semicolons inside of quotes.</p>
+
+
+      <h3 style="margin-bottom:1px;" id="runcpu.03">runcpu.03 <span class="questionc">&nbsp;q. Why am I getting errors about
+            <samp>libnsl.so.1</samp>?</span></h3>
+
+      <p class="questionnhsnug">Why are all my <kbd>runcpu</kbd> commands failing with this message?</p>
+      <pre class="questioncsnug">specperl: error while loading shared libraries: 
+libnsl.so.1: cannot open shared object file: No such file or directory</pre> 
+
+      <p class="answer">a. Your system is missing the <samp>libnsl.so.1</samp> library, which is needed by
+      <samp>specperl</samp>.  To fix the problem, install the library.  </p>
+      
+      <p class="answernh">For example, on Red Hat Enterprise Linux release 8.0 (and similar) systems, notice that there are
+      two software packages available:</p>
+      <pre class="answerc">libnsl  Legacy support library for NIS
+libnsl2 Public client interface library for NIS(YP) and NIS+</pre>
+      <p class="answernh">By default, only the new version is installed, but you can easily add the older version.</p>
+<pre class="answerc"># <b>yum install libnsl </b></pre>
+
+      <p class="answernh">(See also question <a href="#Install.04">Install.04</a> above.)</p>
+
+
+
+      <!-- ...................... Building .......................................  -->
+
+      <h2 id="build">Building benchmarks</h2>
+
+      <h3 id="Build.01"><span id="winpath">Build.01 </span> <span class="questionc">&nbsp;q. I'm using Windows and I can't
+            build any benchmarks.   What is <samp class="snugr">make.out</samp>?  Why does it say <samp class="snugr">zsh: command not found:
+               ifort</samp>?</span></h3>
+
+      <p class="questionsnugtop">During a build, it told me to look at <samp class="snugr">make.out</samp>:</p>
+      <pre class="questionc">
+Compiling Binaries
+  Building 548.exchange2_r base none: (build_base_none.0000) [2017-05-08 09:16:57]
+Error with make 'specmake --output-sync -j8 build':
+  ----------------------------------------------------------------------------
+  Please review this file:
+    "C:\cpu2017\rc5\benchspec\CPU\548.exchange2_r\build\build_base_none.0000\make.out"
+  ----------------------------------------------------------------------------
+  Command returned exit code 2
+  Error with make!
+*** Error building 548.exchange2_r base
+      </pre>
+
+      <p class="questionsnugtop">I looked, but it is pretty complicated.  What does all this mean?</p>
+      <pre class="questionc">
+C:\cpu2017\rc5&gt;<b>type "C:\cpu2017\rc5\benchspec\CPU\548.exchange2_r\build\build_ba
+se_none.0000\make.out"</b>
+C:/cpu2017/rc5/bin/specperl C:/cpu2017/rc5/bin/harness/specpp -DSPEC -DSPEC_CPU
+-DNDEBUG -DSPEC_WINDOWS -DSPEC_CPU_WINDOWS -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_P6
+4 -I"C:/Program Files (x86)/IntelSWTools/compilers_and_libraries_2017/windows/co
+mpiler/include/intel64" -I"C:/Program Files (x86)/IntelSWTools/compilers_and_lib
+raries_2017/windows/compiler/include" -I"C:/Program Files (x86)/Windows Kits/10/
+Include/10.0.14393.0"/ucrt -I"C:/Program Files (x86)/Windows Kits/10/Include/10.
+0.14393.0"/um exchange2.F90 -o exchange2.fppized.f90
+ifort -Qvc14 -Qm64 -c -Foexchange2.fppized.obj -QxHost -Qipo -O3 -Qprec-div- -Qo
+pt-prefetch -I"C:/Program Files (x86)/IntelSWTools/compilers_and_libraries_2017/
+windows/compiler/include/intel64" -I"C:/Program Files (x86)/IntelSWTools/compile
+rs_and_libraries_2017/windows/compiler/include" -I"C:/Program Files (x86)/Window
+s Kits/10/Include/10.0.14393.0"/ucrt -I"C:/Program Files (x86)/Windows Kits/10/I
+nclude/10.0.14393.0"/um -nostandard-realloc-lhs exchange2.fppized.f90
+zsh: command not found: ifort
+specmake: *** [C:/cpu2017/rc5/benchspec/Makefile.defaults:386: exchange2.fppized
+.obj] Error 1
+
+C:\cpu2017\rc5&gt;
+
+      </pre>
+
+      <p class="answer">a. Thank you for actually looking at <samp>make.out</samp> when <samp>runcpu</samp> suggested you
+      do so.  That file contains the output from <a class="external" href="utility.html#specmake">specmake</a>, which
+      drives the build process, calling compilers, linkers, and other build tools.  To understand the above 
+      <samp class="snugr">make.out</samp>, the key thing to notice is the line 
+      <br /><samp class="l2">zsh: command not found: ifort</samp>.  
+      <br />What this means is that your compiler is not on your <samp class="snugr">%PATH%</samp>.</p>
+
+      <p class="answernh">SPEC CPU 2017 benchmarks are supplied in source code form, and 
+      <a class="external" href="system-requirements.html#compilers">they must be compiled</a>.  But, the compiler could
+      not be found, probably because: </p>
+      <ol class="answernh"> 
+         <li>You have used a config file that references a compiler that does not exist, or </li> 
+         <li>You have not edited <samp>shrc.bat</samp> to correctly reference your compiler. </li>
+      </ol>
+
+      <p class="answernh">To fix your problem, investigate and address both items.</p>
+
+      <ol class="answernh"> 
+         <li><p>You must use a config file that is appropriate for your compiler.  Microsoft <span class="caution">Visual
+               Studio</span> users: see <a href="#VisualCXX">below</a>.</p></li>
+
+         <li><p>In <samp class="snugr">shrc.bat</samp>, you need to call a compiler-vendor-supplied file that sets the
+            path.   It might be similar to one of these:</p>
+
+            <pre style="margin-left:1em;" class="answerc">call "C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2017\windows\bin\compilervars.bat" intel64 vs2015
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+call "c:\Program Files\PGI\win64\16.5\pgi_env.bat"</pre>
+
+            <p>If you want to use this option but you can't find the right file, check your compiler documentation, or you
+            might try searching your hard drive for <samp class="nbsnugr">*vars*bat</samp>.  The file names change
+            frequently; check your compiler docs.  The call statement will vary by compiler, by version, and sometimes, by
+            desired features.  Check your compiler's documentation, to find the right call.</p>
+         </li>
+
+      </ol>
+
+
+      <h3 id="Build.02"><span id="rebuild">Build.02 </span>
+         <span class="questionc">&nbsp;q. Why is runcpu rebuilding the benchmarks?
+         </span>
+      </h3>
+
+      <p class="answer">a. You changed something, and the tools thought that it might affect the generated binaries.
+      <a class="external" href="config.html#unexpectedRebuilds">More info</a></p>
+
+      <h3 id="Build.03"><span id="VisualCXX">Build.03</span>
+         <span class="questionc">&nbsp;q. Is there a config file for Visual Studio?  </span>
+      </h3>
+
+      <p style="margin-bottom:2px;" class="answer">a. Yes, but:</p>
+      <ul class="answernhsnug">
+         <li>As of early 2017, some of the benchmarks did not yet work; it is possible that they may work with a more recent
+            compiler version.</li>  
+         <li>In order to do a <a class="external" href="config.html#reportable">reportable</a> run, you will also need a
+            Fortran compiler.  </li>
+      </ul>
+      <p style="margin-top:2px;" class="answer">See: <samp class="nbsnugr">%SPEC%\config\Example-VisualStudio.cfg</samp>.   Please read the
+      comments carefully inside the file.</p>
+
+      <h3 id="Build.04"><span id="parest11">Build.04</span> 
+         <span class="questionc">&nbsp;q. Why does 510.parest fail with a message such as "error: ISO C++ 
+            forbids comparison between pointer and integer"? </span></h3>
+
+      <p class="answer">a. Users of C++11 (and later) compilers may see messages such as the above.  For GCC V7, the 
+full message is:</p>
+<pre style="margin:.5em 3em;">In file included from include/base/parameter_handler.h:18:0,
+                 from source/base/parameter_handler.cc:14:
+source/base/parameter_handler.cc: In member function 'double dealii::ParameterHandler::get_double(const string&amp;) const':
+source/base/parameter_handler.cc:752:28: error: ISO C++ forbids comparison between pointer and integer [-fpermissive]
+   AssertThrow ((s.c_str()!='\0') || (*endptr == '\0'),
+</pre>
+
+<p class="answersnugbot" ><b>Solution:</b> There are three solutions.  </p>
+<ol class="answernhsnug">
+   <li>Use <a class="external" href="runcpu.html#update">runcpu --update</a> to update your copy of SPEC CPU 2017 to v1.1; or</li>
+   <li>Tell your compiler to be less picky (for example, with <samp class="snugr">g++ -fpermissive</samp>); or</li>
+   <li>Try explicitly asking for the 2003 version of the standard (for example, with <samp class="snugr">g++ -std=c++03</samp>).</li>
+</ol>
+
+<p class="answernh">Note: neither solution 2 nor solution 3 would qualify for use as a <a 
+   class="external"
+   href="http://www.spec.org/cpu2017/Docs/runrules.html#PortabilityFlags">portability</a> flag. In a base compilation, it
+   would need to be part of the set of flags that are <a
+      class="external"
+      href="http://www.spec.org/cpu2017/Docs/runrules.html#BaseFlags">applied consistently</a> to a set of benchmarks.  
+</p>
+
+
+      <h3 id="Build.05"><span id="gcc_dir">Build.05</span> 
+         <span class="questionc">&nbsp;q. I'm using a gcc Example config.  Why can't it find my copy of gcc?  I set
+            'gcc_dir'.</span></h3>
+
+      <p class="answer">a. It's probably better to use quotes.  Instead of saying something like:</p>
+      <pre style="margin:.2em 3em">%define gcc_dir /compilers/misc-7.3.0-20180630</pre>
+      <p class="answer">Try this instead:</p>
+      <pre style="margin:.2em 3em">%define gcc_dir "/compilers/misc-7.3.0-20180630"</pre>
+      <p class="answer">The reason that the first one does unexpected things is because <samp>/x/misc</samp> is treated as
+      the perl match operator (with 'm', 'i', 's', and 'c' as match <a class="external"
+         href="http://perldoc.perl.org/perlre.html#Modifiers">modifiers</a>). Presumably it returns a null string.  Perl then
+      tries to convert <samp>"7.3.0"</samp> into a number, getting <samp>0</samp>.  Lastly, it subtracted
+      <samp>20180630</samp>.  Unfortunately, the gcc compiler is not installed in a directory named
+      <samp>-20180630</samp>.</p>
+
+      <p class="answer">See the documentation of <a class="external" href="config.html#define">%define</a> and the
+      documentation of <a class="external" href="config.html#expressions">preprocessor expressions</a>.</p>
+
+
+
+
+      <!-- ...................... setup .......................................  -->
+      <h2 id="setup">Setting up</h2>
+
+      <h3 id="Setup.01">Setup.01 <span class="questionc">&nbsp;q. Why does it claim that a "Target file doesn't match after
+            copy"?</span>
+      </h3>
+
+      <p class="questionnhsnugbot">My system printed a strange, difficult to reproduce message:</p>
+      <pre class="questioncsnug">Target file (mumble) doesn't match after copy ... in copy_file (1 try total)!  
+Sleeping 2 seconds...</pre>
+      <p class="questionnhsnugtop">followed by several more tries and sleeps. Why?</p>
+
+      <p class="answersnugbot">a. During benchmark setup, certain files are checked.  If they don't match what they are expected to,
+      you might see this message.  Check:</p>
+      <ul class="answernhsnug">
+         <li>Is the system out of disk space?</li>
+         <li>Does the error go away if a different disk is used?  Perhaps you have a bad disk, or an unreliable disk controller.
+         </li>
+      </ul> 
+      <p class="answernhsnugtop">If the condition persists, try turning up the 
+      <a class="external" href="config.html#verbose">verbosity</a> level.  Look at the files with other tools; do they exist?
+      Can you see differences?  Try a different disk and controller.  And, check for the specific instance of this message
+      described in the next question.</p> 
+
+
+      <h3 id="Setup.02">Setup.02 <span class="questionc">&nbsp;q. Why does it say <samp>ERROR: Copying executable failed?</samp></span>
+      </h3>
+
+      <p class="questionnhsnugbot">My system printed a strange, difficult to reproduce message:</p>
+      <pre class="questioncsnug">ERROR: Copying executable to run directory FAILED</pre>
+      <p class="questionnhsnug">or </p>
+      <pre class="questioncsnug">ERROR: Copying executable from build dir to exe dir FAILED!</pre> 
+      <p class="questionnhsnugtop">along with the bit about files not matching from the previous question.  Why?</p>
+
+      <p class="answer">a. Perhaps you have attempted to build the same benchmark twice in two simultaneous jobs.  </p>
+
+      <p class="answernh">On most operating systems, the SPEC tools don't mind concurrent jobs.  They use your operating
+      system's locking facilities to write the correct outputs to the correct files, even if you fire off many
+      <samp>runcpu</samp> commands at the same time. But there's one case of simultaneous building that is difficult for the
+      tools to defend against: please don't try to build the very same executable from two different jobs at the same time.
+      Notice that if you say something like this:</p>
+      <pre class="answercsnug">$ <b>tail myconfig.cfg</b>
+500.perlbench_r:
+basepeak=yes
+$ <b>runcpu --config myconfig --size test --tune base 500.perlbench_r &amp;</b>
+$ <b>runcpu --config myconfig --size test --tune peak 500.perlbench_r &amp;</b>
+      </pre>
+      <p class="answernhsnugtop">then you are trying to build the same benchmark twice in two different jobs, because of the
+      presence of <samp class="snugr">basepeak=yes</samp>.  Please don't try to do that.</p>
+
+
+
+
+
+      <!-- ...................... running .......................................  -->
+      <h2 id="run">Running benchmarks</h2>
+
+      <h3 id="Run.01">Run.01
+         <span class="questionc">&nbsp;q. What's this <samp>specrand</samp> thing?
+         </span>
+      </h3>
+
+      <p class="questionnhsnugbot">When I ran a suite of benchmarks, one of these was unexpectedly added.  Why?</p>
+      <pre class="questioncsnug">996.specrand_fs
+997.specrand_fr
+998.specrand_is
+999.specrand_ir</pre>
+
+      <p class="answer">a. Several of the benchmarks use a common random number generator.  During development of CPU 2017, it
+      was often useful to have the random number generator as a separate pseudo-benchmark, to help with problem diagnosis.
+      ("You miscompared on benchmark mumble?  Hmmm.  Do you also miscompare on specrand?")</p>
+
+      <p class="answernh">For the released version of the suite, SPEC decided to retain <samp class="snugr">specrand</samp>, in
+      case it comes in useful for later problem diagnosis.  It is run with all four suites, but its time is not reported, and its
+      performance does not contribute to the bottom line metrics.  
+      <a class="external" href="https://www.spec.org/cpu2017/Docs/benchmarks/999.specrand_ir.html">[More information]</a></p> 
+
+
+      <h3 style="margin-bottom:.1em;" id="Run.02">Run.02 <span class="questionc">q. How long will the runcpu command take?
+         </span>
+      </h3>
+
+      <p style="margin-top:.1em;" class="answer">a. About 5 minutes per benchmark; your time will vary.</p>
+
+      <p style="margin-bottom:.1em;" class="question">q. What do you mean 5 minutes?  It took me 5 hours!  </p>
+      <p style="margin-top:.1em;" class="answer">a. That's because you ran a whole suite, in a reportable configuration (3 repetitions).
+      <br />I was talking about just a single benchmark.  
+      <br />More&nbsp;info:&nbsp;<a class="external" href="overview.html#Q11">[run times]</a>&nbsp;&nbsp;
+      <a class="external" href="overview.html#Q12">[suites and benchmarks]</a>&nbsp;&nbsp;
+      <a class="external" href="overview.html#repeatable">[3 repetitions]</a></p>
+
+      <p style="margin-bottom:.1em;" class="question">q. Can it take 103 hours? (Points at a 
+      <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00034.html">pair</a> of
+      <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00035.html">published</a> results.)</p>
+      <p style="margin-top:.1em;" class="answer">a. Sure, if you want to do a big throuphput test like that one, running up to
+      256 copies of the 23 benchmarks in 2 suites, with both base and peak tuning.  The referenced tests did 21,248 individual
+      benchmark runs within two large <a class="external" href="overview.html#Q15">throughput</a> tests.</p>
+
+      <p class="answer">Two more example are discussed in the <a class="external" href="overview.html#Q11">Overview</a>.</p>
+
+
+      <h3 id="Run.03">Run.03 
+         <span class="questionc">&nbsp;q. Why did I get a strange, hard-to-understand error message?</span></h3> 
+
+      <p class="answer">a. If you are getting strange, hard-to-understand error messages from your system, one possible
+      reason may be that the benchmarks consume substantial resources, of several types.  If an OS runs out of some resource
+      - for example, pagefile space, or process heap space - it might not give you a very clear message.  Instead, you might
+      see only a very brief message, or a dialog box with a hex error code in it.  Try your system resource monitors,
+      starting with whatever tool lets you watch memory usage.</p>
+
+
+      <h3 id="Run.04">Run.04 
+         <span class="questionc">&nbsp;q. Console Window Host has stopped working; specinvoke unable to start 0xc0000142</span></h3>
+
+      <p class="question">[This item is from CPU 2006; it is included here in case similar problems occur with CPU 2017].
+      <br />Windows users occasionally saw odd failures with this dialog box: <br />
+      <img style="margin:1em 4em;" src="images/console-window-host.jpg" width="368" height="198" alt="console window host has
+      stopped working" />
+      <br />which, after pressing the button, was followed by:
+      <br />
+      <img style="margin:1em 4em;" src="images/specinvoke-nostart.jpg" width="498" height="175" alt="specinvoke 0xc0000142" />
+      </p>
+
+      <p class="answernh">The problem was difficult to diagnose, because the symptoms varied.  Eventually, it was noticed
+      that the problem system was using Windows 7 with an older (pre-Windows 7) version of <samp>cygwin</samp> in the
+      <samp class="snugr">%PATH%</samp>; removing <samp>cygwin</samp> from the <samp>%PATH%</samp> removed the failures.</p>
+
+      <p class="answernh">Because the version of <samp>cygwin</samp> was obsolete, it would be unfair to "blame" it for the
+      failures!  Nevertheless, it may be fair to point out that providing a Unix-like environment on Windows poses difficult
+      problems.  Historically there have been various approaches, with differing assumptions about how to mask or bridge
+      differences between Windows and Unix. The SPEC CPU 2017 toolset's approach might not match the approach used by your
+      Windows/Unix compatibility product.  Therefore, SPEC recommends that you should remove such items from the
+      <samp>%PATH%</samp> prior to invoking <samp class="snugr">runcpu</samp>, especially if you are encountering hard-to-understand
+      errors.</p>
+
+      <p class="answernh">More info: <a class="external" href="utility.html#printpath">Windows PATH</a>.</p>
+
+
+      <h3 id="Run.05">Run.05
+         <span class="questionc">&nbsp;q. Why did 621.wrf_s abort / hang / get a run time error?  I'm using GCC 7.
+         </span></h3>
+
+         <p class="question">A gcc bugzilla <a class="external"
+            href="https://gcc.gnu.org/bugzilla/show_bug.cgi?format=multiple&amp;id=81195">report</a> says <i>I'm seeing many
+            different kinds of failures when running a wrf_s binary compiled with gcc mainline.  Double free aborts.
+            Segfaults.  Fortran runtime error: End of file.  Etc.</i>.  </p>
+
+         <p class="question">Similar problems were seen by a SPEC CPU developer, along with hangs (runs that never ended).</p>
+      
+         <p class="answer">a. The problem was fixed in GCC 7.3 by libgfortran patch request <a
+            href="https://gcc.gnu.org/ml/fortran/2017-08/msg00045.html" class="external">PR78387</a>.  Note that you need a
+         <samp>libgfortran</samp> built from the 7.3 sources; it is not sufficient to merely upgrade <samp
+            class="snugr">gfortran</samp>.  </p>
+
+         <p class="answer"><b>Problem signature:</b> If you see odd symptoms with <samp>wrf_s</samp> and can generate a stack
+         trace (e.g. with <samp>gdb</samp> or <samp class="snugr">gstack</samp>), check for mentions of <samp
+            class="snugr">stash_internal_unit</samp>.  If it is present, then it is likely that you are missing the fix from
+         PR78387.  For example:</p>
+         <pre>#9  0x00007f7651ca586f in _gfortrani_stash_internal_unit () from /lib64/libgfortran.so.4</pre>
+
+      <p class="answer">The above was seen Jun-2018 on a system using <samp>CentOS Linux release 7.5</samp> with <samp
+         class="snugr">/opt/rh/devtoolset-7/root/usr/bin/gfortran</samp>; however, as of that time, the
+      <samp>libgfortran</samp> was from GCC&nbsp;7.2.</p>
+
+      <p class="answer"><b>Workaround:</b> Install a copy of <samp>libgfortran</samp> based on GCC 7.3 or later.</p>
+
+
+
+
+
+
+
+      <!-- ...................... miscompares .......................................  -->
+      <h2 id="miscompare">Miscompares</h2>
+
+      <h3 id="Miscompare.01">Miscompare.01 
+         <span class="questionc">&nbsp;q. I got a message about a miscompare. The tools said something like:</span>
+      </h3> 
+
+      <table style="horizontal-align:center; border:none;">
+         <tr style="border:none;"><td style="border:none;">
+               <pre class="pquestion" style="background:black; color:white; border-color: #025af2; border-style:solid; border-width: 15px 3px 3px 3px;">
+Running Benchmarks
+  Running 999.specrand_ir ref base oct09a default
+Error with '/spec/cpu2017/bin/specinvoke -E -d /spec/cp
+u2017/benchspec/CPU/999.specrand_ir/run/run_base_refrat
+e_oct09a.0000 -c 1 -e compare.err -o compare.stdout -f 
+compare.cmd': check file '/spec/cpu2017/benchspec/CPU/9
+99.specrand_ir/run/run_base_refrate_oct09a.0000/.err'
+*** Miscompare of rand.234923.out, see /spec/cpu2017/be
+nchspec/CPU2017/999.specrand_ir/run/run_base_refrate_oc
+t09a.0000/rand.234923.out.mis
+Error: 1x999.specrand_ir
+Producing Reports
+               </pre>
+            </td>
+         </tr>
+      </table>
+
+      <p class="questionnh">Why did it say that?  What's the problem?</p>
+
+      <p class="answer">a. We don't know.  Many things can cause a benchmark to miscompare, so we really can't tell you
+      exactly what's wrong based only on the fact that a miscompare occurred.  But don't panic. Please notice, if you read
+      the message carefully, that there's a suggestion of a very specific file to look in.  It may be a little hard to read
+      if you have a narrow terminal window, as in the example above, but if you look carefully you'll see that it says:</p>
+
+      <pre class="answerc">
+*** Miscompare of rand.234923.out, see 
+/spec/cpu2017/benchspec/CPU/999.specrand_ir/run/run_base_refrate_oct09a.0000/rand.234923.out.mis
+      </pre>
+
+      <p class="answernh">Now's the time to look inside that file.  Simply doing so <b>may</b> provide a clue as to the
+      nature of your problem.  On Unix systems, change your current directory to the run directory using the path mentioned
+      in the message; on Microsoft Windows systems, remember to turn the slashes backwards in your cd command.  Then, have a
+      look at the file that was mentioned, using your favorite text editor.  If the file does not exist, then check to see
+      whether you have run out of disk space.</p>
+
+      <h3 id="Miscompare.02">Miscompare.02 
+         <span class="questionc"> &nbsp;q. The benchmark ran, but it took less than 1 second and there was
+            a miscompare.  Help!</span>
+      </h3>
+
+      <p class="answer">a. If the benchmark took less than 1 second to execute, it didn't execute properly.  There should be
+      one or more <samp>.err</samp> files in the run directory which will contain some clues about why the benchmark failed
+      to run.  Common causes include libraries that were used for compilation but not available during the run, executables
+      that crash with access violations or other exceptions, and permissions problems.  See also the suggestions in the next
+      question.</p>
+
+      <h3 id="Miscompare.03" style="margin-bottom:.1em;">Miscompare.03 
+         <span class="questionc">  &nbsp;q. I looked in the <samp>.mis</samp> file and it said something like:</span></h3>
+      <pre class="questioncsnug">
+'rand.234923.out' short
+      </pre>
+      <p class="questionnhsnug">What does "short" mean?</p>
+
+      <p class="answer">a. If a line like the above is the only line in the <samp>.mis</samp> file, it means that the
+      benchmark failed to produce any output.  In this case, the corresponding error file (look for files with
+      <samp>.err</samp> extensions in the run directory) may have a clue, such as <samp class="nb">Segmentation Fault - core
+         dumped</samp></p>
+
+      <p class="answernh"> For problems like this, the first things to examine are the portability flags used to build the
+      benchmark.  Have a look at the sample config files in <samp>$SPEC/config</samp> or, on Windows,
+      <samp class="snugr">%SPEC%\config</samp>.  If you built your own config file based on one of those, maybe you picked a starting point
+      that was not really appropriate.  Have a look at other Examples in that directory.  Check at 
+      <a class="external" href="https://www.spec.org/cpu2017/">www.spec.org/cpu2017</a> to see if there have been any result
+      submissions using the platform that you are trying to test.  If so, compare your portability flags
+      to the ones in the config files for those results.</p> 
+
+      <p class="answernh">If the portability flags are okay, your compiler may be generating bad code.</p>
+
+      <h3 id="Miscompare.04">Miscompare.04 
+         <span class="questionc"> &nbsp;q. My compiler is generating bad code!  Help!</span></h3>
+
+      <p class="answer">a. Try reducing the optimization that the compiler is doing.  Instructions for doing this will vary
+      from compiler to compiler, so it's best to ask your compiler vendor for advice if you can't figure out how to do it for
+      yourself.</p>
+
+      <h3 id="Miscompare.05">Miscompare.05 
+         <span class="questionc"> &nbsp;q. My compiler is generating bad code with low or no optimization!  Help!</span></h3>
+
+      <p class="answer">a. If you're using a beta compiler, try dropping down to the last released version, or get a newer
+      copy of the beta.  If you're using a version of GCC that shipped with your OS, you may want to try getting a more
+      recent version and building it yourself.</p>
+
+      <h3 id="Miscompare.06">Miscompare.06 
+         <span class="questionc"> &nbsp;q. I looked in the <samp class="nb">.mis</samp> file and it was
+            just full of a bunch of numbers.</span></h3>
+
+      <p class="answer">a. In this case, the benchmark is probably running, but it's not generating answers that are within the
+      tolerances set.  See the suggestions for how to deal with compilers that generate bad code in the previous two questions.
+      In particular, you might see if there is a way to encourage your compiler to be careful about optimization of floating
+      point expressions.</p>
+
+
+      <h3 id="Miscompare.07">Miscompare.07
+      <span class="questionc">&nbsp;q. Why is <a class="external"
+            href="https://www.spec.org/cpu2017/Docs/benchmarks/627.cam4_s.html">627.cam4_s</a> failing? </span></h3>
+      <p class="questionnhsnugbot">When I run it, I see something like this:</p>
+      <pre class="questioncsnug">Running 627.cam4_s refspeed (ref) base mumble threads:4 [2017-09-25 03:59:50]
+627.cam4_s: copy 0 non-zero return code (exit code=139, signal=0)</pre>
+      <p class="questionnhsnug">Investigating the run directory shows that the output file <samp>h0.nc</samp> does not
+      exist.  </p>
+      <pre class="questioncsnug">$ go cam4_s run
+/export/home/cpu2017/v1.0/benchspec/CPU/627.cam4_s/run
+$ cd run_base_refspeed_* 
+$ ls -l h0.nc
+ls: cannot access h0.nc: No such file or directory</pre>
+      <p class="questionnhsnug">The text output file ends after 1830 lines.</p>
+      <pre class="questioncsnug">$ cat cam4_s_base*txt | wc -l
+1830</pre>
+
+      <table class="noborder">
+         <tr>
+            <td>
+               <p class="answer">a. Likely cause: either the process stack or the OpenMP stack is too small.</p>
+
+               <p class="answernhsnugbot">For the process stack, before using <samp class="snugr">runcpu</samp>, try setting the process
+               stack size to at least 120 MB.  On Unix systems (including Linux, Mac OS X, and so forth), this command</p> 
+               <pre class="answercsnug">ulimit -s</pre>
+               <p class="answernhsnug">should return either</p>
+               <pre class="answercsnug">unlimited</pre> 
+               <p class="answernhsnug">or a number greater than or equal to</p>
+               <pre class="answercsnug">122880</pre>
+
+               <p class="answernh">If your process stack is large enough, then the likely cause is that the OpenMP 
+               stack was not set properly using  
+               <a class="external" href="config.html#preenv">preenv</a>.  The illustration shows two correct ways to set it
+               and two incorrect ways.  Note: the exact size will vary depending on your operating system and your compiler;
+               see also the examples in your installed SPEC CPU 2017 tree, in the <samp>config</samp> directory.</p>
+            </td>
+            <td style="vertical-align:bottom;">
+               <a href="images/stack.png"><img src="images/stack.small.png" width="288" height="114" alt="correct location for OMP_STACKSIZE" /></a>
+            </td>
+         </tr>
+      </table>
+
+         <h3 id="Miscompare.08">Miscompare.08
+         <span class="questionc">&nbsp;q. Why is <samp>505.mcf_r</samp> (or 605.mcf_s) miscomparing?
+         </span></h3>
+
+         <p class="question">When using GCC v6 or later with <samp class="nbsnugr">-flto</samp>, why does 505.mcf_r (or 605.mcf_s) get the wrong
+         answer?
+         </p>
+
+         <p class="answer">a. You probably need to add <samp class="nb">-fno-strict-aliasing</samp> to your flags.  See the detailed
+         discussion in the documentation for <a class="external"
+            href="https://www.spec.org/cpu2017/Docs/benchmarks/505.mcf_r.html#Portability">505.mcf_r</a>.
+         </p>
+
+
+      <!-- ...................... reports .......................................  -->
+      <h2 id="report">Results reporting </h2>
+
+
+      <h3 id="Results.01">Results.01
+         <span class="questionc">&nbsp;q. It's hard to cut/paste into my spreadsheet </span>
+      </h3>
+
+      <p class="answer">a. Please don't do that.  Instead, have a look at 
+      <a class="external" href="runcpu.html#csv">--output_format=csv</a>.  For CPU 2017 results posted at 
+      <a class="external" href="https://www.spec.org/cpu2017/results/">www.spec.org/cpu2017/results</a>, the <samp>.csv</samp>
+      outputs are posted right next to the other result formats.</p>
+
+      <h3 id="Results.02"><span id="flagsfile">Results.02</span>
+         <span class="questionc">&nbsp;q. What is a "flags file"?  What does the message <samp> Unknown Flags </samp> mean in a report?
+         </span>
+      </h3>
+
+      <p class="answer">a.  SPEC CPU 2017 provides benchmarks in source code form, which are compiled under control of SPEC's
+      toolset. Compilation flags (such as <samp class="nb">-O5</samp> or <samp class="nbsnugr">-unroll</samp>) are detected and reported by the tools
+      with the help of flag description files.  Therefore, to do a complete run, you need to (1) point to an existing flags
+      file (easy) or (2) modify an existing flags file (slightly harder) or (3) write one from scratch (definitely
+      harder).</p>
+
+      <ol class="answernh">
+
+         <li style="margin-bottom:.8em;" class="answernh"> Find an existing flags file by noticing the address of the <samp>.xml</samp> file
+            at the bottom of any result published at <a class="external" href="https://www.spec.org/cpu2017/">www.spec.org/cpu2017</a>.  You
+            can use the <a class="external" href="runcpu.html#flagsurl">--flagsurl</a> switch to point your own <samp>runcpu</samp> command
+            at that file, or you can reference it from your config file with the 
+            <a class="external" href="config.html#flagsurl">flagsurl</a> option.  For example: 
+            <br />  <samp class="nb">&nbsp;&nbsp;&nbsp;runcpu --config=myconfig
+               --flagsurl=http://www.spec.org/cpu2017/flags/oracle-studio.xml int </samp></li>
+
+         <li style="margin-bottom:.8em;" class="answernh"> You can download the <samp>.xml</samp> flags file referenced at
+            the bottom of any published result at <a class="external"
+               href="https://www.spec.org/cpu2017/">www.spec.org/cpu2017</a>.  <span class="alarm">Warning:</span> clicking
+            on the <samp>.xml</samp> link may just confuse your web browser; it's probably better to use whatever methods
+            your browser provides to download a file without viewing it - for example, control-click, right click, or
+            whatever. Then, look at it with a text editor.</li> 
+
+         <li style="margin-bottom:.8em;" class="answernh"> You can write your own flags file by following the instructions in 
+            <a class="external" href="flag-description.html">flag-description.html</a>.  </li> 
+      </ol>
+
+      <p class="answernh">Notice that you do not need to re-run your tests if the only problem was <samp class="snugr">Unknown
+         flags</samp>.  You can just use <a class="external" href="runcpu.html#flagsurl">runcpu --rawformat
+         --flagsurl</a></p> 
+
+
+      <h3 id="Results.03">Results.03
+         <span class="questionc">&nbsp;q. What's all this about <samp class="nb">Submission Check -&gt; FAILED</samp> littering my log file and my screen?
+         </span>
+      </h3>
+
+      <p class="question">At the end of my run, why did it print something like this?
+      </p>
+
+      <pre class="questionc">
+format: Submission Check -&gt; FAILED.  Found the following errors:
+        - The "hw_memory" field is invalid.
+            It must contain leading digits, followed by a space,
+            and a standard unit abbreviation.  Acceptable
+            abbreviations are KB, MB, GB, and TB.
+           The current value is "20480 Megabytes".
+      </pre>
+
+      <p class="answer">a. A complete, reportable result has various information filled in for readers.  These fields are listed in
+      the table of contents for <a class="external" href="config.html#Dtoc_V">config.html</a>.  If you wish to submit a result to
+      SPEC for publication at <a class="external" href="https://www.spec.org/cpu2017/">www.spec.org/cpu2017</a>, these fields not only
+      have to be filled in; they also have to follow certain formats.  Although you are not required to submit your result to SPEC,
+      for convenience the tools try to tell you as much as they can about how the result should be improved if you were to submit it.
+      In the above example, the tools would stop complaining if the field <samp>hw_memory</samp> said something like "20 GB" instead of
+      "20480 Megabytes". </p> 
+
+      <p class="answernh">Notice that you can repair minor formatting problems such as these without doing a re-run of your tests. You
+      are allowed to edit the rawfile, as described in <a class="external" href="utility.html#rawformat">utility.html</a>.</p> 
+      <!-- 
+
+      -->
+      <p>&nbsp;</p>
+
+      <!-- ...................... power .......................................  -->
+      <h2 id="Power">Power</h2>
+
+      <h3 id="Power.01">Power.01
+         <span class="questionc">&nbsp;q. How do I measure power?  </span>
+      </h3>
+
+      <p class="answer">a. You can optionally measure power consumption by following the config file documentation on
+      <a class="external" href="config.html#PowerMeasurement">Power Measurement</a>.  Notice that you will need
+      additional hardware, including an  
+      <a class="external" href="https://www.spec.org/power/docs/SPECpower-Device_List.html">accepted</a> power analyzer,
+      temperature meter, and controller system.   </p>
+
+      <h3 id="Power.02">Power.02
+         <span class="questionc">&nbsp;q.  What settings are required for the power analyzer?  </span></h3>
+      <p class="answer">a.  To set up your power analyzer and to run the SPEC PTDaemon please consult the
+         <a class="external" href="https://www.spec.org/power/docs/SPEC-Power_Measurement_Setup_Guide.pdf">Power and
+            Temperature Measurement Setup Guide</a>.  A copy is also in the PTDaemon tree of your installed copy of SPEC
+         CPU 2017.  </p>
+
+      <h3 id="Power.03">Power.03
+         <span class="questionc">&nbsp;q.  The <samp>runcpu</samp> command reported uncertainty errors, what can I do?</span>
+      </h3>
+      <p class="answer">a. There could be many reasons. Are the values within the measurement capabilities that have been set
+      for your power analyzer?  Maybe you need to set the 
+      <a class="external" href="config.html#CurrentRanges">current ranges</a> individually by benchmark.  </p>
+      <p class="answernh">Is PTDaemon reporting any errors?  Try restarting it with the logfile and debug options:</p>
+      <pre>ptd -l logfile -d debugfile ...</pre>
+
+      <h3 id="Power.04">Power.04
+         <span class="questionc">&nbsp;q. Is it possible to retrieve all of the sample
+            data collected from the power analyzer?
+         </span>
+      </h3>
+
+      <p class="answer">a.  Power data is sampled at 1 second intervals.  This data is stored in the raw file 
+      (<samp class="snuglr">.rsf</samp>) that is created after a run finishes, and can be extracted using 
+      <a class="external" href="utility.html#extract_misc">extract_misc</a>.  As an example, to extract the power data from the period when
+      the system is idle, you could run:</p>
+      <pre class="answercsnug">specperl $SPEC/bin/scripts.misc/extract_misc spec.cpu2017.idle_powersamples &lt;raw file&gt;</pre>
+      <p class="answernhsnug">The output will go to the screen. </p>
+      <p class="answernh">
+      The general format of the command is
+      </p>
+      <pre class="answercsnug">Usage: /spec/cpu2017/bin/scripts.misc/extract_misc &lt;section&gt; &lt;file&gt;</pre>
+      <p class="answernhsnug">
+      Where the section will look something like
+      </p>
+      <pre class="answercsnug">spec.cpu2017.results.&lt;benchmark&gt;.&lt;base|peak&gt;.&lt;iter&gt;.powersamples</pre>
+      <p class="answernhsnug">
+      where <samp>&lt;benchmark&gt;</samp> is the full benchmark name, <samp>&lt;iter&gt;</samp> is the iteration
+      number (3 digits).
+      </p>
+
+
+
+
+      <!-- ...................... temperature  ...............................  -->
+      <h2 id="Temperature">Temperature</h2>
+
+      <h3 id="Temp.01">Temperature.01
+         <span class="questionc">&nbsp;q.  I enabled power and temperature measurement, and
+            I got an error about it being too cold, what can I do?
+         </span>
+      </h3>
+      <pre class="questionc">
+ERROR: Minimum temperature during the run (19.5 degC) is less than the minimum
+allowed (20 degC)
+      </pre>
+
+      <p class="answer">a. If you use the optional power metrics, the minimum inflow temperature must be 20 degC or higher.
+      This value was chosen to prevent an artificially good result by running in unusually cold conditions.  You will need to
+      find a warmer spot to do your runs.  </p>
+
+
+         <!-- end --> 
+
+         <p>&nbsp;</p>
+
+
+         <p style="border-top:thin solid black;">
+         SPEC CPU&reg;2017 Frequently Asked Questions:
+         Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+         <!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+            the table of contents will actually position the desired section at the top of your browser window -->
+            <p style="margin:300px 1em;">&nbsp;</p>
+
+
+   </body>
+</html>
+

@@ -1,0 +1,123 @@
+# Makefile for nabmd
+
+DATDIR = $(NABHOME)/dat
+
+CC = cc
+
+CFLAGS = -m64
+
+OFLAGS = -fast -xipo=2 -xopenmp -DOPENMP -DNOREDUCE -DNOPERFLIB
+
+LFLAGS = -lm
+
+all:	nabmd
+
+clean:
+	/bin/rm $(OBJS) nabmd
+
+OBJS=
+OBJS += nabmd.o
+OBJS += sff.o
+OBJS += nblist.o
+OBJS += prm.o
+OBJS += memutil.o
+OBJS += molio.o
+OBJS += molutil.o
+OBJS += binpos.o
+OBJS += rand2.o
+OBJS += select_atoms.o
+OBJS += regexp.o
+OBJS += reslib.o
+OBJS += database.o
+OBJS += traceback.o
+OBJS += chirvol.o
+
+nabmd :	$(OBJS)
+	$(CC) $(OBJS) -o $@ $(CFLAGS) $(OFLAGS) $(LFLAGS)
+
+nabmd.o : nabmd.c	\
+	nabcode.h
+	$(CC) -o $@ $(CFLAGS) -c nabmd.c
+
+nblist.o : nblist.c	\
+	defreal.h
+	$(CC) -o $@ $(CFLAGS) $(OFLAGS) -c nblist.c
+
+sff.o : sff.c	\
+	nab.h	\
+	defreal.h	\
+	nabtypes.h	\
+	errormsg.h \
+	memutil.h \
+	eff.c \
+	debug.h
+	$(CC) -o $@ $(CFLAGS) $(OFLAGS) -c sff.c
+
+prm.o : prm.c	\
+	nab.h	\
+	defreal.h	\
+	nabtypes.h	\
+	errormsg.h
+	$(CC) -o $@ $(CFLAGS) -c prm.c
+
+memutil.o : memutil.c	\
+	nab.h	\
+	defreal.h	\
+	errormsg.h \
+	nabtypes.h
+	$(CC) -o $@ $(CFLAGS) -c memutil.c
+
+molio.o : molio.c	\
+	nab.h	\
+	defreal.h	\
+	nabtypes.h	
+	$(CC) -o $@ $(CFLAGS) -c molio.c
+
+molutil.o : molutil.c	\
+	nab.h	\
+	defreal.h	\
+	nabtypes.h	\
+	errormsg.h	\
+	memutil.h
+	$(CC) -o $@ $(CFLAGS) -c molutil.c
+
+binpos.o : binpos.c  \
+	memutil.h
+	$(CC) -o $@ $(CFLAGS) -c binpos.c
+
+rand2.o : rand2.c \
+	defreal.h
+	$(CC) -o $@ $(CFLAGS) -c rand2.c
+
+select_atoms.o : select_atoms.c	\
+	nab.h	\
+	defreal.h	\
+	nabtypes.h
+	$(CC) -o $@ $(CFLAGS) -c select_atoms.c
+
+regexp.o : regexp.c
+	$(CC) -o $@ $(CFLAGS) -c regexp.c
+
+reslib.o : reslib.c	\
+	nab.h	\
+	defreal.h	\
+	nabtypes.h	\
+	errormsg.h \
+	memutil.h  \
+	chirvol.h  \
+	database.h
+	$(CC) -o $@ -DDATDIR='"$(DATDIR)"' $(CFLAGS) -c reslib.c
+
+database.o : database.c  \
+	database.h
+	$(CC) -o $@ $(CFLAGS) -c database.c
+
+traceback.o : traceback.c \
+	errormsg.h
+	$(CC) -o $@ $(CFLAGS) -c traceback.c
+
+chirvol.o : chirvol.c	\
+	nab.h	\
+	defreal.h	\
+	nabtypes.h
+	$(CC) -o $@ $(CFLAGS) -c chirvol.c

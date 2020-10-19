@@ -1,0 +1,6 @@
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/XML/SAX/Base.pm relocate_as=../../../../../XML/SAX/Base.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/XML/SAX/BuildSAXBase.pl relocate_as=../../../../../XML/SAX/BuildSAXBase.pl
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/XML/SAX/Exception.pm relocate_as=../../../../../XML/SAX/Exception.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/XML::SAX::Base.3 relocate_as=../../../../../../../../../man/man3/XML::SAX::Base.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/XML::SAX::BuildSAXBase.3 relocate_as=../../../../../../../../../man/man3/XML::SAX::BuildSAXBase.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/XML::SAX::Exception.3 relocate_as=../../../../../../../../../man/man3/XML::SAX::Exception.3

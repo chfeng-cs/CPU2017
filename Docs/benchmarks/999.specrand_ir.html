@@ -1,0 +1,91 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+      <link rel="STYLESHEET" href="https://www.spec.org/cpu2017/Docs/css/cpudocs.css" type="text/css" />
+<title>999.specrand</title>
+<meta name="generator" content="Cloyce+VIM 7.2" />
+<meta name="revision"
+      content="$Id: specrand.html 6320 2019-07-28 23:29:02Z JohnHenning $" />
+</head>
+
+<body>
+<div style="text-align: center">
+<h1>999.specrand<br />
+SPEC CPU&reg;2017 NOT-A-Benchmark Description</h1>
+</div>
+ 
+<h3>NOT-A-Benchmark Name</h3>
+<p>999.specrand</p>
+
+<h3>What do you mean NOT-A-Benchmark?</h3>
+<p>999.specrand is not timed; it's purpose is primarily as a short, but important, diagnostic.</p>
+
+<p>Although it is not timed, in all other respects, it behaves like an ordinary benchmark.
+<br />Therefore the remainder of this description will stop tediously inserting "NOT-A".</p>
+
+<h3>Benchmark Author</h3>
+<p>Cloyce D. Spradling &lt;cloyce+specrand &#x5b;at&#x5d; headgear.org&gt;</p>
+
+<h3>Benchmark Program General Category</h3>
+<p>Mine Canary</p>
+ 
+<h3>Benchmark Description</h3>
+<p>999.specrand is a small harness for the <a href="http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html">Mersenne Twister</a> algorithm.</p>
+
+<p>The benchmark simply generates a sequence of pseudorandom numbers starting
+with a known seed.  This benchmark is not a timed component of CPU2017; rather,
+it's there as an indicator of larger problems.  Several of the other benchmarks
+use the specrand code as their PRNG.  Thus, a failure in 999.specrand would
+point out a source of error in those codes as well.  This is cheap (in both
+time and space) insurance.</p>
+
+
+<h3>Input Description</h3>
+<p>999.specrand's input consists of two numbers: a seed value for the PRNG,
+and a count of the numbers to generate.</p>
+
+
+<h3>Output Description</h3>
+<p>The specified number of random numbers are generated and output four times.</p>
+
+<p>The first set is unscaled output from <tt>spec_rand()</tt> output as a
+standard floating point number with no precision modifiers (printf '%f' format).
+The second set is output from <tt>spec_rand()</tt> scaled to between 1 and
+2^31-1 (0x7fffffff, or the maximum positive value that a signed 32-bit integer
+can hold), and is output as a the original number, the multiplier, and the
+result as a standard integer (printf '%d' format).</p>
+
+<p>The third set is the output from <tt>spec_lrand48()</tt> scaled to between 0
+and 1 and output in printf '%f' format.  The fourth sequence is unscaled output from <tt>spec_lrand48()</tt> in printf '%d' format.</p>
+
+<p>The PRNG is re-seeded between sequences.</p>
+
+
+<h3>Programming Language</h3>
+<p>ANSI C</p>
+
+<h3>Known portability issues</h3>
+<p>None</p>
+
+<h3 id="license">Sources and Licensing</h3>
+
+<p>The benchmark is based on the Mersenne Twister pseudorandom number generator with period 2^19937-1, Copyright 1997 -
+2002, Makoto Matsumoto and Takuji Nishimura; Copyright 2005, Mutsuo Saito, under BSD license.</p>
+
+  <p>Please see details in the document <a
+    href="https://www.spec.org/cpu2017/Docs/licenses.html#bmk999.specrand_ir">SPEC CPU&reg;2017 Licenses</a>.</p>
+
+
+<h3>References</h3>
+<ul>
+<li><a href="http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html">Mersenne Twister</a> home page</li>
+<li><a href="https://en.wikipedia.org/wiki/Mersenne_twister">Mersenne Twister</a> on Wikipedia</li>
+</ul>
+
+<p>Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $</p>
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+</body>
+</html>

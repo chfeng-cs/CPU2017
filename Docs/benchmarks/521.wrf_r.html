@@ -1,0 +1,162 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+      <link rel="STYLESHEET" href="https://www.spec.org/cpu2017/Docs/css/cpudocs.css" type="text/css" />
+<title>521.wrf_r</title>
+<meta name="generator" content="Cloyce+VIM 6.2" />
+<meta name="revision"
+      content="$Id: wrf.html 6320 2019-07-28 23:29:02Z JohnHenning $" />
+</head>
+
+<body>
+<div style="text-align: center">
+<h1>521.wrf_r<br />
+SPEC CPU&reg;2017 Benchmark Description</h1>
+</div>
+
+<h3>Benchmark Name</h3>
+<p>521.wrf_r</p>
+
+<h3>Benchmark Author</h3>
+<p>The Weather Research and Forecasting Model (WRF) is maintained by a collaborative partnership, principally among the National Center for Atmospheric Research (NCAR), the National Oceanic and Atmospheric Administration (the National Centers for Environmental Prediction (NCEP) and the Forecast Systems Laboratory (FSL), the Air Force Weather Agency (AFWA), the Naval Research Laboratory, the University of Oklahoma, and the Federal Aviation Administration (FAA).  The list of current development teams can be found at <a>http://www.wrf-model.org/development/development.php</a>.</p>
+
+<h3>Benchmark Program General Category</h3>
+<p>Weather Research and Forecasting.</p>
+
+<h3>Benchmark Description</h3>
+<p>521.wrf_r is based on Version 3.6.1 of the Weather Research and Forecasting Model (WRF) available from
+<a>http://www.wrf-model.org/index.php</a>.  From the WRF Home page:</p>
+
+<p style="margin-left:2em"><i>The Weather Research and Forecasting (WRF) Model is a next-generation mesoscale numerical
+   weather prediction system designed to serve both operational forecasting and atmospheric research needs. It features
+multiple dynamical cores, a 3-dimensional variational (3DVAR) data assimilation system, and a software architecture allowing
+for computational parallelism and system extensibility. WRF is suitable for a broad spectrum of applications across scales
+ranging from meters to thousands of kilometers.</i></p>
+
+<h3>Input Description</h3>
+<p>The input dataset to WRF covers the <a href="https://en.wikipedia.org/wiki/January_2000_North_American_blizzard">January
+   2000 North American Blizzard</a>, beginning at midnight GMT on 24 January, 2000 and running for 1 simulated day.  This
+single non-nested WRF domain is a grid 74 by 61 cells over the Eastern United States and areas of the Atlantic along the
+eastern seaboard at a horizontal resolution of 30km (horizontal dimension of a grid cell).  There are 28 vertical levels.
+The time step is 60 seconds.  The model will generate history output at the beginning of the run and then every 3 simulated
+hours.
+</p>
+
+<p>Inputs for both throughput (rate) and speed tests are the same.  The only differences are that the throughput test runs
+for 10 timesteps, and the speed test runs for 60 timesteps.  For the speed test, OpenMP may be used to distribute the
+increased work over multiple threads of execution.
+</p>
+
+
+<h3>Output Description</h3>
+
+<p>To validate the forecast, SPEC&reg; uses the WRF 'diffwrf' utility, which is
+included in the <tt>src/</tt> directory for the benchmark , and which is built at the
+same time that the main executable is built.  The flow is:</p>
+<ul>
+   <li>The benchmark writes binary files, for example, <tt>wrfout_d01_2000-01-24_20_00_00</tt>.  </li>
+   <li><tt>diffwrf</tt> reads the output from the benchmark, and reads a file of
+   expected answers, for example
+   <tt>$SPEC/benchspec/CPU2017/52<!-- preserve path -->1.wrf_r/data/test/compare/wrf_reference_01</tt>.
+   It writes one line for every field that is validated.   If a field matches the expected
+   values, it writes
+   <br /> FIELDNAME PASSED
+   <br />to <tt>diffwrf_output_01.txt</tt></li>
+   <li>Lastly, the <a href="http://www.spec.org/cpu2017/Docs/utility.html#specdiff">specdiff</a>
+   utility reads <tt>diffwrf_output_01.txt</tt> and compares it to expected
+   outputs (a file containing nothing but PASSED lines.)</li>
+</ul>
+
+<p>If a field does not match what <tt>diffwrf</tt> expects, it writes a line such as this one:</p>
+
+<pre>
+Field   Ndifs    Tol       RMS (1)            RMS (2)     DIGITS   RMSE pntwise max
+V10      4380      2   0.6537097127E+01   0.6447425267E+01   1      0.3738E+00   0.1498E+00
+</pre>
+
+<p>In the above, <tt>diffwrf</tt> reports that of all the V10 values computed by the
+benchmark, there were 4380 that were not an exact match for the expected value.   Diffwrf
+computes the RMS (root-mean-square) for the expected values (column 4) and the
+benchmark-computed values (column 5).  Column 3 is the allowed tolerance when comparing
+these RMS values and column 6 is the tolerance that would be needed if this field were to
+be considered to have passed.  These tolerances can be thought of as - roughly - the
+number of digits that are expected to match.  More precisely, they are computed as  <span
+   class="ttnobr">log10( 1.0 / (abs(rms1-rms2)/rms2))</span>.
+
+Column 7 is the sum of the errors between the between the expected and the
+benchmark-computed values.  Column 8 indicates the max error seen.  </p>
+
+<p>In short: the V10 field is validated loosely, with only about 2 digits expected to
+match for its RMS; and in this example, the benchmark matched only about 1 digit. </p>
+
+
+<h3>Programming Language</h3>
+<p>521.wrf_r uses both Fortran90 and C source.</p>
+
+<h3>Known portability issues</h3>
+
+<ol>
+   <li><p><b>Subnormals</b> 
+      <br />Some calculations generate 'subnormal' numbers (<a class="external"
+         href="https://en.wikipedia.org/wiki/Denormal_number">wikipedia</a>) which may cause slower operation than normal
+      numbers on some hardware platforms.  On such platforms, performance may be improved if "flush to zero on underflow"
+      (FTZ) is enabled.  During SPEC's testing, the output validated correctly whether or not FTZ was enabled.</p></li>
+
+   <li><p><b>Portability flags and a debug suggestion</b>
+      <br /> Approved portability flags are included with the Example config files in <tt>$SPEC/config</tt> (or, on Windows,
+      <tt>%SPEC%\config</tt>); and with published results at <a class="external"
+         href="http://www.spec.org/cpu2017/results/">www.spec.org/cpu2017/results</a>.  If you are developing for a new
+      platform, you can use these as a reference; and you may also find it useful to (temporarily, in a work directory)
+      adjust the <tt>debug_level</tt> setting in <tt>namelist.input</tt>.   For example, setting <tt>debug_level=1</tt>
+      supplements an error code (such as <tt>ierr=-1021</tt>) by adding its message text to the log (in this case: <tt>NetCDF
+         error: Invalid dimension id or name</tt>).</p></li>
+
+   <li><p><!-- escapes in the middle of name of benchmark to ensure won't get recognized by release tools -->
+      <b>Odd errors for 621&#46;wrf&#95;s when using GCC 7</b>
+      <br />A gcc bugzilla 
+      <a class="external" href="https://gcc.gnu.org/bugzilla/show_bug.cgi?format=multiple&amp;id=81195">report</a> says <i>I'm
+         seeing many different kinds of failures when running a wrf_s binary compiled with gcc mainline.  Double free aborts.
+         Segfaults.  Fortran runtime error: End of file.  Etc.</i>.  Similar problems were seen by a SPEC CPU&reg; developer,
+      along with hangs (runs that never ended).</p>
+      
+      <p>The problem was fixed in GCC 7.3 by libgfortran patch
+      request <a href="https://gcc.gnu.org/ml/fortran/2017-08/msg00045.html" class="external">PR78387</a>.  Note that you
+      need a <samp>libgfortran</samp> built from the 7.3 sources; it is not sufficient to merely upgrade <samp
+         class="snugr">gfortran</samp>.  </p>
+
+      <p><b>Problem signature:</b> If you see odd symptoms with <samp>wrf_s</samp> and can generate a stack trace (e.g. with
+      <samp>gdb</samp> or <samp class="snugr">gstack</samp>), check for mentions of <samp
+         class="snugr">stash_internal_unit</samp>.  If it is present, then it is likely that you are missing the fix from
+      PR78387.  For example:</p>
+      <pre>#9  0x00007f7651ca586f in _gfortrani_stash_internal_unit () from /lib64/libgfortran.so.4</pre>
+
+      <p>The above was seen Jun-2018 on a system using <samp>CentOS Linux release 7.5</samp> with <samp
+         class="snugr">/opt/rh/devtoolset-7/root/usr/bin/gfortran</samp>; however, as of that time, the
+      <samp>libgfortran</samp> was from GCC&nbsp;7.2.</p>
+
+      <p><b>Workaround:</b> Install a copy of <samp>libgfortran</samp> based on GCC 7.3 or later.</p></li>
+
+</ol>
+
+<h3 id="license">Sources and Licensing</h3>
+
+<p>The benchmark was contributed directly to SPEC by UCAR.
+<b>Note: Therefore, source code references to other terms under which the program may be available are not relevant for the SPEC
+   CPU&reg; version.</b>  It uses netcdf; for details, see
+<a href="https://www.spec.org/cpu2017/Docs/licenses.html#bmk521.wrf_r">SPEC CPU&reg;2017 Licenses</a>.</p>
+
+
+
+
+<h3>References</h3>
+<ul>
+<li>WRF Model: <a>http://www.wrf-model.org/index.php</a></li>
+</ul>
+
+<p>Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $</p>
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+</body>
+</html>

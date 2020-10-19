@@ -1,0 +1,5114 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="generator" content="SPEC CPU2017 Tools  (flags v5178)" />
+<meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+<style type="text/css" id="internalScreen" media="screen">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Most of the screen-specific CSS is also the common CSS */
+
+/* Style for the non-image W3C marking at the bottom of the page, courtesy of
+ * Marek Prokop (http://www.sovavsiti.cz/css/w3c_buttons.html)
+ */
+.w3cbutton3 {
+  margin: 1em 1em 0 0;
+  width: 9em;
+  border: 1px solid #ccc;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 70%;
+  font-weight: bold;
+  float: left;
+}
+.w3cbutton3 a {
+  display: block;
+  width: 100%;
+}
+.w3cbutton3 a:link,
+.w3cbutton3 a:visited,
+.w3cbutton3 a:hover {
+  background-color: #fc6;
+  color: #000;
+  text-decoration: none;
+  border-bottom: none;
+}
+.w3cbutton3 span.w3c {
+  padding: 0 0.4em;
+  background-color: #fff;
+  color: #0c479d;
+}
+
+-->
+</style>
+<style type="text/css" id="internalPrint" media="print">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Classes that contain links - useless on paper */
+.flagTOC, .SubMenu, .NoPrint {
+  display: none;
+}
+
+/* Don't decorate links - they're not clickable */
+a {
+  text-decoration: none;
+  background: inherit;
+  color: inherit;
+}
+
+.resultpage {
+  width: 100%;
+}
+
+.w3cbutton3 {
+  display: none;
+}
+-->
+</style>
+<title>621.wrf_s Flags</title>
+</head><body>
+<h1>621.wrf_s Flags</h1>
+
+
+<p>These are flags that appear in the benchmark sources, categorized as to
+whether they are portability candidates, mandatory, or forbidden.
+</p>
+
+<div class="NoPrint">
+<h3>Sections</h3>
+<p>Selecting one of the following will take you directly to that section:</p>
+<ul>
+<li><a href="#Section_portability">Portability Flags</a></li>
+<li><a href="#Section_other">Other Flags</a></li>
+<li><a href="#Section_mandatory">Mandatory Flags</a></li>
+<li><a href="#Section_forbidden">Forbidden Flags</a></li>
+</ul>
+</div>
+
+<hr />
+
+<div class="flagClass" id="portability">
+<h2><a name="Section_portability" id="Section_portability">Portability Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b621.wrf_s_DALLOCA_ARG_T">-DALLOCA_ARG_T</a></li>
+ <li><a href="#b621.wrf_s_DMEMCPY_FOR_BCOPY">-DMEMCPY_FOR_BCOPY</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NOUNDERSCORE">-DSPEC_NOUNDERSCORE</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_DEFAULT_NAMES">-DSPEC_DEFAULT_NAMES</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_F2CSTYLE">-DSPEC_F2CSTYLE</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_LINUX">-DSPEC_LINUX</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_CASE_FLAG">-DSPEC_CASE_FLAG</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_IBMXL">-DSPEC_IBMXL</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_IRIX">-DSPEC_IRIX</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_LINUX64_IPF">-DSPEC_LINUX64_IPF</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_LINUX_PPC">-DSPEC_LINUX_PPC</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_LINUX_SPARC">-DSPEC_LINUX_SPARC</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_MACOSX">-DSPEC_MACOSX</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_MACOSX_BE">-DSPEC_MACOSX_BE</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_NCCONFIG_AIX">-DSPEC_NO_NCCONFIG_AIX</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_NCCONFIG_GENERIC">-DSPEC_NO_NCCONFIG_GENERIC</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_NCCONFIG_IRIX">-DSPEC_NO_NCCONFIG_IRIX</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_NCCONFIG_LINUX">-DSPEC_NO_NCCONFIG_LINUX</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_NCCONFIG_MACOSX">-DSPEC_NO_NCCONFIG_MACOSX</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_NCCONFIG_WINDOWS">-DSPEC_NO_NCCONFIG_WINDOWS</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_AIX">-DSPEC_AIX</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_SOLARIS">-DSPEC_SOLARIS</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_SOLARIS_X86">-DSPEC_SOLARIS_X86</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_WINDOWS_ICL">-DSPEC_WINDOWS_ICL</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_HAVE_ALLOCA">-DSPEC_NO_HAVE_ALLOCA</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_HAVE_ALLOCA_H">-DSPEC_NO_HAVE_ALLOCA_H</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_NCCONFIG_SOLARIS">-DSPEC_NO_NCCONFIG_SOLARIS</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_FILE_OFFSET_BITS">-DSPEC_NO_FILE_OFFSET_BITS</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_HAVE_FTRUNCATE">-DSPEC_NO_HAVE_FTRUNCATE</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_STDC_HEADERS">-DSPEC_NO_STDC_HEADERS</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NO_ST_BLKSIZE">-DSPEC_NO_ST_BLKSIZE</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_WORDS_LITTLEENDIAN">-DSPEC_WORDS_LITTLEENDIAN</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_UCHAR_DEFINED">-DSPEC_UCHAR_DEFINED</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_USE_IARGC">-DSPEC_USE_IARGC</a></li>
+ <li><a href="#b621.wrf_s_logical_strict">-DLOGICAL_STRICT,
+-DSPEC_LOGICAL_STRICT</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NEED_IO_H">-DSPEC_NEED_IO_H</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_NEED_WSOCK2H">-DSPEC_NEED_WSOCK2H</a></li>
+ <li><a href="#b621.wrf_s_DSPEC_TIME_H_ABSOLUTE_PATH">-DSPEC_TIME_H_ABSOLUTE_PATH</a></li>
+ <li><a href="#b621.wrf_s_DMS_SUA">-DMS_SUA</a></li>
+ <li><a href="#b621.wrf_s_DMS_SUA_">-DMS_SUA_</a></li>
+ <li><a href="#b621.wrf_s_DNCARIBM_NOC99">-DNCARIBM_NOC99</a></li>
+ <li><a href="#b621.wrf_s_DXT3_Catamount">-DXT3_Catamount</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DALLOCA_ARG_T" id="b621.wrf_s_DALLOCA_ARG_T">-DALLOCA_ARG_T</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALLOCA_ARG_T(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines the type of argument that the alloca() function takes.  It
+defaults to 'int'.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMEMCPY_FOR_BCOPY" id="b621.wrf_s_DMEMCPY_FOR_BCOPY">-DMEMCPY_FOR_BCOPY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEMCPY_FOR_BCOPY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define the bcopy routine as memcpy.  Use if the system does not have a bcopy.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NOUNDERSCORE" id="b621.wrf_s_DSPEC_NOUNDERSCORE">-DSPEC_NOUNDERSCORE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NOUNDERSCORE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that C functions called from Fortran should not have
+an underscore added to their names.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_DEFAULT_NAMES" id="b621.wrf_s_DSPEC_DEFAULT_NAMES">-DSPEC_DEFAULT_NAMES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_DEFAULT_NAMES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that C functions called from Fortran should not have thier
+names changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_F2CSTYLE" id="b621.wrf_s_DSPEC_F2CSTYLE">-DSPEC_F2CSTYLE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_F2CSTYLE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag should be used if C function names need to have two underscores
+appended in order for them to be callable by Fortran functions.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_LINUX" id="b621.wrf_s_DSPEC_LINUX">-DSPEC_LINUX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_LINUX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on a Linux system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_CASE_FLAG" id="b621.wrf_s_DSPEC_CASE_FLAG">-DSPEC_CASE_FLAG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_CASE_FLAG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that Fortran functions called from C should have their
+names lower-cased.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_IBMXL" id="b621.wrf_s_DSPEC_IBMXL">-DSPEC_IBMXL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_IBMXL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines "flush_" instead of the default "flush" routine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_IRIX" id="b621.wrf_s_DSPEC_IRIX">-DSPEC_IRIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_IRIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on an Irix system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_LINUX64_IPF" id="b621.wrf_s_DSPEC_LINUX64_IPF">-DSPEC_LINUX64_IPF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_LINUX64_IPF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on an Itanium
+Processor Family-based Linux system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_LINUX_PPC" id="b621.wrf_s_DSPEC_LINUX_PPC">-DSPEC_LINUX_PPC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_LINUX_PPC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on a PowerPC-based
+Linux system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_LINUX_SPARC" id="b621.wrf_s_DSPEC_LINUX_SPARC">-DSPEC_LINUX_SPARC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_LINUX_SPARC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on a SPARC-based
+Linux system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_MACOSX" id="b621.wrf_s_DSPEC_MACOSX">-DSPEC_MACOSX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_MACOSX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on a MacOS X system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_MACOSX_BE" id="b621.wrf_s_DSPEC_MACOSX_BE">-DSPEC_MACOSX_BE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_MACOSX_BE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on a MacOS X Big-Endian system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_NCCONFIG_AIX" id="b621.wrf_s_DSPEC_NO_NCCONFIG_AIX">-DSPEC_NO_NCCONFIG_AIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_AIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include the "ncconfig_aix.h" header file when "SPEC_AIX" is defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_NCCONFIG_GENERIC" id="b621.wrf_s_DSPEC_NO_NCCONFIG_GENERIC">-DSPEC_NO_NCCONFIG_GENERIC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_GENERIC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include the "ncconfig_generic.h" header file which is used when no target architecture flag is set.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_NCCONFIG_IRIX" id="b621.wrf_s_DSPEC_NO_NCCONFIG_IRIX">-DSPEC_NO_NCCONFIG_IRIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_IRIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include the "ncconfig_irix.h" header file when "SPEC_IRIX" is defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_NCCONFIG_LINUX" id="b621.wrf_s_DSPEC_NO_NCCONFIG_LINUX">-DSPEC_NO_NCCONFIG_LINUX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_LINUX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include the "ncconfig_linux.h" header file when "SPEC_LINUX" or "SPEC_LINUX_PPC" is defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_NCCONFIG_MACOSX" id="b621.wrf_s_DSPEC_NO_NCCONFIG_MACOSX">-DSPEC_NO_NCCONFIG_MACOSX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_MACOSX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include the "ncconfig_macosx.h" header file when "SPEC_MACOSX" is defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_NCCONFIG_WINDOWS" id="b621.wrf_s_DSPEC_NO_NCCONFIG_WINDOWS">-DSPEC_NO_NCCONFIG_WINDOWS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_WINDOWS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include the "ncconfig_windows.h" header file when "SPEC_WINDOWS" is defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_AIX" id="b621.wrf_s_DSPEC_AIX">-DSPEC_AIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_AIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on a PowerPC-based
+AIX system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_SOLARIS" id="b621.wrf_s_DSPEC_SOLARIS">-DSPEC_SOLARIS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_SOLARIS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on a SPARC-based
+Solaris system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_SOLARIS_X86" id="b621.wrf_s_DSPEC_SOLARIS_X86">-DSPEC_SOLARIS_X86</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_SOLARIS_X86(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being compiled on an x64- or
+x86-based Solaris system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_WINDOWS_ICL" id="b621.wrf_s_DSPEC_WINDOWS_ICL">-DSPEC_WINDOWS_ICL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_WINDOWS_ICL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the benchmark is being built on a Windows system
+using the Intel C++ compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_HAVE_ALLOCA" id="b621.wrf_s_DSPEC_NO_HAVE_ALLOCA">-DSPEC_NO_HAVE_ALLOCA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_ALLOCA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that alloca is not available as a macro or function.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_HAVE_ALLOCA_H" id="b621.wrf_s_DSPEC_NO_HAVE_ALLOCA_H">-DSPEC_NO_HAVE_ALLOCA_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_ALLOCA_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the alloca.h header file is not present and should
+not be included.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_NCCONFIG_SOLARIS" id="b621.wrf_s_DSPEC_NO_NCCONFIG_SOLARIS">-DSPEC_NO_NCCONFIG_SOLARIS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_SOLARIS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When set, this macro will inhibit inclusion of the Solaris-specific ncconfig
+header file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_FILE_OFFSET_BITS" id="b621.wrf_s_DSPEC_NO_FILE_OFFSET_BITS">-DSPEC_NO_FILE_OFFSET_BITS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_FILE_OFFSET_BITS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If the _FILE_OFFSET_BITS macro is not set, this flag indicates that a
+default value of "64" should not be provided.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_HAVE_FTRUNCATE" id="b621.wrf_s_DSPEC_NO_HAVE_FTRUNCATE">-DSPEC_NO_HAVE_FTRUNCATE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_FTRUNCATE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When set, this macro indicates that the ftruncate function is not available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_STDC_HEADERS" id="b621.wrf_s_DSPEC_NO_STDC_HEADERS">-DSPEC_NO_STDC_HEADERS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_STDC_HEADERS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag may be used to keep the macro STDC_HEADERS from being defined by
+default.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NO_ST_BLKSIZE" id="b621.wrf_s_DSPEC_NO_ST_BLKSIZE">-DSPEC_NO_ST_BLKSIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_ST_BLKSIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that "struct stat" does not contain a member called
+st_blksize.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_WORDS_LITTLEENDIAN" id="b621.wrf_s_DSPEC_WORDS_LITTLEENDIAN">-DSPEC_WORDS_LITTLEENDIAN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_WORDS_LITTLEENDIAN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the system building the benchmark is a little-endian
+system.  Note that the current data sets for 621.wrf_s are stored in big-endian format.
+Please use your compiler's "convert" flag to convert the data on little-endian systems.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_UCHAR_DEFINED" id="b621.wrf_s_DSPEC_UCHAR_DEFINED">-DSPEC_UCHAR_DEFINED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_UCHAR_DEFINED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If set, this macro indicates that a symbol named "uchar" is already defined
+to be "unsigned char".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_USE_IARGC" id="b621.wrf_s_DSPEC_USE_IARGC">-DSPEC_USE_IARGC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_USE_IARGC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the non-standard "iargc" routine instead of the F2003 get_command_argument routine to the the command line arguments.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_logical_strict" id="b621.wrf_s_logical_strict">
+-DLOGICAL_STRICT,
+-DSPEC_LOGICAL_STRICT
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:SPEC_)?LOGICAL_STRICT\b</span></li>
+<li class="descText">
+<p>
+LOGICAL_STRICT is a NetCDF macro that should be defined for Fortran compilers
+that treat .eqv./.neqv. as .eq./.ne..
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NEED_IO_H" id="b621.wrf_s_DSPEC_NEED_IO_H">-DSPEC_NEED_IO_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NEED_IO_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If set, this macro indicates that the io.h header file should be used instead
+of unistd.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_NEED_WSOCK2H" id="b621.wrf_s_DSPEC_NEED_WSOCK2H">-DSPEC_NEED_WSOCK2H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NEED_WSOCK2H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If set, this macro indicates that the winsock2.h header file should be included
+  to get the definition for ntohl().
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPEC_TIME_H_ABSOLUTE_PATH" id="b621.wrf_s_DSPEC_TIME_H_ABSOLUTE_PATH">-DSPEC_TIME_H_ABSOLUTE_PATH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_TIME_H_ABSOLUTE_PATH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>If set, on macOS systems only this will cause "/usr/include/time.h" to be included
+    instead of the more usual &lt;time.h&gt;.  On all macOS 10.x systems, this should
+    not be needed.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMS_SUA" id="b621.wrf_s_DMS_SUA">-DMS_SUA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMS_SUA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if building on a Microsoft SUA (linux-like) platform.  Note that SUA has not been tested with 621.wrf_s.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMS_SUA_" id="b621.wrf_s_DMS_SUA_">-DMS_SUA_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMS_SUA_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if building on a Microsoft SUA (linux-like) platform.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNCARIBM_NOC99" id="b621.wrf_s_DNCARIBM_NOC99">-DNCARIBM_NOC99</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNCARIBM_NOC99(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+NCAR AIX does not have lrint.  Enable this to define one.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DXT3_Catamount" id="b621.wrf_s_DXT3_Catamount">-DXT3_Catamount</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DXT3_Catamount(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include the Platform specific "features" header file for a Cray XT3 Catamount system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="other">
+<h2><a name="Section_other" id="Section_other">Other Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b621.wrf_s_Dalloca">-Dalloca</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_Dalloca" id="b621.wrf_s_Dalloca">-Dalloca</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]Dalloca(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This allows alloca to be set to the compiler's preferred alloca by SPEC rules.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="mandatory">
+<h2><a name="Section_mandatory" id="Section_mandatory">Mandatory Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b621.wrf_s_currdir_inc">-I., -I./inc, -I./netcdf/include</a></li>
+ <li><a href="#b621.wrf_s_wordsizes">-wordsizes</a></li>
+ <li><a href="#b621.wrf_s_DCONFIG_BUF_LEN">-DCONFIG_BUF_LEN</a></li>
+ <li><a href="#b621.wrf_s_DMAX_DOMAINS_F">-DMAX_DOMAINS_F</a></li>
+ <li><a href="#b621.wrf_s_core_names">-DEM_CORE=1,
+-DDA_CORE=0,
+-DNMM_CORE=0,
+-DCOAMPS_CORE=0,
+-DEXP_CORE=0</a></li>
+ <li><a href="#b621.wrf_s_DINTIO">-DINTIO</a></li>
+ <li><a href="#b621.wrf_s_DMAX_HISTORY">-DMAX_HISTORY</a></li>
+ <li><a href="#b621.wrf_s_DNETCDF">-DNETCDF</a></li>
+ <li><a href="#b621.wrf_s_DNMM_NEST">-DNMM_NEST</a></li>
+ <li><a href="#b621.wrf_s_DNO_NAMELIST_PRINT">-DNO_NAMELIST_PRINT</a></li>
+ <li><a href="#b621.wrf_s_DSTUBMPI">-DSTUBMPI</a></li>
+ <li><a href="#b621.wrf_s_DNMM_MAX_DIM">-DNMM_MAX_DIM</a></li>
+ <li><a href="#b621.wrf_s_DDM_PARALLEL">-DDM_PARALLEL</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_currdir_inc" id="b621.wrf_s_currdir_inc">-I., -I./inc, -I./netcdf/include</a></li>
+<li class="flagDescRE"><span class="tt">-I\.(?:/inc|/netcdf/include)?(?:\s+|$)</span></li>
+<li class="descText">
+<p>
+This flag is included automatically by Spec/object.pm.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_wordsizes" id="b621.wrf_s_wordsizes">-wordsizes</a></li>
+<li class="flagDescRE"><span class="tt">-D[DIRL]WORDSIZE=\d+\b</span></li>
+<li class="descText">
+<p>
+This flag sets the default sizes (in byte) for various data types.  It is
+defined in object.pm and cannot be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCONFIG_BUF_LEN" id="b621.wrf_s_DCONFIG_BUF_LEN">-DCONFIG_BUF_LEN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCONFIG_BUF_LEN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines the size of the unused configuration buffer in words.
+It is set in object.pm and cannot be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMAX_DOMAINS_F" id="b621.wrf_s_DMAX_DOMAINS_F">-DMAX_DOMAINS_F</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX_DOMAINS_F(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro sets the maximum number of domains (number of grids the model
+will be running).  It is set in object.pm and cannot be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_core_names" id="b621.wrf_s_core_names">
+-DEM_CORE=1,
+-DDA_CORE=0,
+-DNMM_CORE=0,
+-DCOAMPS_CORE=0,
+-DEXP_CORE=0
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:NMM|COAMPS|EM|DA|EXP)_CORE=\d+</span></li>
+<li class="descText">
+<p>
+These macros determine whether or not the named model core is built.  The
+default values set in object.pm may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DINTIO" id="b621.wrf_s_DINTIO">-DINTIO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINTIO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag specifies that the ext_internal I/O module should be used.
+The default value set in object.pm may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMAX_HISTORY" id="b621.wrf_s_DMAX_HISTORY">-DMAX_HISTORY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX_HISTORY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Sets the maximum history to store in the results file.
+The default value set in object.pm may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNETCDF" id="b621.wrf_s_DNETCDF">-DNETCDF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNETCDF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+The flag specifies the use of NetCDF for I/O.
+The default value set in object.pm may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNMM_NEST" id="b621.wrf_s_DNMM_NEST">-DNMM_NEST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNMM_NEST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Number of NMM nesting levels. 
+The default value set in object.pm may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_NAMELIST_PRINT" id="b621.wrf_s_DNO_NAMELIST_PRINT">-DNO_NAMELIST_PRINT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_NAMELIST_PRINT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Does not output the namelist input if set.
+The default value set in object.pm may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSTUBMPI" id="b621.wrf_s_DSTUBMPI">-DSTUBMPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTUBMPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro enables stubbing out of MPI functionality in WRF.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNMM_MAX_DIM" id="b621.wrf_s_DNMM_MAX_DIM">-DNMM_MAX_DIM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNMM_MAX_DIM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Maximum dimension of NMM.
+The default value set in object.pm may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDM_PARALLEL" id="b621.wrf_s_DDM_PARALLEL">-DDM_PARALLEL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDM_PARALLEL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that WRF should be built for parallel operation.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="forbidden">
+<h2><a name="Section_forbidden" id="Section_forbidden">Forbidden Flags</a></h2>
+
+
+<p>Using any of the flags below for a publishable run is not permitted.</p>
+<p>Note that many of the flags classified as "forbidden" are classified as
+such only because they were not needed when doing the initial porting work
+for CPU2017, and because the impact of their use was not evaluated.</p>
+
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b621.wrf_s_DAD_SPINUP">-DAD_SPINUP</a></li>
+ <li><a href="#b621.wrf_s_DALWAYS_NC_SHARE">-DALWAYS_NC_SHARE</a></li>
+ <li><a href="#b621.wrf_s_DANSI_C_preprocessor">-DANSI_C_preprocessor</a></li>
+ <li><a href="#b621.wrf_s_old_sun_stuff">-DFLOATFUNCTIONTYPE=XXX,
+-DASSIGNFLOAT=XXX,
+-DRETURNFLOAT=XXX</a></li>
+ <li><a href="#b621.wrf_s_DAUTODOC_BUILD">-DAUTODOC_BUILD</a></li>
+ <li><a href="#b621.wrf_s_DHAVE_ALLOCA">-DHAVE_ALLOCA</a></li>
+ <li><a href="#b621.wrf_s_DHAVE_ALLOCA_H">-DHAVE_ALLOCA_H</a></li>
+ <li><a href="#b621.wrf_s_DBATHYMETRY">-DBATHYMETRY</a></li>
+ <li><a href="#b621.wrf_s_DBENCH">-DBENCH</a></li>
+ <li><a href="#b621.wrf_s_DC13">-DC13</a></li>
+ <li><a href="#b621.wrf_s_DCACHE_FRIENDLY_MP_ETANEW">-DCACHE_FRIENDLY_MP_ETANEW</a></li>
+ <li><a href="#b621.wrf_s_DCACHE_FRIENDLY_MP_ETAOLD">-DCACHE_FRIENDLY_MP_ETAOLD</a></li>
+ <li><a href="#b621.wrf_s_DCASA">-DCASA</a></li>
+ <li><a href="#b621.wrf_s_DHAVE_ST_BLKSIZE">-DHAVE_ST_BLKSIZE</a></li>
+ <li><a href="#b621.wrf_s_DCDEBUG">-DCDEBUG</a></li>
+ <li><a href="#b621.wrf_s_DCDF_ROUTINE_NAME">-DCDF_ROUTINE_NAME</a></li>
+ <li><a href="#b621.wrf_s_DCFSUBASFUN">-DCFSUBASFUN</a></li>
+ <li><a href="#b621.wrf_s_DCLAMP">-DCLAMP</a></li>
+ <li><a href="#b621.wrf_s_DCLWRFGHG">-DCLWRFGHG</a></li>
+ <li><a href="#b621.wrf_s_DCN">-DCN</a></li>
+ <li><a href="#b621.wrf_s_DCNDV">-DCNDV</a></li>
+ <li><a href="#b621.wrf_s_DCOMMENTOUTSAMPLE">-DCOMMENTOUTSAMPLE</a></li>
+ <li><a href="#b621.wrf_s_DCOMMON_BLOCK">-DCOMMON_BLOCK</a></li>
+ <li><a href="#b621.wrf_s_DCOPY_OUT">-DCOPY_OUT</a></li>
+ <li><a href="#b621.wrf_s_DCPP_VECTOR">-DCPP_VECTOR</a></li>
+ <li><a href="#b621.wrf_s_DCRAYFLOAT">-DCRAYFLOAT</a></li>
+ <li><a href="#b621.wrf_s_DCROP">-DCROP</a></li>
+ <li><a href="#b621.wrf_s_DDEBUG2">-DDEBUG2</a></li>
+ <li><a href="#b621.wrf_s_DDEBUGCLM">-DDEBUGCLM</a></li>
+ <li><a href="#b621.wrf_s_DDEBUG_OUT">-DDEBUG_OUT</a></li>
+ <li><a href="#b621.wrf_s_DDEBUG_OUT_FUEL_LEFT">-DDEBUG_OUT_FUEL_LEFT</a></li>
+ <li><a href="#b621.wrf_s_DDEREF_KLUDGE">-DDEREF_KLUDGE</a></li>
+ <li><a href="#b621.wrf_s_DDGVM">-DDGVM</a></li>
+ <li><a href="#b621.wrf_s_DDISABLE_ALARM_AUXHIST1">-DDISABLE_ALARM_AUXHIST1</a></li>
+ <li><a href="#b621.wrf_s_src_dest_record">-DDEST_RECORD=XXX,
+-DSOURCE_RECORD=XXX,
+-DSOURCE_REC_DEX=XXX</a></li>
+ <li><a href="#b621.wrf_s_dll_stuff">-DDLL_EXPORT,
+-DDLL_NETCDF</a></li>
+ <li><a href="#b621.wrf_s_DDOUBLE_PRECISION">-DDOUBLE_PRECISION</a></li>
+ <li><a href="#b621.wrf_s_DDUMBCOPY">-DDUMBCOPY</a></li>
+ <li><a href="#b621.wrf_s_DDUST">-DDUST</a></li>
+ <li><a href="#b621.wrf_s_DESMFIO">-DESMFIO</a></li>
+ <li><a href="#b621.wrf_s_DETALAKE">-DETALAKE</a></li>
+ <li><a href="#b621.wrf_s_posix_stuff">-DENOERR=XXX,
+-DFLT_MAX=XXX,
+-DFLT_MAX_EXP=XXX,
+-DINT_MAX=XXX,
+-DLONG_MAX=XXX,
+-DO_BINARY=XXX,
+-DSEEK_SET=XXX,
+-DSHORT_MAX=XXX</a></li>
+ <li><a href="#b621.wrf_s_ix_rep">-DIX_INT_MAX=XXX,
+-DIX_SHORT_MAX=XXX,
+-DSIZEOF_IX_INT=XXX,
+-DSIZEOF_IX_SHORT=XXX</a></li>
+ <li><a href="#b621.wrf_s_DEXTRALAKELAYERS">-DEXTRALAKELAYERS</a></li>
+ <li><a href="#b621.wrf_s_DEXTRA_HWRF_DEBUG_STUFF">-DEXTRA_HWRF_DEBUG_STUFF</a></li>
+ <li><a href="#b621.wrf_s_DFCALLSC_QUALIFIER">-DFCALLSC_QUALIFIER</a></li>
+ <li><a href="#b621.wrf_s_DFORTRAN_REAL">-DFORTRAN_REAL</a></li>
+ <li><a href="#b621.wrf_s_DFSEEKO64_OK">-DFSEEKO64_OK</a></li>
+ <li><a href="#b621.wrf_s_DFSEEKO_OK">-DFSEEKO_OK</a></li>
+ <li><a href="#b621.wrf_s_DFUEL_LEFT">-DFUEL_LEFT</a></li>
+ <li><a href="#b621.wrf_s_DFUJITSU_FX10">-DFUJITSU_FX10</a></li>
+ <li><a href="#b621.wrf_s_DG95">-DG95</a></li>
+ <li><a href="#b621.wrf_s_DGRIB1">-DGRIB1</a></li>
+ <li><a href="#b621.wrf_s_DGRIB2">-DGRIB2</a></li>
+ <li><a href="#b621.wrf_s_DGRIB_ONE_TIME_PER_FILE">-DGRIB_ONE_TIME_PER_FILE</a></li>
+ <li><a href="#b621.wrf_s_DHAVE_GETPAGESIZE">-DHAVE_GETPAGESIZE</a></li>
+ <li><a href="#b621.wrf_s_DHEAVYNEW">-DHEAVYNEW</a></li>
+ <li><a href="#b621.wrf_s_DHWRF">-DHWRF</a></li>
+ <li><a href="#b621.wrf_s_DIBM_REDUCE_BUG_WORKAROUND">-DIBM_REDUCE_BUG_WORKAROUND</a></li>
+ <li><a href="#b621.wrf_s_DINTELMKL">-DINTELMKL</a></li>
+ <li><a href="#b621.wrf_s_DINTEL_ALIGN64">-DINTEL_ALIGN64</a></li>
+ <li><a href="#b621.wrf_s_DLAKEDEBUG">-DLAKEDEBUG</a></li>
+ <li><a href="#b621.wrf_s_DLEARN_BCAST">-DLEARN_BCAST</a></li>
+ <li><a href="#b621.wrf_s_netcdf_debug">-DLN_TEST,
+-DINSTRUMENT,
+-DODEBUG</a></li>
+ <li><a href="#b621.wrf_s_DLOCKNUMREC">-DLOCKNUMREC</a></li>
+ <li><a href="#b621.wrf_s_DMACOS">-DMACOS</a></li>
+ <li><a href="#b621.wrf_s_DMAC_KLUDGE">-DMAC_KLUDGE</a></li>
+ <li><a href="#b621.wrf_s_DMAKE_PROGRAM">-DMAKE_PROGRAM</a></li>
+ <li><a href="#b621.wrf_s_DMARS">-DMARS</a></li>
+ <li><a href="#b621.wrf_s_DMAX_NC_OPEN">-DMAX_NC_OPEN</a></li>
+ <li><a href="#b621.wrf_s_DMAX_PREPRO_ARGS">-DMAX_PREPRO_ARGS</a></li>
+ <li><a href="#b621.wrf_s_DMIN_TILE_SIZE">-DMIN_TILE_SIZE</a></li>
+ <li><a href="#b621.wrf_s_DMM5_SINT">-DMM5_SINT</a></li>
+ <li><a href="#b621.wrf_s_DMODAL_AERO_7MODE">-DMODAL_AERO_7MODE</a></li>
+ <li><a href="#b621.wrf_s_DMOVE_NESTS">-DMOVE_NESTS</a></li>
+ <li><a href="#b621.wrf_s_DMOVING_DIAGS">-DMOVING_DIAGS</a></li>
+ <li><a href="#b621.wrf_s_DMPI2_SUPPORT">-DMPI2_SUPPORT</a></li>
+ <li><a href="#b621.wrf_s_DMPI2_THREAD_SUPPORT">-DMPI2_THREAD_SUPPORT</a></li>
+ <li><a href="#b621.wrf_s_namelist_read_stuff">-DNAMELIST_READ_UNIT=XXX,
+-DNAMELIST_READ_ERROR_LABEL=XXX</a></li>
+ <li><a href="#b621.wrf_s_DNAN_VALUE">-DNAN_VALUE</a></li>
+ <li><a href="#b621.wrf_s_DNATIVE_MASSV">-DNATIVE_MASSV</a></li>
+ <li><a href="#b621.wrf_s_DNCEP_DEBUG_GLOBALSTDOUT">-DNCEP_DEBUG_GLOBALSTDOUT</a></li>
+ <li><a href="#b621.wrf_s_DNCEP_DEBUG_MULTIDIR">-DNCEP_DEBUG_MULTIDIR</a></li>
+ <li><a href="#b621.wrf_s_DNC_ARRAY_GROWBY">-DNC_ARRAY_GROWBY</a></li>
+ <li><a href="#b621.wrf_s_nc_retcodes">-DNC_ENOMEM=XXX,
+-DNC_ERANGE=XXX</a></li>
+ <li><a href="#b621.wrf_s_DNEC">-DNEC</a></li>
+ <li><a href="#b621.wrf_s_DNEC_SX">-DNEC_SX</a></li>
+ <li><a href="#b621.wrf_s_DNEED_STUBS">-DNEED_STUBS</a></li>
+ <li><a href="#b621.wrf_s_netcdf_type_flags">-DNF_DOUBLEPRECISION_IS_C_FLOAT=XXX,
+-DNF_INT1_IS_C_SIGNED_CHAR=XXX,
+-DNF_INT2_IS_C_SHORT=XXX,
+-DNF_INT_IS_C_INT=XXX,
+-DNF_REAL_IS_C_DOUBLE=XXX,
+-DNF_REAL_IS_C_FLOAT=XXX</a></li>
+ <li><a href="#b621.wrf_s_DNL_get_ROUTINES">-DNL_get_ROUTINES</a></li>
+ <li><a href="#b621.wrf_s_DNL_set_ROUTINES">-DNL_set_ROUTINES</a></li>
+ <li><a href="#b621.wrf_s_DNMM_FIND_LOAD_IMBALANCE">-DNMM_FIND_LOAD_IMBALANCE</a></li>
+ <li><a href="#b621.wrf_s_DNO_IEEE_FLOAT">-DNO_IEEE_FLOAT</a></li>
+ <li><a href="#b621.wrf_s_DNOCOMPETE">-DNOCOMPETE</a></li>
+ <li><a href="#b621.wrf_s_DNOFIRE">-DNOFIRE</a></li>
+ <li><a href="#b621.wrf_s_DNONSTANDARD_SYSTEM_FUNC">-DNONSTANDARD_SYSTEM_FUNC</a></li>
+ <li><a href="#b621.wrf_s_DNONSTANDARD_SYSTEM_SUBR">-DNONSTANDARD_SYSTEM_SUBR</a></li>
+ <li><a href="#b621.wrf_s_DNO_DAYLEN_VCMAX">-DNO_DAYLEN_VCMAX</a></li>
+ <li><a href="#b621.wrf_s_DNO_INITIAL_DATA_VALUE">-DNO_INITIAL_DATA_VALUE</a></li>
+ <li><a href="#b621.wrf_s_DNO_I1_OLD">-DNO_I1_OLD</a></li>
+ <li><a href="#b621.wrf_s_DNO_IEEE_MODULE">-DNO_IEEE_MODULE</a></li>
+ <li><a href="#b621.wrf_s_DNO_LEAP_CALENDAR">-DNO_LEAP_CALENDAR</a></li>
+ <li><a href="#b621.wrf_s_DNO_NETCDF_2">-DNO_NETCDF_2</a></li>
+ <li><a href="#b621.wrf_s_DNO_STRERROR">-DNO_STRERROR</a></li>
+ <li><a href="#b621.wrf_s_DOFFLINE">-DOFFLINE</a></li>
+ <li><a href="#b621.wrf_s_DOLD_REG_GEOM">-DOLD_REG_GEOM</a></li>
+ <li><a href="#b621.wrf_s_DOLD_TIMERS">-DOLD_TIMERS</a></li>
+ <li><a href="#b621.wrf_s_DOPTIMIZE_CFL_TEST">-DOPTIMIZE_CFL_TEST</a></li>
+ <li><a href="#b621.wrf_s_DOUTPUT_FULL_GEOPOTENTIAL">-DOUTPUT_FULL_GEOPOTENTIAL</a></li>
+ <li><a href="#b621.wrf_s_DOUTPUT_FULL_PRESSURE">-DOUTPUT_FULL_PRESSURE</a></li>
+ <li><a href="#b621.wrf_s_DPADIT">-DPADIT</a></li>
+ <li><a href="#b621.wrf_s_DPLANET">-DPLANET</a></li>
+ <li><a href="#b621.wrf_s_DPNETCDF">-DPNETCDF</a></li>
+ <li><a href="#b621.wrf_s_DPNETCDF_QUILT">-DPNETCDF_QUILT</a></li>
+ <li><a href="#b621.wrf_s_DPROMOTE_FLOAT">-DPROMOTE_FLOAT</a></li>
+ <li><a href="#b621.wrf_s_DPROTOTYPE_NEEDED">-DPROTOTYPE_NEEDED</a></li>
+ <li><a href="#b621.wrf_s_DP_TABLE_FIRST">-DP_TABLE_FIRST</a></li>
+ <li><a href="#b621.wrf_s_DPOSIXIO_DEFAULT_PAGESIZE">-DPOSIXIO_DEFAULT_PAGESIZE</a></li>
+ <li><a href="#b621.wrf_s_DRAL">-DRAL</a></li>
+ <li><a href="#b621.wrf_s_DREGTEST">-DREGTEST</a></li>
+ <li><a href="#b621.wrf_s_DREVERT">-DREVERT</a></li>
+ <li><a href="#b621.wrf_s_DRSL">-DRSL</a></li>
+ <li><a href="#b621.wrf_s_DRSL0_ONLY">-DRSL0_ONLY</a></li>
+ <li><a href="#b621.wrf_s_DRTM">-DRTM</a></li>
+ <li><a href="#b621.wrf_s_DRUN_ON_GPU">-DRUN_ON_GPU</a></li>
+ <li><a href="#b621.wrf_s_DSGIALTIX">-DSGIALTIX</a></li>
+ <li><a href="#b621.wrf_s_DSHLAKE">-DSHLAKE</a></li>
+ <li><a href="#b621.wrf_s_DSHLAKETEST">-DSHLAKETEST</a></li>
+ <li><a href="#b621.wrf_s_DSPMD">-DSPMD</a></li>
+ <li><a href="#b621.wrf_s_DSTUG">-DSTUG</a></li>
+ <li><a href="#b621.wrf_s_DSUN">-DSUN</a></li>
+ <li><a href="#b621.wrf_s_DSUNINFO">-DSUNINFO</a></li>
+ <li><a href="#b621.wrf_s_DSUPLN">-DSUPLN</a></li>
+ <li><a href="#b621.wrf_s_DSYM_H">-DSYM_H</a></li>
+ <li><a href="#b621.wrf_s_DT3D">-DT3D</a></li>
+ <li><a href="#b621.wrf_s_DTABLES_H">-DTABLES_H</a></li>
+ <li><a href="#b621.wrf_s_DTERRAIN_AND_LANDUSE">-DTERRAIN_AND_LANDUSE</a></li>
+ <li><a href="#b621.wrf_s_DTERRAIN_TBASE">-DTERRAIN_TBASE</a></li>
+ <li><a href="#b621.wrf_s_DTEST">-DTEST</a></li>
+ <li><a href="#b621.wrf_s_DTESTZACK">-DTESTZACK</a></li>
+ <li><a href="#b621.wrf_s_cf_bytes">-DSIGNED_BYTE,
+-DUNSIGNED_BYTE</a></li>
+ <li><a href="#b621.wrf_s_sizeof">-DSIZEOF_DOUBLE=XXX,
+-DSIZEOF_FLOAT=XXX,
+-DSIZEOF_INT=XXX,
+-DSIZEOF_LONG=XXX,
+-DSIZEOF_OFF_T=XXX,
+-DSIZEOF_SHORT=XXX,
+-DSIZEOF_SIZE_T=XXX</a></li>
+ <li><a href="#b621.wrf_s_DSNICAR_FRC">-DSNICAR_FRC</a></li>
+ <li><a href="#b621.wrf_s_DSTUB_FOR_NOW">-DSTUB_FOR_NOW</a></li>
+ <li><a href="#b621.wrf_s_DTITAN">-DTITAN</a></li>
+ <li><a href="#b621.wrf_s_DUNICOSMP">-DUNICOSMP</a></li>
+ <li><a href="#b621.wrf_s_DUSE_ALLOCATABLES">-DUSE_ALLOCATABLES</a></li>
+ <li><a href="#b621.wrf_s_DUSE_HIRES">-DUSE_HIRES</a></li>
+ <li><a href="#b621.wrf_s_DUSE_MPI_IN_PLACE">-DUSE_MPI_IN_PLACE</a></li>
+ <li><a href="#b621.wrf_s_DTOUCH_LAST">-DTOUCH_LAST</a></li>
+ <li><a href="#b621.wrf_s_DUSE_NEW_DELETE">-DUSE_NEW_DELETE</a></li>
+ <li><a href="#b621.wrf_s_DWORDS_BIGENDIAN">-DWORDS_BIGENDIAN</a></li>
+ <li><a href="#b621.wrf_s_DVAR4D">-DVAR4D</a></li>
+ <li><a href="#b621.wrf_s_DVERT_UNIT">-DVERT_UNIT</a></li>
+ <li><a href="#b621.wrf_s_DVERBOSE">-DVERBOSE</a></li>
+ <li><a href="#b621.wrf_s_DVORTEX_CENTER">-DVORTEX_CENTER</a></li>
+ <li><a href="#b621.wrf_s_DWACCM_MOZART">-DWACCM_MOZART</a></li>
+ <li><a href="#b621.wrf_s_DWACCM_PHYS">-DWACCM_PHYS</a></li>
+ <li><a href="#b621.wrf_s_DWRAP_MALLOC">-DWRAP_MALLOC</a></li>
+ <li><a href="#b621.wrf_s_DWORD_BIT_CNT">-DWORD_BIT_CNT</a></li>
+ <li><a href="#b621.wrf_s_DWRAP_MALLOC_ALIGNMENT">-DWRAP_MALLOC_ALIGNMENT</a></li>
+ <li><a href="#b621.wrf_s_DWRF_CHEM">-DWRF_CHEM</a></li>
+ <li><a href="#b621.wrf_s_DWRF_DFI_RADAR">-DWRF_DFI_RADAR</a></li>
+ <li><a href="#b621.wrf_s_DWRF_HYDRO">-DWRF_HYDRO</a></li>
+ <li><a href="#b621.wrf_s_DWRF_IO_INT_IDX_H">-DWRF_IO_INT_IDX_H</a></li>
+ <li><a href="#b621.wrf_s_DWRF_LOG_BUFFERING">-DWRF_LOG_BUFFERING</a></li>
+ <li><a href="#b621.wrf_s_DWRF_PORT">-DWRF_PORT</a></li>
+ <li><a href="#b621.wrf_s_DWRF_USE_CLM">-DWRF_USE_CLM</a></li>
+ <li><a href="#b621.wrf_s_DXEON_OPTIMIZED_WSM5">-DXEON_OPTIMIZED_WSM5</a></li>
+ <li><a href="#b621.wrf_s_DXEON_SIMD">-DXEON_SIMD</a></li>
+ <li><a href="#b621.wrf_s_DWSM_NO_CONDITIONAL_IN_VECTOR">-DWSM_NO_CONDITIONAL_IN_VECTOR</a></li>
+ <li><a href="#b621.wrf_s_xdr_var_stuff">-DX_ALIGN=XXX,
+-DX_INT_MAX=XXX,
+-DX_SHORT_MAX=XXX,
+-DX_SIZEOF_DOUBLE=XXX,
+-DX_SIZEOF_FLOAT=XXX,
+-DX_SIZEOF_INT=XXX,
+-DX_SIZEOF_SHORT=XXX,
+-DX_SIZEOF_SIZE_T=XXX</a></li>
+ <li><a href="#b621.wrf_s_DZTRINGV_ARGS_allows_Pvariables">-DZTRINGV_ARGS_allows_Pvariables</a></li>
+ <li><a href="#b621.wrf_s_D_ACCEL">-D_ACCEL</a></li>
+ <li><a href="#b621.wrf_s_D_ACCEL_PROF">-D_ACCEL_PROF</a></li>
+ <li><a href="#b621.wrf_s_D_AIX">-D_AIX</a></li>
+ <li><a href="#b621.wrf_s_D_RNDUP">-D_RNDUP</a></li>
+ <li><a href="#b621.wrf_s_D__CHAR_UNSIGNED__">-D__CHAR_UNSIGNED__</a></li>
+ <li><a href="#b621.wrf_s_Dncvarcpy">-Dncvarcpy</a></li>
+ <li><a href="#b621.wrf_s_DAbsoftProFortran">-DAbsoftProFortran</a></li>
+ <li><a href="#b621.wrf_s_DAbsoftUNIXFortran">-DAbsoftUNIXFortran</a></li>
+ <li><a href="#b621.wrf_s_DpgiFortran">-DpgiFortran</a></li>
+ <li><a href="#b621.wrf_s_DPATHSCALE_COMPILER">-DPATHSCALE_COMPILER</a></li>
+ <li><a href="#b621.wrf_s_DNAGf90Fortran">-DNAGf90Fortran</a></li>
+ <li><a href="#b621.wrf_s_Df2cFortran">-Df2cFortran</a></li>
+ <li><a href="#b621.wrf_s_D_MULTI_BDY_FILES_">-D_MULTI_BDY_FILES_</a></li>
+ <li><a href="#b621.wrf_s_cfortran_internals">-D__CF_KnR=XXX,
+-D__CF__APOLLO67=XXX,
+-D__CF__KnR=XXX,
+-DOLD_VAXC=XXX</a></li>
+ <li><a href="#b621.wrf_s_header_guards">-DUD_FORT_LIB_H,
+-DUD_NCFORTRAN_H,
+-DUD_NETCDF_CPP_INC,
+-D_NETCDF_,
+-D_FBITS_H_,
+-D__CFORTRAN_LOADED,
+-D_ONSTACK_H_,
+-D_NCCONFIG_AIX_H_,
+-D_NCCONFIG_GENERIC_H_,
+-D_NCCONFIG_H_,
+-D_NCCONFIG_IRIX_H_,
+-D_NCCONFIG_LINUX_H_,
+-D_NCCONFIG_MACOSX_H_,
+-D_NCCONFIG_SOLARIS_H_,
+-D_NCCONFIG_WINDOWS_H_,
+-D_NCIO_H_,
+-D_NCX_H_,
+-D_NC_H_,
+-DESMF_MACROS_INC,
+-DESMF_TimeMgr_INC</a></li>
+ <li><a href="#b621.wrf_s_comp_implicit">-Dextname=XXX,
+-Dsun=XXX,
+-DsunFortran=XXX,
+-Dunix=XXX,
+-Dvax=XXX,
+-Dvms=XXX,
+-DvmsFortran=XXX,
+-DhpuxFortran=XXX,
+-DhpuxFortran800=XXX,
+-Dlynx=XXX,
+-Dmips=XXX,
+-DmipsFortran=XXX,
+-Dapollo=XXX,
+-DapolloFortran=XXX,
+-D__CYGWIN32__=XXX,
+-D__GNUC__=XXX,
+-D__PATHCC__=XXX,
+-D__STDCPP__=XXX,
+-D__STDC__=XXX,
+-D__VAXC=XXX,
+-D__alpha=XXX,
+-D__convex__=XXX,
+-D__cplusplus=XXX,
+-D__hpux=XXX,
+-D__mips=XXX,
+-D__sgi=XXX,
+-D__sun=XXX,
+-D__ultrix__=XXX,
+-D__unix__=XXX,
+-D__vax__=XXX,
+-D__vms=XXX,
+-D_SC_PAGESIZE=XXX,
+-D_SC_PAGE_SIZE=XXX,
+-D_SX=XXX,
+-D__64BIT__=XXX,
+-D_MSC_VER=XXX,
+-D_IBMR2=XXX,
+-D_CRAY=XXX,
+-D_CRAYC=XXX,
+-D_CRAYIEEE=XXX,
+-D_CRAYMPP=XXX,
+-D_CRAYT3E=XXX,
+-D_INT64=XXX,
+-DVAXC=XXX,
+-DVAXUltrix=XXX,
+-DVISUAL_CPLUSPLUS=XXX,
+-DWIN32=XXX,
+-DS_IRUSR=XXX,
+-DSXFortran=XXX,
+-DCLIPPERFortran=XXX,
+-DCONVEXFortran=XXX,
+-DCRAY=XXX,
+-DCRAYFortran=XXX,
+-DDECFortran=XXX,
+-DIBMR2Fortran=XXX,
+-DPowerStationFortran=XXX</a></li>
+ <li><a href="#b621.wrf_s_wrf_io_mod">-DXXX,
+-DYYY,
+-DZZZ,
+-DHDF,
+-DPHDF5,
+-DMCELIO,</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DAD_SPINUP" id="b621.wrf_s_DAD_SPINUP">-DAD_SPINUP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAD_SPINUP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the AD Spinup algrorithm.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DALWAYS_NC_SHARE" id="b621.wrf_s_DALWAYS_NC_SHARE">-DALWAYS_NC_SHARE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALWAYS_NC_SHARE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes NetCDF to attempt to set NC_SHARE on files it opens.  It is
+used for debugging, and changing its value from the default is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DANSI_C_preprocessor" id="b621.wrf_s_DANSI_C_preprocessor">-DANSI_C_preprocessor</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DANSI_C_preprocessor(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag is used by cfortran.h to determine whether it can use preprocessor
+features defined by the ANSI C standard.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_old_sun_stuff" id="b621.wrf_s_old_sun_stuff">
+-DFLOATFUNCTIONTYPE=XXX,
+-DASSIGNFLOAT=XXX,
+-DRETURNFLOAT=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:FLOATFUNCTIONTYPE|ASSIGNFLOAT|RETURNFLOAT)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+This flag (if necessary) is defined by the compilation system.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DAUTODOC_BUILD" id="b621.wrf_s_DAUTODOC_BUILD">-DAUTODOC_BUILD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAUTODOC_BUILD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes WRF to not exit immediately after writing its inital restart
+file.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DHAVE_ALLOCA" id="b621.wrf_s_DHAVE_ALLOCA">-DHAVE_ALLOCA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ALLOCA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that alloca is available as a macro or function.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DHAVE_ALLOCA_H" id="b621.wrf_s_DHAVE_ALLOCA_H">-DHAVE_ALLOCA_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ALLOCA_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the alloca.h header file is available.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA_H.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DBATHYMETRY" id="b621.wrf_s_DBATHYMETRY">-DBATHYMETRY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBATHYMETRY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the "get_bathymetry" routine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DBENCH" id="b621.wrf_s_DBENCH">-DBENCH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBENCH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable internal performance measurements.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DC13" id="b621.wrf_s_DC13">-DC13</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DC13(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add isotope code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCACHE_FRIENDLY_MP_ETANEW" id="b621.wrf_s_DCACHE_FRIENDLY_MP_ETANEW">-DCACHE_FRIENDLY_MP_ETANEW</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCACHE_FRIENDLY_MP_ETANEW(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Change the dimension order for a few temp arrays to get better caching.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCACHE_FRIENDLY_MP_ETAOLD" id="b621.wrf_s_DCACHE_FRIENDLY_MP_ETAOLD">-DCACHE_FRIENDLY_MP_ETAOLD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCACHE_FRIENDLY_MP_ETAOLD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Change the dimension order for a few temp arrays to get better caching.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCASA" id="b621.wrf_s_DCASA">-DCASA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCASA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the CADA Module.  Not used in 621.wrf_s.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DHAVE_ST_BLKSIZE" id="b621.wrf_s_DHAVE_ST_BLKSIZE">-DHAVE_ST_BLKSIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ST_BLKSIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that "struct stat" has a member named "st_blksize".
+It is set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ST_BLKSIZE.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCDEBUG" id="b621.wrf_s_DCDEBUG">-DCDEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCDEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag enables coordinate check debug output in NetCDF.  It may not be used
+for a CPU2017 run.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCDF_ROUTINE_NAME" id="b621.wrf_s_DCDF_ROUTINE_NAME">-DCDF_ROUTINE_NAME</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCDF_ROUTINE_NAME(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes the variable cdf_routine_name to be set to the current
+function name in the NetCDF-2 bindings.  This flag may not be used for
+CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCFSUBASFUN" id="b621.wrf_s_DCFSUBASFUN">-DCFSUBASFUN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCFSUBASFUN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes cfortran.h to replace subroutines with function calls.  It
+may not be used for 621.wrf_s.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCLAMP" id="b621.wrf_s_DCLAMP">-DCLAMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCLAMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use C-LAMP. Not used by 621.wrf_s.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCLWRFGHG" id="b621.wrf_s_DCLWRFGHG">-DCLWRFGHG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCLWRFGHG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+CLWRF-UC June.09.  Not used by 621.wrf_s.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCN" id="b621.wrf_s_DCN">-DCN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use CN code.  Not used by 621.wrf_s.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCNDV" id="b621.wrf_s_DCNDV">-DCNDV</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCNDV(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use CN code.  Not used by 621.wrf_s.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCOMMENTOUTSAMPLE" id="b621.wrf_s_DCOMMENTOUTSAMPLE">-DCOMMENTOUTSAMPLE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOMMENTOUTSAMPLE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use a sample main.c in symtab_gen.c.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCOMMON_BLOCK" id="b621.wrf_s_DCOMMON_BLOCK">-DCOMMON_BLOCK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOMMON_BLOCK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines a method to refer to Fortran common blocks from C functions.
+Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCOPY_OUT" id="b621.wrf_s_DCOPY_OUT">-DCOPY_OUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOPY_OUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro causes variables to be copied out of the grid data structure at
+various places in the WRF source code.
+It is used internally by WRF and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCPP_VECTOR" id="b621.wrf_s_DCPP_VECTOR">-DCPP_VECTOR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCPP_VECTOR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use code that's more easily vectorized and include compiler specific directives.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCRAYFLOAT" id="b621.wrf_s_DCRAYFLOAT">-DCRAYFLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCRAYFLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that CRAY floating point (real*16) should be used.  This
+may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DCROP" id="b621.wrf_s_DCROP">-DCROP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCROP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the clm_varcon module's istcrop variable.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDEBUG2" id="b621.wrf_s_DDEBUG2">-DDEBUG2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add debugging code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDEBUGCLM" id="b621.wrf_s_DDEBUGCLM">-DDEBUGCLM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUGCLM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add debugging code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDEBUG_OUT" id="b621.wrf_s_DDEBUG_OUT">-DDEBUG_OUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_OUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print debugging output.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDEBUG_OUT_FUEL_LEFT" id="b621.wrf_s_DDEBUG_OUT_FUEL_LEFT">-DDEBUG_OUT_FUEL_LEFT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_OUT_FUEL_LEFT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Internal debugging code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDEREF_KLUDGE" id="b621.wrf_s_DDEREF_KLUDGE">-DDEREF_KLUDGE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEREF_KLUDGE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>This macro enables a potentially dangerous workaround to keep certain Fortran
+90 compilers from performing a copy-in/copy-out conversion on the grid
+data structure in some cases.  See <a href="http://www.mmm.ucar.edu/wrf/WG2/topics/deref_kludge.htm">this page</a> for more information.</p>
+<p>This flag may not be used for CPU2017.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDGVM" id="b621.wrf_s_DDGVM">-DDGVM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDGVM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the DGVM variables.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDISABLE_ALARM_AUXHIST1" id="b621.wrf_s_DDISABLE_ALARM_AUXHIST1">-DDISABLE_ALARM_AUXHIST1</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DDISABLE_ALARM_AUX\w*\b</span></li>
+<li class="descText">
+<p>
+Disable debugging output from AUX History Output.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_src_dest_record" id="b621.wrf_s_src_dest_record">
+-DDEST_RECORD=XXX,
+-DSOURCE_RECORD=XXX,
+-DSOURCE_REC_DEX=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:(?:DEST|SOURCE)_RECORD|SOURCE_REC_DEX)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros are used to set the names of data structures used for assignment.
+They are used internally by WRF and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_dll_stuff" id="b621.wrf_s_dll_stuff">
+-DDLL_EXPORT,
+-DDLL_NETCDF
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DDLL_(?:EXPORT|NETCDF)\b</span></li>
+<li class="descText">
+<p>
+These macros are used when building parts of the WRF library as a DLL.  They
+are not used for CPU2017 and may not be set.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDOUBLE_PRECISION" id="b621.wrf_s_DDOUBLE_PRECISION">-DDOUBLE_PRECISION</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDOUBLE_PRECISION(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro contains the name of the C type which can hold a double precision
+Fortran number.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDUMBCOPY" id="b621.wrf_s_DDUMBCOPY">-DDUMBCOPY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDUMBCOPY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined, causes slow copy routines to be used in interp_fcn.  This may
+not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DDUST" id="b621.wrf_s_DDUST">-DDUST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDUST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add dust force calculations.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DESMFIO" id="b621.wrf_s_DESMFIO">-DESMFIO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DESMFIO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable ESMF coupling.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DETALAKE" id="b621.wrf_s_DETALAKE">-DETALAKE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DETALAKE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set the extinction coefficient.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_posix_stuff" id="b621.wrf_s_posix_stuff">
+-DENOERR=XXX,
+-DFLT_MAX=XXX,
+-DFLT_MAX_EXP=XXX,
+-DINT_MAX=XXX,
+-DLONG_MAX=XXX,
+-DO_BINARY=XXX,
+-DSEEK_SET=XXX,
+-DSHORT_MAX=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:ENOERR|FLT_MAX_EXP|(?:INT|FLT|LONG|SHORT)_MAX|O_BINARY|O_CREAT|O_TRUNC|O_WRONLY|SEEK_SET)(?:=\S*)\b</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_ix_rep" id="b621.wrf_s_ix_rep">
+-DIX_INT_MAX=XXX,
+-DIX_SHORT_MAX=XXX,
+-DSIZEOF_IX_INT=XXX,
+-DSIZEOF_IX_SHORT=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:IX_(?:INT|SHORT)_MAX|SIZEOF_IX_(?:INT|SHORT))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros define sizes and ranges of the variable types used to hold XDR
+data.  They are not used for CPU2017 and may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DEXTRALAKELAYERS" id="b621.wrf_s_DEXTRALAKELAYERS">-DEXTRALAKELAYERS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DEXTRALAKELAYERS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Initialize extra lake layer variables.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DEXTRA_HWRF_DEBUG_STUFF" id="b621.wrf_s_DEXTRA_HWRF_DEBUG_STUFF">-DEXTRA_HWRF_DEBUG_STUFF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DEXTRA_HWRF_DEBUG_STUFF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add extra debugging information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DFCALLSC_QUALIFIER" id="b621.wrf_s_DFCALLSC_QUALIFIER">-DFCALLSC_QUALIFIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFCALLSC_QUALIFIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro holds the qualifier (if any) needed for C functions called from
+Fortran.  The default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DFORTRAN_REAL" id="b621.wrf_s_DFORTRAN_REAL">-DFORTRAN_REAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFORTRAN_REAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro contains the name of the C type which can hold a Fortran REAL
+number.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DFSEEKO64_OK" id="b621.wrf_s_DFSEEKO64_OK">-DFSEEKO64_OK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFSEEKO64_OK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by system headers.  If enabled, fseeko64 may be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DFSEEKO_OK" id="b621.wrf_s_DFSEEKO_OK">-DFSEEKO_OK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFSEEKO_OK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by system headers.  If enabled, _FILE_OFFSET_BIT is set to 64 and fseeko may be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DFUEL_LEFT" id="b621.wrf_s_DFUEL_LEFT">-DFUEL_LEFT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFUEL_LEFT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if the function fuel_left_cell_2 has been implemented.  Not used in SPEC CPU version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DFUJITSU_FX10" id="b621.wrf_s_DFUJITSU_FX10">-DFUJITSU_FX10</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFUJITSU_FX10(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to disable MOVE_NESTS on fujitsu systems.  Since MOVE_NESTS is not used, this option is ignored.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DG95" id="b621.wrf_s_DG95">-DG95</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DG95(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable a work around for a g95 bug.  However, the routine where the bug occurs is not used in the SPEC CPU version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DGRIB1" id="b621.wrf_s_DGRIB1">-DGRIB1</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGRIB1(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use GRIB1 formatted data files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DGRIB2" id="b621.wrf_s_DGRIB2">-DGRIB2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGRIB2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use GRIB2 formatted data files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DGRIB_ONE_TIME_PER_FILE" id="b621.wrf_s_DGRIB_ONE_TIME_PER_FILE">-DGRIB_ONE_TIME_PER_FILE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGRIB_ONE_TIME_PER_FILE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If the time has changed, we open a new file.  This is a kludge to get
+ around slowness in WRF that occurs when opening a new data file the
+ standard way.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DHAVE_GETPAGESIZE" id="b621.wrf_s_DHAVE_GETPAGESIZE">-DHAVE_GETPAGESIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_GETPAGESIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined, use the getpagesize system routine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DHEAVYNEW" id="b621.wrf_s_DHEAVYNEW">-DHEAVYNEW</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHEAVYNEW(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore. Implicitly set.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DHWRF" id="b621.wrf_s_DHWRF">-DHWRF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHWRF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the hwrf radiation module.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DIBM_REDUCE_BUG_WORKAROUND" id="b621.wrf_s_DIBM_REDUCE_BUG_WORKAROUND">-DIBM_REDUCE_BUG_WORKAROUND</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DIBM_REDUCE_BUG_WORKAROUND(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Note that SPEC CPU stubs the MPI call so this workaround is not needed.
+
+These three subroutines re-implement MPI_Reduce on MPI_INTEGER
+ with OP=MPI_ADD.
+
+This is a workaround for a bug in the IBM MPI implementation.
+ Some MPI processes will get stuck in MPI_Reduce and not
+ return until the PREVIOUS I/O server group finishes writing.
+
+This workaround replaces the MPI_Reduce call with many
+ MPI_Send and MPI_Recv calls that perform the sum on the
+ root of the communicator.
+
+There are two reduce routines: one for a sum of scalars
+ and one for a sum of arrays.  The get_reduce_tag generates
+ MPI tags for the communication.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DINTELMKL" id="b621.wrf_s_DINTELMKL">-DINTELMKL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINTELMKL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use Intel's MKL library "VPOWX" routine in place of "VPOW".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DINTEL_ALIGN64" id="b621.wrf_s_DINTEL_ALIGN64">-DINTEL_ALIGN64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINTEL_ALIGN64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable Intel specific alignment directives.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DLAKEDEBUG" id="b621.wrf_s_DLAKEDEBUG">-DLAKEDEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLAKEDEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable more debugging information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DLEARN_BCAST" id="b621.wrf_s_DLEARN_BCAST">-DLEARN_BCAST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLEARN_BCAST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add an extra static variable.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_netcdf_debug" id="b621.wrf_s_netcdf_debug">
+-DLN_TEST,
+-DINSTRUMENT,
+-DODEBUG
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:LN_TEST|INSTRUMENT|ODEBUG)\b</span></li>
+<li class="descText">
+<p>
+These flags enable some NetCDF debugging output.  They may not be used for
+CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DLOCKNUMREC" id="b621.wrf_s_DLOCKNUMREC">-DLOCKNUMREC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLOCKNUMREC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag enables locking for NC.numrecs.  It may not be used for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMACOS" id="b621.wrf_s_DMACOS">-DMACOS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMACOS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set if using a MacOS.  Use SPEC_MACOS instead.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMAC_KLUDGE" id="b621.wrf_s_DMAC_KLUDGE">-DMAC_KLUDGE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAC_KLUDGE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable certain internal routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMAKE_PROGRAM" id="b621.wrf_s_DMAKE_PROGRAM">-DMAKE_PROGRAM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAKE_PROGRAM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Creates a test program for testing function nc_inq_libvers().  This may not
+be used for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMARS" id="b621.wrf_s_DMARS">-DMARS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMARS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set when modeling Mars.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMAX_NC_OPEN" id="b621.wrf_s_DMAX_NC_OPEN">-DMAX_NC_OPEN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX_NC_OPEN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines the maximum number of files a process can have open.
+Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMAX_PREPRO_ARGS" id="b621.wrf_s_DMAX_PREPRO_ARGS">-DMAX_PREPRO_ARGS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX_PREPRO_ARGS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines the maximum number of arguments that the C preprocessor can
+accept for macro definitions.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMIN_TILE_SIZE" id="b621.wrf_s_DMIN_TILE_SIZE">-DMIN_TILE_SIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMIN_TILE_SIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to override the minimum tile size in module_tile.  Default=1.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMM5_SINT" id="b621.wrf_s_DMM5_SINT">-DMM5_SINT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMM5_SINT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro is set unconditionally in the WRF source code and may not be
+set or unset explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMODAL_AERO_7MODE" id="b621.wrf_s_DMODAL_AERO_7MODE">-DMODAL_AERO_7MODE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMODAL_AERO_7MODE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Added for MAM7 compliance
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMOVE_NESTS" id="b621.wrf_s_DMOVE_NESTS">-DMOVE_NESTS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMOVE_NESTS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the nested move routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMOVING_DIAGS" id="b621.wrf_s_DMOVING_DIAGS">-DMOVING_DIAGS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMOVING_DIAGS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add diagnositc messages to the moving routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMPI2_SUPPORT" id="b621.wrf_s_DMPI2_SUPPORT">-DMPI2_SUPPORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMPI2_SUPPORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add for MPI2 specific options.  Not used in SPEC CPU.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DMPI2_THREAD_SUPPORT" id="b621.wrf_s_DMPI2_THREAD_SUPPORT">-DMPI2_THREAD_SUPPORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMPI2_THREAD_SUPPORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable MPI2 thread support when using both MPI2 and OpenMP.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_namelist_read_stuff" id="b621.wrf_s_namelist_read_stuff">
+-DNAMELIST_READ_UNIT=XXX,
+-DNAMELIST_READ_ERROR_LABEL=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DNAMELIST_READ_(?:UNIT|ERROR_LABEL)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros define constants used when reading the namelist.  Their default
+values may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNAN_VALUE" id="b621.wrf_s_DNAN_VALUE">-DNAN_VALUE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNAN_VALUE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that a value for NaN is available.  Its default value
+may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNATIVE_MASSV" id="b621.wrf_s_DNATIVE_MASSV">-DNATIVE_MASSV</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNATIVE_MASSV(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined, use internally defined routines instead of the IBM libmassv routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNCEP_DEBUG_GLOBALSTDOUT" id="b621.wrf_s_DNCEP_DEBUG_GLOBALSTDOUT">-DNCEP_DEBUG_GLOBALSTDOUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNCEP_DEBUG_GLOBALSTDOUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debug information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNCEP_DEBUG_MULTIDIR" id="b621.wrf_s_DNCEP_DEBUG_MULTIDIR">-DNCEP_DEBUG_MULTIDIR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNCEP_DEBUG_MULTIDIR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debug information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNC_ARRAY_GROWBY" id="b621.wrf_s_DNC_ARRAY_GROWBY">-DNC_ARRAY_GROWBY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNC_ARRAY_GROWBY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro holds the size (in elements) that arrays in NetCDF should be grown
+at one time.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_nc_retcodes" id="b621.wrf_s_nc_retcodes">
+-DNC_ENOMEM=XXX,
+-DNC_ERANGE=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DNC_(?:ENOMEM|ERANGE)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros contain the values of return codes used internally by NetCDF.
+Their default values may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNEC" id="b621.wrf_s_DNEC">-DNEC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNEC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use integers instead of characters for the MPI Buffer array.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNEC_SX" id="b621.wrf_s_DNEC_SX">-DNEC_SX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNEC_SX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+NEC SX specific work-around in source.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNEED_STUBS" id="b621.wrf_s_DNEED_STUBS">-DNEED_STUBS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNEED_STUBS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Stubs for diffwrf routines called by module_wrf_error. (used by netcdf implementation of IO api)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_netcdf_type_flags" id="b621.wrf_s_netcdf_type_flags">
+-DNF_DOUBLEPRECISION_IS_C_FLOAT=XXX,
+-DNF_INT1_IS_C_SIGNED_CHAR=XXX,
+-DNF_INT2_IS_C_SHORT=XXX,
+-DNF_INT_IS_C_INT=XXX,
+-DNF_REAL_IS_C_DOUBLE=XXX,
+-DNF_REAL_IS_C_FLOAT=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DNF_(?:NF_DOUBLEPRECISION_IS_C_FLOAT|NF_INT1_IS_C_SIGNED_CHAR|NF_INT2_IS_C_SHORT|NF_INT_IS_C_INT|NF_REAL_IS_C_DOUBLE|NF_REAL_IS_C_FLOAT)(?:=\S*)\b</span></li>
+<li class="descText">
+<p>
+These macros are used by NetCDF to determine which native C types fit which
+native Fortran types.  Their default values may not be changed directly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNL_get_ROUTINES" id="b621.wrf_s_DNL_get_ROUTINES">-DNL_get_ROUTINES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNL_get_ROUTINES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Implicitly set to get the NL_get_ROUTINES.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNL_set_ROUTINES" id="b621.wrf_s_DNL_set_ROUTINES">-DNL_set_ROUTINES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNL_set_ROUTINES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Implicitly set to get the NL_get_ROUTINES.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNMM_FIND_LOAD_IMBALANCE" id="b621.wrf_s_DNMM_FIND_LOAD_IMBALANCE">-DNMM_FIND_LOAD_IMBALANCE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNMM_FIND_LOAD_IMBALANCE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Debugging code to find MPI load imbalances.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_IEEE_FLOAT" id="b621.wrf_s_DNO_IEEE_FLOAT">-DNO_IEEE_FLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_IEEE_FLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro should be set if the system does not use IEEE floating point
+representation.  It may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNOCOMPETE" id="b621.wrf_s_DNOCOMPETE">-DNOCOMPETE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNOCOMPETE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set to enable each pft on vegetated landunit has its own column.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNOFIRE" id="b621.wrf_s_DNOFIRE">-DNOFIRE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNOFIRE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set the fire area to 0.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNONSTANDARD_SYSTEM_FUNC" id="b621.wrf_s_DNONSTANDARD_SYSTEM_FUNC">-DNONSTANDARD_SYSTEM_FUNC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNONSTANDARD_SYSTEM_FUNC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enables the use of the non-standard "system" function.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNONSTANDARD_SYSTEM_SUBR" id="b621.wrf_s_DNONSTANDARD_SYSTEM_SUBR">-DNONSTANDARD_SYSTEM_SUBR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNONSTANDARD_SYSTEM_SUBR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enables the use of the non-standard "system" subroutine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_DAYLEN_VCMAX" id="b621.wrf_s_DNO_DAYLEN_VCMAX">-DNO_DAYLEN_VCMAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_DAYLEN_VCMAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set if there is no day length vcmax.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_INITIAL_DATA_VALUE" id="b621.wrf_s_DNO_INITIAL_DATA_VALUE">-DNO_INITIAL_DATA_VALUE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_INITIAL_DATA_VALUE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use when the "setinitval_in" argument shouldn't be use to set the inital values in "alloc.inc".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_I1_OLD" id="b621.wrf_s_DNO_I1_OLD">-DNO_I1_OLD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_I1_OLD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When defined, i1_decl.inc "old" variables are not defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_IEEE_MODULE" id="b621.wrf_s_DNO_IEEE_MODULE">-DNO_IEEE_MODULE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_IEEE_MODULE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if the compiler does not support the IEEE Arithmatic module.  Note that IEEE_SET_FLAG is required for 621.wrf_s andthe NO_IEEE_MODULE is always overridden in the SPEC version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_LEAP_CALENDAR" id="b621.wrf_s_DNO_LEAP_CALENDAR">-DNO_LEAP_CALENDAR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_LEAP_CALENDAR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When defined, Feburary is set to 28 days, and not adjusted for leap years.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_NETCDF_2" id="b621.wrf_s_DNO_NETCDF_2">-DNO_NETCDF_2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_NETCDF_2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag turns off backward compatibility definitions in NetCDF.  Its
+default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNO_STRERROR" id="b621.wrf_s_DNO_STRERROR">-DNO_STRERROR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_STRERROR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the strerror function is not available.  Its
+default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DOFFLINE" id="b621.wrf_s_DOFFLINE">-DOFFLINE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOFFLINE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use offline mode.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DOLD_REG_GEOM" id="b621.wrf_s_DOLD_REG_GEOM">-DOLD_REG_GEOM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOLD_REG_GEOM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use old data types for the REG_GEOM structure.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DOLD_TIMERS" id="b621.wrf_s_DOLD_TIMERS">-DOLD_TIMERS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOLD_TIMERS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the system clock instead of system specific high resolution timers.  Implicity defined in the SPEC version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DOPTIMIZE_CFL_TEST" id="b621.wrf_s_DOPTIMIZE_CFL_TEST">-DOPTIMIZE_CFL_TEST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOPTIMIZE_CFL_TEST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable code optimized for vectorization on a Xeon Phi processor.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DOUTPUT_FULL_GEOPOTENTIAL" id="b621.wrf_s_DOUTPUT_FULL_GEOPOTENTIAL">-DOUTPUT_FULL_GEOPOTENTIAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOUTPUT_FULL_GEOPOTENTIAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the output full geopotential height instead of the two fields of base-state geopotential and perturbation geopotential.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DOUTPUT_FULL_PRESSURE" id="b621.wrf_s_DOUTPUT_FULL_PRESSURE">-DOUTPUT_FULL_PRESSURE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOUTPUT_FULL_PRESSURE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the output full pressure instead of the two fields of base-state geopotential and perturbation geopotential.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DPADIT" id="b621.wrf_s_DPADIT">-DPADIT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPADIT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add padding when calling an rsl_malloc.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DPLANET" id="b621.wrf_s_DPLANET">-DPLANET</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPLANET(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When writing to restart files, use the values of the instantaneous time for determining the values of JULYR, JULDAY, and GMT.  If the original values in config_flags are used, this assumes that the restart simulation will start with an itimestep NE 0.  If we use the instantaneous time, we can start a restart simulation with a different value of delta-t for timestep and still get the clocks calendars (and orbital information!) correct.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DPNETCDF" id="b621.wrf_s_DPNETCDF">-DPNETCDF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPNETCDF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define when using Parllel NetCDF.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DPNETCDF_QUILT" id="b621.wrf_s_DPNETCDF_QUILT">-DPNETCDF_QUILT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPNETCDF_QUILT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If we've been built with PNETCDF_QUILT defined then we use parallel I/O
+within the group of I/O servers rather than gathering the data onto the
+root I/O server. Unfortunately, this approach means that we can no-longer
+select different I/O layers for use with quilting at run time. ARPDBG.
+This code is sufficiently different that it is kept in the separate
+quilt_pnc() routine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DPROMOTE_FLOAT" id="b621.wrf_s_DPROMOTE_FLOAT">-DPROMOTE_FLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPROMOTE_FLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set the WRF_FLOAT parameter to be WRF_DOUBLE instead of WRF_REAL.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DPROTOTYPE_NEEDED" id="b621.wrf_s_DPROTOTYPE_NEEDED">-DPROTOTYPE_NEEDED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPROTOTYPE_NEEDED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the use of protoypes.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DP_TABLE_FIRST" id="b621.wrf_s_DP_TABLE_FIRST">-DP_TABLE_FIRST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DP_TABLE_FIRST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the first user in the parameter table.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DPOSIXIO_DEFAULT_PAGESIZE" id="b621.wrf_s_DPOSIXIO_DEFAULT_PAGESIZE">-DPOSIXIO_DEFAULT_PAGESIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOSIXIO_DEFAULT_PAGESIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro holds the default page size that pagesize() will return when
+neither sysconf() nor POSIX getpagesize() is not available.  Its default
+value may not be changed for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DRAL" id="b621.wrf_s_DRAL">-DRAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Collect terrain array HT into a global array HTIJ
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DREGTEST" id="b621.wrf_s_DREGTEST">-DREGTEST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DREGTEST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the reg test.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DREVERT" id="b621.wrf_s_DREVERT">-DREVERT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DREVERT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Revert an array back to it original value.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DRSL" id="b621.wrf_s_DRSL">-DRSL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRSL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the RSL communications package is being used for
+communication in a parallelized WRF run.  It is not used and may not be set
+for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DRSL0_ONLY" id="b621.wrf_s_DRSL0_ONLY">-DRSL0_ONLY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRSL0_ONLY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Only use the rsl9 file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DRTM" id="b621.wrf_s_DRTM">-DRTM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRTM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the RTM river routing model.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DRUN_ON_GPU" id="b621.wrf_s_DRUN_ON_GPU">-DRUN_ON_GPU</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRUN_ON_GPU(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Run the WSMD5 and WSMD3 cloud physics solvers on a GPU.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSGIALTIX" id="b621.wrf_s_DSGIALTIX">-DSGIALTIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSGIALTIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable the nested move routines if running on an SGI Altix system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSHLAKE" id="b621.wrf_s_DSHLAKE">-DSHLAKE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSHLAKE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Unreachable.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSHLAKETEST" id="b621.wrf_s_DSHLAKETEST">-DSHLAKETEST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSHLAKETEST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add a temporary snow melt variable.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSPMD" id="b621.wrf_s_DSPMD">-DSPMD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPMD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Adds in the mpishorthand module (disabled in orginal code) and include the "mpif.h" header file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSTUG" id="b621.wrf_s_DSTUG">-DSTUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define STUG to enable tracking of allocs and frees (performance and space penalty)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSUN" id="b621.wrf_s_DSUN">-DSUN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSUN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Unreachable in SPEC version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSUNINFO" id="b621.wrf_s_DSUNINFO">-DSUNINFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSUNINFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Unreachable in SPEC version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSUPLN" id="b621.wrf_s_DSUPLN">-DSUPLN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSUPLN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This code block controls the addition of N to sminn pool
+ to eliminate any N limitation, when SUPLN is set.  This lets the
+ model behave essentially as a carbon-only model, but with the
+ benefit of keeping trrack of the N additions needed to
+ eliminate N limitations, so there is still a diagnostic quantity
+ that describes the degree of N limitation at steady-state.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSYM_H" id="b621.wrf_s_DSYM_H">-DSYM_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYM_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DT3D" id="b621.wrf_s_DT3D">-DT3D</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DT3D(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to include errno.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DTABLES_H" id="b621.wrf_s_DTABLES_H">-DTABLES_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTABLES_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DTERRAIN_AND_LANDUSE" id="b621.wrf_s_DTERRAIN_AND_LANDUSE">-DTERRAIN_AND_LANDUSE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTERRAIN_AND_LANDUSE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Load the terrain and landuse from a file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DTERRAIN_TBASE" id="b621.wrf_s_DTERRAIN_TBASE">-DTERRAIN_TBASE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTERRAIN_TBASE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Get the terranin data from TBASE.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DTEST" id="b621.wrf_s_DTEST">-DTEST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTEST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Create a stand-alone test in gribmap.c.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DTESTZACK" id="b621.wrf_s_DTESTZACK">-DTESTZACK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTESTZACK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable error check that urban parameterization is not yet finished.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_cf_bytes" id="b621.wrf_s_cf_bytes">
+-DSIGNED_BYTE,
+-DUNSIGNED_BYTE
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:UN)?SIGNED_BYTE\b</span></li>
+<li class="descText">
+<p>
+These macros are used internally by cfortran.h to determine what native C types
+to use to hold various types and sizes of data.  Their default values may not
+be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_sizeof" id="b621.wrf_s_sizeof">
+-DSIZEOF_DOUBLE=XXX,
+-DSIZEOF_FLOAT=XXX,
+-DSIZEOF_INT=XXX,
+-DSIZEOF_LONG=XXX,
+-DSIZEOF_OFF_T=XXX,
+-DSIZEOF_SHORT=XXX,
+-DSIZEOF_SIZE_T=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DSIZEOF_(?:DOUBLE|FLOAT|INT|LONG|OFF_T|SHORT|SIZE_T)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros define the size (in bytes) of various native data types.  Their
+default values may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSNICAR_FRC" id="b621.wrf_s_DSNICAR_FRC">-DSNICAR_FRC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSNICAR_FRC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Compute additional solar radiation data.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DSTUB_FOR_NOW" id="b621.wrf_s_DSTUB_FOR_NOW">-DSTUB_FOR_NOW</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTUB_FOR_NOW(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro enables stubbing out of the nests_to_open function in WRF.  It
+may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DTITAN" id="b621.wrf_s_DTITAN">-DTITAN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTITAN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined when adjusting the date format for Titan.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DUNICOSMP" id="b621.wrf_s_DUNICOSMP">-DUNICOSMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUNICOSMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Compute the gamma function in module_cam_cldwat.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DUSE_ALLOCATABLES" id="b621.wrf_s_DUSE_ALLOCATABLES">-DUSE_ALLOCATABLES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_ALLOCATABLES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+For the gen_alloc code generator, use allocatables.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DUSE_HIRES" id="b621.wrf_s_DUSE_HIRES">-DUSE_HIRES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_HIRES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the high resolution timer.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DUSE_MPI_IN_PLACE" id="b621.wrf_s_DUSE_MPI_IN_PLACE">-DUSE_MPI_IN_PLACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_MPI_IN_PLACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Not used in SPEC CPU version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DTOUCH_LAST" id="b621.wrf_s_DTOUCH_LAST">-DTOUCH_LAST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTOUCH_LAST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag enables a touch of the last page allocated when growing a file with
+NetCDF.  It's the default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DUSE_NEW_DELETE" id="b621.wrf_s_DUSE_NEW_DELETE">-DUSE_NEW_DELETE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_NEW_DELETE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that new and delete should be used instead of malloc()
+and free() in C++ codes that use cfortran.h.  It is not used and may not be
+set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWORDS_BIGENDIAN" id="b621.wrf_s_DWORDS_BIGENDIAN">-DWORDS_BIGENDIAN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWORDS_BIGENDIAN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag indicates that the benchmark is being built on a big-endian system.
+It is on by default.  Please use you're compiler's "convert" flag to convert the big-endian input data set on little-endian systems.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DVAR4D" id="b621.wrf_s_DVAR4D">-DVAR4D</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DVAR4D(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Select different error message routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DVERT_UNIT" id="b621.wrf_s_DVERT_UNIT">-DVERT_UNIT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DVERT_UNIT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enables a main program for a small unit test for the vertical interpolation.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DVERBOSE" id="b621.wrf_s_DVERBOSE">-DVERBOSE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DVERBOSE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debug output in NetCDF.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DVORTEX_CENTER" id="b621.wrf_s_DVORTEX_CENTER">-DVORTEX_CENTER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DVORTEX_CENTER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Determine the new enter of a huricane's vortex.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWACCM_MOZART" id="b621.wrf_s_DWACCM_MOZART">-DWACCM_MOZART</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWACCM_MOZART(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use a different temperature range.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWACCM_PHYS" id="b621.wrf_s_DWACCM_PHYS">-DWACCM_PHYS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWACCM_PHYS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use a different temperature range.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRAP_MALLOC" id="b621.wrf_s_DWRAP_MALLOC">-DWRAP_MALLOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRAP_MALLOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Redefine "malloc" to an interal wrapper function which calls posix_memalign.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWORD_BIT_CNT" id="b621.wrf_s_DWORD_BIT_CNT">-DWORD_BIT_CNT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWORD_BIT_CNT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Implicitly set the word bit count to 32.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRAP_MALLOC_ALIGNMENT" id="b621.wrf_s_DWRAP_MALLOC_ALIGNMENT">-DWRAP_MALLOC_ALIGNMENT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRAP_MALLOC_ALIGNMENT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Alignment value when calling posix_memalign. Not used in 621.wrf_s.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRF_CHEM" id="b621.wrf_s_DWRF_CHEM">-DWRF_CHEM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRF_CHEM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable when using the WRF Chem package.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRF_DFI_RADAR" id="b621.wrf_s_DWRF_DFI_RADAR">-DWRF_DFI_RADAR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRF_DFI_RADAR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the radar DFI package.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRF_HYDRO" id="b621.wrf_s_DWRF_HYDRO">-DWRF_HYDRO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRF_HYDRO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the Hydro package.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRF_IO_INT_IDX_H" id="b621.wrf_s_DWRF_IO_INT_IDX_H">-DWRF_IO_INT_IDX_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRF_IO_INT_IDX_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRF_LOG_BUFFERING" id="b621.wrf_s_DWRF_LOG_BUFFERING">-DWRF_LOG_BUFFERING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRF_LOG_BUFFERING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+LOGICAL buffered -- if TRUE, messages are buffered via clog_write.
+ Once the buffer is full, messages are sent to stdout.  This does
+ not apply to WRF_MESSAGE2, WRF_ERROR_FATAL, or anything sent to
+ write or print.  The buffering implementation will not write
+ partial lines, and buffer size is specified via namelist (see
+ init_module_wrf_error).
+ If FALSE, messages are send directly to WRITE.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRF_PORT" id="b621.wrf_s_DWRF_PORT">-DWRF_PORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRF_PORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Ignore.  Implicitly defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWRF_USE_CLM" id="b621.wrf_s_DWRF_USE_CLM">-DWRF_USE_CLM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRF_USE_CLM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use CLM coupling.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DXEON_OPTIMIZED_WSM5" id="b621.wrf_s_DXEON_OPTIMIZED_WSM5">-DXEON_OPTIMIZED_WSM5</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DXEON_OPTIMIZED_WSM5(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use an version of WSMD5 that is optimized for a Xeon Phi.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DXEON_SIMD" id="b621.wrf_s_DXEON_SIMD">-DXEON_SIMD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DXEON_SIMD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add a simd directive.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DWSM_NO_CONDITIONAL_IN_VECTOR" id="b621.wrf_s_DWSM_NO_CONDITIONAL_IN_VECTOR">-DWSM_NO_CONDITIONAL_IN_VECTOR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWSM_NO_CONDITIONAL_IN_VECTOR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enabled internally by default.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_xdr_var_stuff" id="b621.wrf_s_xdr_var_stuff">
+-DX_ALIGN=XXX,
+-DX_INT_MAX=XXX,
+-DX_SHORT_MAX=XXX,
+-DX_SIZEOF_DOUBLE=XXX,
+-DX_SIZEOF_FLOAT=XXX,
+-DX_SIZEOF_INT=XXX,
+-DX_SIZEOF_SHORT=XXX,
+-DX_SIZEOF_SIZE_T=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DX_(?:ALIGN|(?:INT|SHORT)_MAX|SIZEOF_(?:DOUBLE|FLOAT|INT|SHORT|SIZE_T))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros set the sizes, ranges, or other attributes of various data types
+used in NetCDF's XDR implementation.  They are not relevant to CPU2017 and
+may not be changed from their default values.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DZTRINGV_ARGS_allows_Pvariables" id="b621.wrf_s_DZTRINGV_ARGS_allows_Pvariables">-DZTRINGV_ARGS_allows_Pvariables</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DZTRINGV_ARGS_allows_Pvariables(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro is used to indicate to cfortran.h that ARGS can hold Pvariables.
+It may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_D_ACCEL" id="b621.wrf_s_D_ACCEL">-D_ACCEL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ACCEL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable PGI Accelerator Model specific code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_D_ACCEL_PROF" id="b621.wrf_s_D_ACCEL_PROF">-D_ACCEL_PROF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ACCEL_PROF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable PGI Accelerator Model specific profiling code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_D_AIX" id="b621.wrf_s_D_AIX">-D_AIX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_AIX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use AIX specific "alloca" pragma.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_D_RNDUP" id="b621.wrf_s_D_RNDUP">-D_RNDUP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_RNDUP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines a method of rounding up to the nearest whole number.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_D__CHAR_UNSIGNED__" id="b621.wrf_s_D__CHAR_UNSIGNED__">-D__CHAR_UNSIGNED__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__CHAR_UNSIGNED__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>This macro is used to tell NetCDF that the compilation system's "char" type
+is unsigned by default.</p>
+<p>If you need to set this flag in order to build and run 621.wrf_s, please
+notify <a href="mailto:cpu2017support@spec.org">cpu2017support@spec.org</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_Dncvarcpy" id="b621.wrf_s_Dncvarcpy">-Dncvarcpy</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]Dncvarcpy(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This defines a compatibilty name for the ncvarcopy() function.  Its default
+value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DAbsoftProFortran" id="b621.wrf_s_DAbsoftProFortran">-DAbsoftProFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAbsoftProFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft Pro Fortran compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DAbsoftUNIXFortran" id="b621.wrf_s_DAbsoftUNIXFortran">-DAbsoftUNIXFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAbsoftUNIXFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft UNIX F77 compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DpgiFortran" id="b621.wrf_s_DpgiFortran">-DpgiFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DpgiFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Portland Group Fortran compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DPATHSCALE_COMPILER" id="b621.wrf_s_DPATHSCALE_COMPILER">-DPATHSCALE_COMPILER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPATHSCALE_COMPILER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Pathscale Fortran compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_DNAGf90Fortran" id="b621.wrf_s_DNAGf90Fortran">-DNAGf90Fortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNAGf90Fortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the NAG Fortran-90 compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_Df2cFortran" id="b621.wrf_s_Df2cFortran">-Df2cFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]Df2cFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the f2c.  In practice, 621.wrf_s can't be built with f2c, so setting it
+explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_D_MULTI_BDY_FILES_" id="b621.wrf_s_D_MULTI_BDY_FILES_">-D_MULTI_BDY_FILES_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MULTI_BDY_FILES_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Have a "date" as part of the bdy_inname.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_cfortran_internals" id="b621.wrf_s_cfortran_internals">
+-D__CF_KnR=XXX,
+-D__CF__APOLLO67=XXX,
+-D__CF__KnR=XXX,
+-DOLD_VAXC=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:OLD_VAXC|__CF_(?:_?KnR|_APOLLO67))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros are used internally by cfortran.h and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_header_guards" id="b621.wrf_s_header_guards">
+-DUD_FORT_LIB_H,
+-DUD_NCFORTRAN_H,
+-DUD_NETCDF_CPP_INC,
+-D_NETCDF_,
+-D_FBITS_H_,
+-D__CFORTRAN_LOADED,
+-D_ONSTACK_H_,
+-D_NCCONFIG_AIX_H_,
+-D_NCCONFIG_GENERIC_H_,
+-D_NCCONFIG_H_,
+-D_NCCONFIG_IRIX_H_,
+-D_NCCONFIG_LINUX_H_,
+-D_NCCONFIG_MACOSX_H_,
+-D_NCCONFIG_SOLARIS_H_,
+-D_NCCONFIG_WINDOWS_H_,
+-D_NCIO_H_,
+-D_NCX_H_,
+-D_NC_H_,
+-DESMF_MACROS_INC,
+-DESMF_TimeMgr_INC
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:UD_(?:FORT_LIB_H|NCFORTRAN_H|NETCDF_CPP_INC)|_NETCDF_|_FBITS_H_|__CFORTRAN_LOADED|_ONSTACK_H_|_NCCONFIG_(?:AIX|GENERIC|IRIX|LINUX|MACOSX|SOLARIS|WINDOWS)_H_|_NCCONFIG_H_|_NCIO_H_|_NCX_H_|_NC_H_|ESMF_(?:MACROS|TimeMgr)_INC)\b</span></li>
+<li class="descText">
+<p>
+These macros are used to prevent multiple header inclusion; setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_comp_implicit" id="b621.wrf_s_comp_implicit">
+-Dextname=XXX,
+-Dsun=XXX,
+-DsunFortran=XXX,
+-Dunix=XXX,
+-Dvax=XXX,
+-Dvms=XXX,
+-DvmsFortran=XXX,
+-DhpuxFortran=XXX,
+-DhpuxFortran800=XXX,
+-Dlynx=XXX,
+-Dmips=XXX,
+-DmipsFortran=XXX,
+-Dapollo=XXX,
+-DapolloFortran=XXX,
+-D__CYGWIN32__=XXX,
+-D__GNUC__=XXX,
+-D__PATHCC__=XXX,
+-D__STDCPP__=XXX,
+-D__STDC__=XXX,
+-D__VAXC=XXX,
+-D__alpha=XXX,
+-D__convex__=XXX,
+-D__cplusplus=XXX,
+-D__hpux=XXX,
+-D__mips=XXX,
+-D__sgi=XXX,
+-D__sun=XXX,
+-D__ultrix__=XXX,
+-D__unix__=XXX,
+-D__vax__=XXX,
+-D__vms=XXX,
+-D_SC_PAGESIZE=XXX,
+-D_SC_PAGE_SIZE=XXX,
+-D_SX=XXX,
+-D__64BIT__=XXX,
+-D_MSC_VER=XXX,
+-D_IBMR2=XXX,
+-D_CRAY=XXX,
+-D_CRAYC=XXX,
+-D_CRAYIEEE=XXX,
+-D_CRAYMPP=XXX,
+-D_CRAYT3E=XXX,
+-D_INT64=XXX,
+-DVAXC=XXX,
+-DVAXUltrix=XXX,
+-DVISUAL_CPLUSPLUS=XXX,
+-DWIN32=XXX,
+-DS_IRUSR=XXX,
+-DSXFortran=XXX,
+-DCLIPPERFortran=XXX,
+-DCONVEXFortran=XXX,
+-DCRAY=XXX,
+-DCRAYFortran=XXX,
+-DDECFortran=XXX,
+-DIBMR2Fortran=XXX,
+-DPowerStationFortran=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:extname|sun|sunFortran|unix|vax|vms|vmsFortran|hpuxFortran|hpuxFortran800|lynx|mips|mipsFortran|apollo|apolloFortran|__CYGWIN32__|_WIN32|__WIN64|__PGI|__GNUC__|__PATHCC__|__STDCPP__|__STDC__|__VAXC|__alpha|__convex__|__cplusplus|__hpux|__mips|__sgi|__sun|__ultrix__|__unix__|__vax__|__vms|_SC_PAGESIZE|_SC_PAGE_SIZE|_SX|__64BIT__|_MSC_VER|_IBMR2|crayx1|_CRAY|_CRAYC|_CRAYIEEE|_CRAYMPP|_CRAYT3E|_INT64|VAXC|VAXUltrix|VISUAL_CPLUSPLUS|WIN32|S_IRUSR|SXFortran|CLIPPERFortran|CONVEXFortran|CRAY|CRAYFortran|DECFortran|IBMR2Fortran|PowerStationFortran)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These flags are set implicitly by the compilation system and may not be
+set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b621.wrf_s_wrf_io_mod" id="b621.wrf_s_wrf_io_mod">
+-DXXX,
+-DYYY,
+-DZZZ,
+-DHDF,
+-DPHDF5,
+-DMCELIO,
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:XXX|YYY|ZZZ|PHDF5|MCELIO|HDF)\b</span></li>
+<li class="descText">
+<p>
+These flags are used to enable I/O modules in WRF.  They may not be set.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+</body>
+</html>

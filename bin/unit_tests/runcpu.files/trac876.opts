@@ -1,0 +1,1 @@
+-C -f "sed -e 's/eval [0-9]*/an eval/g; s/line [0-9]*/on a line/g'"

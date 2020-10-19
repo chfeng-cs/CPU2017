@@ -1,0 +1,11 @@
+diff -ur /Users/cloyce/work/t/perl-5.10.0/lib/Time/Local.pm Time/Local.pm
+--- /Users/cloyce/work/t/perl-5.10.0/lib/Time/Local.pm	2007-12-18 02:47:07.000000000 -0800
++++ Time/Local.pm	2009-05-08 12:28:31.000000000 -0700
+@@ -152,6 +152,7 @@
+ }
+ 
+ sub timelocal {
++    return timegm(@_);  # SPEC CPU is always GMT
+     my $ref_t = &timegm;
+     my $loc_for_ref_t = _timegm( localtime($ref_t) );
+ 

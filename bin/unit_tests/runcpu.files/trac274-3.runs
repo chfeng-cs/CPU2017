@@ -1,0 +1,3 @@
+--configpp
+--configpp --define bits
+--configpp --define bits=27

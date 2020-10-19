@@ -1,0 +1,4 @@
+../specsum-testdata/test-specsum.in.02: FAILED
+../specsum-testdata/test-specsum.in.02: FAILED
+specmd5sum: WARNING: 1 line is improperly formatted
+specmd5sum: WARNING: 2 computed checksums did NOT match

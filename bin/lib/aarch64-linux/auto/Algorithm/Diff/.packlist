@@ -1,0 +1,8 @@
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Algorithm/Diff.pm relocate_as=../../../../Algorithm/Diff.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Algorithm/DiffOld.pm relocate_as=../../../../Algorithm/DiffOld.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Algorithm/cdiff.pl relocate_as=../../../../Algorithm/cdiff.pl
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Algorithm/diff.pl relocate_as=../../../../Algorithm/diff.pl
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Algorithm/diffnew.pl relocate_as=../../../../Algorithm/diffnew.pl
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Algorithm/htmldiff.pl relocate_as=../../../../Algorithm/htmldiff.pl
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/Algorithm::Diff.3 relocate_as=../../../../../../../../man/man3/Algorithm::Diff.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/Algorithm::DiffOld.3 relocate_as=../../../../../../../../man/man3/Algorithm::DiffOld.3

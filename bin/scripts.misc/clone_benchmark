@@ -1,0 +1,80 @@
+#!/bin/sh
+
+# Rename a benchmark.  Assumes Subversion
+# No support is provided.
+# $Id: clone_benchmark 5899 2018-04-16 16:13:39Z CloyceS $
+
+if [ "x$SPEC" = x ]; then
+  SPEC=`pwd`
+fi
+
+cd $SPEC
+
+if [ ! -f bin/harness/runcpu -o ! -d benchspec ]; then
+    echo "Error: \$SPEC must be set, or $0 must be run in the top of the benchmark tree"
+    exit 1
+fi
+
+if [ "x$1" = x ]; then
+  echo "Usage: $0 <OLDnnn.name> <NEWnnn.name>"
+  exit 1
+fi
+
+OLD=$1
+OLDNUM=`echo $OLD | sed 's/^\([0-9][0-9][0-9]\)\..*/\1/'`
+OLDNAME=`echo $OLD | sed 's/^[0-9][0-9][0-9]\.//'`
+NEW=$2
+NEWNUM=`echo $NEW | sed 's/^\([0-9][0-9][0-9]\)\..*/\1/'`
+NEWNAME=`echo $NEW | sed 's/^[0-9][0-9][0-9]\.//'`
+if [ "x$OLDNUM" = x -o "x$OLDNAME" = x -o "x$NEWNUM" = x -o "x$NEWNAME" = x ]; then
+  echo "Usage: $0 <OLDnnn.name> <NEWnnn.name>"
+  exit 1
+fi
+
+BMARKPATH=
+BSET=
+for i in benchspec/[A-Z]*; do
+  if [ -d $i/$OLD ]; then
+    BMARKPATH=$i/$OLD
+    BSET=$i
+  fi
+done
+
+if [ "x$BSET" = x -o "x$BMARKPATH" = x ]; then
+  echo "Error: $OLD cannot be found."
+  echo "Usage: $0 <OLDnnn.name> <NEWnnn.name>"
+  exit 1
+fi
+
+echo "Found $OLD in $BSET at $BMARKPATH"
+
+cd $BMARKPATH/..
+
+mkdir -p $NEW/Docs $NEW/Spec
+cat $SPEC/version.txt > $NEW/version.txt
+# Docs and flags come from the origin, and are taken care of by prep_for_release
+cat > $NEW/Spec/object.pm <<EOO
+die "$NEW: Take this out before checking the clone in!\nStopped";
+%workloads = ( 'test'       => [ [ '$OLD' ] ],
+               'train'      => [ [ '$OLD' ] ],
+               'ref'        => [ [ '$OLD', 'refspeed' ] ],
+               'refspeed'   => [ [ '$OLD' ] ],
+               'refrate'    => [ [ '$OLD' ] ],
+             );
+
+\$sources = '$OLD';
+
+EOO
+cat $OLD/Spec/object.pm | perl -pe "if (s/$OLD\\b/$NEW/g) {} elsif (s/$OLDNUM\\b/$NEWNUM/g) {} elsif (/^(\s*\\\$(?:bench|exe)name\s*=)/) { \$f = \$1; s/.*/\${f} '$NEWNAME';/ } elsif (/^(\s*\\\$benchnum\s*=)/) { \$f = \$1; s/.*/\$f '$NEWNUM';/ }" >> $NEW/Spec/object.pm
+
+while ! perl -cw $NEW/Spec/object.pm; do
+  vi $NEW/Spec/object.pm
+done
+
+perl -pi -e "BEGIN { \$msg=q|  *) $OLD: Cloned to $NEW|.\"\\n\"; \$start = 0 } (\$currnum) = (\$_ =~ /\\)\s+(\d+[^:]+):/); if (\$start == 0 && /^======/) { \$start = 1 } elsif (\$start == 1 && (/^\$/ || \$currnum gt '$OLD')) { print \$msg; \$start = -1; }" $SPEC/Revisions
+
+perl $SPEC/bin/scripts.misc/add_new_benchmark --clone $NEW
+while [ $? -ne 0 ]; do
+  vi $NEW/Spec/object.pm
+  perl $SPEC/bin/scripts.misc/add_new_benchmark --clone $NEW
+done

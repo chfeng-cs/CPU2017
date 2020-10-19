@@ -1,0 +1,24 @@
+#
+# Makefile for specinvoke
+# Copyright 1996-2016 Standard Performance Evaluation Corporation
+#
+# $Id: Makefile.nt 4311 2016-05-18 14:23:16Z CloyceS $
+
+all: specinvoke.exe
+
+CFLAGS=/Zi -Iwin32
+LDFLAGS=/Zi
+
+specinvoke.obj: win32\config.h specinvoke.h specinvoke.c
+win32.obj: win32\config.h specinvoke.h win32.c
+getopt.obj: win32\config.h getopt.c
+specinvoke.exe: specinvoke.obj win32.obj getopt.obj
+	$(CC) $(LDFLAGS) -Fe$@ specinvoke.obj getopt.obj win32.obj
+
+cleanobjs:
+	del *.obj *.ilk *.pdb
+
+clean: cleanobjs
+	del specinvoke.exe
+
+distclean: clean

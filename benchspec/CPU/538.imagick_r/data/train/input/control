@@ -1,0 +1,6 @@
+# Format is:
+# exename outputfile errfile arg [arg...]
+#
+convert train_convert.out train_convert.err -limit disk 0 train_input.tga -resize 320x240 -shear 31 -edge 140 -negate -flop -resize 900x900 -edge 10 train_output.tga
+imagevalidate train_validate.out train_validate.err -avg -threshold 0.95 -maxthreshold 0.001 train.tga
+#

@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+      <link rel="STYLESHEET" href="https://www.spec.org/cpu2017/Docs/css/cpudocs.css" type="text/css" />
+
+<title>541.leela_r</title>
+</head>
+      <body>
+<div style="text-align: center;">
+<h1>541.leela_r<br />
+SPEC CPU&reg;2017 Benchmark Description</h1>
+</div>
+
+<h3>Benchmark Name</h3>
+
+<p>541.leela_r</p>
+
+
+<h3>Benchmark Authors</h3>
+
+<p>Gian-Carlo Pascutto &lt;gcp [at] sjeng.org&gt;
+</p>
+
+
+<h3>Benchmark Program General Category</h3>
+
+<p>Artificial Intelligence (Monte Carlo simulation, game tree search &amp; pattern
+recognition)</p>
+
+
+<h3>Benchmark Description</h3>
+
+<p>541.leela_r is a Go playing engine featuring Monte Carlo based position estimation, 
+selective tree search based on Upper Confidence Bounds, and move valuation 
+based on Elo ratings.</p>
+
+<p>It won Silver and Bronze medals in the 2008 Computer Olympiad and
+has attained ratings of 1 kyu in Internet server play.</p>
+
+<p>It combines recent advances in computer go in
+a single package. For each position, a restricted set of candidate moves is
+selected based on a ratings calculation taking into account a set of features
+and the current pattern on the board. For one of these moves, the program 
+simulates the game until the end, using a combination of both knowledge and
+randomness. The score of the simulated game is backed up to the root of the game 
+tree, and the next iteration starts by selecting the next move to evaluate,
+being the one with the current highest upper confidence bound.</p>
+
+
+<h3>Input Description</h3>
+
+<p>541.leela_r's input consists of a textfile containing (incomplete) Go games 
+in the Smart Game Format. Each of these games will be played until the end at 
+a fixed number of simulations per move.</p>
+
+
+<h3>Output Description</h3>
+
+<p>541.leela_r's output consists, per position, of some information
+while the search is still ongoing: the number of nodes in the search tree,
+the current percentage of simulated games won for the player to move,
+and the best variation for both players found so far.</p>
+
+<p>After each move, a table of the top moves is displayed, the number
+of simulates done for them, their respective winning percentages and 
+the best variation for both players after each respective move.</p>
+
+
+<h3>Programming Language</h3>
+
+<p>C++ 2003 plus two features that are standardized by C++11:</p>
+<ul>
+   <li>TR1 C++ arrays</li>
+   <li>C++ tuples</li>
+</ul>
+
+<p>In order to allow compilation by C++03 compilers, a subset of BOOST 
+is included in directory <tt>src/boost/</tt>.  </p>
+
+<h3 id="license">Sources and Licensing</h3>
+
+<p>Leela is licensed directly to SPEC by the author, Gian-Carlo Pascutto.  As mentioned above, it includes a subset of
+BOOST.</p>
+
+  <p>Please see details in the document <a
+    href="https://www.spec.org/cpu2017/Docs/licenses.html#bmk541.leela_r">SPEC CPU&reg;2017 Licenses</a>.</p>
+
+
+
+<h3>References</h3>
+
+<ul>
+<li>Smart Game Format: <a href="https://www.red-bean.com/sgf/">Official specification</a></li>
+
+<li>Computing Elo Ratings of Move Patterns in the Game of Go (Remi Coulom): <a 
+href="https://www.remi-coulom.fr/Amsterdam2007/MMGoPatterns.pdf">Fundamental paper</a></li>
+
+<li>Exploration and exploitation in Go: UCT for Monte-Carlo Go (Silvain Gelly)
+<a href="http://videolectures.net/otee06_gelly_umc/">Video lecture</a>;  &nbsp;
+<a href="https://hal.archives-ouvertes.fr/hal-00115330/document">PDF slides</a>.
+
+</li>
+
+</ul>
+
+
+<p>Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $</p>
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+</body></html>

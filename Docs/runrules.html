@@ -1,0 +1,3014 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Rules - CPU 2017</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+a.undec      {text-decoration:none;}
+p.propnote   {margin-left:0cm; margin-top:.2em; margin-bottom:.1cm; color:#008000; font-weight:bold; font-family:monospace} 
+p.removenote {margin-left:0cm; margin-top:.2em; margin-bottom:.1cm; color:#ff0000; font-weight:bold; font-family:monospace} 
+td.proposal  {padding-left:.2cm; background-color:#d0ffd0;}
+td.propbar   {padding:0cm;       background-color:#00ff00; width:.1cm; vertical-align:middle;}
+td.remove    {padding-left:.2cm; background-color:#ffd0d0;}
+td.removebar {padding:0cm;       background-color:#ff0000; width:.1cm; vertical-align:middle;}
+table.proposal {border:none; padding:.1em; }
+.changebar {border-left: 5px solid red;}
+
+ol.subrule          {margin-left:2em; list-style-type:lower-alpha;}
+ol.subrule2         {margin-left:2em; list-style-type:lower-roman;}
+ol.subrule_snugtop  {margin: .1em 0em .1em 2em; list-style-type:lower-alpha;}
+ol.subrule2_snugtop {margin: .1em 0em .1em 2em; list-style-type:lower-roman;}
+
+p.proposal {padding-left:.2cm;  background-color:#d0ffd0; border-width:0px 0px 0px 4px; border-color:#00ff00; border-style:solid;}
+.editorial  { border: 2px #229922 dotted; border-top:none;  padding:1px; margin:2px 4px;}
+.negatorial { border-left:2px #ff0000 dotted; border-right:2px #ff0000 dotted; text-decoration:line-through; padding:1px; margin:2px 4px; color:#c06060; } 
+
+.example      {margin: .8em +2em;            font-size:85%;  font-family: arial;} 
+.exinline     {                              font-size:85%;  font-family: arial;} 
+.ex           {margin: 1em 0em 1em 3em;      font-size:85%;  font-family: arial;} 
+.exsnug       {margin: 0em 0em 0em 2em;      font-size:85%;  font-family: arial;} 
+.exsnugish    {margin: .25em 0em .25em 2em;  font-size:85%;  font-family: arial;} 
+.l1ex         {margin: 1em 0em 1em 4em;      font-size:85%;  font-family: arial;} 
+.l1exsnug     {margin: 0.1em 0em 0.1em 4em;  font-size:85%;  font-family: arial;} 
+pre           {font-size:95%;}
+
+h4            {margin-left:1.5em; margin-top:1em;}
+
+p.contents       {margin:3em 2em 0em 2em; border-top:solid thin black; font-size:110%; font-weight:bold; }
+p.contentsl1     {margin:6px 0em 3px .1em; font-size:110%; line-height:1.3; font-family:sans-serif; color:#eeeeef; background:#446688; }
+p.contentsl2     {margin:3px 0em 3px 2em;                 line-height:1.3; } 
+p.contentsl3     {margin:2px 0em 3px 4em; font-size: 90%; line-height:1.3; }
+p.contentsl4     {margin:1px 0em 3px 6em; font-size: 90%; line-height:1.3; }
+p.contentsl5     {margin:1px 0em 3px 8em; font-size:85%; line-height:1.3; }
+</style>
+</head>
+<body>
+
+<!-- Note that you'll find this easier to edit in a nice wide window...........................................................  -->
+
+<!-- For easy cut/paste:
+
+Introduce a removal section
+<table class="snugtop"><tr><td></td><td class="remove">
+<p class="propnote">[: proposed removal - ]</p>
+</td></tr><tr><td class="removebar">&lt;</td><td class="remove"><p class="snug">
+
+Introduce an addition section
+<table><tr><td class="propbar">&gt;</td><td class="proposal">
+<p class="propnote">[: Proposed addition ]</p>
+<p class="snug">
+
+Introduce a remove/replace section
+<table><tr><td colspan="2" class="remove">
+<p class="propnote">[: Proposed removal/replacement ]</p></td></tr>
+<tr>
+<td class="removebar">&lt;</td><td class="remove"><p class="snug">
+
+Transition from remove to replace
+</p>
+</td></tr><tr><td class="propbar">&gt;</td><td class="proposal">
+<p class="snug">
+
+Finish
+</p>
+</td></tr></table>
+
+-->
+
+<!-- .......................................................................................................................... -->
+<h1 id="top">               SPEC CPU&reg;2017 Run and Reporting Rules 
+<span style="font-size:70%;"><br />SPEC&reg; Open Systems Group</span></h1>
+
+<table class="version">
+   <tr>
+      <th>$Id: runrules.html 6355 2019-08-16 18:09:48Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+<p style="text-align:center; margin:1em%">This document sets the requirements to build, run,
+and report on the SPEC CPU&reg;2017 benchmarks.  
+
+<br /><span id="updates"><b>These rules may be updated from time to time.</b>  </span>
+<br />Latest version: 
+<a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html">www.spec.org/cpu2017/Docs/runrules.html</a> </p>
+
+<p>Testers are required to comply with the version posted as of the date of their testing.  
+<br />In the event of substantive changes, a notice
+will be posted at SPEC's top-level page, <a class="external" href="https://www.spec.org/">www.spec.org</a>, to define a transition period
+during which compliance with the new rules is phased in.
+</p>
+
+
+
+<!-- Note that you'll find this easier to edit in a nice wide window................................................  -->
+
+
+<table style="border:none;">
+<tr>
+<td colspan="2" style="border:none;">
+   <p id="Dtoc_1" class="contentsl1">
+                         <a style="color:white;text-decoration:none;" href="#rule_1"     >1. Philosophy</a></p>
+</td>
+</tr>
+
+<tr>
+<td style="border:none;">
+   <p class="contentsl2"><a href="#rule_1.1"   >1.1</a> Purpose</p>
+   <p class="contentsl2"><a href="#rule_1.2"   >1.2</a> A SPEC CPU 2017 Result Is An Observation</p>
+   <p class="contentsl3"><a href="#rule_1.2.1" >1.2.1</a> Test Methods</p>
+   <p class="contentsl3"><a href="#rule_1.2.2" >1.2.2</a> Conditions of Observation</p>
+   <p class="contentsl3"><a href="#rule_1.2.3" >1.2.3</a> Assumptions About the Tester</p>
+   <p class="contentsl2"><a href="#rule_1.3"   >1.3</a> A SPEC CPU 2017 Result Is A Declaration of Expected Performance</p>
+   <p class="contentsl3"><a href="#rule_1.3.1" >1.3.1</a> Reproducibility</p>
+   <p class="contentsl3"><a href="#rule_1.3.2" >1.3.2</a> Obtaining Components</p>
+   <p class="contentsl2"><a href="#rule_1.4"   >1.4</a> A SPEC CPU 2017 Result is a Claim about Maturity of Performance Methods</p>
+</td>
+<td style="border:none;">
+   <p class="contentsl2"><a href="#rule_1.5"   >1.5</a> Peak and base builds</p>
+   <p class="contentsl2"><a href="#rule_1.6"   >1.6</a> Power Measurement</p>
+   <p class="contentsl2"><a href="#rule_1.7"   >1.7</a> Estimates</p>
+   <p class="contentsl2"><a href="#rule_1.8"   >1.8</a> About SPEC</p>
+   <p class="contentsl3"><a href="#rule_1.8.1" >1.8.1</a> Publication on SPEC's web site is encouraged</p>
+   <p class="contentsl3"><a href="#rule_1.8.2" >1.8.2</a> Publication on SPEC's web site is not required</p>
+   <p class="contentsl3"><a href="#rule_1.8.3" >1.8.3</a> SPEC May Require New Tests</p>
+   <p class="contentsl3"><a href="#rule_1.8.4" >1.8.4</a> SPEC May Adapt the Suites</p>
+   <p class="contentsl2"><a href="#rule_1.9"   >1.9</a> Usage of the Philosophy Rule</p>
+   </td>
+   </tr>
+</table>
+
+
+<table style="margin-top:1em;">
+<tr>
+<td style="border:none;">
+
+
+   <p id="Dtoc_2.0" class="contentsl1">
+   <a style="color:white;text-decoration:none;" href="#rule_2"    >2 Building SPEC CPU 2017</a></p>
+   <p class="contentsl2"><a href="#rule_2.1"     >2.1</a> General Rules for Building the Benchmark</p>
+   <p class="contentsl3"><a href="#rule_2.1.1"   >2.1.1</a> SPEC's tools must be used</p>
+   <p class="contentsl3"><a href="#rule_2.1.2"   >2.1.2</a> The runcpu build environment </p>
+   <p class="contentsl3"><a href="#rule_2.1.3"   >2.1.3</a> Continuous Build requirement</p>
+   <p class="contentsl3"><a href="#rule_2.1.4"   >2.1.4</a> Cross-compilation allowed </p>
+   <p class="contentsl2"><a href="#rule_2.2"     >2.2</a> Rules for Selecting Compilation Flags </p>
+   <p class="contentsl3"><a href="#rule_2.2.1"   >2.2.1</a> Must not use names</p>
+   <p class="contentsl3"><a href="#rule_2.2.2"   >2.2.2</a>  Limitations on library substitutions</p>
+   <p class="contentsl3"><a href="#rule_2.2.3"   >2.2.3</a>  Feedback directed optimization is allowed in peak.  </p>
+   <p class="contentsl3"><a href="#rule_2.2.4"   >2.2.4</a> Limitations on size changes</p>
+   <p class="contentsl3"><a href="#rule_2.2.5"   >2.2.5</a> Portability Flags</p>
+   <p class="contentsl3"><a href="#rule_2.2.6"   >2.2.6</a> Compiler parallelization is allowed for SPECspeed, 
+                                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not allowed for SPECrate</p>
+   <p class="contentsl2"><a href="#rule_2.3"     >2.3</a> Base Optimization Rules</p>
+   <p class="contentsl3"><a href="#rule_2.3.1"   >2.3.1</a>  Safety and Standards Conformance</p>
+   <p class="contentsl3"><a href="#rule_2.3.2"   >2.3.2</a> C++ RTTI and exceptions required</p>
+   <p class="contentsl3"><a href="#rule_2.3.3"   >2.3.3</a> IEEE-754 is not required</p>
+   <p class="contentsl3"><a href="#rule_2.3.4"   >2.3.4</a> Regarding accuracy</p>
+   <p class="contentsl3"><a href="#rule_2.3.5"   >2.3.5</a>  Base flags same for all</p>
+   <p class="contentsl4"><a href="#rule_2.3.5.1" >2.3.5.1</a> Inter-module optimization for multi-language benchmarks</p>
+   <p class="contentsl3"><a href="#rule_2.3.6"   >2.3.6</a>   Feedback directed optimization must not be used in base.  </p>
+   <p class="contentsl3"><a href="#rule_2.3.7"   >2.3.7</a>  Assertion flags must not be used in base.  </p>
+   <p class="contentsl3"><a href="#rule_2.3.8"   >2.3.8</a>  Floating point reordering allowed</p>
+   <p class="contentsl3"><a href="#rule_2.3.9"   >2.3.9</a> Portability Flags for Data Models</p>
+   <p class="contentsl3"><a href="#rule_2.3.10"  >2.3.10</a> Alignment switches are allowed </p>
+   <p class="contentsl3"><a href="#rule_2.3.11"  >2.3.11</a> Pointer sizes</p>
+
+   </td>
+<td style="border:none;">
+
+   <p id="Dtoc_3" class="contentsl1">
+                         <a style="color:white;text-decoration:none;" href="#rule_3"     >3.  Running SPEC CPU 2017</a></p>
+   <p class="contentsl2"><a href="#rule_3.1"     >3.1</a> Single File System </p>
+   <p class="contentsl2"><a href="#rule_3.2"     >3.2</a> Continuous Run Requirements  </p>
+   <p class="contentsl3"><a href="#rule_3.2.1"   >3.2.1</a> Base, Peak, and Basepeak</p>
+   <p class="contentsl3"><a href="#rule_3.2.2"   >3.2.2</a> Untimed workloads</p>
+   <p class="contentsl2"><a href="#rule_3.3"     >3.3</a> System State </p>
+   <p class="contentsl2"><a href="#rule_3.4"     >3.4</a> Run-time environment</p>
+   <p class="contentsl2"><a href="#rule_3.5"     >3.5</a> Submit</p>
+   <p class="contentsl2"><a href="#rule_3.6"     >3.6</a> SPECrate Number of copies</p>
+   <p class="contentsl2"><a href="#rule_3.7"     >3.7</a> SPECspeed Number of threads</p>
+   <p class="contentsl2"><a href="#rule_3.8"     >3.8</a> Run-Time Dynamic Optimization</p>
+   <p class="contentsl3"><a href="#rule_3.8.1"   >3.8.1</a> Definitions and Background</p>
+   <p class="contentsl3"><a href="#rule_3.8.2"   >3.8.2</a> RDO Is Allowed, Subject to Certain Conditions</p>
+   <p class="contentsl3"><a href="#rule_3.8.3"   >3.8.3</a> RDO Disclosure and Resources</p>
+   <p class="contentsl3"><a href="#rule_3.8.4"   >3.8.4</a> RDO Settings Cannot Be Changed At Run-time</p>
+   <p class="contentsl3"><a href="#rule_3.8.5"   >3.8.5</a> RDO and safety in base</p>
+   <p class="contentsl3"><a href="#rule_3.8.6"   >3.8.6</a> RDO carry-over by program is not allowed</p>
+   <p class="contentsl2"><a href="#rule_3.9"     >3.9</a> Power and Temperature Measurement</p>
+   <p class="contentsl3"><a href="#rule_3.9.1"   >3.9.1</a> SPEC PTDaemon must be used</p>
+   <p class="contentsl3"><a href="#rule_3.9.2"   >3.9.2</a> Line Voltage Source</p>
+   <p class="contentsl3"><a href="#rule_3.9.3"   >3.9.3</a> Environmental Conditions</p>
+   <p class="contentsl3"><a href="#rule_3.9.4"   >3.9.4</a> Network Interfaces</p>
+   <p class="contentsl3"><a href="#rule_3.9.5"   >3.9.5</a> Power Analyzer requirements</p>
+   <p class="contentsl3"><a href="#rule_3.9.6"   >3.9.6</a> Temperature Sensor Requirements</p>
+   <p class="contentsl3"><a href="#rule_3.9.7"   >3.9.7</a> DC Line Voltage</p>
+   <p class="contentsl3"><a href="#rule_3.9.8"   >3.9.8</a> Power Measurement Exclusion</p>
+
+   </td>
+<td style="border:none;">
+
+   <p id="Dtoc_4" class="contentsl1">
+                         <a style="color:white;text-decoration:none;" href="#rule_4"     >4.  Results Disclosure</a></p>
+   <p class="contentsl2"><a href="#rule_4.0"     >4.0</a> One-sentence SUMMARY of Disclosure Requirements</p>
+   <p class="contentsl2"><a href="#rule_4.1"     >4.1</a> General disclosure requirements</p>
+   <p class="contentsl3"><a href="#rule_4.1.1"   >4.1.1</a>  Tester's responsibility</p>
+   <p class="contentsl3"><a href="#rule_4.1.2"   >4.1.2</a> Sysinfo must be used for published results</p>
+   <p class="contentsl3"><a href="#rule_4.1.3"   >4.1.3</a> Information learned later</p>
+   <p class="contentsl3"><a href="#rule_4.1.4"   >4.1.4</a>  Peak Metrics are Optional</p>
+   <p class="contentsl3"><a href="#rule_4.1.5"   >4.1.5</a> Base must be disclosed</p>
+   <p class="contentsl2"><a href="#rule_4.2"     >4.2</a> Systems not yet shipped</p>
+   <p class="contentsl3"><a href="#rule_4.2.1"   >4.2.1</a> Pre-production software can be used</p>
+   <p class="contentsl3"><a href="#rule_4.2.2"   >4.2.2</a> Software component names</p>
+   <p class="contentsl3"><a href="#rule_4.2.3"   >4.2.3</a> Specifying dates</p>
+   <p class="contentsl3"><a href="#rule_4.2.4"   >4.2.4</a> If dates are not met</p>
+   <p class="contentsl3"><a href="#rule_4.2.5"   >4.2.5</a> Performance changes for pre-production systems</p>
+   <p class="contentsl2"><a href="#rule_4.3"     >4.3</a> Performance changes for production systems</p>
+   <p class="contentsl2"><a href="#rule_4.4"     >4.4</a> Configuration Disclosure </p>
+   <p class="contentsl3"><a href="#rule_4.4.1"   >4.4.1</a> System Identification</p>
+   <p class="contentsl3"><a href="#rule_4.4.2"   >4.4.2</a> Hardware Configuration</p>
+   <p class="contentsl3"><a href="#rule_4.4.3"   >4.4.3</a> Software Configuration</p>
+   <p class="contentsl3"><a href="#rule_4.4.4"   >4.4.4</a> Power Management</p>
+   <p class="contentsl2"><a href="#rule_4.5"     >4.5</a> Tuning Information</p>
+   <p class="contentsl2"><a href="#rule_4.6"     >4.6</a> Description of Tuning Options ("Flags File") </p>
+   <p class="contentsl2"><a href="#rule_4.7"     >4.7</a> A result may be published for only one system</p>
+   <p class="contentsl2"><a href="#rule_4.8"     >4.8</a> Configuration Disclosure for User Built Systems</p>
+   <p class="contentsl2"><a href="#rule_4.9"     >4.9</a> Documentation for cross-compiles</p>
+   <p class="contentsl2"><a href="#rule_4.10"    >4.10</a> Metrics</p>
+   <p class="contentsl3"><a href="#rule_4.10.1"  >4.10.1</a>   SPECspeed Metrics</p>
+   <p class="contentsl3"><a href="#rule_4.10.2"  >4.10.2</a>   SPECrate Metrics</p>
+   <p class="contentsl3"><a href="#rule_4.10.3"  >4.10.3</a>   Energy Metrics</p>
+
+</td>
+</tr>
+<tr>
+<td style="border:none;">
+   <p id="Dtoc_5" class="contentsl1"><a style="color:white;text-decoration:none;" href="#rule_5"     >5.  SPEC Process Information</a></p>
+   <p class="contentsl2"><a href="#rule_5.1"    >5.1</a> Run Rule Exceptions</p>
+   <p class="contentsl2"><a href="#rule_5.2"    >5.2</a> Publishing on the SPEC website</p>
+   <p class="contentsl2"><a href="#rule_5.3"    >5.3</a> Fair Use  </p>
+   <p class="contentsl2"><a href="#rule_5.4"    >5.4</a> Research and Academic usage of CPU 2017</p>
+   <p class="contentsl2"><a href="#rule_5.5"    >5.5</a> Required Disclosures  </p>
+   <p class="contentsl2"><a href="#rule_5.6"    >5.6</a> Estimates</p>
+   <p class="contentsl3"><a href="#rule_5.6.1"  >5.6.1</a> Estimates are <span class="u">not</span> allowed for energy metrics</p>
+   <p class="contentsl3"><a href="#rule_5.6.2"  >5.6.2</a> Estimates are allowed for performance metrics</p>
+   <p class="contentsl2"><a href="#rule_5.7"    >5.7</a> Procedures for Non-compliant results</p>
+   </td>
+   </tr>
+   </table>
+
+
+<p id="changes" class="snugbot"><b>Changes since the release of SPEC CPU 2017 v1.0.0</b></p>
+<ul>
+   <li><p class="snug">Provide full support for power measurements and energy metrics. See: </p>
+      <ul class="snug">
+         <li><a href="#rule_1.6">1.6</a> Philosophy section on Power Measurement</li>
+         <li><a href="#rule_1.7">1.7</a> Philosophy section on Estimates </li>
+         <li><a href="#rule_3.9">3.9</a> Power and Temperature Measurement</li> 
+         <li><a href="#rule_4.1">4.1</a> General disclosure requirements</li> 
+         <li><a href="#rule_4.2.5">4.2.5</a> Performance changes for pre-production systems</li> 
+         <li><a href="#rule_4.3">4.3</a> Performance changes for production systems</li> 
+         <li><a href="#rule_4.10.3">4.10.3</a> Energy Metrics</li> 
+         <li><a href="#rule_5.6">5.6</a> Estimates</li>
+      </ul>
+   </li>
+   <li><a href="#rule_2.3.11">2.3.11</a> Clarify that 32-bit pointers may be used only for SPECrate (SPECspeed 2017 does not fit in 
+   32 bits).</li>
+   <li><a href="#rule_4.4">4.4</a> Clarify that rawformat may be used to update results after the run.</li>
+   <li><a href="#rule_4.6.b">4.6.b</a> Clarify that rawformat may be used to fix flags files.</li>
+   <li><a href="#rule_4.7">4.7</a> The rule about equivalent systems has been removed and replaced: 
+         <a href="#rule_4.7">A result may be published for only one system</a>.</li>
+</ul>
+
+
+<p class="snugbot"><b>Highlights of Changes from SPEC CPU 2006:</b></p>
+<ul>
+   <li><a href="#MedianOrLowerOfTwo">1.2.1</a> Reportable runs can use the median, or the slower of two runs</li>
+   <li><a href="#rule_2.3.1">2.3.1</a> The standards referenced are C99, Fortran-2003, C++2003.  </li>
+   <li><a href="#ieee754">2.3.3</a> IEEE-754 is not required.</li>
+   <li><a href="#rule_2.3.9">2.3.9</a> Data models: expand to clarify treatment of 64-bit file data</li>
+   <li><a href="#rule_3.4">3.4</a> allows the peak run-time environment to differ by benchmark.</li>
+   <li><a href="#rule_3.6">3.6</a> and <a href="#rule_3.7">3.7</a>: for both copies and threads, base must be the same, peak can differ.</li>
+   <li><a href="#rule_4.0">4.0</a> Summarize the Full Disclosure rules. </li> 
+   <li><a href="#rule_4.1.2">4.1.2</a> The sysinfo utility is required  for published results</li>
+   <li> <a href="#rule_4.4.2">4.4.2</a> MHz is split into "Nominal" and "Max".  All cpu component reporting is as regards the "enabled" components.  </li>
+   <li><a href="#rule_4.10">4.10</a> The Metrics are named SPEC{rate,speed}2017_{int,fp}_{base,peak}.  </li>
+   <li>The primary tool for using SPEC CPU 2017 is called 'runcpu'.  References to the old tool, 'runspec', have been updated.</li>
+   <li>Make some of the complicated rules simpler, by sticking with principles and less mechanics.  For example: Continuous
+      Build, <a href="#rule_2.1.3">2.1.3</a>.</li>
+</ul>
+
+
+<!-- .......................................................................................................................... -->
+<h2 id="rule_1">            1.         Philosophy 
+</h2>
+
+<p>This philosophy section describes the basic rules upon which the rest of the SPEC CPU 2017 rules are built.  It provides an
+overview of the purpose, definitions, methods, and assumptions for the rest of the SPEC CPU 2017 run rules.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.1">          1.1.       Purpose 
+</h3>
+
+<p>The purpose of the SPEC CPU 2017 benchmark and its run rules is to further the cause of fair and objective CPU benchmarking.  The rules help
+ensure that published results are meaningful, comparable to other results, and reproducible.  SPEC believes that the user
+community benefits from an objective series of tests which serve as a common reference.</p> 
+
+<p>Per the SPEC license agreement, all SPEC CPU 2017 results disclosed in public -- whether in writing or in verbal
+form -- must adhere to the SPEC CPU 2017 Run and Reporting Rules, or be clearly described as estimates. </p>
+
+<p class="snugbot">A published SPEC CPU 2017 result is three things: </p>
+<ol class="snug">
+   <li class="snug">A performance observation (rule <a href="#obs">1.2</a>); </li>
+<li class="snug">A declaration of expected performance (rule <a href="#decl">1.3</a>); and </li>
+<li class="snug">A claim about maturity of performance methods (rule <a href="#opt">1.4</a>).</li>
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.2">          1.2.       A SPEC CPU 2017 Result Is An Observation 
+   <span id="Observation"> </span>
+   <span id="observation"> </span>
+   <span id="Obs"> </span>
+   <span id="obs"> </span>
+</h3>
+
+<p>A published SPEC CPU 2017 result is an empirical report of performance observed when carrying out certain computationally
+intensive tasks.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.2.1">        1.2.1.     Test Methods 
+</h4>
+
+<p class="l1">SPEC supplies the CPU 2017 benchmarks in the form of source code, which testers are not allowed to modify except under
+certain very restricted circumstances.  SPEC CPU 2017 includes 43 benchmarks, organized into 4 suites: </p>
+   <ul class="l1">
+      <li>SPECspeed&reg;2017 Integer, with 10 benchmarks;</li>
+      <li>SPECrate&reg;2017 Integer, with 10 benchmarks;</li>
+      <li>SPECspeed&reg;2017 Floating Point, with 10 benchmarks;</li>
+      <li>SPECrate&reg;2017 Floating Point, with 13 benchmarks;</li>
+</ul>
+
+
+<p class="l1"><b>Note:</b> this document avoids the (otherwise common) usage "CPU 2017 suite" (singular),
+instead insisting on "CPU 2017 suites" (plural).  Thus a rule that requires consistency within a suite means that consistency
+is required across  a set of 10 or 13 benchmarks, not a set of 43</p>
+
+<p class="l1snugbot">Testers supply compilers and a System Under Test (SUT).  Testers may set optimization flags and, where needed, portability
+flags, in a SPEC config file.  The SPEC CPU 2017 tools automatically:</p>
+<ul class="l1snugtop">
+  <li>Archive the config file</li>
+  <li>Build the benchmarks</li>
+  <li>Run all the benchmarks in a suite in a single continuous run</li>
+  <li>Validate benchmark outputs to ensure that acceptable outputs are generated</li>
+  <li>Compute metrics, such as SPECrate&reg;2017_int_base</li>
+</ul>
+
+<p id="MedianOrLowerOfTwo" class="l1snugbot">In order to provide some assurance that results are repeatable, each benchmark is
+run more than once.  The tester may choose:</p>
+<ol class="subrule_snugtop">
+   <li>To run each benchmark three times, in which case the tools use the median time.</li>
+   <li>Or to run each benchmark twice, in which case the tools use the slower of the two runs.</li>
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.2.2">        1.2.2.     Conditions of Observation 
+</h4>
+
+<p class="l1">The report that certain performance has been observed is meaningful only if the conditions of observation are stated.  SPEC therefore
+requires that a published result include a description of all performance-relevant conditions. </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.2.3">        1.2.3.     Assumptions About the Tester 
+</h4>
+
+<p class="l1snugbot">It is assumed that the tester:</p>
+<ol class="subrule_snugtop"> 
+   <li>is willing to describe the observation and its conditions clearly;</li>
+   <li>is able to learn how to operate the SUT in ways that comply with the rules in this document, for example by selecting
+   compilation options that meet SPEC's requirements; </li>
+   <li>knows the SUT better than those who have only indirect contact with it;</li>
+   <li>is honest: SPEC CPU does not employ an independent auditor process, though it does have requirements for
+   reproducibility and does encourage use of a peer review process.</li>
+</ol>
+<p class="l1">The person who actually carries out the test is, therefore, the first and the most important audience for these run rules.
+The rules attempt to help the tester by trying to be clear about what is and what is not allowed.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.3">          1.3.       A Published SPEC CPU 2017 Result Is a Declaration of Expected Performance 
+   <span id="Decl"> </span>
+   <span id="decl"> </span>
+   <span id="Declaration"> </span>
+   <span id="declaration"> </span>
+</h3>
+
+<p>A published SPEC CPU 2017 result is a declaration that the observed level of performance can be obtained by others.  Such
+declarations are widely used by vendors in their marketing literature, and are expected to be meaningful to ordinary customers.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.3.1">        1.3.1.     Reproducibility 
+</h4>
+
+<p class="l1">It is expected that later testers can obtain a copy of the SPEC CPU 2017 suites, obtain the components described in the
+original result, and reproduce the claimed performance, within a small range to allow for run-to-run variation.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.3.2">        1.3.2.     Obtaining Components 
+</h4>
+
+<p class="l1snugbot">Therefore, it is expected that the components used in a published result can in fact be obtained, with the level of quality commonly
+expected for products sold to ordinary customers.  Such components must:</p>
+<ol class="subrule_snugtop">
+   <li>be specified using customer-recognizable names,</li>
+   <li>be generally available within certain time frames,</li>
+   <li>provide documentation,</li>
+   <li>provide an option for customer support,</li>
+   <li>be of production quality, and</li>
+   <li>provide a suitable environment for programming.</li>
+</ol>
+
+<p class="l1">The judgment of whether a component meets the above list may sometimes pose difficulty, and various references are given
+in these rules to guidelines for such judgment.  But by way of introduction, imagine a vendor-internal version of a compiler,
+designated only by an internal code name, unavailable to customers, which frequently generates incorrect code.  Such a
+compiler would fail to provide a suitable environment for general programming, and would not be ready for use in a SPEC
+CPU 2017 result.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.4">          1.4.       A SPEC CPU 2017 Result is a Claim About Maturity of Performance Methods 
+   <span id="Opt"> </span>
+   <span id="opt"> </span>
+   <span id="Optimization"> </span>
+   <span id="optimization"> </span>
+   <span id="Optimizations"> </span>
+   <span id="optimizations"> </span>
+</h3>
+
+<p>A published SPEC CPU 2017 result carries an implicit claim that the performance methods it employs are more than just
+"prototype" or "experimental" or "research" methods; it is a claim that there is a certain level of maturity and general
+applicability in its methods.  Unless clearly described as an estimate, a published SPEC result is a claim that the
+performance methods employed (whether hardware or software, compiler or other):</p>
+<ol class="subrule">
+   <li>generate correct code for a class of programs larger than the SPEC CPU 2017 suites,</li>
+   <li>improve performance for a class of programs larger than the SPEC CPU 2017 suites,</li>
+   <li>are recommended by the vendor for a specified class of programs larger than the SPEC CPU 2017 suites,</li>
+   <li>are generally available, documented, supported, and</li>
+   <li>if used as part of base (rule <a href="#rule_2.3">2.3</a>), are safe (rule <a href="#rule_2.3.1">2.3.1</a>).</li>
+</ol>
+
+<p>SPEC is aware of the importance of optimizations in producing the best performance.  SPEC is also aware that it is
+sometimes hard to draw an exact line between legitimate optimizations that happen to benefit SPEC benchmarks, versus
+optimizations that exclusively target the SPEC benchmarks.  However, with the list above, SPEC wants to increase awareness of
+implementers and end users to issues of unwanted benchmark-specific optimizations that would be incompatible with SPEC's goal
+of fair benchmarking. </p>
+
+<p>The tester must describe the performance methods that are used in terms that a performance-aware user can follow, so that
+users can understand how the performance was obtained and can determine whether the methods may be applicable to their own applications.
+The tester must be able to make a credible public claim
+that a class of applications in the real world may benefit from these methods. </p> 
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.5">          1.5.       Peak and base builds 
+</h3>
+
+
+<p id="peak">"Peak" metrics may be produced by building each benchmark in the suite with a set of optimizations individually selected
+for that benchmark. The optimizations selected must adhere to the set of general benchmark optimization rules described in
+rule 2.1 below. This may also be referred to as "aggressive compilation".</p>
+
+<p id="base">"Base" metrics must be produced by building all the benchmarks in the suite with a common set of optimizations.  In
+addition to the general benchmark optimization rules (rule 2.1), base optimizations must adhere to a stricter set of rules
+described in rule 2.2.  </p>
+
+<p>These additional rules serve to form a "baseline" of performance that can be obtained with a single set of compiler
+switches, single-pass make process, and a high degree of portability, safety, and performance.</p>
+
+<ol class="subrule"> 
+<li><p> The choice of a single set of switches and single-pass make process is intended to reflect the performance that
+may be attained by a user who is interested in performance, but who prefers not to invest the time required for tuning of
+individual programs, development of training workloads, and development of multi-pass Makefiles.</p></li>
+
+<li id="assumeStd"><p>SPEC allows base builds to assume that the program follows the relevant language standard (i.e. it is
+   portable).   But this assumption may be made only where it does not interfere with getting the expected answer.  <span
+      id="MustValidate">For all testing, SPEC requires that benchmark outputs match an expected set of outputs, typically
+      within a benchmark-defined tolerance to allow for implementation differences among systems.</span></p>
+
+<p id="cater">Because the SPEC CPU 2017 benchmarks are drawn from the compute intensive portion of real applications, some of them use
+popular practices that compilers must commonly cater for, even if those practices are nonstandard.  In particular, some of
+the programs (and, therefore, all of base) may have to be compiled with settings that do not exploit all optimization
+possibilities that would be possible for programs with perfect standards compliance.</p></li>
+
+<li><p>In base, the compiler may not make unsafe assumptions that are more aggressive than what the language standard
+allows.</p></li>
+
+<li><p>Finally, though, as a performance suite, SPEC CPU has throughout its history allowed certain common optimizations to
+nevertheless be included in base, such as reordering of operands in accordance with algebraic identities.</p></li>
+</ol>
+
+<p>Rules for building the benchmarks are described in rule 2.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.6">          1.6.       Power Measurement
+</h3>
+
+<p class="snugbot">Optionally, power may be measured and energy metrics may be produced.  In order to provide high-quality power
+reporting, SPEC requires the use of independent measurement hardware:</p>
+<ul class="snugish">
+   <li>A power analyzer, which must be on the <a class="external"
+      href="https://www.spec.org/power/docs/SPECpower-Device_List.html">accepted measurement devices list</a>, and which must be
+   calibrated (verified to operate within acceptable limits).</li>
+   <li>A temperature sensor, also appearing on the <a class="external"
+      href="https://www.spec.org/power/docs/SPECpower-Device_List.html">accepted measurement devices list</a>.</li>
+   <li>A "controller system", which runs the SPEC-supplied Power and Temperature Daemon (PTDaemon).</li>
+</ul>
+
+<p>Power measurements are subject to validity checks to ensure that a sufficient number of valid samples are collected and
+that voltage and temperature fall within expected limits.  These checks are in addition to the usual checks that benchmarks
+produce acceptable answers.</p>
+
+<p>For more details on Power Measurement, see <a href="#rule_3.9">rule 3.9</a>.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.7">          1.7.       Estimates 
+   <span id="estimates"> </span>
+</h3>
+
+   <p class="snugbot">SPEC CPU 2017 energy metrics <span class="u"><b>must not</b></span> be estimated.</p>
+   <p class="l1snugtop">Power consumption is affected by physical manufacturing variations in all of the active parts in a system;
+   therefore, power consumption can not be estimated with enough accuracy to allow SPEC CPU energy metrics to be estimated.</p>
+
+   <p>SPEC CPU 2017 performance metrics <span class="u"><b>may</b></span> be estimated.  </p>
+
+   <p>All estimates (rule <a href="#rule_5.6">5.6</a>) must be clearly designated as such.</p>
+
+
+<p>This philosophy rule has described how a "result" is an empirical report (rule <a href="#rule_1.2">1.2</a>) of
+performance, includes a full disclosure of performance-relevant conditions (rule <a href="#rule_1.2.2">1.2.2</a>), can be
+reproduced (rule <a href="#rule_1.3.1">1.3.1</a>), and uses mature performance methods (rule <a href="#rule_1.4">1.4</a>).  By
+contrast, estimates may fail to provide one or even all of these characteristics.
+</p>
+
+<p>Nevertheless, estimates have long been seen as valuable for SPEC CPU benchmarks.  Estimates are set at inception of a new
+chip design and are tracked carefully through analytic, simulation, and HDL (Hardware Description Language) models.  They are
+validated against prototype hardware and, eventually, production hardware.  With chip designs taking years, and requiring
+very large investments, estimates are central to corporate roadmaps.  Such roadmaps may compare SPEC CPU estimates for
+several generations of processors, and, explicitly or by implication, contrast one company's products and plans with
+another's.  </p>
+
+<p>SPEC wants the CPU benchmarks to be useful, and part of that usefulness is allowing the performance metrics to be estimated.</p>
+
+<p>The key philosophical point is simply that, where allowed, estimates (rule <a href="#rule_5.6">5.6</a>) must be clearly
+distinguished from results.</p>
+
+
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.8">          1.8.       About SPEC 
+</h3>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.8.1">        1.8.1.     Publication on SPEC's web site is encouraged 
+</h4>
+
+
+<p class="l1">SPEC encourages the review of CPU 2017 results by the relevant subcommittee, and subsequent publication on SPEC's web
+site (<a class="external" href="https://www.spec.org/cpu2017/">www.spec.org/cpu2017</a>).  SPEC uses a peer-review process prior to publication, in
+order to improve consistency in the understanding, application, and interpretation of these run rules.  </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.8.2">        1.8.2.     Publication on SPEC's web site is not required 
+</h4>
+
+<p class="l1">Review by SPEC is not required.  Testers may publish rule-compliant results independently.  No matter
+where published, all results publicly disclosed must adhere to the SPEC Run and Reporting Rules, or be clearly marked as
+estimates.  SPEC may take action (rule <a href="#rule_5.7">5.7</a>)  if the rules are not followed.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.8.3">        1.8.3.     SPEC May Require New Tests 
+</h4>
+
+<p class="l1">In cases where it appears that the run rules have not been followed, SPEC may investigate such a claim and require that a
+result be regenerated, or may require that the tester correct the deficiency (e.g. make the optimization more general purpose
+or correct problems with code generation).</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_1.8.4">        1.8.4.     SPEC May Adapt the Suites 
+</h4>
+
+<p class="l1">The SPEC Open Systems Group reserves the right to adapt the SPEC CPU 2017 suites as it deems necessary to preserve its goal
+of fair benchmarking.  Such adaptations might include (but are not limited to) removing benchmarks, modifying codes or
+workloads, adapting metrics, republishing old results adapted to a new metric, or requiring retesting by the original
+tester.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_1.9">          1.9.       Usage of the Philosophy Rule 
+</h3>
+
+<p>This philosophy rule is intended to introduce concepts of fair benchmarking.  It is understood that in some cases, this
+rule uses terms that may require judgment, or which may lack specificity.  For more specific requirements, please see the
+rules below.</p>
+
+<p>In case of a conflict between this philosophy rule and a run rule in one of the rules below, normally the run rule found 
+below takes priority.</p>
+
+<p>Nevertheless, there are several conditions under which questions should be resolved by reference to rule 1: 
+(a)&nbsp;self-conflict: if rules below are found to impose incompatible requirements; (b)&nbsp;ambiguity: if they are unclear or
+silent with respect to a question that affects how a result is obtained, published, or interpreted; (c)&nbsp;obsolecsence: if the
+rules below  are made obsolete by changing technical circumstances or by directives from superior entities within
+SPEC.</p>
+
+<p>When questions arise as to interpretation of the run rules:</p>
+<ol class="subrule">
+   <li><p> Interested parties should seek first to resolve questions based on the rules as written in the rules that
+   follow.  If this is not practical (because of problems of contradiction, ambiguity, or obsolescence), then the principles
+   of the philosophy rule should be used to resolve the issue.</p></li>
+   <li><p> The SPEC CPU subcommittee should be notified of the issue.  Contact information may be found via the SPEC web site,
+   <a class="external" href="https://www.spec.org/">www.spec.org</a>.</p></li>
+   <li><p>SPEC may choose to issue a ruling on the issue at hand, and may choose to amend the rules to avoid future such
+   issues.</p></li>
+</ol>
+
+
+<!-- .......................................................................................................................... -->
+<h2 id="rule_2">            2.         Building SPEC CPU 2017 
+</h2>
+
+
+<table>
+   <tr>
+      <td><b>Definition:&nbsp;flag</b></td>
+      <td>For the purpose of these run rules, a "flag" is any means of expressing a choice regarding transformation of
+      SPEC-supplied source into a binary executable.  The term is not limited to traditional command line switches.  <div
+      class="exinline">Other examples: environment variables; system-global options; choices made when products are
+      installed.</div></td> 
+   </tr>
+</table>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_2.1">          2.1.       General Rules for Building the Benchmark 
+</h3>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.1.1">        2.1.1.     SPEC's tools must be used 
+</h4>
+
+
+<p class="l1">SPEC provides a set of tools that control how the benchmarks are run.  The primary tool is called <a
+   class="external" href="runcpu.html">runcpu</a>, which reads user-supplied config files, builds the benchmarks, and
+runs them.</p>
+
+<p class="l1">Some Fortran programs in SPEC CPU 2017 are preprocessed.
+ Fortran preprocessing must be done using the SPEC-supplied preprocessor, under the
+control of <samp class="snugr">runcpu</samp>.  It is not permitted to use a preprocessor that is supplied as part of the vendor's compiler.</p>
+
+<p class="l1">SPEC supplies pre-compiled versions of the tools for many systems.  For new systems, the document <a
+   class="external" href="tools-build.html">Building the Tools</a> explains how to build them and how to obtain approval.  Approval must be
+obtained prior to any publication of a result using those tools.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.1.2">        2.1.2.     The runcpu build environment 
+</h4>
+
+
+<p class="l1snugbot">When <samp>runcpu</samp> is used to build the SPEC CPU 2017 benchmarks, anything that contributes to
+   performance must be disclosed (rule <a href="#rule_4">4</a>) and must meet the usual general availability tests, as
+   described in the Philosophy (rule <a href="#rule_1">1</a>): supported, documented, product quality, recommended, and so
+   forth. These requirements apply to all aspects of the build environment, including but not limited to:</p>
+<ol class="subrule_snugtop">
+   <li>The operating system and any tuning thereof.</li>
+   <li>Performance-enhancing software, firmware, or hardware.</li>
+   <li>Resource management.</li>
+   <li>Environment variables</li>
+</ol>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.1.3">        2.1.3.     Continuous Build requirement 
+</h4>
+
+
+<p class="l1">For a reportable run, a suite of benchmarks are compiled (for example, 10 benchmarks for <samp class="snugr">fpspeed</samp>).  Optional peak
+tuning doubles the number of compiles (making 20 for the example of fpspeed). If a result is made public, then it must be
+possible for new testers to use its config file to compile all the benchmarks (both base and peak, if peak was used) in a
+single invocation of <samp class="snugr">runcpu</samp>; and obtain executable binaries that are, from a performance point of view, equivalent
+to the binaries used by the original tester. </p>
+
+<p class="l1">Of course, the new tester may need to set up the system to match the original build environment, as
+described just above (rule <a href="#rule_2.1.2">2.1.2</a>) and may need to make minor config file adjustments,
+e.g. for directory paths.</p>
+
+<p class="l1">Note that this rule does not require that the original tester <span class="u">actually</span> build all the benchmarks in
+a single invocation.  Instead, it requires that the tester ensure that nothing would prevent a continuous build.  The
+simplest and least error-prone way to meet this requirement is simply to do a complete build of all
+the benchmarks in a single invocation of <samp class="snugr">runcpu</samp>.  Nevertheless, SPEC recognizes that there is a cost to benchmarking
+and that it may be convenient to build benchmarks individually, perhaps as part of a tuning project.</p>
+
+<p class="l1exsnug">Here are some examples of practices that this rule prohibits:</p>
+<ol class="l1exsnug" style="list-style-type:lower-alpha;">
+   <li>Not allowed: Two benchmarks within a suite (for example, fprate) require incompatible OS tuning and a reboot is required
+   in between their builds.</li>
+   <li>Not allowed: One C++ benchmark within a suite does better when compiler patch 42 is installed, and another does worse;
+   so the tester compiles one on a system with patch 42 and the other on a system that does not have patch 42.</li>
+   <li>Not allowed: when all the benchmarks are built in a single invocation, a resource runs out and runcpu
+   crashes.  Therefore, the tester builds them one at a time.</li>
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.1.4">        2.1.4.     Cross-compilation allowed 
+</h4>
+
+
+<p class="l1">It is permitted to use cross-compilation, that is, a build process where the benchmark executables are built on
+a system different than the SUT.  The <samp>runcpu</samp> tool must be used (in accordance with rule <a
+   href="#rule_2.1.2">2.1.2</a>) on both systems, typically with <samp class="nb">--action=build</samp> on the host(s)
+and <samp class="nb">--action=validate</samp> on the SUT.</p>
+
+<p class="l1">Documentation of cross-compiles is described in rule <a href="#rule_4.9">4.9</a>.</p>
+
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_2.2">          2.2.       Rules for Selecting Compilation Flags 
+</h3>
+
+
+
+<p>The following rules apply to compiler flag selection for SPEC CPU 2017 Peak and Base Metrics.  Additional rules for Base
+Metrics follow in rule <a href="#rule_2.3">2.3</a>. </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.2.1">        2.2.1.     Must not use names 
+</h4>
+
+
+<p class="l1">Benchmark source file or variable or subroutine names must not be used within optimization flags or compiler/build
+options.  </p>
+
+<p class="l1">Identifiers used in preprocessor directives to select alternative benchmark source code are also forbidden, except for a
+rule-compliant library substitution (rule <a href="#rule_2.2.2">2.2.2</a>) or an approved portability flag (rule <a
+href="#rule_2.2.5">2.2.5</a>).</p>
+
+<p class="l1ex">For example, if a benchmark  uses <samp class="nb">#ifdef IDENTIFIER</samp> to provide alternative 
+source code under the control of compiler flag <samp class="nbsnugr">-DIDENTIFIER</samp>, that flag may not be used unless 
+it meets the criteria of rule <a href="#rule_2.2.2">2.2.2</a> or rule <a href="#rule_2.2.5">2.2.5</a>.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.2.2">        2.2.2.     Limitations on library substitutions 
+</h4>
+
+
+<p class="l1">Flags which substitute pre-computed (e.g. library-based) routines for routines defined in the benchmark on the basis of
+the routine's name must not be used.  Exceptions are:</p>
+
+<ol class="subrule">
+   <li><p>the function <samp class="snugr">alloca()</samp>.  It is permitted to use a flag that substitutes a built-in alloca().
+      Such a flag may be applied to individual benchmarks (in both base and peak).</p></li>
+
+      <li><p>the level 1, 2 and 3 BLAS functions in the floating point  benchmarks, and the netlib-interface-compliant FFT functions.  Such
+         substitution may be used in a peak run, but must not be used in base.</p></li>
+</ol>
+
+<p class="l1">Note: rule 2.2.2 does not forbid flags that select alternative implementations of library functions defined in an ANSI/ISO
+language standard.  For example, such flags might select an optimized library of these functions, or allow them to be
+inlined.  </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.2.3">        2.2.3.     Feedback directed optimization is allowed in peak. 
+</h4>
+
+
+<p class="l1">Feedback directed optimization may be used in peak.  Only the training input (which is automatically selected by
+<samp class="snugr">runcpu</samp>) may be used for the run(s) that generate(s) feedback data.  </p>
+
+<p class="l1">Optimization with multiple feedback runs is also allowed (build, run, build, run, build...).</p>
+
+<p class="l1">The requirement to use only the train data set at compile time shall not be taken to forbid the use of run-time dynamic
+optimization tools that would observe the reference execution and dynamically modify the in-memory copy of the benchmark.
+However, such tools must not in any way affect later executions of the same benchmark (for example, when running multiple
+times in order to determine the median run time).   Such tools must also be disclosed in the publication of a result, and must
+be used for the entire suite (see rule <a href="#rule_3.8">3.8</a>).</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.2.4">        2.2.4.     Limitations on size changes 
+</h4>
+
+
+<p class="l1">Flags that change a data type size to a size different from the default
+size of the compilation system (after having chosen the data model (rule <a href="#rule_2.3.9">2.3.9</a>) are not allowed.</p>
+
+<p class="l1">Exceptions are: a)&nbsp;the C long type may be set to 32 or greater bits; 
+b)&nbsp;pointer sizes may be set in a manner which requires, or which assumes, that the benchmarks (code+data) fit into 32
+bits of address space.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.2.5">        2.2.5.     Portability Flags 
+   <span id="PortabilityFlags"> </span>
+   <span id="portability"> </span>
+</h4>
+
+
+<p class="l1">Rule <a href="#rule_2.3.5">2.3.5</a> requires that all benchmarks use the same flags in base.  <i>Portability
+   flags</i> are an exception: they may differ from one benchmark to another, even in base.  The first three items below
+describe rules for using them; the remaining items describe how they are proposed and approved.</p>
+
+<ol class="subrule">
+   <li><p>Portability flags must be used via the provided config file PORTABILITY lines (such as <samp class="snugr">CPORTABILITY</samp>,
+      <samp class="snugr">FPORTABILITY</samp>, etc).</p></li>
+
+   <li><p>Portability flags must be approved by the SPEC CPU Subcommittee.</p></li>
+
+   <li><p>If a given portability problem (within a given language) occurs in multiple places within a suite, then,
+      in base, the same method(s) must be applied to solve all instances of the problem.</p></li>
+
+   <li><p>The initial published results for CPU 2017 will include a reviewed set of portability flags on several operating systems;
+      later users who propose to apply additional portability flags must prepare a justification for their use. </p> </li>
+
+   <li><p>A proposed portability flag will normally be approved if one of the following conditions holds:</p>
+
+      <ol class="subrule2">
+         <li><p>The flag selects a performance-neutral alternate benchmark source, and the benchmark cannot build and execute
+            correctly on the given platform unless the alternate source is selected.  (Examples might be flags such as
+            <samp class="nbsnugr">-DHOST_WORDS_BIG_ENDIAN</samp>, <samp class="nbsnugr">-DHAVE_SIGNED_CHAR</samp>.)</p></li>
+
+         <li><p>The flag selects a compiler mode that allows basic parsing of the input source program, and it is not possible
+            to set that flag for all programs of the given language in the suite.  (An example might be <samp class="nbsnugr">-fixedform</samp>, to select
+            Fortran source code fixed format.)</p></li>
+
+         <li><p>The flag selects features from a certain version of the language, and it is not possible to set that flag for
+            all programs of the given language in the suite.</p></li>
+
+         <li><p>The flag solves a data model problem, as described in rule <a href="#rule_2.3.9">2.3.9</a>.</p></li>
+
+         <li><p>The flag selects a resource limit, and it is not possible to set that flag for all programs of the given
+            language in the suite.  </p></li>
+
+      </ol>
+   </li>
+
+   <li><p>A proposed portability flag will normally not be approved unless it is essential in order to successfully build and run
+      the benchmark.  </p></li>
+
+   <li><p>If more than one solution can be used for a problem, the subcommittee will review attributes such as precedent from
+      previously published results, performance neutrality, standards compliance, amount of code affected, impact on the expressed original
+      intent of the program, and good coding practices (in rough order of priority).</p></li>
+
+   <li><p>If a benchmark is discovered to violate the relevant standard, that may or may not be reason for the subcommittee to grant
+      a portability flag.  If the justification for a portability flag is standards compliance, the tester must include a
+      specific reference to the offending source code module and line number, and a specific reference to the relevant sections of
+      the appropriate standard.  The tester should also address impact on the other attributes mentioned in the previous
+      paragraph.</p></li>
+
+   <li><p>If a library is specified as a portability flag, SPEC may request that the table of contents of the library be included in
+      the disclosure.</p></li>
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.2.6">        2.2.6.     Compiler parallelization is allowed for SPECspeed, not allowed for SPECrate 
+   <span id="Compiler-parallel"> </span>
+   <span id="Compiler.parallel"> </span>
+   <span id="CompilerParallel"> </span>
+   <span id="Compiler_parallel"> </span>
+   <span id="Compilerparallel"> </span>
+   <span id="compiler-parallel"> </span>
+   <span id="compiler.parallel"> </span>
+   <span id="compilerParallel"> </span>
+   <span id="compiler_parallel"> </span>
+   <span id="compilerparallel"> </span>
+</h4>
+
+
+<p class="l1">Compiler flags that enable multi-threaded execution, whether by explicit OpenMP directive, or by automatic
+parallelization, are allowed only when building the SPECspeed benchmarks.  For SPECrate, it is forbidden to use compiler
+parallelization (both explicit OpenMP and auto-parallelization are forbidden).</p>
+
+<p style="margin-left:4em;" class="example">For example, the GCC flags <samp class="nb">-fopenmp</samp> and
+<samp class="nb">-floop-parallelize-all</samp> are allowed when building the SPECspeed Integer benchmarks, such as <samp class="snugr">657.xz_s</samp>; the
+same switches are forbidden when building the SPECrate Integer benchmarks, such as <samp class="snugr">557.xz_r</samp>.</p>
+
+<p class="l1">Note: this rule does not forbid the use of SIMD instructions (Single Instruction, Multiple Data).  For
+example, the GCC flag <samp class="nb">-mfpmath=sse</samp> is allowed in both SPECspeed and SPECrate.</p>
+
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_2.3">          2.3.       Base Optimization Rules 
+</h3>
+
+
+<p>The optimizations used to produce SPEC CPU 2017 Base Metrics must meet the requirements of this section, in addition to the
+requirements of rule <a href="#rule_2.1">2.1</a> and rule <a href="#rule_2.2">2.2</a> above. </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.1">        2.3.1.     Safety and Standards Conformance 
+</h4>
+
+
+<p class="l1">The optimizations used are expected to be safe, and it is expected that system or compiler vendors would endorse
+the general use of these optimizations by customers who seek to achieve good application performance.</p>
+
+<ol class="subrule">
+   <li><p>The requirements that optimizations be safe, and that they generate correct code for a class of programs larger than the
+      suites themselves (rule <a href="#rule_1.4">1.4</a>), are normally interpreted as requiring that the system, as used in base,
+      implement the language correctly.</p></li>  
+   <li><p>"The language" is defined by the appropriate ANSI/ISO standard (C99, Fortran-2003, C++2003).</p></li>
+   <li><p class="snugbot">The principle of standards conformance is not automatically applied, because SPEC has historically
+      allowed certain exceptions:</p>
+      <ol class="subrule2">
+         <li>Rule <a href="#rule_2.3.8">2.3.8</a> allows reordering of arithmetic operands.</li>
+         <li>SPEC has not insisted on conformance to the C standard in the setting of <samp class="snugr">errno</samp>.</li>
+         <li>SPEC has not dealt with (and does not intend to deal with) language standard violations that are performance neutral
+            for the CPU 2017 suites.</li>
+         <li>When a more recent language standard modifies a requirement imposed by an earlier standard, SPEC will also accept
+            systems that adhere to the more recent ANSI/ISO language standard.</li>
+      </ol>
+   </li>
+
+   <li><p>Otherwise, a deviation from the standard that is not performance neutral, and gives the particular implementation a
+      performance advantage over standard-conforming implementations, is considered an indication that the requirements about
+      "safe" and "correct code" optimizations are probably not met.  Such a deviation may be a reason for SPEC to mark a
+      result <a href="#rule_5.7">non-compliant</a> (NC).</p></li>
+
+   <li><p>If an optimization causes any SPEC CPU 2017 benchmark to fail to validate, and if the relevant portion of this
+      benchmark's code is within the language standard, the failure is taken as additional evidence that an optimization is
+      not safe.</p>
+   </li>
+</ol>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.2">        2.3.2.     C++ RTTI and exceptions required 
+</h4>
+
+
+<p class="l1"> The C++ standard calls for support of both run-time type information (RTTI) and exception handling.  The compiler, as 
+used in base, must enable these.  </p>
+
+<p class="l1exsnug">Example 1: a compiler enables exception handling by default; it can be turned off with 
+   <samp class="nbsnugr">--noexcept</samp>.  The switch <samp class="nb">--noexcept</samp> is not allowed in
+base.</p>
+
+<p class="l1exsnug">Example 2: a compiler defaults to no run time type information, but allows it to be turned on via 
+   <samp class="nbsnugr">--rtti</samp>.  The switch <samp class="nb">--rtti</samp> must be used in base.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.3">        2.3.3.     IEEE-754 is not required 
+   <span id="ieee754"> </span>
+</h4>
+
+<ol class="subrule">
+   <li>SPEC CPU 2017 does not require that compilers or hardware implement IEEE-754.  </li>
+   <li>Other floating point implementations may conceivably be used with CPU 2017.</li>
+   <li>SPEC CPU 2017 attempts to avoid dependencies on IEEE-754 bit encoding, infinities, NaNs, and subnormal numbers.</li>
+
+   <li><p class="snug">In practice, using other floating point implementations may be difficult or impossible because of the requirement to pass
+      validation. <br />In particular:</p>
+
+      <ol class="subrule2_snugtop">
+         <li>SPEC CPU 2017 benchmarks are primarily drawn from real applications, which have been developed on systems
+            that use the IEEE-754 formats 'binary32' and 'binary64' (formerly known as 'single' and 'double').</li> 
+         <li>SPEC has not tested CPU 2017 using other implementations.</li> 
+         <li>Therefore, there may be latent IEEE-754 assumptions or dependencies within the benchmarks that would cause other
+            floating point implementations to fail validation.</li>
+      </ol>
+   </li>
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.4">        2.3.4.     Regarding accuracy 
+</h4>
+
+
+<p class="l1">Because language standards generally do not set specific requirements for accuracy, SPEC has
+also chosen not to do so.  Nevertheless:</p>
+
+<ol class="subrule">   
+   <li> Optimizations are expected to generate code that provides appropriate accuracy for a class of  applications larger 
+   than the SPEC benchmarks themselves.</li>
+   <li> Implementations are encouraged to clearly document any accuracy limitations.</li>
+   <li> Implementations are encouraged to adhere to the principle of "no surprises"; this can be achieved both by predictable
+   algorithms and by documentation.</li>
+</ol>
+
+<p class="l1">In cases where the class of appropriate applications appears to be so narrowly drawn as to constitute a "benchmark special",
+that may be a reason for SPEC to  mark a result <a href="#rule_5.7">non-compliant</a> (NC).</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.5">        2.3.5.     Base flags same for all 
+   <span id="BaseFlags"> </span>
+</h4>
+
+
+<p class="l1snugbot">For base, the compilation system and all flags must be the same within a suite and language, with the
+exception of portability flags (rule <a href="#rule_2.2.5">2.2.5</a>).   Flags are not required to be the same for differing
+languages, nor for differing suites.  The requirement for consistency includes but is not limited to:</p>
+
+<ol class="subrule_snugtop">
+   <li>Compilation system components:
+      <ol class="subrule2_snugtop">
+         <li>preprocessors</li>
+         <li>compilers</li>
+         <li>linkers</li>
+         <li>libraries</li>
+         <li>post-link-optimizers</li>
+      </ol>
+   </li>
+   <li class="snug">Flags:
+      <ol class="subrule2_snugtop">
+         <li>optimization (e.g. <samp class="nbsnugr">-O3</samp>)</li>
+         <li>warning levels (e.g. <samp class="nbsnugr">-w</samp>) </li>
+         <li>verbosity (e.g. <samp class="nbsnugr">-v</samp>)</li>
+         <li>object file controls (e.g. <samp class="nbsnugr">-c</samp>, <samp class="nbsnugr">-o</samp>) </li>
+         <li>OpenMP</li>
+         <li>number of runtime threads (if controlled by compiler options)</li>
+         <li>language dialect (e.g. <samp class="nbsnugr">-c99</samp>) </li>
+         <li>assertion of standard compliance as explained in rule <a href="#rule_2.3.7">2.3.7</a></li>
+      </ol>
+   </li>
+</ol>
+
+<p class="l1"><b>Order:</b> Base flags must be used in the same order for all compiles of a given language within a suite.</p>  
+
+<p class="l1"><b>Multi-language benchmarks:</b> Each module must be compiled the same way as other modules of its language in the suite.
+Multi-language benchmarks must use the same link flags as other benchmarks with the same "primary" language as designated by
+SPEC -- see "About Linking" in <a class="external" href="makevars.html#linkNote">Make Variables</a>.  .</p>
+
+<p class="l1exsnug">The SPEC tools provide methods to set flags on a per-language and per-suite basis.  The example below
+demonstrates legal differences by language and by suite.  Notice that a benchmark with both C++ and Fortran modules will use
+two different optimization levels -- which is legal, is required, and is automatically done.</p> 
+
+<pre style="margin-left:8em;margin-top:.3em;" >fpspeed=base:
+   CXXOPTIMIZE   = -O3
+   FOPTIMIZE     = -O4
+fprate=base:
+   CXXOPTIMIZE   = -O3
+   FOPTIMIZE     = -O5
+
+</pre>
+
+<div class="l1">
+
+<!-- .......................................................................................................................... -->
+<h5 style="margin-top:2px;" id="rule_2.3.5.1">      2.3.5.1.   Inter-module optimization for multi-language benchmarks 
+</h5>
+
+
+<p class="snugbot">For mixed-language benchmarks, if the compilers have an incompatible inter-module optimization format,
+flags that require inter-module format compatibility may be dropped from base optimization of mixed-language benchmarks.
+The same flags must be dropped from all benchmarks that use the same combination of languages.  All other base
+optimization flags for a given language must be retained for the modules of that language.  </p>
+
+<p class="example">For example, suppose that a suite has exactly two benchmarks that employ both C and Fortran, namely
+<samp>997.CFmix1</samp> and <samp class="snugr">998.CFmix2</samp>.  A tester uses a C compiler and Fortran compiler that are sufficiently
+compatible to be able to allow their object modules to be linked together - but not sufficiently compatible to allow
+inter-module optimization.  The C compiler spells its intermodule optimization switch <samp class="nbsnugr">-ifo</samp>, and the Fortran compiler
+spells its switch <samp class="nbsnugr">--intermodule_optimize</samp>.  In this case, the following would be legal:</p>
+<pre class="l2">fp=base:
+   COPTIMIZE = -fast -O4 -ur=8 -ifo
+   FOPTIMIZE = --prefetch:all --optimize:5 --intermodule_optimize
+   FLD=/usr/opt/advanced/ld
+   FLDOPT=--nocompress --lazyload --intermodule_optimize
+
+997.CFmix1,998.CFmix2=base:
+   COPTIMIZE = -fast -O4 -ur=8 
+   FOPTIMIZE = --prefetch:all --optimize:5 
+   FLD=/usr/opt/advanced/ld
+   FLDOPT=--nocompress --lazyload</pre>
+<p class="example">Following the precedence rules as explained in <a class="external" href="config.html">config.html</a>, the above section
+specifiers set default tuning for the C and Fortran benchmarks in the floating point suite, but the tuning is modified 
+for the two mixed-language benchmarks to remove switches that would have attempted inter-module optimization.</p>
+
+</div>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.6">        2.3.6.     Feedback directed optimization must not be used in base. 
+   <span id="FDO-base"> </span>
+   <span id="FDO.base"> </span>
+   <span id="FDO_base"> </span>
+   <span id="FDObase"> </span>
+   <span id="FdoBase"> </span>
+   <span id="fdo-base"> </span>
+   <span id="fdo.base"> </span>
+   <span id="fdoBase"> </span>
+   <span id="fdo_base"> </span>
+   <span id="fdobase"> </span>
+</h4>
+
+
+<p class="l1">Feedback directed optimization must not be used in base for SPEC CPU 2017.  </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.7">        2.3.7.     Assertion flags must not be used in base. 
+</h4>
+
+
+<p class="l1">An assertion flag is one that supplies semantic information that the compilation system did not derive from the source
+statements of the benchmark.</p>
+
+<p class="l1">With an assertion flag, the programmer asserts to the compiler that the program has properties that allow the
+compiler to apply more aggressive optimization techniques.  (The common historical example would be to assume 
+that C pointers do not alias, prior to widespread adoption of the C89 aliasing rules.)  The 
+problem is that there can be legal programs (possibly strange, but still standard-conforming programs) where such a property
+does not hold.  These programs could crash or give incorrect results if an assertion flag is used.  This is the reason why
+such flags are sometimes also called "unsafe flags".  Assertion flags should never be applied to a production program without
+previous careful checks; therefore they must not be used for base.  </p>
+
+<p class="l1">Exception: a tester is free to turn on a flag that asserts that the benchmark source code complies to the relevant
+standard (e.g. <samp class="nbsnugr">-ansi_alias</samp>).  Note, however, that if such a flag is used, it must be applied to all compiles of the
+given language (C, C++, or Fortran) in a suite, while still passing SPEC's validation tools with correct answers for all the affected
+programs.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.8">        2.3.8.     Floating point reordering allowed 
+   <span id="reordering"> </span>
+   <span id="re-ordering"> </span>
+</h4>
+
+
+<p class="l1">Base results may use flags which affect the numerical accuracy or sensitivity by reordering floating-point operations
+based on algebraic identities. </p>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.9">        2.3.9.     Portability Flags for Data Models 
+</h4>
+
+
+<p class="l1">"Data model flags" select sizes for items such as <samp class="snugr">int</samp>, <samp class="snugr">long</samp>, and pointers.  For example,
+several benchmarks use <samp class="nbsnugr">-DSPEC_LP64</samp>, <samp class="nbsnugr">-DSPEC_P64</samp>, and/or 
+<samp class="nb">-DSPEC_ILP64</samp> to control the data model.  </p>
+
+<ol class="subrule">
+   <li><p>A tester is free to select a data model that is supported on a particular system.</p></li>
+   <li><p>Data model flags must be set consistently for all modules of a given language in base.</p>
+      <ol class="subrule2">
+         <li>Unlike other portability flags (see rule <a href="#rule_2.2.5">2.2.5</a>), there is no requirement to prove that data
+            model flags are needed benchmark-by-benchmark.</li>
+         <li>Instead, the requirement is that they be used consistently.</li>
+         <li>The intent is to encourage consistency in base, and to ensure that Application Binary Interfaces (ABIs) are used
+            correctly, even if it is not immediately easy to prove that they should be.</li>
+      </ol>
+   </li>
+
+   <li><p>If for some reason it is not practical to use a consistent data model in base, then a tester could describe the
+      problem and request that SPEC allow use of an inconsistent data model in base.  SPEC would consider such a request
+      using the same process outlined in rule <a href="#rule_2.2.5">2.2.5</a>, including technical arguments as to the
+      nature of the data model problem and the practicality of alternatives, if any.  SPEC might or might not grant the
+      request.  SPEC might also choose to fix source code limitations, if any, that are causing difficulty.</p></li>
+
+   <li><p>Many systems allow 32-bit programs to nevertheless use 64 bits for file-related types, under the control of flags such as
+      <samp class="nb">-D_FILE_OFFSET_BITS=64</samp> or <samp class="nbsnugr">-D_LARGE_FILES</samp>.   This rule grants the same
+      freedom, and imposes the same requirements, for file size flags. </p></li> 
+
+   <li><p>Portability flags for data models, like all other flags,  must be documented, per rule <a href="#rule_4.6">4.6</a>.
+      In some cases, SPEC supplies documentation (e.g. for <samp class="nbsnugr">-DSPEC_LP64</samp>); otherwise, the user must
+      provide the documentation.</p></li>
+</ol>
+
+<p class="exsnug"><b>Example:</b> </p>
+<div class="l1exsnug">A tester wishes to use 32 bits where possible.  
+   <br />For SPECspeed, as explained in the <a
+   class="external" href="system-requirements.html">System Requirements</a>, some benchmarks use data sets much larger than will fit into 32
+bits.  
+<br />Therefore, for SPECspeed, the tester selects 64-bit.  
+<br />The file system always uses 64 bits on this particular system.  
+</div>
+<p class="l1exsnug">In the config file, the tester writes: </p>
+
+<pre class="l2">
+   intrate,fprate=base:
+     OPTIMIZE    = -m32 -O5
+     PORTABILITY = -D_FILE_OFFSET_BITS=64
+   intspeed,fpspeed=base:
+     OPTIMIZE    = -m64 -O5
+     PORTABILITY = -DSPEC_LP64
+</pre>
+
+<p class="l1exsnug">The user also edits the flags file to add</p>
+<pre class="l2">
+   &lt;flag name="F-D_FILE_OFFSET_BITS:64" class="portability"&gt;
+   Use 64 bits for file-related types.
+   &lt;/flag&gt;
+</pre>
+
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.10">       2.3.10.    Alignment switches are allowed 
+</h4>
+
+
+<p class="l1">Switches that cause data to be aligned on natural boundaries may be used in base. </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_2.3.11">       2.3.11.    Pointer sizes 
+</h4>
+
+<p class="l1">For SPECrate base, pointer sizes may be set in a manner which requires, or which assumes, that the benchmarks 
+(code+data) fit into 32 bits of address space.</p> 
+
+
+<!-- .......................................................................................................................... -->
+<h2 id="rule_3">            3.         Running SPEC CPU 2017 
+</h2>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.1">          3.1.       Single File System 
+   <span id="Single-file-system"> </span>      <span id="File-system"> </span>
+   <span id="Single.file.system"> </span>      <span id="File.system"> </span>
+   <span id="SingleFileSystem"> </span>        <span id="FileSystem"> </span>
+   <span id="Single_file_system"> </span>      <span id="File_system"> </span>
+   <span id="Singlefilesystem"> </span>        <span id="Filesystem"> </span>
+   <span id="single-file-system"> </span>      <span id="file-system"> </span>
+   <span id="single.file.system"> </span>      <span id="file.system"> </span>
+   <span id="singleFileSystem"> </span>        <span id="fileSystem"> </span>
+   <span id="single_file_system"> </span>      <span id="file_system"> </span>
+   <span id="singlefilesystem"> </span>        <span id="filesystem"> </span>
+</h3>
+
+
+<p>SPEC allows any type of file system (disk-based, memory-based, NFS, DFS, FAT, NTFS etc.) to be used.  The type of file
+system must be disclosed in reported results. </p>
+
+<p>SPEC requires the use of a single file system to contain the directory tree for the SPEC CPU 2017 suite being run, unless 
+the <a class="external" href="config.html#output_root">output_root</a> feature is used, in which case at most two file systems may be used: one
+for the installed SPEC CPU 2017 tree, and one for the run directories.</p>
+
+<p class="snugbot">When running multiple copies for SPECrate testing, all of the run directories must be within the same file system.
+All copies must be executed under the control of the <samp>runcpu</samp> program, which: </p>
+<ol class="subrule">
+   <li>provides a working directory for each copy of the benchmark;</li>
+   <li>places one copy of the benchmark binary into the run directories, and causes each of the copies to execute the same binary;</li>
+   <li>where practical, does the same for input data: it places one copy of the inputs into the run directories, and causes each of the copies to read the same inputs; </li>
+   <li>validates that each copy computes acceptable answers.</li>
+</ol>
+
+<p id="post_setup">Using the config file features <samp>bench_post_setup</samp> and/or <samp>post_setup</samp> at the conclusion of
+setup of each benchmark and/or at the conclusion of the setup of all benchmarks, a system command may be issued to cause the
+benchmark data to be written to stable storage (e.g. sync). Note: It is not the intent of this run rule to provide a hook for
+a more generalized cleanup of memory; the intent is simply to allow dirty file system data to be written to stable
+storage.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.2">          3.2.       Continuous Run Requirements 
+</h3>
+
+
+<p>All benchmark executions, including the validation steps, contributing to a particular result page must occur
+continuously, that is, with one user invocation of <samp class="snugr">runcpu</samp>.  (Internally, <samp>runcpu</samp> may generate additional
+invocations of itself as needed; such internal details are not the topic of this rule, which concerns only user-requested
+invocations.) </p>
+
+<p>It is permitted but not required to compile in the same <samp>runcpu</samp> invocation as the execution.</p>
+
+<p>It is permitted but not required to run more than one suite (intrate, fprate, intspeed, and/or fpspeed) using a single of
+<samp>runcpu</samp> command.  </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.2.1">        3.2.1.     Base, Peak, and Basepeak 
+</h4>
+
+
+<p class="l1">If a result page will contain both base and peak results, a single <samp>runcpu</samp> invocation must generate both.
+When both base and peak are run, the tools run the base executables first, followed by the peak executables.</p>
+
+<p class="l1snugbot">It is permitted to publish base results as peak.  This may be:</p>
+<ol class="subrule_snugtop">
+   <li>Done for an entire suite or for an individual benchmark.</li>
+   <li>Decided before a run (via the config file <a class="external" href="config.html#basepeak">basepeak</a> option) or afterwards (via <a
+      class="external" href="runcpu.html#basepeak">rawformat</a>).</li>
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.2.2">        3.2.2.     Untimed workloads 
+</h4>
+
+
+<p class="l1">Reportable runs include, in the same user invocation, the untimed execution of the two smaller workloads known as "test"
+and "train" (see <a class="external" href="runcpu.html#size">runcpu --size</a>).  These are followed by the timed "ref" workload.  All
+workloads are checked for valid answers.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.3">          3.3.       System State 
+</h3>
+
+
+<p>The system state (for example, "Multi-User", "Single-User", "Safe Mode With Networking") may be selected by the tester.
+This state must be disclosed.  As described in rule <a href="#rule_4.4.3">4.4.3</a>, the tester must also disclose whether
+any services or daemons are shut down, and any changes to tuning parameters.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.4">          3.4.       Run-time environment 
+   <span id="Runtime-environment"> </span>      <span id="Run-environment"> </span>
+   <span id="Runtime.environment"> </span>      <span id="Run.environment"> </span>
+   <span id="RuntimeEnvironment"> </span>       <span id="RunEnvironment"> </span>
+   <span id="Runtime_environment"> </span>      <span id="Run_environment"> </span>
+   <span id="Runtimeenvironment"> </span>       <span id="Runenvironment"> </span>
+   <span id="runtime-environment"> </span>      <span id="run-environment"> </span>
+   <span id="runtime.environment"> </span>      <span id="run.environment"> </span>
+   <span id="runtimeEnvironment"> </span>       <span id="runEnvironment"> </span>
+   <span id="runtime_environment"> </span>      <span id="run_environment"> </span>
+   <span id="runtimeenvironment"> </span>       <span id="runenvironment"> </span>
+
+   <span id="Run-time-environment"> </span>
+   <span id="Run.time.environment"> </span>
+   <span id="RunTimeEnvironment"> </span>
+   <span id="Run_time_environment"> </span>
+   <span id="run-time-environment"> </span>
+   <span id="run.time.environment"> </span>
+   <span id="runTimeEnvironment"> </span>
+   <span id="run_time_environment"> </span>
+
+   <span id="Envvars"> </span>
+   <span id="envvars"> </span>
+   <span id="Env_vars"> </span>
+   <span id="env_vars"> </span>
+</h3>
+
+
+<p class="snugbot">The run-time environment for the benchmarks:</p>
+<ol class="subrule">
+
+   <li><p>Must be fully described (rule <a href="#rule_4">4</a>).</p></li>
+
+   <li><p>Must use generally available features, as described in the Philosophy (rule <a href="#rule_1">1</a> -- the
+      features must be supported, documented, of product quality, and so forth).</p></li>
+
+   <li><p>Must not differ from benchmark to benchmark during base runs.  
+All means by which a tester might attempt to change the environment for individual benchmarks in base are forbidden, 
+including but not limited to config file hooks such as <samp class="snugr">submit</samp>,  <samp class="snugr">monitor_pre_bench</samp>, and <a
+   class="external" href="config.html#env_vars">env_vars</a>.   If an environment variable is needed for base, the 
+   preferred method is <a class="external" href="config.html#preenv">preenv</a>, because it restarts <samp>runcpu</samp> 
+   with the specified environment variables and automatically documents them in reports.  A config file may set an
+   environment variable in a <a href="#submit">submit</a> command only on condition that the same submit command must be used for all
+   base benchmarks in a suite.</p>  </li> 
+
+   <li><p>May differ in peak, using the config file features <a class="external" href="config.html#env_vars">env_vars</a> and <a
+      class="external" href="config.html#submit">submit</a>.</p></li>
+   <li><p>May be affected by compile-time flags.  Sometimes choices can be made at compile time that cause benchmark binaries
+      to carry information about a desired runtime environment.  Rule 3.4 does not forbid use of such flags, and the same
+      rules apply for them as for any other compiler flags.  </p>
+   </li>
+</ol>
+
+
+<p class="example"><b>Example 1</b> It would not be acceptable in base to use <samp>submit</samp> or <samp>env_vars</samp>  to cause
+different benchmarks to pick differing page sizes, differing number of threads, or differing choices for local vs. shared
+memory.  In peak, all of these could differ by benchmark.</p>
+
+<p class="example" style="margin-bottom:.2em;"><b>Example 2</b> Suppose that a compiler flag, <samp class="nbsnugr">--bigpages=yes</samp>, 
+requests that a binary should be run with bigpages (if available).  <br />Each of
+the following are permitted:</p>
+<ul class="exsnug">
+   <li>In base, all benchmarks use <samp class="nb">--bigpages=yes</samp> for all compiles.</li>
+   <li>In base, all C++ compiles include <samp class="nbsnugr">--bigpages=yes</samp>.  The Fortran compiles do not include it.</li>
+   <li>In peak, only one benchmark uses <samp class="nbsnugr">--bigpages=yes</samp>.</li>
+</ul>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.5">          3.5.       Submit 
+   <span id="submit"> </span>
+</h3>
+
+
+<p class="snugbot">The config file option <samp>submit</samp> may be used to assign work to processors.  It is commonly used for SPECrate tests,
+but can also be used for SPECspeed.  The tester may, if desired: </p>
+
+<ol class="subrule_snugtop">
+<li>Place benchmark copies or threads on desired processors.</li>
+<li>Place the benchmark memory on a desired memory unit and request desired memory types (such as a specific page size).</li>
+<li>Set environment variables, such as library paths.  Note: the SPEC CPU 2017 tools control OMP_NUM_THREADS; that variable
+   must not be set in a submit command.</li>
+<li>Do arithmetic (e.g. via shell commands) to derive a valid processor number from the SPEC copy number.</li>
+<li>Cause the tools to write each copy's benchmark invocation lines to a file, which is then sent to its processor.</li>
+<li>Reference a testbed description provided by the tester (such as a topology file).  The same description must be used by
+all benchmarks.</li>
+</ol>
+
+<p>The <samp>submit</samp> command must not be used to set differing run time environments among benchmarks for base (see
+rule <a href="#rule_3.4">3.4</a>).</p>
+
+<p>In base, the <samp>submit</samp> command must be the same for all benchmarks in a suite.  In peak, different benchmarks may 
+use different submit commands.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.6">          3.6.       SPECrate Number of copies 
+</h3>
+
+
+<p>For SPECrate&reg;2017_int_base and SPECrate&reg;2017_fp_base, the tester selects how many copies to run, and the tools apply that to
+the base runs for all benchmarks in that suite.</p>
+
+<p>For SPECrate&reg;2017_int_peak and SPECrate&reg;2017_fp_peak, the tester is allowed to select a different number of copies for each
+benchmark.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.7">          3.7.       SPECspeed Number of threads 
+</h3>
+
+
+<p>Note: the rules just below about number of threads are in regard to what the tester requests using <a
+   class="external" href="runcpu.html#threads">runcpu&nbsp;--threads</a> or the corresponding <a
+   class="external" href="config.html#threads">config</a> feature.  In some cases, the tester might request a particular
+number of threads, but a different number might be implemented by the actual benchmark.  </p>
+
+<p>For SPECspeed&reg;2017_int_base and SPECspeed&reg;2017_fp_base, the tester selects how many threads are desired, and the tools apply
+that to the base runs for all benchmarks in that suite.</p>
+
+<p>For SPECspeed&reg;2017_int_peak and SPECspeed&reg;2017_fp_peak, the tester is allowed to select a different number of threads for
+each benchmark.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.8">          3.8.       Run-Time Dynamic Optimization 
+</h3>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.8.1">        3.8.1.     Definitions and Background 
+</h4>
+
+
+<p class="l1">As used in these run rules, the term "run-time dynamic optimization" (RDO) refers broadly to any method by which a system
+adapts to improve performance of an executing program based upon observation of its behavior as it runs.  This is an
+intentionally broad definition, intended to include techniques such as:</p>
+
+<ol class="subrule">
+   <li class="tightli"> rearrangement of code to improve instruction cache performance</li>
+   <li class="tightli"> replacement of emulated instructions by native code</li>
+   <li class="tightli"> value prediction</li>
+   <li class="tightli"> branch predictor training</li>
+   <li class="tightli"> reallocation of on-chip functional units among hardware threads</li>
+   <li class="tightli"> TLB training</li>
+   <li class="tightli"> adjustment of the supply of big pages</li>
+</ol>
+
+<p class="l1">RDO may be under control of hardware, software, or both.</p>
+
+<p class="l1">Understood this broadly, RDO is already commonly in use, and usage can be expected to increase.  SPEC believes that RDO is
+useful, and does not wish to prevent its development.  Furthermore, SPEC views at least some RDO techniques as appropriate
+for base, on the grounds that some techniques may require no special settings or user intervention; the system simply learns
+about the workload and adapts.</p>
+
+<p class="l1">However, benchmarking a system that includes RDO presents a challenge.  A central idea of SPEC benchmarking is to create
+tests that are repeatable: if you run a benchmark suite multiple times, it is expected that results will be similar, although
+there will be a small degree of run-to-run variation.  But an adaptive system may recognize the program that it is asked to
+run, and "carry over" lessons learned in the previous execution; therefore, it might complete a benchmark more quickly each
+time it is run.  Furthermore, unlike in real life, the programs in the benchmark suites are presented with the same inputs
+each time they are run: value prediction is too easy if the inputs never change.  In the extreme case, an adaptive system
+could be imagined that notices which program is about to run, notices what the inputs are, and which reduces the entire
+execution to a print statement.   In the interest of benchmarking that is both repeatable and representative of real-life
+usage, it is therefore necessary to place limits on RDO carry-over.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.8.2">        3.8.2.     RDO Is Allowed, Subject to Certain Conditions 
+</h4>
+
+
+<p class="l1">Run time dynamic optimization is allowed, subject to the usual provisions that the techniques must be generally available,
+documented, and supported.  It is also subject to the conditions listed in the rules immediately following.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.8.3">        3.8.3.     RDO Disclosure and Resources 
+</h4>
+
+
+<p class="l1">Rule <a href="#rule_4">4</a> applies to run-time dynamic optimization: any settings which the tester has set to
+non-default values must be disclosed.  If RDO requires any hardware resources, these must be included in the description of
+the hardware configuration.</p>
+
+<p class="l1ex">For example, suppose that a system can be described as a 64-core system.  After experimenting for a while,
+the tester decides that optimum SPECrate throughput is achieved by dedicating 4 cores to the run-time dynamic optimizer, and
+running only 60 copies of the benchmarks.   The system under test is still correctly described as a 64-core system, even
+though only 60 cores ran SPEC code.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.8.4">        3.8.4.     RDO Settings Cannot Be Changed At Run-time 
+</h4>
+
+
+<p class="l1">Run time dynamic optimization settings must not be changed at run-time, with the exception that 
+rule <a href="#rule_3.4">3.4 (e)</a> also applies to RDO.  For example, in peak it would be acceptable to compile a subset of the benchmarks
+with a flag that suggests to the run-time dynamic optimizer that code rearrangement should be attempted.  Of course, 
+rule <a href="#rule_2.2.1">2.2.1</a> also would apply: such a flag could not tell RDO which routines to rearrange.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.8.5">        3.8.5.     RDO and safety in base 
+</h4>
+
+
+<p class="l1">If run-time dynamic optimization is effectively enabled for base (after taking into account the system state at run-time
+and any compilation flags that interact with the run-time state), then RDO must comply with the safety rule (rule <a
+href="#rule_2.3.1">2.3.1</a>).  It is understood that the safety rule has sometimes required judgment, including
+deliberation by SPEC in order to determine its applicability.  The following is intended as guidance for the tester and for
+SPEC:</p>
+
+<ol class="subrule">
+   <li><p>If an RDO system optimizes a SPEC benchmark in a way which allows it to successfully process the SPEC-supplied
+   inputs, that is not enough to demonstrate safety.  If it can be shown that a different, but valid, input causes the
+   program running under RDO to fail (either by giving a wrong answer or by exiting), where such failure does not occur
+   without RDO; and if it is not a fault of the original source code; then this is taken as evidence that the RDO method is
+   not safe.</p></li>
+
+   <li><p>If an RDO system requires that programs use a subset of the relevant ANSI/ISO language standard, or requires that
+   they use non-standard features, then this is taken as evidence that it is not safe.</p></li>
+
+   <li><p>An RDO system <b><i>is</i></b> allowed to assume (rule <a href="#rule_1.5">1.5 (b)</a>) that programs adhere to the
+      relevant ANSI/ISO language standard.</p></li>
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.8.6">        3.8.6.     RDO carry-over by program is not allowed 
+</h4>
+
+
+<p class="l1">As described in rule <a href="#rule_3.8.1">3.8.1</a>, SPEC has an interest in preventing carry-over of
+information from run to run.  Specifically, no information may be carried over which identifies the specific program or
+executable image.  Here are some examples of behavior that is, and is not, allowed.</p>
+
+<ol class="subrule">
+   <li><p>It doesn't matter whether the information is intentionally stored, or just "left over"; if it's about a specific 
+      program, it's not allowed:</p>
+
+      <ol class="subrule2">
+         <li>Allowed: when a program is run, its use of emulated instructions is noticed by the run-time dynamic optimizer, and
+            these are replaced as it runs, during this run only, by native code. </li>
+         <li>Not allowed: when the program is re-run, a disk cache is consulted to find out what instructions were replaced last
+            time, and the replacement code is used instead of the original program.</li>
+         <li>Not allowed: when the program is re-run, the replacement native instructions are still sitting in memory, and the
+            replacement instructions are used instead of the original program.</li>
+      </ol>
+   </li>
+
+   <li><p>If information is left over from a previous run that is <b><i>not</i></b> associated with a specific program, that
+      <b><i>is</i></b> allowed:</p>
+
+      <ol class="subrule2">
+         <li> Allowed: a virtually-indexed branch predictor is trained during the reference run of 500.perlbench_r.
+            When the second run of 500.perlbench_r is begun, a portion of the branch predictor tables happen to still
+            be in the state that they were in at the end of the previous run (i.e. some entries have not been
+            re-used during runs of intervening programs).</li>
+         <li> Not allowed: a branch predictor specifically identifies certain virtual addresses belong to the executable for
+            500.perlbench_r, and on the second run of that executable it uses that knowledge.</li>
+      </ol>
+   </li>
+
+   <li><p>Any form of RDO that uses memory about a specific program is forbidden:</p>
+      <ol class="subrule2">
+         <li> Allowed: while 500.perlbench_r is running, the run-time dynamic optimizer notices that it seems to be doing a poor job
+            of rearranging instructions for instruction cache packing today, and gives up for the duration of this run.</li>
+         <li> Not allowed: the next time 500.perlbench_r runs, the run-time dynamic optimizer remembers that it had difficulty last
+            time and decides not to even try this time.</li>
+         <li> Not allowed: the run-time dynamic optimizer recognizes that this new program is 500.perlbench_r by the fact that it has
+            the same filename, or has the same size, or has the same checksum, or contains the same symbols.</li>
+      </ol>
+   </li>
+
+   <li><p>The system is allowed to respond to the currently running program, and to the overall workload:</p>
+      <ol class="subrule2">
+         <li> Allowed: the operating system notices that demand for big pages is intense for the currently running program, and 
+            takes measures to increase their supply.</li>
+         <li> Not allowed: the operating system notices that the demand for big pages is intense for certain programs, and takes
+            measures to supply big pages to those specific programs.</li>
+         <li> Allowed: the operating system notices that the demand for big pages is intense today, and takes measures to increase
+            the supply of them.  This causes all but the first few SPECspeed&reg;2017_fp benchmarks to run more quickly, as the bigpage
+            supply is improved.</li>
+      </ol>
+   </li>
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_3.9">          3.9.       Power and Temperature Measurement
+   <span id="power"> </span>
+   <span id="power-and-temperature-measurement"> </span> <span id="power.and.temperature.measurement"> </span>
+   <span id="powerandtemperaturemeasurement"> </span>
+   <span id="power-temperature-measurement"> </span>     <span id="power.temperature.measurement"> </span>
+   <span id="powertemperaturemeasurement"> </span>
+   <span id="power-temp-measurement"> </span>            <span id="power.temp.measurement"> </span>
+   <span id="powertempmeasurement"> </span>
+</h3>
+
+<p class="snugbot">SPEC CPU 2017 allows optional power measurement.  If energy metrics are reported, the rules in this section
+3.9 apply.</p>
+
+<p class="snugbot">Note: Testers are, as always, expected to follow all other rules in this document.  For convenience, it
+may be noted that power-related changes were made to the following rules as of the introduction of SPEC CPU 2017 v1.1:</p>
+<ul class="snug">
+   <li><a href="#rule_1.6">1.6</a> Philosophy section on Power Measurement</li>
+   <li><a href="#rule_1.7">1.7</a> Philosophy section on Estimates </li>
+   <li><a href="#rule_4.1">4.1</a> General disclosure requirements</li> 
+   <li><a href="#rule_4.2.5">4.2.5</a> Performance changes for pre-production systems</li> 
+   <li><a href="#rule_4.3">4.3</a> Performance changes for production systems</li> 
+   <li><a href="#rule_4.10.3">4.10.3</a> Energy Metrics</li> 
+   <li><a href="#rule_5.6">5.6</a> Estimates</li>
+</ul>
+<p class="snugtop">Additional rule updates may be made from time to time, as mentioned <a href="#updates">at the top</a> of
+this document.</p>
+
+<h4 id="rule_3.9.1"   >3.9.1 SPEC PTDaemon must be used</h4>
+
+<p class="l1">SPEC's Power and Temperature reporting tool, SPEC PTDaemon, must be used to gather power measurements.  The
+PTDaemon runs on a "controller system", which must be separate from the SUT, collecting data from power analyzers (see rule
+<a href="#rule_3.9.5">3.9.5</a>) and temperature sensors (see rule <a href="#rule_3.9.6">3.9.6</a>).  </p>
+
+<p class="l1snugbot">The PTDaemon, along with runcpu, will perform various checks on the quality of the measurements.  These
+may be adjusted from time to time, with subsequent releases of PTDaemon or SPEC CPU 2017; as of early 2019, they include:</p>
+<ul class="l1snugtop">
+   <li>Voltage is verified to be within 5% of the line standard.</li>
+   <li>Invalid/erroneous power samples are less than 1% of the total samples read.</li>
+   <li>Invalid/erroneous samples for temperature, power factor, current, and voltage are less than 2% of the total samples read.</li>
+   <li>Samples reported with uncertainty greater than 1% make up less than 5% of the total samples read.  </li>
+   <li>Samples reported with unknown uncertainty make up less than 1% of the total samples read.</li>
+   <li>The minimum reported temperature is at least 20.0&deg;C.</li>
+</ul>
+
+      <p class="l1">It is permitted to reformat a power+performance run as performance-only, using the 
+      <a class="external" href="utility.html#rawformat">rawformat</a> utility with the 
+      <a class="external" href="runcpu.html#power">--nopower</a> option.  You may wish to do so if a run is marked invalid
+      due to sampling or other problems detected during power measurement.</p>
+
+<h4 id="rule_3.9.2">        3.9.2.     Line Voltage Source
+   <span id="voltage"> </span>
+   <span id="line-voltage"> </span>        <span id="line.voltage"> </span>
+   <span id="linevoltage"> </span>
+   <span id="line-voltage-source"> </span> <span id="line.voltage.source"> </span>
+   <span id="linevoltagesource"> </span>
+</h4>
+
+<p class="l1">The preferred line voltage source is the main AC power as provided by local utility companies. Power generated
+from other sources often has unwanted harmonics which are incapable of being measured correctly by many power analyzers, and
+thus, would generate inaccurate results.</p>
+
+<ol class="subrule">
+   <li><p class="snugbot">The AC Line Voltage Source must meet the following characteristics:</p>
+   <ul>
+      <li>Frequency: (50Hz or 60Hz) &plusmn; 1%</li>
+      <li>RMS voltage: (100V, 110V, 120V, 200V, 208V, 220V, 230V, 240V or 400V) &plusmn; 5%</li>
+   </ul></li>
+
+   <li><p>If an unlisted AC line voltage source is used, a reference to the standard must be provided to SPEC. </p></li>
+
+   <li><p>For situations in which the appropriate voltages are not provided by local utility companies (e.g. measuring a
+   server in the United States which is configured for European markets, or measuring a server in a location where the local
+   utility line voltage does not meet the required characteristics), an AC power source may be used.  In such situations, the
+   following requirements must be met, and the relevant measurements or power source specifications disclosed in the
+   power_notes section of the report:</p>
+
+<ol class="subrule2">
+   <li>The total harmonic distortion of the output voltage (under load), based on IEC standards, must be less than 5%</li>
+   <li>The AC power source needs to meet the frequency and voltage characteristics previously listed in this section.</li>
+   <li>The AC power source must not manipulate its output in a way that would alter the power measurements compared to a measurement
+      made using a compliant line voltage source without the power source.</li>
+   </ol>
+
+<p class="snugbot">The intent is that the AC power source does not interfere with measurements such as power factor by trying to
+adjust its output power to improve the power factor of the load.</p></li>
+
+<li><p>The usage of an uninterruptible power source (UPS) as the line voltage source is allowed, but the voltage output must
+be a pure sine-wave. For placement of the UPS, see <a href="#rule_3.9.5.a">3.9.5.a</a>. This usage must be specified in the
+power_notes section of the report.</p></li>
+
+<li><p>Systems that are designed to be able to run normal operations without an external source of power cannot be used to produce
+valid energy metrics. Some examples of disallowed systems are notebook computers, hand-held computers/communication devices, and
+servers that are designed to frequently operate on integrated batteries without external power.</p>
+
+<p>Systems with batteries intended to preserve operations during a temporary lapse of external power, or to maintain data integrity
+during an orderly shutdown when power is lost, can be used to produce valid energy metrics. For SUT components that have an
+integrated battery, the battery must be fully charged at the end of each of the measurement intervals, and proof must be provided
+that it is charged at least to the level of charge at the beginning of the interval.</p>
+
+<p>Note that integrated batteries that are intended to maintain such things as durable cache in a storage controller can be assumed
+to remain fully charged. The above paragraph is intended to address "system" batteries that can provide primary power for the
+SUT.</p>
+</li>
+</ol>
+
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.9.3">        3.9.3.     Environmental Conditions
+   <span id="env-conditions"> </span>           <span id="env.conditions"> </span>
+   <span id="envconditions"> </span>
+   <span id="environmental-conditions"> </span> <span id="environmental.conditions"> </span>
+   <span id="environmentalconditions"> </span>
+   <span id="env-cond"> </span>                 <span id="env.cond"> </span>
+   <span id="envcond"> </span>
+   <span id="environmental-cond"> </span>       <span id="environmental.cond"> </span>
+   <span id="environmentalcond"> </span>
+</h4>
+
+<!-- Below taken pretty much from SERT 2.0 Run and Reporting Rules section 2.8 -->
+<p class="l1">For runs with power measurement, there are restrictions on the physical environment in which the run takes
+place.</p>
+<ol class="subrule">
+   <li>Ambient temperature must not go below 20&deg;C for the duration of the run.</li>
+   <li>Ambient temperature must not go above the documented upper operating limit of the SUT for the duration of the run.</li>
+   <li>Elevation must be within the documented operating specification of the SUT.</li>
+   <li>Humidity must remain within documented operating specification of the SUT for the duration of the run.</li>
+   <li>Overtly directing air flow in order to increase cooling is not allowed unless it is consistent with normal data center 
+   practices. </li>
+</ol>
+
+<p class="l1">The intent is to discourage extreme environments that may artificially affect power consumption or performance of the
+SUT, either before or during the benchmark run.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.9.4">        3.9.4.     Network Interfaces
+   <span id="network-interfaces"> </span> <span id="network.interfaces"> </span>
+   <span id="networkinterfaces"> </span>
+</h4>
+
+<!-- Below taken pretty much from SPECpower_ssj2008 Run and Reporting Rules section 2.11.2.1 -->
+<p class="l1">For runs with power measurement, at least one configured network interface on each SUT must be connected and
+operating at a minimum speed of 1 Gb/s, unless the adapter has a maximum speed of less than 1 Gb/s, in which case it must run
+at its full rated speed.</p>
+
+<p class="l1">Automatically reducing network speed and power consumption in response to traffic levels is allowed for network
+interface controllers with such capabilities, as long as they are also capable of increasing to their configured speed 
+automatically.</p>
+
+
+<h4 id="rule_3.9.5">        3.9.5.     Power analyzer requirements
+</h4>
+
+<!-- Below taken pretty much from SERT 2.0 Run and Reporting Rules section 2.9 -->
+
+<ol class="subrule">
+
+   <li id="rule_3.9.5.a"><p>The power analyzer must be located between the AC line voltage source (or UPS) and the SUT. No
+   other active components are allowed between the AC line voltage source and the SUT.</p></li>
+
+   <li><p>Power analyzer configuration settings that are set by the SPEC PTDaemon must not be manually overridden.</p></li>
+
+   <li><p class="snugbot"> SPEC maintains a list of <a class="external"
+      href="https://www.spec.org/power/docs/SPECpower-Device_List.html">accepted measurement devices</a>.  The devices
+   listed in that document are currently supported by the SPEC PTDaemon and have specifications compliant with the
+   requirements below.</p>
+   <!-- This is mostly from SPECpower_ssj2008 run rules 2.13.2 -->
+   <ol class="subrule2">
+      <li>Measurements: the analyzer must report true RMS power in watts, as well as voltage and either amperes or power factor.</li>
+
+      <li>Accuracy: Measurements must be reported by the analyzer with an overall uncertainty of 1% or better for the RMS power ranges
+      measured during the benchmark run. Overall uncertainty means the sum of all specified analyzer uncertainties for the
+      measurements made during the benchmark run.</li>
+
+      <li>Calibration: the analyzer must have been calibrated within the past year to a standard traceable to
+      <a class="external" href="https://www.nist.gov/">NIST (U.S.A.)</a> or a counterpart national metrology institute in other countries.</li>
+
+      <li>Crest Factor: The analyzer must provide a current crest factor of a minimum value of 3. For analyzers which do not specify
+      the crest factor, the analyzer must be capable of measuring an amperage spike of at least 3 times the maximum amperage
+      measured during any 1-second sample of the benchmark run.</li>
+
+      <li>Logging: The analyzer must have an interface that allows its measurements to be read by the SPEC PTDaemon. The reading rate
+      supported by the analyzer must be at least 1 set of measurements per second. The data averaging interval of the analyzer must
+      be either 1 (preferred) or 2 times the reading interval. "Data averaging interval" is defined as the time period over which
+      all samples captured by the high-speed sampling electronics of the analyzer are averaged to provide the measurement set.</li>
+   </ol></li>
+
+   <li><p>
+      The tester should pick a range that meets the above requirements.  A power analyzer may meet these requirements
+      when used in some power ranges but not in others, due to the dynamic nature of power analyzer accuracy and crest
+      factor.</p>
+   </li>
+
+   <li id="current_range">
+      <p>The current range may need to be set to different values for different benchmarks within SPEC CPU 2017.  This is
+      allowed, for both base and peak.  Rules <a href="#rule_2.3.5">2.3.5</a> and <a href="#rule_3.4">3.4</a>
+      shall not be interpreted to forbid doing so. </p>
+      
+      <p>For example, the following is allowed. Notice that the integer rate benchmark 557.xz_r uses a different
+      <samp>current_range</samp> than the other integer rate benchmarks.</p>
+      <pre class="l1">intrate=base:
+   current_range = 3
+557.xz_r=base:
+   current_range = 4
+intrate=peak:
+   current_range = 5
+557.xz_r=peak:
+   current_range = 6</pre>
+   </li>
+   <li>
+      <span id="Auto-ranging"> </span>      <span id="Auto-range"> </span>
+      <span id="Auto.ranging"> </span>       <span id="Auto.range"> </span>
+      <span id="AutoRanging"> </span>        <span id="AutoRange"> </span>
+      <span id="Auto_ranging"> </span>       <span id="Auto_range"> </span>
+      <span id="Autoranging"> </span>        <span id="Autorange"> </span>
+      <span id="auto-ranging"> </span>       <span id="auto-range"> </span>
+      <span id="auto.ranging"> </span>       <span id="auto.range"> </span>
+      <span id="autoRanging"> </span>        <span id="autoRange"> </span>
+      <span id="auto_ranging"> </span>       <span id="auto_range"> </span>
+      <span id="autoranging"> </span>        <span id="autorange"> </span>
+
+      <p>A power analyzer's auto-ranging function may be used only if it is not possible to pick a specific current range for a
+      benchmark.</p>
+      
+      <p class="example">For example, it is conceivable that a SPECspeed benchmark might need to be measured in a
+         higher current range during a computation phase that uses many OpenMP threads, but in a lower current range during an
+         analysis and reporting phase.</p>
+
+      <p>If auto-ranging is selected, use the free-form notes section to explain why it was needed.</p>  
+
+      <p>For results that are used in public (whether at SPEC's web site or elsewhere), if auto-ranging is used,
+      evidence that it is needed must be supplied on request, following the procedures of rule <a href="#rule_5.5">5.5</a>,
+      Required Disclosures.  In this case, the rawfiles to be supplied would be rawfiles that demonstrate the problem when
+      auto-ranging is not used.  </p>
+
+      <p class="example">For example: a published result uses <samp>current_range=auto</samp> for benchmark 649.fotonik3d_s.  
+      The power analyzer has current ranges of 6.25A and 25A.  Upon request, the tester provides rawfiles
+      demonstrating failure when attempting 649.fotonik3d_s with both these current ranges.</p>
+
+   </li>
+
+</ol>
+
+<p class="l1">Initial power analyzer setup guidance can be found in the <a class="external"
+   href="https://www.spec.org/power/docs/SPEC-Power_Measurement_Setup_Guide.pdf">Power and Temperature Measurement Setup
+Guide</a>.</p>
+
+
+<h4 id="rule_3.9.6">        3.9.6.     Temperature Sensor Requirements</h4>
+
+<!-- This is mostly from SPECpower_ssj2008 run rules 2.13.3 -->
+   <ol class="subrule">
+      <li>Temperature must be measured between 10 mm to 50 mm in front of (upwind of) the main airflow inlet of the SUT.</li>
+      <li><p class="snugbot">SPEC maintains a list of <a class="external"
+         href="https://www.spec.org/power/docs/SPECpower-Device_List.html">accepted measurement devices</a>.  Compliant
+      temperature sensors meet the following specifications: </p>
+      <ol class="subrule2"> 
+         <li>Accuracy: Measurements must be reported by the sensor with an overall accuracy of &plusmn; 0.5&deg;C or better
+         for the ranges measured during the benchmark run.</li>
+         <li>Logging: The sensor must have an interface that allows its measurements to be read by the SPEC PTDaemon. </li>
+         <li>The reading rate supported by the analyzer must be at least 4 sets of measurements per minute.</li>
+      </ol></li>
+   </ol>
+
+<p class="l1">Initial temperature sensor setup guidance can be found in the
+   <a class="external" href="https://www.spec.org/power/docs/SPEC-Power_Measurement_Setup_Guide.pdf">Power and Temperature Measurement Setup
+      Guide</a>.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.9.7">        3.9.7.     DC Line Voltage
+   <span id="dc-line-voltage"> </span> <span id="dc.line.voltage"> </span>
+   <span id="dclinevoltage"> </span>
+</h4>
+<p class="l1">SPEC CPU 2017 power measurement is neither supported nor tested with DC loads.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_3.9.8">        3.9.8.     Power Measurement Exclusion
+   <span id="power-measurement-exclusion"> </span> <span id="power.measurement.exclusion"> </span>
+   <span id="powermeasurementexclusion"> </span>
+</h4>
+<p class="l1">Network switches and console access devices such as KVMs or serial terminal servers need not be included in the
+power measurement of the SUT.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h2 id="rule_4">            4.         Results Disclosure 
+   <span id="Disclosure"> </span>
+   <span id="disclosure"> </span>
+
+   <span id="Full-disclosure"> </span>     <span id="Results-disclosure"> </span>
+   <span id="Full.disclosure"> </span>     <span id="Results.disclosure"> </span>
+   <span id="FullDisclosure"> </span>      <span id="ResultsDisclosure"> </span>
+   <span id="Full_disclosure"> </span>     <span id="Results_disclosure"> </span>
+   <span id="Fulldisclosure"> </span>      <span id="Resultsdisclosure"> </span>
+   <span id="full-disclosure"> </span>     <span id="results-disclosure"> </span>
+   <span id="full.disclosure"> </span>     <span id="results.disclosure"> </span>
+   <span id="fullDisclosure"> </span>      <span id="resultsDisclosure"> </span>
+   <span id="full_disclosure"> </span>     <span id="results_disclosure"> </span>
+   <span id="fulldisclosure"> </span>      <span id="resultsdisclosure"> </span>
+</h2>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.0">          4.0.       One-sentence SUMMARY of Disclosure Requirements 
+</h3>
+
+
+<p>All of the various parts of rule 4 may be summarized in one sentence:</p>
+
+<p class="l2"><b>For results that are used in public, SPEC requires a full disclosure of results and configuration
+   details sufficient to independently reproduce the results. </b> </p>
+
+<p>Distributions of results within a company for internal use only, or distributions under a non-disclosure agreement, are
+not considered "public" usage. </p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.1">          4.1.       General disclosure requirements 
+</h3>
+
+
+
+<p><b>Requirements overview:</b> A full disclosure of results must include:</p>
+<ol class="subrule">
+   <li>The components of the disclosure page, as generated by the SPEC tools.  </li>
+
+   <li>The tester's configuration file and any supplemental files needed to build and run the tests.</li>
+
+   <li>A flags definition disclosure.</li>
+
+   <li>A full description of the parts and procedures that are needed to reproduce the result, including but not limited to:
+   hardware, firmware/BIOS, and software.  </li>
+
+   <li>All configuration choices differing from default.</li>
+
+   <li>For results with energy metrics, full details of any hardware or non-default settings that
+      affect power consumption, even if they do not affect performance.  </li>
+
+   <li>Any other information relevant to reproducing the result.</li>
+</ol>
+
+   <p>Many fields are provided, as described below, where such items are entered.  In the case where an item falls outside the pre-defined fields, it must be described using the free-form notes
+   sections.</p>
+
+   <p><b>Note:</b> The disclosure rules are not intended to imply that the tester must include massively redundant
+   information, nor details that are not relevant to reproducing the result.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.1.1">        4.1.1.     Tester's responsibility 
+</h4>
+
+
+<p class="l1">The requirements for full disclosure apply even if the tester does not personally set up the system.   The
+tester is responsible to ascertain and document all performance-relevant steps that an ordinary customer would do in order
+to achieve the same performance.</p> 
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.1.2">        4.1.2.     Sysinfo must be used for published results 
+   <span id="sysinfo"> </span>
+</h4>
+
+
+<p class="l1">SPEC CPU 2017 published results must use a SPEC-supplied tool, <a class="external" href="config.html#sysinfo">sysinfo</a>, which examines 
+various aspects of the System Under Test.  If for some reason it is not technically feasible to use sysinfo (perhaps on a new 
+architecture), the tester should <a class="external" href="techsupport.html">contact SPEC</a> for assistance. </p> 
+
+<p class="l1">SPEC may update the sysinfo tool from time to time, which users can download from the SPEC web site using <a
+   class="external" href="runcpu.html#update">runcpu&nbsp;--update</a>.   SPEC may require that published results use a specific version of
+the tool.  </p>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.1.3">        4.1.3.     Information learned later 
+</h4>
+
+
+<p class="l1">It is expected that all published results are fully described when published.  If
+it should happen that a performance relevant feature is discovered subsequent to publication, the publication must be
+updated.  Note that SPEC has a Penalties and Remedies process which is designed to encourage prompt action in such cases.
+The Penalties and Remedies document is attached to the Fair Use page, <a class="external"
+   href="https://www.spec.org/fairuse.html">www.spec.org/fairuse.html</a>.</p>
+
+<p class="l1ex"><b>Example 1</b>:  If the SuperHero Model 1 comes with a write-through L3 cache, and the SuperHero Model 2
+comes with a write-back L3 cache, then specifying the model number is sufficient, and no additional steps need to be taken to
+document the cache protocol.  But if the Model 3 is available with both write-through and write-back L3 caches, then a full
+disclosure must specify which L3 cache is used.</p>
+
+<p class="l1ex"><b>Example 2</b>: A tester reasonably believes that the choice of whether or not the SUT has manpages is
+not performance relevant, and does not specify whether that installation option is selected.</p>
+
+<p class="l1ex"><b>Example 3</b>: The same tester as in example 2 is using the recently revised SuperHero OS v13.  The
+tester is surprised to discover that as of v13, the act of installing manpages brings along the entire Superhero Library
+Online World (SLOW), which includes a web protocol stack containing two dozen software packages, each of which eats 2% of a
+CPU.  The tester:
+<br />- de-selects manpages and SLOW, 
+<br />- documents that fact in the full disclosure for a result that will be published next week, and
+<br />- generates a request to the SPEC Editor to add a note to all previously-published SuperHero v13 result pages 
+to indicate whether or not each one includes SLOW.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.1.4">        4.1.4.     Peak Metrics are Optional 
+</h4>
+
+
+<p class="l1">Publication of peak results are considered optional by SPEC, so the tester may choose to publish only base
+results.  Since by definition base results adhere to all the rules that apply to peak results, the tester may choose to refer
+to these results by either the base or peak metric names (e.g. SPECspeed&reg;2017_int_base or SPECspeed&reg;2017_int_peak).</p>
+
+<p class="l1">It is permitted to publish base-only results.  Alternatively, the use of the flag <samp>basepeak</samp> is
+permitted, as described in rule <a href="#rule_3.2.1">3.2.1</a>.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.1.5">        4.1.5.     Base must be disclosed 
+</h4>
+
+
+<p class="l1">For results published on its web site, SPEC requires that base results be published whenever peak results are
+published.  If peak results are published outside of the SPEC web site -- <a style="padding-right:1px;" class="external"
+   href="https://www.spec.org/">www.spec.org</a> -- in a publicly available medium, the tester must supply base
+results on request, as described in rule <a href="#rule_5.5">5.5</a>, Required Disclosures.</p>
+
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.2">          4.2.       Systems not yet shipped 
+</h3>
+
+
+<p>If a tester publishes results for a hardware or software configuration that has not yet shipped: </p>
+<ol class="subrule">
+   <li><p>The component suppliers must have firm plans to make production versions of all components generally available,
+   within 3 months of the first public release of the result (whether first published by the tester or by SPEC).
+   "Generally available" is defined in the SPEC Open Systems Group Policy document, which can be found at <a class="external"
+   href="https://www.spec.org/osg/policy.html">www.spec.org/osg/policy.html</a>.</p></li>
+   
+   <li><p>The tester must specify the general availability dates that are planned.</p></li>
+
+   <li><p>It is acceptable to test larger configurations than customers are currently ordering, provided that the larger
+      configurations can be ordered and the company is prepared to ship them.</p></li>
+</ol>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.2.1">        4.2.1.     Pre-production software can be used 
+</h4>
+
+
+<p class="l1">A "pre-production", "alpha", "beta", or other pre-release version of a compiler (or other software) can be used in a test,
+provided that the performance-related features of the software are committed for inclusion in the final product.  </p>
+
+<p class="l1">The tester must practice due diligence to ensure that the tests do not use an uncommitted prototype with no particular
+shipment plans.  An example of due diligence would be a memo from the compiler Project Leader which asserts that the tester's
+version accurately represents the planned product, and that the product will ship on date X. </p>
+
+<p class="l1">The final, production version of all components must be generally available within 3 months after first public release of
+the result.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.2.2">        4.2.2.     Software component names 
+</h4>
+
+
+<p class="l1">When specifying a software component name in the results disclosure, the component name that should be used is the name
+that customers are expected to be able to use to order the component, as best as can be determined by the tester.  It is
+understood that sometimes this may not be known with full accuracy; for example, the tester may believe that the component
+will be called "TurboUnix V5.1.1" and later find out that it has been renamed "TurboUnix V5.2", or even "Nirvana 1.0".  In
+such cases, an editorial request can be made to update the result after publication.</p>
+
+<p class="l1">Some testers may wish to also specify the exact identifier of the version actually used in the test (for example, "build
+20020604").  Such additional identifiers may aid in later result reproduction, but are not required; the key point is to
+include the name that customers will be able to use to order the component.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.2.3">        4.2.3.     Specifying dates 
+</h4>
+
+
+<p class="l1">The configuration disclosure includes fields for both "Hardware Availability" and "Software Availability".  In both cases,
+the date which must be used is the date of the component which is the <b>last</b> of the respective type to become generally
+available.  (The SPEC CPU suite used for testing is NOT part of the consideration for software availability date.)</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.2.4">        4.2.4.     If dates are not met 
+</h4>
+
+
+<p class="l1">If a software or hardware availability date changes, but still falls within 3 months of first publication, a
+result page may be updated on request to SPEC.</p>
+
+<p class="l1">If a software or hardware availability date changes to more than 3 months after first publication, the result
+is considered <a href="#rule_5.7">Non-Compliant</a>.</p> 
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.2.5">        4.2.5.     Performance changes for pre-production systems 
+</h4>
+
+
+<p class="l1">SPEC is aware that performance results for pre-production systems may sometimes be subject to change, for example when a
+last-minute bugfix reduces the final performance or increases energy consumption.  </p>
+
+<p class="l1">For results measured on pre-production systems, if the tester becomes aware of something that will reduce production
+system performance by more than 1.75% on an overall performance metric (for example, SPECspeed&reg;2017_fp_base) or by more than 5% on
+an overall energy metric (for example, SPECrate&reg;2017_fp_energy_base), the tester is required to republish the result, and the
+original result shall be considered <a href="#rule_5.7">non-compliant</a>.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.3">          4.3.       Performance changes for production systems 
+</h3>
+
+
+<p>As mentioned just above, performance may sometimes change for pre-production systems; but this is
+also true of production systems (that is, systems that have already begun shipping).  For example, a later revision to the
+firmware, or a mandatory OS bugfix, might reduce performance.</p> 
+
+<p>For production systems, if the tester becomes aware of something that reduces performance by more than 1.75% on an overall
+performance metric (for example, SPECspeed&reg;2017_fp_base) or by more than 5% on an overall energy metric (for example,
+SPECrate&reg;2017_fp_energy_base), the tester is encouraged but not required to republish the result.  In such
+cases, the original result is not considered <a href="#rule_5.7">non-compliant</a>.  The tester is also encouraged, but not
+required, to include a reference to the change that caused the difference in performance or power consumption (e.g. "with OS patch
+20020604-02").</p>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.4">          4.4.       Configuration Disclosure 
+</h3>
+
+
+<p>The SPEC tools allow the tester to describe the system in the configuration file, prior to starting the measurement (i.e.
+prior to the <samp>runcpu</samp> command).  </p>
+
+   <ol class="subrule">
+      <li><p>It is acceptable to update the information after a measurement has been completed, by editing the rawfile.  
+      Rawfiles include a marker that separates the user-editable portion from the rest of
+      the file.  </p>
+      <pre>
+# =============== do not edit below this point ===================
+      </pre>
+      <p>Edits are forbidden beyond that marker.  </p></li>
+      <li>The <a class="external" href="utility.html#rawformat">rawformat</a> utility may be used to reformat results after 
+      edits.</li>
+      <li><a class="external" href="utility.html#rawformat">rawformat</a> may be used to publish base results as base+peak 
+      (see <a href="#rule_3.2.1">rule 3.2.1</a>).</li>
+      <li><a class="external" href="utility.html#rawformat">rawformat</a> may be used to publish a base+peak result as 
+      base only (see <a class="external" href="runcpu.html#baseonly">runcpu.html#baseonly</a>).</li>
+      <li><a class="external" href="utility.html#rawformat">rawformat</a> may be used to update flags files (see 
+      <a href="#rule_4.6.b">rule 4.6.b</a>).</li>
+      <li><a class="external" href="utility.html#rawformat">rawformat</a> may be used to publish a power+performance result as 
+      performance-only (see <a href="#rule_3.9.1">rule 3.9.1</a>).</li>
+   </ol>
+
+<p>The following rules describe the various elements that make up the disclosure of the system configuration tested.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.4.1">        4.4.1.     System Identification 
+</h4>
+
+
+<ol class="subrule">
+   <li> <b>Model Name</b></li>
+   <li> <b>Test Date</b>: Month, Year</li>
+   <li> <b>Hardware Availability Date</b>: Month, Year.  If more than one date applies, use the latest one.</li>
+   <li> <b>Software Availability Date</b>: Month, Year.  If more than one date applies, use the latest one.
+   (The SPEC CPU suite used for testing is NOT part of the consideration for software availability date.)</li>
+   <li> <b>Hardware Vendor</b> </li>
+   <li> <b>Test sponsor</b>: the entity sponsoring the testing (defaults to hardware vendor). </li>
+   <li> <b>Tester</b>: the entity actually carrying out the tests (defaults to test sponsor). </li>
+   <li> <b>CPU 2017 license number</b> of the test sponsor or the tester </li>
+</ol>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.4.2">        4.4.2.     Hardware Configuration 
+   <span id="Hardware-configuration"> </span>      <span id="Hardware-config"> </span>      <span id="Hw-config"> </span>
+   <span id="Hardware.configuration"> </span>      <span id="Hardware.config"> </span>      <span id="Hw.config"> </span>
+   <span id="HardwareConfiguration"> </span>       <span id="HardwareConfig"> </span>       <span id="HwConfig"> </span>
+   <span id="Hardware_configuration"> </span>      <span id="Hardware_config"> </span>      <span id="Hw_config"> </span>
+   <span id="Hardwareconfiguration"> </span>       <span id="Hardwareconfig"> </span>       <span id="Hwconfig"> </span>
+   <span id="hardware-configuration"> </span>      <span id="hardware-config"> </span>      <span id="hw-config"> </span>
+   <span id="hardware.configuration"> </span>      <span id="hardware.config"> </span>      <span id="hw.config"> </span>
+   <span id="hardwareConfiguration"> </span>       <span id="hardwareConfig"> </span>       <span id="hwConfig"> </span>
+   <span id="hardware_configuration"> </span>      <span id="hardware_config"> </span>      <span id="hw_config"> </span>
+   <span id="hardwareconfiguration"> </span>       <span id="hardwareconfig"> </span>       <span id="hwconfig"> </span>
+</h4>
+
+
+<ol class="subrule">
+   <li><p><b>CPU Name:</b> A manufacturer-determined processor formal name.</p>
+
+   <p class="snug">It is expected that the formal name, perhaps with the addition of the Nominal MHz, identifies the CPU sufficiently 
+   so that a customer would know what to order if they wish to reproduce the result.  If this is not true, use the free-form notes to 
+    further identify the CPU.</p>
+    </li>
+
+    <li> <p> <b>CPU Nominal MHz:</b> Nominal chip frequency, in megahertz, as specified by the CPU chip vendor.  Exception:
+    In cases where a system vendor has adjusted the frequency ("over-clocking" or "under-clocking") enter the adjusted
+    frequency here and clarify the adjustment in the notes section.  Reminder: published results must use supported
+    configurations.  Over-clocked parts are not allowed unless supported (perhaps by the system vendor).</p>
+    </li>
+
+    <li><p> <b>CPU Maximum MHz:</b>  Maximum chip frequency, in megahertz, as specified by the CPU chip vendor.
+    Exception: If a system vendor adjusts the maximum, enter the adjusted frequency here, in which case the same
+    considerations apply as described just above for Nominal MHz</p>
+    </li>
+
+   <li id="CountCPUs"><p id="cpucount"><b><span id="CpuCounting">Number</span> <span id="CountCpus">of</span> <span
+         id="cpucounting">CPUs</span> in System</b>. As of mid-2016, it is assumed that systems can be described as
+   containing one or more "chips", each of which contains some number of "cores", each of which can run some number of
+   hardware "threads".  Fields are provided in the results disclosure for each of these.  If industry practice evolves such
+   that these terms are no longer sufficient to describe processors, SPEC may adjust the field set.</p>
+
+   <p>The current fields are:</p>
+
+     <ol class="subrule2">
+     <li><samp>hw_ncores:</samp> number of processor cores enabled (total) during this test</li>
+     <li><samp>hw_nchips:</samp> number of processor chips enabled during this test</li>
+     <li><samp>hw_nthreadspercore:</samp> number of hardware threads enabled per core during this test</li>
+     </ol>
+
+    <p>Note: if resources are disabled, the method(s) used for such disabling must be documented and supported.</p></li>
+
+   <li><p><b>Number of CPUs orderable</b>.  Specify the number of processors
+   that can be ordered, using whatever units the customer would
+   use when placing an order.  If necessary, provide a mapping
+   from that unit to the chips/cores units just above.  For
+   example: </p>
+   
+     <p class="example">1 to 8 TurboCabinets.  Each TurboCabinet contains 4 chips.</p></li>
+
+   <li><p><b>Level 1 (primary) Cache</b>: Size, location, number of instances (e.g. "<samp class="snuglr">32 KB I + 64 KB D on chip per
+   core</samp>")      </p></li>
+   <li><p><b>Level 2 (secondary) Cache</b>: Size, location, number of instances </p></li>
+   <li><p><b>Level 3 (tertiary) Cache</b>: Size, location, number of instances </p></li>
+   <li><p><b>Other Cache</b>: Size, location, number of instances </p></li>
+   <li><p id="MemoryConfig"><b>Memory</b>: Size in MB/GB.  <span id="memoryconfig">Performance relevant information as to the 
+      memory configuration</span> must be included, either in the field or in the notes 
+      section.  If there is one and only one way to configure memory of the stated 
+      size, then no
+      additional detail need be disclosed.   But if a buyer of the system has choices to make, then the result page must
+      document the choices that were made by the tester. </p> 
+
+      <p class="example">For example, the tester may need to document number of memory carriers, size of DIMMs, banks,
+      interleaving, access time, or even arrangement of modules: which sockets were used, which were left empty, which
+      sockets had the bigger DIMMs.</p>
+
+      <p>Exception: if the tester has evidence that a memory configuration choice does not affect performance, then SPEC does
+      not require disclosure of the choice made by the tester.  </p>
+
+      <p class="example">For example, if a 1GB system is known to perform identically whether configured with 8 x 128MB DIMMs
+      or 4 x 256MB DIMMs, then SPEC does not require disclosure of which choice was made.</p></li>
+
+   <li><p><b>Disk Subsystem</b>: Size (MB/GB), Type (SCSI, Fast SCSI etc.), other performance-relevant characteristics.  The
+   disk subsystem used for the SPEC CPU 2017 run directories must be described.  If other disks are also performance relevant, 
+   then they must also be described. </p></li>
+   <li><p><b>Other Hardware</b>: Additional equipment added to improve performance</p></li>
+</ol>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.4.3">        4.4.3.     Software Configuration 
+   <span id="Software-configuration"> </span>     <span id="Software-config"> </span>      <span id="Sw-config"> </span>
+   <span id="Software.configuration"> </span>     <span id="Software.config"> </span>      <span id="Sw.config"> </span>
+   <span id="SoftwareConfiguration"> </span>      <span id="SoftwareConfig"> </span>       <span id="SwConfig"> </span>
+   <span id="Software_configuration"> </span>     <span id="Software_config"> </span>      <span id="Sw_config"> </span>
+   <span id="Softwareconfiguration"> </span>      <span id="Softwareconfig"> </span>       <span id="Swconfig"> </span>
+   <span id="software-configuration"> </span>     <span id="software-config"> </span>      <span id="sw-config"> </span>
+   <span id="software.configuration"> </span>     <span id="software.config"> </span>      <span id="sw.config"> </span>
+   <span id="softwareConfiguration"> </span>      <span id="softwareConfig"> </span>       <span id="swConfig"> </span>
+   <span id="software_configuration"> </span>     <span id="software_config"> </span>      <span id="sw_config"> </span>
+   <span id="softwareconfiguration"> </span>      <span id="softwareconfig"> </span>       <span id="swconfig"> </span>
+</h4>
+
+
+<ol style="list-style-type:lower-alpha" class="l1">
+   <li><b>Operating System</b>: Name and Version</li>
+
+   <li><p class="snugbot"><b>System State: </b> </p>
+      <ol class="subrule2_snugtop">
+         <li><p class="snug">On Linux systems with multiple run levels, the system state must be described by
+            stating the run level and a very brief description of the meaning of that run level, for example:</p>
+            <p class="exsnug"><b>System State:</b> Run level 4 (multi-user with display manager)</p>
+         </li>
+
+         <li><p>On other systems: If the system is installed and booted using default options, document the System State as
+            "Default".  </p>
+            <p>If the system is used in a non-default mode, document the system state using the vocabulary
+            appropriate to that system (for example, "Safe Mode with Networking", "Single User Mode").  </p>
+         </li>
+
+         <li><p>Some Unix (and Unix-like) systems have deprecated the concept of "run levels", preferring other terminology
+            for state description.  In such cases, the system state field should use the vocabulary recommended by the
+            operating system vendor.</p>
+         </li>
+         <li><p>Additional detail about system state may be added in free form notes.</p></li>
+      </ol> 
+   </li>
+
+   <li><p><b>File System Type</b> used for the SPEC CPU 2017 run directories</p></li>
+
+   <li><p class="snugbot"><b>Compilers:</b></p>
+      <ol class="subrule2_snugtop">
+         <li> C Compiler Name and Version </li>
+         <li> C++ Compiler Name and Version </li>
+         <li> Fortran Compiler Name and Version </li>
+         <li> Pre-processors (if used): Name and Version </li>
+      </ol></li>
+
+      <li id="parallel">
+      <p><b>Parallel</b>: Automatically set to 'yes' if any of the benchmarks are compiled to use multiple hardware threads, cores, and/or chips.</p>
+
+      <ol class="subrule2">
+         <li>This field is specifically for compiler parallelism, whether from explicit OpenMP markup; or from compiler
+         automatic parallelism, typically derived by loop analysis.</li>
+         <li>It is set via compiler flag attributes, as documented in <a
+            class="external" href="flag-description.html#parallel">flag-description.html</a></li>
+         <li><p class="snug">SPEC is aware that there are many other forms of parallel operation on contemporary systems, in addition to the
+         above.  Such other forms of parallelism are not reported via this field. For example, none of the following would alone
+         be a reason to report this field as 'yes':</p>
+
+         <ul class="snugtop">
+            <li>a multiply instruction takes 4 operands</li>
+            <li>a math library routine uses 4 chips for a matrix multiply </li>
+            <li>a chip keeps many instructions in-flight, overlapping memory fetches with multiply operations</li>
+            <li>a chip resource manager notices a heavy demand for multiply operations, and reallocates a functional unit</li>
+            <li style="margin-bottom:1em;">a file system manager writes results asynchronously to a RAID array</li>
+         </ul></li>
+      </ol>
+
+
+      </li>
+
+   <li><b>Other Software</b>: Additional software added to improve performance</li>
+
+   <li><p id="ScriptedInstallations"><b>Scripted Installations and Pre-configured Software:</b>  In order to reduce the 
+   cost of benchmarking, test
+   systems are sometimes installed using automatic scripting, or installed as preconfigured system images.  A tester might
+   use a set of scripts that configure the corporate-required customizations for IT Standards, or might install by copying a
+   disk image that includes Best Practices of the performance community.  SPEC understands that there is a cost to
+   benchmarking, and does not forbid such installations, with the proviso that the tester is responsible to disclose how end
+   users can achieve the claimed performance (using appropriate fields above).</p>
+
+     <p class="example">Example: the Corporate Standard Jumpstart Installation Script has 73 documented customizations and
+     278 undocumented customizations, 34 of which no one remembers.  Of the various customizations, 17 are performance
+     relevant for SPEC CPU 2017 - and 4 of these are in the category "no one remembers".  The tester is nevertheless
+     responsible for finding and documenting all 17.  Therefore to remove doubt, the tester prudently decides that it is less
+     error-prone and more straightforward to simply start from customer media, rather than the Corporate Jumpstart.</p>
+
+   </li>
+
+</ol>
+
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.4.4">        4.4.4.     Power Management
+   <span id="Power-management"> </span>
+   <span id="Power.management"> </span>
+   <span id="PowerManagement"> </span>
+   <span id="Power_management"> </span>
+   <span id="Powermanagement"> </span>
+   <span id="power-management"> </span>
+   <span id="power.management"> </span>
+   <span id="powerManagement"> </span>
+   <span id="power_management"> </span>
+   <span id="powermanagement"> </span>
+</h4>
+
+<p class="l2"><b>Power Management:</b> Briefly summarize any non-default settings for power management, 
+whether set in BIOS, firmware, operating system, or elsewhere.  </p> 
+
+<p class="l2">Explain your settings in a platform flags file and/or the power notes.</p>
+
+
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.5">          4.5.       Tuning Information 
+</h3>
+
+
+<ol style="list-style-type:lower-alpha">
+   <li><b>Base flags</b> list</li>
+   <li><b>Peak flags</b> list for each benchmark</li>
+   <li><b>Portability flags</b> used for any benchmark</li>
+   <li><b>Base pointers</b>: size of pointers in base.  
+       <ol class="subrule2" style="margin-bottom:.6em;">
+       <li>"32-bit": if all benchmarks in base are compiled with switches that request only 32-bit pointers.</li>
+       <li>"64-bit": if all benchmarks in base are compiled with switches that request only 64-bit pointers.</li>
+       <li>"32/64-bit": if there is a mix of 32-bit and 64-bit</li>
+       </ol>
+      </li>
+   <li><b>Peak pointers</b>: size of pointers in peak. </li>
+
+   <li><p><b>System Services:</b> If performance relevant system services or daemons are shut down (e.g. remote management
+   service, disk indexer / defragmenter, spyware defender, screen savers) these must be documented in the notes section.
+   Incidental services that are not performance relevant may be shut down without being disclosed, such as the print service
+   on a system with no printers attached.  The tester remains responsible for the results being reproducible as
+   described.</p>
+   </li>
+
+   <li>
+   
+   <p id="disclose_tuning" class="snug"><b>System and other <span id="DiscloseTuning">tuning:</span></b>  
+   Operating System tuning selections and other tuning
+   that has been selected by the tester (including but not limited to firmware/BIOS, environment variables, kernel options,
+   file system tuning options, and options for any other performance-relevant software packages)  must be documented in the
+   configuration disclosure in the rawfile.    The meaning of the settings must also be described, in either the free form
+   notes or in the flags file (rule <a href="#rule_4.6">4.6</a>).  The tuning parameters must be documented and supported.</p>
+
+   </li>
+
+   <li><p>Any additional notes such as listing any use of SPEC-approved alternate sources or tool changes.</p></li>
+
+   <li>If a change is planned for the spelling of a tuning string, both spellings should be documented in the notes section.
+
+   <p class="example">For example, suppose the tester uses a pre-release compiler with:</p>
+   <p class="codeexample">f90 -O4 --newcodegen --loopunroll:outerloop:alldisable</p>
+   <p class="example">but the tester knows that the new code generator will be automatically applied in the final product, and
+   that the spelling of the unroll switch will be simpler than the spelling used here.  The recommended spelling for customers
+   who wish to achieve the effect of the above command will be:</p>
+   <p class="codeexample">f90 -O4 -no-outer-unroll</p>
+   <p class="example"> In this case, the flags report will include the actual spelling used by the tester, but a note should
+   be added to document the spelling that will be recommended for customers.</p></li>
+
+</ol>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.6">          4.6.       Description of Tuning Options ("Flags File") 
+   <span id="Flags"> </span>
+   <span id="flags"> </span>
+
+   <span id="Flags-files"> </span>
+   <span id="Flags.files"> </span>
+   <span id="FlagsFiles"> </span>
+   <span id="Flags_files"> </span>
+   <span id="Flagsfiles"> </span>
+   <span id="flags-files"> </span>
+   <span id="flags.files"> </span>
+   <span id="flagsFiles"> </span>
+   <span id="flags_files"> </span>
+   <span id="flagsfiles"> </span>
+</h3>
+
+
+<p>SPEC CPU 2017 provides benchmarks in source code form, which are compiled under control of SPEC's toolset.  Compilation flags are
+detected and reported by the tools with the help of "flag description files".  Such files provide information about the syntax of
+flags and their meaning.  </p>
+
+<ol class="subrule">
+   <li><p><b>Flags file required:</b> 
+A result will be marked "invalid" unless it has an associated flag description file.  A description of how to write
+one may be found in <a class="external" href="flag-description.html">flag-description.html</a>. </p></li>
+
+<li>
+<p id="rule_4.6.b"><b>Results may be reformatted to fix invalid flags files</b>.  If a result is marked "invalid" solely due
+to a missing or incorrect flags file, it is allowed to fix the problem by incorporating an updated flags file, using the <a
+class="external" href="utility.html#rawformat">rawformat</a> utility <a class="external"
+href="runcpu.html#flagsurl">--flagsurl</a> option.</p>
+</li>
+
+<li><p><b>Flags description files are not limited to compiler flags.</b> Although these descriptions have historically
+been called "flags files", flag description files are also used to describe other performance-relevant options.  
+</p></li>
+
+<li><p><b>Notes section or flags file?</b>  As mentioned above (rule <a href="#rule_4.5">4.5</a>), all tuning
+must be disclosed, and the meaning of the tuning options must be described.  In general, it is recommended that the result page
+should state what tuning has been done, and the flags file should state what it means.  As an exception, if a definition is brief,
+it may be more convenient, and it is allowed, to simply include the definition in the notes section. </p></li>
+
+<li><p><b>Required detail:</b>
+The level of detail in the description of a flag is expected to be sufficient so that an interested technical reader can form
+a preliminary judgment of whether he or she would also want to apply the option.  </p></li>
+
+<li><ol class="subrule2">
+  <li><p> This requirement is phrased as a "preliminary judgment" because a complete judgment of a performance option often
+  requires testing with the user's own application, to ensure that there are no unintended consequences.</p></li>
+
+  <li><p> At minimum, if a flag has implications for safety, accuracy, or standards conformance, such implications must be
+  disclosed.  </p></li>
+
+  <li><p class="snugbot"> For example, one might write:</p> 
+  <p class="example" style="margin-top:.1em;margin-bottom:.1em;">When --algebraII is used, the compiler is allowed to use the
+  rules of elementary algebra to simplify expressions and perform calculations in an order that it deems efficient.  This
+  flag allows the compiler to perform arithmetic in an order that may differ from the order indicated by programmer-supplied
+  parentheses.</p>
+  <p class="snugtop">The preceding sentence ("This flag allows...") is an example of a deviation from a standard which must be
+  disclosed.</p></li>
+</ol></li>
+
+<li><p><b>Description of Feedback-directed optimization</b>: If feedback directed optimization is used, the description must
+indicate whether training runs:</p>
+
+<ol class="subrule2">
+<li> gather information regarding execution paths</li>
+<li> gather information regarding data values</li>
+<li> use hardware performance counters</li>
+<li> gather data for optimizations unique to FDO</li>
+</ol>
+
+<p>Hardware performance counters are often available to provide information such as branch mispredict frequencies, cache
+misses, or instruction frequencies.  If they are used during the training run, the description needs to note this; but SPEC
+does not require a description of exactly which performance counters are used.</p>
+                                                                                                           
+<p>As with any other optimization, if the optimizations performed have effects regarding safety, accuracy, or standards
+conformance, these effects must be described.</p></li>
+
+<li><p><b>Flag file sources:</b> It is acceptable to build flags files using previously published results, or to
+reference a flags file provided by someone else (e.g. a compiler vendor).  Doing so does not relieve an individual tester of
+the responsibility to ensure that his or her own result is accurate, including all its descriptions.</p></li>
+
+</ol>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.7">          4.7.      A result may be published for only one system
+</h3>
+
+<p>Previous versions of these run rules have allowed a single SPEC CPU result to be published for multiple "equivalent"
+systems, for example when a single system is sold with two different model numbers.</p>   
+
+<p><span class="new">New:</span> As of the release of SPEC CPU 2017 V1.1, such publication is no longer allowed.  The measurements
+must be done on the actual system for which the results are claimed, and a result may be published for only one system.</p>
+
+<p class="snugbot">The reasons for the change are that:</p>
+<ul class="snugtop">
+   <li>Systems that differ only as to their expansion capabilities (e.g. 1U vs 2U) are likely to have differing airflow and
+   power characteristics, both of which may have performance effects.  </li>
+   <li>Even systems that differ only in their model number (so-called "paint deep" differences) may differ in their firmware,
+   their supported configuration, or their power consumption (for example, when one model is sold in locations that use 110
+   volts and the other in locations that use 240 volts).</li>
+   <li>The prior rule was complex, with 5 sub-rules.  It is simpler to require measurement on the actual system for which
+   results are claimed.</li>
+</ul>
+
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.8">          4.8.       Configuration Disclosure for User Built Systems 
+   <span id="User-built"> </span>
+   <span id="User.built"> </span>
+   <span id="UserBuilt"> </span>
+   <span id="User_built"> </span>
+   <span id="Userbuilt"> </span>
+   <span id="user-built"> </span>
+   <span id="user.built"> </span>
+   <span id="userBuilt"> </span>
+   <span id="user_built"> </span>
+   <span id="userbuilt"> </span>
+</h3>
+
+
+<p>SPEC CPU 2017 results are for systems, not just for chips: it is required that a user be able to obtain the system described in
+the result page and reproduce the result (within a small range for run-to-run variation).   </p>
+
+<p>Nevertheless, SPEC recognizes that chip and motherboard suppliers have a legitimate interest in CPU benchmarking.  For those
+suppliers, the performance-relevant hardware components typically are the cpu chip, motherboard, and memory; but users would
+not be able to reproduce a result using only those three.  To actually run the benchmarks, the user has to supply other
+components, such as a case, power supply, and disk; perhaps also a specialized CPU cooler, extra fans, a disk controller,
+graphics card, network adapter, BIOS, and configuration software. </p>
+
+<p>Such systems are sometimes referred to as "white box", "home built", "kit built", or by various informal terms.  For SPEC
+purposes, the key point is that the user has to do extra work in order to reproduce the performance of the tested components;
+therefore, this document refers to such systems as "user built".</p>
+
+<ol  class="subrule">
+   <li><p>For user built systems, the configuration disclosure must supply a parts list sufficient to reproduce the result.  As of the
+      listed availability dates in the disclosure, the user should be able to obtain the items described in the disclosure, spread
+      them out on an anti-static work area, and, by following the instructions supplied with the components, plus any special
+      instructions in the SPEC disclosure, build a working system that reproduces the result.  It is acceptable to describe
+      components using a generic name (e.g. "Any ATX case"), but the recipe must also give specific model names or part numbers
+      that the user could order (e.g. "such as a Mimble Company ATX3 case").</p></li>
+
+   <li><p>Component settings that are listed in the disclosure must be within the supported ranges for those components.  For example,
+      if the memory timings are manipulated in the BIOS, the selected timings must be supported for the chosen type of memory.</p></li>
+
+   <li><p class="snugbot"><b>Graphics adapters:</b></p>
+      <ol class="subrule2_snugtop">
+         <li>Sometimes a motherboard does not provide a graphics adapter.  For many operating systems, in order to
+            install the software, a graphics card must be added; but the choice of adapter does not noticeably affect SPEC CPU 2017
+            performance.  For such a system, the graphics adapter can be described in the free form notes, and does not need to be
+            listed in the field "Other Hardware".  </li>
+         <li> Other motherboards include a built-in graphics adapter, but SPEC CPU 2017 performance improves when an
+            external adapter is added.  If one is added, it is, therefore, performance relevant: list the graphics adapter that was
+            used under "Other Hardware".  </li>
+      </ol>
+   </li>
+   <li><p><b>Power modes:</b> Sometimes CPU chips are capable of running with differing performance
+      characteristics according to how much power the user would like to spend.  If non-default power choices are made for a user
+      built system, those choices must be documented in the notes section.</p></li>
+   <li><p><b>Cooling systems:</b> Sometimes CPU chips are capable of running with degraded performance
+      if the cooling system (fans, heatsinks, etc.) is inadequate.  When describing user built systems, the notes section must
+      describe how to provide cooling that allows the chip to achieve the measured performance.  </p></li>
+
+   <li><p>Components for a user built system may be divided into two kinds: performance-relevant (for SPEC CPU 2017), and
+      non-performance-relevant.  For example, SPEC CPU 2017 benchmark scores are affected by memory speed, and motherboards often
+      support more than one choice for memory; therefore, the choice of memory type is performance-relevant.  By contrast, the
+      motherboard needs to be mounted in a case.  Which case is chosen in not normally performance-relevant; it simply has to be
+      the correct size (e.g. ATX, microATX, etc).  </p>
+      <ol class="subrule2">
+         <li><p>Performance-relevant components must be described in fields for "Configuration Disclosure" (see rules <a
+          href="#rule_4.4.2">4.4.2</a>, and <a href="#rule_4.4.3">4.4.3</a>).  These fields begin with <span class="tt">hw_</span> or
+       <span class="tt">sw_</span> in the config file, as described in <a class="external" href="config.html">config.html</a> (including <span
+       class="tt">hw_other</span> and <span class="tt">sw_other</span>, which can be used for components not already covered by
+       other fields).  If more detail is needed beyond what will fit in the fields, add more information under the free-form
+       notes.</p>  </li>
+
+         <li><p>Components that are not performance-relevant are to be described in the free-form notes.</p></li>
+      </ol></li>
+</ol>
+
+<p>Example:</p>
+<pre>
+hw_cpu_name    = Frooble 1500 
+hw_memory      = 2 GB (2x 1GB Mumble Inc Z12 DDR2 1066) 
+sw_other       = SnailBios 17
+notes_plat_000 = 
+notes_plat_005 = The BIOS is the Mumble Inc SnailBios Version 17,
+notes_plat_010 = which is required in order to set memory timings
+notes_plat_015 = manually to DDR2-800 5-5-5-15.  The 2 DIMMs were
+notes_plat_020 = configured in dual-channel mode. 
+notes_plat_025 = 
+notes_plat_030 = A standard ATX case is required, along with a 500W
+notes_plat_035 = (minimum) ATX power supply [4-pin (+12V), 8-pin (+12V)
+notes_plat_040 = and 24-pin are required].  An AGP or PCI graphics
+notes_plat_045 = adapter is required in order to configure the system.
+notes_plat_050 =
+notes_plat_055 = The Frooble 1500 CPU chip is available in a retail box,
+notes_plat_060 = part 12-34567, with appropriate heatsinks and fan assembly.  
+notes_plat_065 =
+notes_plat_070 = As tested, the system used a Mimble Company ATX3 case,
+notes_plat_075 = a Frimble Ltd PS500 power supply, and a Frumble
+notes_plat_080 = Corporation PCIe Z19 graphics adapter.
+notes_plat_085 = 
+</pre>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.9">          4.9.       Documentation for cross-compiles 
+</h3>
+
+
+<p>It was mentioned in rule 2 that it is allowed to build on a different system than the system under test.  This
+rule describes when and how to document such builds.</p>
+
+<ol class="subrule">
+   <li><p><b>Circumstances under which additional documentation is required for the build environment</b></p>
+      <ol class="subrule2">
+
+         <li><p>If all components of the build environment are available for the run environment, and if both belong to the same product
+            family and are running the same operating system versions, then this is not considered a cross-compilation.  The fact that
+            the binaries were built on a different system than the run time system does not need to be documented.</p></li>
+
+         <li><p>If the software used to build the benchmark executables is not available on the SUT, or if the host system provides
+            performance gains via specialized tuning or hardware not available on the SUT, the host system(s) and software used for the
+            benchmark building process must be documented. </p></li>
+
+         <li><p>Sometimes, the person building the benchmarks may not know which of the two previous paragraphs apply, because the
+            benchmark binaries and config file are redistributed to other users who run the actual tests.  In this situation, the 
+            build environment must be documented. </p></li>
+      </ol>
+   </li>
+
+   <li><p class="snugbot"><b>How to document a build environment.</b>  </p>
+      <ol class="subrule2">
+         <li><b>Compiler name and revision:</b>  document in the usual manner, in the Software section (i.e. using config file fields
+            that begin with '<samp class="snuglr">sw_</samp>').</li>
+         <li><b>Performance libraries added (e.g. optimized memory allocators, tuned math libraries):</b> document in the Software
+            section.  This requirement applies even if the binaries are statically linked.</li>
+         <li><b>Build-time hardware:</b> do not document in the Hardware section (i.e. do not use the config file fields that
+            begin with '<samp class="snuglr">hw_</samp>'); use the notes section, instead.</li>
+         <li><b>Build-time Operating System:</b> do not document in the Software section; use the notes section instead.</li>
+         <li><b>Dependencies:</b> Benchmark binaries sometimes have dependencies that must be satisfied on the SUT, and it is not
+            uncommon for these dependencies to vary depending on characteristics of the SUT.  <div class="example">Example: on OS Rev 10 you need patch #1234
+               with a new runtime loader, but on OS Rev 11, you do not need any patches, because Rev 11 already includes the new
+               loader.</div>
+            Such dependencies are usually best documented in the notes, where space is available to explain the circumstances under which
+            they apply.  If a dependency is elevated to the Software section, perhaps because it is felt to be a major item that needs
+            visibility, care must be taken to avoid confusion.</li>
+         <li><b>Other components:</b> If there are other hardware or software components of the build system that are relevant to
+            performance of the generated binaries, disclose these components in the notes section.</li>
+         <li><b>Notes Format:</b> In the notes section, add a statement of the form "Binaries were compiled on a system with
+            <i>&lt;Number of CPU chips&gt;</i>&nbsp;<i>&lt;type of CPU chip(s)&gt;</i> + <i>&lt;nn&gt; &lt;unit&gt;</i> Memory, using
+            <i>&lt;name of os&gt;</i>&nbsp; <i>&lt;os version&gt;</i> &lt;<i>(other info, such as dependencies and other
+               components)</i>&gt;."
+            Examples: <div class="example">1. Binaries were compiled on a system with 2x Model 19 CPU chips + 3 TB Memory using AcmeOS V11
+               <br />2. Binaries were compiled on a system with 2x Model 19 CPU chips + 3 TB Memory using AcmeOS V11 (with binutils V99.97 and
+               the Acme CPU Accelerator).</div>
+         </li>
+      </ol>
+   </li>
+</ol>
+
+
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_4.10">         4.10.      Metrics 
+   <span id="metrics"> </span>
+   <span id="Metrics"> </span>
+</h3>
+
+
+<p>The actual test results consist of the elapsed times and ratios for the individual benchmarks and the overall SPEC metric
+produced by running the benchmarks via the SPEC tools.  The required use of the SPEC tools helps ensure that the results generated
+are based on benchmarks built, run, and validated according to the SPEC run rules.  Below is a list of the measurement
+components for each SPEC CPU 2017 suite and metric: </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.10.1">       4.10.1.    SPECspeed&reg; Metrics 
+</h4>
+
+
+<ul class="l1">
+   <li> SPECspeed Integer Metrics: 
+<pre>
+     <b>SPECspeed&reg;2017_int_base</b>    (Required Base metric)
+     <b>SPECspeed&reg;2017_int_peak</b>    (Optional Peak metric)
+</pre></li>
+
+   <li>SPECspeed Floating Point Metrics:  
+<pre>
+     <b>SPECspeed&reg;2017_fp_base</b>    (Required Base metric)
+     <b>SPECspeed&reg;2017_fp_peak</b>    (Optional Peak metric)
+</pre></li>
+   </ul>
+
+<p class="l1">The elapsed time in seconds for each of the benchmarks in the SPECspeed 2017 Integer or SPECspeed 2017 Floating
+Point suite is measured and the ratio to the reference machine (a Sun Fire V490 using the year 2006 UltraSPARC IV+ chip) is
+calculated for each benchmark as:</p>
+<pre class="l2">
+SPECspeed Benchmark Performance Ratios
+--------------------------------------
+   Time on the reference machine
+   / Time on the system under test
+</pre>
+<p class="l1">The overall SPECspeed 
+metrics are calculated as a Geometric Mean of the individual ratios, where each ratio is based on the median execution time
+from three runs, or the slower of two runs, as explained in rule <a href="#rule_1.2.1">1.2.1</a>.  All runs are required to
+validate correctly.</p>
+
+
+<p class="l1">The benchmark executables must have been built according to the rules described in rule <a href="#rule_2">2</a>
+above.  </p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.10.2">       4.10.2.    SPECrate&reg; Metrics 
+</h4>
+
+
+<ul class="l1">
+<li> SPECrate Integer Metrics: 
+<pre>
+     <b>SPECrate&reg;2017_int_base</b>    (Required Base metric)
+     <b>SPECrate&reg;2017_int_peak</b>    (Optional Peak metric)
+</pre></li>
+
+<li> SPECrate Floating Point Metrics:  
+<pre>
+     <b>SPECrate&reg;2017_fp_base</b>    (Required Base metric)
+     <b>SPECrate&reg;2017_fp_peak</b>    (Optional Peak metric)
+</pre></li>
+</ul>
+
+<p class="l1">The SPECrate (throughput) metrics are calculated based on the execution time for a tester-selected number of
+copies for each
+benchmark to be run.  The same number of copies must be used for all benchmarks in a base test.  This is not true for the
+peak results where the tester is free to select any combination of copies.  The number of copies selected is usually a
+function of the number of CPUs in the system. </p>
+
+<p class="l1snugbot">The SPECrate is calculated for each benchmark as:</p>
+<pre class="l2">
+SPECrate Benchmark Performance Ratios
+-------------------------------------
+   Number of copies *
+   (Time on the reference machine 
+   / Time on the system under test) 
+</pre>
+<p class="l1">The overall SPECrate metrics are calculated as a geometric mean from the individual benchmark
+SPECrate metrics using the median time from three runs or the slower of two runs, as explained above (rule <a
+   href="#rule_1.2.1">1.2.1</a>).  </p>
+
+<p class="l1">As with the SPECspeed metric, all copies of the benchmark during each run are required to have validated correctly.</p>
+
+<!-- .......................................................................................................................... -->
+<h4 id="rule_4.10.3">       4.10.3.    Energy Metrics
+</h4>
+
+
+<p class="l1">SPEC CPU 2017 includes the ability to measure and report energy metrics, including Maximum&nbsp;Power, 
+Average&nbsp;Power, and Energy&nbsp;(in kilojoules).  </p>
+
+<p class="l1snugbot"> As of SPEC CPU 2017 V1.1, power measurement and reporting:</p>
+<ol class="subrule_snugtop">
+   <li><b>Is optional</b>. Testers are not required to measure or report power.</li>
+   <li><b>Produces official metrics</b>.  The SPEC Fair Use Rules <a class="external" href="https://www.spec.org/fairuse.html">www.spec.org/fairuse.html</a>  describe
+   the allowed usage of <a class="external" href="https://www.spec.org/fairuse.html#DefineSPECMetric">SPEC Metrics</a> for system
+   comparisons. For purposes of Fair Use, power metrics from SPEC CPU 2017 v1.1 and later are official SPEC&nbsp;Metrics and as
+   such may be used in <a class="external" href="https://www.spec.org/fairuse.html#Comparisons">comparisons</a>.  </li>
+</ol>
+
+<p class="l1">If power measurement is enabled, the total energy consumed in kilojoules for each of the benchmarks is measured and
+the energy ratio to the consumption of the reference machine (a Sun Fire V490 using the year 2006 UltraSPARC IV+ chip) is calculated
+as:</p>
+<pre class="l2">
+SPECspeed Benchmark Energy Ratios           SPECrate Benchmark Energy Ratios
+---------------------------------           ----------------------------------
+Energy on the reference machine             Number of copies *
+/ Energy on the system under test           (Energy on the reference machine 
+                                            / Energy on the system under test) 
+</pre>
+<p class="l1">The overall energy metrics are calculated as a Geometric Mean of the individual energy ratios, where each ratio
+is based on the total energy consumed by the performance run selected for reporting.  The overall metrics are called:</p>
+<pre class="l2">
+SPECspeed&reg;2017_int_energy_base              SPECrate&reg;2017_int_energy_base
+SPECspeed&reg;2017_int_energy_peak              SPECrate&reg;2017_int_energy_peak
+SPECspeed&reg;2017_fp_energy_base               SPECrate&reg;2017_fp_energy_base
+SPECspeed&reg;2017_fp_energy_peak               SPECrate&reg;2017_fp_energy_peak
+</pre>                                   
+
+
+
+<!-- .......................................................................................................................... -->
+<h2 id="rule_5">            5.         SPEC Process Information 
+</h2>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_5.1">          5.1.       Run Rule Exceptions 
+</h3>
+
+
+<p>If for some reason, the tester cannot run the benchmarks as specified in these rules, the tester can seek SPEC
+approval for performance-neutral alternatives.  No publication may be done without such approval.  See 
+<a class="external" href="techsupport.html">Technical Support for SPEC CPU 2017</a> for information.</p>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_5.2">          5.2.       Publishing on the SPEC website 
+</h3>
+
+
+<p>Procedures for result submission are described in the Open Systems Group Policies and Procedures Document, <a
+   class="external" href="https://www.spec.org/osg/policy.html#s2.3">www.spec.org/osg/policy.html</a>.  Additional
+information on how to publish a result on SPEC's web site may be obtained from the SPEC office.  Contact information is
+maintained at the SPEC web site, <a class="external" href="https://www.spec.org/">www.spec.org/</a>.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_5.3">          5.3.       Fair Use 
+   <span id="Fair-Use"> </span>
+   <span id="Fair.Use"> </span>
+   <span id="FairUse"> </span>
+   <span id="Fair_Use"> </span>
+   <span id="fair-use"> </span>
+   <span id="fair.use"> </span>
+   <span id="fairUse"> </span>
+   <span id="fair_use"> </span>
+   <span id="fairuse"> </span>
+</h3>
+
+
+<p>Consistency and fairness are guiding principles for SPEC. To help assure that these principles are met, any
+organization or individual who makes public use of SPEC benchmark results must do so in accordance with the SPEC Fair Use
+Rule, as posted at <a class="external" href="https://www.spec.org/fairuse.html">www.spec.org/fairuse.html</a>.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_5.4">          5.4.       Research and Academic usage of CPU 2017 
+   <span id="Research"> </span>
+   <span id="research"> </span>
+   <span id="Academic"> </span>
+   <span id="academic"> </span>
+</h3>
+
+
+<p>SPEC encourages use of the CPU 2017 suites in academic and research environments.  It is understood that experiments in
+such environments may be conducted in a less formal fashion than that demanded of testers who publish on the SPEC web
+site.  For example, a research environment may use early prototype hardware that simply cannot be expected to stay up for the
+length of time required to meet the Continuous Run requirement (see rule <a href="#rule_3.2">3.2</a>), or may use
+research compilers that are unsupported and are not generally available (see rule <a href="#rule_1">1</a>).</p>
+
+<p>Nevertheless, SPEC would like to encourage researchers to obey as many of the run rules as practical, even for informal
+research.  SPEC respectfully suggests that following the rules will improve the clarity, reproducibility, and comparability
+of research results.</p>
+
+<p>Where the rules cannot be followed, SPEC requires that the deviations from the rules be clearly disclosed, and that any
+SPEC metrics (such as SPECrate&reg;2017_int_base) be clearly marked as estimated. </p>
+
+<p>It is especially important to clearly distinguish results that do not comply with the run rules when the areas of
+non-compliance are major, such as not using the reference workload, or only being able to correctly validate a subset of the
+benchmarks.</p>
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_5.5">          5.5.       Required Disclosures 
+   <span id="Required-disclosure"> </span>     <span id="Required-disclosures"> </span>
+   <span id="Required.disclosure"> </span>     <span id="Required.disclosures"> </span>
+   <span id="RequiredDisclosure"> </span>      <span id="RequiredDisclosures"> </span>
+   <span id="Required_disclosure"> </span>     <span id="Required_disclosures"> </span>
+   <span id="Requireddisclosure"> </span>      <span id="Requireddisclosures"> </span>
+   <span id="required-disclosure"> </span>     <span id="required-disclosures"> </span>
+   <span id="required.disclosure"> </span>     <span id="required.disclosures"> </span>
+   <span id="requiredDisclosure"> </span>      <span id="requiredDisclosures"> </span>
+   <span id="required_disclosure"> </span>     <span id="required_disclosures"> </span>
+   <span id="requireddisclosure"> </span>      <span id="requireddisclosures"> </span>
+</h3>
+
+
+<p>If a SPEC CPU 2017 licensee publicly discloses a CPU 2017 result (for example in a press release, 
+academic paper, magazine
+article, or public web site), and does not clearly mark the result as an estimate, any SPEC member may request that the
+rawfile(s) from the run(s) be sent to SPEC.  The rawfiles must be made available to all interested members no later than 10
+working days after the request.  The rawfile is expected to be complete, including configuration information (rule <a
+href="#rule_4.4">4.4</a> above).</p>
+
+<p>A required disclosure is considered public information as soon as it is provided, including the configuration
+description.</p>
+
+   <p class="example">For example, Company A claims a result of 1000 SPECrate&reg;2017_int_peak.  A rawfile is requested, and supplied.
+   Company B notices that the result was achieved by stringing together 50 chips in single-user mode.  Company B is free to
+   use this information in public (e.g. it could compare the Company A machine vs. a Company B machine that scores 999 using
+   only 25 chips in multi-user mode). </p>
+
+<p>Review of the result: Any SPEC member may request that a required disclosure be reviewed by the SPEC CPU subcommittee.  At
+the conclusion of the review period, if the tester does not wish to have the result posted on the SPEC result pages, the
+result will not be posted.  Nevertheless, as described above, the details of the disclosure are public information.</p>
+
+<p>When public claims are made about CPU 2017 results, whether by vendors or by academic researchers, SPEC reserves the right
+to take action if the rawfile is not made available, or shows different performance than the tester's claim, or has other
+rule violations. </p>
+
+
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_5.6">          5.6.       Estimates
+</h3>
+
+
+<h4 id="rule_5.6.1"> 5.6.1 Estimates are <span class="u">not</span> allowed for energy metrics</h4>
+
+<div class="l1">
+<p><a class="external" href="https://www.spec.org/fairuse.html#DefineEstimate">Estimates</a> are not allowed for any of the SPEC
+CPU 2017 energy metrics.  All public use of SPEC CPU 2017 Energy Metrics must be from rule-compliant results.</p>
+</div>
+
+<h4 id="rule_5.6.2">5.6.2 Estimates are allowed for performance metrics</h4>
+
+   <p class="l1">SPEC CPU 2017 performance metrics (but <a href="#rule_5.6.1">not energy metrics</a>) may be estimated. </p>
+<div class="l1">
+   <ol class="subrule">
+      <li>
+      All estimates must be clearly identified as such.  It is acceptable to estimate
+      a single metric (for example, SPECrate&reg;2017_int_base, or SPECspeed&reg;2017_fp_peak, or the elapsed seconds for 500.perlbench_r).
+   </li>
+
+   <li><p>It is permitted to estimate only the <a href="#rule_1.5">peak</a> metric; one is not required to
+      provide a corresponding estimate for base.</p></li>
+
+   <li><p class="snugbot">SPEC requires that every use of an estimated number be clearly marked with "est." or "estimated"
+      next to each estimated number, rather than burying a footnote at the bottom of a page. For example:</p>
+
+      <pre> The JumboFast will achieve estimated performance of:
+   Model 1   SPECrate&reg;2017_int_base  50 est.
+             SPECrate&reg;2017_int_peak  60 est.
+   Model 2   SPECrate&reg;2017_int_base  70 est.
+             SPECrate&reg;2017_int_peak  80 est.
+      </pre>
+   </li>
+
+   <li><p>If estimates are used in graphs, the word "estimated" or "est." must be plainly visible within the graph, for
+      example in the title, the scale, the legend, or next to each individual result that is estimated.  Note that the term
+      "plainly visible" in this rule is not defined; it is intended as a call for responsible design of graphical elements.
+      Nevertheless, for the sake of giving at least rough guidance, here are two examples of the right way and wrong way to
+      mark estimated results in graphs:</p>
+
+         <ul class="snug"> 
+            <li class="exsnug">Acceptable: a 3 inch by 4 inch graph has 12 point (=1 pica) "est." markings directly above
+               the top of every affected bar, using black type against a white background.</li>
+
+            <li class="exsnug">Unacceptable: a 1 meter by 3 meter poster has 12 point "est." markings ambiguously placed, with
+               light gray text on a dark gray background</li>
+         </ul>
+   </li>
+
+   <li><p>Licensees are encouraged to give a rationale or methodology for any estimates, together with other information that may
+      help the reader assess the accuracy of the estimate.  For example:</p>
+      <ol class="subrule2">
+         <li class="exsnug">"This is a measured estimate: SPEC CPU 2017 was run on pre-production hardware.  Customer systems, planned for Q4, are
+            expected to be similar."</li>
+         <li class="exsnug">"Performance estimates are modeled using the cycle simulator GrokSim Mark IV.  It is likely that actual hardware, if
+            built, would include significant differences."</li>
+      </ol>
+   </li>
+
+   <li><p>Those who publish estimates are encouraged to publish actual SPEC CPU 2017 metrics as soon as possible. </p></li>
+</ol>
+
+</div>
+
+
+<!-- .......................................................................................................................... -->
+<h3 id="rule_5.7">          5.7.       Procedures for Non-compliant results. 
+   <span id="Non-Compliant"> </span>
+   <span id="NonCompliant"> </span>
+   <span id="noncompliant"> </span>
+   <span id="non-compliant"> </span>
+</h3>
+
+
+<p>The procedures regarding Non-Compliant results are briefly outlined in the SPEC Open Systems Group (OSG) Policy Document,
+<a class="external" href="https://www.spec.org/osg/policy.html#s2.3.2">www.spec.org/osg/policy.html</a>, and are
+described in detail in the document "Violations Determination, Penalties, and Remedies",
+<a class="external" href="https://www.spec.org/spec/docs/penaltiesremedies.pdf">www.spec.org/spec/docs/penaltiesremedies.pdf</a>.</p>
+
+
+
+
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Run and Reporting Rules SPEC Open Systems Group:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:600px 1em;">&nbsp;</p>
+
+
+</body>
+<!-- vim: set filetype=xhtml syntax=xhtml shiftwidth=3 tabstop=8 expandtab nosmarttab colorcolumn=132: -->
+</html>
+

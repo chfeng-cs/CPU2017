@@ -1,0 +1,4 @@
+echo "echo \"monitor_specrun_wrapper line 4\";echo \"monitor_specrun_wrapper line 6\""
+%% Fake commands from benchmark_run (echo "echo \"monitor_specrun_wrapper lin...):
+echo "monitor_specrun_wrapper line 4";echo "monitor_specrun_wrapper line 6"
+%% End of fake output from benchmark_run (echo "echo \"monitor_specrun_wrapper lin...)

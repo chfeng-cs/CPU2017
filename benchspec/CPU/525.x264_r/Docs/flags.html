@@ -1,0 +1,5119 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="generator" content="SPEC CPU2017 Tools  (flags v5178)" />
+<meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+<style type="text/css" id="internalScreen" media="screen">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Most of the screen-specific CSS is also the common CSS */
+
+/* Style for the non-image W3C marking at the bottom of the page, courtesy of
+ * Marek Prokop (http://www.sovavsiti.cz/css/w3c_buttons.html)
+ */
+.w3cbutton3 {
+  margin: 1em 1em 0 0;
+  width: 9em;
+  border: 1px solid #ccc;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 70%;
+  font-weight: bold;
+  float: left;
+}
+.w3cbutton3 a {
+  display: block;
+  width: 100%;
+}
+.w3cbutton3 a:link,
+.w3cbutton3 a:visited,
+.w3cbutton3 a:hover {
+  background-color: #fc6;
+  color: #000;
+  text-decoration: none;
+  border-bottom: none;
+}
+.w3cbutton3 span.w3c {
+  padding: 0 0.4em;
+  background-color: #fff;
+  color: #0c479d;
+}
+
+-->
+</style>
+<style type="text/css" id="internalPrint" media="print">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Classes that contain links - useless on paper */
+.flagTOC, .SubMenu, .NoPrint {
+  display: none;
+}
+
+/* Don't decorate links - they're not clickable */
+a {
+  text-decoration: none;
+  background: inherit;
+  color: inherit;
+}
+
+.resultpage {
+  width: 100%;
+}
+
+.w3cbutton3 {
+  display: none;
+}
+-->
+</style>
+<title>525.x264_r Flags</title>
+</head><body>
+<h1>525.x264_r Flags</h1>
+
+
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+
+<div class="NoPrint">
+<h3>Sections</h3>
+<p>Selecting one of the following will take you directly to that section:</p>
+<ul>
+<li><a href="#Section_portability">Portability Flags</a></li>
+<li><a href="#Section_mandatory">Mandatory Flags</a></li>
+<li><a href="#Section_forbidden">Forbidden Flags</a></li>
+</ul>
+</div>
+
+<hr />
+
+<div class="flagClass" id="portability">
+<h2><a name="Section_portability" id="Section_portability">Portability Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b525.x264_r_DSPEC_WINDOWS_MSVS2013">-DSPEC_WINDOWS_MSVS2013</a></li>
+ <li><a href="#b525.x264_r_DBROKEN_STACK_ALIGNMENT">-DBROKEN_STACK_ALIGNMENT</a></li>
+ <li><a href="#b525.x264_r_DHAVE_LOG2F">-DHAVE_LOG2F</a></li>
+ <li><a href="#b525.x264_r_DSPEC_NEED_STDINT">-DSPEC_NEED_STDINT</a></li>
+ <li><a href="#b525.x264_r_DSPEC_NO_LOG2F">-DSPEC_NO_LOG2F</a></li>
+ <li><a href="#b525.x264_r_DSPEC_NO_UNDERBAR_INLINE">-DSPEC_NO_UNDERBAR_INLINE</a></li>
+ <li><a href="#b525.x264_r_DWORDS_BIGENDIAN">-DWORDS_BIGENDIAN</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSPEC_WINDOWS_MSVS2013" id="b525.x264_r_DSPEC_WINDOWS_MSVS2013">-DSPEC_WINDOWS_MSVS2013</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_WINDOWS_MSVS2013(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This disables some compatibility function name translations for Windows that
+are not needed when building with Microsoft Visual Studio 2013 and later.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DBROKEN_STACK_ALIGNMENT" id="b525.x264_r_DBROKEN_STACK_ALIGNMENT">-DBROKEN_STACK_ALIGNMENT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBROKEN_STACK_ALIGNMENT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Fix alignment issue on platforms, such as Windows, where stack alignment is not guaranteed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_LOG2F" id="b525.x264_r_DHAVE_LOG2F">-DHAVE_LOG2F</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_LOG2F(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+The log2() and log2f() functions are required by the C99 standard and are
+  assumed to be available on all platforms other than Windows.  Windows users
+  may specify availability of these functions by defining this macro.
+  Otherwise, an implementation will be provided by the benchmark.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSPEC_NEED_STDINT" id="b525.x264_r_DSPEC_NEED_STDINT">-DSPEC_NEED_STDINT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NEED_STDINT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if stdint.h is not available.  The included "pstdint.h" will be used instead.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSPEC_NO_LOG2F" id="b525.x264_r_DSPEC_NO_LOG2F">-DSPEC_NO_LOG2F</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_LOG2F(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable if the compilation environment does not support the "log2" or "log2f" routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSPEC_NO_UNDERBAR_INLINE" id="b525.x264_r_DSPEC_NO_UNDERBAR_INLINE">-DSPEC_NO_UNDERBAR_INLINE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_UNDERBAR_INLINE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Uses on Windows when the compiler defines the inline keyword without an underbar, i.e. "inline".  MSC defines it with an underbar, i.e. "_inline".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DWORDS_BIGENDIAN" id="b525.x264_r_DWORDS_BIGENDIAN">-DWORDS_BIGENDIAN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWORDS_BIGENDIAN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define when using a big endian system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="mandatory">
+<h2><a name="Section_mandatory" id="Section_mandatory">Mandatory Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b525.x264_r_bench_includes">-I., -Ildecod_src/inc, -Ix264_src, -Ix264_src/extras, -Ix264_src/common</a></li>
+ <li><a href="#b525.x264_r_DNDEBUG">-DNDEBUG</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_bench_includes" id="b525.x264_r_bench_includes">-I., -Ildecod_src/inc, -Ix264_src, -Ix264_src/extras, -Ix264_src/common</a></li>
+<li class="flagDescRE"><span class="tt">-I(?:\.|ldecod_src/inc|x264_src|x264_src/extras|x264_src/common)(?:\s+|$)</span></li>
+<li class="descText">
+<p>
+This flag is included automatically by Spec/object.pm.  Adds the include directory paths to the compilation.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DNDEBUG" id="b525.x264_r_DNDEBUG">-DNDEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNDEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable debugging information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="forbidden">
+<h2><a name="Section_forbidden" id="Section_forbidden">Forbidden Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b525.x264_r_DALLOW_GRAYSCALE">-DALLOW_GRAYSCALE</a></li>
+ <li><a href="#b525.x264_r_DARCH_ARM">-DARCH_ARM</a></li>
+ <li><a href="#b525.x264_r_DARCH_PPC">-DARCH_PPC</a></li>
+ <li><a href="#b525.x264_r_DARCH_UltraSparc">-DARCH_UltraSparc</a></li>
+ <li><a href="#b525.x264_r_DARCH_X86">-DARCH_X86</a></li>
+ <li><a href="#b525.x264_r_DARCH_X86_64">-DARCH_X86_64</a></li>
+ <li><a href="#b525.x264_r_DAVS_INPUT">-DAVS_INPUT</a></li>
+ <li><a href="#b525.x264_r_DCONTEXT_INI_C">-DCONTEXT_INI_C</a></li>
+ <li><a href="#b525.x264_r_DDEBUG_BITDEPTH">-DDEBUG_BITDEPTH</a></li>
+ <li><a href="#b525.x264_r_DDEBUG_MB_TYPE">-DDEBUG_MB_TYPE</a></li>
+ <li><a href="#b525.x264_r_DDECOUTPUT_TEST">-DDECOUTPUT_TEST</a></li>
+ <li><a href="#b525.x264_r_DDISABLE_ERC">-DDISABLE_ERC</a></li>
+ <li><a href="#b525.x264_r_DDUMP_DPB">-DDUMP_DPB</a></li>
+ <li><a href="#b525.x264_r_DELIDE_CODE">-DELIDE_CODE</a></li>
+ <li><a href="#b525.x264_r_DENABLE_FIELD_CTX">-DENABLE_FIELD_CTX</a></li>
+ <li><a href="#b525.x264_r_DENABLE_HIGH444_CTX">-DENABLE_HIGH444_CTX</a></li>
+ <li><a href="#b525.x264_r_DENABLE_NLS">-DENABLE_NLS</a></li>
+ <li><a href="#b525.x264_r_DENABLE_OUTPUT_TONEMAPPING">-DENABLE_OUTPUT_TONEMAPPING</a></li>
+ <li><a href="#b525.x264_r_DFALSE">-DFALSE</a></li>
+ <li><a href="#b525.x264_r_DFAST_READ">-DFAST_READ</a></li>
+ <li><a href="#b525.x264_r_DFFMS_INPUT">-DFFMS_INPUT</a></li>
+ <li><a href="#b525.x264_r_DHAVE_ALTIVEC">-DHAVE_ALTIVEC</a></li>
+ <li><a href="#b525.x264_r_DHAVE_ARMV6">-DHAVE_ARMV6</a></li>
+ <li><a href="#b525.x264_r_DHAVE_CONFIG_H">-DHAVE_CONFIG_H</a></li>
+ <li><a href="#b525.x264_r_DHAVE_GF_MALLOC">-DHAVE_GF_MALLOC</a></li>
+ <li><a href="#b525.x264_r_DHAVE_LIBINTL_H">-DHAVE_LIBINTL_H</a></li>
+ <li><a href="#b525.x264_r_DHAVE_MALLOC_H">-DHAVE_MALLOC_H</a></li>
+ <li><a href="#b525.x264_r_DHAVE_MMX">-DHAVE_MMX</a></li>
+ <li><a href="#b525.x264_r_DHAVE_NEON">-DHAVE_NEON</a></li>
+ <li><a href="#b525.x264_r_DHAVE_PTHREAD">-DHAVE_PTHREAD</a></li>
+ <li><a href="#b525.x264_r_DHAVE_STDINT_H">-DHAVE_STDINT_H</a></li>
+ <li><a href="#b525.x264_r_DHAVE_STRING_H">-DHAVE_STRING_H</a></li>
+ <li><a href="#b525.x264_r_DHAVE_VISUALIZE">-DHAVE_VISUALIZE</a></li>
+ <li><a href="#b525.x264_r_DIMGTYPE">-DIMGTYPE</a></li>
+ <li><a href="#b525.x264_r_DINCLUDED_BY_CONFIGFILE_C">-DINCLUDED_BY_CONFIGFILE_C</a></li>
+ <li><a href="#b525.x264_r_DINT16_C">-DINT16_C</a></li>
+ <li><a href="#b525.x264_r_DINT16_MAX">-DINT16_MAX</a></li>
+ <li><a href="#b525.x264_r_DINT16_MIN">-DINT16_MIN</a></li>
+ <li><a href="#b525.x264_r_DINT32_C">-DINT32_C</a></li>
+ <li><a href="#b525.x264_r_DINT32_MAX">-DINT32_MAX</a></li>
+ <li><a href="#b525.x264_r_DINT32_MIN">-DINT32_MIN</a></li>
+ <li><a href="#b525.x264_r_DINT64_C">-DINT64_C</a></li>
+ <li><a href="#b525.x264_r_DINT64_MAX">-DINT64_MAX</a></li>
+ <li><a href="#b525.x264_r_DINT64_MIN">-DINT64_MIN</a></li>
+ <li><a href="#b525.x264_r_DINT8_C">-DINT8_C</a></li>
+ <li><a href="#b525.x264_r_DINT8_MAX">-DINT8_MAX</a></li>
+ <li><a href="#b525.x264_r_DINT8_MIN">-DINT8_MIN</a></li>
+ <li><a href="#b525.x264_r_DINTMAX_MAX">-DINTMAX_MAX</a></li>
+ <li><a href="#b525.x264_r_DINTMAX_MIN">-DINTMAX_MIN</a></li>
+ <li><a href="#b525.x264_r_DINTPTR_C">-DINTPTR_C</a></li>
+ <li><a href="#b525.x264_r_DINTPTR_MAX">-DINTPTR_MAX</a></li>
+ <li><a href="#b525.x264_r_DINTPTR_MIN">-DINTPTR_MIN</a></li>
+ <li><a href="#b525.x264_r_DINT_MAX">-DINT_MAX</a></li>
+ <li><a href="#b525.x264_r_DJCOST_CALC_SCALEUP">-DJCOST_CALC_SCALEUP</a></li>
+ <li><a href="#b525.x264_r_DJM_PARALLEL_DEBLOCK">-DJM_PARALLEL_DEBLOCK</a></li>
+ <li><a href="#b525.x264_r_DLAVF_INPUT">-DLAVF_INPUT</a></li>
+ <li><a href="#b525.x264_r_DLONG_LONG_MAX">-DLONG_LONG_MAX</a></li>
+ <li><a href="#b525.x264_r_DLONG_MAX">-DLONG_MAX</a></li>
+ <li><a href="#b525.x264_r_DMAXINT64">-DMAXINT64</a></li>
+ <li><a href="#b525.x264_r_DMP4_OUTPUT">-DMP4_OUTPUT</a></li>
+ <li><a href="#b525.x264_r_DMVC_EXTENSION_ENABLE">-DMVC_EXTENSION_ENABLE</a></li>
+ <li><a href="#b525.x264_r_DOPENMP">-DOPENMP</a></li>
+ <li><a href="#b525.x264_r_DPAIR_FIELDS_IN_OUTPUT">-DPAIR_FIELDS_IN_OUTPUT</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT16_DEC_WIDTH">-DPRINTF_INT16_DEC_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT16_HEX_WIDTH">-DPRINTF_INT16_HEX_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT16_MODIFIER">-DPRINTF_INT16_MODIFIER</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT32_DEC_WIDTH">-DPRINTF_INT32_DEC_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT32_HEX_WIDTH">-DPRINTF_INT32_HEX_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT32_MODIFIER">-DPRINTF_INT32_MODIFIER</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT64_DEC_WIDTH">-DPRINTF_INT64_DEC_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT64_HEX_WIDTH">-DPRINTF_INT64_HEX_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT64_MODIFIER">-DPRINTF_INT64_MODIFIER</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT8_DEC_WIDTH">-DPRINTF_INT8_DEC_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INT8_HEX_WIDTH">-DPRINTF_INT8_HEX_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INTMAX_DEC_WIDTH">-DPRINTF_INTMAX_DEC_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INTMAX_HEX_WIDTH">-DPRINTF_INTMAX_HEX_WIDTH</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INTMAX_MODIFIER">-DPRINTF_INTMAX_MODIFIER</a></li>
+ <li><a href="#b525.x264_r_DPRINTF_INTPTR_MODIFIER">-DPRINTF_INTPTR_MODIFIER</a></li>
+ <li><a href="#b525.x264_r_DPRINTREFLIST">-DPRINTREFLIST</a></li>
+ <li><a href="#b525.x264_r_DPRINT_BUFFERING_PERIOD_INFO">-DPRINT_BUFFERING_PERIOD_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_DEBLOCKING_FILTER_DISPLAY_PREFERENCE_INFO">-DPRINT_DEBLOCKING_FILTER_DISPLAY_PREFERENCE_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_DEC_REF_PIC_MARKING">-DPRINT_DEC_REF_PIC_MARKING</a></li>
+ <li><a href="#b525.x264_r_DPRINT_FILLER_PAYLOAD_INFO">-DPRINT_FILLER_PAYLOAD_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_FILM_GRAIN_CHARACTERISTICS_INFO">-DPRINT_FILM_GRAIN_CHARACTERISTICS_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_FMO_MAPS">-DPRINT_FMO_MAPS</a></li>
+ <li><a href="#b525.x264_r_DPRINT_FRAME_PACKING_ARRANGEMENT_INFO">-DPRINT_FRAME_PACKING_ARRANGEMENT_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_FULL_FRAME_FREEZE_INFO">-DPRINT_FULL_FRAME_FREEZE_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_FULL_FRAME_FREEZE_RELEASE_INFO">-DPRINT_FULL_FRAME_FREEZE_RELEASE_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_FULL_FRAME_SNAPSHOT_INFO">-DPRINT_FULL_FRAME_SNAPSHOT_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_MOTION_CONST_SLICE_GROUP_SET_INFO">-DPRINT_MOTION_CONST_SLICE_GROUP_SET_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_OUTPUT_POC">-DPRINT_OUTPUT_POC</a></li>
+ <li><a href="#b525.x264_r_DPRINT_PAN_SCAN_RECT">-DPRINT_PAN_SCAN_RECT</a></li>
+ <li><a href="#b525.x264_r_DPRINT_PCITURE_TIMING_INFO">-DPRINT_PCITURE_TIMING_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_POST_FILTER_HINT_INFO">-DPRINT_POST_FILTER_HINT_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_PROGRESSIVE_REFINEMENT_END_INFO">-DPRINT_PROGRESSIVE_REFINEMENT_END_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_PROGRESSIVE_REFINEMENT_START_INFO">-DPRINT_PROGRESSIVE_REFINEMENT_START_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_RECOVERY_POINT">-DPRINT_RECOVERY_POINT</a></li>
+ <li><a href="#b525.x264_r_DPRINT_RESERVED_INFO">-DPRINT_RESERVED_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_SCENE_INFORMATION">-DPRINT_SCENE_INFORMATION</a></li>
+ <li><a href="#b525.x264_r_DPRINT_STEREO_VIDEO_INFO_INFO">-DPRINT_STEREO_VIDEO_INFO_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_SUBSEQUENCE_CHAR">-DPRINT_SUBSEQUENCE_CHAR</a></li>
+ <li><a href="#b525.x264_r_DPRINT_SUBSEQUENCE_INFO">-DPRINT_SUBSEQUENCE_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_SUBSEQUENCE_LAYER_CHAR">-DPRINT_SUBSEQUENCE_LAYER_CHAR</a></li>
+ <li><a href="#b525.x264_r_DPRINT_TONE_MAPPING">-DPRINT_TONE_MAPPING</a></li>
+ <li><a href="#b525.x264_r_DPRINT_USER_DATA_REGISTERED_ITU_T_T35_INFO">-DPRINT_USER_DATA_REGISTERED_ITU_T_T35_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRINT_USER_DATA_UNREGISTERED_INFO">-DPRINT_USER_DATA_UNREGISTERED_INFO</a></li>
+ <li><a href="#b525.x264_r_DPRId32">-DPRId32</a></li>
+ <li><a href="#b525.x264_r_DPRId64">-DPRId64</a></li>
+ <li><a href="#b525.x264_r_DPRIu32">-DPRIu32</a></li>
+ <li><a href="#b525.x264_r_DPRIu64">-DPRIu64</a></li>
+ <li><a href="#b525.x264_r_DPRIx32">-DPRIx32</a></li>
+ <li><a href="#b525.x264_r_DPRIx64">-DPRIx64</a></li>
+ <li><a href="#b525.x264_r_DPTRDIFF_MAX">-DPTRDIFF_MAX</a></li>
+ <li><a href="#b525.x264_r_DPTRDIFF_MIN">-DPTRDIFF_MIN</a></li>
+ <li><a href="#b525.x264_r_DPTW32_STATIC_LIB">-DPTW32_STATIC_LIB</a></li>
+ <li><a href="#b525.x264_r_DRDO_SKIP_BS">-DRDO_SKIP_BS</a></li>
+ <li><a href="#b525.x264_r_DSCNu32">-DSCNu32</a></li>
+ <li><a href="#b525.x264_r_DSCNu64">-DSCNu64</a></li>
+ <li><a href="#b525.x264_r_DSEI_H">-DSEI_H</a></li>
+ <li><a href="#b525.x264_r_DSIG_ATOMIC_MAX">-DSIG_ATOMIC_MAX</a></li>
+ <li><a href="#b525.x264_r_DSIZE_MAX">-DSIZE_MAX</a></li>
+ <li><a href="#b525.x264_r_DSPEC_PTHREADS">-DSPEC_PTHREADS</a></li>
+ <li><a href="#b525.x264_r_DSPEC_USE_LL_INT64">-DSPEC_USE_LL_INT64</a></li>
+ <li><a href="#b525.x264_r_DSTDINT_H_UINTPTR_T_DEFINED">-DSTDINT_H_UINTPTR_T_DEFINED</a></li>
+ <li><a href="#b525.x264_r_DSYS_BEOS">-DSYS_BEOS</a></li>
+ <li><a href="#b525.x264_r_DSYS_FREEBSD">-DSYS_FREEBSD</a></li>
+ <li><a href="#b525.x264_r_DSYS_LINUX">-DSYS_LINUX</a></li>
+ <li><a href="#b525.x264_r_DSYS_MACOSX">-DSYS_MACOSX</a></li>
+ <li><a href="#b525.x264_r_DSYS_MINGW">-DSYS_MINGW</a></li>
+ <li><a href="#b525.x264_r_DSYS_OPENBSD">-DSYS_OPENBSD</a></li>
+ <li><a href="#b525.x264_r_DSYS_SunOS">-DSYS_SunOS</a></li>
+ <li><a href="#b525.x264_r_DS_IFREG">-DS_IFREG</a></li>
+ <li><a href="#b525.x264_r_DS_ISREG">-DS_ISREG</a></li>
+ <li><a href="#b525.x264_r_DTEST">-DTEST</a></li>
+ <li><a href="#b525.x264_r_DTRACE">-DTRACE</a></li>
+ <li><a href="#b525.x264_r_DUSE_NONOPTION_FLAGS">-DUSE_NONOPTION_FLAGS</a></li>
+ <li><a href="#b525.x264_r_DUSE_REAL_PTHREAD">-DUSE_REAL_PTHREAD</a></li>
+ <li><a href="#b525.x264_r_DUSE_RND_COST">-DUSE_RND_COST</a></li>
+ <li><a href="#b525.x264_r_DVMS">-DVMS</a></li>
+ <li><a href="#b525.x264_r_DWIN32">-DWIN32</a></li>
+ <li><a href="#b525.x264_r_DWIN64">-DWIN64</a></li>
+ <li><a href="#b525.x264_r_DWRITE_MAP_IMAGE">-DWRITE_MAP_IMAGE</a></li>
+ <li><a href="#b525.x264_r_DX264_ANALYSE_H">-DX264_ANALYSE_H</a></li>
+ <li><a href="#b525.x264_r_DX264_BS_H">-DX264_BS_H</a></li>
+ <li><a href="#b525.x264_r_DX264_CABAC_H">-DX264_CABAC_H</a></li>
+ <li><a href="#b525.x264_r_DX264_COMMON_H">-DX264_COMMON_H</a></li>
+ <li><a href="#b525.x264_r_DX264_CPU_H">-DX264_CPU_H</a></li>
+ <li><a href="#b525.x264_r_DX264_DCT_H">-DX264_DCT_H</a></li>
+ <li><a href="#b525.x264_r_DX264_ENCODER_MACROBLOCK_H">-DX264_ENCODER_MACROBLOCK_H</a></li>
+ <li><a href="#b525.x264_r_DX264_ENCODER_SET_H">-DX264_ENCODER_SET_H</a></li>
+ <li><a href="#b525.x264_r_DX264_FLV_BYTESTREAM_H">-DX264_FLV_BYTESTREAM_H</a></li>
+ <li><a href="#b525.x264_r_DX264_FRAME_H">-DX264_FRAME_H</a></li>
+ <li><a href="#b525.x264_r_DX264_INPUT_H">-DX264_INPUT_H</a></li>
+ <li><a href="#b525.x264_r_DX264_MACROBLOCK_H">-DX264_MACROBLOCK_H</a></li>
+ <li><a href="#b525.x264_r_DX264_MATROSKA_EBML_H">-DX264_MATROSKA_EBML_H</a></li>
+ <li><a href="#b525.x264_r_DX264_MC_H">-DX264_MC_H</a></li>
+ <li><a href="#b525.x264_r_DX264_ME_H">-DX264_ME_H</a></li>
+ <li><a href="#b525.x264_r_DX264_MUXERS_H">-DX264_MUXERS_H</a></li>
+ <li><a href="#b525.x264_r_DX264_OSDEP_H">-DX264_OSDEP_H</a></li>
+ <li><a href="#b525.x264_r_DX264_OUTPUT_H">-DX264_OUTPUT_H</a></li>
+ <li><a href="#b525.x264_r_DX264_PIXEL_H">-DX264_PIXEL_H</a></li>
+ <li><a href="#b525.x264_r_DX264_POINTVER">-DX264_POINTVER</a></li>
+ <li><a href="#b525.x264_r_DX264_PREDICT_H">-DX264_PREDICT_H</a></li>
+ <li><a href="#b525.x264_r_DX264_QUANT_H">-DX264_QUANT_H</a></li>
+ <li><a href="#b525.x264_r_DX264_RATECONTROL_H">-DX264_RATECONTROL_H</a></li>
+ <li><a href="#b525.x264_r_DX264_SET_H">-DX264_SET_H</a></li>
+ <li><a href="#b525.x264_r_DX264_X264_H">-DX264_X264_H</a></li>
+ <li><a href="#b525.x264_r_DZEROSNR">-DZEROSNR</a></li>
+ <li><a href="#b525.x264_r_D_ANNEXB_H_">-D_ANNEXB_H_</a></li>
+ <li><a href="#b525.x264_r_D_BIARIDECOD_H_">-D_BIARIDECOD_H_</a></li>
+ <li><a href="#b525.x264_r_D_BLK_PREDICTION_H_">-D_BLK_PREDICTION_H_</a></li>
+ <li><a href="#b525.x264_r_D_BLOCK_H_">-D_BLOCK_H_</a></li>
+ <li><a href="#b525.x264_r_D_CABAC_H_">-D_CABAC_H_</a></li>
+ <li><a href="#b525.x264_r_D_CONFIGFILE_H_">-D_CONFIGFILE_H_</a></li>
+ <li><a href="#b525.x264_r_D_CONFIG_COMMON_H_">-D_CONFIG_COMMON_H_</a></li>
+ <li><a href="#b525.x264_r_D_CONTEXT_INI_">-D_CONTEXT_INI_</a></li>
+ <li><a href="#b525.x264_r_D_CRAYC">-D_CRAYC</a></li>
+ <li><a href="#b525.x264_r_D_DEBUG">-D_DEBUG</a></li>
+ <li><a href="#b525.x264_r_D_DEFINES_H_">-D_DEFINES_H_</a></li>
+ <li><a href="#b525.x264_r_D_DISTORTION_H_">-D_DISTORTION_H_</a></li>
+ <li><a href="#b525.x264_r_D_ELEMENTS_H_">-D_ELEMENTS_H_</a></li>
+ <li><a href="#b525.x264_r_D_ENC_STATISTICS_H_">-D_ENC_STATISTICS_H_</a></li>
+ <li><a href="#b525.x264_r_D_ERC_API_H_">-D_ERC_API_H_</a></li>
+ <li><a href="#b525.x264_r_D_ERC_DO_H_">-D_ERC_DO_H_</a></li>
+ <li><a href="#b525.x264_r_D_ERC_GLOBALS_H_">-D_ERC_GLOBALS_H_</a></li>
+ <li><a href="#b525.x264_r_D_ERRORCONCEALMENT_H_">-D_ERRORCONCEALMENT_H_</a></li>
+ <li><a href="#b525.x264_r_D_FAST_MEMORY_H_">-D_FAST_MEMORY_H_</a></li>
+ <li><a href="#b525.x264_r_D_FLTDBG_">-D_FLTDBG_</a></li>
+ <li><a href="#b525.x264_r_D_FMO_H_">-D_FMO_H_</a></li>
+ <li><a href="#b525.x264_r_D_FRAME_H_">-D_FRAME_H_</a></li>
+ <li><a href="#b525.x264_r_D_GETOPT_H">-D_GETOPT_H</a></li>
+ <li><a href="#b525.x264_r_D_GLOBAL_H_">-D_GLOBAL_H_</a></li>
+ <li><a href="#b525.x264_r_D_H264DECODER_H_">-D_H264DECODER_H_</a></li>
+ <li><a href="#b525.x264_r_D_HEADER_H_">-D_HEADER_H_</a></li>
+ <li><a href="#b525.x264_r_D_IFUNCTIONS_H_">-D_IFUNCTIONS_H_</a></li>
+ <li><a href="#b525.x264_r_D_IMAGE_H_">-D_IMAGE_H_</a></li>
+ <li><a href="#b525.x264_r_D_IMG_IO_H_">-D_IMG_IO_H_</a></li>
+ <li><a href="#b525.x264_r_D_IMG_PROCESS_H_">-D_IMG_PROCESS_H_</a></li>
+ <li><a href="#b525.x264_r_D_IMG_PROCESS_TYPES_H_">-D_IMG_PROCESS_TYPES_H_</a></li>
+ <li><a href="#b525.x264_r_D_INPUT_H_">-D_INPUT_H_</a></li>
+ <li><a href="#b525.x264_r_D_INTRA16x16_PRED_H_">-D_INTRA16x16_PRED_H_</a></li>
+ <li><a href="#b525.x264_r_D_INTRA4x4_PRED_H_">-D_INTRA4x4_PRED_H_</a></li>
+ <li><a href="#b525.x264_r_D_INTRA8x8_PRED_H_">-D_INTRA8x8_PRED_H_</a></li>
+ <li><a href="#b525.x264_r_D_INTTYPES_H">-D_INTTYPES_H</a></li>
+ <li><a href="#b525.x264_r_D_INTTYPES_H_">-D_INTTYPES_H_</a></li>
+ <li><a href="#b525.x264_r_D_IO_IMAGE_H_">-D_IO_IMAGE_H_</a></li>
+ <li><a href="#b525.x264_r_D_IO_RAW_H_">-D_IO_RAW_H_</a></li>
+ <li><a href="#b525.x264_r_D_IO_TIFF_H_">-D_IO_TIFF_H_</a></li>
+ <li><a href="#b525.x264_r_D_IO_VIDEO_H_">-D_IO_VIDEO_H_</a></li>
+ <li><a href="#b525.x264_r_D_LAGRANGIAN_H_">-D_LAGRANGIAN_H_</a></li>
+ <li><a href="#b525.x264_r_D_LEAKYBUCKET_">-D_LEAKYBUCKET_</a></li>
+ <li><a href="#b525.x264_r_D_LEAKY_BUCKET_H_">-D_LEAKY_BUCKET_H_</a></li>
+ <li><a href="#b525.x264_r_D_LIBC">-D_LIBC</a></li>
+ <li><a href="#b525.x264_r_D_LOOPFILTER_H_">-D_LOOPFILTER_H_</a></li>
+ <li><a href="#b525.x264_r_D_LOOP_FILTER_H_">-D_LOOP_FILTER_H_</a></li>
+ <li><a href="#b525.x264_r_D_MACROBLOCK_H_">-D_MACROBLOCK_H_</a></li>
+ <li><a href="#b525.x264_r_D_MBUFFER_H_">-D_MBUFFER_H_</a></li>
+ <li><a href="#b525.x264_r_D_MBUFFER_MVC_H_">-D_MBUFFER_MVC_H_</a></li>
+ <li><a href="#b525.x264_r_D_MB_ACCESS_H_">-D_MB_ACCESS_H_</a></li>
+ <li><a href="#b525.x264_r_D_MB_PREDICTION_H_">-D_MB_PREDICTION_H_</a></li>
+ <li><a href="#b525.x264_r_D_MC_PREDICTION_H_">-D_MC_PREDICTION_H_</a></li>
+ <li><a href="#b525.x264_r_D_MEMALLOC_H_">-D_MEMALLOC_H_</a></li>
+ <li><a href="#b525.x264_r_D_MSC_VER">-D_MSC_VER</a></li>
+ <li><a href="#b525.x264_r_D_MV_PREDICTION_H_">-D_MV_PREDICTION_H_</a></li>
+ <li><a href="#b525.x264_r_D_NALUCOMMON_H_">-D_NALUCOMMON_H_</a></li>
+ <li><a href="#b525.x264_r_D_NALU_H_">-D_NALU_H_</a></li>
+ <li><a href="#b525.x264_r_D_NO_PROTO">-D_NO_PROTO</a></li>
+ <li><a href="#b525.x264_r_D_OPENMP">-D_OPENMP</a></li>
+ <li><a href="#b525.x264_r_D_OUTPUT_H_">-D_OUTPUT_H_</a></li>
+ <li><a href="#b525.x264_r_D_PARAMS_H_">-D_PARAMS_H_</a></li>
+ <li><a href="#b525.x264_r_D_PARSETCOMMON_H_">-D_PARSETCOMMON_H_</a></li>
+ <li><a href="#b525.x264_r_D_PARSET_H_">-D_PARSET_H_</a></li>
+ <li><a href="#b525.x264_r_D_PSTDINT_H_INCLUDED">-D_PSTDINT_H_INCLUDED</a></li>
+ <li><a href="#b525.x264_r_D_QUANT_H_">-D_QUANT_H_</a></li>
+ <li><a href="#b525.x264_r_D_QUANT_PARAMS_H_">-D_QUANT_PARAMS_H_</a></li>
+ <li><a href="#b525.x264_r_D_REPORT_H_">-D_REPORT_H_</a></li>
+ <li><a href="#b525.x264_r_D_RTP_H_">-D_RTP_H_</a></li>
+ <li><a href="#b525.x264_r_D_TRANSFORM8X8_H_">-D_TRANSFORM8X8_H_</a></li>
+ <li><a href="#b525.x264_r_D_TRANSFORM_H_">-D_TRANSFORM_H_</a></li>
+ <li><a href="#b525.x264_r_D_TYPEDEFS_H_">-D_TYPEDEFS_H_</a></li>
+ <li><a href="#b525.x264_r_D_TYPES_H_">-D_TYPES_H_</a></li>
+ <li><a href="#b525.x264_r_D_VLC_H_">-D_VLC_H_</a></li>
+ <li><a href="#b525.x264_r_D_VUI_PARAMS_H_">-D_VUI_PARAMS_H_</a></li>
+ <li><a href="#b525.x264_r_D_WIN32">-D_WIN32</a></li>
+ <li><a href="#b525.x264_r_D_WIN32_H_">-D_WIN32_H_</a></li>
+ <li><a href="#b525.x264_r_D_WIN64">-D_WIN64</a></li>
+ <li><a href="#b525.x264_r_D__APPLE_CC__">-D__APPLE_CC__</a></li>
+ <li><a href="#b525.x264_r_D__BORLANDC__">-D__BORLANDC__</a></li>
+ <li><a href="#b525.x264_r_D__DECC">-D__DECC</a></li>
+ <li><a href="#b525.x264_r_D__GNUC_MINOR__">-D__GNUC_MINOR__</a></li>
+ <li><a href="#b525.x264_r_D__GNUC__">-D__GNUC__</a></li>
+ <li><a href="#b525.x264_r_D__INTEL_COMPILER">-D__INTEL_COMPILER</a></li>
+ <li><a href="#b525.x264_r_D__MINGW32__">-D__MINGW32__</a></li>
+ <li><a href="#b525.x264_r_D__MWERKS__">-D__MWERKS__</a></li>
+ <li><a href="#b525.x264_r_D__SSE__">-D__SSE__</a></li>
+ <li><a href="#b525.x264_r_D__STDC_VERSION">-D__STDC_VERSION</a></li>
+ <li><a href="#b525.x264_r_D__STDC_VERSION__">-D__STDC_VERSION__</a></li>
+ <li><a href="#b525.x264_r_D__STDC__">-D__STDC__</a></li>
+ <li><a href="#b525.x264_r_D__SUNPRO_C">-D__SUNPRO_C</a></li>
+ <li><a href="#b525.x264_r_D__SUNPRO_CC">-D__SUNPRO_CC</a></li>
+ <li><a href="#b525.x264_r_D__TURBOC__">-D__TURBOC__</a></li>
+ <li><a href="#b525.x264_r_D__WATCOMC__">-D__WATCOMC__</a></li>
+ <li><a href="#b525.x264_r_D__WATCOM_INT64__">-D__WATCOM_INT64__</a></li>
+ <li><a href="#b525.x264_r_D__alpha">-D__alpha</a></li>
+ <li><a href="#b525.x264_r_D__alpha__">-D__alpha__</a></li>
+ <li><a href="#b525.x264_r_D__cplusplus">-D__cplusplus</a></li>
+ <li><a href="#b525.x264_r_D__i386__">-D__i386__</a></li>
+ <li><a href="#b525.x264_r_D__ia64__">-D__ia64__</a></li>
+ <li><a href="#b525.x264_r_D__x86_64__">-D__x86_64__</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DALLOW_GRAYSCALE" id="b525.x264_r_DALLOW_GRAYSCALE">-DALLOW_GRAYSCALE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALLOW_GRAYSCALE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enables the use of Grayscale images in the decoder.  Not used in SPEC CPU version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DARCH_ARM" id="b525.x264_r_DARCH_ARM">-DARCH_ARM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DARCH_ARM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable ARM specific support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DARCH_PPC" id="b525.x264_r_DARCH_PPC">-DARCH_PPC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DARCH_PPC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable Power PC specific support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DARCH_UltraSparc" id="b525.x264_r_DARCH_UltraSparc">-DARCH_UltraSparc</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DARCH_UltraSparc(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable Ultra Sparc specific support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DARCH_X86" id="b525.x264_r_DARCH_X86">-DARCH_X86</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DARCH_X86(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable x86 specific support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DARCH_X86_64" id="b525.x264_r_DARCH_X86_64">-DARCH_X86_64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DARCH_X86_64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable x86 64-bit specific support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DAVS_INPUT" id="b525.x264_r_DAVS_INPUT">-DAVS_INPUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAVS_INPUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Allow for AVS formatted input files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DCONTEXT_INI_C" id="b525.x264_r_DCONTEXT_INI_C">-DCONTEXT_INI_C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCONTEXT_INI_C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined in the decoder to allow for context initization tables.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DDEBUG_BITDEPTH" id="b525.x264_r_DDEBUG_BITDEPTH">-DDEBUG_BITDEPTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_BITDEPTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debugging info in decoder.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DDEBUG_MB_TYPE" id="b525.x264_r_DDEBUG_MB_TYPE">-DDEBUG_MB_TYPE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_MB_TYPE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debugging info in encoder.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DDECOUTPUT_TEST" id="b525.x264_r_DDECOUTPUT_TEST">-DDECOUTPUT_TEST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDECOUTPUT_TEST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Automatically disabled in the source.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DDISABLE_ERC" id="b525.x264_r_DDISABLE_ERC">-DDISABLE_ERC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDISABLE_ERC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable any error concealment processes in the decoder.  Enabled in the source.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DDUMP_DPB" id="b525.x264_r_DDUMP_DPB">-DDUMP_DPB</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDUMP_DPB(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debugging info in decoder.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DELIDE_CODE" id="b525.x264_r_DELIDE_CODE">-DELIDE_CODE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DELIDE_CODE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When compiling with GNU and when included in a library, this section of code in the encoder may be omitted.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DENABLE_FIELD_CTX" id="b525.x264_r_DENABLE_FIELD_CTX">-DENABLE_FIELD_CTX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DENABLE_FIELD_CTX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enables Field mode related context types for CABAC in the decoder.  Enabled by default.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DENABLE_HIGH444_CTX" id="b525.x264_r_DENABLE_HIGH444_CTX">-DENABLE_HIGH444_CTX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DENABLE_HIGH444_CTX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enables High 444 profile context types for CABAC in the decoder.  Enabled by default.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DENABLE_NLS" id="b525.x264_r_DENABLE_NLS">-DENABLE_NLS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DENABLE_NLS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This is for GNU distributions with internationalized messages.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DENABLE_OUTPUT_TONEMAPPING" id="b525.x264_r_DENABLE_OUTPUT_TONEMAPPING">-DENABLE_OUTPUT_TONEMAPPING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DENABLE_OUTPUT_TONEMAPPING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable tone map the output if tone mapping SEI present in the decoder.  Enabled by default.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DFALSE" id="b525.x264_r_DFALSE">-DFALSE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFALSE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined, define "Boolean" as an "int". Otherwise define "Boolean" as an enum type where FALSE==0, TRUE==1.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DFAST_READ" id="b525.x264_r_DFAST_READ">-DFAST_READ</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFAST_READ(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable a faster method for reading files in the decoder.  Enabled by default.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DFFMS_INPUT" id="b525.x264_r_DFFMS_INPUT">-DFFMS_INPUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFFMS_INPUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Allow for FFMS formatted input files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_ALTIVEC" id="b525.x264_r_DHAVE_ALTIVEC">-DHAVE_ALTIVEC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ALTIVEC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable ALTIVEC specific support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_ARMV6" id="b525.x264_r_DHAVE_ARMV6">-DHAVE_ARMV6</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ARMV6(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable ARMv6 specific support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_CONFIG_H" id="b525.x264_r_DHAVE_CONFIG_H">-DHAVE_CONFIG_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_CONFIG_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined if there is a x264_config.h available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_GF_MALLOC" id="b525.x264_r_DHAVE_GF_MALLOC">-DHAVE_GF_MALLOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_GF_MALLOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined malloc as "gf_malloc" and free as "gf_free".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_LIBINTL_H" id="b525.x264_r_DHAVE_LIBINTL_H">-DHAVE_LIBINTL_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_LIBINTL_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This is for GNU distributions with internationalized messages.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_MALLOC_H" id="b525.x264_r_DHAVE_MALLOC_H">-DHAVE_MALLOC_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_MALLOC_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if a system malloc.h is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_MMX" id="b525.x264_r_DHAVE_MMX">-DHAVE_MMX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_MMX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if MMX instructions are available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_NEON" id="b525.x264_r_DHAVE_NEON">-DHAVE_NEON</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_NEON(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined if a Neon FP unit is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_PTHREAD" id="b525.x264_r_DHAVE_PTHREAD">-DHAVE_PTHREAD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_PTHREAD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Running with pthreads is not supported.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_STDINT_H" id="b525.x264_r_DHAVE_STDINT_H">-DHAVE_STDINT_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_STDINT_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if a system stdint.h header file is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_STRING_H" id="b525.x264_r_DHAVE_STRING_H">-DHAVE_STRING_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_STRING_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if a system string.h header file is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DHAVE_VISUALIZE" id="b525.x264_r_DHAVE_VISUALIZE">-DHAVE_VISUALIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_VISUALIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define to enable visualization support.  Not included in SPEC CPU version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DIMGTYPE" id="b525.x264_r_DIMGTYPE">-DIMGTYPE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DIMGTYPE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+Define imgpel size type. 0 implies byte (cannot handle >8 bit depths) and 1 implies unsigned short.  IMGTYPE is defined internally by the decoder as 1.
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINCLUDED_BY_CONFIGFILE_C" id="b525.x264_r_DINCLUDED_BY_CONFIGFILE_C">-DINCLUDED_BY_CONFIGFILE_C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINCLUDED_BY_CONFIGFILE_C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if parameters are included by a config file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT16_C" id="b525.x264_r_DINT16_C">-DINT16_C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT16_C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT16_MAX" id="b525.x264_r_DINT16_MAX">-DINT16_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT16_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT16_MIN" id="b525.x264_r_DINT16_MIN">-DINT16_MIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT16_MIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT32_C" id="b525.x264_r_DINT32_C">-DINT32_C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT32_C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT32_MAX" id="b525.x264_r_DINT32_MAX">-DINT32_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT32_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT32_MIN" id="b525.x264_r_DINT32_MIN">-DINT32_MIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT32_MIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT64_C" id="b525.x264_r_DINT64_C">-DINT64_C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT64_C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT64_MAX" id="b525.x264_r_DINT64_MAX">-DINT64_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT64_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT64_MIN" id="b525.x264_r_DINT64_MIN">-DINT64_MIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT64_MIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT8_C" id="b525.x264_r_DINT8_C">-DINT8_C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT8_C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT8_MAX" id="b525.x264_r_DINT8_MAX">-DINT8_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT8_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT8_MIN" id="b525.x264_r_DINT8_MIN">-DINT8_MIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT8_MIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINTMAX_MAX" id="b525.x264_r_DINTMAX_MAX">-DINTMAX_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINTMAX_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINTMAX_MIN" id="b525.x264_r_DINTMAX_MIN">-DINTMAX_MIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINTMAX_MIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINTPTR_C" id="b525.x264_r_DINTPTR_C">-DINTPTR_C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINTPTR_C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINTPTR_MAX" id="b525.x264_r_DINTPTR_MAX">-DINTPTR_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINTPTR_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINTPTR_MIN" id="b525.x264_r_DINTPTR_MIN">-DINTPTR_MIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINTPTR_MIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DINT_MAX" id="b525.x264_r_DINT_MAX">-DINT_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Work around for Open Watcom issue.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DJCOST_CALC_SCALEUP" id="b525.x264_r_DJCOST_CALC_SCALEUP">-DJCOST_CALC_SCALEUP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DJCOST_CALC_SCALEUP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>1: J = (D&lt;&lt;LAMBDA_ACCURACY_BITS)+Lambda*R; 0: J = D + ((Lambda*R+Rounding)&gt;&gt;LAMBDA_ACCURACY_BITS).  Set to 1 in the decoder.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DJM_PARALLEL_DEBLOCK" id="b525.x264_r_DJM_PARALLEL_DEBLOCK">-DJM_PARALLEL_DEBLOCK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DJM_PARALLEL_DEBLOCK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enables Parallel Deblocking.  Set to 0 in the decoder.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DLAVF_INPUT" id="b525.x264_r_DLAVF_INPUT">-DLAVF_INPUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLAVF_INPUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Allow for lavf input files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DLONG_LONG_MAX" id="b525.x264_r_DLONG_LONG_MAX">-DLONG_LONG_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLONG_LONG_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define the value of LONG_LONG_MAX.  Set internally.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DLONG_MAX" id="b525.x264_r_DLONG_MAX">-DLONG_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLONG_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define the value of LONG_MAX.  Set internally.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DMAXINT64" id="b525.x264_r_DMAXINT64">-DMAXINT64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAXINT64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define the value of MAXINT64.  Set internally.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DMP4_OUTPUT" id="b525.x264_r_DMP4_OUTPUT">-DMP4_OUTPUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMP4_OUTPUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Allow of MP4 output.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DMVC_EXTENSION_ENABLE" id="b525.x264_r_DMVC_EXTENSION_ENABLE">-DMVC_EXTENSION_ENABLE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMVC_EXTENSION_ENABLE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable support for the Multiview High Profile.  Enabled by default in the decoder.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DOPENMP" id="b525.x264_r_DOPENMP">-DOPENMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOPENMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define when OpenMP is used.  However, the SPEC CPU version does not include any OpenMP pragmas.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPAIR_FIELDS_IN_OUTPUT" id="b525.x264_r_DPAIR_FIELDS_IN_OUTPUT">-DPAIR_FIELDS_IN_OUTPUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPAIR_FIELDS_IN_OUTPUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Pair field pictures for output purposes.  Set internally to 0.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT16_DEC_WIDTH" id="b525.x264_r_DPRINTF_INT16_DEC_WIDTH">-DPRINTF_INT16_DEC_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT16_DEC_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 16-bit int decimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT16_HEX_WIDTH" id="b525.x264_r_DPRINTF_INT16_HEX_WIDTH">-DPRINTF_INT16_HEX_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT16_HEX_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 16-bit int hexadecimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT16_MODIFIER" id="b525.x264_r_DPRINTF_INT16_MODIFIER">-DPRINTF_INT16_MODIFIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT16_MODIFIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 16-bit int modifier width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT32_DEC_WIDTH" id="b525.x264_r_DPRINTF_INT32_DEC_WIDTH">-DPRINTF_INT32_DEC_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT32_DEC_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 32-bit int decimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT32_HEX_WIDTH" id="b525.x264_r_DPRINTF_INT32_HEX_WIDTH">-DPRINTF_INT32_HEX_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT32_HEX_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 32-bit int hexadecimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT32_MODIFIER" id="b525.x264_r_DPRINTF_INT32_MODIFIER">-DPRINTF_INT32_MODIFIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT32_MODIFIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 32-bit int modifier width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT64_DEC_WIDTH" id="b525.x264_r_DPRINTF_INT64_DEC_WIDTH">-DPRINTF_INT64_DEC_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT64_DEC_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 64-bit int decimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT64_HEX_WIDTH" id="b525.x264_r_DPRINTF_INT64_HEX_WIDTH">-DPRINTF_INT64_HEX_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT64_HEX_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 64-bit int hexadecimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT64_MODIFIER" id="b525.x264_r_DPRINTF_INT64_MODIFIER">-DPRINTF_INT64_MODIFIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT64_MODIFIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 64-bit int modifier width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT8_DEC_WIDTH" id="b525.x264_r_DPRINTF_INT8_DEC_WIDTH">-DPRINTF_INT8_DEC_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT8_DEC_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 8-bit int decimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INT8_HEX_WIDTH" id="b525.x264_r_DPRINTF_INT8_HEX_WIDTH">-DPRINTF_INT8_HEX_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INT8_HEX_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's 8-bit int hexadecimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INTMAX_DEC_WIDTH" id="b525.x264_r_DPRINTF_INTMAX_DEC_WIDTH">-DPRINTF_INTMAX_DEC_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INTMAX_DEC_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's maximum int decimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INTMAX_HEX_WIDTH" id="b525.x264_r_DPRINTF_INTMAX_HEX_WIDTH">-DPRINTF_INTMAX_HEX_WIDTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INTMAX_HEX_WIDTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's maximum int hexadecimal width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INTMAX_MODIFIER" id="b525.x264_r_DPRINTF_INTMAX_MODIFIER">-DPRINTF_INTMAX_MODIFIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INTMAX_MODIFIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's maximum int modifer width.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTF_INTPTR_MODIFIER" id="b525.x264_r_DPRINTF_INTPTR_MODIFIER">-DPRINTF_INTPTR_MODIFIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTF_INTPTR_MODIFIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If not defined in stdint.h, set printf's int modifer.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINTREFLIST" id="b525.x264_r_DPRINTREFLIST">-DPRINTREFLIST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINTREFLIST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print ref list info for debug purposes.  Set internally to zero.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_BUFFERING_PERIOD_INFO" id="b525.x264_r_DPRINT_BUFFERING_PERIOD_INFO">-DPRINT_BUFFERING_PERIOD_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_BUFFERING_PERIOD_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print buffering period SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_DEBLOCKING_FILTER_DISPLAY_PREFERENCE_INFO" id="b525.x264_r_DPRINT_DEBLOCKING_FILTER_DISPLAY_PREFERENCE_INFO">-DPRINT_DEBLOCKING_FILTER_DISPLAY_PREFERENCE_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_DEBLOCKING_FILTER_DISPLAY_PREFERENCE_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print deblocking filter display preference SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_DEC_REF_PIC_MARKING" id="b525.x264_r_DPRINT_DEC_REF_PIC_MARKING">-DPRINT_DEC_REF_PIC_MARKING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_DEC_REF_PIC_MARKING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print decoded picture buffer management repetition SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_FILLER_PAYLOAD_INFO" id="b525.x264_r_DPRINT_FILLER_PAYLOAD_INFO">-DPRINT_FILLER_PAYLOAD_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_FILLER_PAYLOAD_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print filler payload SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_FILM_GRAIN_CHARACTERISTICS_INFO" id="b525.x264_r_DPRINT_FILM_GRAIN_CHARACTERISTICS_INFO">-DPRINT_FILM_GRAIN_CHARACTERISTICS_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_FILM_GRAIN_CHARACTERISTICS_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print Film grain characteristics SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_FMO_MAPS" id="b525.x264_r_DPRINT_FMO_MAPS">-DPRINT_FMO_MAPS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_FMO_MAPS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print FMO Maps.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_FRAME_PACKING_ARRANGEMENT_INFO" id="b525.x264_r_DPRINT_FRAME_PACKING_ARRANGEMENT_INFO">-DPRINT_FRAME_PACKING_ARRANGEMENT_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_FRAME_PACKING_ARRANGEMENT_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print frame packing arrangement SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_FULL_FRAME_FREEZE_INFO" id="b525.x264_r_DPRINT_FULL_FRAME_FREEZE_INFO">-DPRINT_FULL_FRAME_FREEZE_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_FULL_FRAME_FREEZE_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print full-frame freeze SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_FULL_FRAME_FREEZE_RELEASE_INFO" id="b525.x264_r_DPRINT_FULL_FRAME_FREEZE_RELEASE_INFO">-DPRINT_FULL_FRAME_FREEZE_RELEASE_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_FULL_FRAME_FREEZE_RELEASE_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print full-frame freeze release SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_FULL_FRAME_SNAPSHOT_INFO" id="b525.x264_r_DPRINT_FULL_FRAME_SNAPSHOT_INFO">-DPRINT_FULL_FRAME_SNAPSHOT_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_FULL_FRAME_SNAPSHOT_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print full-frame snapshot SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_MOTION_CONST_SLICE_GROUP_SET_INFO" id="b525.x264_r_DPRINT_MOTION_CONST_SLICE_GROUP_SET_INFO">-DPRINT_MOTION_CONST_SLICE_GROUP_SET_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_MOTION_CONST_SLICE_GROUP_SET_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print Motion-constrained slice group set SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_OUTPUT_POC" id="b525.x264_r_DPRINT_OUTPUT_POC">-DPRINT_OUTPUT_POC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_OUTPUT_POC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print POC information to stdout.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_PAN_SCAN_RECT" id="b525.x264_r_DPRINT_PAN_SCAN_RECT">-DPRINT_PAN_SCAN_RECT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_PAN_SCAN_RECT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print pan-scan rectangle SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_PCITURE_TIMING_INFO" id="b525.x264_r_DPRINT_PCITURE_TIMING_INFO">-DPRINT_PCITURE_TIMING_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_PCITURE_TIMING_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print picture timing SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_POST_FILTER_HINT_INFO" id="b525.x264_r_DPRINT_POST_FILTER_HINT_INFO">-DPRINT_POST_FILTER_HINT_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_POST_FILTER_HINT_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print post-filter hint SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_PROGRESSIVE_REFINEMENT_END_INFO" id="b525.x264_r_DPRINT_PROGRESSIVE_REFINEMENT_END_INFO">-DPRINT_PROGRESSIVE_REFINEMENT_END_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_PROGRESSIVE_REFINEMENT_END_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print Progressive refinement segment end SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_PROGRESSIVE_REFINEMENT_START_INFO" id="b525.x264_r_DPRINT_PROGRESSIVE_REFINEMENT_START_INFO">-DPRINT_PROGRESSIVE_REFINEMENT_START_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_PROGRESSIVE_REFINEMENT_START_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print Progressive refinement segment start SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_RECOVERY_POINT" id="b525.x264_r_DPRINT_RECOVERY_POINT">-DPRINT_RECOVERY_POINT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_RECOVERY_POINT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print random access point SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_RESERVED_INFO" id="b525.x264_r_DPRINT_RESERVED_INFO">-DPRINT_RESERVED_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_RESERVED_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print reserved SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_SCENE_INFORMATION" id="b525.x264_r_DPRINT_SCENE_INFORMATION">-DPRINT_SCENE_INFORMATION</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_SCENE_INFORMATION(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print scene information SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_STEREO_VIDEO_INFO_INFO" id="b525.x264_r_DPRINT_STEREO_VIDEO_INFO_INFO">-DPRINT_STEREO_VIDEO_INFO_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_STEREO_VIDEO_INFO_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print stereo video SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_SUBSEQUENCE_CHAR" id="b525.x264_r_DPRINT_SUBSEQUENCE_CHAR">-DPRINT_SUBSEQUENCE_CHAR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_SUBSEQUENCE_CHAR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print sub-sequence characteristics SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_SUBSEQUENCE_INFO" id="b525.x264_r_DPRINT_SUBSEQUENCE_INFO">-DPRINT_SUBSEQUENCE_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_SUBSEQUENCE_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print sub-sequence SEI info
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_SUBSEQUENCE_LAYER_CHAR" id="b525.x264_r_DPRINT_SUBSEQUENCE_LAYER_CHAR">-DPRINT_SUBSEQUENCE_LAYER_CHAR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_SUBSEQUENCE_LAYER_CHAR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print sub-sequence characteristics SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_TONE_MAPPING" id="b525.x264_r_DPRINT_TONE_MAPPING">-DPRINT_TONE_MAPPING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_TONE_MAPPING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print tone-mapping SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_USER_DATA_REGISTERED_ITU_T_T35_INFO" id="b525.x264_r_DPRINT_USER_DATA_REGISTERED_ITU_T_T35_INFO">-DPRINT_USER_DATA_REGISTERED_ITU_T_T35_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_USER_DATA_REGISTERED_ITU_T_T35_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print ITU-T T.35 user data SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRINT_USER_DATA_UNREGISTERED_INFO" id="b525.x264_r_DPRINT_USER_DATA_UNREGISTERED_INFO">-DPRINT_USER_DATA_UNREGISTERED_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_USER_DATA_UNREGISTERED_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print unregistered user data SEI info.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRId32" id="b525.x264_r_DPRId32">-DPRId32</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRId32(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define only if not defined in the system inttypes.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRId64" id="b525.x264_r_DPRId64">-DPRId64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRId64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define only if not defined in the system inttypes.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRIu32" id="b525.x264_r_DPRIu32">-DPRIu32</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRIu32(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define only if not defined in the system inttypes.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRIu64" id="b525.x264_r_DPRIu64">-DPRIu64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRIu64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define only if not defined in the system inttypes.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRIx32" id="b525.x264_r_DPRIx32">-DPRIx32</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRIx32(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define only if not defined in the system inttypes.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPRIx64" id="b525.x264_r_DPRIx64">-DPRIx64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRIx64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define only if not defined in the system inttypes.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPTRDIFF_MAX" id="b525.x264_r_DPTRDIFF_MAX">-DPTRDIFF_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPTRDIFF_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+(u)intptr_t may or may not be defined.  Test for its presence with the test: #ifdef PTRDIFF_MAX.  If this is not defined for your platform, then it is because this file has not yet been extended to cover all of your system's capabilities, not because its optional.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPTRDIFF_MIN" id="b525.x264_r_DPTRDIFF_MIN">-DPTRDIFF_MIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPTRDIFF_MIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Should be defined by system headers.  If not add a definition.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DPTW32_STATIC_LIB" id="b525.x264_r_DPTW32_STATIC_LIB">-DPTW32_STATIC_LIB</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPTW32_STATIC_LIB(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined when creating a Windows pthreaded static library.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DRDO_SKIP_BS" id="b525.x264_r_DRDO_SKIP_BS">-DRDO_SKIP_BS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRDO_SKIP_BS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined internally to zero so RDO can not be skipped.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSCNu32" id="b525.x264_r_DSCNu32">-DSCNu32</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSCNu32(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define only if not defined in the system inttypes.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSCNu64" id="b525.x264_r_DSCNu64">-DSCNu64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSCNu64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define only if not defined in the system inttypes.h.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSEI_H" id="b525.x264_r_DSEI_H">-DSEI_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSEI_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Guard for the sei.h header file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSIG_ATOMIC_MAX" id="b525.x264_r_DSIG_ATOMIC_MAX">-DSIG_ATOMIC_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSIG_ATOMIC_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If sigatomic_t is not defined for your system, define it.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSIZE_MAX" id="b525.x264_r_DSIZE_MAX">-DSIZE_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSIZE_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If SIZE_MAX is not defined, define it as (~(size_t)0).
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSPEC_PTHREADS" id="b525.x264_r_DSPEC_PTHREADS">-DSPEC_PTHREADS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_PTHREADS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Running with pthreads is not supported.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSPEC_USE_LL_INT64" id="b525.x264_r_DSPEC_USE_LL_INT64">-DSPEC_USE_LL_INT64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_USE_LL_INT64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+On Windows, define "int64" as "long long".  The default is to define "int64" as "int64_t".
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSTDINT_H_UINTPTR_T_DEFINED" id="b525.x264_r_DSTDINT_H_UINTPTR_T_DEFINED">-DSTDINT_H_UINTPTR_T_DEFINED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTDINT_H_UINTPTR_T_DEFINED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined if uintptr_t types and limits are defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSYS_BEOS" id="b525.x264_r_DSYS_BEOS">-DSYS_BEOS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_BEOS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include BEOS specific header files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSYS_FREEBSD" id="b525.x264_r_DSYS_FREEBSD">-DSYS_FREEBSD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_FREEBSD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include FREEBSD specific header files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSYS_LINUX" id="b525.x264_r_DSYS_LINUX">-DSYS_LINUX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_LINUX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include Linux specific header files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSYS_MACOSX" id="b525.x264_r_DSYS_MACOSX">-DSYS_MACOSX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_MACOSX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include MacOSX specific header files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSYS_MINGW" id="b525.x264_r_DSYS_MINGW">-DSYS_MINGW</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_MINGW(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include Mingw specific header files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSYS_OPENBSD" id="b525.x264_r_DSYS_OPENBSD">-DSYS_OPENBSD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_OPENBSD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include OpenBSD specific header files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DSYS_SunOS" id="b525.x264_r_DSYS_SunOS">-DSYS_SunOS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_SunOS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include SunOS specific header files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DS_IFREG" id="b525.x264_r_DS_IFREG">-DS_IFREG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DS_IFREG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used when defining S_ISREG, if S_ISREG is not already defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DS_ISREG" id="b525.x264_r_DS_ISREG">-DS_ISREG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DS_ISREG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define S_ISREG, if S_ISREG is not already defined by the system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DTEST" id="b525.x264_r_DTEST">-DTEST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTEST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable test driver for the getopt.c source.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DTRACE" id="b525.x264_r_DTRACE">-DTRACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTRACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+0:Trace off 1:Trace on 2:detailed CABAC context information.
+Defined internally to 0.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DUSE_NONOPTION_FLAGS" id="b525.x264_r_DUSE_NONOPTION_FLAGS">-DUSE_NONOPTION_FLAGS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_NONOPTION_FLAGS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined, include getopt nonoption_flags.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DUSE_REAL_PTHREAD" id="b525.x264_r_DUSE_REAL_PTHREAD">-DUSE_REAL_PTHREAD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_REAL_PTHREAD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the real pthread library.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DUSE_RND_COST" id="b525.x264_r_DUSE_RND_COST">-DUSE_RND_COST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_RND_COST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Round the weighted cost.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DVMS" id="b525.x264_r_DVMS">-DVMS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DVMS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Include VMS specific header files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DWIN32" id="b525.x264_r_DWIN32">-DWIN32</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWIN32(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define when using Windows.  Please use SPEC_WINDOWS instead.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DWIN64" id="b525.x264_r_DWIN64">-DWIN64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWIN64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define when using 64-bit Windows.  Please use SPEC_WINDOWS instead.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DWRITE_MAP_IMAGE" id="b525.x264_r_DWRITE_MAP_IMAGE">-DWRITE_MAP_IMAGE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWRITE_MAP_IMAGE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Write spare picture map.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_ANALYSE_H" id="b525.x264_r_DX264_ANALYSE_H">-DX264_ANALYSE_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_ANALYSE_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_BS_H" id="b525.x264_r_DX264_BS_H">-DX264_BS_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_BS_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_CABAC_H" id="b525.x264_r_DX264_CABAC_H">-DX264_CABAC_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_CABAC_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_COMMON_H" id="b525.x264_r_DX264_COMMON_H">-DX264_COMMON_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_COMMON_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_CPU_H" id="b525.x264_r_DX264_CPU_H">-DX264_CPU_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_CPU_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_DCT_H" id="b525.x264_r_DX264_DCT_H">-DX264_DCT_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_DCT_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_ENCODER_MACROBLOCK_H" id="b525.x264_r_DX264_ENCODER_MACROBLOCK_H">-DX264_ENCODER_MACROBLOCK_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_ENCODER_MACROBLOCK_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_ENCODER_SET_H" id="b525.x264_r_DX264_ENCODER_SET_H">-DX264_ENCODER_SET_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_ENCODER_SET_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_FLV_BYTESTREAM_H" id="b525.x264_r_DX264_FLV_BYTESTREAM_H">-DX264_FLV_BYTESTREAM_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_FLV_BYTESTREAM_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_FRAME_H" id="b525.x264_r_DX264_FRAME_H">-DX264_FRAME_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_FRAME_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_INPUT_H" id="b525.x264_r_DX264_INPUT_H">-DX264_INPUT_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_INPUT_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_MACROBLOCK_H" id="b525.x264_r_DX264_MACROBLOCK_H">-DX264_MACROBLOCK_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_MACROBLOCK_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_MATROSKA_EBML_H" id="b525.x264_r_DX264_MATROSKA_EBML_H">-DX264_MATROSKA_EBML_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_MATROSKA_EBML_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_MC_H" id="b525.x264_r_DX264_MC_H">-DX264_MC_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_MC_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_ME_H" id="b525.x264_r_DX264_ME_H">-DX264_ME_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_ME_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_MUXERS_H" id="b525.x264_r_DX264_MUXERS_H">-DX264_MUXERS_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_MUXERS_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_OSDEP_H" id="b525.x264_r_DX264_OSDEP_H">-DX264_OSDEP_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_OSDEP_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_OUTPUT_H" id="b525.x264_r_DX264_OUTPUT_H">-DX264_OUTPUT_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_OUTPUT_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_PIXEL_H" id="b525.x264_r_DX264_PIXEL_H">-DX264_PIXEL_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_PIXEL_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_POINTVER" id="b525.x264_r_DX264_POINTVER">-DX264_POINTVER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_POINTVER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_PREDICT_H" id="b525.x264_r_DX264_PREDICT_H">-DX264_PREDICT_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_PREDICT_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_QUANT_H" id="b525.x264_r_DX264_QUANT_H">-DX264_QUANT_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_QUANT_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_RATECONTROL_H" id="b525.x264_r_DX264_RATECONTROL_H">-DX264_RATECONTROL_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_RATECONTROL_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_SET_H" id="b525.x264_r_DX264_SET_H">-DX264_SET_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_SET_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DX264_X264_H" id="b525.x264_r_DX264_X264_H">-DX264_X264_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DX264_X264_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_DZEROSNR" id="b525.x264_r_DZEROSNR">-DZEROSNR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DZEROSNR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the PSNR computation method.  Defined internally to zero.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_ANNEXB_H_" id="b525.x264_r_D_ANNEXB_H_">-D_ANNEXB_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ANNEXB_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_BIARIDECOD_H_" id="b525.x264_r_D_BIARIDECOD_H_">-D_BIARIDECOD_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_BIARIDECOD_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_BLK_PREDICTION_H_" id="b525.x264_r_D_BLK_PREDICTION_H_">-D_BLK_PREDICTION_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_BLK_PREDICTION_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_BLOCK_H_" id="b525.x264_r_D_BLOCK_H_">-D_BLOCK_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_BLOCK_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_CABAC_H_" id="b525.x264_r_D_CABAC_H_">-D_CABAC_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_CABAC_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_CONFIGFILE_H_" id="b525.x264_r_D_CONFIGFILE_H_">-D_CONFIGFILE_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_CONFIGFILE_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_CONFIG_COMMON_H_" id="b525.x264_r_D_CONFIG_COMMON_H_">-D_CONFIG_COMMON_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_CONFIG_COMMON_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_CONTEXT_INI_" id="b525.x264_r_D_CONTEXT_INI_">-D_CONTEXT_INI_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_CONTEXT_INI_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_CRAYC" id="b525.x264_r_D_CRAYC">-D_CRAYC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_CRAYC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Cray C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_DEBUG" id="b525.x264_r_D_DEBUG">-D_DEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_DEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enabled debug code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_DEFINES_H_" id="b525.x264_r_D_DEFINES_H_">-D_DEFINES_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_DEFINES_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_DISTORTION_H_" id="b525.x264_r_D_DISTORTION_H_">-D_DISTORTION_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_DISTORTION_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_ELEMENTS_H_" id="b525.x264_r_D_ELEMENTS_H_">-D_ELEMENTS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ELEMENTS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_ENC_STATISTICS_H_" id="b525.x264_r_D_ENC_STATISTICS_H_">-D_ENC_STATISTICS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ENC_STATISTICS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_ERC_API_H_" id="b525.x264_r_D_ERC_API_H_">-D_ERC_API_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ERC_API_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_ERC_DO_H_" id="b525.x264_r_D_ERC_DO_H_">-D_ERC_DO_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ERC_DO_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_ERC_GLOBALS_H_" id="b525.x264_r_D_ERC_GLOBALS_H_">-D_ERC_GLOBALS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ERC_GLOBALS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_ERRORCONCEALMENT_H_" id="b525.x264_r_D_ERRORCONCEALMENT_H_">-D_ERRORCONCEALMENT_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_ERRORCONCEALMENT_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_FAST_MEMORY_H_" id="b525.x264_r_D_FAST_MEMORY_H_">-D_FAST_MEMORY_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_FAST_MEMORY_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_FLTDBG_" id="b525.x264_r_D_FLTDBG_">-D_FLTDBG_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_FLTDBG_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define a debugging file pointer that's never used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_FMO_H_" id="b525.x264_r_D_FMO_H_">-D_FMO_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_FMO_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_FRAME_H_" id="b525.x264_r_D_FRAME_H_">-D_FRAME_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_FRAME_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_GETOPT_H" id="b525.x264_r_D_GETOPT_H">-D_GETOPT_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_GETOPT_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_GLOBAL_H_" id="b525.x264_r_D_GLOBAL_H_">-D_GLOBAL_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_GLOBAL_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_H264DECODER_H_" id="b525.x264_r_D_H264DECODER_H_">-D_H264DECODER_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_H264DECODER_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_HEADER_H_" id="b525.x264_r_D_HEADER_H_">-D_HEADER_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_HEADER_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IFUNCTIONS_H_" id="b525.x264_r_D_IFUNCTIONS_H_">-D_IFUNCTIONS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IFUNCTIONS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IMAGE_H_" id="b525.x264_r_D_IMAGE_H_">-D_IMAGE_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IMAGE_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IMG_IO_H_" id="b525.x264_r_D_IMG_IO_H_">-D_IMG_IO_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IMG_IO_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IMG_PROCESS_H_" id="b525.x264_r_D_IMG_PROCESS_H_">-D_IMG_PROCESS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IMG_PROCESS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IMG_PROCESS_TYPES_H_" id="b525.x264_r_D_IMG_PROCESS_TYPES_H_">-D_IMG_PROCESS_TYPES_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IMG_PROCESS_TYPES_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_INPUT_H_" id="b525.x264_r_D_INPUT_H_">-D_INPUT_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_INPUT_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_INTRA16x16_PRED_H_" id="b525.x264_r_D_INTRA16x16_PRED_H_">-D_INTRA16x16_PRED_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_INTRA16x16_PRED_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_INTRA4x4_PRED_H_" id="b525.x264_r_D_INTRA4x4_PRED_H_">-D_INTRA4x4_PRED_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_INTRA4x4_PRED_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_INTRA8x8_PRED_H_" id="b525.x264_r_D_INTRA8x8_PRED_H_">-D_INTRA8x8_PRED_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_INTRA8x8_PRED_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_INTTYPES_H" id="b525.x264_r_D_INTTYPES_H">-D_INTTYPES_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_INTTYPES_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to determine if inttypes.h has been included.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_INTTYPES_H_" id="b525.x264_r_D_INTTYPES_H_">-D_INTTYPES_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_INTTYPES_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to determine if inttypes.h has been included.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IO_IMAGE_H_" id="b525.x264_r_D_IO_IMAGE_H_">-D_IO_IMAGE_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IO_IMAGE_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IO_RAW_H_" id="b525.x264_r_D_IO_RAW_H_">-D_IO_RAW_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IO_RAW_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IO_TIFF_H_" id="b525.x264_r_D_IO_TIFF_H_">-D_IO_TIFF_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IO_TIFF_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_IO_VIDEO_H_" id="b525.x264_r_D_IO_VIDEO_H_">-D_IO_VIDEO_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_IO_VIDEO_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_LAGRANGIAN_H_" id="b525.x264_r_D_LAGRANGIAN_H_">-D_LAGRANGIAN_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_LAGRANGIAN_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_LEAKYBUCKET_" id="b525.x264_r_D_LEAKYBUCKET_">-D_LEAKYBUCKET_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_LEAKYBUCKET_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use a leaky bucket parameter file.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_LEAKY_BUCKET_H_" id="b525.x264_r_D_LEAKY_BUCKET_H_">-D_LEAKY_BUCKET_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_LEAKY_BUCKET_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_LIBC" id="b525.x264_r_D_LIBC">-D_LIBC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_LIBC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to determine is libc is defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_LOOPFILTER_H_" id="b525.x264_r_D_LOOPFILTER_H_">-D_LOOPFILTER_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_LOOPFILTER_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_LOOP_FILTER_H_" id="b525.x264_r_D_LOOP_FILTER_H_">-D_LOOP_FILTER_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_LOOP_FILTER_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MACROBLOCK_H_" id="b525.x264_r_D_MACROBLOCK_H_">-D_MACROBLOCK_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MACROBLOCK_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MBUFFER_H_" id="b525.x264_r_D_MBUFFER_H_">-D_MBUFFER_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MBUFFER_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MBUFFER_MVC_H_" id="b525.x264_r_D_MBUFFER_MVC_H_">-D_MBUFFER_MVC_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MBUFFER_MVC_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MB_ACCESS_H_" id="b525.x264_r_D_MB_ACCESS_H_">-D_MB_ACCESS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MB_ACCESS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MB_PREDICTION_H_" id="b525.x264_r_D_MB_PREDICTION_H_">-D_MB_PREDICTION_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MB_PREDICTION_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MC_PREDICTION_H_" id="b525.x264_r_D_MC_PREDICTION_H_">-D_MC_PREDICTION_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MC_PREDICTION_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MEMALLOC_H_" id="b525.x264_r_D_MEMALLOC_H_">-D_MEMALLOC_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MEMALLOC_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MSC_VER" id="b525.x264_r_D_MSC_VER">-D_MSC_VER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MSC_VER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Microsoft C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_MV_PREDICTION_H_" id="b525.x264_r_D_MV_PREDICTION_H_">-D_MV_PREDICTION_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MV_PREDICTION_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_NALUCOMMON_H_" id="b525.x264_r_D_NALUCOMMON_H_">-D_NALUCOMMON_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_NALUCOMMON_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_NALU_H_" id="b525.x264_r_D_NALU_H_">-D_NALU_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_NALU_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_NO_PROTO" id="b525.x264_r_D_NO_PROTO">-D_NO_PROTO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_NO_PROTO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This tells Alpha OSF/1 and AIX 3.2 not to define a getopt prototype in stdio.h.  Defined by default.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_OPENMP" id="b525.x264_r_D_OPENMP">-D_OPENMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_OPENMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Gets defined when OpenMP is enabled.  OpenMP is not used in the SPEC CPU version.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_OUTPUT_H_" id="b525.x264_r_D_OUTPUT_H_">-D_OUTPUT_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_OUTPUT_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_PARAMS_H_" id="b525.x264_r_D_PARAMS_H_">-D_PARAMS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_PARAMS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_PARSETCOMMON_H_" id="b525.x264_r_D_PARSETCOMMON_H_">-D_PARSETCOMMON_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_PARSETCOMMON_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_PARSET_H_" id="b525.x264_r_D_PARSET_H_">-D_PARSET_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_PARSET_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_PSTDINT_H_INCLUDED" id="b525.x264_r_D_PSTDINT_H_INCLUDED">-D_PSTDINT_H_INCLUDED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_PSTDINT_H_INCLUDED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_QUANT_H_" id="b525.x264_r_D_QUANT_H_">-D_QUANT_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_QUANT_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_QUANT_PARAMS_H_" id="b525.x264_r_D_QUANT_PARAMS_H_">-D_QUANT_PARAMS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_QUANT_PARAMS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_REPORT_H_" id="b525.x264_r_D_REPORT_H_">-D_REPORT_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_REPORT_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_RTP_H_" id="b525.x264_r_D_RTP_H_">-D_RTP_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_RTP_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_TRANSFORM8X8_H_" id="b525.x264_r_D_TRANSFORM8X8_H_">-D_TRANSFORM8X8_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_TRANSFORM8X8_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_TRANSFORM_H_" id="b525.x264_r_D_TRANSFORM_H_">-D_TRANSFORM_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_TRANSFORM_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_TYPEDEFS_H_" id="b525.x264_r_D_TYPEDEFS_H_">-D_TYPEDEFS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_TYPEDEFS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_TYPES_H_" id="b525.x264_r_D_TYPES_H_">-D_TYPES_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_TYPES_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_VLC_H_" id="b525.x264_r_D_VLC_H_">-D_VLC_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_VLC_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_VUI_PARAMS_H_" id="b525.x264_r_D_VUI_PARAMS_H_">-D_VUI_PARAMS_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_VUI_PARAMS_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_WIN32" id="b525.x264_r_D_WIN32">-D_WIN32</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_WIN32(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Automatically defined by a compiler when building on Windows.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_WIN32_H_" id="b525.x264_r_D_WIN32_H_">-D_WIN32_H_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_WIN32_H_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Header file guard.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D_WIN64" id="b525.x264_r_D_WIN64">-D_WIN64</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_WIN64(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Automatically defined by a compiler when building on 64-bit Windows.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__APPLE_CC__" id="b525.x264_r_D__APPLE_CC__">-D__APPLE_CC__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__APPLE_CC__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Apple C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__BORLANDC__" id="b525.x264_r_D__BORLANDC__">-D__BORLANDC__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__BORLANDC__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Borland C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__DECC" id="b525.x264_r_D__DECC">-D__DECC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__DECC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the DEC C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__GNUC_MINOR__" id="b525.x264_r_D__GNUC_MINOR__">-D__GNUC_MINOR__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__GNUC_MINOR__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the GNU compiler and set to the compilers minor version number.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__GNUC__" id="b525.x264_r_D__GNUC__">-D__GNUC__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__GNUC__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the GNU C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__INTEL_COMPILER" id="b525.x264_r_D__INTEL_COMPILER">-D__INTEL_COMPILER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__INTEL_COMPILER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Intel Compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__MINGW32__" id="b525.x264_r_D__MINGW32__">-D__MINGW32__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__MINGW32__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined bu the Mingw compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__MWERKS__" id="b525.x264_r_D__MWERKS__">-D__MWERKS__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__MWERKS__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Metroworks compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__SSE__" id="b525.x264_r_D__SSE__">-D__SSE__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__SSE__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the compiler when SSE is available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__STDC_VERSION" id="b525.x264_r_D__STDC_VERSION">-D__STDC_VERSION</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__STDC_VERSION(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+The std C verionsion number supported by the compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__STDC_VERSION__" id="b525.x264_r_D__STDC_VERSION__">-D__STDC_VERSION__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__STDC_VERSION__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+The std C verionsion number supported by the compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__STDC__" id="b525.x264_r_D__STDC__">-D__STDC__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__STDC__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined is standard C is supported by the compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__SUNPRO_C" id="b525.x264_r_D__SUNPRO_C">-D__SUNPRO_C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__SUNPRO_C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by teh Sun Pro C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__SUNPRO_CC" id="b525.x264_r_D__SUNPRO_CC">-D__SUNPRO_CC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__SUNPRO_CC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Sun Pro C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__TURBOC__" id="b525.x264_r_D__TURBOC__">-D__TURBOC__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__TURBOC__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Turbo C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__WATCOMC__" id="b525.x264_r_D__WATCOMC__">-D__WATCOMC__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__WATCOMC__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Watcom C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__WATCOM_INT64__" id="b525.x264_r_D__WATCOM_INT64__">-D__WATCOM_INT64__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__WATCOM_INT64__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the Watcom C compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__alpha" id="b525.x264_r_D__alpha">-D__alpha</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__alpha(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined when compiling on an Alpha system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__alpha__" id="b525.x264_r_D__alpha__">-D__alpha__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__alpha__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined when compiling on an Alpha system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__cplusplus" id="b525.x264_r_D__cplusplus">-D__cplusplus</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__cplusplus(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined when using a C++ compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__i386__" id="b525.x264_r_D__i386__">-D__i386__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__i386__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the compiler when targeting the i386 family of systems.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__ia64__" id="b525.x264_r_D__ia64__">-D__ia64__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__ia64__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the compiler when targeting an Itanium system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b525.x264_r_D__x86_64__" id="b525.x264_r_D__x86_64__">-D__x86_64__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__x86_64__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined by the compiler when targeting an x86 64-bit system.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+</body>
+</html>

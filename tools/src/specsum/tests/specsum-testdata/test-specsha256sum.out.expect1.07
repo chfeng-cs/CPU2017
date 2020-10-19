@@ -1,0 +1,6 @@
+specsha256sum:
+../specsum-testdata/test-specsum.in.02: FAILED
+../specsum-testdata/test-specsum.in.02: FAILED
+test-specsha256sum.in.expect1.07: 3: improperly formatted SHA256 checksum line
+WARNING: 1 line is improperly formatted
+ERROR: 2 computed checksums did NOT match

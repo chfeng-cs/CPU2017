@@ -1,0 +1,2 @@
+../specsum-testdata/test-specsum.in.01: OK
+specsha512sum: WARNING: 1 line is improperly formatted

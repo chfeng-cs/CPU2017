@@ -1,0 +1,12 @@
+SPEC CPU(R)2017 is licensed software.
+
+SPEC(R) license:  https://www.spec.org/cpu2017/Docs/licenses/SPEC-License.pdf 
+   plaintext:     https://www.spec.org/cpu2017/Docs/licenses/SPEC-License
+
+Freely-redistributable source components included within SPEC CPU 2017 
+are licensed separately, and remain freely redistributable.  For 
+information on all licenses, see:
+
+        https://www.spec.org/cpu2017/Docs/licenses.html
+
+The above files may also be found via your kit Docs/ directory.

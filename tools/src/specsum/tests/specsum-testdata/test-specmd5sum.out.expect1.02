@@ -1,0 +1,3 @@
+../specsum-testdata/test-specsum.in.01: OK
+specmd5sum:
+ERROR: 1 line is improperly formatted

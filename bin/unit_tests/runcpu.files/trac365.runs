@@ -1,0 +1,4 @@
+--parallel_test 4 --copies 2 --define 'leadpipe=|leading'
+--parallel_test 4 --copies 2 --define '|leadnamepipe=also_bad'
+--parallel_test 4 --copies 2 --define 'trailpipe=trailing|'
+--parallel_test 4 --copies 2 --define 'trailnamepipe|=bad_again|'

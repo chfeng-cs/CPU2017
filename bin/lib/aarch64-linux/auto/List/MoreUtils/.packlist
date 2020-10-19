@@ -1,0 +1,9 @@
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/aarch64-linux/List/MoreUtils.pm relocate_as=../../../List/MoreUtils.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/aarch64-linux/List/MoreUtils/Contributing.pod relocate_as=../../../List/MoreUtils/Contributing.pod
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/aarch64-linux/List/MoreUtils/PP.pm relocate_as=../../../List/MoreUtils/PP.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/aarch64-linux/List/MoreUtils/XS.pm relocate_as=../../../List/MoreUtils/XS.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/aarch64-linux/auto/List/MoreUtils/MoreUtils.so relocate_as=MoreUtils.so
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/List::MoreUtils.3 relocate_as=../../../../../../../../man/man3/List::MoreUtils.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/List::MoreUtils::Contributing.3 relocate_as=../../../../../../../../man/man3/List::MoreUtils::Contributing.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/List::MoreUtils::PP.3 relocate_as=../../../../../../../../man/man3/List::MoreUtils::PP.3
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/List::MoreUtils::XS.3 relocate_as=../../../../../../../../man/man3/List::MoreUtils::XS.3

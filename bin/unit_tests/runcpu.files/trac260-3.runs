@@ -1,0 +1,4 @@
+# Expect all workloads run; nothing parallel
+--reportable --copies 2
+# Expect test and train run; nothing to be parallel
+--copies 2

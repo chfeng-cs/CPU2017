@@ -1,0 +1,451 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                      SPEC CPU(R)2017 Monitoring Facility
+
+     $Id: monitors.html 6317 2019-07-28    Latest: www.spec.org/cpu2017/Docs/
+           22:50:53Z JohnHenning $
+
+   Contents
+
+   Introduction
+
+   Monitoring Hooks in Header Section
+
+   monitor_pre and monitor_post
+
+   Monitoring Hooks Per Benchmark
+
+   monitor_pre_bench and monitor_post_bench
+
+   monitor_specrun_wrapper
+
+   monitor_wrapper
+
+   build_pre_bench and build_post_bench
+
+   Considerations for Writing Monitoring Scripts
+
+Introduction
+
+   This document describes the monitoring facility for SPEC CPU(R)2017, a
+   product of the SPEC(R) non-profit corporation (about SPEC). While some
+   users will use the SPEC CPU 2017 tools to benchmark systems under test
+   (SUT) and publish results, others may use the tools to analyze performance
+   bottlenecks when running the benchmarks on the SUT. Performance analysis
+   requires performance data to be collected either on a suite-wide basis or
+   for individual benchmarks. To facilitate the collection of performance
+   data, SPEC CPU 2017 provides several "monitoring hooks", which are
+   available to run arbitrary commands while still running under the control
+   of the SPEC CPU 2017 runcpu utility. This document explains the various
+   hooks that are available. None of these hooks may be used while doing a
+   reportable run.
+
+   Warning: SPEC CPU config files can execute arbitrary shell commands.
+   Read a config file before using it.
+   Don't be root. Don't run as Administrator. Turn privileges off.
+
+   All monitoring hooks are specified in the configuration file. This
+   document assumes that you have a working familiarity with the construction
+   of SPEC CPU 2017 config files.
+
+   The monitor hooks were first described in an ACM SIGARCH article SPEC CPU
+   2006 Benchmark Tools and are explained further in this document.
+
+   For advanced users: The monitor hooks provide freedom for advanced users
+   to instrument the suite in a wide variety of ways: peeking, poking,
+   prodding, and causing benchmarks to crash if you are not careful. In
+   general, SPEC can provide only limited support for their use; if your
+   monitors break files or processes that the suite expects to find, you
+   should be prepared to do significant diagnostic work on your own.
+
+   The monitoring facility in CPU 2017 is not limited to simple examples
+   presented here. Scripts and programs of any level of complexity may be
+   used to examine command arguments and executables and change their
+   monitoring actions accordingly. In this way only a specific part of a
+   benchmark's workload may be monitored while not wasting time or other
+   resources tracing uninteresting workloads.
+
+Monitoring Hooks in Header Section
+
+   There are two monitoring hooks that can be set in the header section of
+   the configuration file:
+
+     * monitor_pre
+     * monitor_post
+
+  monitor_pre and monitor_post
+
+   When the SPEC provided script runcpu is used to run the CPU 2017 suite, it
+   breaks down the benchmarks specified on the command line into one or more
+   sets and runs each set as a separate unit. A set of benchmarks that
+   comprise a specific unit is defined by the tuple of data size (test,
+   train, or ref) and label. It is possible for runcpu to run multiple sets
+   of benchmarks, one after another, for one invocation of runcpu. The
+   monitor_pre hook is invoked before each such set, and the monitor_post
+   hook is invoked after each. Therefore, for a single runcpu invocation,
+   these hooks might be executed multiple times, as shown in examples below.
+
+   If you do not run at least one benchmark then monitor_pre and monitor_post
+   are not used (e.g. if you use "--action setup" or "--action build").
+
+   Note - stdout/stderr: The stdout and stderr for the monitor_pre and
+   monitor_post commands are redirected to the files monitor_{pre|post}.out
+   and monitor_{pre|post}.err in your current working directory.
+
+    Example Output 1
+
+   The runcpu command below requests one input data set; so monitor_pre and
+   monitor_post will each be called once. Here is the sample output printed
+   to the screen (monitor_pre and monitor_post markers are highlighted in
+   red):
+
+ spec002:~/benchmarks/cpu2017-kit100 peg$ runspec -c Example-monitors-macosx.cfg -n 1 -i test 999
+ XXX this example must be regenerated
+
+ runspec v5354 - Copyright 1999-2007 Standard Performance Evaluation Corporation
+ Using 'macosx' tools
+ Reading MANIFEST... 18300 files
+ Loading runspec modules................
+ Locating benchmarks...found 31 benchmarks in 13 benchsets.
+ Reading config file '/Users/peg/benchmarks/cpu2017-kit100/config/Example-monitors-macosx.cfg'
+ Benchmarks selected: 999.specrand
+ Executing monitor_pre: echo "monitor_pre"
+ Compiling Binaries
+   Up to date 999.specrand test base example-monitors default
+
+
+ Setting Up Run Directories
+   Setting up 999.specrand test base example-monitors default: existing (run_base_test_example-monitors.0000)
+ Running Benchmarks
+   Running 999.specrand test base example-monitors default
+ Executing monitor_pre_bench: echo "monitor_pre_bench"
+ Executing monitor_post_bench: echo "monitor_post_bench"
+ Success: 1x999.specrand
+ Executing monitor_post: echo "monitor_post"
+ Producing Raw Reports
+   label: example-monitors
+     size: test
+       set: int
+       set: fp
+
+ The log for this run is in /Users/peg/benchmarks/cpu2017-kit100/result/CPU2017.022.log
+
+ runspec finished at Mon Jul 30 12:47:13 2007; 6 total seconds elapsed
+
+    Example Output 2
+
+   The runcpu -i test,train command below requests two input data sets, and
+   effectively causes two runs; so monitor_pre and monitor_post will each be
+   called twice. Here is the sample output printed to the screen:
+
+ spec002:~/benchmarks/cpu2017-kit100 peg$ runspec -c Example-monitors-macosx.cfg -n 1 -i test,train --tune=base 999
+ XXX this example must be regenerated
+
+ runspec v5354 - Copyright 1999-2007 Standard Performance Evaluation Corporation
+ Using 'macosx' tools
+ Reading MANIFEST... 18300 files
+ Loading runspec modules................
+ Locating benchmarks...found 31 benchmarks in 13 benchsets.
+ Reading config file '/Users/peg/benchmarks/cpu2017-kit100/config/Example-monitors-macosx.cfg'
+ Benchmarks selected: 999.specrand
+ Executing monitor_pre: echo "monitor_pre"
+
+ Compiling Binaries
+   Up to date 999.specrand test base example-monitors default
+
+
+ Setting Up Run Directories
+   Setting up 999.specrand test base example-monitors default: existing (run_base_test_example-monitors.0000)
+ Running Benchmarks
+   Running 999.specrand test base example-monitors default
+ Executing monitor_pre_bench: echo "monitor_pre_bench"
+ Executing monitor_post_bench: echo "monitor_post_bench"
+ Success: 1x999.specrand
+ Executing monitor_post: echo "monitor_post"
+ Producing Raw Reports
+   label: example-monitors
+     size: test
+       set: int
+       set: fp
+ Benchmarks selected: 999.specrand
+ Executing monitor_pre: echo "monitor_pre"
+ Compiling Binaries
+   Up to date 999.specrand train base example-monitors default
+
+
+ Setting Up Run Directories
+   Setting up 999.specrand train base example-monitors default: existing (run_base_train_example-monitors.0000)
+ Running Benchmarks
+   Running 999.specrand train base example-monitors default
+ Executing monitor_pre_bench: echo "monitor_pre_bench"
+ Executing monitor_post_bench: echo "monitor_post_bench"
+ Success: 1x999.specrand
+ Producing Raw Reports
+ Executing monitor_post: echo "monitor_post"
+   label: example-monitors
+     size: train
+       set: int
+       set: fp
+
+ The log for this run is in /Users/peg/benchmarks/cpu2017-kit100/result/CPU2017.024.log
+
+ runspec finished at Mon Jul 30 15:41:51 2007; 13 total seconds elapsed
+
+Monitoring Hooks Per Benchmark
+
+   The SPEC tools allow the following monitoring hooks to be set for
+   individual benchmark:
+
+     * monitor_pre_bench
+     * monitor_post_bench
+     * monitor_wrapper
+     * monitor_specrun_wrapper
+     * build_pre_bench
+     * build_post_bench
+
+   These monitoring hooks can be added to any named section, thereby
+   affecting only a subset of the benchmarks:
+
+   In the example on the right,
+
+     * Floating point benchmarks are monitored by fp=base:
+       sight.                                        monitor_wrapper = sight
+     * Integer benchmarks are monitored by sound. int=base:
+     * Exception: the benchmark 997.skunk is         monitor_wrapper = sound
+       called out by name, and is therefore       997.skunk:
+       monitored by smell, irrespective of           monitor_wrapper = smell
+       whether it is an integer or floating point
+       benchmark.
+
+   Hook to what?
+
+   When considering what monitor hooks you may wish to use, it is important
+   to bear in mind the usual flow of events. For each individual benchmark,
+   runcpu:
+
+     * (i) Sets up the benchmark (for example,
+       nnn.benchmark/run/run_base_ref.0000)
+
+     * (ii) Passes control to specinvoke, which runs the benchmark binary and
+       records how long it takes. A single instance of specinvoke may run the
+       benchmark binary multiple times. For example, in SPEC CPU 2006, the
+       401.bzip2 binary was run 6 times, to compress inputs of various types
+       with varying levels of compression difficulty.
+
+     * (iii) Does post-processing, including validation of whether correct
+       answers were obtained.
+
+   Obviously, step (ii) above is the step of central interest. You can attach
+   hooks to it in three basic ways:
+
+     * monitor_pre_bench and monitor_post_bench let you attach your probes to
+       the points in time just before or just after specinvoke executes.
+     * monitor_specrun_wrapper lets you attach probes to specinvoke itself.
+     * monitor_wrapper lets you attach probes to the things that specinvoke
+       invokes.
+
+   Each of these is explained below.
+
+  monitor_pre_bench and monitor_post_bench
+
+   The monitoring hooks monitor_pre_bench and monitor_post_bench allow
+   arbitrary programs to be executed before and after the benchmark is run
+   (that is, just before and just after step ii above). For example, you can
+   can use these hooks to start and stop system-level profilers, to
+   instrument binaries, or to harvest files written by an instrumented
+   binary. The example below is from a config file that collected branch
+   profiles to evaluate training workloads in SPEC CPU 2006 under Solaris OS
+   using a profiling tool called Binary Improvement Tool (bit).
+
+ monitor_pre_bench = bit instrument ${commandexe}; \
+    cp ${commandexe} ${commandexe}.orig; \
+    cp ${commandexe}.instr ${commandexe}
+
+ monitor_post_bench = bit analyze -o $[top]/analysis/branches.${benchmark}.${size}.csv -a branch ${commandexe}; \
+    bit analyze -o $[top]/analysis/blocks.${benchmark}.${size}.csv -a bbc ${commandexe}; \
+    cp ${commandexe}.orig ${commandexe}
+
+   In the example above, the monitor_pre_bench option causes the Binary
+   Improvement Tool (bit) to instrument the binary executable before it is
+   run. After the run, the monitor_post_bench option causes bit to dump
+   statistics from the run into files in the $SPEC/analysis/ directory.
+
+   The values for ${commandexe}, ${benchmark} and ${size} are provided by the
+   tools at run time; there are many other variables available. The variables
+   that are available vary depending on what is being done. For a list of
+   variables available for substitution, execute your runcpu command with
+   verbosity set to 35 or greater. This can be accomplished by specifying
+   "runcpu -v 35". For more information on variable substitution, see the
+   config.html section on variable substitution.
+
+   Note 1 - stdout/stderr The stdout and stderr for the monitor_pre_bench and
+   monitor_post_bench commands are redirected to the files
+   monitor_{pre|post}_bench.out and monitor_{pre|post}_bench.err in the run
+   directory for each benchmark.
+
+   Note 2 - not timed The execution time for the commands specified by the
+   $monitor_pre_bench, and $monitor_post_bench are not included in the
+   benchmark's reported time.
+
+  monitor_specrun_wrapper
+
+   The option monitor_specrun_wrapper allows you to monitor specinvoke (step
+   ii above), and by extension the entire benchmark iteration, no matter how
+   many times it runs the benchmark binary (see discussion of 401.bzip2
+   above).
+
+   For example, to generate a system call trace for specinvoke and all of its
+   children on a Linux system, you could set up monitor_specrun_wrapper as
+   follows:
+
+ monitor_specrun_wrapper = strace -ff -o $benchmark.calls $command; \
+    mkdir -p $[top]/calls.$lognum; \
+    mv $benchmark.calls* $[top]/calls.$lognum
+
+   While your monitoring software is watching, specinvoke will fork the
+   benchmark binary as many times as needed, timing each step separately.
+
+   $command = specinvoke
+
+   In the above example, the crucial point is the $command; it expands to the
+   full specinvoke command, including arguments. If $command is omitted or
+   replaced, something other than the desired command will be traced, and the
+   benchmark will not validate.
+
+   Note that the execution time for the commands specified by the
+   $monitor_specrun_wrapper will not be included in the benchmark's reported
+   time; but the overhead of specinvoke will be included in your profiles or
+   traces.
+
+  monitor_wrapper
+
+   You can instrument each invocation of a benchmark binary using
+   monitor_wrapper. This monitoring option allows profiling or tracing of the
+   individual workload components, without including the overhead of
+   specinvoke in your profiles or traces. A potential disadvantage is that
+   the execution time for your profiling commands is included as part of the
+   benchmark's reported run time.
+
+   $command = single binary
+
+   Unlike the previous example, for monitor_wrapper any references to
+   $command are references to single runs of a benchmark binary. If the
+   binary is run 6 times with differing arguments, then $command will take on
+   6 different values.
+
+   The example below, from a Linux system, collects system call traces for
+   individual benchmark invocations, and saves output files directly to a
+   profile directory:
+
+  strace -f -o $benchmark.calls.\$\$ $command; \
+    mkdir -p $[top]/calls.$lognum; \
+    mv $benchmark.calls.\$\$ $[top]/calls.$lognum
+
+   Problem: which program gets which devices? A very important point to note
+   about monitor_wrapper is that by default any output that the monitoring
+   software writes to stdout will be mixed with the benchmark's output. Your
+   monitoring sw will break validation if you do not plan usage of stdin /
+   stdout / stderr.
+
+   A setting as simple as the following will cause many benchmarks to fail
+   validation:
+
+ monitor_wrapper = date; $command
+
+   The above will cause failures because the benchmark's expected output does
+   not include the current time of the run. Even a benign status message
+   (such as "MyMonitor status OK") will break validation if it is found where
+   the benchmark output is supposed to be.
+
+   Similarly, the benchmark will not run correctly if the monitoring software
+   consumes input that the benchmark expects to find on stdin.
+
+   Two solutions. There are two basic ways around problems with device
+   handling.
+
+    1. You may be able to explicitly send the data from your monitoring
+       software somewhere else, for example:
+
+ monitor_wrapper = date >> /tmp/${benchmark}.data; $command
+
+    2. More commonly, the way around the problem of misdirected stdin and
+       stdout when using monitor_wrapper is the configuration file option
+       command_add_redirect. By default, input and output files are opened by
+       specinvoke and attached directly to the file descriptors for new
+       processes. Setting command_add_redirect in the header section of the
+       configuration file causes that step to be skipped, and instead
+       modifies the benchmark command to include shell redirection operators.
+       So, in Bourne shell syntax, by default
+
+ monitor_wrapper = date; $command
+
+       translates to something like:
+
+ (date; $command) < in > out 2>> err
+
+       With the command_add_redirect option, the above becomes:
+
+ date; $command < in > out 2>> err
+
+       The output from the date command will be written to the file
+       speccmds.stdout in the run directory. That file is not subject to
+       validation.
+
+  build_pre_bench and build_post_bench
+
+   The monitoring hooks build_pre_bench and build_post_bench are executed
+   before and after the individual benchmark is built.
+
+   Note - stdout/stderr: The stdout and stderr for the build_pre_bench and
+   build_post_bench commands are redirected to the files
+   build_{pre|post}_bench.out and build_{pre|post}_bench.err in the run
+   directory for each benchmark.
+
+Considerations for Writing Monitoring Scripts
+
+   You can specify a lot of shell commands separated by semicolons, but for
+   ease of understanding and maintenance, you might prefer to have scripts
+   that do the work. Here are a few things to keep in mind when writing
+   scripts that will run with the monitoring hooks:
+
+     * $CWD points to the current run directory, whether you are building or
+       running the benchmark.
+
+     * $PATH is modified to include the $SPEC/bin directory. So if you put
+       your executables or scripts in the $SPEC/bin directory, they will be
+       in the path when the SPEC environment is set.
+
+     * If you are using monitor_wrapper, ensure that the monitoring
+       applications and/or scripts do not use the stdin and stdout pipes.
+       However, if they do use them, set the variable command_add_redirect in
+       the header section of the configuration file to avoid unintended
+       failures with the CPU 2017 benchmarks. See section on monitor_wrapper
+       for more discussion.
+
+     * If you are saving data collected from your monitoring run in files,
+       they are most likely being saved in $CWD, which is set to the current
+       run directory. It is a good idea to move these files from the run
+       directories to some other directory which does not get modified by the
+       SPEC's runcpu command. The run directories, by default, get
+       over-written if you run the benchmark again.
+
+   SPEC CPU(R)2017 Monitoring Facility: Copyright (c) 2017-2019 Standard
+   Performance Evaluation Corporation (SPEC(R))
+
+

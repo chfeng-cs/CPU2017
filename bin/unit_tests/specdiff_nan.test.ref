@@ -1,0 +1,5902 @@
+--------------------------
+test group 1: 1.201
+specdiff run completed
+--------------------------
+test group 1: 2
+0001:  1.201
+       2
+       ^
+specdiff run completed
+--------------------------
+test group 1: nana makes good cookies
+0001:  1.201
+       nana makes good cookies
+       ^
+specdiff run completed
+--------------------------
+test group 1: Nan's cookies are the best
+0001:  1.201
+       Nan's cookies are the best
+       ^
+specdiff run completed
+--------------------------
+test group 1: indefinite
+0001:  1.201
+       indefinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: infinite
+0001:  1.201
+       infinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: nan
+0001:  1.201
+       nan
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN
+0001:  1.201
+       NaN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN%
+0001:  1.201
+       NaN%
+          ^
+specdiff run completed
+--------------------------
+test group 1: NAN
+0001:  1.201
+       NAN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaNQ
+0001:  1.201
+       NaNQ
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaNS
+0001:  1.201
+       NaNS
+          ^
+specdiff run completed
+--------------------------
+test group 1: qNaN
+0001:  1.201
+       qNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: sNaN
+0001:  1.201
+       sNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: 1.#SNAN
+0001:  1.201
+       1.#SNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: 1.#QNAN
+0001:  1.201
+       1.#QNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: -1.#IND
+0001:  1.201
+       -1.#IND
+             ^
+specdiff run completed
+--------------------------
+test group 1: -NaN
+0001:  1.201
+       -NaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaN12345
+0001:  1.201
+       NaN12345
+              ^
+specdiff run completed
+--------------------------
+test group 1: -sNaN12300
+0001:  1.201
+       -sNaN12300
+                ^
+specdiff run completed
+--------------------------
+test group 1: -NaN(s1234)
+0001:  1.201
+       -NaN(s1234)
+                 ^
+specdiff run completed
+--------------------------
+test group 1: -1.#INF
+0001:  1.201
+       -1.#INF
+             ^
+specdiff run completed
+--------------------------
+test group 1: INF
+0001:  1.201
+       INF
+         ^
+specdiff run completed
+--------------------------
+test group 1: Infinity
+0001:  1.201
+       Infinity
+              ^
+specdiff run completed
+--------------------------
+test group 1: ThisIsNotANaN
+0001:  1.201
+       ThisIsNotANaN
+       ^
+specdiff run completed
+--------------------------
+test group 1: 1.201
+specdiff run completed
+--------------------------
+test group 1: 2
+0001:  1.201
+       2
+       ^
+specdiff run completed
+--------------------------
+test group 1: nana makes good cookies
+0001:  1.201
+       nana makes good cookies
+       ^
+specdiff run completed
+--------------------------
+test group 1: Nan's cookies are the best
+0001:  1.201
+       Nan's cookies are the best
+       ^
+specdiff run completed
+--------------------------
+test group 1: indefinite
+0001:  1.201
+       indefinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: infinite
+0001:  1.201
+       infinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: nan
+0001:  1.201
+       nan
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN
+0001:  1.201
+       NaN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN%
+0001:  1.201
+       NaN%
+          ^
+specdiff run completed
+--------------------------
+test group 1: NAN
+0001:  1.201
+       NAN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaNQ
+0001:  1.201
+       NaNQ
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaNS
+0001:  1.201
+       NaNS
+          ^
+specdiff run completed
+--------------------------
+test group 1: qNaN
+0001:  1.201
+       qNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: sNaN
+0001:  1.201
+       sNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: 1.#SNAN
+0001:  1.201
+       1.#SNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: 1.#QNAN
+0001:  1.201
+       1.#QNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: -1.#IND
+0001:  1.201
+       -1.#IND
+             ^
+specdiff run completed
+--------------------------
+test group 1: -NaN
+0001:  1.201
+       -NaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaN12345
+0001:  1.201
+       NaN12345
+              ^
+specdiff run completed
+--------------------------
+test group 1: -sNaN12300
+0001:  1.201
+       -sNaN12300
+                ^
+specdiff run completed
+--------------------------
+test group 1: -NaN(s1234)
+0001:  1.201
+       -NaN(s1234)
+                 ^
+specdiff run completed
+--------------------------
+test group 1: -1.#INF
+0001:  1.201
+       -1.#INF
+             ^
+specdiff run completed
+--------------------------
+test group 1: INF
+0001:  1.201
+       INF
+         ^
+specdiff run completed
+--------------------------
+test group 1: Infinity
+0001:  1.201
+       Infinity
+              ^
+specdiff run completed
+--------------------------
+test group 1: ThisIsNotANaN
+0001:  1.201
+       ThisIsNotANaN
+       ^
+specdiff run completed
+--------------------------
+test group 1: 1.201
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 1: 2
+Calculated tolerances:
+Maximum abstol: 7.99000e-01
+Minimum abstol: 7.99000e-01
+# of abstol errors: 1
+Maximum reltol: 6.65279e-01
+Minimum reltol: 6.65279e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       2
+       ^
+specdiff run completed
+--------------------------
+test group 1: nana makes good cookies
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       nana makes good cookies
+       ^
+specdiff run completed
+--------------------------
+test group 1: Nan's cookies are the best
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       Nan's cookies are the best
+       ^
+specdiff run completed
+--------------------------
+test group 1: indefinite
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       indefinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: infinite
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       infinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: nan
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       nan
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN%
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN%
+          ^
+specdiff run completed
+--------------------------
+test group 1: NAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NAN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaNQ
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaNQ
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaNS
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaNS
+          ^
+specdiff run completed
+--------------------------
+test group 1: qNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       qNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: sNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       sNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: 1.#SNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       1.#SNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: 1.#QNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       1.#QNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: -1.#IND
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -1.#IND
+             ^
+specdiff run completed
+--------------------------
+test group 1: -NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -NaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaN12345
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN12345
+              ^
+specdiff run completed
+--------------------------
+test group 1: -sNaN12300
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -sNaN12300
+                ^
+specdiff run completed
+--------------------------
+test group 1: -NaN(s1234)
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -NaN(s1234)
+                 ^
+specdiff run completed
+--------------------------
+test group 1: -1.#INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -1.#INF
+             ^
+specdiff run completed
+--------------------------
+test group 1: INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       INF
+         ^
+specdiff run completed
+--------------------------
+test group 1: Infinity
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       Infinity
+              ^
+specdiff run completed
+--------------------------
+test group 1: ThisIsNotANaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       ThisIsNotANaN
+       ^
+specdiff run completed
+--------------------------
+test group 1: 1.201
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 1: 2
+Calculated tolerances:
+Maximum abstol: 7.99000e-01
+Minimum abstol: 7.99000e-01
+# of abstol errors: 1
+Maximum reltol: 6.65279e-01
+Minimum reltol: 6.65279e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       2
+       ^
+specdiff run completed
+--------------------------
+test group 1: nana makes good cookies
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       nana makes good cookies
+       ^
+specdiff run completed
+--------------------------
+test group 1: Nan's cookies are the best
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       Nan's cookies are the best
+       ^
+specdiff run completed
+--------------------------
+test group 1: indefinite
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       indefinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: infinite
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       infinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: nan
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       nan
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN%
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN%
+          ^
+specdiff run completed
+--------------------------
+test group 1: NAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NAN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaNQ
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaNQ
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaNS
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaNS
+          ^
+specdiff run completed
+--------------------------
+test group 1: qNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       qNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: sNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       sNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: 1.#SNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       1.#SNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: 1.#QNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       1.#QNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: -1.#IND
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -1.#IND
+             ^
+specdiff run completed
+--------------------------
+test group 1: -NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -NaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaN12345
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN12345
+              ^
+specdiff run completed
+--------------------------
+test group 1: -sNaN12300
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -sNaN12300
+                ^
+specdiff run completed
+--------------------------
+test group 1: -NaN(s1234)
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -NaN(s1234)
+                 ^
+specdiff run completed
+--------------------------
+test group 1: -1.#INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -1.#INF
+             ^
+specdiff run completed
+--------------------------
+test group 1: INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       INF
+         ^
+specdiff run completed
+--------------------------
+test group 1: Infinity
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       Infinity
+              ^
+specdiff run completed
+--------------------------
+test group 1: ThisIsNotANaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       ThisIsNotANaN
+       ^
+specdiff run completed
+--------------------------
+test group 1: 1.201
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 1: 2
+Calculated tolerances:
+Maximum abstol: 7.99000e-01
+Minimum abstol: 7.99000e-01
+# of abstol errors: 1
+Maximum reltol: 6.65279e-01
+Minimum reltol: 6.65279e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff: 7.99000e-01 = abs(1.201 - 2)
+*rel diff: 6.65279e-01 = abs(abs(1.201 - 2) / 1.201)
+0001:  1.201
+       2
+       ^
+specdiff run completed
+--------------------------
+test group 1: nana makes good cookies
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       nana makes good cookies
+       ^
+specdiff run completed
+--------------------------
+test group 1: Nan's cookies are the best
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       Nan's cookies are the best
+       ^
+specdiff run completed
+--------------------------
+test group 1: indefinite
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       indefinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: infinite
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       infinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: nan
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 - NaN)
+*rel diff:        nan = abs(abs(1.201 - NaN) / 1.201)
+0001:  1.201
+       nan
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 - NaN)
+*rel diff:        nan = abs(abs(1.201 - NaN) / 1.201)
+0001:  1.201
+       NaN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN%
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201
+       NaN%
+          ^
+specdiff run completed
+--------------------------
+test group 1: NAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 - NaN)
+*rel diff:        nan = abs(abs(1.201 - NaN) / 1.201)
+0001:  1.201
+       NAN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaNQ
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201
+       NaNQ
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaNS
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201
+       NaNS
+          ^
+specdiff run completed
+--------------------------
+test group 1: qNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201
+       qNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: sNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201
+       sNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: 1.#SNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -     NaN)
+*rel diff:        nan = abs(abs(1.201 -     NaN) / 1.201)
+0001:  1.201
+       1.#SNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: 1.#QNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -     NaN)
+*rel diff:        nan = abs(abs(1.201 -     NaN) / 1.201)
+0001:  1.201
+       1.#QNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: -1.#IND
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -     NaN)
+*rel diff:        nan = abs(abs(1.201 -     NaN) / 1.201)
+0001:  1.201
+       -1.#IND
+             ^
+specdiff run completed
+--------------------------
+test group 1: -NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201
+       -NaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaN12345
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -      NaN)
+*rel diff:        nan = abs(abs(1.201 -      NaN) / 1.201)
+0001:  1.201
+       NaN12345
+              ^
+specdiff run completed
+--------------------------
+test group 1: -sNaN12300
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -        NaN)
+*rel diff:        nan = abs(abs(1.201 -        NaN) / 1.201)
+0001:  1.201
+       -sNaN12300
+                ^
+specdiff run completed
+--------------------------
+test group 1: -NaN(s1234)
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -         NaN)
+*rel diff:        nan = abs(abs(1.201 -         NaN) / 1.201)
+0001:  1.201
+       -NaN(s1234)
+                 ^
+specdiff run completed
+--------------------------
+test group 1: -1.#INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -     NaN)
+*rel diff:        nan = abs(abs(1.201 -     NaN) / 1.201)
+0001:  1.201
+       -1.#INF
+             ^
+specdiff run completed
+--------------------------
+test group 1: INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 - NaN)
+*rel diff:        nan = abs(abs(1.201 - NaN) / 1.201)
+0001:  1.201
+       INF
+         ^
+specdiff run completed
+--------------------------
+test group 1: Infinity
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -      NaN)
+*rel diff:        nan = abs(abs(1.201 -      NaN) / 1.201)
+0001:  1.201
+       Infinity
+              ^
+specdiff run completed
+--------------------------
+test group 1: ThisIsNotANaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       ThisIsNotANaN
+       ^
+specdiff run completed
+--------------------------
+test group 1: 1.201
+1: '1.201'
+2: '1.201'
+buf1: '1.201'
+buf2: '1.201'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=''
+<: val2=1.201
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 1: 2
+1: '1.201'
+2: '2'
+buf1: '1.201'
+buf2: '2'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='2', exp2=''
+<: pre2='', post2=''
+<: val2=2
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='2' pos=1
+Calculated tolerances:
+Maximum abstol: 7.99000e-01
+Minimum abstol: 7.99000e-01
+# of abstol errors: 1
+Maximum reltol: 6.65279e-01
+Minimum reltol: 6.65279e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       2
+       ^
+specdiff run completed
+--------------------------
+test group 1: nana makes good cookies
+1: '1.201'
+2: 'nana makes good cookies'
+buf1: '1.201'
+buf2: 'nana makes good cookies'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 no number: (ignorecase: ; nocase mismatch: 1; mismatch: 1; diff_at rc='1')
+error(2): isnum=0, skiptol=0, line=1, buf1='', val1='1.201', val2='' pos=1
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       nana makes good cookies
+       ^
+specdiff run completed
+--------------------------
+test group 1: Nan's cookies are the best
+1: '1.201'
+2: 'Nan's cookies are the best'
+buf1: '1.201'
+buf2: 'Nan's cookies are the best'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 no number: (ignorecase: ; nocase mismatch: 1; mismatch: 1; diff_at rc='1')
+error(2): isnum=0, skiptol=0, line=1, buf1='', val1='1.201', val2='' pos=1
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       Nan's cookies are the best
+       ^
+specdiff run completed
+--------------------------
+test group 1: indefinite
+1: '1.201'
+2: 'indefinite'
+buf1: '1.201'
+buf2: 'indefinite'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 no number: (ignorecase: ; nocase mismatch: 1; mismatch: 1; diff_at rc='1')
+error(2): isnum=0, skiptol=0, line=1, buf1='', val1='1.201', val2='' pos=1
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       indefinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: infinite
+1: '1.201'
+2: 'infinite'
+buf1: '1.201'
+buf2: 'infinite'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 no number: (ignorecase: ; nocase mismatch: 1; mismatch: 1; diff_at rc='1')
+error(2): isnum=0, skiptol=0, line=1, buf1='', val1='1.201', val2='' pos=1
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       infinite
+       ^
+specdiff run completed
+--------------------------
+test group 1: nan
+1: '1.201'
+2: 'nan'
+buf1: '1.201'
+buf2: 'nan'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=3
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       nan
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN
+1: '1.201'
+2: 'NaN'
+buf1: '1.201'
+buf2: 'NaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=3
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaN%
+1: '1.201'
+2: 'NaN%'
+buf1: '1.201'
+buf2: 'NaN%'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=4
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN%
+          ^
+specdiff run completed
+--------------------------
+test group 1: NAN
+1: '1.201'
+2: 'NAN'
+buf1: '1.201'
+buf2: 'NAN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=3
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NAN
+         ^
+specdiff run completed
+--------------------------
+test group 1: NaNQ
+1: '1.201'
+2: 'NaNQ'
+buf1: '1.201'
+buf2: 'NaNQ'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=4
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaNQ
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaNS
+1: '1.201'
+2: 'NaNS'
+buf1: '1.201'
+buf2: 'NaNS'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=4
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaNS
+          ^
+specdiff run completed
+--------------------------
+test group 1: qNaN
+1: '1.201'
+2: 'qNaN'
+buf1: '1.201'
+buf2: 'qNaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=4
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       qNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: sNaN
+1: '1.201'
+2: 'sNaN'
+buf1: '1.201'
+buf2: 'sNaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=4
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       sNaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: 1.#SNAN
+1: '1.201'
+2: '1.#SNAN'
+buf1: '1.201'
+buf2: '1.#SNAN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=7
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       1.#SNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: 1.#QNAN
+1: '1.201'
+2: '1.#QNAN'
+buf1: '1.201'
+buf2: '1.#QNAN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=7
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       1.#QNAN
+             ^
+specdiff run completed
+--------------------------
+test group 1: -1.#IND
+1: '1.201'
+2: '-1.#IND'
+buf1: '1.201'
+buf2: '-1.#IND'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=7
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -1.#IND
+             ^
+specdiff run completed
+--------------------------
+test group 1: -NaN
+1: '1.201'
+2: '-NaN'
+buf1: '1.201'
+buf2: '-NaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=4
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -NaN
+          ^
+specdiff run completed
+--------------------------
+test group 1: NaN12345
+1: '1.201'
+2: 'NaN12345'
+buf1: '1.201'
+buf2: 'NaN12345'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='     NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=8
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       NaN12345
+              ^
+specdiff run completed
+--------------------------
+test group 1: -sNaN12300
+1: '1.201'
+2: '-sNaN12300'
+buf1: '1.201'
+buf2: '-sNaN12300'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='       NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=10
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -sNaN12300
+                ^
+specdiff run completed
+--------------------------
+test group 1: -NaN(s1234)
+1: '1.201'
+2: '-NaN(s1234)'
+buf1: '1.201'
+buf2: '-NaN(s1234)'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='        NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=11
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -NaN(s1234)
+                 ^
+specdiff run completed
+--------------------------
+test group 1: -1.#INF
+1: '1.201'
+2: '-1.#INF'
+buf1: '1.201'
+buf2: '-1.#INF'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=7
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       -1.#INF
+             ^
+specdiff run completed
+--------------------------
+test group 1: INF
+1: '1.201'
+2: 'INF'
+buf1: '1.201'
+buf2: 'INF'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=3
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       INF
+         ^
+specdiff run completed
+--------------------------
+test group 1: Infinity
+1: '1.201'
+2: 'Infinity'
+buf1: '1.201'
+buf2: 'Infinity'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 has a number:
+<: mant2='     NaN', exp2=''
+<: pre2='', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='1.201', val2='nan' pos=8
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       Infinity
+              ^
+specdiff run completed
+--------------------------
+test group 1: ThisIsNotANaN
+1: '1.201'
+2: 'ThisIsNotANaN'
+buf1: '1.201'
+buf2: 'ThisIsNotANaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=''
+<: val1=1.201
+buf2 no number: (ignorecase: ; nocase mismatch: 1; mismatch: 1; diff_at rc='1')
+error(2): isnum=0, skiptol=0, line=1, buf1='', val1='1.201', val2='' pos=1
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201
+       ThisIsNotANaN
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:1.201 2.306
+specdiff run completed
+--------------------------
+test group 2.1:2 2.306
+0001:  1.201 2.306
+       2 2.306
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:nan 2.306
+0001:  1.201 2.306
+       nan 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN 2.306
+0001:  1.201 2.306
+       NaN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN% 2.306
+0001:  1.201 2.306
+       NaN% 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NAN 2.306
+0001:  1.201 2.306
+       NAN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNQ 2.306
+0001:  1.201 2.306
+       NaNQ 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNS 2.306
+0001:  1.201 2.306
+       NaNS 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:qNaN 2.306
+0001:  1.201 2.306
+       qNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:sNaN 2.306
+0001:  1.201 2.306
+       sNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#SNAN 2.306
+0001:  1.201 2.306
+       1.#SNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#QNAN 2.306
+0001:  1.201 2.306
+       1.#QNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#IND 2.306
+0001:  1.201 2.306
+       -1.#IND 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN 2.306
+0001:  1.201 2.306
+       -NaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN12345 2.306
+0001:  1.201 2.306
+       NaN12345 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:-sNaN12300 2.306
+0001:  1.201 2.306
+       -sNaN12300 2.306
+                ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN(s1234) 2.306
+0001:  1.201 2.306
+       -NaN(s1234) 2.306
+                 ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#INF 2.306
+0001:  1.201 2.306
+       -1.#INF 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:INF 2.306
+0001:  1.201 2.306
+       INF 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:Infinity 2.306
+0001:  1.201 2.306
+       Infinity 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:ThisIsNotANaN 2.306
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:1.201 2.306
+specdiff run completed
+--------------------------
+test group 2.1:2 2.306
+0001:  1.201 2.306
+       2 2.306
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:nan 2.306
+0001:  1.201 2.306
+       nan 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN 2.306
+0001:  1.201 2.306
+       NaN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN% 2.306
+0001:  1.201 2.306
+       NaN% 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NAN 2.306
+0001:  1.201 2.306
+       NAN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNQ 2.306
+0001:  1.201 2.306
+       NaNQ 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNS 2.306
+0001:  1.201 2.306
+       NaNS 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:qNaN 2.306
+0001:  1.201 2.306
+       qNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:sNaN 2.306
+0001:  1.201 2.306
+       sNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#SNAN 2.306
+0001:  1.201 2.306
+       1.#SNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#QNAN 2.306
+0001:  1.201 2.306
+       1.#QNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#IND 2.306
+0001:  1.201 2.306
+       -1.#IND 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN 2.306
+0001:  1.201 2.306
+       -NaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN12345 2.306
+0001:  1.201 2.306
+       NaN12345 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:-sNaN12300 2.306
+0001:  1.201 2.306
+       -sNaN12300 2.306
+                ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN(s1234) 2.306
+0001:  1.201 2.306
+       -NaN(s1234) 2.306
+                 ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#INF 2.306
+0001:  1.201 2.306
+       -1.#INF 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:INF 2.306
+0001:  1.201 2.306
+       INF 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:Infinity 2.306
+0001:  1.201 2.306
+       Infinity 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:ThisIsNotANaN 2.306
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:1.201 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 2.1:2 2.306
+Calculated tolerances:
+Maximum abstol: 7.99000e-01
+Minimum abstol: 7.99000e-01
+# of abstol errors: 1
+Maximum reltol: 6.65279e-01
+Minimum reltol: 6.65279e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       2 2.306
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:nan 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       nan 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN% 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN% 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NAN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNQ 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaNQ 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNS 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaNS 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:qNaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       qNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:sNaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       sNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#SNAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.#SNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#QNAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.#QNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#IND 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -1.#IND 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -NaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN12345 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN12345 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:-sNaN12300 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -sNaN12300 2.306
+                ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN(s1234) 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -NaN(s1234) 2.306
+                 ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#INF 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -1.#INF 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:INF 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       INF 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:Infinity 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       Infinity 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:ThisIsNotANaN 2.306
+Calculated tolerances:
+Maximum abstol: 1.10500e+00
+Minimum abstol: 1.10500e+00
+# of abstol errors: 1
+Maximum reltol: 9.20067e-01
+Minimum reltol: 9.20067e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+       ^
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+           ^
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+           ^
+specdiff run completed
+--------------------------
+test group 2.1:1.201 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 2.1:2 2.306
+Calculated tolerances:
+Maximum abstol: 7.99000e-01
+Minimum abstol: 7.99000e-01
+# of abstol errors: 1
+Maximum reltol: 6.65279e-01
+Minimum reltol: 6.65279e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       2 2.306
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:nan 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       nan 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN% 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN% 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NAN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNQ 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaNQ 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNS 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaNS 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:qNaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       qNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:sNaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       sNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#SNAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.#SNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#QNAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.#QNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#IND 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -1.#IND 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -NaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN12345 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN12345 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:-sNaN12300 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -sNaN12300 2.306
+                ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN(s1234) 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -NaN(s1234) 2.306
+                 ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#INF 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -1.#INF 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:INF 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       INF 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:Infinity 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       Infinity 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:ThisIsNotANaN 2.306
+Calculated tolerances:
+Maximum abstol: 1.10500e+00
+Minimum abstol: 1.10500e+00
+# of abstol errors: 1
+Maximum reltol: 9.20067e-01
+Minimum reltol: 9.20067e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+       ^
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+           ^
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+           ^
+specdiff run completed
+--------------------------
+test group 2.1:1.201 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 2.1:2 2.306
+Calculated tolerances:
+Maximum abstol: 7.99000e-01
+Minimum abstol: 7.99000e-01
+# of abstol errors: 1
+Maximum reltol: 6.65279e-01
+Minimum reltol: 6.65279e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff: 7.99000e-01 = abs(1.201 - 2)
+*rel diff: 6.65279e-01 = abs(abs(1.201 - 2) / 1.201)
+0001:  1.201 2.306
+       2 2.306
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:nan 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 - NaN)
+*rel diff:        nan = abs(abs(1.201 - NaN) / 1.201)
+0001:  1.201 2.306
+       nan 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 - NaN)
+*rel diff:        nan = abs(abs(1.201 - NaN) / 1.201)
+0001:  1.201 2.306
+       NaN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN% 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201 2.306
+       NaN% 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 - NaN)
+*rel diff:        nan = abs(abs(1.201 - NaN) / 1.201)
+0001:  1.201 2.306
+       NAN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNQ 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201 2.306
+       NaNQ 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNS 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201 2.306
+       NaNS 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:qNaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201 2.306
+       qNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:sNaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201 2.306
+       sNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#SNAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -     NaN)
+*rel diff:        nan = abs(abs(1.201 -     NaN) / 1.201)
+0001:  1.201 2.306
+       1.#SNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#QNAN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -     NaN)
+*rel diff:        nan = abs(abs(1.201 -     NaN) / 1.201)
+0001:  1.201 2.306
+       1.#QNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#IND 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -     NaN)
+*rel diff:        nan = abs(abs(1.201 -     NaN) / 1.201)
+0001:  1.201 2.306
+       -1.#IND 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -  NaN)
+*rel diff:        nan = abs(abs(1.201 -  NaN) / 1.201)
+0001:  1.201 2.306
+       -NaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN12345 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -      NaN)
+*rel diff:        nan = abs(abs(1.201 -      NaN) / 1.201)
+0001:  1.201 2.306
+       NaN12345 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:-sNaN12300 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -        NaN)
+*rel diff:        nan = abs(abs(1.201 -        NaN) / 1.201)
+0001:  1.201 2.306
+       -sNaN12300 2.306
+                ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN(s1234) 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -         NaN)
+*rel diff:        nan = abs(abs(1.201 -         NaN) / 1.201)
+0001:  1.201 2.306
+       -NaN(s1234) 2.306
+                 ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#INF 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -     NaN)
+*rel diff:        nan = abs(abs(1.201 -     NaN) / 1.201)
+0001:  1.201 2.306
+       -1.#INF 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:INF 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 - NaN)
+*rel diff:        nan = abs(abs(1.201 - NaN) / 1.201)
+0001:  1.201 2.306
+       INF 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:Infinity 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(1.201 -      NaN)
+*rel diff:        nan = abs(abs(1.201 -      NaN) / 1.201)
+0001:  1.201 2.306
+       Infinity 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:ThisIsNotANaN 2.306
+Calculated tolerances:
+Maximum abstol: 1.10500e+00
+Minimum abstol: 1.10500e+00
+# of abstol errors: 1
+Maximum reltol: 9.20067e-01
+Minimum reltol: 9.20067e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+       ^
+
+*abs diff: 1.10500e+00 = abs(1.201 - 2.306)
+*rel diff: 9.20067e-01 = abs(abs(1.201 - 2.306) / 1.201)
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+           ^
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+           ^
+specdiff run completed
+--------------------------
+test group 2.1:1.201 2.306
+1: '1.201 2.306'
+2: '1.201 2.306'
+buf1: '1.201 2.306'
+buf2: '1.201 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 2.1:2 2.306
+1: '1.201 2.306'
+2: '2 2.306'
+buf1: '1.201 2.306'
+buf2: '2 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='2', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=2
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='2' pos=1
+1: '1.201 2.306'
+2: '2 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 7.99000e-01
+Minimum abstol: 7.99000e-01
+# of abstol errors: 1
+Maximum reltol: 6.65279e-01
+Minimum reltol: 6.65279e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       2 2.306
+       ^
+specdiff run completed
+--------------------------
+test group 2.1:nan 2.306
+1: '1.201 2.306'
+2: 'nan 2.306'
+buf1: '1.201 2.306'
+buf2: 'nan 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=3
+1: '1.201 2.306'
+2: 'nan 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       nan 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN 2.306
+1: '1.201 2.306'
+2: 'NaN 2.306'
+buf1: '1.201 2.306'
+buf2: 'NaN 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=3
+1: '1.201 2.306'
+2: 'NaN 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN% 2.306
+1: '1.201 2.306'
+2: 'NaN% 2.306'
+buf1: '1.201 2.306'
+buf2: 'NaN% 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=4
+1: '1.201 2.306'
+2: 'NaN% 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN% 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NAN 2.306
+1: '1.201 2.306'
+2: 'NAN 2.306'
+buf1: '1.201 2.306'
+buf2: 'NAN 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=3
+1: '1.201 2.306'
+2: 'NAN 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NAN 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNQ 2.306
+1: '1.201 2.306'
+2: 'NaNQ 2.306'
+buf1: '1.201 2.306'
+buf2: 'NaNQ 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=4
+1: '1.201 2.306'
+2: 'NaNQ 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaNQ 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaNS 2.306
+1: '1.201 2.306'
+2: 'NaNS 2.306'
+buf1: '1.201 2.306'
+buf2: 'NaNS 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=4
+1: '1.201 2.306'
+2: 'NaNS 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaNS 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:qNaN 2.306
+1: '1.201 2.306'
+2: 'qNaN 2.306'
+buf1: '1.201 2.306'
+buf2: 'qNaN 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=4
+1: '1.201 2.306'
+2: 'qNaN 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       qNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:sNaN 2.306
+1: '1.201 2.306'
+2: 'sNaN 2.306'
+buf1: '1.201 2.306'
+buf2: 'sNaN 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=4
+1: '1.201 2.306'
+2: 'sNaN 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       sNaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#SNAN 2.306
+1: '1.201 2.306'
+2: '1.#SNAN 2.306'
+buf1: '1.201 2.306'
+buf2: '1.#SNAN 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=7
+1: '1.201 2.306'
+2: '1.#SNAN 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.#SNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:1.#QNAN 2.306
+1: '1.201 2.306'
+2: '1.#QNAN 2.306'
+buf1: '1.201 2.306'
+buf2: '1.#QNAN 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=7
+1: '1.201 2.306'
+2: '1.#QNAN 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.#QNAN 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#IND 2.306
+1: '1.201 2.306'
+2: '-1.#IND 2.306'
+buf1: '1.201 2.306'
+buf2: '-1.#IND 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=7
+1: '1.201 2.306'
+2: '-1.#IND 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -1.#IND 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN 2.306
+1: '1.201 2.306'
+2: '-NaN 2.306'
+buf1: '1.201 2.306'
+buf2: '-NaN 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=4
+1: '1.201 2.306'
+2: '-NaN 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -NaN 2.306
+          ^
+specdiff run completed
+--------------------------
+test group 2.1:NaN12345 2.306
+1: '1.201 2.306'
+2: 'NaN12345 2.306'
+buf1: '1.201 2.306'
+buf2: 'NaN12345 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='     NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=8
+1: '1.201 2.306'
+2: 'NaN12345 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       NaN12345 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:-sNaN12300 2.306
+1: '1.201 2.306'
+2: '-sNaN12300 2.306'
+buf1: '1.201 2.306'
+buf2: '-sNaN12300 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='       NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=10
+1: '1.201 2.306'
+2: '-sNaN12300 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -sNaN12300 2.306
+                ^
+specdiff run completed
+--------------------------
+test group 2.1:-NaN(s1234) 2.306
+1: '1.201 2.306'
+2: '-NaN(s1234) 2.306'
+buf1: '1.201 2.306'
+buf2: '-NaN(s1234) 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='        NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=11
+1: '1.201 2.306'
+2: '-NaN(s1234) 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -NaN(s1234) 2.306
+                 ^
+specdiff run completed
+--------------------------
+test group 2.1:-1.#INF 2.306
+1: '1.201 2.306'
+2: '-1.#INF 2.306'
+buf1: '1.201 2.306'
+buf2: '-1.#INF 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=7
+1: '1.201 2.306'
+2: '-1.#INF 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       -1.#INF 2.306
+             ^
+specdiff run completed
+--------------------------
+test group 2.1:INF 2.306
+1: '1.201 2.306'
+2: 'INF 2.306'
+buf1: '1.201 2.306'
+buf2: 'INF 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=3
+1: '1.201 2.306'
+2: 'INF 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       INF 2.306
+         ^
+specdiff run completed
+--------------------------
+test group 2.1:Infinity 2.306
+1: '1.201 2.306'
+2: 'Infinity 2.306'
+buf1: '1.201 2.306'
+buf2: 'Infinity 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='     NaN', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='nan' pos=8
+1: '1.201 2.306'
+2: 'Infinity 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       Infinity 2.306
+              ^
+specdiff run completed
+--------------------------
+test group 2.1:ThisIsNotANaN 2.306
+1: '1.201 2.306'
+2: 'ThisIsNotANaN 2.306'
+buf1: '1.201 2.306'
+buf2: 'ThisIsNotANaN 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2='ThisIsNotANaN ', post2=''
+<: val2=2.306
+number pre-section mismatch: (ignorecase: ; nocase mismatch: 1; mismatch: 1; diff_at rc='0')
+error(2): isnum=1, skiptol=0, line=1, buf1='1.201 2.306', val1='1.201', val2='2.306' pos=0
+1: '1.201 2.306'
+2: 'ThisIsNotANaN 2.306'
+buf1: '1.201 2.306'
+buf2: '2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2='', post2=''
+<: val2=2.306
+error(1): isnum=1, skiptol=0, line=1, buf1=' 2.306', val1='1.201', val2='2.306' pos=5
+1: '1.201 2.306'
+2: 'ThisIsNotANaN 2.306'
+buf1: ' 2.306'
+buf2: ''
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 no number: (ignorecase: ; nocase mismatch: 1; mismatch: 1; diff_at rc='0')
+error(2): isnum=0, skiptol=0, line=1, buf1='', val1='2.306', val2='' pos=5
+Calculated tolerances:
+Maximum abstol: 1.10500e+00
+Minimum abstol: 1.10500e+00
+# of abstol errors: 1
+Maximum reltol: 9.20067e-01
+Minimum reltol: 9.20067e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+       ^
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+           ^
+0001:  1.201 2.306
+       ThisIsNotANaN 2.306
+           ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 2.306
+specdiff run completed
+--------------------------
+test group 2.2:1.201 3
+0001:  1.201 2.306
+       1.201 3
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 nan
+0001:  1.201 2.306
+       1.201 nan
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN
+0001:  1.201 2.306
+       1.201 NaN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN%
+0001:  1.201 2.306
+       1.201 NaN%
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NAN
+0001:  1.201 2.306
+       1.201 NAN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNQ
+0001:  1.201 2.306
+       1.201 NaNQ
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNS
+0001:  1.201 2.306
+       1.201 NaNS
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 qNaN
+0001:  1.201 2.306
+       1.201 qNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 sNaN
+0001:  1.201 2.306
+       1.201 sNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#SNAN
+0001:  1.201 2.306
+       1.201 1.#SNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#QNAN
+0001:  1.201 2.306
+       1.201 1.#QNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#IND
+0001:  1.201 2.306
+       1.201 -1.#IND
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN
+0001:  1.201 2.306
+       1.201 -NaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN12345
+0001:  1.201 2.306
+       1.201 NaN12345
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -sNaN12300
+0001:  1.201 2.306
+       1.201 -sNaN12300
+                      ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN(s1234)
+0001:  1.201 2.306
+       1.201 -NaN(s1234)
+                       ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#INF
+0001:  1.201 2.306
+       1.201 -1.#INF
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 INF
+0001:  1.201 2.306
+       1.201 INF
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 Infinity
+0001:  1.201 2.306
+       1.201 Infinity
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 ThisIsNotANaN
+0001:  1.201 2.306
+       1.201 ThisIsNotANaN
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 2.306
+specdiff run completed
+--------------------------
+test group 2.2:1.201 3
+0001:  1.201 2.306
+       1.201 3
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 nan
+0001:  1.201 2.306
+       1.201 nan
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN
+0001:  1.201 2.306
+       1.201 NaN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN%
+0001:  1.201 2.306
+       1.201 NaN%
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NAN
+0001:  1.201 2.306
+       1.201 NAN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNQ
+0001:  1.201 2.306
+       1.201 NaNQ
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNS
+0001:  1.201 2.306
+       1.201 NaNS
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 qNaN
+0001:  1.201 2.306
+       1.201 qNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 sNaN
+0001:  1.201 2.306
+       1.201 sNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#SNAN
+0001:  1.201 2.306
+       1.201 1.#SNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#QNAN
+0001:  1.201 2.306
+       1.201 1.#QNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#IND
+0001:  1.201 2.306
+       1.201 -1.#IND
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN
+0001:  1.201 2.306
+       1.201 -NaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN12345
+0001:  1.201 2.306
+       1.201 NaN12345
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -sNaN12300
+0001:  1.201 2.306
+       1.201 -sNaN12300
+                      ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN(s1234)
+0001:  1.201 2.306
+       1.201 -NaN(s1234)
+                       ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#INF
+0001:  1.201 2.306
+       1.201 -1.#INF
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 INF
+0001:  1.201 2.306
+       1.201 INF
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 Infinity
+0001:  1.201 2.306
+       1.201 Infinity
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 ThisIsNotANaN
+0001:  1.201 2.306
+       1.201 ThisIsNotANaN
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 2.2:1.201 3
+Calculated tolerances:
+Maximum abstol: 6.94000e-01
+Minimum abstol: 6.94000e-01
+# of abstol errors: 1
+Maximum reltol: 3.00954e-01
+Minimum reltol: 3.00954e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 3
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 nan
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 nan
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN%
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN%
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NAN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNQ
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaNQ
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNS
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaNS
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 qNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 qNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 sNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 sNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#SNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 1.#SNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#QNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 1.#QNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#IND
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -1.#IND
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -NaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN12345
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN12345
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -sNaN12300
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -sNaN12300
+                      ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN(s1234)
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -NaN(s1234)
+                       ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -1.#INF
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 INF
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 Infinity
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 Infinity
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 ThisIsNotANaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 ThisIsNotANaN
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 2.2:1.201 3
+Calculated tolerances:
+Maximum abstol: 6.94000e-01
+Minimum abstol: 6.94000e-01
+# of abstol errors: 1
+Maximum reltol: 3.00954e-01
+Minimum reltol: 3.00954e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 3
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 nan
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 nan
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN%
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN%
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NAN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNQ
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaNQ
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNS
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaNS
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 qNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 qNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 sNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 sNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#SNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 1.#SNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#QNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 1.#QNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#IND
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -1.#IND
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -NaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN12345
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN12345
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -sNaN12300
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -sNaN12300
+                      ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN(s1234)
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -NaN(s1234)
+                       ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -1.#INF
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 INF
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 Infinity
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 Infinity
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 ThisIsNotANaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 ThisIsNotANaN
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 2.2:1.201 3
+Calculated tolerances:
+Maximum abstol: 6.94000e-01
+Minimum abstol: 6.94000e-01
+# of abstol errors: 1
+Maximum reltol: 3.00954e-01
+Minimum reltol: 3.00954e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff: 6.94000e-01 = abs(2.306 - 3)
+*rel diff: 3.00954e-01 = abs(abs(2.306 - 3) / 2.306)
+0001:  1.201 2.306
+       1.201 3
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 nan
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 - NaN)
+*rel diff:        nan = abs(abs(2.306 - NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 nan
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 - NaN)
+*rel diff:        nan = abs(abs(2.306 - NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 NaN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN%
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -  NaN)
+*rel diff:        nan = abs(abs(2.306 -  NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 NaN%
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 - NaN)
+*rel diff:        nan = abs(abs(2.306 - NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 NAN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNQ
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -  NaN)
+*rel diff:        nan = abs(abs(2.306 -  NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 NaNQ
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNS
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -  NaN)
+*rel diff:        nan = abs(abs(2.306 -  NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 NaNS
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 qNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -  NaN)
+*rel diff:        nan = abs(abs(2.306 -  NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 qNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 sNaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -  NaN)
+*rel diff:        nan = abs(abs(2.306 -  NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 sNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#SNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -     NaN)
+*rel diff:        nan = abs(abs(2.306 -     NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 1.#SNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#QNAN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -     NaN)
+*rel diff:        nan = abs(abs(2.306 -     NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 1.#QNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#IND
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -     NaN)
+*rel diff:        nan = abs(abs(2.306 -     NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 -1.#IND
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -  NaN)
+*rel diff:        nan = abs(abs(2.306 -  NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 -NaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN12345
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -      NaN)
+*rel diff:        nan = abs(abs(2.306 -      NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 NaN12345
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -sNaN12300
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -        NaN)
+*rel diff:        nan = abs(abs(2.306 -        NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 -sNaN12300
+                      ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN(s1234)
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -         NaN)
+*rel diff:        nan = abs(abs(2.306 -         NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 -NaN(s1234)
+                       ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -     NaN)
+*rel diff:        nan = abs(abs(2.306 -     NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 -1.#INF
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 INF
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 - NaN)
+*rel diff:        nan = abs(abs(2.306 - NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 INF
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 Infinity
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+
+*abs diff:        nan = abs(2.306 -      NaN)
+*rel diff:        nan = abs(abs(2.306 -      NaN) / 2.306)
+0001:  1.201 2.306
+       1.201 Infinity
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 ThisIsNotANaN
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 ThisIsNotANaN
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 2.306
+1: '1.201 2.306'
+2: '1.201 2.306'
+buf1: '1.201 2.306'
+buf2: '1.201 2.306'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' 2.306'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 2.306'
+buf1: ' 2.306'
+buf2: ' 2.306'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='2.306', exp2=''
+<: pre2=' ', post2=''
+<: val2=2.306
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+specdiff run completed
+--------------------------
+test group 2.2:1.201 3
+1: '1.201 2.306'
+2: '1.201 3'
+buf1: '1.201 2.306'
+buf2: '1.201 3'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' 3'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 3'
+buf1: ' 2.306'
+buf2: ' 3'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='3', exp2=''
+<: pre2=' ', post2=''
+<: val2=3
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='3' pos=7
+Calculated tolerances:
+Maximum abstol: 6.94000e-01
+Minimum abstol: 6.94000e-01
+# of abstol errors: 1
+Maximum reltol: 3.00954e-01
+Minimum reltol: 3.00954e-01
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 3
+             ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 nan
+1: '1.201 2.306'
+2: '1.201 nan'
+buf1: '1.201 2.306'
+buf2: '1.201 nan'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' nan'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 nan'
+buf1: ' 2.306'
+buf2: ' nan'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=9
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 nan
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN
+1: '1.201 2.306'
+2: '1.201 NaN'
+buf1: '1.201 2.306'
+buf2: '1.201 NaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' NaN'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 NaN'
+buf1: ' 2.306'
+buf2: ' NaN'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=9
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN%
+1: '1.201 2.306'
+2: '1.201 NaN%'
+buf1: '1.201 2.306'
+buf2: '1.201 NaN%'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' NaN%'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 NaN%'
+buf1: ' 2.306'
+buf2: ' NaN%'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=10
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN%
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NAN
+1: '1.201 2.306'
+2: '1.201 NAN'
+buf1: '1.201 2.306'
+buf2: '1.201 NAN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' NAN'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 NAN'
+buf1: ' 2.306'
+buf2: ' NAN'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=9
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NAN
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNQ
+1: '1.201 2.306'
+2: '1.201 NaNQ'
+buf1: '1.201 2.306'
+buf2: '1.201 NaNQ'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' NaNQ'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 NaNQ'
+buf1: ' 2.306'
+buf2: ' NaNQ'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=10
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaNQ
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaNS
+1: '1.201 2.306'
+2: '1.201 NaNS'
+buf1: '1.201 2.306'
+buf2: '1.201 NaNS'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' NaNS'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 NaNS'
+buf1: ' 2.306'
+buf2: ' NaNS'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=10
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaNS
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 qNaN
+1: '1.201 2.306'
+2: '1.201 qNaN'
+buf1: '1.201 2.306'
+buf2: '1.201 qNaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' qNaN'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 qNaN'
+buf1: ' 2.306'
+buf2: ' qNaN'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=10
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 qNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 sNaN
+1: '1.201 2.306'
+2: '1.201 sNaN'
+buf1: '1.201 2.306'
+buf2: '1.201 sNaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' sNaN'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 sNaN'
+buf1: ' 2.306'
+buf2: ' sNaN'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=10
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 sNaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#SNAN
+1: '1.201 2.306'
+2: '1.201 1.#SNAN'
+buf1: '1.201 2.306'
+buf2: '1.201 1.#SNAN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' 1.#SNAN'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 1.#SNAN'
+buf1: ' 2.306'
+buf2: ' 1.#SNAN'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=13
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 1.#SNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 1.#QNAN
+1: '1.201 2.306'
+2: '1.201 1.#QNAN'
+buf1: '1.201 2.306'
+buf2: '1.201 1.#QNAN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' 1.#QNAN'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 1.#QNAN'
+buf1: ' 2.306'
+buf2: ' 1.#QNAN'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=13
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 1.#QNAN
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#IND
+1: '1.201 2.306'
+2: '1.201 -1.#IND'
+buf1: '1.201 2.306'
+buf2: '1.201 -1.#IND'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' -1.#IND'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 -1.#IND'
+buf1: ' 2.306'
+buf2: ' -1.#IND'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=13
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -1.#IND
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN
+1: '1.201 2.306'
+2: '1.201 -NaN'
+buf1: '1.201 2.306'
+buf2: '1.201 -NaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' -NaN'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 -NaN'
+buf1: ' 2.306'
+buf2: ' -NaN'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2=' NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=10
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -NaN
+                ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 NaN12345
+1: '1.201 2.306'
+2: '1.201 NaN12345'
+buf1: '1.201 2.306'
+buf2: '1.201 NaN12345'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' NaN12345'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 NaN12345'
+buf1: ' 2.306'
+buf2: ' NaN12345'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='     NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=14
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 NaN12345
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -sNaN12300
+1: '1.201 2.306'
+2: '1.201 -sNaN12300'
+buf1: '1.201 2.306'
+buf2: '1.201 -sNaN12300'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' -sNaN12300'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 -sNaN12300'
+buf1: ' 2.306'
+buf2: ' -sNaN12300'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='       NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=16
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -sNaN12300
+                      ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -NaN(s1234)
+1: '1.201 2.306'
+2: '1.201 -NaN(s1234)'
+buf1: '1.201 2.306'
+buf2: '1.201 -NaN(s1234)'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' -NaN(s1234)'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 -NaN(s1234)'
+buf1: ' 2.306'
+buf2: ' -NaN(s1234)'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='        NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=17
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -NaN(s1234)
+                       ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 -1.#INF
+1: '1.201 2.306'
+2: '1.201 -1.#INF'
+buf1: '1.201 2.306'
+buf2: '1.201 -1.#INF'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' -1.#INF'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 -1.#INF'
+buf1: ' 2.306'
+buf2: ' -1.#INF'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='    NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=13
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 -1.#INF
+                   ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 INF
+1: '1.201 2.306'
+2: '1.201 INF'
+buf1: '1.201 2.306'
+buf2: '1.201 INF'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' INF'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 INF'
+buf1: ' 2.306'
+buf2: ' INF'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=9
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 INF
+               ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 Infinity
+1: '1.201 2.306'
+2: '1.201 Infinity'
+buf1: '1.201 2.306'
+buf2: '1.201 Infinity'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' Infinity'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 Infinity'
+buf1: ' 2.306'
+buf2: ' Infinity'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 has a number:
+<: mant2='     NaN', exp2=''
+<: pre2=' ', post2=''
+<: val2=nan
+error(1): isnum=1, skiptol=0, line=1, buf1='', val1='2.306', val2='nan' pos=14
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+# of abstol errors: 1
+Maximum reltol: 0.00000e+00
+# of reltol errors: 1
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 Infinity
+                    ^
+specdiff run completed
+--------------------------
+test group 2.2:1.201 ThisIsNotANaN
+1: '1.201 2.306'
+2: '1.201 ThisIsNotANaN'
+buf1: '1.201 2.306'
+buf2: '1.201 ThisIsNotANaN'
+buf1 has a number:
+<: mant1='1.201', exp1=''
+<: pre1='', post1=' 2.306'
+<: val1=1.201
+buf2 has a number:
+<: mant2='1.201', exp2=''
+<: pre2='', post2=' ThisIsNotANaN'
+<: val2=1.201
+1: '1.201 2.306'
+2: '1.201 ThisIsNotANaN'
+buf1: ' 2.306'
+buf2: ' ThisIsNotANaN'
+buf1 has a number:
+<: mant1='2.306', exp1=''
+<: pre1=' ', post1=''
+<: val1=2.306
+buf2 no number: (ignorecase: ; nocase mismatch: 1; mismatch: 1; diff_at rc='2')
+error(2): isnum=0, skiptol=0, line=1, buf1='', val1='2.306', val2='' pos=7
+Calculated tolerances:
+Maximum abstol: 0.00000e+00
+Minimum abstol: 0.00000e+00
+# of abstol errors: 0
+Maximum reltol: 0.00000e+00
+Minimum reltol: 0.00000e+00
+# of reltol errors: 0
+# of obiwan errors: 0
+# of skiptol errors: 0
+0001:  1.201 2.306
+       1.201 ThisIsNotANaN
+             ^
+specdiff run completed

@@ -1,0 +1,26 @@
+nabmd aminos 391519156
+
+Reading .pdb file (aminos/aminos.pdb)
+Reading .prm file (aminos/aminos.prm)
+title:
+                                                                                
+      iter    Total
+ff:     0   -919.22
+Initial energy is -919.2191590
+Starting molecular dynamics with Born solvation energy...
+
+      iter    Total
+ff:     0   -919.22
+ff:  1000   -832.24
+
+...Done, md returns 0
+      iter    Total
+ff:     0   -299.42
+Initial energy is -299.4174160
+Starting molecular dynamics with in vaccuo non-bonded energy...
+
+      iter    Total
+ff:     0   -299.42
+ff:  1000   -447.90
+
+...Done, md returns 0

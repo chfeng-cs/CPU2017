@@ -1,0 +1,26 @@
+nabmd gcn4dna 1850041461
+
+Reading .pdb file (gcn4dna/gcn4dna.pdb)
+Reading .prm file (gcn4dna/gcn4dna.prm)
+title:
+                                                                                
+      iter    Total
+ff:     0 -16098.37
+Initial energy is -16098.3726400
+Starting molecular dynamics with Born solvation energy...
+
+      iter    Total
+ff:     0 -16098.37
+ff:   300 -15452.15
+
+...Done, md returns 0
+      iter    Total
+ff:     0  -9147.19
+Initial energy is -9147.1940970
+Starting molecular dynamics with in vaccuo non-bonded energy...
+
+      iter    Total
+ff:     0  -9147.19
+ff:   300  -9799.43
+
+...Done, md returns 0

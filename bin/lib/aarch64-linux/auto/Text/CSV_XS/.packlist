@@ -1,0 +1,3 @@
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/aarch64-linux/Text/CSV_XS.pm relocate_as=../../../Text/CSV_XS.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/aarch64-linux/auto/Text/CSV_XS/CSV_XS.so relocate_as=CSV_XS.so
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/Text::CSV_XS.3 relocate_as=../../../../../../../../man/man3/Text::CSV_XS.3

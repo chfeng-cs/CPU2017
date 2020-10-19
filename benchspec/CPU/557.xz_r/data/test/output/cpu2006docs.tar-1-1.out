@@ -1,0 +1,14 @@
+SPEC CPU XZ driver: input=cpu2006docs.tar.xz insize=1
+Loading Input Data
+Compressed size: 1287176; Uncompressed size: 9041920
+SHA-512 of decompressed data compared successfully!
+Decompressed data too large; truncating to requested size 1048576
+SHA-512 of input file: 08f45ee14f1e624ef4ac5accaf791cabc25834995f66954ffb6e6f0a92755070560f0ae276ff1517ce513dfffeda8eb455c3ed54121f0b22d85d0aba954bb202
+Input data 1048576 bytes in length
+Compressing Input Data, level 1
+Compressed data length is 639996 bytes in length
+Finished compressing data
+Uncompressing previously compressed data
+Uncompressed data 1048576 bytes in length
+Uncompressed data compared correctly
+Tested 1 MiB buffer: OK!

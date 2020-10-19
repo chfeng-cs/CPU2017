@@ -1,0 +1,102 @@
+#!/bin/bash
+
+# Build SPEC CPU tools for MacOS X
+
+if [ -z "$SPEC" ]; then
+  if pwd | grep tools/src; then
+    SPEC=$(dirname $(dirname $(pwd)))
+  elif [ -f bin/runcpu -a -f MANIFEST -a -d tools/src ]; then
+    SPEC=$(pwd)
+  else
+    echo SPEC is not set, and I do not know what to set it to
+    exit 1
+  fi
+fi
+
+if [ "x$1" != "xdoit" ]; then
+  # Log the session
+  arch=$(uname -p | sed 's/i386/x86/')
+  suitever=$(cat $SPEC/version.txt)
+  echo Starting build of macosx-${arch} tools for kit $suitever
+  echo
+  echo Build log is in $SPEC/macosx-${arch}-${suitever}.buildlog.txt
+  echo
+  echo Tail the log manually if you want to watch the progress.
+  exec $0 doit $* >$SPEC/macosx-${arch}-${suitever}.buildlog.txt 2>&1
+else
+  shift
+fi
+
+export PATH=/usr/bin:/bin
+export CC=cc
+export CXX=CC
+
+# Target 10.6 as lowest common denominator
+export MACOSX_DEPLOYMENT_TARGET=10.6
+
+echo PATH is $PATH
+echo
+echo I am
+id
+echo
+echo My location is `pwd`
+echo
+echo This system is
+uname -a
+echo
+echo Running
+echo "$(sw_vers -productName) $(sw_vers -productVersion) (build $(sw_vers -buildVersion))"
+echo
+echo Requested deployment target is $MACOSX_DEPLOYMENT_TARGET
+echo
+echo The C compiler I will use today is
+$CC -v 2>&1
+echo
+echo The C++ compiler I will use today is
+$CXX -v 2>&1
+echo
+
+export SKIPTOOLSINTRO="yes, please"
+export CFLAGS=-m64
+export LDFLAGS=-m64
+export CPPFLAGS="-no-cpp-precomp -D_DARWIN_C_SOURCE"
+export SUMCFLAGS="-O3"
+export XZFLAGS='--disable-assembler'
+
+export PERLFLAGS='-Doptimize=-O3 -Aoptimize=-g'
+
+cd tools/src
+time ./buildtools
+if [ $? -ne 0 ]; then
+  echo
+  echo Build failed
+  echo
+else
+  echo
+  echo Small proof of success:
+  echo
+  cd ../..
+  . ./shrc
+  specperl -V
+  echo
+  touch TOOLS.sha512
+  specperl $SPEC/bin/runcpu -V
+  echo
+  specperl $SPEC/bin/runcpu --test
+  if [ $? -eq 0 ]; then
+    echo
+    echo runcpu tests passed
+    echo
+    echo Here is a copy of this script:
+    echo =======================================================================
+    cat $0
+    echo =======================================================================
+    echo
+  else
+    echo
+    echo runcpu tests failed
+    echo
+  fi
+  echo
+  echo $(basename $0) run finished on $(date)
+fi

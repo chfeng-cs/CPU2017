@@ -1,0 +1,111 @@
+Only in Mail: .svn
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Address.pm
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Address.pod
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Cap.pm
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Cap.pod
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Field
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Field.pm
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Field.pod
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Filter.pm
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Filter.pod
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Header.pod
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Internet.pm
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Internet.pod
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Mailer
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Mailer.pm
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Mailer.pod
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Send.pm
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Send.pod
+Only in Mail: SpamAssassin
+Only in Mail: SpamAssassin.pm
+diff -ur /Users/cloyce/work/t/MailTools-2.04/lib/Mail/Util.pm Mail/Util.pm
+--- /Users/cloyce/work/t/MailTools-2.04/lib/Mail/Util.pm	2008-07-29 02:44:36.000000000 -0700
++++ Mail/Util.pm	2009-05-08 11:27:48.000000000 -0700
+@@ -11,6 +11,7 @@
+ use base 'Exporter';
+ 
+ our @EXPORT_OK = qw(read_mbox maildomain mailaddress);
++our @EXPORT = qw(read_random_mbox read_random_mbox_msgs);       # SPEC CPU
+ 
+ use Carp;
+ sub Version { our $VERSION }
+@@ -52,7 +53,8 @@
+ 
+ 
+ sub maildomain()
+-{   return $domain
++{   return 'localhost';         # SPEC CPU
++    return $domain
+ 	if defined $domain;
+ 
+     $domain = $ENV{MAILDOMAIN}
+@@ -121,7 +123,8 @@
+ 
+ 
+ sub mailaddress()
+-{  return $mailaddress
++{ return 'spec_cpu@localhost';  # SPEC CPU
++  return $mailaddress
+        if defined $mailaddress;
+ 
+     # Get user name from environment
+@@ -146,4 +149,58 @@
+     $mailaddress;
+ }
+ 
++# SPEC CPU -- begin
++sub read_random_mbox;
++# This wasn't part of the original Mail::Util, but this seemed like a nice
++# place to put it.
++sub read_random_mbox_msgs;    
++
++sub read_random_mbox {
++ my @mail  = ();
++ my $mail  = [];
++ my $blank = 1;
++
++ local $_;
++
++ while(defined($_ = &::get_msg_line)) {
++  if($blank && /\AFrom .*\d{4}/) {
++   push(@mail, $mail) if scalar(@{$mail});
++   $mail = [ $_ ];
++   $blank = 0;
++  }
++  else {
++   $blank = m#\A\Z#o ? 1 : 0;
++   push(@{$mail}, $_);
++  }
++ }
++
++ push(@mail, $mail) if scalar(@{$mail});
++ return wantarray ? @mail : \@mail;
++}
++
++sub read_random_mbox_msgs {
++ my @mail  = ();
++ my $mail  = '';
++ my $blank = 1;
++
++ local $_;
++
++ while(defined($_ = &::get_msg_line)) {
++  if($blank && /\AFrom .*\d{4}/) {
++   push @mail, $mail if ($mail ne '');
++   $mail = $_;
++   $blank = 0;
++  }
++  else {
++   $blank = m#\A\Z#o ? 1 : 0;
++   $mail .= $_;
++  }
++ }
++ 
++ push @mail, $mail if ($mail ne '');
++ return wantarray ? @mail : \@mail;
++}
++
++# SPEC CPU -- end
++  
+ 1;
+Only in /Users/cloyce/work/t/MailTools-2.04/lib/Mail: Util.pod

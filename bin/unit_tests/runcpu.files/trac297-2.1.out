@@ -1,0 +1,9 @@
+    (From config) $default_submit = "$command"
+    (From config) $parallel_test_submit = "0"
+    (From config) $submit_notes_0 = "The config file option 'submit' was used to argl blarf"
+    (From config) $use_submit_for_compare = "0"
+    (From config) $use_submit_for_speed = "0"
+Running Benchmarks
+  Running 500.perlbench_r refrate (ref) base none (1 copy) [timestamp]
+Running Benchmarks
+  Running 600.perlbench_s refspeed (ref) base none [timestamp]

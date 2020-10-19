@@ -1,0 +1,693 @@
+#!$SPEC/bin/specperl
+#
+#  rawformat - a tool for formatting SPEC benchmark raw output files
+#  Copyright 2006-2019 Standard Performance Evaluation Corporation
+#
+#  Authors:  Christopher Chan-Nui
+#            Cloyce D. Spradling
+#
+# $Id: rawformat 6247 2019-05-29 17:45:45Z CloyceS $
+
+BEGIN {
+    # Thanks to relocatable @INC, we can rely on being able to find these
+    # whether or not SPECPERLLIB is set.
+    use File::Basename;
+    use File::Spec::Functions qw(rel2abs);
+
+    my $where;
+    if (exists($ENV{'SPEC'}) and $ENV{'SPEC'} ne '') {
+        $where = $ENV{'SPEC'}.'/bin';
+    } else {
+        # Where is the bin/ directory under which we live?
+        $where = dirname(dirname(rel2abs($0)));
+    }
+    $where =~ tr {\\/}{//}s;
+    $where =~ s#/+$##;
+    unshift @INC, "$where/formatter", "$where/common";
+    require 'formatter_vars.pl';
+
+    # In cases where $SPEC isn't set, formatter_vars.pl will set it.
+    # So at this point if it's still not set, try to figure it out.
+    if (!exists($ENV{'SPEC'}) or ! -d $ENV{'SPEC'}) {
+        # Attempt to figure out $SPEC from %INC
+        my $msg = '';
+        eval 'use strict';
+        if ($@ or !exists($INC{'strict.pm'})) {
+            $msg = "\nThe SPEC environment variable is not set, and could not be automatically set.\n";
+            $msg .= "The attempt to load a module failed:\n$@\n" if $@;
+        }
+
+        else {
+            # Strip off /bin/lib/strict.pm to figure out where $SPEC might be
+            ($ENV{'SPEC'} = $INC{'strict.pm'}) =~ s#[\\/]bin[\\/]lib[\\/]strict.pm$##;
+
+            # Check to make sure that the value looks sane
+            if (!-d $ENV{'SPEC'}
+                    or !-d $ENV{'SPEC'}.'/bin/formatter'
+                    or !-f $ENV{'SPEC'}.'/bin/formatter/rawformat'
+                    or !-d $ENV{'SPEC'}.'/bin/formats') {
+                $msg = "\nThe automatically-determined value for the SPEC environment variable\n".
+                       "(".$ENV{'SPEC'}.")\n".
+                       "does not point to a valid benchmark installation.\n";
+            }
+        }
+        if ($msg ne '') {
+            if ($^O =~ /mswin/i) {
+                $msg .= "Please run shrc.bat before executing $0.\n\n";
+            } else {
+                $msg .= "Please source the shrc or cshrc as appropriate before executing $0.\n\n";
+            }
+            die $msg;
+        }
+
+    }
+
+    # On systems using glibc, arrange for messages that would normally only go
+    # to /dev/tty to be sent to stderr instead.
+    # Users can keep output going to /dev/tty by setting LIBC_FATAL_STDERR_ to
+    # an empty value.
+    $ENV{'LIBC_FATAL_STDERR_'} = 1 unless exists($ENV{'LIBC_FATAL_STDERR_'});
+}
+
+use strict;
+our ($global_config, $runconfig, $version, $suite_version, $speed_multiplier,
+    $rate_multiplier, %file_sums, %file_size, $check_integrity, %tools_versions,
+    $toolset_name, $debug);
+use Time::HiRes;
+use POSIX qw(WNOHANG);
+use Time::localtime;
+use Sys::Hostname;
+if ($^O =~ /MSWin/) {
+    # The POSIX module on Windows lacks definitions for WEXITSTATUS and WTERMSIG
+    eval '
+        sub POSIX::WEXITSTATUS { return ($_[0] & 0x7f00) >> 8 }
+        sub POSIX::WTERMSIG    { return ($_[0] & 0x7f) }
+    ';
+    die "$@" if $@;
+} else {
+    import POSIX qw(:sys_wait_h);
+}
+
+# Note the start time
+$::rawformat_time = time - 1;
+
+if (exists $ENV{'SPECDB_PWD'}) {
+    chdir($ENV{'SPECDB_PWD'});
+} else {
+    $ENV{'SPECDB_PWD'} = $ENV{'PWD'};
+}
+
+shift @ARGV if ($ARGV[0] eq '--');
+
+my $rcs_version = '$Id: rawformat 6247 2019-05-29 17:45:45Z CloyceS $'; # '
+
+# Setting this will save time locating benchmarks when formatting results
+if (grep { /^((?i:--rawformat)|-R)$/o } @ARGV) {
+    $::rawformat = 1;
+} else {
+    $::rawformat = 0 unless defined($::rawformat);
+}
+
+# This will keep -w quiet
+{ my $trash = $DB::signal = $DB::single }
+
+
+##############################################################################
+# Load in remainder of program
+##############################################################################
+
+## here is when things get big and ugly sucking up a hunk of memory
+print "Loading rawformat modules" unless ($::quiet || $::from_runcpu);
+for my $module (qw( listfile.pm os.pl log.pl flagutils.pl parse.pl
+    locate.pl benchmark.pm benchset.pm format.pm util.pl
+    config.pl vars.pl mailutil.pl )) {
+    load_module($module, $::quiet || $::from_runcpu);
+}
+print "\n" unless ($::quiet || $::from_runcpu);
+
+# Stop the debugger so that breakpoints, etc can be set
+$DB::single = $DB::signal = 1;
+
+# Initialize Config state, load config file, add command line options
+my $config    = new Spec::Config;
+my $cl_opts   = new Spec::Config;
+
+$global_config = $config;
+
+# Setup defaults and then parse the command line
+initialize_variables($config);
+
+usage(1) unless (parse_commandline($config, $cl_opts));
+
+my $hostname = hostname;
+Log(130, 'rawformat started at ', timeformat('date-time', $::rawformat_time), " on \"$hostname\"\n");
+Log(130, "rawformat is: $0\n");
+Log(130, "rawformat: ".basename($0).' ', join(' ', @{$config->orig_argv}), "\n");
+Log(130, "toolset: $::toolset_name\n\n");
+
+# Now is a good time to find all the benchmarks and formats and flags
+Log(0, "Locating benchmarks...") unless ($::quiet || $::from_runcpu);
+
+# ...but first, do the mandatory flags setup
+my $mandatory_flags = '';
+if (defined $::website_formatter && $::website_formatter) {
+    $mandatory_flags = jp($::flag_base, $::lcsuite.'.flags.xml');
+} else {
+    $mandatory_flags = jp($ENV{'SPEC'}, 'benchspec', 'flags-mandatory.xml');
+}
+if (!-e $mandatory_flags) {
+    Log(0, "\nERROR: The mandatory flags file ($mandatory_flags) is not present.\n");
+    do_exit(1);
+}
+(undef, $global_config->{'flaginfo'}->{'suite'}) =
+    get_flags_file($mandatory_flags, 'suite');
+if (!defined($global_config->{'flaginfo'}->{'suite'})) {
+    Log(0, "\nERROR: The mandatory flags file ($mandatory_flags) could not be parsed.\n");
+    do_exit(1);
+}
+
+# Okay, now generate the benchmark objects
+locate_benchmarks($config);
+if (!$::quiet && !$::from_runcpu) {
+    my ($numbm, $numbs, $numsa) = (
+        ((keys %{$config->{'benchmarks'}})+0),
+        ((keys %{$config->{'benchsets'}})+0),
+        0
+    );
+    foreach my $bm (keys %{$config->{'benchmarks'}}) {
+        $numsa += (keys %{$config->{'benchmarks'}->{$bm}->{'srcalts'}})+0;
+    }
+    Log(2, "found $numbm benchmarks ");
+    Log(2, "and $numsa src.alt".(($numsa != 1) ? 's ' : ' ')) if $numsa;
+    Log(2, "in $numbs benchset".(($numbs != 1) ? 's' : '').".\n");
+    Log(2, "Locating output formats: ");
+}
+
+# Look for output formats
+locate_formats   ($config, $::quiet || $::from_runcpu);
+
+# Prep the OS
+initialize_os($config);
+
+# Fix up tools versions if the current running copy is a git (or git-svn) clone.
+# This would be better done as a git hook, once we go native git.
+%::tools_versions = fixup_tools_versions(%::tools_versions);
+
+# Do this here because command-line options override config file settings
+finalize_config($config, $cl_opts);
+
+# Turn on subcheck automatically, unless we were invoked from runcpu
+if (!$::from_runcpu) {
+    $config->{'output_format'} = "subcheck,".$config->{'output_format'};
+}
+
+# If a suite update has been requested, do it now.
+if ($config->update) {
+    my $rc = update_suite($config, $global_config->http_timeout,
+                          $global_config->http_proxy);
+    if ($rc) {
+        Log(0, "\nSuite update successful!\n") if $rc == 1;
+        do_exit(0);
+    } else {
+        Log(0, "\nSuite update failed.\n");
+        do_exit(1);
+    }
+}
+
+my $choices_ok = resolve_choices ($config, $cl_opts);
+
+print Data::Dumper->Dump([$config], qw(*config)),"\n" if ($debug > 20000);
+
+if (@{$config->runlist}+0 == 0) {
+    Log(0, "No RAW (*.rsf) files to format!\n");
+    do_exit(1);
+}
+if (@{$config->{'formatlist'}}+0 == 0) {
+    Log(0, "No output formats selected!\n");
+    do_exit(1);
+}
+my @files = @{$config->runlist}; # config goes away in a little while
+
+# Because of circular references in the result object, rawformat leaks
+# memory like a sieve.  It's only really a problem when formatting lots
+# of results.  So we'll fork off copies to do the formatting in batches of
+# $rawformat_work_batch raw files.
+my $rawformat_work_batch = 30;
+
+while(@files) {
+    my @work_files = splice(@files, 0, $rawformat_work_batch);
+    my $pid;
+    if (@work_files < $rawformat_work_batch) {
+        $pid = undef; # Less than $rawformat_work_batch files; no need to fork
+    } else {
+        $pid = fork();
+    }
+    if ($pid) {
+        my $kidpid = wait;
+    } else {
+        foreach my $file (@work_files) {
+            if (!-e $file) {
+                Log(0, "Raw file $file does not exist!\n");
+                next;
+            }
+            if (-s $file < 1024) {
+                Log(0, "Raw file $file is unbelievably small!\n");
+                next;
+            }
+            # The danger of not resetting the config struct is that old data
+            # may be reused.
+
+            # Initialize Config state, load config file, and add
+            # command line options
+            $config    = copy_config($global_config, { });
+            %::sec_to_repl = ();
+            %::repl_to_sec = ();
+            %::url_to_file = ();
+            %::seen_flags_filenames = ();
+            %::seen_flags_files     = ();
+
+            # Parse the raw file into the right stuff
+            if (!$::from_runcpu) {
+                if ($::quiet) {
+                    Log(0, "Formatting $file: ");
+                } else {
+                    Log(0, "Formatting $file\n");
+                }
+            }
+            my $fh = new IO::File "<$file";
+            if (!defined($fh)) {
+                Log(0, "Couldn't open $file for reading: $!\n");
+                next;
+            }
+
+            my $benchsetobj = parse_raw($fh, $config, $file);
+            $fh->close();
+            next unless (defined($benchsetobj));
+
+            # Parse the flags for the benchmarks in the result if any human-
+            # readable outputs will be generated.
+            if (@{$config->{'formatlist'}} > 1
+                    or $config->{'formatlist'}->[0] ne get_format($config->formats, 'raw')) {
+                for my $bench (sort keys %{$benchsetobj->{'compile_options'}}) {
+                    next if (::ref_type($benchsetobj->{'compile_options'}->{$bench}) ne 'HASH');
+                    for my $tune (sort keys %{$benchsetobj->{'results'}->{$bench}}) {
+                        my $opttext = $benchsetobj->{'compile_options'}->{$bench}->{$tune};
+                        # Skip ones without compile options
+                        next if (!defined($opttext) || $opttext eq '');
+                        Log(0, "Parsing flags for $bench $tune: ");
+                        my $parsestart = Time::HiRes::time;
+                        # Look for options in benchmark flags, system flags, and
+                        # user-specified flags (in that order).
+                        $benchsetobj->{'results'}->{$bench}->{$tune}->{'flags'} = flags_list($benchsetobj, $opttext, $bench, $tune, $bench, 'suite', 'user');
+#print Data::Dumper->Dump([$benchsetobj->{'results'}->{$bench}->{$tune}->{'flags'}], ['FORMATflags'])."\n";
+                        $benchsetobj->{$$.'auto2par'} |= $benchsetobj->{'results'}->{$bench}->{$tune}->{'flags'}->{'parallel'};
+                        if (Log(6)) {
+                            Log(6, sprintf "done in %8.7fs\n", Time::HiRes::time - $parsestart);
+                        } else {
+                            Log(0, "done\n");
+                        }
+                    }
+                }
+                my $parsestart = Time::HiRes::time;
+                Log(0, "Doing flag reduction: ");
+                $benchsetobj->{'reduced_flags'} = reduce_flags($benchsetobj);
+                if (Log(6)) {
+                    Log(6, sprintf "done in %8.7fs\n", Time::HiRes::time - $parsestart);
+                } else {
+                    Log(0, "done\n");
+                }
+            }
+
+            # Presence of forbidden or unknown flags indicates that the
+            # result is not valid!
+            if (search_flags_byclass($benchsetobj, 'forbidden')) {
+                $benchsetobj->{'forbiddenused'} = 1;
+                print STDERR "\n\nForbidden flags were used\n" if $config->failflags;
+            }
+            if (search_flags_byclass($benchsetobj, 'unknown')) {
+                if ($config->failflags) {
+                    print STDERR  "\n\nUnknown flags were used! See\n",
+                    "     $::docs_url_base/runcpu.html#flagsurl\n",
+                    "for information about how to get rid of this error.\n";
+                }
+                $benchsetobj->{'unknownused'} = 1;
+            }
+            if ($config->failflags and ($benchsetobj->{'unknownused'} or $benchsetobj->{'forbiddenused'})) {
+                exit 1;
+            }
+
+            # Note parallelism
+            if ($benchsetobj->{$$.'auto2par'}) {
+                $benchsetobj->{'sw_parallel'} = 'Yes';
+
+            } elsif ($::lcsuite ne 'mpi2007') {
+                # Do not do automatic setting for MPI2007 results that don't
+                # have the new fields or flags files that indicate parallelism
+                $benchsetobj->{'sw_parallel'} = 'No';
+            }
+
+            # Get rid of the old 'sw_auto_parallel' field
+            delete $benchsetobj->{'sw_auto_parallel'};
+
+            if ($benchsetobj->{'sw_parallel'} eq 'Yes' and $::lcsuite eq 'cpu2017' and $benchsetobj->runmode =~ /rate$/) {
+                push @{$benchsetobj->{'errors'}}, 'Parallel flags were used in rate mode';
+            }
+
+            do_report($config, $benchsetobj, $file);
+        }
+        # Only exit if we were forked
+        exit 0 if (@work_files >= $rawformat_work_batch);
+    }
+}
+do_exit(0);
+
+# This is the end of the main routine.
+
+sub do_exit {
+    my ($rc) = @_;
+
+    my $rawformat_end_time = Time::HiRes::time;
+    Log(0, "rawformat finished at ".timeformat('date-time', $rawformat_end_time)."; ".int($rawformat_end_time - $::rawformat_time)." total seconds elapsed\n") unless $::from_runcpu;
+
+    my $top = $global_config->top;
+    if (check_output_root($global_config, $global_config->output_root, 1)) {
+        $top = $global_config->output_root;
+    }
+    my $tmpdir  = get_tmp_directory($global_config, 0);
+
+    # Try a little to remove empty tmp directories.  This is just
+    # to take care of the case when they would otherwise be left empty.
+    chdir $top;
+    foreach my $dir (sort keys %::tmpdirs_seen) {
+        if (-d $dir) {
+            Log(95, "Attempting to remove temporary directory \"$dir\" and its parent if they are empty.\n");
+            eval { rmdir $dir, dirname($dir) };
+        }
+        eval { rmdir dirname($tmpdir) };
+    }
+
+    exit $rc;
+}
+
+sub do_report {
+    my ($config, $result, $file) = @_;
+
+    return unless defined($result);
+
+    $result->{'time'}=$::runcpu_time unless exists $result->{'time'};
+    if (exists($config->{'nc'}) && (::ref_type($config->{'nc'}) eq 'ARRAY') &&
+        @{$config->{'nc'}}+0 > 0) {
+        # New NC text overrides old NC text
+        $result->{'nc'} = $config->{'nc'};
+    } elsif (!exists($result->{'nc'}) || (::ref_type($result->{'nc'}) ne 'ARRAY')) {
+        $result->{'nc'} = [];
+    }
+
+    my $lognum = $result->accessor_nowarn('lognum') || '';
+    my @formats = @{$config->formatlist};
+    if ($result->{'new_flagsurl_used'} && !$::from_runcpu) {
+        my %output_formats = map { $_->{'name'} => 1 } @{$config->formatlist};
+        $output_formats{'raw'} = 1;
+        @formats = sort ::byformat map { ::get_format($config->formats, $_) } keys %output_formats;
+    }
+    delete $result->{'new_flagsurl_used'};
+    my @filelist = ();
+
+    # Always make a new raw file so that it can be incorporated into
+    # the other results.
+    delete $result->{'compraw'};
+    my $fn = get_format_filename($file, $result, $config->formats->{'raw'}, $lognum, 0);
+    my ($rawtext, $rawwritten) = $config->formats->{'raw'}->format($result, $fn);
+
+    for my $format (@formats) {
+        if (!$::quiet) {
+            Log(0, "    format: ".$format->name." -> ");
+        } else {
+            Log(0, $format->name."...");
+        }
+        $fn = get_format_filename($file, $result, $format, $lognum, 1);
+        my ($tmp, $written);
+        if ($format->{'name'} ne 'raw') {
+            ($tmp, $written) = $format->format($result, $fn, [ @filelist, $config->accessor_nowarn('logname') ]);
+        } else {
+            $tmp = $rawtext;
+            $written = $rawwritten;
+        }
+        push @filelist, @{$written} if (::ref_type($written) eq 'ARRAY') and $format->name ne 'mail';
+        if ((::ref_type($tmp) eq 'ARRAY') && (@{$tmp} > 0)) {
+            my $fh = new IO::File (">$fn");
+            if (! defined $fh) {
+                Log(0, "Error opening output file '$fn': $!\n");
+            } elsif (::ref_type($tmp) eq 'ARRAY') {
+                my $tmpoutput = join("\n", @{$tmp})."\n";
+                # The OO syntax doesn't work with the layer specified.
+                binmode $$fh, ':raw' if $format->binary;
+                $fh->print($tmpoutput);
+                $fh->close();
+                if (-s $fn < length($tmpoutput)) {
+                    Log(0, "\nERROR: Short file write for $fn ($format format)\n");
+                } else {
+                    push @filelist, $fn;
+                }
+                Log(0, join(', ', ($fn, @{$written}))) if ((::ref_type($written) eq 'ARRAY') && !$::quiet);
+            } else {
+                Log(0, "\nFormatter didn't give me what I expected!\n(I wanted an ARRAY, and I got a ".ref($tmp).".\n");
+            }
+            Log(0, "\n") unless ($::quiet);
+        } elsif ($format->name eq 'mail' and (::ref_type($written) eq 'ARRAY') and @{$written}) {
+            Log(0, join(', ', @{$written})."\n") unless $::quiet;
+        } elsif ($format->name !~ /^Screen|Check$/) {
+            if ($::quiet) {
+                Log(0, "\n".$format->name." not produced\n");
+            } else {
+                Log(0, "Not produced\n");
+            }
+        }
+    }
+    Log(0, "\n") if ($::quiet);
+}
+
+sub get_format_filename {
+    my ($fname, $result, $format, $lognum, $raw_rename) = @_;
+
+    my $ext = defined($format->extension) ? $format->extension : '';
+
+    # Figure out the basic value for the new name, so we can not rename if it doesn't already exist.
+    my $dest_fname = $fname;
+    $dest_fname =~ s/\.\Q$Spec::Format::raw::extension\E$//o;
+    $dest_fname .= '.'.$ext if ($ext ne '');
+
+    if (defined($::website_formatter) && $::website_formatter && $fname =~ /\.sub$/io) {
+        $fname =~ s/\.sub$//i;
+    } elsif (
+        ($format->name eq 'raw' || $ext eq $Spec::Format::raw::extension)
+        && $fname =~ /\Q${Spec::Format::raw::extension}\E$/
+        && (!defined($::website_formatter) || !$::website_formatter)
+        && -f $dest_fname
+        && $raw_rename) {
+        # Don't remove the raw file we're working from!  (Unless it's on
+        # the website)!
+        my $count = 0;
+        while(-f "${fname}.old.$count") {
+            $count++;
+        }
+        my $rc = rename $fname, "${fname}.old.$count";
+        if (!$::quiet) {
+            print "                       ";
+            if (!$rc) {
+                print "Could not rename previous rawfile\n" if (!$::quiet);
+            } else {
+                print "Renaming previous rawfile to ${fname}.old.$count\n";
+            }
+        }
+        $fname =~ s/\.\Q$Spec::Format::raw::extension\E$//o if $rc;
+    } else {
+        $fname =~ s/\.\Q$Spec::Format::raw::extension\E$//o;
+    }
+    $fname .= '.'.$ext if ($ext ne '');
+    return $fname;
+}
+
+sub initialize_specdirs {
+    my ($config)  = @_;
+    my $top     = $config->top;
+    my $dirmode = $config->dirprot;
+    my $result  = $config->resultdir;
+    my $configdir  = $config->configdir;
+
+    # Make sure some basic directories exist
+    eval { mkpath([jp($top, $result), jp($top, $configdir)], 0, $dirmode) };
+    if ($@) {
+        Log(0, "ERROR: Could not create top-level directories: $@\n");
+        do_exit(1);
+    }
+}
+
+sub usage {
+    my ($rc) = @_;
+    $rc = 0 unless defined($rc);
+
+    my $iswindows = ($^O =~ /win/i);
+    my $sep = ($iswindows) ? ':' : ',';
+
+    print "\nUsage: $0 [options] <rawfile> ...\n";
+
+    print "\nIf a long option shows an argument as mandatory, then it is mandatory\n";
+    print "for the equivalent short option also.  Similarly for optional arguments.\n";
+    print "Optional arguments are enclosed in [].\n";
+    print "When using long arguments, the equals sign ('=') is optional.\n";
+
+    print "\nOption list (alphabetical order):\n";
+
+    print " --basepeak                     Copy base results to peak\n";
+    print " --basepeak=bench[${sep}bench...]    Copy base results to peak for the\n";
+    print "                                 benchmarks specified\n";
+    print " --baseonly                     Discard peak results and report only base\n";
+    print " --nopeak                       Same as '--baseonly'\n";
+
+    print " --nopower                      Discard power data and report only performance\n";
+    print "                                  information\n";
+
+    print " --debug LEVEL                  Same as '--verbose LEVEL'\n";
+
+    print " -F URL                         Same as '--flagsurl URL'\n";
+    print "                                  This option may be specified multiple times.\n";
+
+    print " --flagsurl=URL                 Use the file at URL as a flags\n";
+    print "                                  description file.\n";
+    print "                                  This option may be specified multiple times.\n";
+    print " --graph_auto                   Set the result graph scale so that it is only\n";
+    print "                                 large enough to hold the data.\n";
+    print " --graph_min=N                  Set the minimum on the result graph scale to\n";
+    print "                                 N.  If there is data that is less than this\n";
+    print "                                 value, it will not be plotted.\n";
+    print " --graph_max=N                  Set the maximum on the result graph scale to\n";
+    print "                                 N.  If there is data that is more than this\n";
+    print "                                 value, it will not be plotted.\n";
+    print " -h                             Same as '--help'\n";
+    print " --help                         Print this usage message\n";
+    print " --http_proxy=HOST[:PORT]       Use HOST as a proxy when fetching flags files\n";
+    print "                                 or suite updates.  If unspecified, PORT\n";
+    print "                                 defaults to 80.\n";
+
+    print " --info_wrap_columns=COLUMNS    Cause non-note informational items to be\n";
+    print "                                  wrapped at COLUMNS column\n";
+    print " --infowrap=COLUMNS             Same as '--info_wrap_columns=COLUMNS'\n";
+
+    if (defined($::website_formatter) && $::website_formatter) {
+        print " --na=FILE                      Use contents of FILE for NA marking\n";
+        print " --nc=FILE                      Use contents of FILE for NC marking\n";
+    }
+    print " --notes_wrap_columns=COLUMNS   Set wrap width for notes lines\n";
+    print " --noteswrap=COLUMNS            Same as '--notes_wrap_columns=COLUMNS'\n";
+    print " -o FORMAT[${sep}...]                Same as '--output_format=FORMAT[${sep}...]'\n";
+    print " --output_format=FORMAT[${sep}...]   Set the output format\n";
+    print "                                  FORMAT is one of: all, cfg, check, csv,\n";
+    print "                                  flags, html, mail, pdf, ps, raw, screen, text\n";
+
+    print " --[no]review                   Format results for review\n";
+
+    print " --[no]table                    Do [not] include a detailed table of\n";
+    print "                                  results in the text output.\n";
+    print " --test                         Run the Perl test suite\n";
+
+    print " -v N                           Same as '--verbose=N'\n";
+    print " --verbose=N                    Set verbosity level for messages to N\n";
+    print " -?                             Same as '--help'\n";
+
+    print "\nFor more detailed information about the options, please see\n${main::docs_url_base}/runcpu.html\n";
+
+    exit($rc);
+}
+
+BEGIN {
+    $| = 1;                             # Unbuffer the output
+
+    # Compiled last; executed first
+    require 5.22.1;  # Make sure we have a recent version of perl
+
+    # See if we're being invoked by runcpu.  If so, it'll be quiet time.
+    $::from_runcpu = (grep { /^--from_runcpu$/ } @ARGV)+0;
+
+    require 'setup_common.pl';
+
+    # Load some vars to find out what we're called today
+    load_module('vars_common.pl', 1);
+
+    if (! -f "$ENV{'SPEC'}/bin/harness/runcpu" and
+        ! -f "$ENV{'SPEC'}/bin/formatter/rawformat" ) {
+        print STDERR "\nThe SPEC environment variable is not set correctly!\nPlease source the shrc before invoking rawformat.\n\n";
+        exit 1;
+    }
+
+    $version = '$Id: rawformat 6247 2019-05-29 17:45:45Z CloyceS $ '; # Make emacs happier
+    my $year = 2016;    # Just in case
+    if ($version =~ /^\044Id: \S+ (\d+) (\d+)-\d+-\d+ \d+:\d+:\S+ \S+ \$ $/) {
+        ($version, $year) = ("v$1", $2);
+    } else {
+        # This should never happen unless you're running from a git clone.
+        $year = max($year, (localtime)[5]+1900);
+        if ($version eq "\044Id\044 ") {
+            $version = 'v.unknown';
+            # Assume git is at work here; try harder to get version information
+            my $tmpver = qx{git svn info $0 2>/dev/null};
+            my ($rev) = ($tmpver =~ /^Last changed rev\S*:\s+(\d+)$/mi);
+            if ($rev ne '') {
+                ($year) = ($tmpver =~ /^Last changed date:\s+(\d+)/mi);
+                $year = (localtime)[5] + 1900 if $year eq '';
+                chomp($tmpver = qx{git svn find-rev r$rev 2>/dev/null});
+                if ($tmpver ne '') {
+                    chomp($tmpver = qx/git log -n 1 --format="format:%h %ct" ${tmpver}...HEAD -- $0/);
+                    if ($tmpver eq '') {
+                        $version = 'v'.$rev;
+                    } elsif ($tmpver =~ /^([[:xdigit:]]+) (\d+)$/) {
+                        $year = (localtime($2))[5] + 1900;
+                        $version = 'v'.$rev."(...$1)";
+                    }
+                }
+            }
+        } else {
+            $version = 'v.unknown';
+        }
+    }
+    $tools_versions{'rawformat'} = $1;
+    $toolset_name = read_toolset_name();
+    if (!$::from_runcpu) {
+        print "SPEC CPU(r) 2017 Benchmark Suites\n";
+        print "Copyright 2006-2019 Standard Performance Evaluation Corporation (SPEC)\n";
+        print "\n";
+        print "rawformat $version\n";
+        print "Using '$toolset_name' tools\n";
+    }
+
+    # Check for help options.  There's no reason to load any modules
+    # if they just want to see the usage message...
+    usage if (grep { /^--?(?:help|hel|he|h|\?)$/i } @ARGV);
+
+    if (0
+        # CVT2DEV: || 1
+    ) {
+        print "\n\nWarning: this is a benchmark development tree. Please note that it is not\n";
+        print "possible to format \"reportable\" runs using this copy of SPEC $::suite.\n";
+        print "If you wish to format reportable runs, please reinstall from the original media\n";
+        print "in a new directory.\n\n\n";
+        sleep 1;
+    }
+
+    $debug = 0;
+    # Get an early indication of the verbosity desired
+    if (my @tmp = grep { /^(?:--verbose=?|--debug=?|-v)(\d*)$/ } @ARGV) {
+        ($debug = $tmp[$#tmp]) =~ s/^(?:--verbose=?|--debug=?|-v)(\d*)$/$1/;
+    }
+
+    # Verify the integrity of the tools as early as possible
+    if (!$::website_formatter) {
+        my ($file_size, $file_sums) = read_manifests('TOOLS.sha512', [ qr{ bin/}, 'MANIFEST' ]);
+        %file_size = %{$file_size};
+        %file_sums = %{$file_sums};
+        check_important_files(qr#^\Q$ENV{'SPEC'}\E/bin/s[^/]+$#);
+    }
+}
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab:

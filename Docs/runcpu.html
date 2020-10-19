@@ -1,0 +1,2672 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>runcpu - Using CPU 2017</title>
+<!-- $Id: runcpu.html 6309 2019-07-28 22:01:05Z JohnHenning $ -->
+<!-- You'll want a nice wide screen (132 columns) when editing this ............................................................ -->
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+body { background: white; color: black; }
+a.switchstrike {white-space:nowrap; margin:0em .2em; text-decoration:line-through;}
+span.switchstrike {white-space:nowrap; text-decoration:line-through;}
+
+</style>
+
+</head>
+<body>
+
+   <h1>Using SPEC CPU&reg;2017: the 'runcpu' Command</h1>
+<table class="version">
+   <tr>
+      <th>$Id: runcpu.html 6309 2019-07-28 22:01:05Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+
+
+
+
+<p id="contents" style="margin-top:2em;" class="contentsrl1"><a href="#section1">1. Basics</a></p>
+
+<table class="noborder">
+   <tr>
+      <td>
+         <p class="contentsrl2"><a href="#section1.1"  >1.1 </a> Defaults                    </p>
+         <p class="contentsrl2"><a href="#section1.2"  >1.2 </a> Syntax                           </p>
+         <p class="contentsrl2"><a href="#section1.3"  >1.3</a>&nbsp;Benchmarks&nbsp;and&nbsp;suites</p>
+         <p class="contentsrl2"><a href="#section1.4"  >1.4 </a>Run order</p>
+      </td>
+      <td>
+         <p class="contentsrl2"><a href="#section1.5"   >1.5 </a> Disk Usage</p>
+         <p class="contentsrl3"><a href="#section1.5.1" >1.5.1 </a> Directory tree              </p>
+         <p style="white-space:nowrap;" class="contentsrl3"> <a href="#section1.5.2" >1.5.2 </a><span class="alarm"><b><i>Hey!</i></b></span> Where did all my disk space go?</p>
+         <p class="contentsrl2"><a href="#section1.6"   >1.6</a> Multi-user support and limitations
+         <br /><a class="switch" href="#multiUserExpid">expid</a>&nbsp;(<em>partial</em> solution) 
+         <a class="switch" href="#multiUserOutput_root">output_root</a>&nbsp;(recommended)</p>
+      </td>
+      <td style="padding-left:2.0em;vertical-align:middle;" >
+         <table style="border:thin dotted blue;">
+            <tr>
+               <td style="text-align:right;"><a href="#section1.7"   >1.7</a>&nbsp;Actions:   
+               </td>
+         <td>
+            <a class="switch1" href="#build">         build</a> 
+            <a class="switch" href="#buildsetup">    buildsetup</a> 
+            <a class="switch" href="#report">        report</a> 
+            <a class="switch" href="#run">           run</a>
+            <a class="switch" href="#runsetup">      runsetup</a> 
+            <a class="switch" href="#setup">         setup</a> 
+            <a class="switch" href="#validate">      validate</a>
+         </td>
+            </tr>
+            <tr>
+               <td style="text-align:right;padding-top:.2em;">cleaning:</td>
+               <td style="text-align:left;padding-top:.2em;">
+                  <a class="switch1" href="#clean">        clean</a> 
+                  <a class="switch" href="#clobber">       clobber</a> 
+                  <a class="switch" href="#onlyrun">       onlyrun</a> 
+                  <a class="switch" href="#realclean">     realclean</a> 
+                  <a class="switch" href="#scrub">         scrub</a> 
+                  <a class="switch" href="#trash">         trash</a>
+                  <br /><span style="font-size:small;">(alternative: <a href="#cleanByHand">Clean by hand</a>)</span>
+               </td>
+            </tr>
+         </table>
+      </td>
+   </tr>
+</table>
+
+
+<p id="options" class="contentsrl1"><a href="#section2"   >2.  Commonly used options</a></p>
+<p class="contentsrl2noh">
+          <a href="#action"        class="switch">--action         </a> 
+          <a href="#check_version" class="switch">--check_version  </a> 
+          <a href="#config"        class="switch">--config         </a> 
+          <a href="#copies"        class="switch">--copies         </a> 
+          <a href="#flagsurl"      class="switch">--flagsurl       </a> 
+          <a href="#help"          class="switch">--help           </a> 
+          <a href="#I"             class="switch">--ignore_errors  </a> 
+          <a href="#iter"          class="switch">--iterations     </a> 
+          <a href="#loose"         class="switch">--loose          </a> 
+          <a href="#out"           class="switch">--output_format  </a> 
+          <a href="#rawformat"     class="switch">--rawformat      </a> 
+          <a href="#rebuild"       class="switch">--rebuild        </a> 
+          <a href="#strict"        class="switch">--reportable     </a> 
+          <a href="#threads"       class="switchsnugr">--threads</a><span class="new" style="margin-right:1em;" >New</span>
+          <a href="#tune"          class="switch">--tune           </a> 
+</p>
+<p class="contentsrl1"><a href="#section3">3. Less common options</a>      </p>
+<p class="contentsrl2noh">
+          <a href="#baseonly"        class="switch">--baseonly         </a> 
+          <a href="#basepeak"        class="switch">--basepeak         </a> 
+          <a href="#nobuild"         class="switch">--nobuild          </a> 
+          <a href="#comment"         class="switch">--comment          </a> 
+          <a href="#define"          class="switch">--define           </a> 
+          <a href="#delay"           class="switch">--delay            </a> 
+          <a href="#deletework"      class="switch">--deletework       </a> 
+          <a href="#expid"           class="switch">--expid            </a>
+          <a href="#fake"            class="switch">--fake             </a> 
+          <a href="#fakereport"      class="switch">--fakereport       </a> 
+          <a href="#fakereportable"  class="switch">--fakereportable   </a> 
+          <a href="#feedback"        class="switch">--[no]feedback     </a> 
+          <a href="#graphauto"       class="switch">--[no]graph_auto   </a> 
+          <a href="#graphmax"        class="switch">--graph_max        </a> 
+          <a href="#graphmin"        class="switch">--graph_min        </a> 
+          <a href="#http_proxy"      class="switch">--http_proxy       </a> 
+          <a href="#http_timeout"    class="switch">--http_timeout     </a> 
+          <a href="#infowrap"        class="switch">--info_wrap_column </a> 
+          <a href="#keeptmp"         class="switch">--keeptmp          </a> 
+          <a href="#label"           class="switchsnugr">--label</a><span class="new" style="margin-right:1em;" >New</span>
+          <a href="#log_timestamp"   class="switch">--log_timestamp    </a> 
+          <a href="#noclobber"       class="switch">--make_no_clobber  </a> 
+          <a href="#noteswrap"       class="switch">--notes_wrap_column</a> 
+          <a href="#output_root"     class="switch">--output_root      </a>
+          <a href="#parallel_test"   class="switch">--parallel_test    </a> 
+          <a href="#parallel_test_workloads" class="switchsnugr">--parallel_test_workloads</a><span class="new" style="margin-right:1em;" >New</span>
+          <a href="#power"           class="switchsnugr">--[no]power</a><span class="new" style="margin-right:1em;" >New</span>
+          <a href="#preenv"          class="switch">--preenv           </a> 
+          <a href="#reportonly"      class="switch">--reportonly       </a> 
+          <a href="#review"          class="switch">--review           </a> 
+          <a href="#setpg"           class="switch">--[no]setprocgroup </a> 
+          <a href="#size"            class="switch">--size             </a> 
+          <a href="#table"           class="switch">--[no]table        </a> 
+          <a href="#test"            class="switch">--test             </a> 
+          <a href="#undef"           class="switch">--undef            </a> 
+          <a href="#update"          class="switch">--update           </a> 
+          <a href="#use_submit_for_compare" class="switch">--use_submit_for_compare</a>
+          <a href="#use_submit_for_speed" class="switch">--use_submit_for_speed</a>
+          <a href="#username"        class="switch">--username         </a> 
+          <a href="#verbose"         class="switch">--verbose          </a> 
+          <a href="#version"         class="switch">--version          </a> 
+</p>
+
+
+<p class="contentsrl1"><a href="#section4" >4 Removed/unsupported options </a>             </p>
+<table class="noborder">
+   <tr>
+      <td>
+         <p class="contentsrl2"><a href="#section4.1"  >4.1</a> No longer needed: 
+         <a href="#rate"                   class="switchstrike">--rate     </a>
+         <a href="#speed" class="switchstrike">--speed</a>
+         <a href="#parallel_setup"   class="switchstrike">--parallel_setup  </a></p>
+         <p class="contentsrl2"><a href="#section4.2"  >4.2</a> Feature removed:
+          <a href="#machine"                class="switchstrike">--machine          </a>
+          <a href="#maxcompares"          class="switchstrike">--maxcompares      </a></p>
+      </td>
+      <td style="padding-left:2em;">
+         <p class="contentsrl2"><a href="#section4.3"  >4.3</a> Unsupported:
+          <a href="#makebundle"      class="switch1">--make_bundle      </a> 
+          <a href="#unpackbundle"    class="switch1">--unpack_bundle    </a> 
+          <a href="#usebundle"       class="switch1">--use_bundle       </a> 
+          </p>
+      </td>
+   </tr>
+</table>
+
+
+
+<p class="contentsrl1"><a href="#section5" >5 Quick reference </a>             </p>
+
+
+<!-- ....................................................................................................................... -->
+<h2 id="section1">1. Basics</h2>
+
+
+<p class="hanging1"><b>What is runcpu?</b> &nbsp; <kbd>runcpu</kbd> is the primary tool for SPEC CPU&reg;2017, a product of
+the SPEC&reg; non-profit corporation <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  You use it from a
+Unix shell or the Microsoft Windows command line to build and run benchmarks, with commands such as these:</p>
+
+<pre id="firstExample" class="l2snugish">runcpu --config=eniac.cfg    --action=build 519.lbm_r
+runcpu --config=colossus.cfg --threads=16   628.pop2_s
+runcpu --config=z3.cfg       --copies=64    fprate </pre>
+
+<p class="l1">The first command compiles the benchmark named <a class="external"
+   href="benchmarks/519.lbm_r.html">519.lbm_r</a>.  The second runs the OpenMP benchmark <a class="external"
+   href="benchmarks/628.pop2_s.html">628.pop2_s</a>  using 16 threads.  The third runs 64 copies of all the SPECrate Floating Point
+benchmarks. </p>
+
+<p class="l1"><span class="new">New with CPU 2017: </span> 
+            The former <kbd>runspec</kbd> utility is renamed <kbd>runcpu</kbd> in SPEC CPU 2017.
+              &nbsp;&nbsp;[<a class="external" href="runspec.html">Why?</a>]</p>
+
+<p class="hanging1snugbot"><b>Before reading this document:</b> If you have not already done so, please install and test your SPEC
+CPU 2017 distribution (ISO image).  This document assumes that you have already:</p>
+<ul class="l1snug">
+   <li>installed SPEC CPU 2017</li>
+   <li>found a config file</li>
+   <li>done basic edits (e.g. path)</li>
+   <li>used one of the several <kbd>shrc</kbd> files to set your path.</li>
+</ul>
+<p class="l1snugish">If you have not done the above, please see the brief instructions in the <a href="quick-start.html"
+   class="external">Quick Start</a> guide, or the more detailed section "Testing Your Installation"&nbsp;<a class="external"
+   href="install-guide-unix.html#test">Unix</a>,&nbsp;<a class="external" href="install-guide-windows.html#test">Windows</a>.
+</p> 
+
+<!-- ...............................................................................................................................  -->
+
+<h3 id="section1.1">1.1 Defaults</h3>
+
+<p>The SPEC CPU default settings described in this document <em>may be adjusted</em> by config files.</p>
+
+<p id="precedence-runcpu-vs-config" class="l2snugbot">The order of precedence for settings is:</p>
+
+<table class="l2snugish" border="0"> 
+<tr><td style="padding-right:.3em">
+         Highest precedence:</td>  <td><kbd>runcpu</kbd> command</td></tr>
+<tr><td> Middle:</td>              <td>config file</td></tr>
+<tr><td> Lowest:</td>              <td>the tools as shipped by SPEC</td></tr>
+</table>
+
+<p >Therefore, when this document tells you that something is the default, bear in mind that your config
+file may have changed that setting.  With luck, the author of the config file will tell you so.</p>
+
+<!-- ....................................................................................................................... -->
+<h3 id="section1.2">1.2 Syntax </h3>
+
+<p class="l1">The syntax for the <kbd>runcpu</kbd> command is:</p>
+
+<pre class="l2">runcpu [options] [list of benchmarks to run]
+</pre>
+
+<p class="l1">Options are described in the following sections.  There, you will notice that many options have both long
+and short names.  The long names are invoked using two dashes, and the short names use only a single dash.  For long names
+that take a parameter, you can optionally use an equals sign.  Long names can also be abbreviated, provided that you still
+enter enough letters for uniqueness.  For example, the following commands all do the same thing: </p>
+
+<pre class="l2"><b>runcpu --config=dianne_july25a --debug=99 fprate 
+runcpu --config dianne_july25a --debug 99 fprate 
+runcpu --conf dianne_july25a   --deb 99   fprate 
+runcpu -c dianne_july25a       -v 99      fprate 
+</b></pre>
+
+
+<!-- ....................................................................................................................... -->
+<h3 id="section1.3">1.3 Benchmarks and Suites
+
+   <span id="Benchmarks"> </span>
+   <span id="benchmarks"> </span>
+
+   <span id="Benchmark"> </span>
+   <span id="benchmark"> </span>
+
+   <span id="Suite"> </span>
+   <span id="suite"> </span>
+
+   <span id="Suites"> </span>
+   <span id="suites"> </span>
+
+   <span id="Runlist"> </span>
+   <span id="runlist"> </span>
+
+</h3>
+
+<p class="snugbot" >In the list of benchmarks to run, you can use
+one or more individual benchmarks, such as <samp class="nbsnugr">500.perlbench_r</samp>, or you 
+can run entire suites, using one of the Short Tags below.</p>
+
+<div class="l1"> 
+
+         <!-- ReUsable: benchmarks, tags, and suites -->
+         <table class="snugtop">
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;"><b>Short<br />Tag</b></td>
+               <td style="vertical-align:middle;"><b>Suite</b></td>
+               <td style="vertical-align:middle;"><b>Contents</b></td>
+               <td style="vertical-align:middle;"><b>Metrics</b></td>
+               <td style="font-size:85%;"><b>How many copies?<br />What do Higher Scores Mean?</b></td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">intspeed</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#intspeed">SPECspeed&reg;2017 Integer</a> </td>
+               <td style="vertical-align:middle;">10 integer benchmarks</td>
+               <td style="font-family:monospace;">SPECspeed2017_int_base<br />SPECspeed2017_int_peak</td>
+               <td style="font-size:85%;vertical-align:middle;" rowspan="2">SPECspeed suites always run one copy of each benchmark.
+                  <br />Higher scores indicate that less time is needed.
+               </td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">fpspeed</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#fpspeed">SPECspeed&reg;2017 Floating Point</a> </td>
+               <td style="vertical-align:middle;">10 floating point benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECspeed2017_fp_base<br />SPECspeed2017_fp_peak</td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">intrate</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#intrate">SPECrate&reg;2017 Integer</a> </td>
+               <td style="vertical-align:middle;">10 integer benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECrate2017_int_base<br />SPECrate2017_int_peak</td>
+               <td style="font-size:85%;vertical-align:middle;" rowspan="2">SPECrate suites run multiple concurrent copies of
+                  each benchmark.  
+                  <br />The tester selects how many.
+                  <br />Higher scores indicate more <var>throughput</var> (work per unit of time). </td>
+            </tr>
+            <tr>
+               <td style="vertical-align:middle;font-family:monospace;vertical-align:middle;">fprate</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#fprate">SPECrate&reg;2017 Floating Point</a> </td>
+               <td style="vertical-align:middle;">13 floating point benchmarks</td>
+               <td style="font-family:monospace;">SPECrate2017_fp_base<br />SPECrate2017_fp_peak</td>
+            </tr>
+            <tr>
+               <td colspan="5" style="padding-top:3px;font-size:80%;">
+                  The "Short Tag" is the canonical abbreviation for use with <samp class="snugr">runcpu</samp>, where context
+                  is defined by the tools.  In a published document, context may not be clear.
+                  <br /> 
+                  To avoid ambiguity in published documents, the Suite Name or the Metrics should be spelled as
+                  shown above.
+               </td>
+            </tr>
+         </table>
+         <!-- end of ReUsable benchmarks, tags, and suites -->
+
+</div>
+
+
+<p class="hanging1snugbot"><b>Supersets:</b> There are several supersets which run more than one of the above.</p>
+<ul class="snugtop">
+   <li><b>specspeed</b> - both intspeed and fpspeed</li>
+   <li><b>specrate</b> - both intrate and fprate</li>
+   <li><b>all</b> - all four.</li>
+</ul>
+            <p class="hanging1snugbot"><b>Synonyms -</b> 
+            Suite selection  is done with the short tags: &nbsp;&nbsp; <samp>intrate fprate intspeed fpspeed</samp>
+            <br />You can also use full metric names.  You can say:&nbsp;&nbsp; <samp class="nb">runcpu SPECspeed2017_int_base</samp>
+            <br />Some alternates (such as <samp>int_rate</samp> or <samp class="snugr">CPU 2017</samp>) may provoke
+            <samp>runcpu</samp> to say that it is trying to DWIM (<a class="external"
+               href="https://en.wikipedia.org/wiki/DWIM">wikipedia</a>) but these are not recommended.  </p>
+       
+
+
+<p class="hanging1"><b>Benchmark names:</b> Individual benchmarks can be named, numbered, or both.  
+<br />Separate them with a space.  
+<br />Names can be abbreviated, as long as you enter enough characters for uniqueness. 
+<br />Each of the following commands does the same thing:</p>
+
+<pre class="l2snugish"><b>runcpu -c jason_july09d --noreportable 503.bwaves_r 510.parest 603.bwaves_s
+runcpu -c jason_july09d --noreportable 503 510 603
+runcpu -c jason_july09d --noreportable parest bwaves_r bwaves_s
+runcpu -c jason_july09d --noreportable pare bwaves_r bwaves_s</b></pre>
+
+<p class="hanging1"><b>To exclude a benchmark:</b> Use a hat (<kbd class="snuglr"><b>^</b></kbd>, also known as carat, typically found as
+shift-6).  Note that if hat has significance to your shell, you may need to protect it from interpretation by the shell, for
+example by putting it in single quotes.  On Windows, you will need to use both a hat and double quotes for each benchmark you
+want to exclude.</p>
+
+<pre class="l2">bash-n.n.n$ <b>runcpu --noreportable -c kathy_sep14c fprate ^503 ^pare </b>
+pickyShell% <b>runcpu --noreportable -c kathy_sep14c fprate '^503' '^pare' </b>
+E:\cpu2017&gt; <b>runcpu --noreportable -c kathy_sep14c fprate "^503" "^pare"</b></pre>
+
+<p class="hanging1"><b>Turning off reportable:</b> If your config file sets <kbd class="nb">reportable=yes</kbd> then you
+cannot run a subset unless you turn that option off.</p>
+
+<pre class="l2">[/usr/cathy/cpu2017]$ <b>runcpu --config cathy_apr21b --noreportable fprate ^parest </b>
+</pre>
+
+
+
+
+
+<!-- ....................................................................................................................... -->
+<h3 id="section1.4">1.4 Run order 
+
+   <span id="RunOrder"> </span>
+   <span id="run-order"> </span>
+   <span id="run.order"> </span>
+   <span id="runOrder"> </span>
+   <span id="run_order"> </span>
+   <span id="runorder"> </span>
+</h3>
+
+<p class="snugbot">A <a href="#reportable">reportable</a> run does these steps:</p>
+<ol class="snugish">
+   <li><p><b>Test:</b> Set up all of the benchmarks using the <var>test</var> workload.  Run them.  Verify that they get
+      correct answers.  The test workloads are run merely as an additional verification of correct operation of the generated
+      executables; their times are not reported and do not contribute to overall metrics.  Therefore multiple benchmarks can
+      be run simultaneously, as in the example below where the tester has set <a href="#parallel_test">--parallel_test</a> to
+      allow up to 20 simultaneous tests.</p></li>
+   <li><p><b>Train:</b> Do the same steps for the <var>train</var> workload, for the same reasons, with the same
+      verification, non-reporting, and parallelism.</p></li>
+   <li><p class="snugish"><b>Ref:</b> Run the <var>refrate</var> (5xx benchmarks) or the <var>refspeed</var> (6xx) workload</p>
+   <ul class="l1snugish">
+      <li>Set up the directories for all benchmarks.  If both <var>base</var> and <var>peak</var> tuning are requested, set up
+      both.</li>
+      <li>Run one benchmark at a time, in order by benchmark number within the requested set, verifying that each gets the
+         correct answer, and recording times.  </li> 
+      <li>Repeat.&nbsp;(*)</li>
+      <li>If <a href="#iterations">--iterations</a>=3, repeat once more.&nbsp;(*)</li>
+      <li>If both base and peak <a href="#tune">--tuning</a> are requested, all of base is completed before starting peak.</li>
+   </ul>
+   <p class="l1">If running <kbd class="snugr">refspeed</kbd>, multiple <a href="#threads">--threads</a> are optionally allowed.
+   <br />If running <kbd class="snugr">refrate</kbd> multiple <a href="#copies">--copies</a> are optionally allowed, as in
+      the example below which uses 256 copies in base.  
+      <br />(*) For reportable runs, <a href="#iterations">--iterations</a> must be 2 or 3.  </p></li>
+   <li><p class="snugish"><b>Report:</b></p>
+   <ul>
+      <li>During the reporting phase, if three runs were used, the median
+      run time is selected from each benchmark.  If two runs are used, then the slower of the two runs is selected.</li>
+      <li>Use the selected runs to compute ratios and overall <a href="runrules.html#metrics" class="external">metrics</a>. </li>
+      <li>Write reports as requested in the <a href="#output_format">--output_format</a> switch.</li>
+   </ul></li>
+</ol>
+
+<p><b>Summarizing reportable run order:</b> The order can be summarized as:</p>
+
+<pre class="l2snugish">          setup for test
+          test (*)
+          setup for train
+          train (*)
+          setup for ref
+          ref1, ref2 [, ref3] (**)
+
+  (*) Multiple benchmarks may overlap if <a href="#parallel_test">--parallel_test</a> &gt; 1
+ (**) One benchmark at a time.  Third run only if <a href="#iterations">--iterations</a>=3.
+</pre>
+
+<p><b> Reportable order when more than one tuning is present:</b>
+If you run both base and peak tuning, base is always run first. </p>
+
+<pre class="l2snugish">          setup for test
+          test base and peak (*)
+          setup for train
+          train base and peak (*)
+          setup for ref
+          base ref1, base ref2 [, base ref3] (**)
+          peak ref1, peak ref2 [, peak ref3] (**)
+
+ (*)  Multiple benchmarks may overlap if <a href="#parallel_test">--parallel_test</a> &gt; 1
+      Peak and base may also overlap.
+ (**) One benchmark at a time.  Third run only if <a href="#iterations">--iterations</a>=3.
+</pre>
+
+<p><b> Reportable order when more than one suite is present:</b>
+   <span id="RunOrderAll"> </span>
+   <span id="run-order-all"> </span>
+   <span id="run.order.all"> </span>
+   <span id="runOrderAll"> </span>
+   <span id="run_order_all"> </span>
+   <span id="runorderall"> </span>
+
+If you start a reportable using more than one suite, all the work is done for one suite before proceeding to the next. </p> 
+
+<p class="l1snugbot">For example <kbd class="nb">runcpu --iterations=3 --reportable intspeed fprate</kbd> would cause:</p>
+
+<pre class="l2snugish">          intspeed setup test
+          intspeed test     
+          intspeed setup train    
+          intspeed train    
+          intspeed setup refspeed 
+          intspeed refspeed #1
+          intspeed refspeed #2
+          intspeed refspeed #3
+          fprate   setup test     
+          fprate   test     
+          fprate   setup train    
+          fprate   train    
+          fprate   setup refrate  
+          fprate   refrate #1
+          fprate   refrate #2
+          fprate   refrate #3
+</pre>
+
+<p><span class="new">(This is a change with CPU 2017; the prior suite would run <kbd class="snugr">int test, fp test, int train, fp train, int ref, fp ref.</kbd>)</span></p>
+
+<p>If you request more than one suite (for example, by using <kbd class="snugr">all</kbd>) then a table is printed to show you the run
+order:</p>
+   <pre>
+ Action    Run Mode   Workload      Report Type      Benchmarks
+--------   --------   --------   -----------------   --------------------------
+validate   rate       refrate    SPECrate2017_fp     fprate                    
+validate   speed      refspeed   SPECspeed2017_fp    fpspeed                   
+validate   rate       refrate    SPECrate2017_int    intrate                   
+validate   speed      refspeed   SPECspeed2017_int   intspeed   
+   </pre>
+
+<p><b>Reportable example:</b>  A log from a 
+<a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00035.pdf">published</a> 
+reportable run is excerpted below.  The Unix <kbd>grep</kbd> command picks out lines that match one of the quoted strings;
+Microsoft Windows users could try <kbd>findstr</kbd> instead.  
+</p>
+
+<pre id="run35" class="l1snugish">$ <b>grep -e 'Running B' -e 'Starting' -e '#' CPU2017.052.log</b>     
+Running Benchmarks (up to 20 concurrent processes)
+  Starting runcpu for 500.perlbench_r test base oct12a-rate
+  Starting runcpu for 502.gcc_r       test base oct12a-rate
+  Starting runcpu for 505.mcf_r       test base oct12a-rate
+  Starting runcpu for 520.omnetpp_r   test base oct12a-rate
+  Starting runcpu for 523.xalancbmk_r test base oct12a-rate
+  Starting runcpu for 525.x264_r      test base oct12a-rate
+  Starting runcpu for 531.deepsjeng_r test base oct12a-rate
+  Starting runcpu for 541.leela_r     test base oct12a-rate
+  Starting runcpu for 548.exchange2_r test base oct12a-rate
+  Starting runcpu for 557.xz_r        test base oct12a-rate
+  Starting runcpu for 999.specrand_ir test base oct12a-rate
+  Starting runcpu for 500.perlbench_r test peak oct12a-rate
+  Starting runcpu for 502.gcc_r       test peak oct12a-rate
+  Starting runcpu for 505.mcf_r       test peak oct12a-rate
+  Starting runcpu for 520.omnetpp_r   test peak oct12a-rate
+  Starting runcpu for 523.xalancbmk_r test peak oct12a-rate
+  Starting runcpu for 525.x264_r      test peak oct12a-rate
+  Starting runcpu for 531.deepsjeng_r test peak oct12a-rate
+  Starting runcpu for 541.leela_r     test peak oct12a-rate
+  Starting runcpu for 548.exchange2_r test peak oct12a-rate
+  Starting runcpu for 557.xz_r        test peak oct12a-rate
+  Starting runcpu for 999.specrand_ir test peak oct12a-rate
+Running Benchmarks (up to 20 concurrent processes)
+  Starting runcpu for 500.perlbench_r train base oct12a-rate
+  Starting runcpu for 502.gcc_r       train base oct12a-rate
+  Starting runcpu for 505.mcf_r       train base oct12a-rate
+  Starting runcpu for 520.omnetpp_r   train base oct12a-rate
+  Starting runcpu for 523.xalancbmk_r train base oct12a-rate
+  Starting runcpu for 525.x264_r      train base oct12a-rate
+  Starting runcpu for 531.deepsjeng_r train base oct12a-rate
+  Starting runcpu for 541.leela_r     train base oct12a-rate
+  Starting runcpu for 548.exchange2_r train base oct12a-rate
+  Starting runcpu for 557.xz_r        train base oct12a-rate
+  Starting runcpu for 999.specrand_ir train base oct12a-rate
+  Starting runcpu for 500.perlbench_r train peak oct12a-rate
+  Starting runcpu for 502.gcc_r       train peak oct12a-rate
+  Starting runcpu for 505.mcf_r       train peak oct12a-rate
+  Starting runcpu for 520.omnetpp_r   train peak oct12a-rate
+  Starting runcpu for 523.xalancbmk_r train peak oct12a-rate
+  Starting runcpu for 525.x264_r      train peak oct12a-rate
+  Starting runcpu for 531.deepsjeng_r train peak oct12a-rate
+  Starting runcpu for 541.leela_r     train peak oct12a-rate
+  Starting runcpu for 548.exchange2_r train peak oct12a-rate
+  Starting runcpu for 557.xz_r        train peak oct12a-rate
+  Starting runcpu for 999.specrand_ir train peak oct12a-rate
+Running Benchmarks
+  Running (#1) 500.perlbench_r refrate (ref) base oct12a-rate (256 copies) [2016-10-12 22:18:24]
+  Running (#1) 502.gcc_r       refrate (ref) base oct12a-rate (256 copies) [2016-10-12 23:10:43]
+  Running (#1) 505.mcf_r       refrate (ref) base oct12a-rate (256 copies) [2016-10-13 00:11:01]
+  Running (#1) 520.omnetpp_r   refrate (ref) base oct12a-rate (256 copies) [2016-10-13 01:53:35]
+  Running (#1) 523.xalancbmk_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 02:40:23]
+  Running (#1) 525.x264_r      refrate (ref) base oct12a-rate (256 copies) [2016-10-13 03:21:31]
+  Running (#1) 531.deepsjeng_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 04:36:07]
+  Running (#1) 541.leela_r     refrate (ref) base oct12a-rate (256 copies) [2016-10-13 05:12:11]
+  Running (#1) 548.exchange2_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 05:59:16]
+  Running (#1) 557.xz_r        refrate (ref) base oct12a-rate (256 copies) [2016-10-13 07:28:53]
+  Running (#1) 999.specrand_ir refrate (ref) base oct12a-rate (256 copies) [2016-10-13 08:08:23]
+  Running (#2) 500.perlbench_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 08:11:14]
+  Running (#2) 502.gcc_r       refrate (ref) base oct12a-rate (256 copies) [2016-10-13 09:03:38]
+  Running (#2) 505.mcf_r       refrate (ref) base oct12a-rate (256 copies) [2016-10-13 10:03:57]
+  Running (#2) 520.omnetpp_r   refrate (ref) base oct12a-rate (256 copies) [2016-10-13 11:46:36]
+  Running (#2) 523.xalancbmk_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 12:33:11]
+  Running (#2) 525.x264_r      refrate (ref) base oct12a-rate (256 copies) [2016-10-13 13:14:07]
+  Running (#2) 531.deepsjeng_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 14:28:47]
+  Running (#2) 541.leela_r     refrate (ref) base oct12a-rate (256 copies) [2016-10-13 15:04:49]
+  Running (#2) 548.exchange2_r refrate (ref) base oct12a-rate (256 copies) [2016-10-13 15:51:53]
+  Running (#2) 557.xz_r        refrate (ref) base oct12a-rate (256 copies) [2016-10-13 17:21:33]
+  Running (#2) 999.specrand_ir refrate (ref) base oct12a-rate (256 copies) [2016-10-13 18:01:04]
+  Running (#1) 500.perlbench_r refrate (ref) peak oct12a-rate (224 copies) [2016-10-13 18:03:29]
+  Running (#1) 502.gcc_r       refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 18:49:17]
+  Running (#1) 505.mcf_r       refrate (ref) peak oct12a-rate  (64 copies) [2016-10-13 19:44:21]
+  Running (#1) 520.omnetpp_r   refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 20:06:29]
+  Running (#1) 523.xalancbmk_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 20:54:49]
+  Running (#1) 525.x264_r      refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 21:28:24]
+  Running (#1) 531.deepsjeng_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 22:41:43]
+  Running (#1) 541.leela_r     refrate (ref) peak oct12a-rate (256 copies) [2016-10-13 23:16:40]
+  Running (#1) 548.exchange2_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 00:01:53]
+  Running (#1) 557.xz_r        refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 01:11:23]
+  Running (#1) 999.specrand_ir refrate (ref) peak oct12a-rate   (1 copy)   [2016-10-14 01:50:51]
+  Running (#2) 500.perlbench_r refrate (ref) peak oct12a-rate (224 copies) [2016-10-14 01:53:13]
+  Running (#2) 502.gcc_r       refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 02:39:03]
+  Running (#2) 505.mcf_r       refrate (ref) peak oct12a-rate  (64 copies) [2016-10-14 03:33:57]
+  Running (#2) 520.omnetpp_r   refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 03:56:04]
+  Running (#2) 523.xalancbmk_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 04:44:33]
+  Running (#2) 525.x264_r      refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 05:18:13]
+  Running (#2) 531.deepsjeng_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 06:31:34]
+  Running (#2) 541.leela_r     refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 07:06:33]
+  Running (#2) 548.exchange2_r refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 07:51:48]
+  Running (#2) 557.xz_r        refrate (ref) peak oct12a-rate (256 copies) [2016-10-14 09:01:43]
+  Running (#2) 999.specrand_ir refrate (ref) peak oct12a-rate   (1 copy)   [2016-10-14 09:41:13]
+$ <span style="font-size:x-small;"><i>(white space adjusted for readability)</i> </span></pre>
+
+<!-- ....................................................................................................................... -->
+<h3 id="section1.5">1.5 Disk Usage
+   <span id="DiskUsage"> </span>
+   <span id="disk-usage"> </span>
+   <span id="disk.usage"> </span>
+   <span id="diskUsage"> </span>
+   <span id="disk_usage"> </span>
+   <span id="diskusage"> </span>
+</h3>
+
+
+<!-- ....................................................................................................................... -->
+<h4 id="section1.5.1">1.5.1 Directory tree</h4>
+<p class="l1">The structure of the CPU 2017 directory tree is:</p>
+
+<pre class="l2">$SPEC or %SPEC% - the root directory
+   benchspec    - Some suite-wide files
+      CPU         - The benchmarks
+   bin          - Tools to run and report on the suite
+   config       - Config files
+   Docs         - HTML and plaintext documentation
+   result       - Log files and reports
+   tmp          - Temporary files
+   tools        - Sources for the CPU 2017 tools
+</pre>
+
+<p class="l1">Within each of the individual benchmarks, the structure is:</p>
+
+<pre class="l2">nnn.benchmark - root for this benchmark
+   build      - Benchmark binaries are built here
+   data        
+      all     - Data used by all runs (if needed by the benchmark)
+      ref     - The timed data set
+      test    - Data for a simple test that an executable is functional
+      train   - Data for feedback-directed optimization
+   Docs       - Documentation for this benchmark
+   exe        - Compiled versions of the benchmark
+   run        - Benchmarks are run here
+   Spec       - SPEC metadata about the benchmark
+   src        - The sources for the benchmark
+</pre>
+
+<p class="l2">
+         <!-- ReUsable: Shared Directory statement.  -->
+
+         Most SPECspeed benchmarks (<samp class="snuglr">6nn.benchmark_s</samp>) share content that is located
+         under a corresponding SPECrate benchmark (<samp class="snuglr">5nn.benchmark_r</samp>). Shared sources files may be <a
+            href="config.html#OpenMP" class="external">compiled differently</a> for SPECspeed vs. SPECrate.  For example, the
+         sources for <samp>619.lbm_s</samp> can be found at <samp class="snugr">519.lbm_r/src/</samp> and only
+         <samp>619.lbm_s</samp> can be compiled with OpenMP.  
+
+         <!-- end of Shared Directory statement -->
+</p>
+
+<p class="l1">Look for the output of your <kbd>runcpu</kbd> command in the directory <kbd class="nb">$SPEC/result</kbd> (Unix) or <kbd class="nb">%SPEC%\result</kbd> (Windows).  There, you will find log files
+and result files.  More information about log files can be found in the <a class="external"
+   href="config.html#logfiles">Config Files</a> document.</p> 
+<p class="l1">The format of the result files depends on what was selected in your config file, but will typically include at
+least <kbd>.txt</kbd> for ASCII text, and will always include <kbd class="snugr">.rsf</kbd>, for raw
+(unformatted) run data.  More information about result formats can be found below, under <a href="#out">--output_format</a>.  
+Note that you can always re-generate the output, using the <a href="#rawformat">--rawformat</a> option, also documented below.</p>
+
+
+<!-- ....................................................................................................................... -->
+<h4 id="section1.5.2"> 1.5.2 <span style="font-style:italic;color:red">Hey! Where did all my disk space go?</span>
+   <span id="DiskSpace"> </span>
+   <span id="disk-space"> </span>
+   <span id="disk.space"> </span>
+   <span id="diskSpace"> </span>
+   <span id="disk_space"> </span>
+   <span id="diskspace"> </span>
+</h4>
+
+<p class="l1">When you find yourself wondering "Where did all my disk space go?", the answer is usually "The run
+directories." Most activity takes place in automatically created subdirectories of <kbd
+class="nb">$SPEC/benchspec/CPU/*/run/</kbd> (Unix) or <kbd class="nb">%SPEC%\benchspec\CPU\*\run\</kbd> (Windows). 
+Other consumers of disk space underneath individual nnn.benchmark directories include the <kbd>build/</kbd> and <kbd>exe/</kbd> directories.  </p>
+
+<p class="l1snugbot">At the top of the directory tree, space is used by your <kbd>config/</kbd> and <kbd>result/</kbd>
+directories, and for temporary directories</p>
+<pre class="l2snugtop">$SPEC/tmp
+<i>output_root</i>/tmp</pre>
+
+<p class="l1snug">Usually, the largest amount of space is in the run directories.  For example, the tester who generated the
+result excerpted <a href="#run35">above</a> is lazy about cleaning, and at the moment this paragraph is written, there are
+many SPECrate run directories on the system:</p>
+
+      <pre class="l3">---------------------------------------
+One lazy user's space. Yours will vary.
+---------------------------------------
+Directories                       GB
+----------------------------     -----
+Top-level (config,result,tmp)      0.1 
+Benchmarks 
+  $SPEC/benchspec/CPU/*/exe        2 
+  $SPEC/benchspec/CPU/*/build      9 
+  $SPEC/benchspec/CPU/*/run      198
+---------------------------------------</pre>
+
+
+<p class="l1snugbot">If you use the config file <a href="#label">label</a> feature, then directories are named to try to make
+it easy for you to hunt them down, For example, suppose Bob has a config file that he is using to test some new memory
+optimizations using SPECrate (multi-copy) mode.  He has set</p>
+<div class="l1exsnug">label=BobMemoryOpt</div>
+<p class="l1snugtop">in his config file.  In that case, the tools would create directories such as these:</p>
+
+<pre class="l1snugish">$ <b>pwd</b>
+/Users/bob/cpu2017/rc4/benchspec/CPU/505.mcf_r
+$ <b>ls -d */*Bob*</b>
+build/build_base_BobMemoryOpt.0000
+exe/mcf_r_base.BobMemoryOpt
+run/run_base_refrate_BobMemoryOpt.0000
+run/run_base_refrate_BobMemoryOpt.0001
+run/run_base_refrate_BobMemoryOpt.0002
+run/run_base_refrate_BobMemoryOpt.0003
+run/run_base_refrate_BobMemoryOpt.0004
+run/run_base_refrate_BobMemoryOpt.0005
+run/run_base_refrate_BobMemoryOpt.0006
+run/run_base_refrate_BobMemoryOpt.0007
+run/run_base_refrate_BobMemoryOpt.0008
+run/run_base_refrate_BobMemoryOpt.0009
+run/run_base_refrate_BobMemoryOpt.0010
+run/run_base_refrate_BobMemoryOpt.0011
+run/run_base_refrate_BobMemoryOpt.0012
+run/run_base_test_BobMemoryOpt.0000
+run/run_base_train_BobMemoryOpt.0000
+$  </pre>
+
+<p class="l1snugbot">To get your disk space back, see the documentation of the various <a href="#cleaning">cleaning
+   options</a>, below. </p>
+
+
+<!-- ....................................................................................................................... -->
+<h3 id="section1.6">1.6 <span id="sharing">Multi-user</span> support</h3>
+
+<p>SPEC CPU 2017 supports multiple users sharing an installation; however you must choose carefully regarding 
+file protections.  This section describes the multi-user features and protection options. </p>
+
+<p class="snugbot"><b>Features</b> that are always enabled:</p>
+
+<ul class="snugish">
+   <li>SPEC's original source and data directories are not changed during testing.</li>
+   <li>Work directories are created under <samp>nnn.benchmark/build</samp> and <samp class="snugr">nnn.benchmark/run</samp>.</li>
+   <li>Usage is tracked in <samp class="nbsnugr">nnn.benchmark/{run,build}/list</samp>.</li>
+   <li>Directories created for one user are not re-used for another. </li>
+   <li>Multiple users can run tests at the same time.  Of course, if the jobs compete with each other for resources, it is
+      likely that they will run more slowly.</li>
+</ul>
+
+<p class="snugbot"><b>Limitations:</b> The default methods impose two key limitations, <span class="caution">which will not be
+   safe</span> in some environments:</p>
+
+<ol class="snugish">
+<li>The directory tree must be writable by each of the users, which means that they have to trust each other
+   not to modify or delete each others' files. </li>
+
+<li>Directories such as <samp>result/</samp> and <samp class="nb">nnn.benchmark/exe/</samp> and <samp
+      class="nb">nnn.benchmark/run/</samp> are not segregated by user.  Therefore you can have only one version of (for
+   example) <samp>500.perlbench/exe/perlbench_base.Ofast</samp> and different users will have their result logs intermixed
+   with each others in the <samp>result/</samp> directory.</li>
+</ol>
+
+<p class="hanging1">
+   <span id="Multi-user-expid"> </span>          <span id="Multi-user.expid"> </span>
+   <span id="Multi.user.expid"> </span>          <span id="Multi-userExpid"> </span>
+   <span id="MultiUserExpid"> </span>            <span id="Multi-user_expid"> </span>
+   <span id="Multi_user_expid"> </span>          <span id="Multi-userexpid"> </span>
+   <span id="Multiuserexpid"> </span>            <span id="multi-user.expid"> </span>
+   <span id="multi-user-expid"> </span>          <span id="multi-userExpid"> </span>
+   <span id="multi.user.expid"> </span>          <span id="multi-user_expid"> </span>
+   <span id="multiUserExpid"> </span>            <span id="multi-userexpid"> </span>
+   <span id="multi_user_expid"> </span>
+   <span id="multiuserexpid"> </span>
+
+<b>Partial solution(?) expid</b><span style="margin:0em 1px;">+</span>conventions: 
+<br />You can deal with limitation #2 if users adopt certain habits.  For example, Darryl could name all his config files <samp
+   class="nbsnugr">darryl-something.cfg</samp>.  He could use <kbd class="nb">runcpu <a href="#expid">--expid=darryl</a></kbd> or the
+corresponding config file <a class="external" href="config.html#expid">expid=darryl</a> to cause his results to be placed under
+<samp>$SPEC/result/darryl</samp> (or <samp class="snugr">%SPEC%\result\darryl\</samp>) and binaries under
+<samp class="snugr">nnn.benchmark/exe/darryl/</samp>.  Unfortunately, this alleged solution still requires that the tree be writeable by all
+users, and will <span class="alarm">not</span> help Darryl at all when John comes along and blithely does one of the <a
+href="#alternateCleaning">alternate cleaning</a> methods.</p>
+
+<p class="hanging1"><b>Solution(?)</b> Give up:  
+<br />You could just choose to spend the disk space to give each person their own
+tree.  For SPEC CPU 2017 V1.0, this may increase disk space requirement by about 3 GB per user.</p>
+
+<p> 
+   <span id="Multi-user-output_root"> </span>      <span id="Multi-user.output_root"> </span>      <span id="Multi-user-output-root"> </span>
+   <span id="Multi.user.output_root"> </span>      <span id="Multi-userOutput_root"> </span>       <span id="Multi.user.output.root"> </span>
+   <span id="MultiUserOutput_root"> </span>        <span id="Multi-user_output_root"> </span>      <span id="MultiUserOutputRoot"> </span>
+   <span id="Multi_user_output_root"> </span>      <span id="Multi-useroutput_root"> </span>       <span id="Multiuseroutputroot"> </span>
+   <span id="Multiuseroutput_root"> </span>        <span id="multi-user.output_root"> </span>      <span id="multi-user-output-root"> </span>
+   <span id="multi-user-output_root"> </span>      <span id="multi-userOutput_root"> </span>       <span id="multi.user.output.root"> </span>
+   <span id="multi.user.output_root"> </span>      <span id="multi-user_output_root"> </span>      <span id="multiUserOutputRoot"> </span>
+   <span id="multiUserOutput_root"> </span>        <span id="multi-useroutput_root"> </span>       <span id="multiuseroutputroot"> </span>
+   <span id="multi_user_output_root"> </span>
+   <span id="multiuseroutput_root"> </span>
+
+<b>Recommended Solution: output_root</b>.  The recommended method uses 4 steps:</p>
+
+<table class="l1">
+   <tr>
+      <td><b>Step</b></td><td><b>Example (Unix)</b></td>
+   </tr>
+   <tr>
+      <td>(1) Protect most of the SPEC tree read-only</td>
+      <td><kbd class="nb"> chmod -R ugo-w $SPEC</kbd></td>
+   </tr>
+   <tr>
+      <td>(2) Allow shared access to the config directory</td>
+      <td><kbd>chmod 1777 $SPEC/config</kbd><br />
+            <kbd>chmod u+w $SPEC/config/*cfg</kbd></td>
+   </tr>
+   <tr>
+      <td>(3) Keep your own config files</td>
+      <td><kbd>cp config/assignment1.cfg config/alan1.cfg</kbd></td>
+   </tr>
+   <tr>
+      <td>(4) Use the <a class="external" href="#output_root">--output_root</a> switch or
+         <br />add an <a class="external" href="config.html#output_root">output_root</a> to your config file.
+      </td>
+      <td>
+         <kbd class="nb">runcpu --output_root=~/cpu2017</kbd>
+         <br /><samp>output_root = /home/${username}/cpu2017</samp>
+      </td>
+   </tr>
+</table>
+
+<p><b>More detail:</b></p>
+<ol>
+
+   <li ><p class="snugbot">Most of the CPU 2017 tree is shared, and can be protected read-only.  For example, on
+   a Unix system, you might set protections with:</p>
+<pre>chmod -R ugo-w $SPEC
+</pre></li>
+
+<li ><p class="snug">The one exception is the config directory, <samp class="nb">$SPEC/config/</samp> (Unix) or <samp
+      class="nb">%SPEC%\config\</samp> (Windows), which needs to be a read/write directory shared by all the users, and config
+   files must be writeable.  On most Unix system, <samp>chmod 1777</samp> is very useful: it lets anyone create files,
+   which they own, control, and protect. (1777 is commonly used for <samp>/tmp</samp> for this very reason.)</p> 
+<pre>
+chmod 1777 $SPEC/config
+chmod u+w $SPEC/config/*cfg
+</pre></li>
+
+<li ><p class="snugbot">Config files usually would not be shared between users.  For example, students might
+create their own copies of a config file: </p> 
+
+<table style="margin-top:.7em;margin-bottom:.7em;">
+   <tr >
+      <td >
+         <p class="snug">Alan enters:</p>
+         <pre class="snug" style="margin-left:0.5em;">
+cd /cs403/cpu2017
+. ./shrc
+cd config
+cp assignment1.cfg alan1.cfg
+chmod u+w alan1.cfg
+runcpu --config=alan1 --action=build 557.xz_r </pre>
+      </td>
+      <td >
+         <p class="snug">Venkatesh enters:</p>
+         <pre class="snug" style="margin-left:0.5em;">
+cd /cs403/cpu2017
+. ./shrc
+cd config
+cp assignment1.cfg venkatesh1.cfg
+chmod u+w venkatesh1.cfg
+runcpu --config=venkatesh1 --action=build 557.xz_r </pre>
+      </td>
+   </tr>
+</table>
+</li>
+
+<li ><p class="snugbot">Set <kbd class="nb">output_root</kbd> in the config files to change the
+destinations of the outputs.  For example, if config files include (near the top):</p>
+
+<pre>output_root=/home/${username}/spec
+label=feb27a
+</pre>
+
+<p class="snugtop">then these directories will be used for the above <kbd>runcpu</kbd> command:</p>
+
+<table>
+   <tr>
+      <td>Alan's directories</td>
+      <td>
+         <pre class="snug">build: /home/alan/spec/benchspec/CPU/557.xz_r/build/build_base_feb27a.0001
+Logs:  /home/alan/spec/result</pre>
+      </td>
+   </tr>
+   <tr>
+      <td>Venkatesh's</td>
+      <td>
+         <pre class="snug">build: /home/venkatesh/spec/benchspec/CPU/557.xz_r/build/build_base_feb27a.0000
+Logs:  /home/venkatesh/spec/result</pre>
+      </td>
+   </tr>
+</table>
+
+</li>
+</ol>
+
+<p><b>Navigation:</b> Unix users can easily navigate an output_root tree using <a class="external"
+   href="utility.html#ogo">ogo</a></p>
+
+
+
+
+<!-- ....................................................................................................................... -->
+<h3 id="section1.7">1.7 Actions
+   <span id="Action"> </span>
+   <span id="action"> </span>
+   <span id="Actions"> </span>
+   <span id="actions"> </span>
+</h3>
+
+<p class="l1snugbot">Most <code>runcpu</code> commands perform an action on a set of benchmarks.  </p>
+<div class="l2snugish">(Exceptions: <kbd>runcpu</kbd> <a href="#rawformat">--rawformat</a> or <a href="#update">update</a>.)</div>  
+<p class="l1snugtop">The default action is <a href="#validate">validate</a>.
+<br />The actions are described in two tables below: first, actions that relate to building and running; and then actions
+regarding cleanup.</p>
+
+<table class="l2snugish" style="width:800px;"> 
+   <tr>
+      <td id="build"> <kbd class="nb">--action build</kbd></td>
+      <td>Compile the benchmarks, using the config file <a class="external" href="config.html#specmake">specmake</a>
+         options.</td>
+   </tr>
+   <tr>
+      <td id="buildsetup"> <kbd class="nb">--action buildsetup</kbd></td>
+      <td><p class="snugtop">Set up build directories for the benchmarks.  
+         <br />Copy the source files to the directory, and create the needed Makefiles.  <br />Do not attempt to actually do
+         the build.</p>  
+         <p class="snugbot">This option may be useful when debugging a build: you can set up a
+         directory and play with it as a private <a href="config.html#sandbox" class="external">sandbox</a>.</p> </td>
+   </tr>
+   <tr>
+      <td id="onlyrun"> <kbd class="nb">--action onlyrun</kbd></td>
+      <td><p class="snugtop">Run the benchmarks but do not verify that they got the correct answers.  
+         <br />You cannot use this option to report performance. </p> 
+         <p class="snugbot">This option may be useful while applying CPU 2017 for some other purpose, such as tracing
+         instructions for a hardware simulator, or generating a system load while debugging an operating system
+         feature.</p></td>
+   </tr>
+   <tr>
+      <td id="report"> <kbd class="nb">--action report</kbd></td>
+      <td> Synonym for <a class="switchsnug" href="#fakereport">--fakereport</a>; see also <a class="switchsnug"
+            href="#fakereportable">--fakereportable</a>.</td>
+   </tr>
+   <tr>
+      <td id="run"> <kbd class="nb">--action run</kbd></td>
+      <td>Synonym for <kbd class="nbsnugr">--action validate</kbd>.  </td>
+   </tr>
+   <tr>
+      <td id="runsetup"> <kbd class="nb">--action runsetup</kbd></td>
+      <td><p class="snugtop">Set up the run directory (or directories).  
+         <br />If executables do not exist, build them.
+         <br />Copy executables and data to the directory(ies). 
+         <br />Create control file <samp>specccmds.cmd</samp> but do not actually run any benchmarks.</p>
+
+         <p class="snugbot">This option may be useful when debugging a run.
+         <br />See the <a class="external" href="utility.html#runsetupSandbox">runsetup sandbox</a> example in the
+         <a class="external" href="utility.html#specinvoke">Utilities</a> documentation.</p></td>
+   </tr>
+   <tr>
+      <td id="setup"> <kbd class="nb">--action setup</kbd></td>
+      <td>Synonym for <kbd class="nb">--action runsetup</kbd></td>
+   </tr>
+   <tr>
+      <td id="validate"> <kbd class="nb">--action validate</kbd></td>
+      <td>Build (if needed), set up directories, run, check for correct answers, generate reports.  
+         <br />This is the default action.
+      </td>
+   </tr>
+</table>
+
+
+<p class="l1snugbot" id="cleaning">Cleaning actions are listed in order from least thorough to most:</p>
+
+<table class="l2snugtop" width="800px;">
+   <tr>
+      <td id="clean">
+         <kbd class="nb">--action clean</kbd></td>
+      <td><p class="snug">Empty run and build directories for the specified benchmark set for the current user.  For example,
+         if the current OS username is set to <kbd>jeff</kbd> and this command is entered:</p>
+         <pre class="snug">D:\cpu2017\&gt; <b>runcpu --action clean --config may12a fprate</b></pre>
+         <p class="snug">then the tools will remove build and run directories with username <kbd>jeff</kbd>
+         for fprate benchmarks generated by config file <kbd class="nbsnugr">may12a.cfg</kbd>.</p>
+      </td></tr>
+
+      <tr><td id="clobber">
+            <kbd class="nb">--action clobber</kbd></td><td>  Clean + remove the corresponding executables.</td></tr>
+
+      <tr><td id="trash">
+            <kbd class="nb">--action trash</kbd></td><td>     Remove run and build directories for all users and all labels
+            for the specified benchmarks.  </td></tr>
+
+      <tr><td style="white-space:nowrap;" id="realclean">
+            <kbd class="nb">--action realclean</kbd></td><td> A synonym for --action trash</td></tr>
+
+      <tr><td id="scrub">
+            <kbd class="nb">--action scrub</kbd></td><td>    Trash + remove the corresponding executables. </td></tr>
+      <tr>
+         <td style="vertical-align:middle;text-align:right;font-size:110%;font-weight:bold">Caution</td>
+         <td><a href="#fake">Fake</a> mode is not implemented for the cleaning actions. 
+            <br />For example, if you say <kbd class="nb">runcpu --fake --action=clean</kbd> the cleaning really
+            happens.</td>
+      </tr>
+</table>
+
+<p class="hanging2" style="margin-top:1.5em;">
+   <span id="Clean-by-hand"> </span>       <span id="Alternate-cleaning"> </span>
+   <span id="Clean.by.hand"> </span>       <span id="Alternate.cleaning"> </span>
+   <span id="CleanByHand"> </span>         <span id="AlternateCleaning"> </span>
+   <span id="Clean_by_hand"> </span>       <span id="Alternate_cleaning"> </span>
+   <span id="Cleanbyhand"> </span>         <span id="Alternatecleaning"> </span>
+   <span id="clean-by-hand"> </span>       <span id="alternate-cleaning"> </span>
+   <span id="clean.by.hand"> </span>       <span id="alternate.cleaning"> </span>
+   <span id="cleanByHand"> </span>         <span id="alternateCleaning"> </span>
+   <span id="clean_by_hand"> </span>       <span id="alternate_cleaning"> </span>
+   <span id="cleanbyhand"> </span>         <span id="alternatecleaning"> </span>
+
+   <b>Clean by hand:</b> 
+   <br />If you prefer, you can clean disk space by entering commands such as the following (on Unix systems):</p>
+
+<pre class="l3snug"><b>rm -Rf $SPEC/benchspec/C*/*/run</b>
+<b>rm -Rf $SPEC/benchspec/C*/*/build</b>
+<b>rm -Rf $SPEC/benchspec/C*/*/exe</b> </pre>
+
+<p class="l2">The above commands not only empty the contents of the <kbd>run</kbd> and <kbd>exe</kbd> directories; they
+   also delete the directories themselves.  That's fine; the tools will re-create the <kbd>run</kbd> and <kbd>exe</kbd>
+   directories if they are needed again later on.</p>
+
+<p class="l2snugbot"><b>result</b> directories can be cleaned or renamed.  Don't worry about creating a new directory;
+<samp>runcpu</samp> will do so automatically.   You should be careful to ensure no surprises for any currently-running users.
+If you move result directories, it is a good idea to also clean temporary directories at the same time.
+<br />Example:</p>
+<pre class="l3snugish">cd $SPEC
+mv result old-result
+rm -Rf tmp/
+cd <i>output_root</i>     # <span style="font-family:arial,sans-serif;">(If you use an <a href="#output_root">output_root</a>)</span>
+rm -Rf tmp/</pre>
+
+<p class="l2"><b>Windows users:</b> Windows users can achieve similar effects using the <kbd>rename</kbd> command to move
+directories, and the <kbd>rd</kbd> command to remove directories. </p>
+
+<p class="l1" id="SPEC_CPU2017_NO_RUNDIR_DEL">
+   <span id="NORUNDIRDEL"> </span>
+   <span id="NO_RUNDIR_DEL"> </span>
+   <span id="NO_RUNDIRDEL"> </span>
+<b>I have so much disk space, I'll never use all of it:</b></p>
+<p class="l2">Run directories are automatically re-used for subsequent runs.  If you prefer, you can ask the tools to
+never touch a used run directory.  Do this by setting the environment variable:</p>
+<pre class="l2">     SPEC_CPU2017_NO_RUNDIR_DEL</pre> 
+<p class="l2">In this case, you should be prepared to do frequent cleaning, perhaps after reviewing the results of
+each run. </p>
+
+<!-- ....................................................................................................................... -->
+<h2 id="section2">2 Commonly used options</h2> 
+
+   <p>Most users of <kbd>runcpu</kbd> will want to become familiar with the following options. </p>
+
+<p>This section is organized alphabetically without regard to upper/lower case and without regard to presence or 
+absence of <kbd>no</kbd> at the start of the switch.</p>
+
+<h4>--action <i>action</i></h4> 
+<ul>
+<li>          Synonym:  <kbd class="nb">-a <i>action</i></kbd></li>
+<li>          Default:  <kbd>validate</kbd></li>
+<li>          Meaning:  One of the following actions that runcpu can do for you: &nbsp; 
+               <kbd class="snugr">build</kbd>,  
+               <kbd class="snugr">buildsetup</kbd>,  
+               <kbd class="snugr">clean</kbd>,  
+               <kbd class="snugr">clobber</kbd>,  
+               <kbd class="snugr">onlyrun</kbd>,  
+               <kbd class="snugr">realclean</kbd>, 
+               <kbd class="snugr">report</kbd>, 
+               <kbd class="snugr">run</kbd>,  
+               <kbd class="snugr">runsetup</kbd>,  
+               <kbd class="snugr">scrub</kbd>,  
+               <kbd class="snugr">setup</kbd>,  
+               <kbd class="snugr">trash</kbd>, or
+               <kbd class="snugr">validate</kbd>.
+               For more information, see <a href="#actions" >Actions</a>, above</li>
+</ul>
+
+<h4 id="check_version">--check_version</h4> 
+<ul>
+<li>          Default:  check only when doing <kbd>reportable</kbd> runs</li>
+<li>          Meaning:  From time to time, SPEC may update the CPU 2017 suite.  Typically, SPEC will not publish results at <a
+                        class="external" href="https://www.spec.org/cpu2017/">www.spec.org/cpu2017</a> unless they have been run
+                        using the most recent update.  Prior to investing substantial time running your tests, it is recommended
+                        that you check whether your version is up to date, either by saying <kbd class="nbsnugr">runcpu
+                        --check_version</kbd>, or by adding the switch to whatever else you were doing on your <samp
+                        class="nb">runcpu</samp> command.   Note that if you are running within a firewall, you may need to
+                        add a <a href="#http_proxy">proxy server</a> to the command line.  For example: 
+
+<pre>   runcpu --check_version --http_proxy http://webcache.tom.spokewrenchdad.com:8080 
+</pre>
+                        or, equivalently, for those who prefer to abbreviate to the shortest possible amount of typing:
+
+<pre>   runcpu --ch --http_p http://webcache.tom.spokewrenchdad.com:8080 
+</pre>
+
+                        The command downloads a small file (~15 bytes) from www.spec.org which contains information about the
+                        most recent release, and compares that to your release.  If your version is out of date, a warning
+                        will be printed.  
+                        </li>
+</ul>
+
+<h4 id="config">--config <i>name</i></h4> 
+<ul>
+<li>          Synonym:  <kbd class="nb">-c <i>name</i></kbd></li>
+<li>          Default:  <kbd>default.cfg</kbd></li>
+<li>          Meaning:  Use config file <kbd class="nb">$SPEC/config/<i>name</i>.cfg</kbd> (Unix) or 
+                        <kbd class="nb">%SPEC%\config\<i>name</i>.cfg</kbd> (Windows).  If not specified, the
+                        tools will try <kbd class="nb">default.cfg</kbd>   </li>
+</ul>
+
+<h4 id="copies">--copies <i>number</i></h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">-C <i>number</i></kbd></li>
+<li>          Default:  <kbd>1</kbd></li>
+<li>          <p class="snugtop">Meaning:  Use <kbd><i>number</i></kbd> copies for a SPECrate run.</p>
+
+              <p><span class="alarm">Note</span> that specifying the number of copies on the command line will override any
+              config file setting of <kbd class="snugr">copies</kbd>.  
+              <span class="new">This behaviour is new with CPU 2017: in the previous suite, there were some circumstances
+                 where the config file would win, and some where the command line would win.  For CPU 2017, it's simple:
+                 the command line wins.</span>
+              </p>
+
+                        </li>
+</ul>
+
+<h4 id="flagsurl">--flagsurl <i>URL[,URL...]</i></h4> 
+<ul>
+   <li>          Synonym: <kbd class="nb">-F <i>URL</i></kbd></li>
+<li>          Default:  <kbd>none</kbd></li>
+
+<li><p class="snug">Meaning:  A "flags file" tells <kbd>runcpu</kbd> -- and the reader -- how to interpret tuning options, for
+   example <kbd class="nb">-O3</kbd> or <kbd class="nbsnugr">-Ofast</kbd>.  
+   <br />If you want more than one, separate them with commas, or repeat the <kbd class="nb">--flagsurl</kbd>
+   switch.  
+   <br />These are equivalent:</p>
+
+<pre>runcpu --flagsurl=$SPEC/compiler.xml,$SPEC/platform.xml      
+runcpu --flagsurl=$SPEC/compiler.xml --flagsurl=$SPEC/platform.xml</pre>
+
+<p>You can use either a file path or an <kbd>http://</kbd> address.  If needed, add an <a href="#http_proxy">--http_proxy</a>
+(or use the <a class="external" href="config.html#http_proxy">corresponding</a> config file option).</p>
+
+<p>The special value <kbd>noflags</kbd> may be used to cause <kbd>rawformat</kbd> to remove a
+stored flags file when re-formatting a previously run result.</p>
+
+<p class="snugbot"><b>Help, I got an error message about INVALID RUN:</b></p>
+<pre style="font-size:80%;">##############################################################################
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+#                                                                            #
+# Your run was marked invalid because it has one or more flags in the        #
+# "unknown" category. You might be able to resolve this problem without      #
+# re-running your test; see                                                  #
+#      https://www.spec.org/cpu2017/Docs/runcpu.html#flagsurl                #
+# for more information.                                                      #
+#                                                                            #
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN  #
+##############################################################################</pre>
+
+<p class="snugbot">Flags files are required by <a class="external" href="runrules.html#flagsFiles">rule 4.6</a>.  If you don't
+have one, or if your flags file is obsolete, you will see the above error.   
+<br />To fix it:</p>
+<ol class="snugtop">
+   <li><p>Find the sections of the report marked "Unknown". </p> 
+      <ul>
+         <li>If there are many unknown flags, you probably forgot to use a flags file, or you used the wrong one.</li>
+         <li>If there are only a few,  perhaps your flags file just needs a few updates.</li>
+      </ul>
+   </li>
+   <li><p>You can ask your compiler vendor for help, or you can adapt a flags file from other results, or you can <a
+    href="flag-description.html" class="external">fix it yourself</a>.</p></li>
+   <li><p>Once your new flags files are available, make a copy of your rawfile.  
+      <br />Then, insert the flags files, using either of these two equivalent commands:</p>
+<pre class="l2">rawformat --flagsurl=...
+runcpu --rawformat --flagsurl=...</pre></li>
+   <li>Linux example:
+<pre>
+cp CPU2017.138.intrate.rsf retry.rsf
+rawformat --flagsurl $SPEC/new.compiler.xml,$SPEC/new.platform.xml retry.rsf </pre></li>
+<li>Windows example:
+   <pre>
+copy CPU2017.138.intrate.rsf retry.rsf
+rawformat --flagsurl %SPEC%\new.compiler.xml,%SPEC%\new.platform.xml retry.rsf</pre></li>
+</ol>
+                        
+
+
+
+                        </li>
+
+
+</ul>
+
+<h4 id="help">--help</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">-h</kbd> | <kbd class="nb">-?</kbd></li>
+<li>          Default:  Help text is not displayed.</li>
+<li>          Meaning:  Print helpful text</li>
+</ul>
+
+
+<h4 id="I">--ignore_errors
+   <span id="IgnoreErrors"> </span>
+   <span id="ignore-errors"> </span>
+   <span id="ignore.errors"> </span>
+   <span id="ignoreErrors"> </span>
+   <span id="ignore_errors"> </span>
+   <span id="ignoreerrors"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">-I</kbd> | <kbd class="nb">--ignoreerror</kbd></li>
+<li>          Default:  Stop on first error.</li>
+<li>          Meaning:  Continue running even if errors occur.  </li>
+</ul>
+
+<h4 id="iter">--iterations <i>number</i>
+   <span id="iterations"> </span>
+</h4> 
+<ul>
+   <li>          Synonym: <kbd class="nb">-n <i>number</i></kbd></li>
+   <li>          Default: <kbd>3</kbd></li>
+   <li><p class="snugtop">Meaning: How many times to run each benchmark.  </p>  
+
+   <!-- Repeated note: this note appears 4 times: runcpu.html iterations and reportable; config.html ditto -->
+   <p class="snugbot">Reportable runs must use 2 or 3 iterations.  Here is how the settings for 
+   <a href="#iterations">iterations</a> and <a href="#reportable">reportable</a> affect each other:</p>
+   <ul class="snug">
+      <li>If you do not specify anything for iterations, reportable runs use 3.</li>
+      <li>If you specify 1 iteration (i.e. less than the minimum), reportable runs use 2. </li>
+      <li>If you specify 4 or more iterations (i.e. more than the maximum), reportable runs use 3.</li>
+   </ul>
+   <!-- end of repeated note -->
+
+
+   </li>
+</ul>
+
+<h4 id="loose">--loose
+   <span id="NoStrict"> </span>
+   <span id="no-strict"> </span>
+   <span id="no.strict"> </span>
+   <span id="noStrict"> </span>
+   <span id="no_strict"> </span>
+   <span id="nostrict"> </span>
+   <span id="NoReportable"> </span>
+   <span id="no-reportable"> </span>
+   <span id="no.reportable"> </span>
+   <span id="noReportable"> </span>
+   <span id="no_reportable"> </span>
+   <span id="noreportable"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">-l</kbd> | 
+                        <kbd class="nb">--nostrict</kbd> | 
+                        <kbd class="nb">--noreportable</kbd></li>
+<li>          Default: <kbd>loose</kbd></li>
+<li>          Meaning: Unset <kbd class="snugr">reportable</kbd>.   For example, suppose that you have 
+                       a golden config file that is used for reportable runs, which sets the config file option <span
+                       class="tt">reportable</span>.  However, you aren't ready to do a reportable run, because you first
+                       want to ensure that the system under test is adequately configured to run the benchmark <samp
+                       class="nbsnugr">523.xalancbmk_r</samp>.  Since the config file sets the option <span
+                       class="tt">reportable</span>, the following command will result in an error message:
+
+<pre>
+[/usr/mwong/cpu2017]$ <b>runcpu --config golden --iterations 1 xalancbmk_r</b>
+</pre>
+
+                       as the SPEC tools will inform you that you cannot change the number of iterations on a reportable
+                       run.  But either of the following commands will override the config file and just run <samp
+                       class="nb">523.xalancbmk_r</samp> once:
+
+<pre>[/usr/mwong/cpu2017]$ <b>runcpu --config golden --iterations 1 --loose xalancbmk_r</b>
+[/usr/mwong/cpu2017]$ <b>runcpu --config golden --iterations 1 --noreportable xalancbmk_r</b>
+</pre></li>
+</ul>
+
+<h4 id="out"> --output_format <i>format</i>
+   <span id="OutputFormat"> </span>
+   <span id="output-format"> </span>
+   <span id="output.format"> </span>
+   <span id="outputFormat"> </span>
+   <span id="output_format"> </span>
+   <span id="outputformat"> </span>
+
+   <span id="OutputFormats"> </span>
+   <span id="output-formats"> </span>
+   <span id="output.formats"> </span>
+   <span id="outputFormats"> </span>
+   <span id="output_formats"> </span>
+   <span id="outputformats"> </span>
+
+</h4> 
+<ul>
+<li>          Synonym: <kbd class="nb">-o <i>format</i></kbd></li>
+<li>          Default: HTML and text</li>
+<li>          Meaning: Desired report format, one or more of the following.  An output format may be deselected by
+                       prepending any of the names with the word "no".  If more than one option is used, separate them
+                       by commas or colons.  The values are not case-sensitive.</li>
+</ul>
+
+<table class="l2">
+   <tr>
+      <td><b>Name</b>|synonyms...</td>
+      <td><b>Meaning</b></td>
+   </tr>
+   <tr>
+      <th><b>all</b>   
+         <span id="all"> </span>
+      </th>
+      <td>implies all of the following except screen, check, and mail</td>
+   </tr>
+
+   <tr>
+      <th>
+         <span id="Output-config"> </span>       <span id="Output-cfg"> </span>
+         <span id="Output.config"> </span>       <span id="Output.cfg"> </span>
+         <span id="OutputConfig"> </span>        <span id="OutputCfg"> </span>
+         <span id="Output_config"> </span>       <span id="Output_cfg"> </span>
+         <span id="Outputconfig"> </span>        <span id="Outputcfg"> </span>
+         <span id="output-config"> </span>       <span id="output-cfg"> </span>
+         <span id="output.config"> </span>       <span id="output.cfg"> </span>
+         <span id="outputConfig"> </span>        <span id="outputCfg"> </span>
+         <span id="output_config"> </span>       <span id="output_cfg"> </span>
+         <span id="outputconfig"> </span>        <span id="outputcfg"> </span>
+         <pre class="l0"><b>config</b>
+   cfg|cfgfile
+   configfile
+   conffile</pre>
+      </th>
+      <td>
+         <p class="snug">config file used for this run, written as a numbered file in the result directory, for example,
+         <samp class="nb">$SPEC/result/CPU2017.030.fprate.refrate.cfg</samp> </p>
+         <ol class="snug">
+            <li>The config file is saved on every run, as a compressed portion of the rawfile.  Therefore, you can regenerate it
+               later, if desired, using <a href="utility.html#rawformat" class="external">rawformat</a></li> 
+            <li>Results published by SPEC include your config file. Anyone can download it and try to reproduce your result.</li>
+            <li><p class="snug">The config file printed by <kbd class="nb">--output_format=config</kbd> is <em>not</em> identical
+               to the original:</p> 
+               <ul> 
+                  <li>The file name matches the other files for this result, not the name you had in your config/ directory.</li>
+                  <li>It does not include <a href="config.html#protected_comments" class="external">protected comments</a></li>
+                  <li>It includes a copy of the <kbd>runcpu</kbd> line that invoked it.</li>
+                  <li>It tells you whether <a href="#output_root">output_root</a> was defined.</li>
+                  <li>It includes any result edits you make after the run (see <a class="external" href="utility.html#edit">utility.html</a>).
+                  </li>
+                  <li>It does not include the <a class="external" href="config.html#hash">HASH</a> section.</li>
+               </ul></li>
+         </ol>
+      </td> 
+   </tr>
+
+   <tr>
+      <th>
+         <span id="Output-check"> </span>   <span id="Output-subcheck"> </span>
+         <span id="Output.check"> </span>   <span id="Output.subcheck"> </span>
+         <span id="OutputCheck"> </span>    <span id="OutputSubcheck"> </span>
+         <span id="Output_check"> </span>   <span id="Output_subcheck"> </span>
+         <span id="Outputcheck"> </span>    <span id="Outputsubcheck"> </span>
+         <span id="output-check"> </span>   <span id="output-subcheck"> </span>
+         <span id="output.check"> </span>   <span id="output.subcheck"> </span>
+         <span id="outputCheck"> </span>    <span id="outputSubcheck"> </span>
+         <span id="output_check"> </span>   <span id="output_subcheck"> </span>
+         <span id="outputcheck"> </span>    <span id="outputsubcheck"> </span>
+         <span id="Check"> </span>
+         <span id="check"> </span>
+         <span id="Subcheck"> </span>
+         <span id="subcheck"> </span>
+         <pre class="l0"><b>check</b>
+   subcheck
+   reportcheck
+   reportable
+   reportablecheck
+   chk|sub|subtest|test</pre>
+
+      </th>
+      <td>Reportable syntax check (automatically enabled when using <a href="#rawformat">--rawformat</a>).
+         <ul class="snug">
+            <li>Causes the format of many fields to be checked, e.g.&nbsp;<samp class="nbsnugr">"Nov-2018"</samp>, not <kbd
+                  class="nb">"11/18"</kbd> for <a href="config.html#hw_avail" class="external">hw_avail</a>.</li>
+            <li>Consistent formats help readers, especially when searching.</li>
+            <li><kbd>check</kbd> is included by default when using <a
+                  href="#rawformat">--rawformat</a>. </li>
+            <li>It can be disabled by adding <kbd>nocheck</kbd> to your list of formats.</li>
+         </ul>
+      </td>
+   </tr>
+
+   <tr>
+      <th>
+         <span id="Output-csv"> </span>     <span id="Output-spreadsheet"> </span>
+         <span id="Output.csv"> </span>     <span id="Output.spreadsheet"> </span>
+         <span id="OutputCsv"> </span>      <span id="OutputSpreadsheet"> </span>
+         <span id="Output_csv"> </span>     <span id="Output_spreadsheet"> </span>
+         <span id="Outputcsv"> </span>      <span id="Outputspreadsheet"> </span>
+         <span id="output-csv"> </span>     <span id="output-spreadsheet"> </span>
+         <span id="output.csv"> </span>     <span id="output.spreadsheet"> </span>
+         <span id="outputCsv"> </span>      <span id="outputSpreadsheet"> </span>
+         <span id="output_csv"> </span>     <span id="output_spreadsheet"> </span>
+         <span id="outputcsv"> </span>      <span id="outputspreadsheet"> </span>
+         <span id="Csv"> </span>
+         <span id="csv"> </span>
+         <span id="Spreadsheet"> </span>
+         <span id="spreadsheet"> </span>
+         <pre class="l0"><b>csv</b>
+   spreadsheet</pre>
+      </th>
+      <td><p class="snug">Comma-separated variable. If you populate spreadsheets from your runs, you probably should <span
+             class="alarm">not</span> cut/paste data from text files; <span class="caution">you'll get more accurate data by
+             using <kbd class="nb">--output_format csv</kbd></span>. The csv report includes all runs, more decimal
+          places, system information, and even the compiler flags.</p>
+      </td>
+   </tr>
+
+   <tr><th>
+         <span id="Output-default"> </span>
+         <span id="Output.default"> </span>
+         <span id="OutputDefault"> </span>
+         <span id="Output_default"> </span>
+         <span id="Outputdefault"> </span>
+         <span id="output-default"> </span>
+         <span id="output.default"> </span>
+         <span id="outputDefault"> </span>
+         <span id="output_default"> </span>
+         <span id="outputdefault"> </span>
+         <pre class="l0"><b>default</b></pre>
+      </th>
+      <td>implies HTML and text</td>
+   </tr>
+
+   <tr>
+      <th>
+         <span id="Output-flag"> </span>      <span id="Output-flags"> </span>
+         <span id="Output.flag"> </span>      <span id="Output.flags"> </span>
+         <span id="OutputFlag"> </span>       <span id="OutputFlags"> </span>
+         <span id="Output_flag"> </span>      <span id="Output_flags"> </span>
+         <span id="Outputflag"> </span>       <span id="Outputflags"> </span>
+         <span id="output-flag"> </span>      <span id="output-flags"> </span>
+         <span id="output.flag"> </span>      <span id="output.flags"> </span>
+         <span id="outputFlag"> </span>       <span id="outputFlags"> </span>
+         <span id="output_flag"> </span>      <span id="output_flags"> </span>
+         <span id="outputflag"> </span>       <span id="outputflags"> </span>
+         <pre class="l0"><b>flag</b>|flags</pre>
+      </th>
+      <td>Flag report. Will also be produced when formats that use it are requested (PDF, HTML).  </td>
+   </tr>
+
+   <tr>
+      <th>
+         <span id="Output-html"> </span>
+         <span id="Output.html"> </span>
+         <span id="OutputHtml"> </span>
+         <span id="Output_html"> </span>
+         <span id="Outputhtml"> </span>
+         <span id="output-html"> </span>
+         <span id="output.html"> </span>
+         <span id="outputHtml"> </span>
+         <span id="output_html"> </span>
+         <span id="outputhtml"> </span>
+         <span id="Html"> </span>
+         <span id="html"> </span>
+         <pre class="l0"><b>html</b>
+   xhtml|www|web</pre>
+      </th>
+      <td>web page</td>
+   </tr>
+
+   <tr><th>
+         <span id="Output-mail"> </span>
+         <span id="Output.mail"> </span>
+         <span id="OutputMail"> </span>
+         <span id="Output_mail"> </span>
+         <span id="Outputmail"> </span>
+         <span id="output-mail"> </span>
+         <span id="output.mail"> </span>
+         <span id="outputMail"> </span>
+         <span id="output_mail"> </span>
+         <span id="outputmail"> </span>
+         <span id="Mail"> </span>
+         <span id="mail"> </span>
+         <pre class="l0"><b>mail</b>
+   mailto|email</pre>
+      </th>
+      <td>All generated reports will be sent to an address specified in the config file.  </td>
+   </tr>
+
+   <tr>
+      <th>
+         <span id="Output-pdf"> </span>
+         <span id="Output.pdf"> </span>
+         <span id="OutputPdf"> </span>
+         <span id="Output_pdf"> </span>
+         <span id="Outputpdf"> </span>
+         <span id="output-pdf"> </span>
+         <span id="output.pdf"> </span>
+         <span id="outputPdf"> </span>
+         <span id="output_pdf"> </span>
+         <span id="outputpdf"> </span>
+         <span id="Pdf"> </span>
+         <span id="pdf"> </span>
+         <pre class="l0"><b>pdf</b>
+   adobe</pre>
+      </th>
+      <td>Portable Document Format. This format is the design center for SPEC CPU 2017 reporting.  Other formats contain less
+         information: text lacks graphs, postscript lacks hyperlinks, and HTML is less structured.  (PDF does not appear as
+         part of "default" only because some systems may lack the ability to read it.)</td>
+   </tr>
+
+   <tr>
+      <th>
+         <span id="Output-postscript"> </span>      <span id="Output-ps"> </span>
+         <span id="Output.postscript"> </span>      <span id="Output.ps"> </span>
+         <span id="OutputPostscript"> </span>       <span id="OutputPs"> </span>
+         <span id="Output_postscript"> </span>      <span id="Output_ps"> </span>
+         <span id="Outputpostscript"> </span>       <span id="Outputps"> </span>
+         <span id="output-postscript"> </span>      <span id="output-ps"> </span>
+         <span id="output.postscript"> </span>      <span id="output.ps"> </span>
+         <span id="outputPostscript"> </span>       <span id="outputPs"> </span>
+         <span id="output_postscript"> </span>      <span id="output_ps"> </span>
+         <span id="outputpostscript"> </span>       <span id="outputps"> </span>
+         <span id="Postscript"> </span>
+         <span id="postscript"> </span>
+         <span id="Ps"> </span>
+         <span id="ps"> </span>
+         <pre class="l0"><b>postscript</b>
+   ps|printer|print</pre>
+      </th>
+      <td>PostScript </td>
+   </tr>
+
+   <tr><th>
+         <span id="Output-raw"> </span>     <span id="Output-rsf"> </span>
+         <span id="Output.raw"> </span>     <span id="Output.rsf"> </span>
+         <span id="OutputRaw"> </span>      <span id="OutputRsf"> </span>
+         <span id="Output_raw"> </span>     <span id="Output_rsf"> </span>
+         <span id="Outputraw"> </span>      <span id="Outputrsf"> </span>
+         <span id="output-raw"> </span>     <span id="output-rsf"> </span>
+         <span id="output.raw"> </span>     <span id="output.rsf"> </span>
+         <span id="outputRaw"> </span>      <span id="outputRsf"> </span>
+         <span id="output_raw"> </span>     <span id="output_rsf"> </span>
+         <span id="outputraw"> </span>      <span id="outputrsf"> </span>
+         <span id="Raw"> </span>
+         <span id="raw"> </span>
+         <span id="Rsf"> </span>
+         <span id="rsf"> </span>
+         <pre class="l0"><b>raw</b>
+   rsf</pre>
+      </th>
+      <td>The unformatted raw results, written to a numbered file in the result directory that ends with <samp>.rsf</samp>
+         (e.g.&nbsp;<samp class="snugr">/spec/cpu2017/rc4/result/CPU2017.042.fpspeed.rsf</samp>).  Your raw result files are your
+         most important, because the other formats are generated from them. </td> 
+   </tr>
+
+   <tr>
+      <th>
+         <pre class="l0"><b>screen</b>|scr|disp
+   display|terminal|term</pre>
+      </th>
+      <td>ASCII text output to stdout. </td>
+   </tr>
+
+   <tr>
+      <th>
+         <span id="Output-txt"> </span>   <span id="Output-text"> </span>
+         <span id="Output.txt"> </span>   <span id="Output.text"> </span>
+         <span id="OutputTxt"> </span>    <span id="OutputText"> </span>
+         <span id="Output_txt"> </span>   <span id="Output_text"> </span>
+         <span id="Outputtxt"> </span>    <span id="Outputtext"> </span>
+         <span id="output-txt"> </span>   <span id="output-text"> </span>
+         <span id="output.txt"> </span>   <span id="output.text"> </span>
+         <span id="outputTxt"> </span>    <span id="outputText"> </span>
+         <span id="output_txt"> </span>   <span id="output_text"> </span>
+         <span id="outputtxt"> </span>    <span id="outputtext"> </span>
+         <span id="Output-ASCII"> </span>      <span id="Output-asc"> </span>
+         <span id="Output.ASCII"> </span>      <span id="Output.asc"> </span>
+         <span id="OutputASCII"> </span>       <span id="OutputAsc"> </span>
+         <span id="OutputAscii"> </span>       <span id="Output_asc"> </span>
+         <span id="Output_ASCII"> </span>      <span id="Outputasc"> </span>
+         <span id="output-ASCII"> </span>      <span id="output-asc"> </span>
+         <span id="output-ascii"> </span>      <span id="output.asc"> </span>
+         <span id="output.ASCII"> </span>      <span id="outputAsc"> </span>
+         <span id="output.ascii"> </span>      <span id="output_asc"> </span>
+         <span id="outputASCII"> </span>       <span id="outputasc"> </span>
+         <span id="outputAscii"> </span>
+         <span id="output_ASCII"> </span>
+         <span id="output_ascii"> </span>
+         <span id="outputascii"> </span>
+         <span id="Txt"> </span>
+         <span id="txt"> </span>
+         <span id="Text"> </span>
+         <span id="text"> </span>
+         <span id="ASCII"> </span>
+         <span id="Ascii"> </span>
+         <span id="ascii"> </span>
+         <span id="Asc"> </span>
+         <span id="asc"> </span>
+         <pre class="l0"><b>text</b>
+   txt|ASCII|asc</pre>
+      </th>
+      <td>Plain <a class="external" href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> text file </td>
+   </tr>
+</table>
+
+
+
+<h4 id="rawformat">--rawformat <i>rawfiles</i></h4> 
+<ul>
+<li>          Synonym: <kbd class="nb">-R <i>rawfile</i>  </kbd></li>
+<li>          Default: Do not use rawformat mode.</li>
+<li>
+   <p class="snug">Meaning: Do not attempt to do a run; instead, just generate reports from an existing rawfile.</p>
+
+   <p>Output will always include the results of format <a href="#check">check</a> unless you add <kbd>nocheck</kbd> to your list
+   of <a href="#output_format">output_format</a>s.</p>
+
+   <p class="snugbot">Using this option will cause any specified <a href="#action">--action</a>s to be ignored.  The
+   <kbd>runcpu</kbd> program is actually exited and <a class="external" href="utility.html#rawformat">rawformat</a> is
+   executed instead.  These commands do the same thing:</p>
+   <pre class="snugish">runcpu --rawformat <i>something</i>
+rawformat <i>something</i></pre>
+
+   <p>The <kbd>rawformat</kbd> utility or the <kbd class="nb">--rawformat</kbd> switch can be useful if (for example) you are just doing
+   ASCII output during most of your runs, but now you would like to create additional reports for one or more especially
+   interesting runs.  To create the html and PDF files for experiment number 77, you could say either of these:</p>
+
+<pre><b>runcpu --rawformat --output_format html,ps $SPEC/result/CPU2017.077.fpspeed.rsf</b> 
+<b>rawformat          --output_format html,ps $SPEC/result/CPU2017.077.fpspeed.rsf</b> </pre>
+
+<p class="snugbot">For more information about rawformat, please see <a class="external"
+href="utility.html#rawformat">utility.html</a>.</p>
+</li> 
+</ul>
+
+<h4 id="rebuild">--rebuild</h4> 
+<ul>
+<li>          Synonym:  <kbd class="nb">-D</kbd></li>
+<li>          Default: Do not rebuild unless binary is missing or does not match the config file.</li>
+<li>          Meaning: Delete existing binaries and recompile.  Use this if, for example, you have installed a new 
+                       version of your compiler and want to force a rebuild of the benchmarks.</li>
+</ul>
+
+<h4 id="strict">--reportable
+   <span id="Strict"> </span>
+   <span id="NoLoose"> </span>
+   <span id="no-loose"> </span>
+   <span id="no.loose"> </span>
+   <span id="noLoose"> </span>
+   <span id="no_loose"> </span>
+   <span id="noloose"> </span>
+   <span id="Reportable"> </span>
+   <span id="reportable"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">-s</kbd> | 
+                        <kbd class="nb">--strict</kbd> | 
+                        <kbd class="nb">--noloose</kbd></li>
+<li>          Default:  <kbd>loose</kbd></li>
+<li><p class="snugtop">Meaning:  Wherever it is practical to do so in an automated fashion, enforce the CPU 2017 run rules, so
+   as to produce a result which is suitable for public reporting and/or submission to SPEC.  This option forces various other
+   options, for example <a class="external" href="config.html#sysinfo">sysinfo</a> is required.  When you do a reportable
+   run, the list of benchmarks to run must be an entire <a href="#suite">suite</a>.  The order of events for reportable runs
+   is described <a href="#RunOrder">above</a>.</p>
+
+   <!-- Repeated note: this note appears 4 times: runcpu.html iterations and reportable; config.html ditto -->
+   <p class="snugbot">Reportable runs must use 2 or 3 iterations.  Here is how the settings for 
+   <a href="#iterations">iterations</a> and <a href="#reportable">reportable</a> affect each other:</p>
+   <ul class="snug">
+      <li>If you do not specify anything for iterations, reportable runs use 3.</li>
+      <li>If you specify 1 iteration (i.e. less than the minimum), reportable runs use 2. </li>
+      <li>If you specify 4 or more iterations (i.e. more than the maximum), reportable runs use 3.</li>
+   </ul>
+   <!-- end of repeated note -->
+
+</li>
+</ul>
+
+
+<h4 id="threads">--threads <i>N</i>
+   <span id="Threads"> </span>
+</h4> 
+<ul>
+<li>          Synonym: none</li>
+<li>          Default: <kbd>1</kbd></li>
+<li><p class="snugtop">Meaning: When the benchmarks are run, set the environment variable <kbd class="nb">OMP_NUM_THREADS=N</kbd></p>
+
+   <p class="l1snug">Notes</p>
+   <ol class="l1snugtop">
+      <li>If you have set <samp>OMP_NUM_THREADS</samp> in your environment prior to using <samp class="snugr">runcpu</samp>, that setting will
+         be <span class="alarm">ignored</span>.  To use multiple benchmark threads, <span class="caution">you must use</span>
+         either <kbd class="nb">runcpu --threads=N</kbd> or the corresponding config file option <a class="external"
+            href="config.html#threads">threads=N</a>.</li>
+      <li>You may prefer to set the config file option <a href="config.html#threads" class="external">threads=</a> because setting
+         it there allows you to vary the count for different benchmarks when running peak.  </li>
+      <li>If you set it on the command line with <kbd class="nb">runcpu --threads=N</kbd> then the command line setting will
+         override your config file settings.</li>
+   </ol>
+
+</li>
+</ul>
+
+
+<h4 id="tune">--tune <i>tuning</i>
+   <span id="Tune"> </span>
+   <span id="Tuning"> </span>
+   <span id="tuning"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">--tuning <i>tuning</i></kbd> | 
+                        <kbd class="nb">-T <i>tuning</i></kbd></li>
+<li>          Default: <kbd>base</kbd></li>
+<li>          Meaning: Selects tuning to use: <kbd class="snugr">base</kbd>, <kbd class="snugr">peak</kbd>, or <span
+                       class="tt">all</span>.  For a reportable run, must be either <kbd>base</kbd> or <span
+                       class="tt">all</span>.  Reportable runs do base first, then (optionally) peak.</li>
+</ul>
+
+
+
+<!-- ....................................................................................................................... -->
+<h2 id="section3">3. Less common options</h2> 
+
+<p>This section is organized alphabetically without regard to upper/lower case and without regard to presence or 
+absence of <kbd>no</kbd> at the start of the switch.</p>
+
+<h4 id="baseonly">--baseonly</h4>
+<ul>
+<li>          Synonym: None</li>
+<li>          Default: Discard peak results and report only base.</li>
+<li>          Meaning: This switch only has meaning in <a href="#rawformat">--rawformat</a> mode, when reformatting previously-run 
+   results. </li> 
+</ul>
+
+<h4 id="basepeak">--basepeak [<i>bench,bench,...</i>]</h4> 
+<ul>
+<li>          Synonym: None</li>
+<li>          Default: Do not do basepeak when reformatting results.</li>
+<li>          Meaning: This switch only has meaning in <a href="#rawformat">--rawformat</a> mode, when reformatting previously-run 
+                       results.  When no arguments are specified, this switch will perform base to peak substitution for all
+                       benchmarks in the result file.  If arguments are given, they must be the name of benchmarks or
+                       benchmark suites, and the base results for only those benchmarks will be copied over the peak results
+                       for only those benchmarks.<br />
+                       <strong>Note:</strong> Use of this option will cause rawformat to output <i>only</i> a raw file.  This
+                       is to help ensure that there is always a raw file present to match any generated results.</li>
+</ul>
+
+<h4 id="nobuild">--nobuild  </h4> 
+<ul>
+<li>          Synonym: <kbd class="nb">-N</kbd></li>
+<li>          Default: normally, the tools will make their own decision of whether to rebuild, based on whether the binaries
+                       exist, or whether they match the expected checksums.</li>
+<li><p class="snugtop">Meaning: Do not build binaries, even if they don't exist or checksums don't match.  </p>
+   
+   <p>The <kbd class="nb">--nobuild</kbd> feature can be very handy if, for example, you have script with multiple invocations of runcpu, and
+   you would like to ensure that the build is only attempted once.  (Perhaps your thought process might be, "If it fails the first
+   time, fine, just forget about it until I come in Monday and look things over.")  By adding <kbd class="nb">--nobuild
+      --ignore_errors</kbd> to all runs after the first one, no attempt will be made to build the failed benchmarks after the
+   first attempt.  </p>
+                       
+   <p>The <kbd class="nb">--nobuild</kbd> feature also comes in handy when testing whether proposed config file options would potentially
+   force an <a class="external" href="config.html#about.auto.rebuilds">automatic rebuild</a>. </p> 
+
+                    </li>
+</ul>
+
+<h4 id="comment">--comment <i>"comment text"</i></h4> 
+<ul>
+<li>          Synonym: None</li>
+<li>          Default: Add no comment.</li>
+<li>          Meaning: Adds a comment to the log file and the stored configuration file.  </li>
+
+</ul>
+
+<h4 id="define">--define <i>SYMBOL</i>[=<i>VALUE</i>]<br />
+                --define <i>SYMBOL</i>:<i>VALUE</i></h4> 
+<ul>
+<li>          Synonym: <kbd class="nb">-S <i>SYMBOL</i>[=<i>VALUE</i>]</kbd> or <kbd class="nb">-S <i>SYMBOL</i>:<i>VALUE</i></kbd></li>
+<li>          Default: Do not define config file preprocessor macros.</li>
+<li>          <p class="snugtop">Meaning: Define a <a href="config.html#preprocessor" class="external">preprocessor</a> macro named <kbd>SYMBOL</kbd> 
+                   and optionally give it the value <kbd class="snugr">VALUE</kbd>.  
+                   <br />If no value is specified, the macro is defined with no value.  <br /><kbd>SYMBOL</kbd>
+                   may not contain equals signs ("=") or colons (":").  
+                   <br />This option may be used multiple times.</p>
+
+   <p class="snugbot">Many of the Example config files in your config/ directory have sections similar to this:</p>
+   <pre class="l1snugish">%ifndef %{build_ncpus} 
+%   define  build_ncpus 8      
+%endif
+   .
+   .
+   .
+makeflags            = --jobs=%{build_ncpus}</pre>                         
+
+   <p class="snug">If you have a large server and want compiles to complete more quickly, you could say <kbd class="nb">runcpu --define
+      build_ncpus=99</kbd> and <a href="utility.html#specmake" class="external">specmake</a> will create up to 99 compile jobs at
+   a time.</p>
+
+                   </li>
+</ul>
+
+<h4 id="delay">--delay <i>secs</i></h4> 
+<ul>
+<li>          Synonym: None</li>
+<li>          Default: Add no delay.</li>
+<li>          Meaning: Add a delay of the specified number of seconds before and after each benchmark (<span
+                       class="tt">specinvoke</span>) invocation.  The delay is not counted toward the benchmark runtime.
+                    This option is silently ignored during reportable runs.  </li>
+</ul>
+
+<h4 id="deletework">--deletework</h4> 
+<ul>
+<li>          Synonym: <kbd class="nb">-d</kbd></li>
+<li>          Default: Do not delete working directories.</li>
+<li>          Meaning: Delete run directories and re-populate.  Use this if you suspect that the run directories may have
+                       been corrupted, for example due to a system crash during setup of an earlier run.  You might also use
+                       this if you just wish to ensure clean run directories, but note that the tools will automatically
+                       provide what they deem to be a sufficient level of cleaning.</li>
+</ul>
+
+<h4 id="expid">--expid <i>subdir</i></h4>
+<ul>
+<li>          Synonym: None</li>
+<li>          Default: None</li>
+<li>          Meaning: If set to a non-empty value, will cause executables, run directories, results, and log files to be put
+                       in a subdirectory (with the same name as the value set) in their normal directories.  For example,
+                       using <kbd class="nb">--expid=CDS</kbd> will cause benchmark binaries to end up in <kbd class="snugr">exe/CDS</kbd>, run directories
+                       to end up in <kbd class="snugr">run/CDS</kbd>, and results and logs in <kbd class="snugr">$SPEC/result/CDS</kbd>.</li>
+</ul>
+
+<h4 id="fake"> --fake
+   <span id="Fake"> </span>
+   <span id="DryRun"> </span>
+   <span id="dry-run"> </span>
+   <span id="dry.run"> </span>
+   <span id="dryRun"> </span>
+   <span id="dry_run"> </span>
+   <span id="dryrun"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">--dryrun</kbd> | <kbd class="nb">--dry-run</kbd>       </li>
+<li>          Default: Really do the actions requested.</li>
+<li>          Meaning: List, but do not execute, the commands needed to build or run the benchmarks.  
+              <ul><li>Use <kbd class="nb">--fake --action build</kbd> to get a listing of the commands needed to build
+              a benchmark.</li>
+              <li>Use <kbd class="nb">--fake --action run</kbd> to get a listing of the commands needed to run a benchmark.  (If
+                 the benchmark executable does not exist, you will also get a listing of the needed build commands.)</li>
+              <li><span class="alarm">Warning:</span> Fake mode is not implemented for the 
+                 <a href="#clean">cleaning</a> actions. 
+                 <br />For example, if you say <kbd class="nb">runcpu --fake --action=clean</kbd> the cleaning really
+                 happens.</li> 
+              </ul>  
+              <kbd>Runcpu</kbd> uses <kbd class="nb"><a class="external" href="utility.html#specmake">specmake</a> -n</kbd> and 
+              <kbd class="nb"><a class="external" href="utility.html#specinvoke">specinvoke</a> -n</kbd> to generate these listings.  </li>
+
+</ul>
+
+<h4 id="fakereport">--fakereport
+   <span id="ReportOnly"> </span>
+   <span id="report-only"> </span>
+   <span id="report.only"> </span>
+   <span id="reportOnly"> </span>
+   <span id="report_only"> </span>
+   <span id="reportonly"> </span>
+   <span id="FakeReport"> </span>
+   <span id="fake-report"> </span>
+   <span id="fake.report"> </span>
+   <span id="fake_report"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">--action=report</kbd> | 
+                        <kbd class="nb">--reportonly</kbd></li>
+<li>          Default: Not set</li>
+<li>          Meaning: Process the config file and generate output as if a run had been done.  The results will all be zero, 
+                       but otherwise the report will be correctly formatted, as if it had come from an actual run.  <b>Note</b>
+                       that if your config file or command line includes options that would cause a real run to be marked
+                       invalid (for example, setting <kbd class="nb">iterations=1</kbd> or <samp
+                       class="nbsnugr">--size=test</samp>), then the tools will also mark the fake report as invalid.  If your
+                       goal is to get a preview of what the final, golden run will look like, you might prefer <a
+                          href="#fakereportable">--fakereportable</a>.  </li>
+</ul>
+
+<h4 id="fakereportable">--fakereportable
+   <span id="Fakereportable"> </span>
+   <span id="Mockup"> </span>
+   <span id="mockup"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">--mockup</kbd></li> 
+<li>          Default: Not set</li>
+<li>          Meaning: Process the config file and generate output as if a "reportable" run had been done.  The results will 
+                       all be zero, but otherwise the report will be correctly formatted, as if it had come from a
+                       reportable run.
+                       </li>
+</ul>
+
+<h4 id="feedback">--[no]feedback</h4> 
+<ul>
+<li>          Synonyms: none</li>
+<li>          Default: <kbd class="nb">--feedback</kbd></li>
+
+<li><p class="hanging1snugtop">Meaning: enable or disable FDO options in the config file.
+   <br />Normally, when Feedback-Directed Optimization (FDO) options are set in the 
+   <a class="external" href="config.html#UsingFDO">config file</a>, multiple-pass compilation is done, along with training
+   runs.  Using <kbd class="nb">--nofeedback</kbd> will cause the config file FDO settings to be ignored and a single-pass
+   compilation will occur.  <br />Explicitly specifying <samp class="nb">--feedback</samp> will have an effect only if
+   there are appropriate FDO options in the configuration file.  </p>
+
+   <p class="snugbot"><span class="new">New with CPU 2017:</span> The command line wins unconditionally over the config file.  <br
+   />See <a class="external" href="config.html#fdoExample7">FDO Example 7</a> in <i>SPEC CPU 2017 Config Files</i>.</p>
+                       
+</li>
+</ul>
+
+<h4 id="graphauto"> --[no]graph_auto
+   <span id="GraphAuto"> </span>
+   <span id="graph-auto"> </span>
+   <span id="graph.auto"> </span>
+   <span id="graphAuto"> </span>
+   <span id="graph_auto"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">--[no]graphauto </kbd></li>
+<li>          Default: <kbd class="nb">--nograph_auto</kbd></li>
+<li>          Meaning: frees the tools to pick a value that they think appropriate for the top and bottom of the Y axis.  
+                       The maximum and minimum chosen will attempt to let the viewer observe differences among the
+                       benchmarks.  By default, the minimum will instead be anchored to zero.  
+                       </li>
+</ul>
+
+<h4 id="graphmax"> --graph_max <i>N</i>
+   <span id="GraphMax"> </span>
+   <span id="graph-max"> </span>
+   <span id="graph.max"> </span>
+   <span id="graphMax"> </span>
+   <span id="graph_max"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">--graphmax</kbd></li>
+<li>          Default: big enough (plus a little)</li>
+<li>          Meaning: Allows you to specify a new value for the maximum point on the graph scale.
+</li>
+</ul>
+
+<h4 id="graphmin"> --graph_min <i>N</i>
+   <span id="GraphMin"> </span>
+   <span id="graph-min"> </span>
+   <span id="graph.min"> </span>
+   <span id="graphMin"> </span>
+   <span id="graph_min"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">--graphmin <i>N</i></kbd></li>
+<li>          Default: <kbd>0</kbd></li>
+<li>          Meaning: Allows you to specify a new value for the minimum point on the graph scale.
+</li>
+</ul>
+
+<h4 id="http_proxy">--http_proxy <i>proxy[:port]</i></h4>
+<ul>
+<li>          Synonyms: none</li>
+<li>          Default: none</li>
+<li>          <p class="snugtop">Meaning: In some cases, such as when doing <a class="external"
+                       href="config.html#check_version">version checks</a> and loading <a class="external"
+                       href="flag-description.html">flag description files</a>, <kbd>runcpu</kbd> will attempt to
+                       fetch a file, using http.  If your web browser needs a proxy server in order to access the outside world,
+                       then runcpu will probably want to use the same proxy server.  The proxy server can be set by:</p> 
+
+                          <ul>
+                          <li>The runcpu <kbd class="nb">--http_proxy</kbd> switch, or</li>
+                          <li>The environment variable <kbd class="snugr">http_proxy</kbd>, or</li>
+                          <li>Using the <a class="external" href="config.html#http_proxy">config file http_proxy</a> option</li> 
+                          </ul>
+
+              <p>For example, a failure of this form:</p>
+
+<pre>
+$ runcpu --rawformat --output_format txt \
+   --flagsurl http://portlandcyclers.net/evan.xml CPU2017.007.fprate.rsf
+...
+Retrieving flags file (http://portlandcyclers.net/evan.xml)...
+
+ERROR: Specified flags URL (http://portlandcyclers.net/evan.xml) could not be retrieved.
+       The error returned was: 500 Can't connect to portlandcyclers.net:80 
+       (Bad hostname 'portlandcyclers.net')
+</pre>
+<p>improves when a proxy is provided: </p>
+<pre>
+$ runcpu --rawformat --output_format txt \
+   --flagsurl http://portlandcyclers.net/evan.xml  \
+   --http_proxy=http://webcache.tom.spokewrenchdad.com:8080 CPU2017.007.fprate.rsf
+</pre>
+
+
+              <p class="snugtop">Note that this setting will override the value of the <kbd>http_proxy</kbd>
+              environment variable, as well as any setting in the <a class="external" href="config.html#http_proxy">config
+              file</a>.</p> 
+
+              <p>By default, no proxy is used.  The special value <kbd>none</kbd> may be used to unset any
+              proxies set in the environment or via config file.  </p></li>
+</ul>
+
+<h4 id="http_timeout">--http_timeout <i>N</i></h4>
+<ul>
+<li>          Synonyms: none</li>
+<li>          Default: 30 seconds</li>
+<li>          Meaning: This is the amount of time (in seconds) to wait while attempting to fetch a file via HTTP.  If the
+                     connection cannot be established in this amount of time, the attempt will be aborted. </li>
+</ul>
+
+<h4 id="infowrap"> --info_wrap_columns <i>N</i>
+   <span id="InfoWrapColumns"> </span>
+   <span id="info-wrap-columns"> </span>
+   <span id="info.wrap.columns"> </span>
+   <span id="infoWrapColumns"> </span>
+   <span id="info_wrap_columns"> </span>
+   <span id="infowrapcolumns"> </span>
+</h4>
+<ul>
+<li>          Synonym: <kbd class="nb">--infowrap <i>N</i></kbd></li>
+<li>          Default: <kbd>50</kbd></li>
+<li>          Meaning: When set to a value greater than 0, attempts to split non-notes informational lines such that they are 
+                       no longer than <i>N</i> columns wide.  Lines are split on whitespace, and newly created lines are
+                       guaranteed to have at least the same indentation as the original line.<br /> 
+                       
+                       If a line contains an item that is longer than <i>N</i>, a warning is logged and the original line is
+                       left unchanged.  
+                       </li>
+</ul>
+
+<h4 id="keeptmp">--[no]keeptmp</h4>
+<ul>
+<li>          Synonym: None</li>
+<li>          Default: <kbd class="nb">--nokeeptmp</kbd></li>
+<li>          Meaning: When set, temporary files such as compiler option output and temporary log files will not be removed.  For
+                       a list of temporary file locations, see the discussion in <a class="external"
+                          href="config.html#keeptmp">config.html</a>.  </li>
+</ul>
+
+<h4 id="label">--label <i>name</i>
+   <span id="Label"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">-L <i>name</i></kbd></li>
+<li>          Default:  <kbd>none</kbd></li>
+<li>          Meaning:  Label to build or run.  Normally used only if the config file has been written to handle more
+                        than one label.  The config file author should tell you what labels to enter under which
+                        circumstances.
+
+                        <br />Note: The label used may only consist of alphanumeric characters, underscores, hyphens, and
+                        periods.</li>
+</ul>
+
+
+<h4 id="log_timestamp">--[no]log_timestamp</h4>
+<ul>
+<li>          Synonym: <kbd class="nb">--[no]log-timestamp</kbd></li>
+<li>          Default: <kbd class="nb">--nolog_timestamp</kbd></li>
+<li>          Meaning: When set, lines output to the log file will have a time stamp prepended.  The timestamp is
+               always present in the debug log.</li>
+</ul>
+
+<h4 id="noclobber"> 
+   <span id="make_no_clobber"> </span> 
+   --make_no_clobber</h4> 
+<ul>
+<li>          Synonym: <kbd class="nb">-M</kbd> </li>
+<li>          Default: clobber</li>
+<li><p class="snugtop">Meaning: Do not delete existing object files before attempting to build.  This option should only be used for
+   troubleshooting a problematic compile.  It cannot be used for a reportable run.</p>
+
+                       <p>Rather than using this option, it would probably be easier to just go to the build directory and
+                       use <a href="utility.html#specmake" class="external">specmake</a></p></li>
+</ul>
+
+<h4 id="noteswrap"> --notes_wrap_columns <i>N</i>
+   <span id="NotesWrapColumns"> </span>
+   <span id="notes-wrap-columns"> </span>
+   <span id="notes.wrap.columns"> </span>
+   <span id="notesWrapColumns"> </span>
+   <span id="notes_wrap_columns"> </span>
+   <span id="noteswrapcolumns"> </span>
+</h4>
+<ul>
+<li>          Synonym: <kbd class="nb">--noteswrap</kbd></li>
+<li>          Default: 0 (disabled)</li>
+<li>          Meaning: When set to a value greater than 0, attempts to split notes lines such that they are no longer than
+                       <i>N</i> columns wide.  Lines are split on whitespace, and newly created lines are guaranteed to have
+                       at least the same indentation as the original line.
+
+                       <br/> If a line contains an item that is longer than <i>N</i>, a warning is logged and the original
+                       line is left unchanged.</li>
+</ul>
+
+
+<h4 id="output_root">--output_root <i>directory</i></h4>
+<ul>
+   <li>          Synonym: --output-root <i>directory</i></li>
+   <li>          Default: None</li>
+   <li>          <p class="snugtop">Meaning: If set to a non-empty value, all output files will be rooted under the named
+      directory, instead of under <samp>$SPEC</samp> (or <samp class="snugr">%SPEC%</samp>).  
+      <br />If <i>directory</i> is not an absolute path (one that begins with "/" on Unix, or a device name on Windows), the path
+      will be created under $SPEC.  </p>
+
+      <p class="snugbot">This option can be useful for <a href="#sharing">sharing</a> an installation.
+      <br />It can also be useful if you want to optimize your I/O, as discussed in the corresponding <i>SPEC CPU 2017 Config
+      Files</i> section on <a class="external" href="config.html#output_root">output_root</a>.</p>
+   </li>
+</ul>
+
+<h4 id="parallel_test">--parallel_test <i>processes</i> </h4>
+<ul>
+<li>          Synonyms: --parallel-test <i>processes</i> </li>
+<li>          Default:  1 (or number of copies for SPECrate runs)</li>
+<li>          <p class="snugtop">Meaning:  For reportable runs, the number of (untimed, but mandatory) test and train
+   workloads to run in parallel.  
+   <br />Because these are untimed, it is often convenient to run many of them at once.
+   <br />See also the discussion in the corresponding <i>SPEC CPU 2017 Config Files</i> section on 
+   <a class="external" href="config.html#parallel_test">parallel_test</a></p>
+   <p><b>SPECspeed note:</b> If you set both <samp class="nb">--parallel_test=N</samp> and <a href="#threads">--threads=M</a> (which is
+   only meaningful for SPECspeed testing), the thread request is silently ignored during the test and train runs.  This is
+   done in order to prevent accidental system overload with <samp>N&nbsp;x&nbsp;M</samp> threads.</p>
+</li>
+
+</ul>
+
+<h4 id="parallel_test_workloads">--parallel_test_workloads <i>workload,...</i> </h4>
+<ul>
+<li>          Synonyms: --parallel-test-workloads <i>workload,...</i> </li>
+<li>          Default:  None</li>
+<li>          Meaning:  When set to one or more of <kbd class="snugr">test</kbd>, <kbd class="snugr">train</kbd>, or <kbd class="snugr">ref</kbd>, will enable parallel runs
+                        up to the number of processes allowed by the setting for <a href="#parallel_test">parallel_test</a>.</li>
+</ul>
+
+<h4 id="power">--power, --nopower</h4> 
+<ul>
+   <li>          Synonym: none</li>
+   <li>          Default: <kbd>--nopower</kbd></li>
+   <li><p class="snugtop"> Meaning: Enable/disable the optional power measurement mode of the benchmark.  </p>
+
+      <p class="snugbot">If you wish to measure power, you will need:</p>
+      <ul class="snug">
+         <li>A power analyzer.</li>
+         <li>A temperature sensor.</li>
+         <li>A Linux or Windows "Controller System", where you will run SPEC's Power and Temperature
+            reporting tool, SPEC PTDaemon&#8482; </li>
+      </ul>
+
+      <p>In your config file, you specify the network location for the controller system; set the expected voltage and
+      current ranges; and describe your measurement setup for readers of your results.  See the config file documentation
+      on <a class="external" href="config.html#PowerMeasurement">Power Measurement</a>.</p> 
+
+      <p class="snugbot">Once your hardware and config file are set up, then:</p>
+      <ul class="snugtop">
+         <li>Power measurement can be enabled or disabled using either this <kbd>runcpu</kbd> command line option or by
+            setting the config file <a class="external" href="config.html#power">power</a> option.</li>
+         <li>In case of disagreement between the command line and the config file, the command line will win.</li>
+      </ul>
+
+      <p class="hanging1"><b>Usage with <kbd class="snugr">rawformat</kbd>:</b>  It is permitted to reformat a
+      power+performance run as performance-only, using the <a class="external" href="utility.html#rawformat">rawformat</a>
+      utility with the --nopower option.  You may wish to do so if a run is marked invalid due to sampling or other problems
+      detected during power measurement.</p>
+
+   </li>
+</ul>
+
+<h4 id="preenv">--preenv, --nopreenv</h4>
+<ul>
+<li>          Synonym: none</li>
+<li>          Default: True (<kbd class="nbsnugl"><a class="external" href="config.html#preenv">preENV_</a></kbd> lines are
+used)</li> 
+<li>          Meaning: When set, causes <kbd class="nb"><a class="external" href="config.html#preenv">preENV_</a></kbd>
+                     lines in the config file to be used.  Use of --nopreenv will disable this behavior. </li>
+</ul>
+
+<h4 id="review">--review, --noreview</h4> 
+<ul>
+<li>          Synonym: none</li>
+<li>          Default: --noreview</li>
+<li>          <p class="snugtop">Meaning: Format results for review, meaning that additional detail will be printed that
+   normally would not be present.  </p>
+   <ul>
+      <li>In lists of Portability Flags, benchmarks that do not use any flags are nevertheless listed,
+         along with the notation "No flags used".</li>
+      <li>Flags that are normally hidden (via 
+         <a class="external" href="flag-description.html#nodisplay">display enable="0"</a>) will be displayed anyway, along
+         with the word <samp class="snugr">NODISPLAY</samp>, to indicate that by default they are hidden.   
+         <br />This feature is normally used only for 
+         <a class="external" href="flag-description.html#splitters">splitters</a>; any other usage would need to be justified.</li>
+   </ul>
+</li>
+
+</ul>
+
+<h4 id="setpg"> --setprocgroup, --nosetprocgroup 
+   <span id="SetProcGroup"> </span>
+   <span id="set-proc-group"> </span>
+   <span id="set.proc.group"> </span>
+   <span id="setProcGroup"> </span>
+   <span id="set_proc_group"> </span>
+   <span id="setprocgroup"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: none</li>
+<li>          Default:  <kbd class="nb">--setprocgroup</kbd></li>
+<li>          Meaning:  Attempt to create all processes in a single group.  Improves the chances that <samp
+                        class="nb">^C</samp> will get the whole run, not just one of the children.</li>
+</ul>
+
+
+<h4 id="size"> --size <i>size</i>[,<i>size</i>...]
+   <span id="Input"> </span>
+   <span id="input"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">-i <i>size</i>[,<i>size</i>...]</kbd> | 
+                        <kbd class="nb">--input <i>size</i>[,<i>size</i>...]</kbd> </li>
+<li>          Default: <kbd>ref</kbd></li>
+<li><p class="hanging1snugtop">Meaning: Selects size of input data to run: <kbd class="snugr">test</kbd>, <kbd class="snugr">train</kbd>, or <kbd class="snugr">ref</kbd>.  
+   <br />The reference workload ("ref") is the only size whose time appears in reports. </p>
+
+   <p >You might choose to use <kbd class="nb">runcpu --size=test</kbd> while debugging a new set of compilation options.  </p>
+
+   <p >Reportable runs automatically invoke all three sizes: they ensure that your binaries can produce correct results with the
+   test and train workloads and then run the ref workload either 2 or 3 times for the actual measurements. </p>
+
+   <p class="l1snugbot"><span class="caution">Caution:</span> When requesting workloads, it is best to stick with the above three:
+   test, train, and ref.  Other options (or synonyms) may be useful to benchmark developers or with other suites that use this
+   toolset; they are not documented here because it is not possible to generate SPEC CPU 2017 metrics using workloads other than
+   the ones that correspond to these three. </p> 
+
+</li>
+</ul>
+
+
+<h4 id="table"> --table, --notable   
+   <span id="NoTable"> </span>
+   <span id="no-table"> </span>
+   <span id="no.table"> </span>
+   <span id="noTable"> </span>
+   <span id="no_table"> </span>
+   <span id="notable"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: none</li>
+<li>          Default:  <kbd class="nb">--table</kbd></li>
+<li>          Meaning:  For ASCII reports, include a detailed table of all runs.</li>
+</ul>
+
+<h4 id="test">--test   </h4> 
+<ul>
+<li>          Synonyms: none</li>
+<li>          Default:  Do not run the Perl test suite</li>
+<li><p class="snugtop">Meaning:  Run the Perl test suite to verify correct operation of <samp class="snugr">specperl</samp>, the SPEC CPU
+   pre-compiled version of Perl.  
+   <br />When this option is used, <samp>runcpu</samp> will not perform any other actions.</p> 
+   <p><samp>specperl</samp> is added when you run <a href="install-guide-unix.html" class="external">install.sh</a> or <a
+      class="external" href="install-guide-windows.html">install.bat</a>.  
+   <br />If something goes wrong while installing and you want <a href="techsupport.html" class="external">support</a>, the output
+   of <kbd class="nb">runcpu --test</kbd> may be needed.</p>
+</li>
+</ul>
+
+
+<h4 id="train_with">--train_with <i>WORKLOAD</i>   </h4> 
+<ul>
+<li>          Synonyms: none</li>
+<li>          Default:  <kbd class="nb">train</kbd></li>
+<li>          Meaning:  Select the workload to use for training binaries built using feedback-directed optimization. Note that the
+                        training workload used is considered one of the build options, so this option (with identical argument)
+                        must be used each time the binaries themselves are used in order to prevent an automatic re-build.  It's
+                        probably best to just set it in the config file instead. <b>Note:</b> it is unlikely that a CPU 2017 user
+                        would use this feature; see the additional detail on this topic in <a class="external"
+                           href="config.html#train_with">config.html</a>.  </li>
+</ul>
+
+
+<h4 id="undef">--undef <i>SYMBOL</i></h4> 
+<ul>
+<li>          Synonym: None</li>
+<li>          Default: </li>
+<li>          Meaning: Removes the definition of any preprocessor macro named SYMBOL.<br />
+                  This option may be used multiple times.  </li>
+
+</ul>
+
+<h4 id="update">--update</h4>
+<ul>
+<li>          Synonym: None</li>
+<li>          Default: do not check</li>
+<li><p class="snugtop">Meaning: Check <a class="external" href="https://www.spec.org/cpu2017/">www.spec.org</a> for updates.
+   Apply them if there are any.
+   <br />When this option is used, <samp>runcpu</samp> will not perform any other actions.
+   <br />If you set <a href="#verbose">--verbose</a> to 7 or higher, you will get a list of files that are checked.
+   </p>
+   <p>Example:</p>
+   <pre>
+$ <b>cd $SPEC</b>
+$ <b>cat version.txt </b>
+1.0.1
+$ <b>time runcpu --update</b>
+SPEC CPU(r) 2017 Benchmark Suites
+Copyright 1995-2017 Standard Performance Evaluation Corporation (SPEC)
+
+runcpu v5749
+Using 'linux-x86_64' tools
+Reading file manifests... read 32325 entries from 2 files in 0.18s (175442 files/s)
+Loading runcpu modules.................
+Locating benchmarks...found 47 benchmarks in 53 benchsets.
+
+CPU2017 update mode selected
+Downloading update information...
+
+Selected update:
+        From v1.0.1 to v1.0.2
+        Update size: 3190 KB
+
+Downloading update metadata: 1312 B (5989 B/s)
+Update metadata parsed successfully.
+
+Update summary:
+        Files to remove: 6
+        Directories to remove: 0
+        Files to change: 134
+        Files to add: 6
+Update metadata downloaded and verified.
+
+Checking files that will be changed or removed by the update...
+Checks completed.
+Update: Downloading update: 3192 KB/3190 KB (100%; 932 KB/s)
+Update downloaded and verified.
+
+Uncompressing update file
+
+Proceed with update? (y/n)
+<b>y</b>
+
+Suite update successful!
+
+There is no log file for this run.
+
+runcpu finished at 2018-05-18 11:27:29; 8 total seconds elapsed
+
+real    0m9.038s
+user    0m1.598s
+sys     0m0.680s
+$ <b>cat version.txt </b>
+1.0.2
+$
+   </pre>
+
+                       </li>
+
+</ul>
+
+
+<h4 id="use_submit_for_compare">--use_submit_for_compare</h4>
+<ul>
+<li>          Synonym: <kbd class="nb">--use-submit-for-compare</kbd></li>
+<li>          Default: <kbd class="nb">--no-use-submit-for-compare</kbd></li>
+<li><p class="snugtop">Meaning: Use <a href="config.html#submit" class="external">submit</a> commands during the comparison phase
+   of the run, if submit was used for the measurement phase of the run.</p></li>
+</ul>
+
+<h4 id="use_submit_for_speed">--use_submit_for_speed</h4>
+<ul>
+<li>          Synonym: <kbd class="nb">--use-submit-for-speed</kbd></li>
+<li>          Default: <kbd class="nb">--no-use-submit-for-speed</kbd></li>
+<li><p class="snugtop">Meaning: Use <a href="config.html#submit" class="external">submit</a> commands for SPECspeed runs.  The
+   submit facility is by default only used for SPECrate runs.</p></li>
+</ul>
+
+<h4 id="username">--username <i>name</i></h4> 
+<ul>
+<li>          Synonym: <kbd class="nb">-U <i>name</i></kbd>     </li>
+<li>          Default: same as current process</li>
+<li>          Meaning: Name of user.  Useful if multiple users are <a href="#sharing">sharing</a> a SPEC CPU 2017 directory tree.
+</li>
+    
+</ul>
+
+<h4 id="verbose"> --verbose <i>n</i>
+   <span id="Debug"> </span>
+   <span id="debug"> </span>
+</h4> 
+<ul>
+<li>          Synonyms: <kbd class="nb">--debug <i>n</i></kbd> |
+                        <kbd class="nb">-v <i>n</i></kbd></li>
+<li>          Default:  <kbd>5</kbd></li>
+<li>          Meaning:  Set verbosity level to a level between <kbd>1</kbd> and <kbd class="snugr">99</kbd>.  The levels are defined in 
+                        <a class="external" href="config.html#verbosityLevels">config.html</a></li> 
+</ul>
+
+<h4 id="version">--version</h4> 
+<ul>
+<li>          Synonym: <kbd class="nb">-V</kbd>       </li>     
+<li>          Default: Print short version information.</li>
+<li><p class="hanging1snugtop">Meaning: Print detailed version information, including versions of:
+   <br /><a class="external" href="utility.html#specdiff">            specdiff</a>
+   <br /><a class="external" href="utility.html#specinvoke">          specinvoke</a>
+   <br /><a class="external" href="utility.html#specmake">            specmake</a>
+   <br /><a class="external" href="utility.html#specperl">            specperl</a>
+   <br /><a class="external" href="utility.html#specpp">              specpp</a>
+   <br /><a class="external" href="utility.html#specrxp">             specrxp</a>
+   <br /><a class="external" href="utility.html#specxz">              specxz</a></p>
+
+   <p>When this option is used, <samp>runcpu</samp> will not perform any other actions.
+   <br />If something goes wrong and you want <a  href="techsupport.html" class="external">support</a>, the
+   output of <kbd class="nb">runcpu --version</kbd> may be needed.  </p> </li>
+</ul>
+
+
+<!-- ....................................................................................................................... -->
+<h2 id="section4" >4 Removed/unsupported options </h2>
+
+<h3 id="section4.1"  >4.1 Options that are no longer needed 
+   <span id="Rate"> </span>
+   <span id="rate"> </span>
+   <span id="Speed"> </span>
+   <span id="speed"> </span>
+</h3>
+
+<p class="snugbot"><b>Rate and Speed</b></p>
+<p class="l1snugtop">The CPU 2006 feature
+<a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#rate">--rate</a><span style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+<br />and the CPU 2006 feature
+<a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#speed"> --speed</a><span style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+<br />are not needed in SPEC CPU 2017 because of a change of how benchmarks are defined.</p>
+
+<p class="l1">In SPEC CPU 2006, a given benchmark had a single source code version and a single workload version.  
+<br />The workload could be run in two ways: either single-copy (SPECspeed) or multi-copy (SPECrate).</p>
+
+<p class="l1snugbot">For SPEC CPU 2017 the SPECrate and SPECspeed versions of a benchmark:</p>
+<ul class="l1snugtop">
+   <li>Have different names.</li>
+   <li>Are built with differing rules.</li>
+   <li>May use different source code.</li>
+   <li>May use different data sets.</li>
+</ul>
+
+<p class="l1snugbot">For example:</p>
+<ul class="l1snugtop">
+   <li>The SPECrate version of the XZ compression code is called 557.xz_r, 
+      <br />has no OpenMP directives, and 
+      <br />uses a workload that requires about 800 MB per copy.  </li>
+   <li>The SPECspeed version of the XZ compression code is called 657.xz_s, 
+      <br />includes OpenMP directives, and 
+      <br />requires about 15 GB.</li>
+</ul>
+
+
+<p class="l1">For more information, see the <i>System Requirements</i> discussion of 
+<a class="external" href="system-requirements.html#MultipleCPUs">Using Multiple CPUs</a>.</p>
+
+
+<p class="snugbot">
+   <span id="Parallel-setup"> </span>      <span id="Parallel-setup-prefork"> </span>      <span id="Parallel-setup-type"> </span>
+   <span id="Parallel.setup"> </span>      <span id="Parallel.setup.prefork"> </span>      <span id="Parallel.setup.type"> </span>
+   <span id="ParallelSetup"> </span>       <span id="ParallelSetupPrefork"> </span>        <span id="ParallelSetupType"> </span>
+   <span id="Parallel_setup"> </span>      <span id="Parallel_setup_prefork"> </span>      <span id="Parallel_setup_type"> </span>
+   <span id="Parallelsetup"> </span>       <span id="Parallelsetupprefork"> </span>        <span id="Parallelsetuptype"> </span>
+   <span id="parallel-setup"> </span>      <span id="parallel-setup-prefork"> </span>      <span id="parallel-setup-type"> </span>
+   <span id="parallel.setup"> </span>      <span id="parallel.setup.prefork"> </span>      <span id="parallel.setup.type"> </span>
+   <span id="parallelSetup"> </span>       <span id="parallelSetupPrefork"> </span>        <span id="parallelSetupType"> </span>
+   <span id="parallel_setup"> </span>      <span id="parallel_setup_prefork"> </span>      <span id="parallel_setup_type"> </span>
+   <span id="parallelsetup"> </span>       <span id="parallelsetupprefork"> </span>        <span id="parallelsetuptype"> </span>
+<b>Parallel setup</b></p>
+
+<p class="l1snugtop">The SPEC CPU 2006 feature
+<a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#parallel_setup">--parallel_setup</a><span 
+   style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+<br />and the CPU 2006 feature
+<a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#parallel_setup_prefork">--parallel_setup_prefork</a><span 
+   style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+<br />and the CPU 2006 feature
+<a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#parallel_setup_type">--parallel_setup_type</a><span 
+                    style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+   <br />are not needed in SPEC CPU 2017 because of a change in how benchmarks are set up.</p>
+
+<p class="l1">For SPEC CPU 2006, every SPECrate copy was set up with its own unique copy of the input data.  For large SPECrate
+runs, large amounts of space were needed, and a lot of time (in some cases, hours).  </p>
+
+
+
+
+<p class="l1">For SPEC CPU 2017, file 
+system hard links are used to avoid copying such large amounts of data, and the features for parallel setup are no longer needed.</p>
+
+<p class="l1snugbot">For example, on one particular system,</p>
+<ul class="l1snugish">
+   <li>A single run directory for benchmark <samp>525.x264_r</samp> occupies 1.6 GB, according to <kbd class="nb">du -hs</kbd>  prior to doing a run (that is, after <a
+    href="#setup">action=runsetup</a>).</li> 
+   <li>After setting up 100 directories, the grand total for all <samp>525.x264_r</samp> directories is: 1.6 GB, according to <kbd class="nbsnugr">du -hs</kbd>.  
+      <br />Hard links are useful.</li> 
+   <li>Setting up one copy on this particular system required 47 seconds.  </li>
+   <li>Setting up 100 copies required 57 seconds.</li>
+</ul>
+<p class="l1snugtop">(One particular system, your space may vary.)</p>
+
+<h3 id="section4.2"  >4.2 Features removed
+
+   <span id="Machine"> </span>
+   <span id="machine"> </span>
+
+   <span id="Max-compares"> </span>      <span id="Max-active-compares"> </span>
+   <span id="Max.compares"> </span>      <span id="Max.active.compares"> </span>
+   <span id="MaxCompares"> </span>       <span id="MaxActiveCompares"> </span>
+   <span id="Max_compares"> </span>      <span id="Max_active_compares"> </span>
+   <span id="Maxcompares"> </span>       <span id="Maxactivecompares"> </span>
+   <span id="max-compares"> </span>      <span id="max-active-compares"> </span>
+   <span id="max.compares"> </span>      <span id="max.active.compares"> </span>
+   <span id="maxCompares"> </span>       <span id="maxActiveCompares"> </span>
+   <span id="max_compares"> </span>      <span id="max_active_compares"> </span>
+   <span id="maxcompares"> </span>       <span id="maxactivecompares"> </span>
+
+</h3>
+<p class="l1">The SPEC CPU 2006 feature <a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#machine">--machine</a><span style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+   <br />was removed because it was rarely used; and the additional complexity and confusion that it caused was deemed not
+   worthwhile.</p>
+
+<p class="l1">The CPU 2006 feature <a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#maxcomp">--maxcompares</a><span style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+   <br />was removed due to complexity considerations when implementing the new parallel setup methods.</p>
+
+<h3 id="section4.3"  >4.3 Unsupported
+   <span id="Make-bundle"> </span>      <span id="Use-bundle"> </span>      <span id="Unpack-bundle"> </span>
+   <span id="Make.bundle"> </span>      <span id="Use.bundle"> </span>      <span id="Unpack.bundle"> </span>
+   <span id="MakeBundle"> </span>       <span id="UseBundle"> </span>       <span id="UnpackBundle"> </span>
+   <span id="Make_bundle"> </span>      <span id="Use_bundle"> </span>      <span id="Unpack_bundle"> </span>
+   <span id="Makebundle"> </span>       <span id="Usebundle"> </span>       <span id="Unpackbundle"> </span>
+   <span id="make-bundle"> </span>      <span id="use-bundle"> </span>      <span id="unpack-bundle"> </span>
+   <span id="make.bundle"> </span>      <span id="use.bundle"> </span>      <span id="unpack.bundle"> </span>
+   <span id="makeBundle"> </span>       <span id="useBundle"> </span>       <span id="unpackBundle"> </span>
+   <span id="make_bundle"> </span>      <span id="use_bundle"> </span>      <span id="unpack_bundle"> </span>
+   <span id="makebundle"> </span>       <span id="usebundle"> </span>       <span id="unpackbundle"> </span>
+
+</h3>
+
+<p class="l1">The SPEC CPU 2006 feature <a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#makebundle">--make_bundle</a><span style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+<br /> and the CPU 2006 feature <a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#unpackbundle">--unpack_bundle</a><span style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+<br /> and the CPU 2006 feature <a class="external" href="https://www.spec.org/cpu2006/Docs/runspec.html#usebundle">--use_bundle</a><span style="vertical-align:super;font-size:x-small;">[link goes to CPU 2006]</span>
+<br />have not been tested in the CPU 2017 environment.  
+<br />It is not known whether anyone uses the features, and they were deemed not
+a priority for V1.  
+<br />It is possible that you might be able to get them to work by following the CPU 2006 instructions linked above,
+but no promises are made. </p>
+
+
+
+
+
+
+<hr />
+
+<h2 id="section5">5 Quick reference</h2> 
+<p>(This table is organized alphabetically, without regard to upper/lower case, and without regard
+to the presence of a leading "no").</p>
+
+<!-- You'll want a nice wide screen when editing this .......................................................................... -->
+<table border="0" cellspacing="0" cellpadding="0" >
+<tr><th>-a             </th>                                <td>Same as <a href="#action">--action </a>          </td></tr>
+<tr><th><a href="#action"> --action</a> <i>action</i></th>  <td>Do: <kbd>build|buildsetup|clean|clobber|
+                                                                onlyrun|realclean|report|run|runsetup|scrub|
+                                                                setup|trash|validate</kbd></td> </tr>
+<tr><th><a href="#basepeak"> --basepeak</a></th>            <td>Copy base results to peak (use with --rawformat)</td></tr>
+<tr><th><a href="#nobuild"> --nobuild</a></th>              <td>Do not attempt to build binaries</td> </tr>
+<tr><th>-c             </th>                                <td>Same as <a href="#config">    --config           </a></td></tr>
+<tr><th>-C             </th>                                <td>Same as <a href="#copies">    --copies           </a></td></tr>
+<tr><th><a href="#check_version"> --check_version</a></th>  <td>Check whether an updated version of CPU 2017 is available</td></tr>
+<tr><th><a href="#comment"> --comment</a> <i>"text"</i></th><td>Add a comment to the log and the stored configfile.</td> </tr>
+<tr><th><a href="#config"> --config</a> <i>file</i></th>    <td>Set config file for runcpu to use</td> </tr>
+<tr><th><a href="#copies"> --copies</a></th>                <td>Set the number of copies for a SPECrate run</td> </tr>
+<tr><th>-D             </th>                                <td>Same as <a href="#rebuild">    --rebuild          </a></td></tr>
+<tr><th>-d             </th>                                <td>Same as <a href="#deletework">   --deletework       </a></td></tr>
+<tr><th>--debug        </th>                                <td>Same as <a href="#verbose">    --verbose          </a></td></tr>
+<tr><th><a href="#define"> --define</a> 
+        <i>SYMBOL</i>[=<i>VALUE</i>]</th>                   <td>Define a config preprocessor macro</td> </tr>
+<tr><th><a href="#delay"> --delay</a> <i>secs</i></th>      <td>Add delay before and after benchmark invocation</td> </tr>
+<tr><th><a href="#deletework"> --deletework</a></th>        <td>Force work directories to be rebuilt</td> </tr>
+<tr><th>--dryrun       </th>                                <td>Same as <a href="#fake"> --fake         </a></td></tr>
+<tr><th>--dry-run      </th>                                <td>Same as <a href="#fake"> --fake         </a></td></tr>
+<tr><th><a href="#expid">--expid=dir</a></th>               <td>Experiment id, a subdirectory to use for results/runs/exe</td></tr>
+<tr><th>-F             </th>                                <td>Same as <a href="#flagsurl">--flagsurl</a></td></tr>
+<tr><th><a href="#fake"> --fake</a> </th>                   <td>Show what commands would be executed.</td> </tr>
+<tr><th><a href="#fakereport">--fakereport</a></th>         <td>Generate a report without compiling codes or doing a run.</td></tr>
+<tr><th><a href="#fakereportable">--fakereportable</a></th> <td>Generate a fake report as if "--reportable" were set.</td></tr>
+<tr><th><a href="#feedback">--[no]feedback</a></th>         <td>Control whether builds use feedback directed optimization</td></tr>
+<tr><th><a href="#flagsurl">--flagsurl</a> <i>url</i></th>  <td>Location (url or filespec) where to find your flags file</td></tr>
+<tr><th><a href="#graphauto">--graph_auto</a></th>          <td>Let the tools pick minimum and maximum for the graph</td></tr>
+<tr><th><a href="#graphmin">--graph_min</a> <i>N</i></th>   <td>Set the minimum for the graph</td></tr>
+<tr><th><a href="#graphmax">--graph_max</a> <i>N</i></th>   <td>Set the maximum for the graph </td></tr>
+<tr><th>-h             </th>                                <td>Same as <a href="#help">    --help             </a></td></tr>
+<tr><th><a href="#help"> --help</a></th>                    <td>Print usage message</td> </tr>
+<tr><th><a href="#http_proxy"> --http_proxy</a></th>        <td>Specify the proxy for internet access </td> </tr>
+<tr><th><a href="#http_timeout"> --http_timeout</a></th>    <td>Timeout when attempting http access </td> </tr>
+<tr><th>-I             </th>                                <td>Same as <a href="#I">    --ignore_errors    </a></td></tr>
+<tr><th>-i             </th>                                <td>Same as <a href="#size"> --size             </a></td></tr>
+<tr><th><a href="#I"> --ignore_errors</a></th>              <td>Continue with benchmark runs even if some fail</td> </tr>
+<tr><th>--ignoreerror  </th>                                <td>Same as <a href="#I">    --ignore_errors    </a></td></tr>
+<tr><th><a href="#infowrap"> --info_wrap_column</a> <i>N</i></th><td>Set wrap width for non-notes informational items</td> </tr>
+<tr><th>--infowrap</th>                                     <td>Same as <a href="#infowrap"> --info_wrap_column</a></td></tr>
+<tr><th>--input        </th>                                <td>Same as <a href="#size"> --size             </a></td></tr>
+<tr><th><a href="#iter"> --iterations</a> <i>N</i>   </th>  <td>Run each benchmark N times </td> </tr>
+<tr><th><a href="#keeptmp"> --keeptmp</a></th>              <td>Keep temporary files </td> </tr>
+<tr><th>-L             </th>                                <td>Same as <a href="#label">--label        </a></td></tr>
+<tr><th>-l             </th>                                <td>Same as <a href="#loose">  --loose            </a></td></tr>
+<tr><th><a href="#label"> --label</a>
+        <i>label</i></th>                                   <td>Set the label for executables, build directories, and run
+                                                                directories</td></tr>
+<tr><th><a href="#loose"> --loose</a></th>                  <td>Do not produce a reportable result</td> </tr>
+<tr><th>--noloose      </th>                                <td>Same as <a href="#strict">    --reportable       </a></td></tr>
+<tr><th>-M             </th>                                <td>Same as <a href="#noclobber">  --make_no_clobber  </a></td></tr>
+<!-- <tr><th><a href="#make_bundle"> -&endash;make_bundle</a></th>      <td>Create a package of binaries and config file</td></tr> -->
+<tr><th><a href="#noclobber"> --make_no_clobber </a></th>   <td>Do not delete existing object files before building.</td> </tr>
+<tr><th>--mockup       </th>                                <td>Same as <a href="#fakereportable">   --fakereportable</a></td></tr>
+<tr><th>-n             </th>                                <td>Same as <a href="#iter">   --iterations       </a></td></tr>
+<tr><th>-N             </th>                                <td>Same as <a href="#nobuild">   --nobuild       </a></td></tr>
+<tr><th><a href="#noteswrap"> --notes_wrap_column</a> <i>N</i></th><td>Set wrap width for notes lines</td> </tr>
+<tr><th>-noteswrap     </th>                                <td>Same as <a href="#noteswrap">  --notes_wrap_column</a></td></tr>
+<tr><th>-o             </th>                                <td>Same as <a href="#out">    --output_format    </a></td></tr>
+<tr><th><a href="#out"> --output_format</a> 
+        <i>format</i>[,<i>format</i>...]</th>               <td>Generate: <span 
+                                                                class="tt">all|cfg|check|csv|flags|html|mail|pdf|ps|raw|screen|text
+                                                                </span></td></tr>
+<tr><th><a href="#output_root">--output_root=dir</a></th>   <td>Write all files here instead of under $SPEC</td></tr>
+<tr><th><a href="#parallel_test"> --parallel_test </a></th> <td>Number of test/train workloads to run in parallel</td></tr>
+<tr><th><a href="#power"> --[no]power </a></th>             <td>Control power measurement during run</td></tr>
+<tr><th><a href="#preenv"> --preenv </a></th>               <td>Allow environment settings in config file to be applied</td></tr>
+<tr><th>-R             </th>                                <td>Same as <a href="#rawformat">  --rawformat     </a></td></tr>
+<tr><th><a href="#rawformat"> --rawformat</a></th>          <td>Format raw file</td> </tr>
+<tr><th><a href="#rebuild"> --rebuild</a></th>              <td>Force a rebuild of binaries</td> </tr>
+<tr><th><a href="#strict"> --reportable</a></th>            <td>Produce a reportable result</td> </tr>
+<tr><th>--noreportable </th>                                <td>Same as <a href="#loose">  --loose            </a></td></tr>
+<tr><th>--reportonly</th>                                   <td>Same as <a href="#fakereport">--fakereport</a></td></tr>
+<tr><th><a href="#review"> --[no]review</a></th>            <td>Format results for review</td> </tr>
+<tr><th>-s             </th>                                <td>Same as <a href="#strict">    --reportable       </a></td></tr>
+<tr><th>-S
+        <i>SYMBOL</i>[=<i>VALUE</i>]</th>                   <td>Same as <a href="#define"> --define</a></td></tr>
+<tr><th>-S
+        <i>SYMBOL</i>:<i>VALUE</i></th>                     <td>Same as <a href="#define"> --define</a></td></tr>
+<tr><th><a href="#setpg"> --[no]setprocgroup</a></th>       <td>[Don't] try to create all processes in one group.</td> </tr>
+<tr><th><a href="#size"> --size</a> 
+        <i>size</i>[,<i>size</i>...]</th>                   <td>Select data set(s): <kbd>test|train|ref</kbd></td></tr>
+<tr><th>--strict       </th>                                <td>Same as <a href="#strict">    --reportable       </a></td></tr>
+<tr><th>--nostrict     </th>                                <td>Same as <a href="#loose">  --loose            </a></td></tr>
+<tr><th>-T             </th>                                <td>Same as <a href="#tune">    --tune             </a></td></tr>
+<tr><th><a href="#table"> --[no]table</a></th>              <td>Do [not] include a detailed table of results</td> </tr>
+<tr><th><a href="#threads"> --threads=N</a></th>            <td>Set number of OpenMP threads for a SPECspeed run</td> </tr>
+<tr><th><a href="#test"> --test</a></th>                    <td>Run various perl validation tests on specperl</td> </tr>
+<tr><th><a href="#train_with"> --train_with</a></th>        <td>Change the training workload</td></tr>
+<tr><th><a href="#tune"> --tune</a></th>                    <td>Set the tuning levels to one of: 
+                                                                <kbd>base|peak|all</kbd></td> </tr>
+<tr><th>--tuning       </th>                                <td>Same as <a href="#tune">    --tune             </a></td></tr>
+<tr><th><a href="#undef"> --undef</a> <i>SYMBOL</i></th>    <td>Remove any definition of this config preprocessor macro</td> </tr>
+<tr><th>-U             </th>                                <td>Same as <a href="#username">  --username         </a></td></tr>
+<!--<tr><th><a href="#unpack_bundle"> -&endash;unpack_bundle</a></th>  <td>Unpack a package of binaries and config file</td></tr> -->
+<!--<tr><th><a href="#use_bundle"> -&endash;use_bundle</a></th>        <td>Use a package of binaries and config file</td></tr> -->
+<tr><th><a href="#update"> --update</a></th>                <td>Check www.spec.org for updates to benchmark and example flag files,
+                                                                and config files</td> </tr>
+<tr><th><a href="#username"> --username</a></th>            <td>Name of user to tag as owner for run directories</td> </tr>
+<tr><th><a href="#use_submit_for_compare"> --use_submit_for_compare</a></th>  <td>If submit was used for the run, use it for comparisons too.</td></tr>
+<tr><th><a href="#use_submit_for_speed"> --use_submit_for_speed</a></th>  <td>Use submit commands for SPECspeed (default is only for SPECrate).</td></tr>
+<tr><th>-v             </th>                                <td>Same as <a href="#verbose">    --verbose          </a></td></tr>
+<tr><th><a href="#verbose"> --verbose</a></th>              <td>Set verbosity level for messages to N</td> </tr>
+<tr><th>-V             </th>                                <td>Same as <a href="#version">  --version          </a></td></tr>
+<tr><th><a href="#version"> --version</a></th>              <td>Output <span class="u">lots</span> of version information</td> </tr>
+<tr><th>-?        </th>                                     <td>Same as <a href="#help">    --help             </a></td></tr>
+
+</table>
+
+
+<p style="border-top:thin solid black;">
+Using SPEC CPU&reg;2017: the 'runcpu' Command:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space NOT intentionally left blank: for runcpu.html, it's nice to have single keystroke (END) to this table.  -->
+
+</body></html>
+
+

@@ -1,0 +1,13 @@
+SPEC CPU XZ driver: input=IMG_2560.cr2.xz insize=40
+Loading Input Data
+Compressed size: 15698480; Uncompressed size: 16064636
+SHA-512 of decompressed data compared successfully!
+SHA-512 of input file: 99978accbe86275d9a1e7a1aebdb280470453f7508b0fe5923881eab8cfe3603a7f7735b3c4e7e3a2efd5f4518ec50d8eecd62cd8fa95d5557e318a8a11ac5a4
+Input data 41943040 bytes in length
+Compressing Input Data, level 4
+Compressed data is between 40822692 and 40824404 bytes in length
+Finished compressing data
+Uncompressing previously compressed data
+Uncompressed data 41943040 bytes in length
+Uncompressed data compared correctly
+Tested 40 MiB buffer: OK!

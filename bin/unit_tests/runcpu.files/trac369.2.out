@@ -1,0 +1,16 @@
+  INFO: The yeps:
+  INFO: .   1a true:  ifdef  {name}
+  INFO: .   1b false: ifndef  {name}
+  INFO: .   2a true:  if defined  {name}
+  INFO: .   2b false: if ! defined  {name}
+  INFO: .   3a true:  if (defined  {name})
+  INFO: .   3b false: if (! defined  {name})
+  INFO: .   4a true:  if defined( {name})
+  INFO: .   4b false: if ! defined( {name})
+  INFO: .   5a true:  if (defined( {name}))
+  INFO: .   5b false: if (! defined( {name}))
+  INFO: .   6a true:  if  {name}
+  INFO: .   6b false: if !  {name}
+  INFO: .   7a true:  if ( {name})
+  INFO: .   7b false: if (!  {name})
+  INFO: The nopes:

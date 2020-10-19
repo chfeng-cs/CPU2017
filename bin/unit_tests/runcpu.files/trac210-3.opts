@@ -1,0 +1,1 @@
+-f 'grep -e Building -e merge_feedback | grep -v %%'

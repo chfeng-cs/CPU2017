@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# This script is designed to provide a handy summary of the configuration
+# information being used to build perl. This is especially useful if you
+# are requesting help from comp.lang.perl.misc on usenet or via mail.
+
+# Note that the text lines /^Summary of/ .. /^\s*$/ are copied into Config.pm.
+cat <<'!NO!SUBS!'
+Summary of my perl5 (revision 5 version 20 subversion 1) configuration:
+   
+  Platform:
+    osname=darwin, osvers=14.0.0, archname=darwin-2level
+    uname='darwin jwreilly-mac02.sc.intel.com 14.0.0 darwin kernel version 14.0.0: fri sep 19 00:26:44 pdt 2014; root:xnu-2782.1.97~2release_x86_64 x86_64 '
+    config_args='-dOes -Uusedl -Uuse5005threads -Uusethreads -D libswanted=nm -A libswanted=malloc -A libswanted=ld -A libswanted=m -A libswanted=sec -A libswanted=util -A libswanted=c -A libswanted=cposix -A libswanted=posix -A libswanted=bsd -A libswanted=BSD -Dcc=icc -D ccflags=-g'
+    hint=recommended, useposix=true, d_sigaction=define
+    useithreads=undef, usemultiplicity=undef
+    use64bitint=define, use64bitall=define, uselongdouble=undef
+    usemymalloc=n, bincompat5005=undef
+  Compiler:
+    cc='icc', ccflags ='-g -I/usr/local/include',
+    optimize='-O3',
+    cppflags='-g -I/usr/local/include'
+    ccversion='', gccversion='', gccosandvers=''
+    intsize=4, longsize=8, ptrsize=8, doublesize=8, byteorder=ffff
+    d_longlong=define, longlongsize=8, d_longdbl=define, longdblsize=16
+    ivtype='long', ivsize=8, nvtype='double', nvsize=8, Off_t='off_t', lseeksize=8
+    alignbytes=8, prototype=define
+  Linker and Libraries:
+    ld='ld', ldflags =' -L/usr/local/lib'
+    libpth=/usr/local/lib /usr/lib
+    libs=-lm -lutil -lc
+    perllibs=-lm -lutil -lc
+    libc=, so=dylib, useshrplib=false, libperl=libperl.a
+    gnulibc_version=''
+  Dynamic Linking:
+    dlsrc=dl_none.xs, dlext=none, d_dlsymun=undef, ccdlflags=''
+    cccdlflags=' ', lddlflags=''
+
+!NO!SUBS!

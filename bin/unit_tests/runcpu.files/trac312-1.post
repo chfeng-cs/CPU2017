@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ -z "$SPEC" -o ! -d "$SPEC" ]; then
+  echo SPEC not set
+  exit 1
+fi
+if [ -d $SPEC/trac312/gooddir ]; then
+  echo ERROR: output_root was created
+  exit 1
+fi

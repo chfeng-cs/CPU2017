@@ -1,0 +1,14 @@
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/AFM.pm relocate_as=../../../../Font/AFM.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/Courier.pm relocate_as=../../../../Font/Metrics/Courier.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/CourierBold.pm relocate_as=../../../../Font/Metrics/CourierBold.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/CourierBoldOblique.pm relocate_as=../../../../Font/Metrics/CourierBoldOblique.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/CourierOblique.pm relocate_as=../../../../Font/Metrics/CourierOblique.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/Helvetica.pm relocate_as=../../../../Font/Metrics/Helvetica.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/HelveticaBold.pm relocate_as=../../../../Font/Metrics/HelveticaBold.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/HelveticaBoldOblique.pm relocate_as=../../../../Font/Metrics/HelveticaBoldOblique.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/HelveticaOblique.pm relocate_as=../../../../Font/Metrics/HelveticaOblique.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/TimesBold.pm relocate_as=../../../../Font/Metrics/TimesBold.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/TimesBoldItalic.pm relocate_as=../../../../Font/Metrics/TimesBoldItalic.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/TimesItalic.pm relocate_as=../../../../Font/Metrics/TimesItalic.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0/Font/Metrics/TimesRoman.pm relocate_as=../../../../Font/Metrics/TimesRoman.pm
+/home/subkun01/CPUv6/RC4_toolbuild/tools/output/man/man3/Font::AFM.3 relocate_as=../../../../../../../../man/man3/Font::AFM.3

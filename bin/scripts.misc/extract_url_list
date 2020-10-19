@@ -1,0 +1,403 @@
+#!/usr/bin/perl -n
+#
+# extract_url_list - get list of URLs referenced in generated reports.
+#                    No support is provided for this script.
+#
+#  Copyright 2017 Standard Performance Evaluation Corporation
+#
+#  Author: Cloyce D. Spradling
+#
+# $Id: extract_url_list 5666 2017-05-05 14:17:01Z CloyceS $
+
+# Run rawformat with -v 99 to generate HTML and PDF, and then run this script
+# on the output plus the generated HTML files to extract all the links
+#
+# Some helpful exclusions on the -v 99 output, to keep in in the megabytes
+# range rather than gigabytes:
+# | egrep -v '^Chose marker|^Looking for marker|^Created default reg|Flag named.*matched:|\*\*\* Avoiding dup'
+
+use strict;
+use List::MoreUtils qw(any);
+
+our %match;
+our %docs;
+
+next if m#/flags/#; # Optional; no references to user-supplied flags files
+#next if $ARGV =~ m#\d\.flags\.html#; # Optional; no references from generated flags dumps
+next if m#\d\.flags\.html#; # Optional; no references to generated flags dumps
+
+if (/LINK: \{([^}]*)\}$/ or /href="([^#][^"]+)"/) {
+  my $url = $1;
+  next unless $url =~ /^http/;  # Optional; get rid of mailto:
+  $url =~ s#https://#http://#g;
+  $match{$url}++;
+  if ($url =~ m{/Docs/([^#]+)(#\S+)?$}) {
+    $docs{$1}->{$2}++;
+  }
+}
+
+END {
+  foreach my $url (sort { $match{$a} <=> $match{$b} } keys %match) {
+      printf "%4d $url\n", $match{$url};
+  }
+  foreach my $doc (sort keys %docs) {
+      print "\nDoc file: $doc\n";
+      next unless any { $_ ne '' } keys %{$docs{$doc}};
+      print "Anchors: ".join("\n\t ", sort keys %{$docs{$doc}})."\n";
+  }
+}
+
+# Yields:
+__END__
+   1 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#expSPECint2017speedenergypeak
+   1 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#expSPECfp2017rateenergypeak
+   1 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CompilerInvocationNotes
+   1 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#expSPECfp2017speedenergypeak
+   1 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#expSPECint2017rateenergypeak
+   2 http://gcc.gnu.org/onlinedocs/gcc-4.4.0/gcc/Option-Index.html#Option-Index
+   2 http://gcc.gnu.org/onlinedocs/gcc-4.4.0/gfortran/
+   2 http://gcc.gnu.org/onlinedocs/gcc/GNU-Free-Documentation-License.html#GNU-Free-Documentation-License
+   2 http://www.oracle.com/technetwork/server-storage/vm/overview/index.html
+   2 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PeakOtherFlags
+   3 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#expSPECfp2017speedenergybase
+   3 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#expSPECint2017rateenergybase
+   3 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#expSPECint2017speedenergybase
+   3 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#expSPECfp2017rateenergybase
+   6 http://docs.oracle.com/
+   6 http://www.spec.org/cpu2006/docs/config.html#bind
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#MinTemperatureC
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CalibrationLabel
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CalibrationDate
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#VoltageRangeUsed
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BaseResultsTable
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PowerSupply
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CurrentRangesUsed
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Power
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#IdlePowerW
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#MaxPowerW
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CalibrationBy
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PowerSupplyDetails
+   8 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#MetrologyInstitute
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/603.bwaves_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/628.pop2_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/649.fotonik3d_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/607.cactuBSSN_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/644.nab_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/627.cam4_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/619.lbm_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/621.wrf_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/654.roms_s.html
+   9 http://www.spec.org/auto/cpu2017/Docs/benchmarks/638.imagick_s.html
+  10 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BaseOtherFlags
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/605.mcf_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/631.deepsjeng_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/641.leela_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/602.gcc_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/648.exchange2_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/620.omnetpp_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/625.x264_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/600.perlbench_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/623.xalancbmk_s.html
+  12 http://www.spec.org/auto/cpu2017/Docs/benchmarks/657.xz_s.html
+  16 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#TemperatureMeter
+  16 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PTDaemonVersion
+  16 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#InputConnection
+  16 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#HardwareVendor
+  16 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Model
+  16 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SerialNumber
+  16 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SetupDescription
+  16 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PowerAnalyzer
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/523.xalancbmk_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/505.mcf_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/557.xz_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/548.exchange2_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECCPU2017FloatingPointSpeedResult
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/500.perlbench_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/502.gcc_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/541.leela_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/531.deepsjeng_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/525.x264_r.html
+  22 http://www.spec.org/auto/cpu2017/Docs/benchmarks/520.omnetpp_r.html
+  24 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Threads
+  25 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Testsponsor
+  25 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Testdate
+  25 http://validator.w3.org/check?uri=referer
+  25 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CPU2017license
+  25 http://jigsaw.w3.org/css-validator/check/referer
+  26 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SubmitNotes
+  26 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECfp2017speedpeak
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/511.povray_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/549.fotonik3d_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/544.nab_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/521.wrf_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/519.lbm_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/503.bwaves_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/526.blender_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/507.cactuBSSN_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/510.parest_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/527.cam4_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/538.imagick_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/508.namd_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/benchmarks/554.roms_r.html
+  28 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PeakPortabilityFlags
+  28 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECfp2017speedbase
+  31 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PeakCompilerInvocation
+  32 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECCPU2017IntegerSpeedResult
+  35 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PeakOptimizationFlags
+  36 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#MaximumPower
+  36 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#EnergyRatio
+  36 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#AveragePower
+  36 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#EnergykJ
+  38 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECint2017speedpeak
+  40 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECint2017speedbase
+  40 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#ResultsTable
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Memory
+  48 http://www.spec.org/cpu2017/Docs/config.html#sysinfo
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Benchmark
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#OS
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BasePointers
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#MaxMHz
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Compiler
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SystemState
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Firmware
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#L3
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#L2
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CPUName
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Parallel
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Enabled
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Orderable
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PeakPointers
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Nominal
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#FileSystem
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Storage
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#RunOrder
+  48 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CacheL1
+  49 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Software
+  49 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Hardware
+  50 http://www.spec.org/auto/cpu2017/Docs/faq.html#flagsfile
+  51 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECCPU2017IntegerRateResult
+  51 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#GeneralNotes
+  51 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#OperatingSystemNotes
+  53 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BasePortabilityFlags
+  54 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BaseCompilerInvocation
+  56 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BaseOptimizationFlags
+  64 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Copies
+  65 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BenchmarksusingbothCandCXX
+  65 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECint2017ratepeak
+  67 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECint2017ratebase
+  75 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECCPU2017FloatingPointRateResult
+  86 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BenchmarksusingbothFortranandC
+  88 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#BenchmarksusingFortranCandCXX
+  93 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECfp2017ratepeak
+  95 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SPECfp2017ratebase
+  98 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#PlatformNotes
+ 142 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CXXbenchmarks
+ 144 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Other
+ 157 http://www.spec.org/
+ 157 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#TestDate
+ 157 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#CPU2017License
+ 157 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#TestSponsor
+ 159 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Fortranbenchmarks
+ 162 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Cbenchmarks
+ 182 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#HardwareAvailability
+ 182 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Testedby
+ 182 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#SoftwareAvailability
+ 264 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Ratio
+ 264 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Seconds
+2067 http://www.spec.org/auto/cpu2017/Docs/result-fields.html#Median
+
+Doc file: benchmarks/500.perlbench_r.html
+
+Doc file: benchmarks/502.gcc_r.html
+
+Doc file: benchmarks/503.bwaves_r.html
+
+Doc file: benchmarks/505.mcf_r.html
+
+Doc file: benchmarks/507.cactuBSSN_r.html
+
+Doc file: benchmarks/508.namd_r.html
+
+Doc file: benchmarks/510.parest_r.html
+
+Doc file: benchmarks/511.povray_r.html
+
+Doc file: benchmarks/519.lbm_r.html
+
+Doc file: benchmarks/520.omnetpp_r.html
+
+Doc file: benchmarks/521.wrf_r.html
+
+Doc file: benchmarks/523.xalancbmk_r.html
+
+Doc file: benchmarks/525.x264_r.html
+
+Doc file: benchmarks/526.blender_r.html
+
+Doc file: benchmarks/527.cam4_r.html
+
+Doc file: benchmarks/531.deepsjeng_r.html
+
+Doc file: benchmarks/538.imagick_r.html
+
+Doc file: benchmarks/541.leela_r.html
+
+Doc file: benchmarks/544.nab_r.html
+
+Doc file: benchmarks/548.exchange2_r.html
+
+Doc file: benchmarks/549.fotonik3d_r.html
+
+Doc file: benchmarks/554.roms_r.html
+
+Doc file: benchmarks/557.xz_r.html
+
+Doc file: benchmarks/600.perlbench_s.html
+
+Doc file: benchmarks/602.gcc_s.html
+
+Doc file: benchmarks/603.bwaves_s.html
+
+Doc file: benchmarks/605.mcf_s.html
+
+Doc file: benchmarks/607.cactuBSSN_s.html
+
+Doc file: benchmarks/619.lbm_s.html
+
+Doc file: benchmarks/620.omnetpp_s.html
+
+Doc file: benchmarks/621.wrf_s.html
+
+Doc file: benchmarks/623.xalancbmk_s.html
+
+Doc file: benchmarks/625.x264_s.html
+
+Doc file: benchmarks/627.cam4_s.html
+
+Doc file: benchmarks/628.pop2_s.html
+
+Doc file: benchmarks/631.deepsjeng_s.html
+
+Doc file: benchmarks/638.imagick_s.html
+
+Doc file: benchmarks/641.leela_s.html
+
+Doc file: benchmarks/644.nab_s.html
+
+Doc file: benchmarks/648.exchange2_s.html
+
+Doc file: benchmarks/649.fotonik3d_s.html
+
+Doc file: benchmarks/654.roms_s.html
+
+Doc file: benchmarks/657.xz_s.html
+
+Doc file: config.html
+Anchors: #sysinfo
+
+Doc file: faq.html
+Anchors: #flagsfile
+
+Doc file: result-fields.html
+Anchors: #AveragePower
+	 #BaseCompilerInvocation
+	 #BaseOptimizationFlags
+	 #BaseOtherFlags
+	 #BasePointers
+	 #BasePortabilityFlags
+	 #BaseResultsTable
+	 #Benchmark
+	 #BenchmarksusingFortranCandCXX
+	 #BenchmarksusingbothCandCXX
+	 #BenchmarksusingbothFortranandC
+	 #CPU2017License
+	 #CPU2017license
+	 #CPUName
+	 #CXXbenchmarks
+	 #CacheL1
+	 #CalibrationBy
+	 #CalibrationDate
+	 #CalibrationLabel
+	 #Cbenchmarks
+	 #Compiler
+	 #CompilerInvocationNotes
+	 #Copies
+	 #CurrentRangesUsed
+	 #Enabled
+	 #EnergyRatio
+	 #EnergykJ
+	 #FileSystem
+	 #Firmware
+	 #Fortranbenchmarks
+	 #GeneralNotes
+	 #Hardware
+	 #HardwareAvailability
+	 #HardwareVendor
+	 #IdlePowerW
+	 #InputConnection
+	 #L2
+	 #L3
+	 #MaxMHz
+	 #MaxPowerW
+	 #MaximumPower
+	 #Median
+	 #Memory
+	 #MetrologyInstitute
+	 #MinTemperatureC
+	 #Model
+	 #Nominal
+	 #OS
+	 #OperatingSystemNotes
+	 #Orderable
+	 #Other
+	 #PTDaemonVersion
+	 #Parallel
+	 #PeakCompilerInvocation
+	 #PeakOptimizationFlags
+	 #PeakOtherFlags
+	 #PeakPointers
+	 #PeakPortabilityFlags
+	 #PlatformNotes
+	 #Power
+	 #PowerAnalyzer
+	 #PowerSupply
+	 #PowerSupplyDetails
+	 #Ratio
+	 #ResultsTable
+	 #RunOrder
+	 #SPECCPU2017FloatingPointRateResult
+	 #SPECCPU2017FloatingPointSpeedResult
+	 #SPECCPU2017IntegerRateResult
+	 #SPECCPU2017IntegerSpeedResult
+	 #SPECfp2017ratebase
+	 #SPECfp2017ratepeak
+	 #SPECfp2017speedbase
+	 #SPECfp2017speedpeak
+	 #SPECint2017ratebase
+	 #SPECint2017ratepeak
+	 #SPECint2017speedbase
+	 #SPECint2017speedpeak
+	 #Seconds
+	 #SerialNumber
+	 #SetupDescription
+	 #Software
+	 #SoftwareAvailability
+	 #Storage
+	 #SubmitNotes
+	 #SystemState
+	 #TemperatureMeter
+	 #TestDate
+	 #TestSponsor
+	 #Testdate
+	 #Testedby
+	 #Testsponsor
+	 #Threads
+	 #VoltageRangeUsed
+	 #expSPECfp2017rateenergybase
+	 #expSPECfp2017rateenergypeak
+	 #expSPECfp2017speedenergybase
+	 #expSPECfp2017speedenergypeak
+	 #expSPECint2017rateenergybase
+	 #expSPECint2017rateenergypeak
+	 #expSPECint2017speedenergybase
+	 #expSPECint2017speedenergypeak

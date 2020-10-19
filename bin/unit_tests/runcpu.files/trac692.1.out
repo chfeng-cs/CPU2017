@@ -1,0 +1,3 @@
+No benchmark suite selected!  Expected one or more of 'fprate', 'fpspeed', 'intrate', 'intspeed' or 'all'.
+The log for this run is in [log file]
+The debug log for this run is in [log file]

@@ -1,0 +1,207 @@
+#!/bin/sh
+
+# Copyright 2011-2019 Standard Performance Evaluation Corporation
+
+# Programmatic encapsulation of the steps listed at
+# https://pro.spec.org/private/wiki/bin/view/CPU/KitCreationHowTo#Making_a_Mini_40tools_45only_41_Release
+
+# It uses Perl a lot and probably should've just been written in that
+# in the first place, but... lazy.
+
+# No support is provided for this script or its output
+
+# $Id: make_mini_kit 6093 2019-03-13 04:04:33Z CloyceS $
+
+usage() {
+    echo "Usage: $0 <benchmark> [benchmark...]"
+    echo "  The benchmark name(s) just need to be enough to uniquely ID the"
+    echo "  benchmark.  It does not need to be the full nnn.name."
+}
+
+if [ "x$SPEC" = "x" ]; then
+    echo Source the shrc
+    exit 1
+fi
+
+if [ "x$1" = "x" ]; then
+    usage
+    echo
+    echo ERROR: No benchset or benchmarks specified
+    exit 1
+fi
+
+cd $SPEC
+
+BSETS=
+BSET_DIRS=
+BSET_FILES=
+for bset_candidate in benchspec/*/*bset; do
+    FOUND=0
+    if [ -f $bset_candidate ]; then
+        FOUND=1
+        if svn info $bset_candidate >/dev/null 2>&1; then
+            BSET_FILES="$bset_candidate $BSET_FILES"
+        fi
+    fi
+done
+if [ "x$BSET_FILES" = x ]; then
+    usage
+    echo
+    echo "ERROR: No benchsets found"
+    exit 1
+fi
+
+FAIL=0
+BMARKLIST=
+for bmark in $*; do
+    seen_dirs=
+    BMARKS=0
+    tmpfound=
+    for bset in $BSET_FILES; do
+        dir=$(dirname $bset)
+        if echo $seen_dirs | grep "\\b$dir\\b" >/dev/null 2>&1; then
+            # Skip it
+            :
+        else
+            seen_dirs="$seen_dirs $dir "
+            tmpfound=$(ls -d $dir/*$bmark* 2>/dev/null | grep -v '\.bset$' | wc -l)
+            if [ $tmpfound -gt 0 ]; then
+                echo "$bmark matches" $tmpfound "benchmarks in $dir"
+                BMARKLIST="$BMARKLIST "$(for i in $(ls -d $dir/*$bmark* 2>/dev/null | grep -v '\.bset$'); do basename $i; done)
+                BMARKS=$(expr $BMARKS + $tmpfound)
+            fi
+        fi
+    done
+    if [ $BMARKS -le 0 ]; then
+        echo "'$bmark' does not identify one or more benchmarks"
+        FAIL=1
+    fi
+done
+[ $FAIL -gt 0 ] && exit 1
+BMARKLIST=$(echo $BMARKLIST | perl -ne 'map { $s{$_}++ } split(/\s+/); END { print join(" ", sort keys %s)."\n" }')
+
+# Go through and cut down the list of benchsets to only ones that contain
+# the referenced benchmarks
+tmpbset_files=
+for file in $BSET_FILES; do
+    for bmark in $BMARKLIST; do
+        if grep $bmark $file >/dev/null 2>&1; then
+            tmpbset_files="$tmpbset_files $file"
+            break
+        fi
+    done
+done
+BSET_FILES=$(echo $tmpbset_files | perl -ne 'map { $s{$_}++ } split(/\s+/); END { print join("\n", sort keys %s)."\n" }')
+BSET_DIRS=$(for i in $BSET_FILES; do dirname $i; done | perl -ne 'map { $s{$_}++ } split(/\s+/); END { print join("\n", sort keys %s)."\n" }')
+BSETS=$(for i in $BSET_FILES; do basename $i .bset; done | perl -ne 'map { $s{$_}++ } split(/\s+/); END { print join(",", sort keys %s)."\n" }')
+
+echo Benchsets: $BSETS
+echo Benchset files: $BSET_FILES
+echo Benchset directories: $BSET_DIRS
+echo Benchmarks: $BMARKLIST
+
+echo
+echo "Updating the benchmark tree"
+svn update
+
+REVERTLIST=
+REVERTCOUNT=0
+. ./shrc
+
+if echo $BMARKLIST | grep '^specrand$' >/dev/null; then
+    TMPTAG=slim
+else
+    # Make the tag only include benchmark numbers
+    TMPTAG=$(echo "$BMARKLIST" | sed 's/[ 	]*$//; s/^[ 	]*//; s/\.[^ 	][^ 	]*//g' | tr ' ' _)
+fi
+TAG=$(printf "%03d_%s" $(cat version.txt | tr -cd 0-9_ | sed 's/^0*//') $TMPTAG)
+echo $TAG > version.txt
+REVERTLIST="$REVERTLIST version.txt"
+REVERTCOUNT=$(expr $REVERTCOUNT + 1)
+echo "Version string for this kit is '$TAG'"
+
+echo Fixing up benchset files
+for file in $BSET_FILES; do
+    perl -i -e '
+      BEGIN {
+        $bmre = join("|", splice(@ARGV,1));
+        $looking = 0;
+      }
+      while (<>) {
+        if (/\@benchmarks/) {
+          $looking = 1;
+        } elsif ($looking && /\)/) {
+          $looking = 0;
+        } elsif ($looking && !/$bmre/) {
+          next;
+        } elsif (/\$no_output.*};/) {
+          next;
+        } elsif (/\$no_output/) {
+          $looking = 2;
+          next;
+        } elsif ($looking == 2) {
+          $looking = 0 if /};/;
+          next;
+        }
+        print;
+      }
+      ' $file $BMARKLIST
+    REVERTLIST="$REVERTLIST $file"
+    REVERTCOUNT=$(expr $REVERTCOUNT + 1)
+done
+
+echo Running cleanuptree
+SVN_NOCHECK=1 bin/scripts.misc/cleanuptree 2>&1 | tee /tmp/cut.out
+SVNFILES=$(cat /tmp/cut.out | sed -n '/^Uncommitted changes/,/MANIFEST/p' | grep '^[M\?A] ' | wc -l)
+if [ $SVNFILES -gt $REVERTCOUNT ]; then
+    echo "Too many changed or unknown files ($SVNFILES, expected $REVERTCOUNT)"
+    echo Subversion says
+    cat /tmp/cut.out | sed -n '/^Uncommitted changes/,/MANIFEST/p' | grep '^[M\?A] '
+    echo
+    echo My list was
+    echo $REVERTLIST
+    [ "x$REVERTLIST" != "x" ] && svn revert $REVERTLIST
+    perl bin/scripts.misc/generate_formatter_benchsets --silent --indent 0 benchspec/*/*.bset 2> bin/formatter/bset_list
+    cp bin/bset_list bin/formatter
+    rm /tmp/cut.out
+    exit 1
+fi
+rm /tmp/cut.out
+
+echo Making the tarball
+mkdir -p ../src
+bin/scripts.misc/maketars -a --notools_src --comp=bzip2 --benchsets=$BSETS 2>&1 | tee /tmp/maketars.out
+TARBALL=$(awk '/all tarball name:/ {print $4}' /tmp/maketars.out)
+
+if [ "x$REVERTLIST" != "x" ]; then
+    echo Reverting changes
+    svn revert $REVERTLIST
+fi
+
+if [ ! -f ../src/$TARBALL ]; then
+    echo
+    echo "Can't locate '$TARBALL' in $SPEC/src"
+    echo BAD END
+    exit 1
+fi
+
+echo Unpacking generated tarball
+mkdir t$$
+cd t$$
+tar xjf ../../src/$TARBALL
+echo Running the installer
+unset SPEC
+sh install.sh -f
+cd ..
+if [ ! -f t$$/bin/specperl -a ! -f t$$/bin/specperl.exe ]; then
+    echo "Installation of $TARBALL failed; see 't$$' for details"
+    exit 1
+fi
+echo Removing test installation
+rm -rf t$$
+
+echo
+echo "Done!"
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=sh syntax=sh shiftwidth=4 tabstop=8 expandtab nosmarttab:

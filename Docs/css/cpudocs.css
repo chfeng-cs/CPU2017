@@ -1,0 +1,279 @@
+/* In the "commentary" stuff below, we provide a margin on *both* ul and li because some browsers seem to respect
+  one and some the other and some respect both.  jh 13 feb 2006 */
+
+.commentary        { background:#f4f4f4; border-color:#c0c0c0; border-style:solid; border-width:2pt 0pt; 
+                      padding:.2em 3%; margin:2em 2em; }
+p.commentarysnug    { background:#f4f4f4; border-color:#c0c0c0; border-style:solid; border-width:2pt 0pt; 
+                      padding:0% 3%; margin:0em 2em; }
+p.commentarysnugtop { background:#f4f4f4; border-color:#c0c0c0; border-style:solid; border-width:2pt 0pt; 
+                      padding:0% 3%; margin:0em 2em 2em; }
+p.commentarysnugbot { background:#f4f4f4; border-color:#c0c0c0; border-style:solid; border-width:2pt 0pt; 
+                      padding:0% 3%; margin:2em 2em 0em; }
+p.commentarystart   { background:#f4f4f4; border-color:#c0c0c0; border-style:solid; border-width:2pt 0pt 0pt 0pt; 
+                      padding:0% 3%; margin:2em 2em 0em; }
+p.commentarycont    { background:#f4f4f4; 
+                      padding:.5em 3%; margin:0em 2em; }
+p.commentaryend     { background:#f4f4f4; border-color:#c0c0c0; border-style:solid; border-width:0pt 0pt 2pt 0pt; 
+                      padding:0% 3%; margin:0em 2em 2em; }
+.commentaryul       { background:#f4f4f4; margin:0em 2em; }
+.commentaryli       { background:#f4f4f4; margin:0em 4em; }
+
+.sidebar            { background:#f4f4f4; margin:1em 3em; border:thin solid black; padding:6px; }
+
+.annotation { color:#108010; font-family:times; font-weight:bold;  }
+
+body                { background: white; color: black; font-family: "Georgia", "Times New Roman", "Times", serif; }
+.body               {                                  font-family: "Georgia", "Times New Roman", "Times", serif; }
+
+.questionc          {                                                                                      color:#6c031d; }
+.questioncsnug      { margin-top:.1em; margin-bottom:.1em;                                                 color:#6c031d; }
+.question           { margin: 1em 1em .5em 3em; font-family:arial,sans-serif;                             color:#6c031d; text-indent:-1em; }
+.questionsnug       { margin: .1em 1em .1em 3em; font-family:arial,sans-serif;                             color:#6c031d; text-indent:-1em; }
+.questionsnugtop    { margin: .1em 1em .5em 3em; font-family:arial,sans-serif;                             color:#6c031d; text-indent:-1em; }
+.questionsnugbot    { margin: 1em 1em .1em 3em; font-family:arial,sans-serif;                             color:#6c031d; text-indent:-1em; }
+.questionnh         { margin: .5em 1em .5em 3em; font-family:arial,sans-serif;                             color:#6c031d; }
+.questionnhsnug     { margin: .1em 1em .1em 3em; font-family:arial,sans-serif;                             color:#6c031d; }
+.questionnhsnugtop  { margin: .1em 1em .5em 3em; font-family:arial,sans-serif;                             color:#6c031d;  }
+.questionnhsnugbot  { margin: .5em 1em .1em 3em; font-family:arial,sans-serif;                             color:#6c031d;  }
+.answer             { margin: .5em 1em .5em 3em; font-family:"Georgia", "Times New Roman", "Times", serif; color:#105010; text-indent:-1em; }
+.answerc            {                                                                                      color:#105010; }
+.answercsnug        { margin-top:.1em; margin-bottom:.1em;                                                 color:#105010; }
+.answersnug         { margin: .1em 1em .1em 3em; font-family:"Georgia", "Times New Roman", "Times", serif; color:#105010; text-indent:-1em; }
+.answersnugtop      { margin: .1em 1em .5em 3em; font-family:"Georgia", "Times New Roman", "Times", serif; color:#105010; text-indent:-1em; }
+.answersnugbot      { margin: .5em 1em .1em 3em; font-family:"Georgia", "Times New Roman", "Times", serif; color:#105010; text-indent:-1em; }
+.answernh           { margin: .5em 1em .5em 3em; font-family:"Georgia", "Times New Roman", "Times", serif; color:#105010; }
+.answernhsnug       { margin: .1em 1em .1em 3em; font-family:"Georgia", "Times New Roman", "Times", serif; color:#105010; }
+.answernhsnugtop    { margin: .1em 1em .5em 3em; font-family:"Georgia", "Times New Roman", "Times", serif; color:#105010; }
+.answernhsnugbot    { margin: .5em 1em .1em 3em; font-family:"Georgia", "Times New Roman", "Times", serif; color:#105010; }
+
+table        { border-style:solid; border-width:0px 0px 1px; border-color:#c0c0c0; }
+td           { vertical-align:top; padding:2px .3em 2px .2em; 
+              border-style:solid; border-width:1px 0px 0px 0px; border-color:#c0c0c0; }
+
+table.version    {border:none; width:100%; padding:0px; margin:0px 0px 2em;}
+table.version    {border:none;}
+table.version th {border:none;text-align:left; font-size:80%;}
+table.version td {border:none;text-align:right; font-size:95%;}
+
+
+table#benchmarkList td {vertical-align:top; padding:2px .3em 2px 1.2em; 
+           border-style:solid; border-width:1px 0px 0px 0px; border-color:#c0c0c0; }
+table#benchmarkList th.bold {padding-left:1.2em;}
+
+td.empty   {background:#e6e6e6; }
+.ttr         { font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif;  text-align:right; }
+.ttc         { font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif;  text-align:center; }
+th           { vertical-align:top; text-align:left; 
+               font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif; font-weight:normal; 
+               padding:3px .3em 2px .2em;border-style:solid; border-width:1px 0px 0px 0px; border-color:#c0c0c0; }
+
+th.bold    {padding-left:.2em; font-family:sans-serif; text-decoration:bold; 
+            border:none; font-size:100%; vertical-align:middle;}
+
+.Major     {text-align:left; font-family:sans-serif; padding:2px 3px 2px 3px; 
+            border:none; color:white; background:#446688; font-size:100%;}
+.MajorCent {text-align:center; font-family:sans-serif; padding:2px 3px 2px 3px; 
+            border:none; color:white; background:#446688; font-size:100%; vertical-align:middle;}
+
+.sansb       {font-family:arial,sans-serif; font-weight:bold;}
+.sans        {font-family:arial,sans-serif; }
+
+.noborder        {border:none;}
+table.noborder td {border:none; padding:0px;}
+table.noborder th {border:none; padding:0px;}
+table.noborder tr {border:none; padding:0px;}
+tr.noborder td    {border:none; padding:0px;}
+
+h1             { font-family:sans-serif; color:#eeeeef; background:#446688; padding:10px; text-align: center; }
+h2,h3,h4,h5,h6 { font-family:sans-serif; color:#446688; }
+.reverse       { font-family:sans-serif; color:#eeeeef; background:#446688; text-align: center; }
+
+
+h1       { font-size:200%; margin-top:1.75em; margin-bottom:0px;}
+h2       { font-size:150%; margin-top:1.75em; margin-bottom:.5em;}
+h3       { font-size:133%; margin-top:1.75em; margin-bottom:.5em;}
+h4,h5,h6 { font-size:120%; margin-top:1.75em; margin-bottom:.3em;}
+
+a:link, a:visited { white-space:nowrap; text-decoration: none; color: blue; }
+a.external:visited, a.external:link {
+        background-image:url(../images/external.png);
+        background-repeat:no-repeat;
+        background-position:right;
+        padding-right:11px;
+        margin-right:4px;
+}
+
+a.exnote:visited, a.exnote:link { color:blue; padding-left:8px; 
+                   font-size:x-small; font-weight:normal; font-family:arial, sans-serif;  text-decoration:none; }
+span.exnote      { font-size:x-small; font-weight:normal;font-family:arial, sans-serif;  text-decoration:none; }
+.small           { font-size:small;   font-weight:normal; }
+.xsmall          { font-size:x-small; font-weight:normal; }
+
+a.switch       {white-space:nowrap; margin-left:1em;                    text-decoration:none; }
+a.switch1      {white-space:nowrap; margin-left:.2em;                   text-decoration:none; }
+a.switchsnug   {white-space:nowrap;                                     text-decoration:none; }
+a.switchsnugr  {white-space:nowrap; margin-left:1em; margin-right:1px;  text-decoration:none; }
+.u           {text-decoration: underline;}
+.alarm       {color:red;}
+.caution     {background:#ffffd0;text-decoration: underline;}
+
+/* The problem with fixed-font being too small is worked around by *not* having monospace in the last position
+ * http://meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
+ * https://en.wikipedia.org/wiki/User:Davidgothberg/Test59
+ */
+
+pre           {font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif; margin:.7em 0em .7em 1em; }
+tt, kbd, samp {font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif; padding:0px 3px; } 
+kbd           {font-weight:bold;}
+.gray         {background:#f0f0f0;}
+.tt           {font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif; padding:0px 3px; } 
+
+.snugl        {                    padding-left:1px;                    } 
+.snugr        {                                      padding-right:1px; } 
+.snuglr       {                    padding-left:1px; padding-right:1px; } 
+.nb           {white-space:nowrap;                                      } 
+.nbsnugl      {white-space:nowrap; padding-left:1px;                    } 
+.nbsnugr      {white-space:nowrap;                   padding-right:1px; } 
+.nbsnuglr     {white-space:nowrap; padding-left:1px; padding-right:1px; } 
+
+.ttnobr       {font-family:monospace; padding:0px 4px;           white-space:nowrap;} 
+.ttnobrsnugr  {font-family:monospace; padding-left:4px;          white-space:nowrap;} 
+
+.exHeader         { margin:1.5em 0em .2em 2em;}
+div.exHeader span { border:thin solid gray; border-width:1px 0px;}
+
+.example      {margin: .8em +2em;          } 
+.codeexample  {margin: .4em 4em;             font-family: monospace;} 
+.ex           {margin: 1em 0em 1em 3em;      font-family: monospace;}
+.exsnug       {margin: 0em 0em 0em 2em;      font-family: monospace;}
+.exsnugish    {margin: .25em 0em .25em 2em;  font-family: monospace;}
+
+.snugbot     {margin-bottom:0.1em;}
+.snugtop     {margin-top:0.1em;}
+.snug        {margin-bottom:0.1em; margin-top:0.1em;}
+.snugish     {margin-bottom:0.3em; margin-top:0.3em;}
+
+
+.tt          {padding:0px 3px; font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif; } 
+.ttnobr      {padding:0px 3px; font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif; white-space:nowrap; } 
+.nobr        {white-space:nowrap;} 
+
+
+p.contents       {margin:3em 2em 0em 2em; border-top:solid thin black;  font-weight:bold; }
+p.contentsl1     {margin:6px 2em 3px 3em;  line-height:1.3; }
+p.contentsl2     {margin:3px 2em 3px 5em;                 line-height:1.3; } 
+p.contentsl3     {margin:2px 2em 3px 7em; font-size: 90%; line-height:1.3; }
+p.contentsl4     {margin:1px 2em 3px 9em; font-size: 90%; line-height:1.3; }
+p.contentsl5     {margin:1px 2em 3px 11em; font-size:85%; line-height:1.3; }
+p.contentsl1last {margin:6px 2em 2em 2em;  line-height:1.3; padding-bottom:.5em; border-bottom: solid thin
+black; padding-left:1em;}
+p.contentsl2last {margin:3px 2em 2em 2em;                 line-height:1.3; padding-bottom:.5em; border-bottom: solid thin
+black; padding-left:3em; }
+p.contentsl3last {margin:2px 2em 2em 2em; font-size: 90%; line-height:1.3; padding-bottom:.5em; border-bottom: solid thin
+black; padding-left:5em; }
+
+.contentsrl1     {margin:12px 0em 3px .1em; font-size:110%; line-height:1.3; font-family:sans-serif; color:#eeeeef; background:#446688; }
+.contentsrl2     {margin:3px 0em 3px 1.3em; text-indent:-1em; line-height:1.3; } 
+.contentsrl2noh  {margin:3px 0em 3px  .3em;                   line-height:1.3; } 
+.contentsrl3     {margin:2px 0em 3px 2.8em; text-indent:-1em; font-size: 90%;  }
+.contentsrl3noh  {margin:2px 0em 3px 1.8em;                   font-size: 90%;  }
+.contentsrl4     {margin:2px 0em 3px 4.3em; text-indent:-1em; font-size: 85%;  }
+.contentsrl4noh  {margin:2px 0em 3px 3.3em;                   font-size: 85%;  }
+.contentsrl1 a   {color:white; text-decoration:none;}
+
+.new         {color:#074015; background:#ffffc0; font-size:80%; font-style:italic; padding-left:1px;}
+.oldnews     {                                   font-size:80%; font-style:italic;}
+
+/* By default, the numeral allows a noticeable amount of spacing, 
+ * but if followed by c, then only that number of characters */
+.hanging1c        { margin-left:1em;text-indent:-1em; }
+.hanging1         { margin-left:2em;text-indent:-2em; }
+.hanging2         { margin-left:4em;text-indent:-2em; }
+.hanging3         { margin-left:6em;text-indent:-2em; }
+.hanging1csnug    { margin-left:1em;text-indent:-1em; margin-top:.1em; margin-bottom:.1em; }
+.hanging1snug     { margin-left:2em;text-indent:-2em; margin-top:.1em; margin-bottom:.1em; }
+.hanging2snug     { margin-left:4em;text-indent:-2em; margin-top:.1em; margin-bottom:.1em; }
+.hanging3snug     { margin-left:6em;text-indent:-2em; margin-top:.1em; margin-bottom:.1em; }
+.hanging1csnugtop { margin-left:1em;text-indent:-1em; margin-top:.1em;  }
+.hanging1snugtop  { margin-left:2em;text-indent:-2em; margin-top:.1em;  }
+.hanging2snugtop  { margin-left:4em;text-indent:-2em; margin-top:.1em;  }
+.hanging3snugtop  { margin-left:6em;text-indent:-2em; margin-top:.1em;  }
+.hanging1csnugbot { margin-left:1em;text-indent:-1em;                  margin-bottom:.1em; }
+.hanging1snugbot  { margin-left:2em;text-indent:-2em;                  margin-bottom:.1em; }
+.hanging2snugbot  { margin-left:4em;text-indent:-2em;                  margin-bottom:.1em; }
+.hanging3snugbot  { margin-left:6em;text-indent:-2em;                  margin-bottom:.1em; }
+
+.l0          {margin:1px;}
+.l1          {margin:1em 0em 1em     2em;} 
+.l1snugtop   {margin:0.1em 0em 1em   2em;} 
+.l1snugbot   {margin:1em 0em 0.1em   2em;} 
+.l1snug      {margin:0.1em 0em 0.1em 2em;} 
+.l1snugish   {margin:0.3em 0em 0.3em 2em;} 
+.l1ex        {margin:1em 0em 1em 4em; font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif;}
+.l1exsnug    {margin:0.1em 0em 0.1em 4em; font-family:"DejaVu Sans Mono","consolas",courier,"Courier New",monospace,serif;}
+
+.l2          {margin:1em 0em 1em     4em;} 
+.l2snugtop   {margin:0.1em 0em 1em   4em;} 
+.l2snugbot   {margin:1em 0em 0.1em   4em;} 
+.l2snug      {margin:0.1em 0em 0.1em 4em;} 
+.l2snugish   {margin:0.3em 0em 0.3em 4em;} 
+
+.l3          {margin:1em 0em 1em     6em;} 
+.l3snugtop   {margin:0.1em 0em 1em   6em;} 
+.l3snugbot   {margin:1em 0em 0.1em   6em;} 
+.l3snug      {margin:0.1em 0em 0.1em 6em;} 
+.l3snugish   {margin:0.3em 0em 0.3em 6em;} 
+
+pre.snug        {margin-bottom:0.2em; margin-top:0.1em;}
+pre.snugish     {margin-bottom:0.4em; margin-top:0.3em;}
+pre.l1snug      {margin:0.2em 0em 0.1em 2em;} 
+pre.l1snugish   {margin:0.4em 0em 0.3em 2em;} 
+pre.l2snug      {margin:0.2em 0em 0.1em 4em;} 
+pre.l2snugish   {margin:0.4em 0em 0.3em 4em;} 
+pre.l3snug      {margin:0.2em 0em 0.1em 6em;} 
+pre.l3snugish   {margin:0.4em 0em 0.3em 6em;} 
+
+
+/* Style for the non-image W3C markings, courtesy of
+ * Marek Prokop (http://www.sovavsiti.cz/css/w3c_buttons.html)
+ */
+.w3cbutton3 {
+  margin: 1em 1em 0 0;
+  width: 9em;
+  border: 1px solid #ccc;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 70%;
+  font-weight: bold;
+  float: left;
+}
+.w3cbutton3 a {
+  display: block;
+  width: 100%;
+}
+.w3cbutton3 a:link,
+.w3cbutton3 a:visited,
+.w3cbutton3 a:hover {
+  background-color: #fc6;
+  color: #000;
+  text-decoration: none;
+  border-bottom: none;
+}
+.w3cbutton3 span.w3c {
+  padding: 0 0.4em;
+  background-color: #fff;
+  color: #0c479d;
+}
+
+
+/* OK, I admit it, I'm a beginner with style sheets.  So you can take the following with as many grains of salt as you wish.
+ * Nevertheless, an observation: when this file was linked to runspec.html via 
+ *       <link rel="STYLESHEET" href="cpu2017docs.css" type="text/css"> 
+ * and __this__ document began with 
+ *        <style type="text/css"> (and of course ended with </style>)
+ * the result was that the _first_ definition (currently: p.commentary) would be ignored by all three of 
+ * Safari 1.3.1 (v312.3.3), 
+ * Internet Explorer 6.0.2900.2180.xpsp_sp2_gdr.050301-1519, and 
+ * "Mozilla 1.4 for Sun Java? Desktop System (Solaris Operating System Edition) Mozilla/5.0 (X11; U; SunOS sun4u; en-US;
+ * rv:1.4) Gecko/20041214".
+ * But adding a throwaway definition (p.throwaway) would make it happy.  Alternatively, NOT starting with <style was
+ * enough.  I admit it, I'm confused.  Enlightenment would be most welcome.  jh/13/feb/2005 */

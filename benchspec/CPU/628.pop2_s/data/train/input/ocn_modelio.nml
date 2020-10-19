@@ -1,0 +1,5 @@
+&modelio
+   diri    = "./ocn   "
+   diro    = "./   "
+   logfile = "ocn.log  "
+/

@@ -1,0 +1,2 @@
+specsha512sum:
+test-specsha512sum.in.expect1.14: no properly formatted SHA512 checksum lines found

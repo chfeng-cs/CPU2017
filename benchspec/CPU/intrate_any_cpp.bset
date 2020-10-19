@@ -1,0 +1,20 @@
+# This file contains a list of the benchmarks written in
+# C++ (in part or in whole), from the intrate benchset.
+# It is automatically generated.
+
+$name        = 'intrate_any_cpp';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+        520.omnetpp_r
+        523.xalancbmk_r
+        531.deepsjeng_r
+        541.leela_r
+);
+
+1;

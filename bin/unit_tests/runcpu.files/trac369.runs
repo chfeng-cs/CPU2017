@@ -1,0 +1,7 @@
+-a configpp
+-a configpp --define name
+-a configpp --undef  name
+-a configpp --define name=1
+-a configpp --define name=0
+-a configpp --define "name=''"
+-a configpp --define name=undef

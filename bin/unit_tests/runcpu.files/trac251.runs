@@ -1,0 +1,4 @@
+--fake -d -D -T all intrate
+--fake -d -D -T all --copies 12 intrate
+--fake -d -D -T all --copies 12 --runmode=speed --noratios intrate
+--fake -d -D -T all --copies 12 intspeed

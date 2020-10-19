@@ -1,0 +1,76 @@
+                                   508.namd_r
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   508.namd_r
+
+  Benchmark Author
+
+   Jim Phillips <jim [at] ks.uiuc.edu>
+   Theoretical and Computational Biophysics Group
+   University of Illinois
+   Urbana-Champaign
+
+  Benchmark Program General Category
+
+   Scientific, Structural Biology, Classical Molecular Dynamics Simulation
+
+  Benchmark Description
+
+   The 508.namd_r benchmark is derived from the data layout and inner loop of
+   NAMD, a parallel program for the simulation of large biomolecular systems.
+
+   Although NAMD scales to over 200,000 cores for very large systems, serial
+   performance is equally important to the over 50,000 users who have
+   downloaded the program over the past decade. Almost all of the runtime is
+   spent calculating inter-atomic interactions in a small set of functions.
+   This set was separated from the bulk of the code to form a compact
+   benchmark for CPU2017.
+
+  Input Description
+
+   The file apoa1.input is a 92224 atom simulation of apolipoprotein A-I and
+   is used as a standard NAMD benchmark. This particular file format is
+   created by NAMD 2.9 using the "dumpbench" command, and eliminates the need
+   for file readers and other setup code from the benchmark. Test, train and
+   ref read from the same input file, but run the code for different number
+   of iterations. For ref the code is run for 49 iterations. For training 7
+   iterations should be used to properly weight pairlist creation and usage.
+
+  Output Description
+
+   CPU2017 uses the "--output namd.out" command-line option to produce an
+   output file, namd.out, containing various checksums on the force
+   calculations. These should be consistent across platforms, within roundoff
+   error, and it is used for validation.
+
+  Known portability issues
+
+   The benchmark is written in conservative C++, is quite portable, and the
+   inner loop code (module ComputeNonbondedStd.C) contains no aliasing. The
+   erfc() function is required for startup. On Windows, -DSPEC_NEED_ERFC is
+   defined during compilation to build a version of erfc() for little-endian,
+   32-bit and 64-bit platforms. This is only needed for startup, and should
+   not affect overall performance.
+
+  Sources and Licensing
+
+   NAMD was contributed directly to SPEC(R) by the University of Illinois,
+   and eventually became 508.namd_r.
+
+  Reference
+
+     * [1]http://www.ks.uiuc.edu/Research/namd/
+     * James C. Phillips, Rosemary Braun, Wei Wang, James Gumbart, Emad
+       Tajkhorshid, Elizabeth Villa, Christophe Chipot, Robert D. Skeel,
+       Laxmikant Kale, and Klaus Schulten. Scalable molecular dynamics with
+       NAMD. Journal of Computational Chemistry, 26:1781-1802, 2005.
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. http://www.ks.uiuc.edu/Research/namd/

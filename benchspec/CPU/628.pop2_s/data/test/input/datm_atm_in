@@ -1,0 +1,14 @@
+ &shr_strdata_nml
+   dataMode       = 'CORE2'
+   domainFile     = './domain.lnd.fv4x5_gx3v7.091218.nc'
+   streams        = 'nyf.giss.T62.stream.txt 1 1 1 ' ,
+                    'nyf.gxgxs.T62.stream.txt 1 1 1 ' ,
+                    'nyf.ncep.T62.stream.txt 1 1 1 ' 
+   vectors        = 'u:v'
+   mapmask        = 'nomask',
+                    'nomask',
+                    'nomask'
+   tintalgo       = 'linear',
+                    'linear',
+                    'linear'
+  /

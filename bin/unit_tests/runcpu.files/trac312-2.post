@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if [ -z "$SPEC" -o ! -d "$SPEC" ]; then
+  echo SPEC not set
+  exit 1
+fi
+rc=0
+if [ -d $SPEC/trac312/baddir ]; then
+  echo ERROR: output_root was created
+  rc=1
+fi
+chmod -R u+rwx $SPEC/trac312
+rm -rf $SPEC/trac312
+exit $rc

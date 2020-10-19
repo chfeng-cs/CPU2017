@@ -1,0 +1,51 @@
+This directory is part of the documentation for SPEC CPU2017.  
+It contains example config files.  
+
+What is a config file?
+
+   A SPEC CPU config file defines how to build, run, and report on
+   SPEC CPU benchmarks in a particular environment.  
+
+   The examples in this directory can help beginners get started, as
+   described in the install guide (either Unix or Windows):
+
+   https://www.spec.org/cpu2017/Docs/install-guide-unix.html#config
+   https://www.spec.org/cpu2017/Docs/install-guide-windows.html#config
+
+Steps
+
+   - Begin by copying the Example config file to a new location.
+   - Edit it, searching for the word EDIT.
+   - As explained in the above install guides, pick one benchmark.
+     - If it fails, see the suggestions in the above install guides.
+     - If it works, try more benchmarks. 
+
+Goals for these examples 
+
+  - Provide a starting point for users new to the suite.
+  - Include useful comments with links to documentation.
+  - Use correct PORTABILITY flags.
+  - Include a correct flagsfile.
+  - Point out things that need to be changed with EDIT markers.
+  - Where practical, try to provide a useful starting point even if
+    chip, OS, or compiler versions are updated.  
+  - Be rule-compliant
+     - In particular, pick a single language dialect, as required by
+       https://www.spec.org/cpu2017/Docs/runrules.html#BaseFlags
+     - Prefer: dialect that matches rule
+       https://www.spec.org/cpu2017/Docs/runrules.html#rule_2.3.1 (b) 
+  - Non-goal: optimal performance
+
+Not optimal?
+
+   The examples in this directory are unlikely to provide the very best
+   performance that can be obtained for any given system.  They are only
+   a starting point.  
+
+   If you are looking for more advanced examples, you might want to
+   check out the config files that are available with published results.
+   See:
+      https://www.spec.org/cpu2017/results/
+
+------------------------------------------------------------------------
+$Id: AboutTheseExamples.txt 6026 2018-06-19 17:30:05Z JohnHenning $

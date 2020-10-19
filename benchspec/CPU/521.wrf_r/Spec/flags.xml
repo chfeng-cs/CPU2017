@@ -1,0 +1,1504 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags that appear in the sources for 521.wrf_r.
+
+  Copyright 2009-2019 Standard Performance Evaluation Corporation
+
+  $Revision: 6278 $
+  $Date: 2019-07-06 18:10:10 -0400 (Sat, 06 Jul 2019) $
+-->
+<flagsdescription>
+
+<!-- Normal flags file should suggest a name for themselves -->
+<filename>521.wrf_r.flags</filename>
+
+<title>521.wrf_r Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+whether they are portability candidates, mandatory, or forbidden.
+</p>
+]]>
+</header>
+
+<header class="forbidden">
+<![CDATA[
+<p>Using any of the flags below for a publishable run is not permitted.</p>
+<p>Note that many of the flags classified as "forbidden" are classified as
+such only because they were not needed when doing the initial porting work
+for CPU2017, and because the impact of their use was not evaluated.</p>
+]]>
+</header>
+
+<!-- Mandatory flags begin here -->
+
+<flag name="currdir_inc" class="mandatory" regexp="-I\.(?:/inc|/netcdf/include)?(?:\s+|$)">
+  <example>-I., -I./inc, -I./netcdf/include</example>
+This flag is included automatically by Spec/object.pm.
+</flag>
+
+<flag name="wordsizes" class="mandatory" regexp="-D[DIRL]WORDSIZE=\d+\b">
+This flag sets the default sizes (in byte) for various data types.  It is
+defined in object.pm and cannot be changed.
+</flag>
+
+<flag name="DCONFIG_BUF_LEN" class="mandatory">
+This macro defines the size of the unused configuration buffer in words.
+It is set in object.pm and cannot be changed.
+</flag>
+
+<flag name="DMAX_DOMAINS_F" class="mandatory">
+This macro sets the maximum number of domains (number of grids the model
+will be running).  It is set in object.pm and cannot be changed.
+</flag>
+
+<flag name="core_names" class="mandatory" regexp="[-/]D(?:NMM|COAMPS|EM|DA|EXP)_CORE=\d+">
+<example>
+-DEM_CORE=1,
+-DDA_CORE=0,
+-DNMM_CORE=0,
+-DCOAMPS_CORE=0,
+-DEXP_CORE=0
+</example>
+These macros determine whether or not the named model core is built.  The
+default values set in object.pm may not be changed.
+</flag>
+
+<!--flag name="DF90_STANDALONE" class="mandatory">
+For standalone code. The default value set in object.pm may not be changed.
+</flag-->
+
+<flag name="DINTIO" class="mandatory">
+This flag specifies that the ext_internal I/O module should be used.
+The default value set in object.pm may not be changed.
+</flag>
+
+<flag name="DMAX_HISTORY" class="mandatory">
+Sets the maximum history to store in the results file.
+The default value set in object.pm may not be changed.
+</flag>
+
+<flag name="DNETCDF" class="mandatory">
+The flag specifies the use of NetCDF for I/O.
+The default value set in object.pm may not be changed.
+</flag>
+
+<flag name="DNMM_NEST" class="mandatory">
+Number of NMM nesting levels. 
+The default value set in object.pm may not be changed.
+</flag>
+
+<flag name="DNO_NAMELIST_PRINT" class="mandatory">
+Does not output the namelist input if set.
+The default value set in object.pm may not be changed.
+</flag>
+
+<flag name="DSTUBMPI" class="mandatory">
+This macro enables stubbing out of MPI functionality in WRF. 
+</flag>
+
+<flag name="DNMM_MAX_DIM" class="mandatory">
+Maximum dimension of NMM.
+The default value set in object.pm may not be changed.
+</flag>
+
+<!-- End of mandatory flags -->
+
+<!-- Begin portability flags -->
+
+<flag name="DAD_SPINUP" class="forbidden">
+Use the AD Spinup algrorithm.
+</flag>
+
+<!-- flag name="DAIX" class="portability">
+Ignore. Not used.
+</flag -->
+
+<flag name="DALLOCA_ARG_T" class="portability">
+This macro defines the type of argument that the alloca() function takes.  It
+defaults to 'int'.
+</flag>
+
+<!---flag name="DALLOW_OVERDECOMP" class="other">
+Ingnore.  Part of MPI code.
+</flag-->
+
+<flag name="Dalloca" class="other">
+This allows alloca to be set to the compiler's preferred alloca by SPEC rules.
+</flag>
+
+<flag name="DMEMCPY_FOR_BCOPY" class="portability">
+Define the bcopy routine as memcpy.  Use if the system does not have a bcopy.
+</flag>
+
+<flag name="DSPEC_NOUNDERSCORE" class="portability">
+This macro indicates that C functions called from Fortran should not have
+an underscore added to their names.
+</flag>
+
+<flag name="DSPEC_DEFAULT_NAMES" class="portability">
+This macro indicates that C functions called from Fortran should not have thier
+names changed.   
+</flag>
+
+<flag name="DSPEC_F2CSTYLE" class="portability">
+This flag should be used if C function names need to have two underscores
+appended in order for them to be callable by Fortran functions.
+</flag>
+
+<!--flag name="DNO_DT_COMPONENT_INIT" class="portability">
+When NO_DT_COMPONENT_INIT is set, code that uses F95 compile-time initialization of components of derived types is not included.
+</flag-->
+
+<flag name="DSPEC_LINUX" class="portability">
+This macro indicates that the benchmark is being compiled on a Linux system.
+</flag>
+
+<flag name="DSPEC_CASE_FLAG" class="portability">
+This macro indicates that Fortran functions called from C should have their
+names lower-cased.
+</flag>
+
+<flag name="DSPEC_IBMXL" class="portability">
+This macro defines "flush_" instead of the default "flush" routine. 
+</flag>
+
+<flag name="DSPEC_IRIX" class="portability">
+This macro indicates that the benchmark is being compiled on an Irix system.
+</flag>
+
+<flag name="DSPEC_LINUX64_IPF" class="portability">
+This macro indicates that the benchmark is being compiled on an Itanium
+Processor Family-based Linux system.
+</flag>
+
+<flag name="DSPEC_LINUX_PPC" class="portability">
+This macro indicates that the benchmark is being compiled on a PowerPC-based
+Linux system.
+</flag>
+
+<flag name="DSPEC_LINUX_SPARC" class="portability">
+This macro indicates that the benchmark is being compiled on a SPARC-based
+Linux system.
+</flag>
+
+<!--flag name="DSPEC_MACOSX_INTEL" class="portability">
+This macro indicates that the benchmark is being compiled on an
+Intel-architecture MacOS X system.
+</flag-->
+
+<flag name="DSPEC_MACOSX" class="portability">
+This macro indicates that the benchmark is being compiled on a MacOS X system.
+</flag>
+
+<flag name="DSPEC_MACOSX_BE" class="portability">
+This macro indicates that the benchmark is being compiled on a MacOS X Big-Endian system.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_AIX" class="portability">
+Don't include the "ncconfig_aix.h" header file when "SPEC_AIX" is defined.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_GENERIC" class="portability">
+Don't include the "ncconfig_generic.h" header file which is used when no target architecture flag is set.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_IRIX" class="portability">
+Don't include the "ncconfig_irix.h" header file when "SPEC_IRIX" is defined.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_LINUX" class="portability">
+Don't include the "ncconfig_linux.h" header file when "SPEC_LINUX" or "SPEC_LINUX_PPC" is defined.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_MACOSX" class="portability">
+Don't include the "ncconfig_macosx.h" header file when "SPEC_MACOSX" is defined.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_WINDOWS" class="portability">
+Don't include the "ncconfig_windows.h" header file when "SPEC_WINDOWS" is defined.
+</flag>
+
+<flag name="DSPEC_AIX" class="portability">
+This macro indicates that the benchmark is being compiled on a PowerPC-based
+AIX system.
+</flag>
+
+<flag name="DSPEC_SOLARIS" class="portability">
+This macro indicates that the benchmark is being compiled on a SPARC-based
+Solaris system.
+</flag>
+
+<flag name="DSPEC_SOLARIS_X86" class="portability">
+This macro indicates that the benchmark is being compiled on an x64- or
+x86-based Solaris system.
+</flag>
+
+<flag name="DSPEC_WINDOWS_ICL" class="portability">
+This macro indicates that the benchmark is being built on a Windows system
+using the Intel C++ compiler.
+</flag>
+
+<flag name="DSPEC_NO_HAVE_ALLOCA" class="portability">
+This macro indicates that alloca is not available as a macro or function.
+</flag>
+
+<flag name="DSPEC_NO_HAVE_ALLOCA_H" class="portability">
+This macro indicates that the alloca.h header file is not present and should
+not be included.
+</flag>
+
+<flag name="DSPEC_NO_NCCONFIG_SOLARIS" class="portability">
+When set, this macro will inhibit inclusion of the Solaris-specific ncconfig
+header file.
+</flag>
+
+<flag name="DSPEC_NO_FILE_OFFSET_BITS" class="portability">
+If the _FILE_OFFSET_BITS macro is not set, this flag indicates that a
+default value of "64" should not be provided.
+</flag>
+
+<flag name="DSPEC_NO_HAVE_FTRUNCATE" class="portability">
+When set, this macro indicates that the ftruncate function is not available.
+</flag>
+
+<flag name="DSPEC_NO_STDC_HEADERS" class="portability">
+This flag may be used to keep the macro STDC_HEADERS from being defined by
+default.
+</flag>
+
+<flag name="DSPEC_NO_ST_BLKSIZE" class="portability">
+This macro indicates that "struct stat" does not contain a member called
+st_blksize.
+</flag>
+
+<flag name="DSPEC_WORDS_LITTLEENDIAN" class="portability">
+This macro indicates that the system building the benchmark is a little-endian
+system.  Note that the current data sets for 521.wrf_r are stored in big-endian format.
+Please use your compiler's "convert" flag to convert the data on little-endian systems.
+</flag>
+
+<flag name="DSPEC_UCHAR_DEFINED" class="portability">
+If set, this macro indicates that a symbol named "uchar" is already defined
+to be "unsigned char".
+</flag>
+
+<flag name="DSPEC_USE_IARGC" class="portability">
+Use the non-standard "iargc" routine instead of the F2003 get_command_argument routine to the the command line arguments.
+</flag>
+
+<flag name="logical_strict" class="portability" regexp="[-/]D(?:SPEC_)?LOGICAL_STRICT\b">
+<example>
+-DLOGICAL_STRICT,
+-DSPEC_LOGICAL_STRICT
+</example>
+LOGICAL_STRICT is a NetCDF macro that should be defined for Fortran compilers
+that treat .eqv./.neqv. as .eq./.ne..
+</flag>
+
+<flag name="DSPEC_NEED_IO_H" class="portability">
+If set, this macro indicates that the io.h header file should be used instead
+of unistd.h.
+</flag>
+
+<flag name="DSPEC_NEED_WSOCK2H" class="portability">
+  If set, this macro indicates that the winsock2.h header file should be included
+  to get the definition for ntohl().
+</flag>
+
+<flag name="DSPEC_TIME_H_ABSOLUTE_PATH" class="portability">
+<![CDATA[
+  <p>If set, on macOS systems only this will cause "/usr/include/time.h" to be included
+    instead of the more usual &lt;time.h&gt;.  On all macOS 10.x systems, this should
+    not be needed.</p>
+]]>
+</flag>
+
+<!-- End of portability flags -->
+
+<!-- Begin forbidden flags -->
+
+<flag name="DALWAYS_NC_SHARE" class="forbidden">
+This flag causes NetCDF to attempt to set NC_SHARE on files it opens.  It is
+used for debugging, and changing its value from the default is forbidden.
+</flag>
+
+<flag name="DANSI_C_preprocessor" class="forbidden">
+This flag is used by cfortran.h to determine whether it can use preprocessor
+features defined by the ANSI C standard.
+Changing its default value is forbidden.
+</flag>
+
+<flag name="old_sun_stuff" class="forbidden" regexp="[-/]D(?:FLOATFUNCTIONTYPE|ASSIGNFLOAT|RETURNFLOAT)(?:=\S*)?\b">
+<example>
+-DFLOATFUNCTIONTYPE=XXX,
+-DASSIGNFLOAT=XXX,
+-DRETURNFLOAT=XXX
+</example>
+This flag (if necessary) is defined by the compilation system.
+Changing its default value is forbidden.
+</flag>
+
+<flag name="DAUTODOC_BUILD" class="forbidden">
+This flag causes WRF to not exit immediately after writing its inital restart
+file.
+Changing its default value is forbidden.
+</flag>
+
+<flag name="DHAVE_ALLOCA" class="forbidden">
+This macro indicates that alloca is available as a macro or function.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA.
+</flag>
+
+<flag name="DHAVE_ALLOCA_H" class="forbidden">
+This macro indicates that the alloca.h header file is available.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA_H.
+</flag>
+
+<flag name="DBATHYMETRY" class="forbidden">
+Enable the "get_bathymetry" routine.
+</flag>
+
+<flag name="DBENCH" class="forbidden">
+Enable internal performance measurements.
+</flag>
+
+<flag name="DC13" class="forbidden">
+Add isotope code.
+</flag>
+
+<flag name="DCACHE_FRIENDLY_MP_ETANEW" class="forbidden">
+Change the dimension order for a few temp arrays to get better caching.
+</flag>
+
+<flag name="DCACHE_FRIENDLY_MP_ETAOLD" class="forbidden">
+Change the dimension order for a few temp arrays to get better caching.
+</flag>
+
+<flag name="DCASA" class="forbidden">
+Use the CADA Module.  Not used in 521.wrf_r.
+</flag>
+
+<flag name="DHAVE_ST_BLKSIZE" class="forbidden">
+This macro indicates that "struct stat" has a member named "st_blksize".
+It is set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ST_BLKSIZE.
+</flag>
+
+<!--flag name="DCOUP_CSM" class="forbidden">
+Enable no leap year.  This code has been disabled in WRF.
+</flag-->
+
+<flag name="DCDEBUG" class="forbidden">
+This flag enables coordinate check debug output in NetCDF.  It may not be used
+for a CPU2017 run.
+</flag>
+
+<flag name="DCDF_ROUTINE_NAME" class="forbidden">
+This flag causes the variable cdf_routine_name to be set to the current
+function name in the NetCDF-2 bindings.  This flag may not be used for
+CPU2017.
+</flag>
+
+<flag name="DCFSUBASFUN" class="forbidden">
+This flag causes cfortran.h to replace subroutines with function calls.  It
+may not be used for 521.wrf_r.
+</flag>
+
+<!--flag name="DCHECK_GRIB" class="manditory">
+Impliclty defined in the source.
+</flag-->
+
+<flag name="DCLAMP" class="forbidden">
+Use C-LAMP. Not used by 521.wrf_r.
+</flag>      
+
+<flag name="DCLWRFGHG" class="forbidden">
+CLWRF-UC June.09.  Not used by 521.wrf_r.
+</flag>
+
+<flag name="DCN" class="forbidden">
+Use CN code.  Not used by 521.wrf_r.
+</flag>
+
+<flag name="DCNDV" class="forbidden">
+Use CN code.  Not used by 521.wrf_r.
+</flag>
+
+<flag name="DCOMMENTOUTSAMPLE" class="forbidden">
+Use a sample main.c in symtab_gen.c.
+</flag>
+
+<flag name="DCOMMON_BLOCK" class="forbidden">
+This macro defines a method to refer to Fortran common blocks from C functions.
+Its default value may not be changed.
+</flag>
+
+<flag name="DCOPY_OUT" class="forbidden">
+This macro causes variables to be copied out of the grid data structure at
+various places in the WRF source code.
+It is used internally by WRF and may not be set explicitly.
+</flag>
+
+<flag name="DCPP_VECTOR" class="forbidden">
+Use code that's more easily vectorized and include compiler specific directives.
+</flag>
+
+<flag name="DCRAYFLOAT" class="forbidden">
+This macro indicates that CRAY floating point (real*16) should be used.  This
+may not be set for CPU2017.
+</flag>
+
+<!--flag name="DD3VAR_IRY_KLUDGE" class="forbidden">
+This macro changes the order of some variables used for WRF I/O.  It may not
+be set for CPU2017.
+</flag-->
+
+<flag name="DCROP" class="forbidden">
+Use the clm_varcon module's istcrop variable.
+</flag>
+
+<!--flag name="DDATA_H" class="forbidden">
+Ignore. Include file guard.
+</flag-->
+
+<flag name="DDEBUG2" class="forbidden">
+Add debugging code.
+</flag>
+
+<flag name="DDEBUGCLM" class="forbidden">
+Add debugging code.
+</flag>
+
+<flag name="DDEBUG_OUT" class="forbidden">
+Print debugging output.
+</flag>
+
+<flag name="DDEBUG_OUT_FUEL_LEFT" class="forbidden">
+Internal debugging code.
+</flag>
+
+<!--flag name="DDEFINE_GLOBALS" class="manditory">
+Ingore. Implicitly set.
+</flag-->
+
+<!--flag name="DDEF_T62_NCEP_TABLE" class="manditory">
+Ignore.  Implicitly set.
+</flag-->
+
+<flag name="DDEREF_KLUDGE" class="forbidden">
+<![CDATA[
+<p>This macro enables a potentially dangerous workaround to keep certain Fortran
+90 compilers from performing a copy-in/copy-out conversion on the grid
+data structure in some cases.  See <a href="http://www.mmm.ucar.edu/wrf/WG2/topics/deref_kludge.htm">this page</a> for more information.</p>
+<p>This flag may not be used for CPU2017.</p>
+]]>
+</flag>
+
+<flag name="DDGVM" class="forbidden">
+Use the DGVM variables.
+</flag>
+
+<flag name="DDISABLE_ALARM_AUXHIST1" class="forbidden" regexp="[-/]DDISABLE_ALARM_AUX\w*\b">
+Disable debugging output from AUX History Output.
+</flag>
+
+<flag name="src_dest_record" class="forbidden" regexp="[-/]D(?:(?:DEST|SOURCE)_RECORD|SOURCE_REC_DEX)(?:=\S*)?\b">
+<example>
+-DDEST_RECORD=XXX,
+-DSOURCE_RECORD=XXX,
+-DSOURCE_REC_DEX=XXX
+</example>
+These macros are used to set the names of data structures used for assignment.
+They are used internally by WRF and may not be set explicitly.
+</flag>
+
+<flag name="dll_stuff" class="forbidden" regexp="[-/]DDLL_(?:EXPORT|NETCDF)\b">
+<example>
+-DDLL_EXPORT,
+-DDLL_NETCDF
+</example>
+These macros are used when building parts of the WRF library as a DLL.  They
+are not used for CPU2017 and may not be set.
+</flag>
+
+<flag name="DDM_PARALLEL" class="mandatory">
+This macro indicates that WRF should be built for parallel operation.
+</flag>
+
+<flag name="DDOUBLE_PRECISION" class="forbidden">
+This macro contains the name of the C type which can hold a double precision
+Fortran number.  Its default value may not be changed.
+</flag>
+
+<flag name="DDUMBCOPY" class="forbidden">
+If defined, causes slow copy routines to be used in interp_fcn.  This may
+not be set for CPU2017.
+</flag>
+
+<flag name="DDUST" class="forbidden">
+Add dust force calculations.
+</flag>
+
+<flag name="DESMFIO" class="forbidden">
+Enable ESMF coupling.
+</flag>
+
+<flag name="DETALAKE" class="forbidden">
+Set the extinction coefficient.
+</flag>
+
+<flag name="posix_stuff" class="forbidden" regexp="[-/]D(?:ENOERR|FLT_MAX_EXP|(?:INT|FLT|LONG|SHORT)_MAX|O_BINARY|O_CREAT|O_TRUNC|O_WRONLY|SEEK_SET)(?:=\S*)\b">
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+<example>
+-DENOERR=XXX,
+-DFLT_MAX=XXX,
+-DFLT_MAX_EXP=XXX,
+-DINT_MAX=XXX,
+-DLONG_MAX=XXX,
+-DO_BINARY=XXX,
+-DSEEK_SET=XXX,
+-DSHORT_MAX=XXX
+</example>
+</flag>
+
+<flag name="ix_rep" class="forbidden" regexp="[-/]D(?:IX_(?:INT|SHORT)_MAX|SIZEOF_IX_(?:INT|SHORT))(?:=\S*)?\b">
+These macros define sizes and ranges of the variable types used to hold XDR
+data.  They are not used for CPU2017 and may not be changed.
+<example>
+-DIX_INT_MAX=XXX,
+-DIX_SHORT_MAX=XXX,
+-DSIZEOF_IX_INT=XXX,
+-DSIZEOF_IX_SHORT=XXX
+</example>
+</flag>
+
+<flag name="DEXTRALAKELAYERS" class="forbidden">
+Initialize extra lake layer variables.
+</flag>
+
+<flag name="DEXTRA_HWRF_DEBUG_STUFF" class="forbidden">
+Add extra debugging information.
+</flag>
+
+<flag name="DFCALLSC_QUALIFIER" class="forbidden">
+This macro holds the qualifier (if any) needed for C functions called from
+Fortran.  The default value may not be changed.
+</flag>
+
+<!--flag name="DFERRIER_GFDL" class="forbidden">
+Ignore. Implicitly defined.
+</flag-->
+
+<flag name="DFORTRAN_REAL" class="forbidden">
+This macro contains the name of the C type which can hold a Fortran REAL
+number.  Its default value may not be changed.
+</flag>
+
+<flag name="DFSEEKO64_OK" class="forbidden">
+Defined by system headers.  If enabled, fseeko64 may be used.
+</flag>
+
+<flag name="DFSEEKO_OK" class="forbidden">
+Defined by system headers.  If enabled, _FILE_OFFSET_BIT is set to 64 and fseeko may be used.
+</flag>
+
+<flag name="DFUEL_LEFT" class="forbidden">
+Define if the function fuel_left_cell_2 has been implemented.  Not used in SPEC CPU version.
+</flag>
+
+<flag name="DFUJITSU_FX10" class="forbidden">
+Used to disable MOVE_NESTS on fujitsu systems.  Since MOVE_NESTS is not used, this option is ignored.
+</flag>
+
+<flag name="DG95" class="forbidden">
+Enable a work around for a g95 bug.  However, the routine where the bug occurs is not used in the SPEC CPU version.
+</flag>
+
+<flag name="DGRIB1" class="forbidden">
+Use GRIB1 formatted data files.
+</flag>
+
+<flag name="DGRIB2" class="forbidden">
+Use GRIB2 formatted data files.
+</flag>
+
+<flag name="DGRIB_ONE_TIME_PER_FILE" class="forbidden">
+If the time has changed, we open a new file.  This is a kludge to get
+ around slowness in WRF that occurs when opening a new data file the
+ standard way.
+</flag>
+
+<flag name="DHAVE_GETPAGESIZE" class="forbidden">
+If defined, use the getpagesize system routine.
+</flag>
+
+<flag name="DHEAVYNEW" class="forbidden">
+Ignore. Implicitly set.
+</flag>
+
+<flag name="DHWRF" class="forbidden">
+Use the hwrf radiation module.
+</flag>
+
+<flag name="DIBM_REDUCE_BUG_WORKAROUND" class="forbidden">
+Note that SPEC CPU stubs the MPI call so this workaround is not needed.
+
+These three subroutines re-implement MPI_Reduce on MPI_INTEGER
+ with OP=MPI_ADD.
+
+This is a workaround for a bug in the IBM MPI implementation.
+ Some MPI processes will get stuck in MPI_Reduce and not
+ return until the PREVIOUS I/O server group finishes writing.
+
+This workaround replaces the MPI_Reduce call with many
+ MPI_Send and MPI_Recv calls that perform the sum on the
+ root of the communicator.
+
+There are two reduce routines: one for a sum of scalars
+ and one for a sum of arrays.  The get_reduce_tag generates
+ MPI tags for the communication.
+</flag>
+
+<!--flag name="DINL" class="forbidden">
+This is an internal WRF macro which indicates that inlining of some functions
+should take place.  It may not be set or unset explicitly.
+</flag-->
+
+<flag name="DINTELMKL" class="forbidden">
+Use Intel's MKL library "VPOWX" routine in place of "VPOW".
+</flag>
+
+<flag name="DINTEL_ALIGN64" class="forbidden">
+Enable Intel specific alignment directives.
+</flag>
+
+<!--flag name="DISDB_INCLUDE" class="forbidden">
+Ignore.  Header file guard for isdb.h.
+</flag-->
+
+<flag name="DLAKEDEBUG" class="forbidden">
+Enable more debugging information.
+</flag>
+
+<!--flag name="DLANDREAD_STUB" class="maditory">
+Ignore. Implictly defined.
+</flag-->
+
+<flag name="DLEARN_BCAST" class="forbidden">
+Add an extra static variable.
+</flag>
+
+<flag name="netcdf_debug" class="forbidden" regexp="[-/]D(?:LN_TEST|INSTRUMENT|ODEBUG)\b">
+<example>
+-DLN_TEST,
+-DINSTRUMENT,
+-DODEBUG
+</example>
+These flags enable some NetCDF debugging output.  They may not be used for
+CPU2017.
+</flag>
+
+<!--flag name="DINTERNAL_IO" class="forbidden">
+This macro indicates that WRF's internal I/O routines should be used.
+Its default value may not be changed.
+</flag-->
+
+<!--flag name="DINTIO_NOTYET" class="forbidden">
+This macro indicates that WRF's internal I/O routines should be stubbed out.
+It may not be set for CPU2017.
+</flag-->
+
+<flag name="DLOCKNUMREC" class="forbidden">
+This flag enables locking for NC.numrecs.  It may not be used for CPU2017.
+</flag>
+
+<flag name="DMACOS" class="forbidden">
+Set if using a MacOS.  Use SPEC_MACOS instead. 
+</flag>
+
+<!--flag name="DLOG" class="forbidden">
+Enable WRF debug logging.
+</flag-->
+
+<flag name="DMAC_KLUDGE" class="forbidden">
+Disable certain internal routines.
+</flag>
+
+<flag name="DMAKE_PROGRAM" class="forbidden">
+Creates a test program for testing function nc_inq_libvers().  This may not
+be used for CPU2017.
+</flag>
+
+<!--flag name="DMAP_FILE" class="forbidden">
+Ignore.  Implicitly sets MAP_FILE=0.  Used by +BSD4.3 mmap.
+</flag-->
+
+<flag name="DMARS" class="forbidden">
+Set when modeling Mars.
+</flag>
+
+<flag name="DMAX_NC_OPEN" class="forbidden">
+This macro defines the maximum number of files a process can have open.
+Its default value may not be changed.
+</flag>
+
+<flag name="DMAX_PREPRO_ARGS" class="forbidden">
+This macro defines the maximum number of arguments that the C preprocessor can
+accept for macro definitions.  Its default value may not be changed.
+</flag>
+
+<flag name="DMIN_TILE_SIZE" class="forbidden">
+Used to override the minimum tile size in module_tile.  Default=1.
+</flag>
+
+<flag name="DMM5_SINT" class="forbidden">
+This macro is set unconditionally in the WRF source code and may not be
+set or unset explicitly.
+</flag>
+
+<!--flag name="DMODAL_AERO" class="forbidden">
+Ignore.  Impliclty set.
+</flag-->
+
+<!--flag name="DMODAL_AERO_3MODE" class="forbidden">
+Ignore.  Impliclty set.
+</flag-->
+
+<flag name="DMODAL_AERO_7MODE" class="forbidden">
+Added for MAM7 compliance
+</flag>
+
+<flag name="DMOVE_NESTS" class="forbidden">
+Enable the nested move routines.
+</flag>
+
+<flag name="DMOVING_DIAGS" class="forbidden">
+Add diagnositc messages to the moving routines.
+</flag>
+
+<flag name="DMPI2_SUPPORT" class="forbidden">
+Add for MPI2 specific options.  Not used in SPEC CPU.
+</flag>
+
+<flag name="DMPI2_THREAD_SUPPORT" class="forbidden">
+Enable MPI2 thread support when using both MPI2 and OpenMP.
+</flag>
+
+<flag name="DMS_SUA" class="portability">
+Define if building on a Microsoft SUA (linux-like) platform.  Note that SUA has not been tested with 521.wrf_r.
+</flag>
+
+<flag name="DMS_SUA_" class="portability">
+Define if building on a Microsoft SUA (linux-like) platform.
+</flag>
+
+<flag name="namelist_read_stuff" class="forbidden" regexp="[-/]DNAMELIST_READ_(?:UNIT|ERROR_LABEL)(?:=\S*)?\b">
+<example>
+-DNAMELIST_READ_UNIT=XXX,
+-DNAMELIST_READ_ERROR_LABEL=XXX
+</example>
+These macros define constants used when reading the namelist.  Their default
+values may not be changed.
+</flag>
+
+<flag name="DNAN_VALUE" class="forbidden">
+This macro indicates that a value for NaN is available.  Its default value
+may not be changed.
+</flag>
+
+<flag name="DNATIVE_MASSV" class="forbidden">
+If not defined, use internally defined routines instead of the IBM libmassv routines. 
+</flag>
+
+<flag name="DNCARIBM_NOC99" class="portability">
+NCAR AIX does not have lrint.  Enable this to define one.
+</flag>
+
+<flag name="DNCEP_DEBUG_GLOBALSTDOUT" class="forbidden">
+Enable debug information.
+</flag>
+
+<flag name="DNCEP_DEBUG_MULTIDIR" class="forbidden">
+Enable debug information.
+</flag>
+
+<flag name="DNC_ARRAY_GROWBY" class="forbidden">
+This macro holds the size (in elements) that arrays in NetCDF should be grown
+at one time.  Its default value may not be changed.
+</flag>
+
+<flag name="nc_retcodes" class="forbidden" regexp="[-/]DNC_(?:ENOMEM|ERANGE)(?:=\S*)?\b">
+<example>
+-DNC_ENOMEM=XXX,
+-DNC_ERANGE=XXX
+</example>
+These macros contain the values of return codes used internally by NetCDF.
+Their default values may not be changed.
+</flag>
+
+<flag name="DNEC" class="forbidden">
+Use integers instead of characters for the MPI Buffer array.
+</flag>
+
+<flag name="DNEC_SX" class="forbidden">
+NEC SX specific work-around in source.
+</flag>
+
+<flag name="DNEED_STUBS" class="forbidden">
+Stubs for diffwrf routines called by module_wrf_error. (used by netcdf implementation of IO api)
+</flag>
+
+<flag name="netcdf_type_flags" class="forbidden" regexp="[-/]DNF_(?:NF_DOUBLEPRECISION_IS_C_FLOAT|NF_INT1_IS_C_SIGNED_CHAR|NF_INT2_IS_C_SHORT|NF_INT_IS_C_INT|NF_REAL_IS_C_DOUBLE|NF_REAL_IS_C_FLOAT)(?:=\S*)\b">
+<example>
+-DNF_DOUBLEPRECISION_IS_C_FLOAT=XXX,
+-DNF_INT1_IS_C_SIGNED_CHAR=XXX,
+-DNF_INT2_IS_C_SHORT=XXX,
+-DNF_INT_IS_C_INT=XXX,
+-DNF_REAL_IS_C_DOUBLE=XXX,
+-DNF_REAL_IS_C_FLOAT=XXX
+</example>
+These macros are used by NetCDF to determine which native C types fit which
+native Fortran types.  Their default values may not be changed directly.
+</flag>
+
+<flag name="DNL_get_ROUTINES" class="forbidden">
+Implicitly set to get the NL_get_ROUTINES.
+</flag>
+
+<flag name="DNL_set_ROUTINES" class="forbidden">
+Implicitly set to get the NL_get_ROUTINES.
+</flag>
+
+<flag name="DNMM_FIND_LOAD_IMBALANCE" class="forbidden">
+Debugging code to find MPI load imbalances.
+</flag>
+
+<flag name="DNO_IEEE_FLOAT" class="forbidden">
+This macro should be set if the system does not use IEEE floating point
+representation.  It may not be set for CPU2017.
+</flag>
+
+<!--flag name="DNNN" class="forbidden">
+Ignore.  Implicilty set.
+</flag-->
+
+<flag name="DNOCOMPETE" class="forbidden">
+Set to enable each pft on vegetated landunit has its own column.
+</flag>
+
+<flag name="DNOFIRE" class="forbidden">
+Set the fire area to 0.
+</flag>
+
+<flag name="DNONSTANDARD_SYSTEM_FUNC" class="forbidden">
+Enables the use of the non-standard "system" function.
+</flag>
+
+<flag name="DNONSTANDARD_SYSTEM_SUBR" class="forbidden">
+Enables the use of the non-standard "system" subroutine.
+</flag>
+
+<flag name="DNO_DAYLEN_VCMAX" class="forbidden">
+Set if there is no day length vcmax.
+</flag>
+
+<flag name="DNO_INITIAL_DATA_VALUE" class="forbidden">
+Use when the "setinitval_in" argument shouldn't be use to set the inital values in "alloc.inc".
+</flag>
+
+<flag name="DNO_I1_OLD" class="forbidden">
+When defined, i1_decl.inc "old" variables are not defined.
+</flag>
+
+<flag name="DNO_IEEE_MODULE" class="forbidden">
+Define if the compiler does not support the IEEE Arithmatic module.  Note that IEEE_SET_FLAG is required for 521.wrf_r andthe NO_IEEE_MODULE is always overridden in the SPEC version.
+</flag>
+
+<flag name="DNO_LEAP_CALENDAR" class="forbidden">
+When defined, Feburary is set to 28 days, and not adjusted for leap years.
+</flag>
+
+<flag name="DNO_NETCDF_2" class="forbidden">
+This flag turns off backward compatibility definitions in NetCDF.  Its
+default value may not be changed.
+</flag>
+
+<flag name="DNO_STRERROR" class="forbidden">
+This macro indicates that the strerror function is not available.  Its
+default value may not be changed.
+</flag>
+
+<!--flag name="DO2K" class="forbidden">
+Ingrone.  Not used in SPEC version.
+</flag-->
+
+<!--flag name="DOLDWAY" class="forbidden">
+This flag enables the use of some older code in interp_fcn in WRF.  It may
+not be set for CPU2017.
+</flag-->
+
+<!--flag name="DONEWAYBIT4BIT" class="forbidden">
+This flag enables buggy bit-for-bit copy.  It may not be set for CPU2017.
+</flag-->
+
+<flag name="DOFFLINE" class="forbidden">
+Use offline mode.
+</flag>
+
+<flag name="DOLD_REG_GEOM" class="forbidden">
+Use old data types for the REG_GEOM structure.
+</flag>
+
+<flag name="DOLD_TIMERS" class="forbidden">
+Use the system clock instead of system specific high resolution timers.  Implicity defined in the SPEC version.
+</flag>
+
+<flag name="DOPTIMIZE_CFL_TEST" class="forbidden">
+Enable code optimized for vectorization on a Xeon Phi processor.
+</flag>
+
+<flag name="DOUTPUT_FULL_GEOPOTENTIAL" class="forbidden">
+Enable the output full geopotential height instead of the two fields of base-state geopotential and perturbation geopotential.
+</flag>
+
+<flag name="DOUTPUT_FULL_PRESSURE" class="forbidden">
+Enable the output full pressure instead of the two fields of base-state geopotential and perturbation geopotential.
+</flag>
+
+<!--flag name="DP" class="forbidden">
+</flag-->
+
+<flag name="DPADIT" class="forbidden">
+Add padding when calling an rsl_malloc.
+</flag>
+
+<flag name="DPLANET" class="forbidden">
+When writing to restart files, use the values of the instantaneous time for determining the values of JULYR, JULDAY, and GMT.  If the original values in config_flags are used, this assumes that the restart simulation will start with an itimestep NE 0.  If we use the instantaneous time, we can start a restart simulation with a different value of delta-t for timestep and still get the clocks calendars (and orbital information!) correct.
+</flag>
+
+<flag name="DPNETCDF" class="forbidden">
+Define when using Parllel NetCDF.
+</flag>
+
+<flag name="DPNETCDF_QUILT" class="forbidden">
+If we've been built with PNETCDF_QUILT defined then we use parallel I/O
+within the group of I/O servers rather than gathering the data onto the
+root I/O server. Unfortunately, this approach means that we can no-longer
+select different I/O layers for use with quilting at run time. ARPDBG.
+This code is sufficiently different that it is kept in the separate
+quilt_pnc() routine.
+</flag>
+
+<flag name="DPROMOTE_FLOAT" class="forbidden">
+Set the WRF_FLOAT parameter to be WRF_DOUBLE instead of WRF_REAL.
+</flag>
+
+<!--flag name="DPROTOS_H" class="forbidden">
+Ignore.  Header file guard.
+</flag-->
+
+<flag name="DPROTOTYPE_NEEDED" class="forbidden">
+Enable the use of protoypes.
+</flag>
+
+<flag name="DP_TABLE_FIRST" class="forbidden">
+Use the first user in the parameter table.
+</flag>
+
+<flag name="DPOSIXIO_DEFAULT_PAGESIZE" class="forbidden">
+This macro holds the default page size that pagesize() will return when
+neither sysconf() nor POSIX getpagesize() is not available.  Its default
+value may not be changed for CPU2017.
+</flag>
+
+<flag name="DRAL" class="forbidden">
+Collect terrain array HT into a global array HTIJ
+</flag>
+
+<!--flag name="DREGISTRY_H" class="forbidden">
+Ignore.  Header file guard.
+</flag-->
+
+<flag name="DREGTEST" class="forbidden">
+Enable the reg test.
+</flag>
+
+<flag name="DREVERT" class="forbidden">
+Revert an array back to it original value.
+</flag>
+
+
+<!--flag name="DREGISTER_I1" class="forbidden">
+This flag enables some extra INTEGER*1 copies for parallel WRF code.  It is
+not used and may not be set for CPU2017.
+</flag-->
+
+<flag name="DRSL" class="forbidden">
+This macro indicates that the RSL communications package is being used for
+communication in a parallelized WRF run.  It is not used and may not be set
+for CPU2017.
+</flag>
+
+<flag name="DRSL0_ONLY" class="forbidden">
+Only use the rsl9 file.
+</flag>
+
+<flag name="DRTM" class="forbidden">
+Use the RTM river routing model.
+</flag>
+
+<!--flag name="DRUC_CLOUD" class="forbidden">
+Activate microphysics variables in Registry, and initialization routine. Add variable for number ice concentration. 
+</flag-->
+
+<flag name="DRUN_ON_GPU" class="forbidden">
+Run the WSMD5 and WSMD3 cloud physics solvers on a GPU.
+</flag>
+
+<flag name="DSGIALTIX" class="forbidden">
+Disable the nested move routines if running on an SGI Altix system.
+</flag>
+
+<!--flag name="DSPEED_VARS_ARGS" class="forbidden">
+Add extra arguments for the speed_func routine.
+</flag-->
+
+<!--flag name="DSPEED_VARS_DECL" class="forbidden">
+Add extra arguments for the fire_ros routine.
+</flag-->
+
+<flag name="DSHLAKE" class="forbidden">
+Ignore.  Unreachable.
+</flag>
+
+<flag name="DSHLAKETEST" class="forbidden">
+Add a temporary snow melt variable.
+</flag>
+
+<flag name="DSPMD" class="forbidden">
+Adds in the mpishorthand module (disabled in orginal code) and include the "mpif.h" header file.
+</flag>
+
+<flag name="DSTUG" class="forbidden">
+Define STUG to enable tracking of allocs and frees (performance and space penalty)
+</flag>
+
+<flag name="DSUN" class="forbidden">
+Ignore.  Unreachable in SPEC version.
+</flag>
+
+<flag name="DSUNINFO" class="forbidden">
+Ignore.  Unreachable in SPEC version.
+</flag>
+
+<flag name="DSUPLN" class="forbidden">
+This code block controls the addition of N to sminn pool
+ to eliminate any N limitation, when SUPLN is set.  This lets the
+ model behave essentially as a carbon-only model, but with the
+ benefit of keeping trrack of the N additions needed to
+ eliminate N limitations, so there is still a diagnostic quantity
+ that describes the degree of N limitation at steady-state.
+</flag>
+
+<flag name="DSYM_H" class="forbidden">
+Ignore.  Header file guard.
+</flag>
+
+<flag name="DT3D" class="forbidden">
+Defined to include errno.h.
+</flag>
+
+<flag name="DTABLES_H" class="forbidden">
+Ignore.  Header file guard.
+</flag>
+
+<flag name="DTERRAIN_AND_LANDUSE" class="forbidden">
+Load the terrain and landuse from a file.
+</flag>
+
+<flag name="DTERRAIN_TBASE" class="forbidden">
+Get the terranin data from TBASE.
+</flag>
+
+<flag name="DTEST" class="forbidden">
+Create a stand-alone test in gribmap.c.
+</flag>
+
+<flag name="DTESTZACK" class="forbidden">
+Disable error check that urban parameterization is not yet finished.
+</flag>
+
+<flag name="cf_bytes" class="forbidden" regexp="[-/]D(?:UN)?SIGNED_BYTE\b">
+<example>
+-DSIGNED_BYTE,
+-DUNSIGNED_BYTE
+</example>
+These macros are used internally by cfortran.h to determine what native C types
+to use to hold various types and sizes of data.  Their default values may not
+be changed.
+</flag>
+
+<flag name="sizeof" class="forbidden" regexp="[-/]DSIZEOF_(?:DOUBLE|FLOAT|INT|LONG|OFF_T|SHORT|SIZE_T)(?:=\S*)?\b">
+These macros define the size (in bytes) of various native data types.  Their
+default values may not be changed.
+<example>
+-DSIZEOF_DOUBLE=XXX,
+-DSIZEOF_FLOAT=XXX,
+-DSIZEOF_INT=XXX,
+-DSIZEOF_LONG=XXX,
+-DSIZEOF_OFF_T=XXX,
+-DSIZEOF_SHORT=XXX,
+-DSIZEOF_SIZE_T=XXX
+</example>
+</flag>
+
+<flag name="DSNICAR_FRC" class="forbidden">
+Compute additional solar radiation data.
+</flag>
+
+<flag name="DSTUB_FOR_NOW" class="forbidden">
+This macro enables stubbing out of the nests_to_open function in WRF.  It
+may not be set for CPU2017.
+</flag>
+
+<flag name="DTITAN" class="forbidden">
+Defined when adjusting the date format for Titan.
+</flag>
+
+<flag name="DUNICOSMP" class="forbidden">
+Compute the gamma function in module_cam_cldwat.
+</flag>
+
+<flag name="DUSE_ALLOCATABLES" class="forbidden">
+For the gen_alloc code generator, use allocatables.
+</flag>
+
+<flag name="DUSE_HIRES" class="forbidden">
+Use the high resolution timer.
+</flag>
+
+<flag name="DUSE_MPI_IN_PLACE" class="forbidden">
+Ignore.  Not used in SPEC CPU version.
+</flag>
+
+<flag name="DTOUCH_LAST" class="forbidden">
+This flag enables a touch of the last page allocated when growing a file with
+NetCDF.  It's the default value may not be changed.
+</flag>
+
+<flag name="DUSE_NEW_DELETE" class="forbidden">
+This macro indicates that new and delete should be used instead of malloc()
+and free() in C++ codes that use cfortran.h.  It is not used and may not be
+set for CPU2017.
+</flag>
+
+<flag name="DWORDS_BIGENDIAN" class="forbidden">
+This flag indicates that the benchmark is being built on a big-endian system.
+It is on by default.  Please use you're compiler's "convert" flag to convert the big-endian input data set on little-endian systems.
+</flag>
+
+<flag name="DVAR4D" class="forbidden">
+Select different error message routines.
+</flag>
+
+<flag name="DVERT_UNIT" class="forbidden">
+Enables a main program for a small unit test for the vertical interpolation.
+</flag>
+
+<flag name="DVERBOSE" class="forbidden">
+Enable debug output in NetCDF.
+</flag>
+
+<flag name="DVORTEX_CENTER" class="forbidden">
+Determine the new enter of a huricane's vortex.
+</flag>
+
+<flag name="DWACCM_MOZART" class="forbidden">
+Use a different temperature range.
+</flag>
+
+<flag name="DWACCM_PHYS" class="forbidden">
+Use a different temperature range.
+</flag>
+
+<flag name="DWRAP_MALLOC" class="forbidden">
+Redefine "malloc" to an interal wrapper function which calls posix_memalign.
+</flag>
+
+<!--flag name="DWRFIO_NCD_LARGE_FILE_SUPPORT" class="forbidden">
+Enable large file support when opening a file within ext_ncd_open_for_write_begin.
+</flag-->
+
+<flag name="DWORD_BIT_CNT" class="forbidden">
+Ignore.  Implicitly set the word bit count to 32.
+</flag>
+
+<flag name="DWRAP_MALLOC_ALIGNMENT" class="forbidden">
+Alignment value when calling posix_memalign. Not used in 521.wrf_r.
+</flag>
+
+<flag name="DWRF_CHEM" class="forbidden">
+Enable when using the WRF Chem package.
+</flag>
+
+<flag name="DWRF_DFI_RADAR" class="forbidden">
+Enable the radar DFI package.
+</flag>
+
+<flag name="DWRF_HYDRO" class="forbidden">
+Enable the Hydro package.
+</flag>
+
+<flag name="DWRF_IO_INT_IDX_H" class="forbidden">
+Ignore.  Header file guard.
+</flag>
+
+<flag name="DWRF_LOG_BUFFERING" class="forbidden">
+LOGICAL buffered -- if TRUE, messages are buffered via clog_write.
+ Once the buffer is full, messages are sent to stdout.  This does
+ not apply to WRF_MESSAGE2, WRF_ERROR_FATAL, or anything sent to
+ write or print.  The buffering implementation will not write
+ partial lines, and buffer size is specified via namelist (see
+ init_module_wrf_error).
+ If FALSE, messages are send directly to WRITE.
+</flag>
+
+<flag name="DWRF_PORT" class="forbidden">
+Ignore.  Implicitly defined.
+</flag>
+
+<flag name="DWRF_USE_CLM" class="forbidden">
+Use CLM coupling.
+</flag>
+
+<flag name="DXEON_OPTIMIZED_WSM5" class="forbidden">
+Use an version of WSMD5 that is optimized for a Xeon Phi.
+</flag>
+
+<flag name="DXEON_SIMD" class="forbidden">
+Add a simd directive.
+</flag>
+
+<flag name="DXT3_Catamount" class="portability">
+Include the Platform specific "features" header file for a Cray XT3 Catamount system.
+</flag>
+
+<flag name="DWSM_NO_CONDITIONAL_IN_VECTOR" class="forbidden">
+Enabled internally by default.
+</flag>
+
+<flag name="xdr_var_stuff" class="forbidden" regexp="[-/]DX_(?:ALIGN|(?:INT|SHORT)_MAX|SIZEOF_(?:DOUBLE|FLOAT|INT|SHORT|SIZE_T))(?:=\S*)?\b">
+<example>
+-DX_ALIGN=XXX,
+-DX_INT_MAX=XXX,
+-DX_SHORT_MAX=XXX,
+-DX_SIZEOF_DOUBLE=XXX,
+-DX_SIZEOF_FLOAT=XXX,
+-DX_SIZEOF_INT=XXX,
+-DX_SIZEOF_SHORT=XXX,
+-DX_SIZEOF_SIZE_T=XXX
+</example>
+These macros set the sizes, ranges, or other attributes of various data types
+used in NetCDF's XDR implementation.  They are not relevant to CPU2017 and
+may not be changed from their default values.
+</flag>
+
+<flag name="DZTRINGV_ARGS_allows_Pvariables" class="forbidden">
+This macro is used to indicate to cfortran.h that ARGS can hold Pvariables.
+It may not be set for CPU2017.
+</flag>
+
+<flag name="D_ACCEL" class="forbidden">
+Enable PGI Accelerator Model specific code.
+</flag>
+
+<flag name="D_ACCEL_PROF" class="forbidden">
+Enable PGI Accelerator Model specific profiling code.
+</flag>
+
+<flag name="D_AIX" class="forbidden">
+Use AIX specific "alloca" pragma.
+</flag>
+
+<flag name="D_RNDUP" class="forbidden">
+This macro defines a method of rounding up to the nearest whole number.
+Changing its default value is forbidden.
+</flag>
+
+<flag name="D__CHAR_UNSIGNED__" class="forbidden">
+<![CDATA[
+<p>This macro is used to tell NetCDF that the compilation system's "char" type
+is unsigned by default.</p>
+<p>If you need to set this flag in order to build and run 521.wrf_r, please
+notify <a href="mailto:cpu2017support@spec.org">cpu2017support@spec.org</a>.</p>
+]]>
+</flag>
+
+<flag name="Dncvarcpy" class="forbidden">
+This defines a compatibilty name for the ncvarcopy() function.  Its default
+value may not be changed.
+</flag>
+
+<!-- non-autodetected compiler flags for cfortran -->
+
+<flag name="DAbsoftProFortran" class="forbidden">
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft Pro Fortran compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</flag>
+
+<flag name="DAbsoftUNIXFortran" class="forbidden">
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft UNIX F77 compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</flag>
+
+<flag name="DpgiFortran" class="forbidden">
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Portland Group Fortran compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</flag>
+
+<flag name="DPATHSCALE_COMPILER" class="forbidden">
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Pathscale Fortran compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</flag>
+
+<flag name="DNAGf90Fortran" class="forbidden">
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the NAG Fortran-90 compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</flag>
+
+<flag name="Df2cFortran" class="forbidden">
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the f2c.  In practice, 521.wrf_r can't be built with f2c, so setting it
+explicitly is not allowed.
+</flag>
+
+<flag name="D_MULTI_BDY_FILES_" class="forbidden">
+Have a "date" as part of the bdy_inname.
+</flag>
+
+<!-- Macros used internally by cfortran.h -->
+
+<flag name="cfortran_internals" class="forbidden" regexp="[-/]D(?:OLD_VAXC|__CF_(?:_?KnR|_APOLLO67))(?:=\S*)?\b">
+<example>
+-D__CF_KnR=XXX,
+-D__CF__APOLLO67=XXX,
+-D__CF__KnR=XXX,
+-DOLD_VAXC=XXX
+</example>
+These macros are used internally by cfortran.h and may not be set explicitly.
+</flag>
+
+<flag name="header_guards" class="forbidden" regexp="[-/]D(?:UD_(?:FORT_LIB_H|NCFORTRAN_H|NETCDF_CPP_INC)|_NETCDF_|_FBITS_H_|__CFORTRAN_LOADED|_ONSTACK_H_|_NCCONFIG_(?:AIX|GENERIC|IRIX|LINUX|MACOSX|SOLARIS|WINDOWS)_H_|_NCCONFIG_H_|_NCIO_H_|_NCX_H_|_NC_H_|ESMF_(?:MACROS|TimeMgr)_INC)\b">
+<example>
+-DUD_FORT_LIB_H,
+-DUD_NCFORTRAN_H,
+-DUD_NETCDF_CPP_INC,
+-D_NETCDF_,
+-D_FBITS_H_,
+-D__CFORTRAN_LOADED,
+-D_ONSTACK_H_,
+-D_NCCONFIG_AIX_H_,
+-D_NCCONFIG_GENERIC_H_,
+-D_NCCONFIG_H_,
+-D_NCCONFIG_IRIX_H_,
+-D_NCCONFIG_LINUX_H_,
+-D_NCCONFIG_MACOSX_H_,
+-D_NCCONFIG_SOLARIS_H_,
+-D_NCCONFIG_WINDOWS_H_,
+-D_NCIO_H_,
+-D_NCX_H_,
+-D_NC_H_,
+-DESMF_MACROS_INC,
+-DESMF_TimeMgr_INC
+</example>
+These macros are used to prevent multiple header inclusion; setting them
+explicitly is forbidden.
+</flag>
+
+<flag name="comp_implicit" class="forbidden" regexp="[-/]D(?:extname|sun|sunFortran|unix|vax|vms|vmsFortran|hpuxFortran|hpuxFortran800|lynx|mips|mipsFortran|apollo|apolloFortran|__CYGWIN32__|_WIN32|__WIN64|__PGI|__GNUC__|__PATHCC__|__STDCPP__|__STDC__|__VAXC|__alpha|__convex__|__cplusplus|__hpux|__mips|__sgi|__sun|__ultrix__|__unix__|__vax__|__vms|_SC_PAGESIZE|_SC_PAGE_SIZE|_SX|__64BIT__|_MSC_VER|_IBMR2|crayx1|_CRAY|_CRAYC|_CRAYIEEE|_CRAYMPP|_CRAYT3E|_INT64|VAXC|VAXUltrix|VISUAL_CPLUSPLUS|WIN32|S_IRUSR|SXFortran|CLIPPERFortran|CONVEXFortran|CRAY|CRAYFortran|DECFortran|IBMR2Fortran|PowerStationFortran)(?:=\S*)?\b">
+These flags are set implicitly by the compilation system and may not be
+set explicitly.
+<example>
+-Dextname=XXX,
+-Dsun=XXX,
+-DsunFortran=XXX,
+-Dunix=XXX,
+-Dvax=XXX,
+-Dvms=XXX,
+-DvmsFortran=XXX,
+-DhpuxFortran=XXX,
+-DhpuxFortran800=XXX,
+-Dlynx=XXX,
+-Dmips=XXX,
+-DmipsFortran=XXX,
+-Dapollo=XXX,
+-DapolloFortran=XXX,
+-D__CYGWIN32__=XXX,
+-D__GNUC__=XXX,
+-D__PATHCC__=XXX,
+-D__STDCPP__=XXX,
+-D__STDC__=XXX,
+-D__VAXC=XXX,
+-D__alpha=XXX,
+-D__convex__=XXX,
+-D__cplusplus=XXX,
+-D__hpux=XXX,
+-D__mips=XXX,
+-D__sgi=XXX,
+-D__sun=XXX,
+-D__ultrix__=XXX,
+-D__unix__=XXX,
+-D__vax__=XXX,
+-D__vms=XXX,
+-D_SC_PAGESIZE=XXX,
+-D_SC_PAGE_SIZE=XXX,
+-D_SX=XXX,
+-D__64BIT__=XXX,
+-D_MSC_VER=XXX,
+-D_IBMR2=XXX,
+-D_CRAY=XXX,
+-D_CRAYC=XXX,
+-D_CRAYIEEE=XXX,
+-D_CRAYMPP=XXX,
+-D_CRAYT3E=XXX,
+-D_INT64=XXX,
+-DVAXC=XXX,
+-DVAXUltrix=XXX,
+-DVISUAL_CPLUSPLUS=XXX,
+-DWIN32=XXX,
+-DS_IRUSR=XXX,
+-DSXFortran=XXX,
+-DCLIPPERFortran=XXX,
+-DCONVEXFortran=XXX,
+-DCRAY=XXX,
+-DCRAYFortran=XXX,
+-DDECFortran=XXX,
+-DIBMR2Fortran=XXX,
+-DPowerStationFortran=XXX
+</example>
+</flag>
+
+<flag name="wrf_io_mod" class="forbidden" regexp="[-/]D(?:XXX|YYY|ZZZ|PHDF5|MCELIO|HDF)\b">
+<example>
+-DXXX,
+-DYYY,
+-DZZZ,
+-DHDF,
+-DPHDF5,
+-DMCELIO,
+</example>
+These flags are used to enable I/O modules in WRF.  They may not be set.
+</flag>
+
+<!-- End of forbidden flags -->
+
+</flagsdescription>

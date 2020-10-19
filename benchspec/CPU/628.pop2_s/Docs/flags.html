@@ -1,0 +1,3884 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="generator" content="SPEC CPU2017 Tools  (flags v5178)" />
+<meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+<style type="text/css" id="internalScreen" media="screen">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Most of the screen-specific CSS is also the common CSS */
+
+/* Style for the non-image W3C marking at the bottom of the page, courtesy of
+ * Marek Prokop (http://www.sovavsiti.cz/css/w3c_buttons.html)
+ */
+.w3cbutton3 {
+  margin: 1em 1em 0 0;
+  width: 9em;
+  border: 1px solid #ccc;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 70%;
+  font-weight: bold;
+  float: left;
+}
+.w3cbutton3 a {
+  display: block;
+  width: 100%;
+}
+.w3cbutton3 a:link,
+.w3cbutton3 a:visited,
+.w3cbutton3 a:hover {
+  background-color: #fc6;
+  color: #000;
+  text-decoration: none;
+  border-bottom: none;
+}
+.w3cbutton3 span.w3c {
+  padding: 0 0.4em;
+  background-color: #fff;
+  color: #0c479d;
+}
+
+-->
+</style>
+<style type="text/css" id="internalPrint" media="print">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Classes that contain links - useless on paper */
+.flagTOC, .SubMenu, .NoPrint {
+  display: none;
+}
+
+/* Don't decorate links - they're not clickable */
+a {
+  text-decoration: none;
+  background: inherit;
+  color: inherit;
+}
+
+.resultpage {
+  width: 100%;
+}
+
+.w3cbutton3 {
+  display: none;
+}
+-->
+</style>
+<title>628.pop2_s Flags</title>
+</head><body>
+<h1>628.pop2_s Flags</h1>
+
+
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+
+<div class="NoPrint">
+<h3>Sections</h3>
+<p>Selecting one of the following will take you directly to that section:</p>
+<ul>
+<li><a href="#Section_portability">Portability Flags</a></li>
+<li><a href="#Section_mandatory">Mandatory Flags</a></li>
+<li><a href="#Section_forbidden">Forbidden Flags</a></li>
+</ul>
+</div>
+
+<hr />
+
+<div class="flagClass" id="portability">
+<h2><a name="Section_portability" id="Section_portability">Portability Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b628.pop2_s_DSPEC_NO_ISO_FORTRAN_ENV">-DSPEC_NO_ISO_FORTRAN_ENV</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_WINDOWS_ICL">-DSPEC_WINDOWS_ICL</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_CASE_FLAG">-DSPEC_CASE_FLAG</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_DOUBLE_UNDERSCORE">-DSPEC_DOUBLE_UNDERSCORE</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_UNDERSCORE">-DSPEC_NO_UNDERSCORE</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_UPPER_CASE">-DSPEC_UPPER_CASE</a></li>
+ <li><a href="#b628.pop2_s_logical_strict">-DLOGICAL_STRICT,
+-DSPEC_LOGICAL_STRICT</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NEED_IO_H">-DSPEC_NEED_IO_H</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_FILE_OFFSET_BITS">-DSPEC_NO_FILE_OFFSET_BITS</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_HAVE_ALLOCA">-DSPEC_NO_HAVE_ALLOCA</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_HAVE_ALLOCA_H">-DSPEC_NO_HAVE_ALLOCA_H</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_HAVE_FTRUNCATE">-DSPEC_NO_HAVE_FTRUNCATE</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_NCCONFIG_GENERIC">-DSPEC_NO_NCCONFIG_GENERIC</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_NCCONFIG_WINDOWS">-DSPEC_NO_NCCONFIG_WINDOWS</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_STDC_HEADERS">-DSPEC_NO_STDC_HEADERS</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_NO_ST_BLKSIZE">-DSPEC_NO_ST_BLKSIZE</a></li>
+ <li><a href="#b628.pop2_s_DSPEC_UCHAR_DEFINED">-DSPEC_UCHAR_DEFINED</a></li>
+ <li><a href="#b628.pop2_s_DALLOCA_ARG_T">-DALLOCA_ARG_T</a></li>
+ <li><a href="#b628.pop2_s_Dalloca">-Dalloca</a></li>
+ <li><a href="#b628.pop2_s_DWORDS_BIGENDIAN">-DWORDS_BIGENDIAN</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_ISO_FORTRAN_ENV" id="b628.pop2_s_DSPEC_NO_ISO_FORTRAN_ENV">-DSPEC_NO_ISO_FORTRAN_ENV</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_ISO_FORTRAN_ENV(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set this if your Fortran compiler does not provide the iso_fortran_env standard intrinsic module
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_WINDOWS_ICL" id="b628.pop2_s_DSPEC_WINDOWS_ICL">-DSPEC_WINDOWS_ICL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_WINDOWS_ICL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Platfrom settings for Windows using Intel C++ compiler.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_CASE_FLAG" id="b628.pop2_s_DSPEC_CASE_FLAG">-DSPEC_CASE_FLAG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_CASE_FLAG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+For netcdf, if defined uses Fortran symbol names ABC as abc_
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_DOUBLE_UNDERSCORE" id="b628.pop2_s_DSPEC_DOUBLE_UNDERSCORE">-DSPEC_DOUBLE_UNDERSCORE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_DOUBLE_UNDERSCORE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined uses Fortran symbol names ABC as abc__
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_UNDERSCORE" id="b628.pop2_s_DSPEC_NO_UNDERSCORE">-DSPEC_NO_UNDERSCORE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_UNDERSCORE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined uses Fortran symbol names ABC as abc
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_UPPER_CASE" id="b628.pop2_s_DSPEC_UPPER_CASE">-DSPEC_UPPER_CASE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_UPPER_CASE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined uses Fortran symbol names ABC as ABC
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_logical_strict" id="b628.pop2_s_logical_strict">
+-DLOGICAL_STRICT,
+-DSPEC_LOGICAL_STRICT
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:SPEC_)?LOGICAL_STRICT\b</span></li>
+<li class="descText">
+<p>
+LOGICAL_STRICT is a NetCDF macro that should be defined for Fortran compilers
+that treat .eqv./.neqv. as .eq./.ne..
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NEED_IO_H" id="b628.pop2_s_DSPEC_NEED_IO_H">-DSPEC_NEED_IO_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NEED_IO_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If need io.h in stead of unistd.h for posix io  (Microsoft compilers).
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_FILE_OFFSET_BITS" id="b628.pop2_s_DSPEC_NO_FILE_OFFSET_BITS">-DSPEC_NO_FILE_OFFSET_BITS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_FILE_OFFSET_BITS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Usually, ncconfig sets _FILE_OFFSET_BITS to 64.
+   Defining SPEC_NO_FILE_OFFSET_BITS leaves _FILE_OFFSET_BITS unset.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_HAVE_ALLOCA" id="b628.pop2_s_DSPEC_NO_HAVE_ALLOCA">-DSPEC_NO_HAVE_ALLOCA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_ALLOCA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if you do not have alloca as a function or macro.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_HAVE_ALLOCA_H" id="b628.pop2_s_DSPEC_NO_HAVE_ALLOCA_H">-DSPEC_NO_HAVE_ALLOCA_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_ALLOCA_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the alloca.h header file is not present and should
+not be included.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_HAVE_FTRUNCATE" id="b628.pop2_s_DSPEC_NO_HAVE_FTRUNCATE">-DSPEC_NO_HAVE_FTRUNCATE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_HAVE_FTRUNCATE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+When set, this macro indicates that the ftruncate function is not available.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_NCCONFIG_GENERIC" id="b628.pop2_s_DSPEC_NO_NCCONFIG_GENERIC">-DSPEC_NO_NCCONFIG_GENERIC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_GENERIC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include the "ncconfig_generic.h" header file which is used when no target architecture flag is set.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_NCCONFIG_WINDOWS" id="b628.pop2_s_DSPEC_NO_NCCONFIG_WINDOWS">-DSPEC_NO_NCCONFIG_WINDOWS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_NCCONFIG_WINDOWS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Don't include the "ncconfig_windows.h" header file when "SPEC_WINDOWS" is defined.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_STDC_HEADERS" id="b628.pop2_s_DSPEC_NO_STDC_HEADERS">-DSPEC_NO_STDC_HEADERS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_STDC_HEADERS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag may be used to keep the macro STDC_HEADERS from being defined by
+default.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_NO_ST_BLKSIZE" id="b628.pop2_s_DSPEC_NO_ST_BLKSIZE">-DSPEC_NO_ST_BLKSIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_NO_ST_BLKSIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that "struct stat" does not contain a member called
+st_blksize.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPEC_UCHAR_DEFINED" id="b628.pop2_s_DSPEC_UCHAR_DEFINED">-DSPEC_UCHAR_DEFINED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_UCHAR_DEFINED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In generic ncconfig, Define to unsigned char if system doesn't define.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DALLOCA_ARG_T" id="b628.pop2_s_DALLOCA_ARG_T">-DALLOCA_ARG_T</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALLOCA_ARG_T(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines the type of argument that the alloca() function takes.  It
+defaults to 'int'.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_Dalloca" id="b628.pop2_s_Dalloca">-Dalloca</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]Dalloca(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If needed, you can define alloca directly.  Usually, it gets defined automatically, by including the header file, unless you set see SPEC_NO_HAVE_ALLOCA_H.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DWORDS_BIGENDIAN" id="b628.pop2_s_DWORDS_BIGENDIAN">-DWORDS_BIGENDIAN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWORDS_BIGENDIAN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag indicates that the benchmark will be run on a big endian system.  Normally this is automatically set by the tools.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="mandatory">
+<h2><a name="Section_mandatory" id="Section_mandatory">Mandatory Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b628.pop2_s_bench_includes">-I. 
+      -Iinclude 
+      -Inetcdf/include</a></li>
+ <li><a href="#b628.pop2_s_DCCSMCOUPLED">-DCCSMCOUPLED</a></li>
+ <li><a href="#b628.pop2_s_DNO_SHR_VMATH">-DNO_SHR_VMATH</a></li>
+ <li><a href="#b628.pop2_s_D_MPISERIAL">-D_MPISERIAL</a></li>
+ <li><a href="#b628.pop2_s_D_NETCDF">-D_NETCDF</a></li>
+ <li><a href="#b628.pop2_s_D_USEBOX">-D_USEBOX</a></li>
+ <li><a href="#b628.pop2_s_decomposition">-DBLCKX=50 
+      -DBLCKY=4 
+      -DMXBLCKS=58</a></li>
+ <li><a href="#b628.pop2_s_DNO_GETTIMEOFDAY">-DNO_GETTIMEOFDAY</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_bench_includes" id="b628.pop2_s_bench_includes">
+      -I. 
+      -Iinclude 
+      -Inetcdf/include
+   </a></li>
+<li class="flagDescRE"><span class="tt">-I(?:\.|include|netcdf/include)(?:\s+|$)</span></li>
+<li class="descText">
+<p>
+These flags instruct the compiler to search for header files in the specified subdirectories.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DCCSMCOUPLED" id="b628.pop2_s_DCCSMCOUPLED">-DCCSMCOUPLED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCCSMCOUPLED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Indicates that POP is being run within the Community Climate System Model, CCSM.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNO_SHR_VMATH" id="b628.pop2_s_DNO_SHR_VMATH">-DNO_SHR_VMATH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_SHR_VMATH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the Fortran-standard generic intrinsic procedures, rather than private 
+   vendor-specific vector math routines.  This flag is included automatically 
+   by 628.pop2_s/Spec/object.pm.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_MPISERIAL" id="b628.pop2_s_D_MPISERIAL">-D_MPISERIAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MPISERIAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This version of POP does not use MPI. A set of 'mpi_serial' of routines were 
+   used to avoid removing the MPI calls all over the place.  
+   This flag is included automatically by 628.pop2_s/Spec/object.pm.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_NETCDF" id="b628.pop2_s_D_NETCDF">-D_NETCDF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_NETCDF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag is included automatically by 628.pop2_s/Spec/object.pm in order to use netcdf.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_USEBOX" id="b628.pop2_s_D_USEBOX">-D_USEBOX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_USEBOX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag is included automatically by 628.pop2_s/Spec/object.pm in order to use the 
+   box rearrange module.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_decomposition" id="b628.pop2_s_decomposition">
+      -DBLCKX=50 
+      -DBLCKY=4 
+      -DMXBLCKS=58 
+   </a></li>
+<li class="flagDescRE"><span class="tt">-D(?:BLCKX|BLCKY|MXBLCKS)=\d+(?=\s|$)</span></li>
+<li class="descText">
+<p>The decomposition flags are set automatically by <tt>628.pop2_s/Spec/object.pm</tt> 
+   to control the global model domain size decomposition block size.  They are 
+   used by the domain and block modules for decomposing the model domain, for 
+   example in the domain_size.F90 excerpts below.
+</p>
+
+<pre>
+   block_size_x      = BLCKX    ! size of block in 1st horizontal dimension
+   block_size_y      = BLCKY    ! size of block in 2nd horizontal dimension 
+   max_blocks_clinic = MXBLCKS  ! max number of blocks per processor
+   max_blocks_tropic = MXBLCKS  !   in each distribution
+</pre>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNO_GETTIMEOFDAY" id="b628.pop2_s_DNO_GETTIMEOFDAY">-DNO_GETTIMEOFDAY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_GETTIMEOFDAY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag is included automatically by Spec/object.pm.
+Not using this flag would activate use of timers.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="forbidden">
+<h2><a name="Section_forbidden" id="Section_forbidden">Forbidden Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b628.pop2_s_DCPP_VECTOR">-DCPP_VECTOR</a></li>
+ <li><a href="#b628.pop2_s_DSELECTEDREALKIND">-DSELECTEDREALKIND</a></li>
+ <li><a href="#b628.pop2_s_DSEQUENCE">-DSEQUENCE</a></li>
+ <li><a href="#b628.pop2_s_DALWAYS_NC_SHARE">-DALWAYS_NC_SHARE</a></li>
+ <li><a href="#b628.pop2_s_DANSI_C_preprocessor">-DANSI_C_preprocessor</a></li>
+ <li><a href="#b628.pop2_s_DASSIGNFLOAT">-DASSIGNFLOAT</a></li>
+ <li><a href="#b628.pop2_s_DAbsoftProFortran">-DAbsoftProFortran</a></li>
+ <li><a href="#b628.pop2_s_DAbsoftUNIXFortran">-DAbsoftUNIXFortran</a></li>
+ <li><a href="#b628.pop2_s_DCDEBUG">-DCDEBUG</a></li>
+ <li><a href="#b628.pop2_s_DCDF_ROUTINE_NAME">-DCDF_ROUTINE_NAME</a></li>
+ <li><a href="#b628.pop2_s_DCFSUBASFUN">-DCFSUBASFUN</a></li>
+ <li><a href="#b628.pop2_s_DCOMMON_BLOCK">-DCOMMON_BLOCK</a></li>
+ <li><a href="#b628.pop2_s_DCRAYFLOAT">-DCRAYFLOAT</a></li>
+ <li><a href="#b628.pop2_s_DDLL_EXPORT">-DDLL_EXPORT</a></li>
+ <li><a href="#b628.pop2_s_DDLL_NETCDF">-DDLL_NETCDF</a></li>
+ <li><a href="#b628.pop2_s_DDOUBLE_PRECISION">-DDOUBLE_PRECISION</a></li>
+ <li><a href="#b628.pop2_s_DENOERR">-DENOERR</a></li>
+ <li><a href="#b628.pop2_s_DFCALLSC_QUALIFIER">-DFCALLSC_QUALIFIER</a></li>
+ <li><a href="#b628.pop2_s_DFLOATFUNCTIONTYPE">-DFLOATFUNCTIONTYPE</a></li>
+ <li><a href="#b628.pop2_s_DFLT_MAX">-DFLT_MAX</a></li>
+ <li><a href="#b628.pop2_s_DFLT_MAX_EXP">-DFLT_MAX_EXP</a></li>
+ <li><a href="#b628.pop2_s_DFORTRAN_REAL">-DFORTRAN_REAL</a></li>
+ <li><a href="#b628.pop2_s_DHAVE_ALLOCA">-DHAVE_ALLOCA</a></li>
+ <li><a href="#b628.pop2_s_DHAVE_ALLOCA_H">-DHAVE_ALLOCA_H</a></li>
+ <li><a href="#b628.pop2_s_DHAVE_ST_BLKSIZE">-DHAVE_ST_BLKSIZE</a></li>
+ <li><a href="#b628.pop2_s_DINSTRUMENT">-DINSTRUMENT</a></li>
+ <li><a href="#b628.pop2_s_DINT_MAX">-DINT_MAX</a></li>
+ <li><a href="#b628.pop2_s_DLN_TEST">-DLN_TEST</a></li>
+ <li><a href="#b628.pop2_s_DLOCKNUMREC">-DLOCKNUMREC</a></li>
+ <li><a href="#b628.pop2_s_DLONG_MAX">-DLONG_MAX</a></li>
+ <li><a href="#b628.pop2_s_DMAKE_PROGRAM">-DMAKE_PROGRAM</a></li>
+ <li><a href="#b628.pop2_s_DMAX_NC_OPEN">-DMAX_NC_OPEN</a></li>
+ <li><a href="#b628.pop2_s_DMAX_PREPRO_ARGS">-DMAX_PREPRO_ARGS</a></li>
+ <li><a href="#b628.pop2_s_DNAGf90Fortran">-DNAGf90Fortran</a></li>
+ <li><a href="#b628.pop2_s_DNC_ARRAY_GROWBY">-DNC_ARRAY_GROWBY</a></li>
+ <li><a href="#b628.pop2_s_DNC_ENOMEM">-DNC_ENOMEM</a></li>
+ <li><a href="#b628.pop2_s_DNC_ERANGE">-DNC_ERANGE</a></li>
+ <li><a href="#b628.pop2_s_netcdf_type_flags">-DNF_DOUBLEPRECISION_IS_C_DOUBLE=XXX,
+-DNF_DOUBLEPRECISION_IS_C_FLOAT=XXX,
+-DNF_INT1_IS_C_INT=XXX,
+-DNF_INT1_IS_C_LONG=XXX,
+-DNF_INT1_IS_C_SHORT=XXX,
+-DNF_INT1_IS_C_SIGNED_CHAR=XXX,
+-DNF_INT2_IS_C_INT=XXX,
+-DNF_INT2_IS_C_LONG=XXX,
+-DNF_INT2_IS_C_SHORT=XXX,
+-DNF_INT_IS_C_INT=XXX,
+-DNF_INT_IS_C_LONG=XXX,
+-DNF_REAL_IS_C_DOUBLE=XXX,
+-DNF_REAL_IS_C_FLOAT=XXX</a></li>
+ <li><a href="#b628.pop2_s_DNO_IEEE_FLOAT">-DNO_IEEE_FLOAT</a></li>
+ <li><a href="#b628.pop2_s_DNO_NETCDF_2">-DNO_NETCDF_2</a></li>
+ <li><a href="#b628.pop2_s_DNO_STRERROR">-DNO_STRERROR</a></li>
+ <li><a href="#b628.pop2_s_DODEBUG">-DODEBUG</a></li>
+ <li><a href="#b628.pop2_s_DO_BINARY">-DO_BINARY</a></li>
+ <li><a href="#b628.pop2_s_DPATHSCALE_COMPILER">-DPATHSCALE_COMPILER</a></li>
+ <li><a href="#b628.pop2_s_DPOSIXIO_DEFAULT_PAGESIZE">-DPOSIXIO_DEFAULT_PAGESIZE</a></li>
+ <li><a href="#b628.pop2_s_DRETURNFLOAT">-DRETURNFLOAT</a></li>
+ <li><a href="#b628.pop2_s_DSEEK_SET">-DSEEK_SET</a></li>
+ <li><a href="#b628.pop2_s_DSHORT_MAX">-DSHORT_MAX</a></li>
+ <li><a href="#b628.pop2_s_cf_bytes">-DSIGNED_BYTE,
+-DUNSIGNED_BYTE</a></li>
+ <li><a href="#b628.pop2_s_sizeof">-DSIZEOF_DOUBLE=XXX,
+-DSIZEOF_FLOAT=XXX,
+-DSIZEOF_INT=XXX,
+-DSIZEOF_LONG=XXX,
+-DSIZEOF_OFF_T=XXX,
+-DSIZEOF_SHORT=XXX,
+-DSIZEOF_SIZE_T=XXX</a></li>
+ <li><a href="#b628.pop2_s_xdr_ixvar_stuff">-DIX_INT_MAX=XXX,
+-DIX_SHORT_MAX=XXX,
+-DSIZEOF_IX_INT=XXX,
+-DSIZEOF_IX_SHORT=XXX</a></li>
+ <li><a href="#b628.pop2_s_xdr_xvar_stuff">-DX_ALIGN=XXX,
+-DX_INT_MAX=XXX,
+-DX_SHORT_MAX=XXX,
+-DX_SIZEOF_DOUBLE=XXX,
+-DX_SIZEOF_FLOAT=XXX,
+-DX_SIZEOF_INT=XXX,
+-DX_SIZEOF_SHORT=XXX,
+-DX_SIZEOF_SIZE_T=XXX</a></li>
+ <li><a href="#b628.pop2_s_DTOUCH_LAST">-DTOUCH_LAST</a></li>
+ <li><a href="#b628.pop2_s_header_guards">-DUD_FORT_LIB_H,
+-DUD_NCFORTRAN_H,
+-DUD_NETCDF_CPP_INC,
+-D_NETCDF_,
+-D_FBITS_H_,
+-D__CFORTRAN_LOADED,
+-D_ONSTACK_H_,
+-D_NCCONFIG_AIX_H_,
+-D_NCCONFIG_GENERIC_H_,
+-D_NCCONFIG_H_,
+-D_NCCONFIG_IRIX_H_,
+-D_NCCONFIG_LINUX_H_,
+-D_NCCONFIG_MACOSX_H_,
+-D_NCCONFIG_SOLARIS_H_,
+-D_NCCONFIG_WINDOWS_H_,
+-D_MPI_H_,
+-D_NCCONFIG_H_,
+-D_NCIO_H_,
+-D_NCX_H_,
+-D_NC_H_,
+-DESMF_DEFINES,
+-DESMF_MACROS_INC,
+-DESMF_TimeMgr_INC,
+-DGPTL_H,
+-D_listops_h</a></li>
+ <li><a href="#b628.pop2_s_DUSE_NEW_DELETE">-DUSE_NEW_DELETE</a></li>
+ <li><a href="#b628.pop2_s_comp_implicit1">-Dextname,
+-Dsun,
+-DsunFortran,
+-Dunix,
+-Dvax,
+-Dvms,
+-DvmsFortran,
+-DhpuxFortran,
+-DhpuxFortran800,
+-Dlynx,
+-Dmips,
+-DmipsFortran,
+-Dapollo,
+-DapolloFortran</a></li>
+ <li><a href="#b628.pop2_s_comp_implicit2">-D__CYGWIN32__,
+-D__GNUC__,
+-D__PATHCC__,
+-D__STDCPP__,
+-D__STDC__,
+-D__VAXC,
+-D__alpha,
+-D__convex__,
+-D__cplusplus,
+-D__hpux,
+-D__mips,
+-D__sgi,
+-D__sun,
+-D__ultrix__,
+-D__unix,
+-D__unix__,
+-D__vax__,
+-D__vms</a></li>
+ <li><a href="#b628.pop2_s_comp_implicit3">-D_LANGUAGE_FORTRAN90,
+-D_SC_PAGESIZE,
+-D_SC_PAGE_SIZE,
+-D_SX,
+-D_OPENMP,
+-D__64BIT__,
+-D_MSC_VER,
+-D_IBMR2,
+-D_CRAY,
+-D_CRAYC,
+-D_CRAYIEEE,
+-D_CRAYMPP,
+-D_CRAYT3E,
+-D_INT64,
+-D_LONG64,
+-DFLOAT2</a></li>
+ <li><a href="#b628.pop2_s_comp_implicit4">-DVAXC,
+-DVAXUltrix,
+-DVISUAL_CPLUSPLUS,
+-DWIN32,
+-DS_IRUSR,
+-DSXFortran,
+-DCLIPPERFortran,
+-DCONVEXFortran,
+-DCRAY,
+-DCRAYFortran,
+-DDECFortran,
+-DIBMR2Fortran,
+-DPowerStationFortran,
+-D__G95__,
+-D__GFORTRAN__,
+-D__INTEL_COMPILER,
+-D__WIN64</a></li>
+ <li><a href="#b628.pop2_s_DZTRINGV_ARGS_allows_Pvariables">-DZTRINGV_ARGS_allows_Pvariables</a></li>
+ <li><a href="#b628.pop2_s_D_RNDUP">-D_RNDUP</a></li>
+ <li><a href="#b628.pop2_s_cfortran_internals">-D__CF_KnR=XXX,
+-D__CF__APOLLO67=XXX,
+-D__CF__KnR=XXX,
+-DOLD_VAXC=XXX</a></li>
+ <li><a href="#b628.pop2_s_D__CHAR_UNSIGNED__">-D__CHAR_UNSIGNED__</a></li>
+ <li><a href="#b628.pop2_s_Df2cFortran">-Df2cFortran</a></li>
+ <li><a href="#b628.pop2_s_Dncvarcpy">-Dncvarcpy</a></li>
+ <li><a href="#b628.pop2_s_DpgiFortran">-DpgiFortran</a></li>
+ <li><a href="#b628.pop2_s_old_ccsm_leftasis1">-D_AIX,
+-DAIX,
+-DCATAMOUNT,
+-DCPRCRAY,
+-DCPRNAG,
+-DCPRXLF,
+-DLINUX,
+-DNEC_SX,
+-DOSF1,
+-DSUNOS,
+-DUNICOSMP,
+-D_R8_,
+-D_UNICOS,
+-DsysHP_UX</a></li>
+ <li><a href="#b628.pop2_s_old_ccsm_leftasis2">-DSYSAIX,
+-DSYSDARWIN,
+-DSYSIRIX64,
+-DSYSLINUX,
+-DSYSOSF1,
+-DSYSSUNOS,
+-DSYSSUPERUX,
+-DSYST3E,
+-DSYSUNICOS,
+-DSYSUNIXSYSTEMV,</a></li>
+ <li><a href="#b628.pop2_s_DBGL">-DBGL</a></li>
+ <li><a href="#b628.pop2_s_DBGP">-DBGP</a></li>
+ <li><a href="#b628.pop2_s_DBGx">-DBGx</a></li>
+ <li><a href="#b628.pop2_s_DCHECKS">-DCHECKS</a></li>
+ <li><a href="#b628.pop2_s_ccsm_internals1">-DCO2A,
+-DCO2B,
+-DCO2C,
+-DCO2DMSA,
+-DCOUPLEDCCSM,
+-DNEW_BUDGET,
+-DNO_LEAP_CALENDAR,
+-DSORT,
+-DVOC</a></li>
+ <li><a href="#b628.pop2_s_ccsm_internals2">-DZERO_SEA_ICE_REF_SAL,
+-D_HIRES,
+-D_NOIO,
+-D_USEMCT,
+-D_USE_ALLTOALLW</a></li>
+ <li><a href="#b628.pop2_s_ccsm_internals3">-D_USE_COMP2IO_FC,
+-D_USE_CREATE_FC,
+-D_USE_IO2COMP_FC,
+-D_USE_FLOW_CONTROL,
+-D_USE_SPACE</a></li>
+ <li><a href="#b628.pop2_s_ccsm_internals4">-Dcoupled,
+-Ddoes_not_exist,
+-Ddrifter_particles,
+-Dhydrographic_stations,
+-Dold_current_meters,
+-Dpolar_grid</a></li>
+ <li><a href="#b628.pop2_s_DDEBUG">-DDEBUG</a></li>
+ <li><a href="#b628.pop2_s_DDEBUG_BARRIER">-DDEBUG_BARRIER</a></li>
+ <li><a href="#b628.pop2_s_DDEBUG_INDICES">-DDEBUG_INDICES</a></li>
+ <li><a href="#b628.pop2_s_DDEBUG_REARR">-DDEBUG_REARR</a></li>
+ <li><a href="#b628.pop2_s_DDM_PARALLEL">-DDM_PARALLEL</a></li>
+ <li><a href="#b628.pop2_s_DENABLE_UNIX_ABORT">-DENABLE_UNIX_ABORT</a></li>
+ <li><a href="#b628.pop2_s_DESMF_INTERFACE">-DESMF_INTERFACE</a></li>
+ <li><a href="#b628.pop2_s_pnetcdf_version">-DFORTRANCAPS,
+-DFORTRANUNDERSCORE,
+-DFORTRAN_GNUF2C</a></li>
+ <li><a href="#b628.pop2_s_g2x_states">-DGLC_NEC_1,
+-DGLC_NEC_10,
+-DGLC_NEC_3,
+-DGLC_NEC_5</a></li>
+ <li><a href="#b628.pop2_s_DHANDLE_INFO">-DHANDLE_INFO</a></li>
+ <li><a href="#b628.pop2_s_DHAVE_COMM_F2C">-DHAVE_COMM_F2C</a></li>
+ <li><a href="#b628.pop2_s_DHAVE_GETPAGESIZE">-DHAVE_GETPAGESIZE</a></li>
+ <li><a href="#b628.pop2_s_DHAVE_MPI">-DHAVE_MPI</a></li>
+ <li><a href="#b628.pop2_s_DHAVE_PAPI">-DHAVE_PAPI</a></li>
+ <li><a href="#b628.pop2_s_DHIDE_MPI">-DHIDE_MPI</a></li>
+ <li><a href="#b628.pop2_s_DINFO">-DINFO</a></li>
+ <li><a href="#b628.pop2_s_DLISTMAIN">-DLISTMAIN</a></li>
+ <li><a href="#b628.pop2_s_DMALL_ON">-DMALL_ON</a></li>
+ <li><a href="#b628.pop2_s_DMAX">-DMAX</a></li>
+ <li><a href="#b628.pop2_s_DMIN">-DMIN</a></li>
+ <li><a href="#b628.pop2_s_DMCT_INTERFACE">-DMCT_INTERFACE</a></li>
+ <li><a href="#b628.pop2_s_DMEMCHK">-DMEMCHK</a></li>
+ <li><a href="#b628.pop2_s_DMPICH_">-DMPICH_</a></li>
+ <li><a href="#b628.pop2_s_DNO_MPI2">-DNO_MPI2</a></li>
+ <li><a href="#b628.pop2_s_DNO_SIZEOF">-DNO_SIZEOF</a></li>
+ <li><a href="#b628.pop2_s_DNO_VPRINTF">-DNO_VPRINTF</a></li>
+ <li><a href="#b628.pop2_s_pio_hints">-DPIO_GPFS_HINTS,
+-DPIO_LUSTRE_HINTS</a></li>
+ <li><a href="#b628.pop2_s_DREPRODUCIBLE">-DREPRODUCIBLE</a></li>
+ <li><a href="#b628.pop2_s_DSPMD">-DSPMD</a></li>
+ <li><a href="#b628.pop2_s_DSTUBMPI">-DSTUBMPI</a></li>
+ <li><a href="#b628.pop2_s_DTAVG_R8">-DTAVG_R8</a></li>
+ <li><a href="#b628.pop2_s_DTHREADED_OMP">-DTHREADED_OMP</a></li>
+ <li><a href="#b628.pop2_s_DTHREADED_PTHREADS">-DTHREADED_PTHREADS</a></li>
+ <li><a href="#b628.pop2_s_DTIMING">-DTIMING</a></li>
+ <li><a href="#b628.pop2_s_DTODO">-DTODO</a></li>
+ <li><a href="#b628.pop2_s_internal_types">-DTYPEDOUBLE,
+-DTYPEINT,
+-DTYPEREAL,
+-DTYPETEXT</a></li>
+ <li><a href="#b628.pop2_s_DUSEMPIIO">-DUSEMPIIO</a></li>
+ <li><a href="#b628.pop2_s_DUSEPIO">-DUSEPIO</a></li>
+ <li><a href="#b628.pop2_s_DUSEPIOREAD">-DUSEPIOREAD</a></li>
+ <li><a href="#b628.pop2_s_DUSE_CSM_SHARE">-DUSE_CSM_SHARE</a></li>
+ <li><a href="#b628.pop2_s_DUSE_ESMF_LIB">-DUSE_ESMF_LIB</a></li>
+ <li><a href="#b628.pop2_s_D_MEMMON">-D_MEMMON</a></li>
+ <li><a href="#b628.pop2_s_D_MEMTRACE">-D_MEMTRACE</a></li>
+ <li><a href="#b628.pop2_s_D_MPI">-D_MPI</a></li>
+ <li><a href="#b628.pop2_s_D_TESTMEM">-D_TESTMEM</a></li>
+ <li><a href="#b628.pop2_s_D_STACKMON">-D_STACKMON</a></li>
+ <li><a href="#b628.pop2_s_D_NETCDF4">-D_NETCDF4</a></li>
+ <li><a href="#b628.pop2_s_D_NO_PIO_SWAPM_TAG_OFFSET">-D_NO_PIO_SWAPM_TAG_OFFSET</a></li>
+ <li><a href="#b628.pop2_s_D_PNETCDF">-D_PNETCDF</a></li>
+ <li><a href="#b628.pop2_s_D_PNETCDF_OLD">-D_PNETCDF_OLD</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DCPP_VECTOR" id="b628.pop2_s_DCPP_VECTOR">-DCPP_VECTOR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCPP_VECTOR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag defines usevector=true in calls for copying data-structures.
+In the copy routines, this flag may swap the double loops to copy
+multidimensioned arrays, these loops are parallel with OpenMP.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSELECTEDREALKIND" id="b628.pop2_s_DSELECTEDREALKIND">-DSELECTEDREALKIND</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSELECTEDREALKIND(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined uses selected_real_kind 6 and 12 for 32bit and 64bit real.
+Otherwise they are set as kind(1.) and kind(1.D0).
+This may well be promoted into a portability flag if needed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSEQUENCE" id="b628.pop2_s_DSEQUENCE">-DSEQUENCE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSEQUENCE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined adds sequence keyword to a Fortran 90 Type definition
+This may well be promoted into a portability flag if needed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DALWAYS_NC_SHARE" id="b628.pop2_s_DALWAYS_NC_SHARE">-DALWAYS_NC_SHARE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALWAYS_NC_SHARE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes NetCDF to attempt to set NC_SHARE on files it opens.  It is
+used for debugging, and changing its value from the default is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DANSI_C_preprocessor" id="b628.pop2_s_DANSI_C_preprocessor">-DANSI_C_preprocessor</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DANSI_C_preprocessor(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag is used by cfortran.h to determine whether it can use preprocessor
+features defined by the ANSI C standard.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DASSIGNFLOAT" id="b628.pop2_s_DASSIGNFLOAT">-DASSIGNFLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DASSIGNFLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag (if necessary) is defined by the compilation system.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DAbsoftProFortran" id="b628.pop2_s_DAbsoftProFortran">-DAbsoftProFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAbsoftProFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft Pro Fortran compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DAbsoftUNIXFortran" id="b628.pop2_s_DAbsoftUNIXFortran">-DAbsoftUNIXFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAbsoftUNIXFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Absoft UNIX F77 compiler.  In practice, it shouldn't be necessary, and
+setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DCDEBUG" id="b628.pop2_s_DCDEBUG">-DCDEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCDEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag enables coordinate check debug output in NetCDF.  It may not be used
+for a CPU2017 run.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DCDF_ROUTINE_NAME" id="b628.pop2_s_DCDF_ROUTINE_NAME">-DCDF_ROUTINE_NAME</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCDF_ROUTINE_NAME(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes the variable cdf_routine_name to be set to the current
+function name in the NetCDF-2 bindings.  This flag may not be used for
+CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DCFSUBASFUN" id="b628.pop2_s_DCFSUBASFUN">-DCFSUBASFUN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCFSUBASFUN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag causes cfortran.h to replace subroutines with function calls.  It
+may not be used for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DCOMMON_BLOCK" id="b628.pop2_s_DCOMMON_BLOCK">-DCOMMON_BLOCK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOMMON_BLOCK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines a method to refer to Fortran common blocks from C functions.
+Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DCRAYFLOAT" id="b628.pop2_s_DCRAYFLOAT">-DCRAYFLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCRAYFLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that CRAY floating point (real*16) should be used.  This
+may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DDLL_EXPORT" id="b628.pop2_s_DDLL_EXPORT">-DDLL_EXPORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDLL_EXPORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros are used when building parts of the netcdf library as a DLL.  They
+are not used for CPU2017 and may not be set.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DDLL_NETCDF" id="b628.pop2_s_DDLL_NETCDF">-DDLL_NETCDF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDLL_NETCDF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros are used when building parts of the netcdf library as a DLL.  They
+are not used for CPU2017 and may not be set.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DDOUBLE_PRECISION" id="b628.pop2_s_DDOUBLE_PRECISION">-DDOUBLE_PRECISION</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDOUBLE_PRECISION(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro contains the name of the C type which can hold a double precision
+Fortran number.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DENOERR" id="b628.pop2_s_DENOERR">-DENOERR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DENOERR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DFCALLSC_QUALIFIER" id="b628.pop2_s_DFCALLSC_QUALIFIER">-DFCALLSC_QUALIFIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFCALLSC_QUALIFIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro holds the qualifier (if any) needed for C functions called from
+Fortran.  The default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DFLOATFUNCTIONTYPE" id="b628.pop2_s_DFLOATFUNCTIONTYPE">-DFLOATFUNCTIONTYPE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFLOATFUNCTIONTYPE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag (if necessary) is defined by the compilation system.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DFLT_MAX" id="b628.pop2_s_DFLT_MAX">-DFLT_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFLT_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DFLT_MAX_EXP" id="b628.pop2_s_DFLT_MAX_EXP">-DFLT_MAX_EXP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFLT_MAX_EXP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DFORTRAN_REAL" id="b628.pop2_s_DFORTRAN_REAL">-DFORTRAN_REAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFORTRAN_REAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro contains the name of the C type which can hold a Fortran REAL
+number.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHAVE_ALLOCA" id="b628.pop2_s_DHAVE_ALLOCA">-DHAVE_ALLOCA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ALLOCA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that alloca is available as a macro or function.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHAVE_ALLOCA_H" id="b628.pop2_s_DHAVE_ALLOCA_H">-DHAVE_ALLOCA_H</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ALLOCA_H(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that alloca is available as a macro or function.  It is
+set by default; if you need for it to be un-set, use -DSPEC_NO_HAVE_ALLOCA_H.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHAVE_ST_BLKSIZE" id="b628.pop2_s_DHAVE_ST_BLKSIZE">-DHAVE_ST_BLKSIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_ST_BLKSIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that "struct stat" has a member named "st_blksize".
+It is set by default; if you need for it to be un-set, use 
+-DSPEC_NO_ST_BLKSIZE.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DINSTRUMENT" id="b628.pop2_s_DINSTRUMENT">-DINSTRUMENT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINSTRUMENT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These flags enable some NetCDF debugging output.  They may not be used for
+CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DINT_MAX" id="b628.pop2_s_DINT_MAX">-DINT_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINT_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros set the sizes, ranges, or other attributes of various data types
+used in NetCDF's XDR implementation.  They are not relevant to CPU2017 and
+may not be changed from their default values.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DLN_TEST" id="b628.pop2_s_DLN_TEST">-DLN_TEST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLN_TEST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These flags enable some NetCDF debugging output.  They may not be used for
+CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DLOCKNUMREC" id="b628.pop2_s_DLOCKNUMREC">-DLOCKNUMREC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLOCKNUMREC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag enables locking for NC.numrecs.  It may not be used for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DLONG_MAX" id="b628.pop2_s_DLONG_MAX">-DLONG_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLONG_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMAKE_PROGRAM" id="b628.pop2_s_DMAKE_PROGRAM">-DMAKE_PROGRAM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAKE_PROGRAM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Creates a test program for testing function nc_inq_libvers().  This may not
+be used for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMAX_NC_OPEN" id="b628.pop2_s_DMAX_NC_OPEN">-DMAX_NC_OPEN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX_NC_OPEN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines the maximum number of files a process can have open.
+Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMAX_PREPRO_ARGS" id="b628.pop2_s_DMAX_PREPRO_ARGS">-DMAX_PREPRO_ARGS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX_PREPRO_ARGS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines the maximum number of arguments that the C preprocessor can
+accept for macro definitions.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNAGf90Fortran" id="b628.pop2_s_DNAGf90Fortran">-DNAGf90Fortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNAGf90Fortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the NAG Fortran-90 compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNC_ARRAY_GROWBY" id="b628.pop2_s_DNC_ARRAY_GROWBY">-DNC_ARRAY_GROWBY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNC_ARRAY_GROWBY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro holds the size (in elements) that arrays in NetCDF should be grown
+at one time.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNC_ENOMEM" id="b628.pop2_s_DNC_ENOMEM">-DNC_ENOMEM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNC_ENOMEM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros contain the values of return codes used internally by NetCDF.
+Their default values may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNC_ERANGE" id="b628.pop2_s_DNC_ERANGE">-DNC_ERANGE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNC_ERANGE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros contain the values of return codes used internally by NetCDF.
+Their default values may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_netcdf_type_flags" id="b628.pop2_s_netcdf_type_flags">
+-DNF_DOUBLEPRECISION_IS_C_DOUBLE=XXX,
+-DNF_DOUBLEPRECISION_IS_C_FLOAT=XXX,
+-DNF_INT1_IS_C_INT=XXX,
+-DNF_INT1_IS_C_LONG=XXX,
+-DNF_INT1_IS_C_SHORT=XXX,
+-DNF_INT1_IS_C_SIGNED_CHAR=XXX,
+-DNF_INT2_IS_C_INT=XXX,
+-DNF_INT2_IS_C_LONG=XXX,
+-DNF_INT2_IS_C_SHORT=XXX,
+-DNF_INT_IS_C_INT=XXX,
+-DNF_INT_IS_C_LONG=XXX,
+-DNF_REAL_IS_C_DOUBLE=XXX,
+-DNF_REAL_IS_C_FLOAT=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DNF_(?:DOUBLEPRECISION_IS_C_DOUBLE|DOUBLEPRECISION_IS_C_FLOAT|INT1_IS_C_INT|INT1_IS_C_LONG|INT1_IS_C_SHORT|INT1_IS_C_SIGNED_CHAR|INT2_IS_C_INT|INT2_IS_C_LONG|INT2_IS_C_SHORT|INT_IS_C_INT|INT_IS_C_LONG|REAL_IS_C_DOUBLE|REAL_IS_C_FLOAT)(?:=\S*)\b</span></li>
+<li class="descText">
+<p>
+These macros are used by NetCDF to determine which native C types fit which
+native Fortran types.  Their default values may not be changed directly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNO_IEEE_FLOAT" id="b628.pop2_s_DNO_IEEE_FLOAT">-DNO_IEEE_FLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_IEEE_FLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro should be set if the system does not use IEEE floating point
+representation.  It may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNO_NETCDF_2" id="b628.pop2_s_DNO_NETCDF_2">-DNO_NETCDF_2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_NETCDF_2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag turns off backward compatibility definitions in NetCDF.  Its
+default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNO_STRERROR" id="b628.pop2_s_DNO_STRERROR">-DNO_STRERROR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_STRERROR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that the strerror function is not available.  Its
+default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DODEBUG" id="b628.pop2_s_DODEBUG">-DODEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DODEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These flags enable some NetCDF debugging output.  They may not be used for
+CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DO_BINARY" id="b628.pop2_s_DO_BINARY">-DO_BINARY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DO_BINARY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DPATHSCALE_COMPILER" id="b628.pop2_s_DPATHSCALE_COMPILER">-DPATHSCALE_COMPILER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPATHSCALE_COMPILER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Pathscale Fortran compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DPOSIXIO_DEFAULT_PAGESIZE" id="b628.pop2_s_DPOSIXIO_DEFAULT_PAGESIZE">-DPOSIXIO_DEFAULT_PAGESIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOSIXIO_DEFAULT_PAGESIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro holds the default page size that pagesize() will return when
+neither sysconf() nor POSIX getpagesize() is not available.  Its default
+value may not be changed for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DRETURNFLOAT" id="b628.pop2_s_DRETURNFLOAT">-DRETURNFLOAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRETURNFLOAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag (if necessary) is defined by the compilation system.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSEEK_SET" id="b628.pop2_s_DSEEK_SET">-DSEEK_SET</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSEEK_SET(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSHORT_MAX" id="b628.pop2_s_DSHORT_MAX">-DSHORT_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSHORT_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+These macros should all be defined by the compilation system.  Setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_cf_bytes" id="b628.pop2_s_cf_bytes">
+-DSIGNED_BYTE,
+-DUNSIGNED_BYTE
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:UN)?SIGNED_BYTE\b</span></li>
+<li class="descText">
+<p>
+These macros are used internally by cfortran.h to determine what native C types
+to use to hold various types and sizes of data.  Their default values may not
+be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_sizeof" id="b628.pop2_s_sizeof">
+-DSIZEOF_DOUBLE=XXX,
+-DSIZEOF_FLOAT=XXX,
+-DSIZEOF_INT=XXX,
+-DSIZEOF_LONG=XXX,
+-DSIZEOF_OFF_T=XXX,
+-DSIZEOF_SHORT=XXX,
+-DSIZEOF_SIZE_T=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DSIZEOF_(?:DOUBLE|FLOAT|INT|LONG|OFF_T|SHORT|SIZE_T)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros define the size (in bytes) of various native data types.  Their
+default values may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_xdr_ixvar_stuff" id="b628.pop2_s_xdr_ixvar_stuff">
+-DIX_INT_MAX=XXX,
+-DIX_SHORT_MAX=XXX,
+-DSIZEOF_IX_INT=XXX,
+-DSIZEOF_IX_SHORT=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:IX_(?:INT|SHORT)_MAX|SIZEOF_IX_(?:INT|SHORT))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros define sizes and ranges of the variable types used to hold XDR
+data.  They are not used for CPU2017 and may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_xdr_xvar_stuff" id="b628.pop2_s_xdr_xvar_stuff">
+-DX_ALIGN=XXX,
+-DX_INT_MAX=XXX,
+-DX_SHORT_MAX=XXX,
+-DX_SIZEOF_DOUBLE=XXX,
+-DX_SIZEOF_FLOAT=XXX,
+-DX_SIZEOF_INT=XXX,
+-DX_SIZEOF_SHORT=XXX,
+-DX_SIZEOF_SIZE_T=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DX_(?:ALIGN|(?:INT|SHORT)_MAX|SIZEOF_(?:DOUBLE|FLOAT|INT|SHORT|SIZE_T))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros set the sizes, ranges, or other attributes of various data types
+used in NetCDF's XDR implementation.  They are not relevant to CPU2017 and
+may not be changed from their default values.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DTOUCH_LAST" id="b628.pop2_s_DTOUCH_LAST">-DTOUCH_LAST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTOUCH_LAST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This flag enables a touch of the last page allocated when growing a file with
+NetCDF.  Its default value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_header_guards" id="b628.pop2_s_header_guards">
+-DUD_FORT_LIB_H,
+-DUD_NCFORTRAN_H,
+-DUD_NETCDF_CPP_INC,
+-D_NETCDF_,
+-D_FBITS_H_,
+-D__CFORTRAN_LOADED,
+-D_ONSTACK_H_,
+-D_NCCONFIG_AIX_H_,
+-D_NCCONFIG_GENERIC_H_,
+-D_NCCONFIG_H_,
+-D_NCCONFIG_IRIX_H_,
+-D_NCCONFIG_LINUX_H_,
+-D_NCCONFIG_MACOSX_H_,
+-D_NCCONFIG_SOLARIS_H_,
+-D_NCCONFIG_WINDOWS_H_,
+-D_MPI_H_,
+-D_NCCONFIG_H_,
+-D_NCIO_H_,
+-D_NCX_H_,
+-D_NC_H_,
+-DESMF_DEFINES,
+-DESMF_MACROS_INC,
+-DESMF_TimeMgr_INC,
+-DGPTL_H,
+-D_listops_h
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:UD_(?:FORT_LIB_H|NCFORTRAN_H|NETCDF_CPP_INC)|_NETCDF_|_FBITS_H_|__CFORTRAN_LOADED|_ONSTACK_H_|_NCCONFIG_(?:AIX|GENERIC|IRIX|LINUX|MACOSX|SOLARIS|WINDOWS)_H_|_MPI_H_|_NCCONFIG_H_|_NCIO_H_|_NCX_H_|_NC_H_|ESMF_DEFINES|ESMF_(?:MACROS|TimeMgr)_INC|GPTL_H|_listops_h)\b</span></li>
+<li class="descText">
+<p>
+These macros are used to prevent multiple header inclusion; setting them
+explicitly is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DUSE_NEW_DELETE" id="b628.pop2_s_DUSE_NEW_DELETE">-DUSE_NEW_DELETE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_NEW_DELETE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro indicates that new and delete should be used instead of malloc()
+and free() in C++ codes that use cfortran.h.  It is not used and may not be
+set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_comp_implicit1" id="b628.pop2_s_comp_implicit1">
+-Dextname,
+-Dsun,
+-DsunFortran,
+-Dunix,
+-Dvax,
+-Dvms,
+-DvmsFortran,
+-DhpuxFortran,
+-DhpuxFortran800,
+-Dlynx,
+-Dmips,
+-DmipsFortran,
+-Dapollo,
+-DapolloFortran
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:extname|sun|sunFortran|unix|vax|vms|vmsFortran|hpuxFortran|hpuxFortran800|lynx|mips|mipsFortran|apollo|apolloFortran)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These flags are set implicitly by the compilation system and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_comp_implicit2" id="b628.pop2_s_comp_implicit2">
+-D__CYGWIN32__,
+-D__GNUC__,
+-D__PATHCC__,
+-D__STDCPP__,
+-D__STDC__,
+-D__VAXC,
+-D__alpha,
+-D__convex__,
+-D__cplusplus,
+-D__hpux,
+-D__mips,
+-D__sgi,
+-D__sun,
+-D__ultrix__,
+-D__unix,
+-D__unix__,
+-D__vax__,
+-D__vms
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:__CYGWIN32__|__GNUC__|__PATHCC__|__STDCPP__|__STDC__|__VAXC|__alpha|__convex__|__cplusplus|__hpux|__mips|__sgi|__sun|__ultrix__|__unix|__unix__|__vax__|__vms)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These flags are set implicitly by the compilation system and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_comp_implicit3" id="b628.pop2_s_comp_implicit3">
+-D_LANGUAGE_FORTRAN90,
+-D_SC_PAGESIZE,
+-D_SC_PAGE_SIZE,
+-D_SX,
+-D_OPENMP,
+-D__64BIT__,
+-D_MSC_VER,
+-D_IBMR2,
+-D_CRAY,
+-D_CRAYC,
+-D_CRAYIEEE,
+-D_CRAYMPP,
+-D_CRAYT3E,
+-D_INT64,
+-D_LONG64,
+-DFLOAT2
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:_LANGUAGE_FORTRAN90|_SC_PAGESIZE|_SC_PAGE_SIZE|_SX|_OPENMP|__64BIT__|_MSC_VER|_IBMR2|_CRAY|_CRAYC|_CRAYIEEE|_CRAYMPP|_CRAYT3E|_INT64|_LONG64|FLOAT2)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These flags are set implicitly by the compilation system and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_comp_implicit4" id="b628.pop2_s_comp_implicit4">
+-DVAXC,
+-DVAXUltrix,
+-DVISUAL_CPLUSPLUS,
+-DWIN32,
+-DS_IRUSR,
+-DSXFortran,
+-DCLIPPERFortran,
+-DCONVEXFortran,
+-DCRAY,
+-DCRAYFortran,
+-DDECFortran,
+-DIBMR2Fortran,
+-DPowerStationFortran,
+-D__G95__,
+-D__GFORTRAN__,
+-D__INTEL_COMPILER,
+-D__WIN64
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:VAXC|VAXUltrix|VISUAL_CPLUSPLUS|WIN32|S_IRUSR|SXFortran|CLIPPERFortran|CONVEXFortran|CRAY|CRAYFortran|DECFortran|IBMR2Fortran|PowerStationFortran|__G95__|__GFORTRAN__|__INTEL_COMPILER|__WIN64)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These flags are set implicitly by the compilation system and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DZTRINGV_ARGS_allows_Pvariables" id="b628.pop2_s_DZTRINGV_ARGS_allows_Pvariables">-DZTRINGV_ARGS_allows_Pvariables</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DZTRINGV_ARGS_allows_Pvariables(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro is used to indicate to cfortran.h that ARGS can hold Pvariables.
+It may not be set for CPU2017.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_RNDUP" id="b628.pop2_s_D_RNDUP">-D_RNDUP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_RNDUP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This macro defines a method of rounding up to the nearest whole number.
+Changing its default value is forbidden.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_cfortran_internals" id="b628.pop2_s_cfortran_internals">
+-D__CF_KnR=XXX,
+-D__CF__APOLLO67=XXX,
+-D__CF__KnR=XXX,
+-DOLD_VAXC=XXX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:OLD_VAXC|__CF_(?:_?KnR|_APOLLO67))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These macros are used internally by cfortran.h and may not be set explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D__CHAR_UNSIGNED__" id="b628.pop2_s_D__CHAR_UNSIGNED__">-D__CHAR_UNSIGNED__</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__CHAR_UNSIGNED__(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>This macro is used to tell NetCDF that the compilation system's "char" type
+is unsigned by default.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_Df2cFortran" id="b628.pop2_s_Df2cFortran">-Df2cFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]Df2cFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the f2c.  In practice, 127.wrf2 can't be built with f2c, so setting it
+explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_Dncvarcpy" id="b628.pop2_s_Dncvarcpy">-Dncvarcpy</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]Dncvarcpy(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+This defines a compatibilty name for the ncvarcopy() function.  Its default
+value may not be changed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DpgiFortran" id="b628.pop2_s_DpgiFortran">-DpgiFortran</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DpgiFortran(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+In theory, this flag supplies information to NetCDF's cfortran.h about use of
+the Portland Group Fortran compiler.  In practice, it shouldn't be necessary,
+and setting it explicitly is not allowed.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_old_ccsm_leftasis1" id="b628.pop2_s_old_ccsm_leftasis1">
+-D_AIX,
+-DAIX,
+-DCATAMOUNT,
+-DCPRCRAY,
+-DCPRNAG,
+-DCPRXLF,
+-DLINUX,
+-DNEC_SX,
+-DOSF1,
+-DSUNOS,
+-DUNICOSMP,
+-D_R8_,
+-D_UNICOS,
+-DsysHP_UX
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:_AIX|AIX|CATAMOUNT|CPRCRAY|CPRNAG|CPRXLF|IRIX64|LINUX|NEC_SX|OSF1|SUNOS|UNICOSMP|_UNICOS|sysHP_UX|_R8_)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These flags are used in the original CCSM coupled system, the code is either
+guarded by SPEC or just left as is. If they are needed for correct compilation
+they must be changed to SPEC_keyword, they should not be necessary and their use
+for CPU2017 is forbidden. Required instances are converted to SPEC_keyword so use
+SPEC_keyword instead.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_old_ccsm_leftasis2" id="b628.pop2_s_old_ccsm_leftasis2">
+-DSYSAIX,
+-DSYSDARWIN,
+-DSYSIRIX64,
+-DSYSLINUX,
+-DSYSOSF1,
+-DSYSSUNOS,
+-DSYSSUPERUX,
+-DSYST3E,
+-DSYSUNICOS,
+-DSYSUNIXSYSTEMV,
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DSYS(?:AIX|DARWIN|IRIX64|LINUX|OSF1|SUNOS|SUPERUX|T3E|UNICOS|UNIXSYSTEMV)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These flags are used in the original CCSM coupled system, the code is either
+guarded by SPEC or just left as is. If they are needed for correct compilation
+they must be changed to SPEC_keyword, they should not be necessary and their use
+for CPU2017 is forbidden. Required instances are converted to SPEC_keyword so use
+SPEC_keyword instead.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DBGL" id="b628.pop2_s_DBGL">-DBGL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBGL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add Blue Gene L data structures for MPI.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DBGP" id="b628.pop2_s_DBGP">-DBGP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBGP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add Blue Gene P data structures for MPI.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DBGx" id="b628.pop2_s_DBGx">-DBGx</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBGx(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use Blue Gene MPI data structures for MPI.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DCHECKS" id="b628.pop2_s_DCHECKS">-DCHECKS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCHECKS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add interal debugging checks.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_ccsm_internals1" id="b628.pop2_s_ccsm_internals1">
+-DCO2A,
+-DCO2B,
+-DCO2C,
+-DCO2DMSA,
+-DCOUPLEDCCSM,
+-DNEW_BUDGET,
+-DNO_LEAP_CALENDAR,
+-DSORT,
+-DVOC
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:CO2A|CO2B|Co2C|CO2_DMSA|COUPLEDCCSM|NEW_BUDGET|NO_LEAP_CALENDAR|SORT|VOC)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These are internal CCSM variables specific for certain datasets or
+macros for activating certain code segments.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_ccsm_internals2" id="b628.pop2_s_ccsm_internals2">
+-DZERO_SEA_ICE_REF_SAL,
+-D_HIRES,
+-D_NOIO,
+-D_USEMCT,
+-D_USE_ALLTOALLW
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:ZERO_SEA_ICE_REF_SAL|_HIRES|_NOIO|_USEMCT|_USE_ALLTOALLW)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These are internal CCSM variables specific for certain datasets or
+macros for activating certain code segments.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_ccsm_internals3" id="b628.pop2_s_ccsm_internals3">
+-D_USE_COMP2IO_FC,
+-D_USE_CREATE_FC,
+-D_USE_IO2COMP_FC,
+-D_USE_FLOW_CONTROL,
+-D_USE_SPACE
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:_USE_COMP2IO_FC|_USE_CREATE_FC|_USE_IO2COMP_FC|_USE_FLOW_CONTROL|_USE_SPACE|coupled|does_not_exist|drifter_particles)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These are internal CCSM variables specific for certain datasets or
+macros for activating certain code segments.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_ccsm_internals4" id="b628.pop2_s_ccsm_internals4">
+-Dcoupled,
+-Ddoes_not_exist,
+-Ddrifter_particles,
+-Dhydrographic_stations,
+-Dold_current_meters,
+-Dpolar_grid
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:coupled|hydrographic_stations|old_current_meters|polar_grid)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+These are internal CCSM variables specific for certain datasets or
+macros for activating certain code segments.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DDEBUG" id="b628.pop2_s_DDEBUG">-DDEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debug information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DDEBUG_BARRIER" id="b628.pop2_s_DDEBUG_BARRIER">-DDEBUG_BARRIER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_BARRIER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debug information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DDEBUG_INDICES" id="b628.pop2_s_DDEBUG_INDICES">-DDEBUG_INDICES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_INDICES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debug information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DDEBUG_REARR" id="b628.pop2_s_DDEBUG_REARR">-DDEBUG_REARR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_REARR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debug information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DDM_PARALLEL" id="b628.pop2_s_DDM_PARALLEL">-DDM_PARALLEL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDM_PARALLEL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use distributed parallel (MPI) for WRF modules.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DENABLE_UNIX_ABORT" id="b628.pop2_s_DENABLE_UNIX_ABORT">-DENABLE_UNIX_ABORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DENABLE_UNIX_ABORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Call abort directly instead of MP_abort.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DESMF_INTERFACE" id="b628.pop2_s_DESMF_INTERFACE">-DESMF_INTERFACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DESMF_INTERFACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add ESMF routine interfaces.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_pnetcdf_version" id="b628.pop2_s_pnetcdf_version">
+-DFORTRANCAPS,
+-DFORTRANUNDERSCORE,
+-DFORTRAN_GNUF2C
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:FORTRAN(?:CAPS|UNDERSCORE|_GNUF2C))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+Used to define PNETCDF version check routine name. Not used
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_g2x_states" id="b628.pop2_s_g2x_states">
+-DGLC_NEC_1,
+-DGLC_NEC_10,
+-DGLC_NEC_3,
+-DGLC_NEC_5
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]D(?:GLC_NEC_(1|10|3|5))(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+Add additional g2x sequence states.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHANDLE_INFO" id="b628.pop2_s_DHANDLE_INFO">-DHANDLE_INFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHANDLE_INFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Print handle information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHAVE_COMM_F2C" id="b628.pop2_s_DHAVE_COMM_F2C">-DHAVE_COMM_F2C</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_COMM_F2C(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the use of MPI_comm_f2c. Not used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHAVE_GETPAGESIZE" id="b628.pop2_s_DHAVE_GETPAGESIZE">-DHAVE_GETPAGESIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_GETPAGESIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined, use the getpagesize system routine.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHAVE_MPI" id="b628.pop2_s_DHAVE_MPI">-DHAVE_MPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_MPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if building with MPI support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHAVE_PAPI" id="b628.pop2_s_DHAVE_PAPI">-DHAVE_PAPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHAVE_PAPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if the system has PAPI support.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DHIDE_MPI" id="b628.pop2_s_DHIDE_MPI">-DHIDE_MPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHIDE_MPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable MPI from the ESMF routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DINFO" id="b628.pop2_s_DINFO">-DINFO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINFO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable debug info from MPI routines and other intermediary information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DLISTMAIN" id="b628.pop2_s_DLISTMAIN">-DLISTMAIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLISTMAIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add a main routine to list.c for debugging purposes.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMALL_ON" id="b628.pop2_s_DMALL_ON">-DMALL_ON</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMALL_ON(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the mall routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMAX" id="b628.pop2_s_DMAX">-DMAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined as normal max of 2 values, not used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMIN" id="b628.pop2_s_DMIN">-DMIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined as a normal min of 2 values
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMCT_INTERFACE" id="b628.pop2_s_DMCT_INTERFACE">-DMCT_INTERFACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMCT_INTERFACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the MCT Interface. SPEC CPU forces this interface explicitly.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMEMCHK" id="b628.pop2_s_DMEMCHK">-DMEMCHK</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEMCHK(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add memory debugging information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DMPICH_" id="b628.pop2_s_DMPICH_">-DMPICH_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMPICH_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define is MPICH is being used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNO_MPI2" id="b628.pop2_s_DNO_MPI2">-DNO_MPI2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_MPI2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Add if MPI2 support is not avialable.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNO_SIZEOF" id="b628.pop2_s_DNO_SIZEOF">-DNO_SIZEOF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_SIZEOF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if sizeof is not available in pio. Should not be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DNO_VPRINTF" id="b628.pop2_s_DNO_VPRINTF">-DNO_VPRINTF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNO_VPRINTF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define if vprintf is not available in GPTL. Should not be used.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_pio_hints" id="b628.pop2_s_pio_hints">
+-DPIO_GPFS_HINTS,
+-DPIO_LUSTRE_HINTS
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DPIO_(?:GPFS_HINTS|LUSTRE_HINTS)(?:=\S*)?\b</span></li>
+<li class="descText">
+<p>
+Set PIO hints for GPFS or Lustre
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DREPRODUCIBLE" id="b628.pop2_s_DREPRODUCIBLE">-DREPRODUCIBLE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DREPRODUCIBLE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If defined uses higher precision for POP2 reduction operations.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSPMD" id="b628.pop2_s_DSPMD">-DSPMD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPMD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable distributed memory version of the code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DSTUBMPI" id="b628.pop2_s_DSTUBMPI">-DSTUBMPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTUBMPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Create stub versions of MPI routines.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DTAVG_R8" id="b628.pop2_s_DTAVG_R8">-DTAVG_R8</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTAVG_R8(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use nonstandard r8 for debugging purposes only for TAVG files.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DTHREADED_OMP" id="b628.pop2_s_DTHREADED_OMP">-DTHREADED_OMP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTHREADED_OMP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Define maxthreads=omp_get_max_threads in threadutil.c
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DTHREADED_PTHREADS" id="b628.pop2_s_DTHREADED_PTHREADS">-DTHREADED_PTHREADS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTHREADED_PTHREADS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+If pthreads to be used in threadutil.c
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DTIMING" id="b628.pop2_s_DTIMING">-DTIMING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTIMING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable timing information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DTODO" id="b628.pop2_s_DTODO">-DTODO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTODO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable development code.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_internal_types" id="b628.pop2_s_internal_types">
+-DTYPEDOUBLE,
+-DTYPEINT,
+-DTYPEREAL,
+-DTYPETEXT
+</a></li>
+<li class="flagDescRE"><span class="tt">[-/]DTYPE(?:DOUBLE|INT|REAL|TEXT)(?:=\S*)\b</span></li>
+<li class="descText">
+<p>
+Internal defines used in pio.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DUSEMPIIO" id="b628.pop2_s_DUSEMPIIO">-DUSEMPIIO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSEMPIIO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable MPI I/O
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DUSEPIO" id="b628.pop2_s_DUSEPIO">-DUSEPIO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSEPIO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable PIO I/O
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DUSEPIOREAD" id="b628.pop2_s_DUSEPIOREAD">-DUSEPIOREAD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSEPIOREAD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable PIO READ.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DUSE_CSM_SHARE" id="b628.pop2_s_DUSE_CSM_SHARE">-DUSE_CSM_SHARE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_CSM_SHARE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable the sharing of performance timer information.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_DUSE_ESMF_LIB" id="b628.pop2_s_DUSE_ESMF_LIB">-DUSE_ESMF_LIB</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_ESMF_LIB(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use the ESMF Library (for handling Gregorian calendars)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_MEMMON" id="b628.pop2_s_D_MEMMON">-D_MEMMON</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MEMMON(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable memory monitor in PIO
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_MEMTRACE" id="b628.pop2_s_D_MEMTRACE">-D_MEMTRACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MEMTRACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable memory tracing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_MPI" id="b628.pop2_s_D_MPI">-D_MPI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_MPI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use mpi_abort to abort from PIO
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_TESTMEM" id="b628.pop2_s_D_TESTMEM">-D_TESTMEM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_TESTMEM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable memory monitoring in PIO
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_STACKMON" id="b628.pop2_s_D_STACKMON">-D_STACKMON</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_STACKMON(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use stack memory monitor in PIO
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_NETCDF4" id="b628.pop2_s_D_NETCDF4">-D_NETCDF4</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_NETCDF4(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use NetCDF version 4
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_NO_PIO_SWAPM_TAG_OFFSET" id="b628.pop2_s_D_NO_PIO_SWAPM_TAG_OFFSET">-D_NO_PIO_SWAPM_TAG_OFFSET</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_NO_PIO_SWAPM_TAG_OFFSET(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Disable the PIO tag offest.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_PNETCDF" id="b628.pop2_s_D_PNETCDF">-D_PNETCDF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_PNETCDF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use Parallel NetCDF library.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b628.pop2_s_D_PNETCDF_OLD" id="b628.pop2_s_D_PNETCDF_OLD">-D_PNETCDF_OLD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_PNETCDF_OLD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use older Parallel NetCDF Libray.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+</body>
+</html>

@@ -1,0 +1,187 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                            SPEC CPU(R)2017 Credits
+
+      $Id: credits.html 6317 2019-07-28    Latest: www.spec.org/cpu2017/Docs/
+           22:50:53Z JohnHenning $
+
+Background: a Worthy Predecessor
+
+   One of the most frequent questions SPEC(R) has been asked over the past
+   decade has been "When is the next SPEC CPU(R) suite coming out?" This has
+   not been easy to answer, in part because the SPEC CPU 2006 benchmark suite
+   has been widely used.
+
+   SPEC CPU 2006 improved over its predecessors, and was intended to stand
+   the test of time, as the computing industry continues to innovate. It has
+   had a long and influential run.
+
+   A lot of work went into SPEC CPU 2006, and it paid off: as of June 2017,
+   there are over 44,000 SPEC CPU 2006 results published at
+   www.spec.org/cpu2006/results, for an average of ~338 submissions a month,
+   ~78 a week or ~11 every day. And this doesn't include information on the
+   runs that were not submitted to SPEC. Quite impressive for a benchmark
+   that can take a bit of time and effort to set up and run.
+
+   Although there is a large established base set of results, the time has
+   come to update things.
+
+Goals and Challenges for the New Suite
+
+   As with the previous SPEC CPU suites, the goal is to establish a suite of
+   source code benchmarks to provide consistent, comparable measures of
+   CPU-intensive performance. The task is not simple.
+
+   Challenges include:
+
+     * Locating meaningful programs.
+     * Porting them to numerous environments.
+     * Defining rules to govern how benchmarks are compiled, run and
+       reported.
+     * Developing tools to help enforce these rules while still making things
+       easy to use.
+     * Defining processes by which decisions can be made.
+
+   With SPEC CPU 2017, the SPEC CPU subcommittee believes that it has come up
+   with a benchmark suite that builds upon and improves the previous suite,
+   to meet the current and next generations of computing.
+
+   The new suite:
+
+     * Increases the number of applications and application areas.
+     * Uses more complex application source code.
+     * Uses more memory for the SPECspeed metrics.
+     * Allows parallelization for SPECspeed programs by using OpenMP
+       directives.
+     * Improves the tools for building, running, and reporting.
+     * Adds an optional power metric.
+     * Clarifies and updates the run rules.
+     * Improves the documentation.
+
+   The SPEC CPU subcommittee hopes that the updates will continue to to be
+   useful for people designing and comparing computing systems.
+
+   As with previous suites, there have been numerous people whose
+   contributions have affected the end results, especially given the long
+   development time.
+
+Thank you to Program Authors and Contributors
+
+   SPEC CPU benchmarks are based primarily on real-world applications (rather
+   than using loop kernels or artificial stress tests). We therefore -- most
+   of all -- thank the authors of those real-world applications.
+
+   Thank you to contributors via the SPEC CPU Benchmark Search Program,
+   contributors who work for member companies, and to the many authors of
+   open source software. They are listed in SPEC CPU 2017 Licenses and in the
+   documentation for individual benchmarks.
+
+Thank you to SPEC
+
+   We would also like to thank:
+
+     * SPEC management, who provided us with resources, and kept the SPEC CPU
+       Subcommittee on their toes:
+
+          * Walter Bays - President, SPEC
+          * Michael Paton, Alan Adamson, Steve Realmuto - Chairs of the SPEC
+            Open Systems Steering Committee.
+
+     * The SPEC office, who were the ones who really provided the CPU
+       subcommittee with the resources needed to get things done.
+
+          * Dianne Rice, Kathy Powers, Diana Cercy, Charles McKay, Cathy
+            Sandifer, Jason Glick
+
+     * SPEC supporting contributor managing the editorial cycle for SPEC CPU
+       2006 result review:
+
+          * Julie Reilly
+
+Thank you to SPEC CPU Subcommittee Contributors
+
+   These are the people who spent time finding and porting code, performed
+   testing and analysis, participating in the debate and discourse on the
+   processes, rules and content of the suite. Much appreciation is given for
+   their willingness to spend their talents and time working on SPEC CPU 2017
+   efforts and day to day SPEC work. Contributions included project leading
+   benchmarks, providing regular resting reports, writing documentation or
+   overseeing some aspect of the process. A little bit of each of these
+   people can be found in the suite:
+
+   James Bucek     Hidekatsu Imura   Jeff Reilly
+   Michael Carroll Hans Jo/raandstad David Reiner
+   Mathew Colgrove Willi Kratzer     Van Smith
+   Diego Esteves   Subhash Kunnoth   Cloyce Spradling
+   Darryl Gove     Alan MacKay       Wilfried Stehling
+   John Henning    Rahul Rahatekar
+
+   Of particular note:
+
+     * Mat Colgrove led the largest number of benchmarks.
+     * Michael Carroll led the single largest benchmark.
+     * John Henning is the primary author of the documentation.
+     * Cloyce Spradling is the primary author of the SPEC CPU toolset.
+
+Thank you for Technical Assistance
+
+   Thanks are due to those who provided specific technical assistance, for
+   example helping with analysis, testing, or addressing specific
+   implementation issues:
+
+   Nelson Amaral       Arthur Kang        Srini Ramani
+   Christopher Cambly  Venkatesh KR       David Schmidt
+   Aaron Cragin        Prathiba Kumar     Marcus Shawcroft
+   Christopher Henning Carol LePage       Biswa Singh
+   Jim Himer           Manmohan Manoharan Suresh Srinivasan
+   Jee Ho              Chris Parrott      Raghavendra Swamy
+   Lizy John           Michael Paton      Jaya Yeruva
+   Ajay Joshi          Dave Raddatz       Linda Zhang
+
+In memory of
+
+   And in memory of those whose past contributions, support and inspiration
+   remain with us:
+
+     * Alan Adamson
+     * Kaivalya Dixit
+     * Larry Gray
+     * Tom Skornia
+
+Thank You to Those Behind the scenes
+
+   Finally, we thank all of the people behind the scenes in the compiler
+   groups, architecture groups, and performance groups who supported their
+   work for SPEC at their respective companies.
+
+The Bottom Line
+
+   Thank you for contributions on a long road!
+
+   Cloyce D. Spradling, Release Manager, SPEC CPU 2017
+   John L. Henning, Secretary, SPEC CPU Subcommittee
+   James Bucek, Vice-Chair, SPEC CPU Subcommittee
+   Jeffrey W. Reilly, Chair, SPEC CPU Subcommittee
+
+   June 2017
+
+   SPEC CPU(R)2017 Credits: Copyright (c) 2017-2019 Standard Performance
+   Evaluation Corporation (SPEC(R))
+
+

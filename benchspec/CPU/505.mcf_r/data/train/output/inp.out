@@ -1,0 +1,68 @@
+
+MCF SPEC CPU version 1.11
+Copyright (c) 1998-2000 Zuse Institut Berlin (ZIB)
+Copyright (c) 2000-2002 Andreas Loebel & ZIB
+Copyright (c) 2003-2005 Andreas Loebel
+Copyright (c) 2006-2010 Dres. Loebel, Borndoerfer & Weider GbR (LBW)
+
+nodes                      : 13225
+active arcs                : 204416
+simplex iterations         : 99006
+objective value            : 8870158808
+new implicit arcs          : 1000000
+active arcs                : 1204416
+simplex iterations         : 102388
+objective value            : 7380151879
+erased arcs                : 999321
+new implicit arcs          : 2999321
+active arcs                : 3204416
+simplex iterations         : 121504
+objective value            : 6980143025
+erased arcs                : 2996152
+new implicit arcs          : 2996152
+active arcs                : 3204416
+simplex iterations         : 192064
+objective value            : 6940123510
+erased arcs                : 2994384
+new implicit arcs          : 1552611
+active arcs                : 1762643
+simplex iterations         : 216787
+objective value            : 6930121656
+erased arcs                : 1550176
+new implicit arcs          : 63136
+active arcs                : 275603
+simplex iterations         : 217142
+objective value            : 6930121652
+erased arcs                : 63129
+new implicit arcs          : 210
+active arcs                : 212684
+simplex iterations         : 217268
+objective value            : 6930121646
+erased arcs                : 210
+new implicit arcs          : 13411
+active arcs                : 225885
+simplex iterations         : 217635
+objective value            : 6930121646
+erased arcs                : 13422
+new implicit arcs          : 981
+active arcs                : 213444
+simplex iterations         : 217776
+objective value            : 6930121646
+erased arcs                : 980
+new implicit arcs          : 211
+active arcs                : 212675
+simplex iterations         : 217803
+objective value            : 6930121646
+erased arcs                : 211
+new implicit arcs          : 63
+active arcs                : 212527
+simplex iterations         : 217808
+objective value            : 6930121646
+erased arcs                : 63
+new implicit arcs          : 705
+active arcs                : 213169
+simplex iterations         : 217854
+objective value            : 6930121644
+erased arcs                : 713
+checksum                   : 6930121644
+done

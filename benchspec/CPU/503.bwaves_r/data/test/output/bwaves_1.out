@@ -1,0 +1,29 @@
+ BI-CGSTAB & symmetric difference scheme 
+ 3D  Laminar shock wave propagation
+ Re:   100000.000000    Pr:        0.720000
+ grid size is:     31    31   128
+ CFL:  2.000   nuim:  0.100  nuex2:  0.100 nuex4:  0.050
+ Implicit scheme is working
+ Cubic initial configuration
+ Number of Time Steps:     10
+
+ Time step:      1  dt:    0.61535116196E-03
+    0.99769940128E-02    0.10000000000E-02
+ Time step:      2  dt:    0.10200335149E-02
+    0.67716135632E-01    0.10000000000E-02
+ Time step:      3  dt:    0.13108268426E-02
+    0.14776034444        0.10000000000E-02
+ Time step:      4  dt:    0.15922596110E-02
+    0.23561846648        0.10000000000E-02
+ Time step:      5  dt:    0.18868289613E-02
+    0.32698663814        0.10000000000E-02
+ Time step:      6  dt:    0.22048372780E-02
+    0.44319052934        0.10000000000E-02
+ Time step:      7  dt:    0.25396806361E-02
+    0.62889598859        0.10000000000E-02
+ Time step:      8  dt:    0.27987062910E-02
+    0.82142204130        0.10000000000E-02
+ Time step:      9  dt:    0.31281602944E-02
+     1.1335613452        0.10000000000E-02
+ Time step:     10  dt:    0.35156102908E-02
+     1.4895894058        0.10000000000E-02

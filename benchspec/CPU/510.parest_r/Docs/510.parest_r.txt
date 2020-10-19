@@ -1,0 +1,256 @@
+                                  510.parest_r
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   510.parest_r
+
+  Benchmark Author
+
+   Wolfgang Bangerth <bangerth [at] gmail dot com>, et al.
+
+  Benchmark Program General Category
+
+   A finite element solver for a biomedical imaging problem
+
+  Benchmark Description
+
+   510.parest_r solves a problem from biomedical imaging. Specifically, the
+   underlying problem is the reconstruction of interior properties of a 3d
+   body from multiple observations at its two-dimensional surface, in much
+   the same way as multiple 2d X-ray images are combined to do 3d CT
+   (computed tomography) scans. The difference to CT scans is that the method
+   this program describes is infrared light that does not go through tissues
+   in a straight line, but diffuses.
+
+   In order to understand how the overall algorithm works, let us stick with
+   the example of CT for a moment. CT involves taking X-ray exposures of a
+   body from different angles, and obtaining developed photo plates (or
+   today, the data that comes from the digital X-ray detectors) placed on the
+   other side of the body from the X-ray cannon. There is then a mathematical
+   algorithm called the "[1]inverse Radon transform" that reconstructs the 3d
+   interior make up of the body from these 2d exposures.
+
+   When given a number of exposures from different angles, an implementation
+   of the algorithm will create some reconstruction of the body's interior.
+   But is your implementation correct? We don't know, because we don't know
+   what the exact make-up of the body was when the exposures were taken.
+
+   What one therefore does to test such implementations is to assume an exact
+   make-up and compute what exposures this would produce if one were to do
+   actual experiments (these are called "synthetic" measurements). One then
+   uses the implementation of the method on these exposures to reconstruct
+   the body. Because we know the exact make-up of the body from which these
+   exposures were creates, we can compare the exact and the reconstructed
+   make-up and ensure that they are the same, or at least that the
+   reconstructed make-up converges to the exact one as we add more and more
+   exposures.
+
+   This particular benchmark, 510.parest_r, does not actually deal with CT
+   reconstructions. Rather, it is built to deal with a different biomedical
+   imaging method called "fluorescence-enhanced optical tomography" that uses
+   infrared light instead of X-rays because (i) infrared light is not harmful
+   to humans, and (ii) because it provides a better contrast between healthy
+   and diseased tissue than X-rays. The major difference between this method
+   and CT is that the relationship between the body's interior we would like
+   to reconstruct and what we can measure is not linear. Consequently, while
+   a CT reconstruction algorithm can compute the body's interior make-up in
+   one step, optical tomography methods need to do this iteratively: they
+   start with an assumed make-up and over a number of iterations improve it
+   until they think that they are close enough.
+
+   Under the hood, this requires solving the predicting set of partial
+   differential equations many hundreds or thousands of times, for different
+   hypothetical make-ups. This is done on locally refined finite element
+   meshes that change over time as we hone in on the best reconstruction. In
+   other words, there is a loop over a number of iterations (corresponding to
+   the output "Step 1", "Step 2", etc in the log file for this benchmark),
+   each of which improves our current best guess for the body's 3d interior
+   make-up. Within each of these iterations or "steps", the algorithm
+   re-computes the synthetic measurements and then loops over all of the
+   experiments (corresponding to the exposures from different angles in the
+   CT example) and predicts what we would measure with the current best guess
+   make-up. At the end of each step, these predictions are then compared
+   against the (synthetic) measurements and an improved guess is computed.
+
+   The implementation of all of this relies on the deal.II finite element
+   library (see [2]www.dealii.org) that also underlies the [3]447.dealII
+   benchmark that is part of SPEC CPU(R)2006.
+
+  Input Description
+
+   The input for 510.parest_r consists of a single input file with a suffix
+   .prm that describes the problem completely. There are test.prm, train.prm,
+   and ref.prm files in the data/ subdirectory of this benchmark.
+
+   The format of these input files is intended to be self explanatory, using
+   a set of parameters grouped into nested, hierarchical sections. The
+   parameters are grounded in the mathematical and computational algorithms
+   that underly the problem, as well as the kinds of models that are
+   implemented.
+
+   A few parameters are of particular interest for benchmarking:
+
+     * Number of experiments (in section "Global options"): Just as a CAT
+       scan (computed tomography) assembles a 3d image from a number of 2d
+       X-ray images taken from different angles, the algorithm in this
+       program reconstructs a 3d image of the body from multiple exposures,
+       or "experiments". This parameter controls how many experiments are
+       used, each of which corresponds to projecting a different light
+       pattern onto the surface of the body and measuring what light comes
+       out. Since all the experiments are used at the same time, this
+       parameter affects both the run time of the program (using twice as
+       many experiments will require approximately twice as much CPU time)
+       and memory consumption (using twice as many experiments will require
+       approximately twice as much memory).
+
+     * Maximal number of iterations (in section "Newton method"): Each
+       "iteration" of the algorithm uses the previous best guess of the
+       body's interior, and updates or improves upon it by solving a set of
+       partial differential equations using the finite element method on a
+       mesh or grid (that is, subdivision of the body into small
+       quadrilaterals or hexahedrals). More iterations therefore require more
+       CPU time.
+
+       Note that the relationship is not linear: if the algorithm decides
+       that on the current mesh, no further improvement is possible, it
+       "refines" the mesh, that is, it replaces some cells by smaller cells.
+       Consequently, allowing more iterations also (sometimes) leads to finer
+       meshes which require more memory and more CPU time to solve. Each mesh
+       refinement (as indicated in the "log" output file) approximately
+       doubles the memory and CPU requirements of an iteration.
+
+     * Reduction per mesh (in section "Newton method/Mesh refinement
+       details"): If all that is desired is to vary the run time of the
+       benchmark, then one can also adjust this parameter. The smaller it is,
+       the more progress the algorithm needs to make on the current mesh
+       before it refines the mesh. A value of zero implies that the mesh will
+       never be refined; the run time is then proportional to the number of
+       iterations, and memory consumption will remain roughly constant
+       throughout the entire run.
+
+   The test, train, and refrate input files for this benchmark only differ in
+   the values for the first two parameters above.
+
+   Additional information about the parameters may be found in the output
+   file me.prm (see next section).
+
+  Output Description
+
+   The output produces a number of files that are validated for correct
+   answers:
+
+   *.vtk      Graphical representation of the solution steps
+   log        Progress of the computation
+              Statistics about the solution and its progress (for example,
+   statistics the number of iterations required to achieve a certain internal
+              tolerance)
+              Parameters for the run, including both those from the input
+   me.prm     file plus a listing for parameters that were not explicitly
+              listed in the input file and therefore left at their defaults.
+
+  Programming Language
+
+   C++
+
+  Threading Model
+
+   None
+
+  Known portability issues
+
+   The benchmark should, in principle, only consist of standard C++98
+   constructs. That was one of the design goals.
+
+    Obtaining correct results with GCC and -m32
+
+   During testing with versions 5 and 6 of the GNU compiler, there were a few
+   reports of incorrect answers when compiling with -m32 + high optimization.
+   Successful workarounds included:
+
+     * Use 64-bit compiles (-m64) instead of 32-bit (-m32).
+     * Or, use -march=i686 instead of more specific chip designators (such as
+       -march=native).
+     * Or, add -fno-tree-loop-vectorize to disable certain loop
+       transformations which would otherwise be enabled at level -O3.
+
+   It should be noted that a workaround such as the above would not qualify
+   for use as a [4]portability flag. In a base compilation, it would need to
+   be part of the set of flags that are [5]applied consistently to a set of
+   benchmarks.
+
+    "error: ISO C++ forbids comparison between pointer and integer"
+
+   Users of C++11 (and later) compilers may see messages such as the above.
+   For GCC V7, the full message is:
+
+ In file included from include/base/parameter_handler.h:18:0,
+                  from source/base/parameter_handler.cc:14:
+ source/base/parameter_handler.cc: In member function 'double dealii::ParameterHandler::get_double(const string&) const':
+ source/base/parameter_handler.cc:752:28: error: ISO C++ forbids comparison between pointer and integer [-fpermissive]
+    AssertThrow ((s.c_str()!='\0') || (*endptr == '\0'),
+
+   Solution: There are three solutions.
+
+    1. Use [6]runcpu --update to update your copy of SPEC CPU 2017 to v1.1;
+       or
+    2. Tell your compiler to be less picky (for example, with g++
+       -fpermissive); or
+    3. Try explicitly asking for the 2003 version of the standard (for
+       example, with g++ -std=c++03).
+
+   Note: neither solution 2 nor solution 3 would qualify for use as a
+   [7]portability flag. In a base compilation, it would need to be part of
+   the set of flags that are [8]applied consistently to a set of benchmarks.
+
+  Sources and Licensing
+
+   The benchmark is licensed directly to SPEC by Wolfgang Bangerth. Note:
+   therefore, source code references to other terms under which the program
+   may be available are not relevant for the SPEC CPU(R) version. It uses a
+   variety of files from BOOST, under the Boost Software License.
+
+   Please see details in the document [9]SPEC CPU(R)2017 Licenses.
+
+  References
+
+   The deal.II open source finite element library home page is
+   [10]www.dealii.org. It includes software, documentation, and mailing
+   lists.
+
+   Many publications are linked from the primary author's page at Colorado
+   State University [11]www.math.colostate.edu/~bangerth/publications.html
+   including:
+
+     * Wolfgang Bangerth, Ralf Hartmann, Guido Kanschat
+       deal.II -- a General Purpose Object Oriented Finite Element Library
+       ACM Transactions on Mathematical Software, vol. 33 (2007), pages
+       24/1-24/27.
+     * Wolfgang Bangerth, Amit Joshi
+       Adaptive finite element methods for the solution of inverse problems
+       in optical tomography
+       Inverse Problems, vol. 24 (2008), pp. 034011/1-22.
+     * Wolfgang Bangerth
+       A framework for the adaptive finite element solution of large inverse
+       problems
+       SIAM Journal on Scientific Computing, vol. 30 (2008), pp. 2965-2989.
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. https://en.wikipedia.org/wiki/Radon_transform
+   2. https://www.dealii.org/
+   3. http://www.spec.org/cpu2006/Docs/447.dealII.html
+   4. http://www.spec.org/cpu2017/Docs/runrules.html#PortabilityFlags
+   5. http://www.spec.org/cpu2017/Docs/runrules.html#BaseFlags
+   6. runcpu.html#update
+   7. http://www.spec.org/cpu2017/Docs/runrules.html#PortabilityFlags
+   8. http://www.spec.org/cpu2017/Docs/runrules.html#BaseFlags
+   9. https://www.spec.org/cpu2017/Docs/licenses.html#bmk510.parest_r
+  10. https://www.dealii.org/
+  11. http://www.math.colostate.edu/~bangerth/publications.html

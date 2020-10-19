@@ -1,0 +1,16 @@
+    (From config) $default_submit = "$command"
+    (From config) $parallel_test_submit = "0"
+    (From config) $submit_default = "use_submit for $command"
+    (From config) $submit_notes_0 = "The config file option 'submit' was used to argl blarf"
+    (From config) $use_submit_for_compare = "0"
+    (From config) $use_submit_for_speed = "0"
+Running Benchmarks
+  Running 500.perlbench_r test base none (1 copy) [timestamp]
+Submit command for 500.perlbench_r test base none (workload 0):
+  use_submit for $command
+Submit command for 500.perlbench_r test base none (workload 1):
+  use_submit for $command
+use_submit for ../run_base_test_none.0000/perlbench_r_base.none -I. -I./lib makerand.pl 0<&- > makerand.out 2>> makerand.err
+use_submit for ../run_base_test_none.0000/perlbench_r_base.none -I. -I./lib test.pl 0<&- > test.out 2>> test.err
+Running Benchmarks
+  Running 600.perlbench_s test base none [timestamp]

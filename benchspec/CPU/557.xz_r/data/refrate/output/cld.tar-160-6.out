@@ -1,0 +1,14 @@
+SPEC CPU XZ driver: input=cld.tar.xz insize=160
+Loading Input Data
+Compressed size: 82270464; Uncompressed size: 226775040
+SHA-512 of decompressed data compared successfully!
+Decompressed data too large; truncating to requested size 167772160
+SHA-512 of input file: 4c6ce670df299f1bcc630778ee98388d179745b3fe28c959b7fe185db01bd9923f445ac2dc3e73d680956dcda35301c26fc753fa111bca3ba526b00a81f4a2c0
+Input data 167772160 bytes in length
+Compressing Input Data, level 6
+Compressed data is between 59796407 and 61004416 bytes in length
+Finished compressing data
+Uncompressing previously compressed data
+Uncompressed data 167772160 bytes in length
+Uncompressed data compared correctly
+Tested 160 MiB buffer: OK!

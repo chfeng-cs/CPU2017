@@ -1,0 +1,36 @@
+# This file contains a list of the benchmarks written in
+# C exclusively.
+# It is automatically generated.
+
+$name        = 'pure_c';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+500.perlbench_r
+502.gcc_r
+505.mcf_r
+519.lbm_r
+525.x264_r
+538.imagick_r
+544.nab_r
+557.xz_r
+600.perlbench_s
+602.gcc_s
+605.mcf_s
+619.lbm_s
+625.x264_s
+638.imagick_s
+644.nab_s
+657.xz_s
+996.specrand_fs
+997.specrand_fr
+998.specrand_is
+999.specrand_ir
+);
+
+1;

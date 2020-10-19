@@ -1,0 +1,1413 @@
+# SPEC Submission Syntax File           CPU2017 Results
+#
+# Copyright 2016-2019 Standard Performance Evaluation Corporation
+#
+# Required Variables:
+#       syntax  - assoc-array of
+#                   keys => array (numeric indices) or hash (text keys) of
+#                   0 or 'regexp':
+#                       regexps to define acceptable values,
+#                   1 or 'text':
+#                       explanatory messages to use in case of mismatch,
+#                   2 or 'one_match':
+#                       whether only one match is acceptable to pass,
+#                       (IOW, if the rule matches for foo000, is it okay for it
+#                        to NOT match for foo001, foo002, etc?)
+#                   3 or 'complain_once':
+#                       whether to complain only once for this rule,
+#                   4 or 'custom_test':
+#                       code ref to do other, more complicated tests
+#                       (The code ref gets the current line, the matched key,
+#                        the value, the regexp, whether the rule matched,
+#                        whether one match is acceptable to pass, whether the
+#                        value was already complained about, whether to
+#                        complain only once for this rule, and a hash ref to
+#                        (key, value) pairs for all the lines in the raw file.)
+#                   5 or 'conditions':
+#                       whether/how to restrict application of this rule
+#                        It's an array of the form
+#                        [
+#                          [ field_to_use,
+#                            [ $min, $max ]     # if numeric
+#                            regular_expression # if not
+#                            ...
+#                          ],
+#                          ...
+#                        ]
+#                        The conditions for each field (if multiple are
+#                        specified) are ORed.  All fields (if multiple are
+#                        specified) must match or the rule will be skipped.
+#        (items 2-5 are optional and default to false or undef)
+# and
+#       first   - pattern to recognize first line of submission text
+#       last    - pattern to recognize the last line (rest of mail is tossed)
+#     or
+#       prefix  - pattern to recognize a line in the result file
+#
+# Note: everything is in Perl syntax, so beware...
+#
+# Note 2: The explanatory messages may either be one line of text, or an
+#         array reference containing multiple lines.  They are evaluated
+#         in the context of an interpolated string.  What's that mean?
+#         Just that if you want to use double quotes (") in your text,
+#         escape them with a backslash.  Also, you may use $key to refer to
+#         the key that matched, $k to refer to the specific line that matched,
+#         and $value to refer to the value that is in error.
+#
+# For nicer editing, make your window this wide: --------------------------------------------------------------------->
+use Date::Parse;        # For decoding power analyzer calibration dates
+use POSIX;              # For formatting timestamps into dates
+
+undef $first;
+undef $last;
+$prefix = 'spec.cpu2017.';
+my $months_abbr_re = qr/(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)/;
+my $months_full_re = qr/(?:January|February|March|April|May|June|July|August|September|October|November|December)/;
+
+# Canned error messages for date format fields
+my $datere = [ qr/^\d{4}-\d{2}(?:-\d{2})?$/,
+               [
+                 '    It must be YYYY-MM or YYYY-MM-DD, where YYYY is the full four digit',
+                 '    year, MM is the month (01-12), and DD is the day (01-31).',
+                 '   The current value is \"$value\".'
+               ],
+               0,
+               1
+             ];
+
+# Canned error messages for availability date format fields
+my $availre= [ qr/^${months_abbr_re}-\d{4}$/,
+               [
+                 '    It must be MMM-YYYY, where YYYY is the full four digit',
+                 '    year, and MMM is the three-letter English month abbreviation.',
+               ],
+               0,
+               1
+             ];
+
+# Yes/No fields
+my $yesno = [ qr/^(:?Yes|No)$/,
+              [
+                '    It must be either \"Yes\" or \"No\".',
+                '   The current value is \"$value\".'
+              ],
+              0,
+              0,
+              undef,
+            ];
+
+# Yes/No/unset fields
+my $yesnounset = [ qr/^(:?Yes|No|--)$/,
+                   [
+                     '    It must be either \"Yes\" or \"No\" or \"--\".',
+                     '   The current value is \"$value\".'
+                   ],
+                   0,
+                   0,
+                   undef,
+                 ];
+
+# Set up full-run checking
+sub benchmark_result_check {
+    my ($mode, $suite, $bench, $iterations) = @_;
+    my @retval = ();
+
+    my %tag2metric = (
+        'int' => 'CINT',
+        'fp'  => 'CFP',
+    );
+    my $metric = $tag2metric{$suite};
+
+    for(my $iter = 0; $iter < $iterations; $iter++) {
+        foreach my $tune (qw(base peak)) {
+            my $k = sprintf('results.%s.%s.%03d.reported_time:', $bench, $tune, $iter);
+            my $v = {
+                'regexp' => qr/^[\d\.]+$/,
+                'text' => '- Submittable results must include at least $iterations ${tune} runs of ${bench}.',
+                'one_match' => 0,
+                'complain_once' => 1,
+                'conditions' => [
+                    [ 'runmode', qr/^\Q${mode}\E\$/ ],
+                    [ 'metric', qr/^\Q${metric}\E2017\$/ ],
+                    [ ${tune}.'mean', qr/^[[:digit:]\\.]+\$/ ],
+                ],
+            };
+            push @retval, $k, $v;
+        }
+    }
+    return @retval;
+}
+
+my @benchmark_checks = ();
+my $minimum_reportable_iterations = 2;
+foreach my $benchref (
+    [ 'rate',  'int', '500_perlbench_r' ],
+    [ 'rate',  'int', '502_gcc_r' ],
+    [ 'rate',  'int', '505_mcf_r' ],
+    [ 'rate',  'int', '520_omnetpp_r' ],
+    [ 'rate',  'int', '523_xalancbmk_r' ],
+    [ 'rate',  'int', '525_x264_r' ],
+    [ 'rate',  'int', '531_deepsjeng_r' ],
+    [ 'rate',  'int', '541_leela_r' ],
+    [ 'rate',  'int', '548_exchange2_r' ],
+    [ 'rate',  'int', '557_xz_r' ],
+    [ 'speed', 'int', '600_perlbench_s' ],
+    [ 'speed', 'int', '602_gcc_s' ],
+    [ 'speed', 'int', '605_mcf_s' ],
+    [ 'speed', 'int', '620_omnetpp_s' ],
+    [ 'speed', 'int', '623_xalancbmk_s' ],
+    [ 'speed', 'int', '625_x264_s' ],
+    [ 'speed', 'int', '631_deepsjeng_s' ],
+    [ 'speed', 'int', '641_leela_s' ],
+    [ 'speed', 'int', '648_exchange2_s' ],
+    [ 'speed', 'int', '657_xz_s' ],
+    [ 'rate',  'fp',  '503_bwaves_r' ],
+    [ 'rate',  'fp',  '507_cactuBSSN_r' ],
+    [ 'rate',  'fp',  '508_namd_r' ],
+    [ 'rate',  'fp',  '510_parest_r' ],
+    [ 'rate',  'fp',  '511_povray_r' ],
+    [ 'rate',  'fp',  '519_lbm_r' ],
+    [ 'rate',  'fp',  '521_wrf_r' ],
+    [ 'rate',  'fp',  '526_blender_r' ],
+    [ 'rate',  'fp',  '527_cam4_r' ],
+    [ 'rate',  'fp',  '538_imagick_r' ],
+    [ 'rate',  'fp',  '544_nab_r' ],
+    [ 'rate',  'fp',  '549_fotonik3d_r' ],
+    [ 'rate',  'fp',  '554_roms_r' ],
+    [ 'speed', 'fp',  '603_bwaves_s' ],
+    [ 'speed', 'fp',  '607_cactuBSSN_s' ],
+    [ 'speed', 'fp',  '619_lbm_s' ],
+    [ 'speed', 'fp',  '621_wrf_s' ],
+    [ 'speed', 'fp',  '627_cam4_s' ],
+    [ 'speed', 'fp',  '628_pop2_s' ],
+    [ 'speed', 'fp',  '638_imagick_s' ],
+    [ 'speed', 'fp',  '644_nab_s' ],
+    [ 'speed', 'fp',  '649_fotonik3d_s' ],
+    [ 'speed', 'fp',  '654_roms_s' ],
+) {
+    push @benchmark_checks, benchmark_result_check(@$benchref, $minimum_reportable_iterations);
+}
+
+# This is a sub to do a little extra checking for the memory size.  It's
+# a lot like $cachesub below, but simpler.
+my $memsub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+
+    return () unless $matched;
+
+    # Check for easily-reduceable numbers and units.  If the regexp didn't
+    # match in the main code, it won't match here; thus the check above.
+    my @gripes = ();
+    my %nextunit = ( 'K'=>'M', 'M'=>'G', 'G'=>'T', 'T'=>'P' );
+    my %prevunit = ( 'M'=>'K', 'G'=>'M', 'T'=>'G', 'P'=>'T' );
+    if ($value =~ /$re/) {
+      my ($size, $unit) = ($1, $2);
+      if ($size > 1023 && int($size / 1024) == ($size / 1024)) {
+          my $newsize = $size / 1024;
+          my $newunits = $unit;
+          $newunits =~ s/^([KMGT])/$nextunit{$1}/;
+          push @gripes, "- Unreduced memory size in the \"$k\" field.";
+          push @gripes, "   \"$size $unit\" should be changed to \"$newsize $newunits\"";
+          push @gripes, '';
+      }
+      if ($size < 1024 && ($size < 1 || int($size) != $size)) {
+          my $newsize = int($size * 1024);
+          my $newunits = $unit;
+          $newunits =~ s/^([KMGT])/$prevunit{$1}/;
+          push @gripes, "- Fractional memory size in the \"$k\" field.";
+          push @gripes, "   \"$size $unit\" should be changed to \"$newsize $newunits\"";
+          push @gripes, '';
+      }
+    }
+    return @gripes;
+};
+
+# Memory.  This is a the basis for the cache
+my $memory = [ qr/^([.\d]+) ([KMGT]B)/,
+               [
+                 '    It must contain leading digits, followed by a space,',
+                 '    and a standard unit abbreviation.  Acceptable',
+                 '    abbreviations are KB, MB, GB, and TB.',
+                 '   The current value is \"$value\".'
+               ],
+               1, # Not all fields need match
+               1, # Don't complain more than once
+               $memsub,
+             ];
+
+# This is a sub to do a little extra checking for cache lines
+my $cachesub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+
+    return () unless $matched;
+
+    # Check for easily-reduceable numbers and units.  If the regexp didn't
+    # match in the main code, it won't match here; thus the check above.
+    my @gripes = ();
+    my %nextunit = ( 'K'=>'M', 'M'=>'G', 'G'=>'T', 'T'=>'P' );
+    my %prevunit = ( 'M'=>'K', 'G'=>'M', 'T'=>'G', 'P'=>'T' );
+    my ($per, @place, @sizes, @units) = ('');
+    my @vals = ($value =~ /$re/);
+    if ($value !~ /;/) {
+      # Business as was usual
+      ($sizes[0], $units[0], $sizes[1], $units[1], $place[0], $per) = @vals[0..5];
+    } else {
+      # The "new" split cache format
+      ($sizes[0], $units[0], $place[0], $sizes[1], $units[1], $place[1]) = @vals[6..11];
+    }
+    for(my $i = 0; $i < 2; $i++) {
+        next unless defined($sizes[$i]) && $sizes[$i] ne '';
+        if ($sizes[$i] > 1023 && int($sizes[$i] / 1024) == ($sizes[$i] / 1024)) {
+            my $newsize = $sizes[$i] / 1024;
+            my $newunits = $units[$i];
+            $newunits =~ s/^([KMGT])/$nextunit{$1}/;
+            push @gripes, "- Unreduced cache size in the \"$k\" field.";
+            push @gripes, "   \"$sizes[$i] $units[$i]\" should be changed to \"$newsize $newunits\"";
+            push @gripes, '';
+        }
+        if (0 &&        # Fractional cache sizes are allowed per trac #765
+            $sizes[$i] < 1024 && ($sizes[$i] < 1 || int($sizes[$i]) != $sizes[$i])) {
+            my $newsize = int($sizes[$i] * 1024);
+            my $newunits = $units[$i];
+            $newunits =~ s/^([KMGT])/$prevunit{$1}/;
+            push @gripes, "- Fractional cache size in the \"$k\" field.";
+            push @gripes, "   \"$sizes[$i] $units[$i]\" should be changed to \"$newsize $newunits\"";
+            push @gripes, '';
+        }
+    }
+
+    return @gripes;
+};
+
+# This is a sub to do a little extra explaining for the 'invalid' field.
+my $invalidsub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+
+    # Return no gripes if the original regexp matched or if we're running
+    # in the harness, since there are more specific checks for
+    # forbiddenused and unknownused later on.
+    return () if ($matched || $value == 0 || defined( $::global_config ));
+
+    my @gripes;
+    # If invalid is 1, suggest that the user check for flags
+    if ($value == 2) {
+        push @gripes, '- The result may have been marked invalid because one or more',
+                      '  flags in the \"unknown\" or \"forbidden\" categories were used.',
+                      '  If this is the case, you may be able to resolve this problem',
+                      '  without re-running your test; see',
+                      '    https://www.spec.org/cpu2017/Docs/runcpu.html#flagsurl',
+                      '  for more information.';
+    }
+
+    return @gripes;
+};
+
+# This is custom logic to ensure that the power analyzer calibration date(s)
+# are within one year of the date of the run.  To make things easy, we define
+# 1 year as 36*6* days of 86,400 seconds each.  The extra day is to make up
+# for possible time zone variations.
+my $cal_date_sub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+
+    return () unless $matched;
+
+    my @gripes = ();
+    if ($value !~ /^\d+-(?:${months_abbr_re}|${months_full_re})-\d{4}/) {
+        push @gripes, (
+            "- The calibration date of the power analyzer was not in the accepted format.",
+            "    It must be DD-MMM-YYYY, where YYYY is the full four digit",
+            "    year, and MMM is the three-letter English month abbreviation.",
+            "   The current value is '$value'.",
+            "",
+        );
+    }
+
+    my $cal_date = str2time($value, 'UTC');
+    if (!defined($cal_date)) {
+        if (@gripes ==0) {
+            # Only complain if we didn't complain about the format already
+            push @gripes, (
+                "- The calibration date of the power analyzer was not in a format that could",
+                "  be parsed.  The date should be formatted as:",
+                "    DD-MMM-YYYY (where MMM is month name or abbreviation in English)",
+                "  The value supplied was '$value'.",
+                "",
+            );
+        }
+        return @gripes;
+    }
+
+    if (!defined($TMPSTR::run_ts)) {
+        push @gripes, (
+            "- There is no run timestamp, so the calibration state of the power analyzer",
+            "  can't be determined.  This error should never happen.",
+            "",
+        );
+        return @gripes;
+    }
+
+    my $cal_age = $TMPSTR::run_ts - $cal_date;
+    if ($cal_age > 366 * 86400) {
+        push @gripes, (
+            "- The power analyzer has not been calibrated within one year of the run.",
+            "  The power analyzer calibration date was ".POSIX::strftime('%Y-%m-%d', CORE::localtime($cal_date)).";",
+            "  the run was done on ".POSIX::strftime('%Y-%m-%d', CORE::localtime($TMPSTR::run_ts)).".",
+            "",
+        );
+    }
+
+    return @gripes;
+};
+
+# This just checks to make sure that the value matched is not just "--"
+my $issetsub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+
+    return () unless $matched;
+
+    # Check for '--'.
+    my @gripes = ();
+    if ($value =~ /^\s*--/) {
+        push @gripes, "- The \"$k\" field must be set to something other than \"--\".";
+        push @gripes, '';
+    }
+
+    return @gripes;
+};
+
+# Yet another common case (must contain _something_ that's not whitespace or --):
+my $nonempty = [ qr/\S+/,
+                 [
+                   '- The $k field must not be empty.'
+                 ],
+                 1, # Not all fields need match
+                 1, # Don't complain more than once
+                 $issetsub,
+               ];
+
+# This just checks to make sure that the value matched is not just "Default"
+my $defaultsub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+
+    return () unless $matched;
+
+    # Check for 'default'.
+    my @gripes = ();
+    if ($value =~ /^\s*default/i) {
+        push @gripes, "- The \"$k\" field must not be set to \"default\".";
+        push @gripes, '';
+    }
+
+    return (@gripes, &{$issetsub}($line, $k, $value, $re, $matched, $one_match_sufficient, $complained, $complain_once, $values));
+};
+
+# Not empty, and not "default"
+my $nodefault = [ qr/\S+/,
+                  [
+                    '- The $k field must not be empty.'
+                  ],
+                  1, # Not all fields need match
+                  1, # Don't complain more than once
+                  $defaultsub,
+                ];
+
+# There are a few of these too (empty or digits only)
+my $emptyordigits = [ qr/^(?:--|\d*)$/,
+                      [
+                        '    It must be either empty or entirely numeric.',
+                        '   The current value is \"$value\".'
+                      ]
+                    ];
+
+my $digitsonly = [ qr/^\d+$/,
+                   [
+                     '    It must be entirely numeric.',
+                     '   The current value is \"$value\".'
+                   ]
+                 ];
+
+# Here's a canned message for all "shouldn't happen" errors:
+my $canthappen = [
+                   '    This is not under user control, and should not happen.',
+                   '   The current value is \"$value\".'
+                 ];
+
+# Here's the sub that checks for (R), (TM), and (SM) in all info fields, and
+# "processor" and "CPU" in hw_cpu_name.
+my $tradesub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+    my @gripes = ();
+
+    # Check for trademark-like characters
+    if (defined($value) && $value =~ /(?:\xAE|\x21\x22|\x84\xA2|\x99|\((?i:r|tm|sm)\))/) {
+        push @gripes, "- Use of trademark marking in \"$k\" field.";
+        push @gripes, '   Please do not use trademark markings like \"(R)\",';
+        push @gripes, '   \"(TM)\", and \"(SM)\".  The bottom of each result has';
+        push @gripes, '   a footer that explains that these marks are your';
+        push @gripes, '   property.  If you must use these markings, do so in';
+        push @gripes, '   the notes section.';
+        push @gripes, '';
+    }
+
+    if ($k =~ /hw_cpu_name/ && defined($value)) {
+        if ($value =~ /processor/i) {
+            push @gripes, "- Use of redundant \"processor\" in \"$k\" field.";
+            push @gripes, '   Please do not use the word "processor" in the CPU';
+            push @gripes, '   name field.  It is implied by context.';
+            push @gripes, '';
+        }
+        if ($value =~ /\bcpu\b/i) {
+            push @gripes, "- Use of redundant \"CPU\" in \"$k\" field.";
+            push @gripes, '   Please do not use the word "CPU" in the CPU';
+            push @gripes, '   name field.  It is implied by context.';
+            push @gripes, '';
+        }
+    }
+
+    return @gripes;
+};
+
+# This is a sub to do a little extra checking for license numbers
+my $licensesub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+    my @gripes = ();
+
+    return () unless $matched;
+
+    if ($value eq '--') {
+        push @gripes, '- License field is blank.  Please use your non-zero',
+                      '   license number here.',
+                      '   Also ensure that all fields relating to tester',
+                      '   identity (tester, test_sponsor) are properly filled out.';
+    } elsif ($value+0 <= 0) {
+        push @gripes, '- Unreasonable value for license.  Please use your';
+        push @gripes, '   non-zero license number here.';
+    }
+
+    return @gripes;
+};
+
+# This is a sub to check for overly long notes lines.  We don't have to
+# worry about notes below the fence, because those don't look like notes.
+my $noteslensub = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+    my @gripes = ();
+
+    return () unless $matched;
+
+    my $maxlen = 120;
+    my $notelen = length($value);
+
+    if ($notelen > $maxlen) {
+        push @gripes, '- The value for '.$k.' is too long ('.$notelen.' characters;';
+        push @gripes, '    the maximum is '.$maxlen.').  Please split the line manually.';
+    }
+
+    return @gripes;
+};
+
+# Temps for multiline fields
+my $compiler_re =
+        qr{
+           # Group 1
+           (
+            (?:C|C\+\+|(?i:Fortran))(?:/C\+\+)?(?i:/Fortran)? # C/C++/Fortran in that order
+            |Libraries                                        # Or libraries for same
+           ):\sVersion
+           \s
+           (?|
+
+           # The expression to match version and name for NON-Intel compilers
+           ([\d_.-]+)                 # Group 2: Versions (0-9, '_', '.', or '-')
+           # Group 3b
+           (?i:\s(Update\s[\d_.-]+))? # Group 3: Optional "Update" info
+           \sof(?!\sIntel\s)          # Exclude " Intel "
+           # Group 4b
+           \s([^;]{3,60})             # Group 4: The name (3-60 characters)
+           # Group 5b
+           (?i:\s(Build [^;]{1,20}))? # Group 5: Optional build vers (1-20 chars)
+
+           |
+
+           # The expression to match version and name for Intel compilers
+           ((?:[\d_-]+\.){3}[\d_-]+)  # Group 2: Versions (0-9, '_', or '-') x 4
+           \sof
+           \s((?>Intel\s)[^;]{0,54})  # Group 3: The name (3-60 characters including "Intel ")
+
+           )
+
+           # Match semicolon followed by whitespace, or end of string
+           (?:;\s*|$)
+          }x;
+
+# All non-L1 caches have the following format (from osgcpu-18620):
+#     number      a string of digits
+#     space
+#     unit        KB, MB, GB, TB
+#     space
+#     type        I or I+D
+#     [optional
+#        " + "
+#        number   a string of digits
+#        space
+#        unit     KB, MB, GB, TB
+#        space
+#        type     D
+#     ]
+#     location    "on chip" or "off chip"
+#     count       "per" whatever
+# Or, as amended by the 1 Nov 2011 minutes:
+#     number      a string of digits
+#     space
+#     unit        KB, MB, GB, TB
+#     space
+#     type        I
+#     location    "on chip" or "off chip"
+#     count       "per <whatever>"
+#     optional    other text added by tester
+#     semicolon   ;
+#     space
+#     number      a string of digits
+#     space
+#     unit        KB, MB, GB, TB
+#     space
+#     type        D
+#     location    "on chip" or "off chip"
+#     count       "per <whatever>"
+#     optional    other text added by tester
+my $cache_re = qr{^(?:None$
+                   # "old" split or unified format
+                   |([.\d]+)\ ([KMGT]B)\ I(?:\+D|\ \+\ ([.\d]+)\ ([KMGT]B)\ D)\ (on|off)\ chip\ per\ (\S+)
+                   # "new" split format
+                   |([.\d]+)\ ([KMGT]B)\ I\ (on|off)\ chip\ per\ \w+[^;]*;\ ([.\d]+)\ ([KMGT]B)\ D\ (on|off)\ chip\ per\ \w+.*
+                   )
+                 }x;
+my $cache_format = [
+                    '    It must either be set to \"None\" or conform to the',
+                    '    following format (in-line spaces are literal):',
+                    '       <digits> <unit> I+D <on|off> chip per <whatever>',
+                    '    for a unified cache, or',
+                    '       <digits> <unit> I + <digits> <unit> D <on|off> chip per <whatever>',
+                    '    or',
+                    '       <digits> <unit> I <on|off> chip per <whatever>[optional text]; <digits> <unit> D <on|off> chip per <whatever>[optional text]',
+                    '    for split caches.',
+                    '    Acceptable values for <unit> are KB, MB, GB, or TB.',
+                   ];
+
+# Error messages and regexps for each of the multi-line or time-dependent fields.  Embedded double quotes in the
+# 'format' fields should be escaped just as they are in the 'text' fields of normal (non-multi-line) entries.
+my %multiline_info = (
+      'sw_compiler' => {
+          'format' => [
+                        '- The compiler description (sw_compiler) is not in the required format.',
+                        '  The required format is',
+                        '      <language>: Version <n.n.n> of <name> [Build <id>] [; ...]',
+                        '    -or- (for the Intel compilers)',
+                        '      <language>: Version <n.n.n.n> of Intel <name> [; ...]',
+                        '    where:',
+                        '    [] indicates optional content;',
+                        '    <language> is any combination of C, C++, or Fortran, in that order,',
+                        '      separated by forward slashes, or the word \"Libraries\";',
+                        '    <n.n.n> is a version string which may consist of numbers, \"_\", \"-\",',
+                        '      and \".\", and may optionally be followed by the word \"Update\" and',
+                        '      another version string (for the Intel compiler, the full four-',
+                        '      number version must be used, and no \"Update\" string is allowed);',
+                        '    <name> may be up to 60 characters;',
+                        '    and <ID> may be up to 20 characters (non-Intel compilers only).',
+                      ],
+          'regexp' => qr/^$compiler_re/,
+      },
+      'hw_pcache' => {
+          'format' => [
+                        '- The primary cache description (hw_pcache) is not in the required format.',
+                        '    It must either be set to \"None\" or conform to the',
+                        '    following format (in-line spaces are literal):',
+                        '       <digits> <unit> I+D <on|off> chip per <chip|core>',
+                        '    for a unified cache, or',
+                        '       <digits> <unit> I + <digits> <unit> D <on|off> chip per <chip|core>',
+                        '    or',
+                        '       <digits> <unit> I <on|off> chip per <whatever>[optional text]; <digits> <unit> D <on|off> chip per <whatever>[optional text]',
+                        '    for split caches.',
+                        '    Acceptable values for <unit> are KB, MB, GB, TB,',
+                        '    or \"<prefix> micro-ops\", and [] indicates optional content.',
+                      ],
+          # Here's the text from osgcpu-18620 which is the basis for the L1 cache memory
+          # regexp.
+          #     number      a string of digits
+          #     space
+          #     unit        KB, MB, GB, TB, or "<prefix> micro-ops"
+          #     space
+          #     type        I or I+D
+          #     [optional
+          #        " + "
+          #        number   a string of digits
+          #        space
+          #        unit     KB, MB, GB, TB
+          #        space
+          #        type     D
+          #     ]
+          #     location    "on chip" or "off chip"
+          #     count       "per core" or "per chip"
+          #     optional    other text added by tester
+          # Amended by the minutes from the 1 Nov 2011 meeting to also allow
+          #     number      a string of digits
+          #     space
+          #     unit        KB, MB, GB, TB, or "<prefix> micro-ops"
+          #     space
+          #     type        I
+          #     location    "on chip" or "off chip"
+          #     count       "per <whatever>"
+          #     optional    other text added by tester
+          #     semicolon   ;
+          #     space
+          #     number      a string of digits
+          #     space
+          #     unit        KB, MB, GB, TB
+          #     space
+          #     type        D
+          #     location    "on chip" or "off chip"
+          #     count       "per <whatever>"
+          #     optional    other text added by tester
+          'regexp' => qr{^(?:None$
+                         # "old" split or unified format
+                         |([.\d]+)\ ([KMGT](?:B|\ micro-ops))\ I(?:\+D|\ \+\ ([.\d]+)\ ([KMGT]B)\ D)\ (on|off)\ chip\ per\ (core|chip))
+                         # "new" split format
+                         |([.\d]+)\ ([KMGT](?:B|\ micro-ops))\ I\ (on|off)\ chip\ per\ \w+[^;]*;\ ([.\d]+)\ ([KMGT]B)\ D\ (on|off)\ chip\ per\ \w+
+                        }x,
+          'logic'  => $cachesub,
+          'one_match' => 1,
+      },
+      'hw_scache' => {
+          'format' => [
+                        '- The secondary cache description (hw_scache) is not in the required format.',
+                        @{$cache_format},
+                      ],
+          'regexp' => $cache_re,
+          'logic'  => $cachesub,
+          'one_match' => 1,
+      },
+      'hw_tcache' => {
+          'format' => [
+                        '- The tertiary cache description (hw_tcache) is not in the required format.',
+                        @{$cache_format},
+                      ],
+          'regexp' => $cache_re,
+          'logic'  => $cachesub,
+          'one_match' => 1,
+      },
+      'hw_ocache' => {
+          'format' => [
+                        '- The other cache description (hw_ocache) is not in the required format.',
+                        @{$cache_format},
+                      ],
+          'regexp' => $cache_re,
+          'logic'  => $cachesub,
+          'one_match' => 1,
+      },
+      'hw_power_[^_]+_cal_date' => {
+          'format' => [
+              '- The power analyzer calibration date is not within the required one year',
+              '  of the time of the run.',
+          ],
+          'regexp' => qr/./,
+          'logic'  => $cal_date_sub,
+      },
+
+      'fw_bios' => {
+          'regexp' => qr/[Vv]ersion\s+\S+.*\s+[Rr]eleased\s+${months_abbr_re}-\d{4}/,
+          'format' => [
+              '- The fw_bios field must include this phrase:',
+              '     \"Version <id> released MMM-YYYY\"',
+              '  where: ',
+              '     \"Version\" (or \"version\") is literal text.',
+              '     \"<id>\" is the version identifier string as seen by customers.',
+              '             The <id> may include multiple words and/or punctuation.',
+              '     \"released\" (or \"Released\") is literal text.',
+              '     \"MMM\" is the three-letter English month abbreviation.',
+              '     \"YYYY\" is the full four digit year.',
+          ],
+          'one_match' => 1,
+      },
+
+);
+my $multiline_re = '(?:' . join('|', sort keys %multiline_info) . ')';
+$multiline_re = qr/$multiline_re/;
+
+# This is a sub to check for proper format in fields where the entire correct
+# format may span multiple lines.
+# This is complicated because the syntax checker goes line-by-line,
+# the tools break long lines, and the format is to be applied to the field
+# as a whole.
+my $multiline_check = sub {
+    my ($line, $k, $value, $re, $matched, $one_match_sufficient, $complained,
+        $complain_once, $values) = @_;
+
+    if ($k =~ /^($multiline_re)([\d_]*)/) {
+        my ($basefield, $idx) = ($1, (defined($2) && $2 ne '') ? $2 + 0 : 0);
+        # Assemble the value that will eventually be checked.  This is pretty
+        # much how the formatter will do it.
+        $TMPSTR::ml{$basefield}->[$idx] = $value;
+        return ();
+    } elsif ($k eq 'time') {
+        $TMPSTR::run_ts = $value + 0;
+    }
+
+    # Since $k doesn't start with one of the multi-line fields, now is the
+    # time to check the accumulated values.
+    my @gripes = ();
+    foreach my $field (sort keys %TMPSTR::ml) {
+        my $actual_field = $field;
+        if (!exists($multiline_info{$field})) {
+            # This shouldn't be possible unless the multiline_info key is a regexp.
+            foreach my $fieldname (sort keys %multiline_info) {
+                if ($field =~ /^$fieldname$/) {
+                    $field = $fieldname;
+                    last;
+                }
+            }
+            if ($actual_field eq $field) {
+                # No match was found; this shouldn't be possible.
+                push @gripes, "- Values for $field were recorded for multiline analysis,",
+                '   but there is no multiline criteria for this field. This',
+                '   is not user error, and should be reported to support.';
+                next;
+            }
+        }
+        my @format = @{$multiline_info{$field}->{'format'}};
+        my $regexp = $multiline_info{$field}->{'regexp'};
+        my $logic = $multiline_info{$field}->{'logic'};
+        my $one_match = $multiline_info{$field}->{'one_match'}+0;
+
+        my @lines = grep { defined } @{$TMPSTR::ml{$actual_field}};
+        my $complete_val = join(' ', @lines);
+        my $did_match = 0;
+        while ($complete_val =~ s/$regexp//) {
+            # Just trimming off bits; for most fields this will happen only once
+            $did_match++;
+        }
+        if ($complete_val ne ''
+                and !($did_match > 0 and $one_match != 0)) {
+            # Because the field regexp either did not completely consume the
+            # value (with one_match unset), or the field regexp didn't match
+            # at all (with one_match set), check each line separately.
+            # If one (one_match==1) or all (one_match==0) match, then that's
+            # okay.
+            foreach my $line (@lines) {
+                if ($line =~ /$regexp/) {
+                    $did_match = 1;
+                    last if $one_match;
+                } else {
+                    $did_match = 0;
+                    last unless $one_match;
+                }
+            }
+
+            if (!$did_match) {
+                # Okay, there has been a failure.
+                push @gripes, @format,
+                              '  The current value is:',
+                              (map { '  \"'.$_.'\"' } @lines),
+                              '';
+            }
+        }
+
+        # Let the custom logic have a crack at it
+        if (ref($logic) eq 'CODE') {
+            my $complete_val = join(' ', @lines);
+            my $reconstructed_line = "$actual_field: ".join(' ', @lines);
+            push @gripes, &{$logic}($reconstructed_line, $actual_field, $complete_val, $regexp, $did_match, $one_match_sufficient, $complained, $complain_once, $values);
+        }
+
+        delete $TMPSTR::ml{$field};
+    }
+    undef $TMPSTR::run_ts;
+
+    return @gripes;
+};
+
+# These fields should be checked during review.  (As always.)
+%syntax = (
+    ##
+    ## Settings that the tools insert:
+    ##
+        'basemean:'     => [ qr/^[.\d]+$/,
+                             [ '- Submittable results must include a base run.',
+                               '    The basemean ($value) is missing or not valid.'
+                             ]
+                           ],
+        'metric:'       => [ qr/^C(?:INT|FP|PU)2017/, $canthappen ],
+        'size:'         => [ qr/(?:\(ref\)$|^ref(?: |$))/,
+                             [ '- Submittable runs must use the reference workload.',
+                               '    Runs using the \"$value\" workload are not submittable.'
+                             ]
+                           ],
+        'rawconfig000:' => [ qr/^[\*\@\&]\S{76}$/,
+                             [ '- The stored config file is corrupt.',
+                               '    This is not under user control, and should not happen.'
+                             ]
+                           ],
+        'invalid:'      => {
+                             'regexp'      => qr/^0$/,
+                             'text'        => '- This result is not from a valid reportable run.',
+                             'custom_test' => $invalidsub,
+                           },
+# TODO: Make check for patch version that indicates release (not dev, not RC)
+        'suitever:'     => {
+            'regexp' => qr/^(?:1\.0*1\.)/,        # UPDATE
+            'text'   => [
+                "- Reportable runs must use a release version of $::suite that is approved by SPEC.",
+            ],
+        },
+        'suitehash:'    => { # UPDATE
+            'regexp' => qr/^(?:
+                # 1.1.0
+                b25abf27d82d454c588e551b3fef2a204e90b98ecb9bf3380eec985d2f7cdf08f4dd7812c89420c8f23453ff9a76d1110c9b8a0371d5b442323cf8a268f1e222
+                |
+                # 1.0.5
+                08a9e418c4b0d70f48f6fa9d654a73f76038d318bd07b3247d6a375f17a510ae54f229a04ba989ce8a5b7df7d8ebae6c621f0c0c1789a2c8dac51aa5506828e7
+                |
+                # 1.0.2
+                b35a359a7afa12098c87aae249def6ea0e30e328237301515e4098c14b0e480529446e7ab941f25030e7a6f219bf1f19991cdd74ee35b1d541a801e926801269
+                |
+                # 1.0.1
+                57999aa40d97247704fb719e908d5748fbac9686ffa4c3e4340ef8855a61f91bd14d89b6e269d7f3b1d1e8fdb16265223e373c1205f616dcfb4811b0b40d3ccf
+                |
+                # 1.0.0
+                5388702c542843c918545e2be657a7a7750f1a2cc30f6872568defa8df60ab2cd4352a42ba37e9071a32eeee4d92f72087e0bd2060d4d685a979fca936fa0044
+            )$/x,
+            'text'   => [
+                '- For reportable runs, the SPEC-supplied content must not be changed.',
+                '    The reported suite hash value of',
+                '     $value',
+                '    does not match any on record as being acceptable for submission.',
+            ],
+        },
+
+    ##
+    ## Dates (all set by the user):
+    ##
+        'test_date\d*:' => $availre,
+        'hw_avail\d*:'  => $availre,
+        'sw_avail\d*:'  => $availre,
+
+    ##
+    ## Suite information (set by the user):
+    ##
+        'license_num\d*:' => [ qr/^\d+[aA]?$/,
+                               [
+                                 '    It must be numeric, with or without a trailing \"A\".',
+                                 '   The current value is \"$value\".'
+                               ],
+                               0, # All fields must match
+                               0, # Complain more than once if necessary
+                               $licensesub
+                             ],
+
+    ##
+    ## Hardware information for the SUT
+    ##
+        'hw_cpu_name\d*:'       => [ qr/\S+/,
+                                     '- The $k field must not be empty.',
+                                     0,
+                                     0,
+                                     $tradesub
+                                   ],
+        'hw_cpu_nominal_mhz\d*:'=> $digitsonly,
+        'hw_cpu_max_mhz\d*:'    => $digitsonly,
+        'hw_disk\d*:'           => $nonempty,
+        'hw_memory\d*:'         => $memory,
+        'hw_model\d*:'          => $nonempty,
+        'hw_nchips\d*:'         => $digitsonly,
+        'hw_ncores\d*:'         => $digitsonly,
+        'hw_nthreadspercore\d*:'=> $digitsonly,
+        'hw_ncpuorder\d*:'      => [ qr/(?:\d+[-,]*)+ \S+/,
+                                     [
+                                        '    The value must contain a number, list of',
+                                       '    numbers, or range of numbers, followed by a unit.',
+                                        '   The current value is \"$value\".'
+                                     ]
+                                   ],
+        'hw_other\d*:'          => { 'regexp' => qr/\S+/,
+                                     'text' => [
+                                                 '    The value must be non-blank.  If you are not using',
+                                                 '    any other hardware relevant to SPEC CPU performance,',
+                                                 '    you can say \"None\" here.'
+                                               ],
+                                   },
+        'hw_pcache\d*:'         => { 'regexp' => qr/./,  # See $multiline_check
+                                     'text' => [
+                                                 @{$multiline_info{'hw_pcache'}->{'format'}},
+                                                 '  No value for hw_pcache was specified.',
+                                                 ''
+                                               ],
+                                    'custom_test' => $multiline_check,
+                                    'one_match'   => 0, # Check every line
+                                  },
+        'hw_scache\d*:'         => { 'regexp' => qr/./,  # See $multiline_check
+                                     'text' => [
+                                                 @{$multiline_info{'hw_scache'}->{'format'}},
+                                                 '  No value for hw_scache was specified.',
+                                                 ''
+                                               ],
+                                    'custom_test' => $multiline_check,
+                                    'one_match'   => 0, # Check every line
+                                  },
+        'hw_tcache\d*:'         => { 'regexp' => qr/./,  # See $multiline_check
+                                     'text' => [
+                                                 @{$multiline_info{'hw_tcache'}->{'format'}},
+                                                 '  No value for hw_tcache was specified.',
+                                                 ''
+                                               ],
+                                    'custom_test' => $multiline_check,
+                                    'one_match'   => 0, # Check every line
+                                  },
+        'hw_ocache\d*:'         => { 'regexp' => qr/./,  # See $multiline_check
+                                     'text' => [
+                                                 @{$multiline_info{'hw_ocache'}->{'format'}},
+                                                 '  No value for hw_ocache was specified.',
+                                                 ''
+                                               ],
+                                    'custom_test' => $multiline_check,
+                                    'one_match'   => 0, # Check every line
+                                  },
+        'hw_vendor\d*:'         => $nonempty,
+
+    ##
+    ## Software information and system state for the SUT
+    ##
+        'fw_bios\d*:'          => { 'regexp' => qr/./,  # See $multiline_check
+                                    'text' => [
+                                                @{$multiline_info{'fw_bios'}->{'format'}},
+                                                '  No value for fw_bios was specified.',
+                                                ''
+                                              ],
+                                    'custom_test' => $multiline_check,
+                                    'one_match'   => 0, # Check every line
+                                  },
+
+        'power_management:'          => {
+            'regexp' => qr/./,
+            'text' => [
+                '    This field is used to briefly summarize any non-default settings for',
+                '    power management, whether set in BIOS, firmware, operating system, or',
+                '    elsewhere.',
+                '    Details of the settings are in the power notes section of the result.',
+            ],
+            'conditions' => [ [ 'suitever', qr/^1\.[1-9]/ ] ],
+        },
+
+        'sw_compiler\d*:'      => { 'regexp' => qr/./,  # See $multiline_check
+                                    'text' => [
+                                                @{$multiline_info{'sw_compiler'}->{'format'}},
+                                                '  No value for sw_compiler was specified.',
+                                                ''
+                                              ],
+                                    'custom_test' => $multiline_check,
+                                    'one_match'   => 0, # Check every line
+                                  },
+
+        # This is a hack to make sure the final check on multi-line fields
+        # (like sw_compiler and hw_[opst]cache) is done; 'time' is an arbitrary
+        # selection; the only criteria are that 1) it must be present in every
+        # raw file, 2) it must be "below the fence", and 3) must have a name
+        # that sorts lexically after the last multi-line field (currently
+        # 'sw_compiler').  Acutally #2 isn't absolutely necessary since the
+        # keys are currently sorted before checking, but the combination of #2
+        # and #3 ensure that the check will be done after all sw_compiler
+        # fields have been seen even if that sorting isn't done beforehand.
+        'time:'                => { 'regexp' => qr/^\d+(?:\.\d+)?$/,
+                                    'custom_test' => $multiline_check, # Not a mistake
+                                    'text' => 'The time field is missing.',
+                                  },
+
+        'sw_file\d*:'          => $nodefault,
+        'sw_os\d*:'            => $nonempty,
+        'sw_base_ptrsize\d*:'  => [ qr#^(?:32|64|32/64)-bit$#,
+                                    [
+                                      '    The value must be either \"32-bit\",',
+                                      '    \"64-bit\", or \"32/64-bit\".',
+                                      '   The current value is \"$value\".'
+                                    ],
+                                  ],
+        'sw_other\d*:'         => [ qr/^(?!--)\S+/,
+                                    [
+                                      '    The value must be non-blank and may not begin with \"--\".',
+                                      '    If you are not using any other software relevant to SPEC',
+                                      '    CPU performance, you must say \"None\" here.'
+                                    ]
+                                  ],
+        'sw_peak_ptrsize\d*:'  => [ qr#^(?:(?:32|64|32/64)-bit|Not Applicable)$#,
+                                    [
+                                      '    The value must be either \"32-bit\",',
+                                      '    \"64-bit\", \"32/64-bit\", or \"Not Applicable\".',
+                                      '   The current value is \"$value\".'
+                                    ],
+                                  ],
+        'sw_state\d*:'         => $nonempty,
+        'sw_parallel:'         => { 'regexp' => qr/(?:--|No)/,
+                                    'text' => [
+                                        '    Compilation flags indicating use of OpenMP or auto-parallelization',
+                                        '    were used for this SPECrate run.  This is not allowed; see',
+                                        "      https://www.spec.org/$::lcsuite/Docs/config.html#sectionIII.B",
+                                        '    and',
+                                        "      https://www.spec.org/$::lcsuite/Docs/flag-description.html#section3.10",
+                                    ],
+                                    'conditions' => [
+                                        [ 'runmode', qr/^rate$/ ],
+                                    ]
+                                  },
+
+    ##
+    ## Power-related fields for runs done with power measurement enabled
+    ##
+        'hw_power_[^_]+_cal_date:'      => {
+            'regexp' => qr/./,  # See $multiline_check
+            'text' => [
+                '    No value for $k was specified.',
+            ],
+            # Goes through multiline check so that $cal_date_sub will be run after the run timestamp is known.
+            'custom_test' => $multiline_check,
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_power_[^_]+_cal_label:'     => {
+            'regexp' => qr/^./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The number or character string that uniquely identifies the calibration',
+                '    event must be provided.  This may appear on the calibration certificate',
+                '    or on a label affixed to the power analyzer.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_power_[^_]+_cal_org:'       => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The name of the organization that performed the power analyzer calibration',
+                '    according to the standards defined by the national metrology institute must',
+                '    be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_power_[^_]+_connection:'    => {
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The method by which the SUT is connected to the power analyzer must be',
+                '    specified.',
+            ],
+            'regexp' => qr/./,
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_power_[^_]+_met_inst:'      => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The name of the national metrology institute which specifies the calibration',
+                '    standards for power analyzers appropriate for the location where the test',
+                '    was run must be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_power_[^_]+_model:'         => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The model name or number of the power analyzer used must be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_power_[^_]+_serial:'        => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The serial number of the power analyzer used must be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_power_[^_]+_setup:'         => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    A description of the device or devices measured by this power analyzer',
+                '    must be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_power_[^_]+_vendor:'        => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The name of the manufacturer of the power analyzer used must be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_psu\d*:'                       => {
+            'regexp' => qr/^\d+ x \d+ W \((?:non-)?redundant\)/,
+            'text' => [
+                '    The number and output rating in watts of the power supplies used must be',
+                '    included, as well as whether they are in a redundant configuration or not.',
+                "    The value must be '<num> x <rating> W <redundant|non-redundant>[...]'.",
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_psu_info\d*:'                  => {
+            'regexp' => qr/^./,
+            'text' => [
+                '    The description and customer-orderable part number for the power supplies',
+                '    used must be provided.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_backplane\d*:'                 => {
+            'regexp' => qr/^./,
+            'text' => [
+                '    The description and customer-orderable part number for the backplane',
+                "    installed must be provided, or 'N/A' if no different backplane options",
+                '    are available.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_other_model\d*:' => {
+            'regexp' => qr/\S+/,
+            'text' => [
+                '    The value must be non-blank.  If there is no other',
+                '    power-consuming hardware present not contributing to',
+                '    SPEC CPU performance, you can say \"None\" here.'
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_other_storage:'             => {
+            'regexp' => qr/^./,
+            'text' => [
+                '    Number and model numbers of storage devices installed but not used for',
+                "    running the benchmark must be provided, or 'None' if none were installed.",
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_nics\d*:'                      => {
+            'regexp' => qr/^\d+ x .* \@ \d+ .+/,
+            'text' => [
+                '    Number, model numbers, and maximum speeds of network interfaces installed',
+                '    must be provided.',
+                "    The value must be '<num> x <model> @ <speed> <units>[...]'.",
+                '   The current value is \"$value\".',
+            ],
+            'one_match'  => 1,
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_nics_enabled:'              => {
+            'regexp' => qr/^\d+ \/ \d+$/,
+            'text' => [
+                '    The number of NICs enabled in firmware and the number configured in the OS',
+                '    must be provided.',
+                "    The value must be '<num enabled in firmware> / <num configured in OS>'.",
+                '   The current value is \"$value\".',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_nics_connected\d*:'            => {
+            'regexp' => qr/^\d+ \@ \d+ .+/,
+            'text' => [
+                '    The number of NICs physically connected and the negotiated speeds must be',
+                '    provided.',
+                "    The value must be '<num> \@ <speed> <unit>'.",
+                '   The current value is \"$value\".',
+            ],
+            'one_match'  => 1,
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_memory_mode:'               => {
+            'regexp' => qr/^(?:N\/A|Normal|Mirrored|Spare|Other \(.*\))$/,
+            'text' => [
+                '    The operating mode of the memory must be provided.',
+                "    The value must be one of 'N/A', 'Normal', 'Mirrored', 'Spare',",
+                "    or 'Other (<explanation>)'.",
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'fw_management\d*:'                => {
+            'regexp' => qr/(?:^None$|[Vv]ersion\s+\S+.*\s+of\s+\S+)/,
+            'text' => [
+                '- The fw_management field describes the version of system management firmware installed, and must be one of:',
+                '     \"None\" (if there is no system controller, BMC, or other management device)',
+                '  or must contain the phrase',
+                '     \"Version <id> of <...>\"',
+                '  where: ',
+                '     \"Version\" is literal text.',
+                '     \"<id>\" is the version identifier string as seen by customers.',
+                '             The <id> may include multiple words and/or punctuation.',
+                '     \"of\" is literal text.',
+                '     \"<...>\" is the customer-orderable identifier or name of the',
+                '             firmware and may include multiple words and/or punctuation.',
+            ],
+            'one_match' => 1,
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_line_standard:'                     => {
+            'regexp' => qr/^(?:N\/A$|\d+ V \/ (?:DC|\d+ Hz \/ \d+ phase) \/ \d+ wire)/,
+            'text' => [
+                '- The hw_line_standard field describes the power line standard in use to feed',
+                '  the SUT. It must be one of:',
+                '     \"N/A\" (if the system is battery-powered)',
+#                '     \"<num> V / DC / <num> wire\" (if the system is DC powered)',
+                '     \"<num> V / <num> Hz / <num> phase / <num> wire\"',
+            ],
+            'one_match' => 1,
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_power_provisioning:'                => {
+            # According to 3.9.2, "Battery-powered" is not acceptable
+#            'regexp' => qr/^(?:(?:Line|Battery)[-\s]powered|Other \(.+\))$/,
+            'regexp' => qr/^(?:Line[-\s]powered|Other \(.+\))$/,
+            'text' => [
+                '- The hw_power_provisioning field describes how the SUT is powered.  It',
+                '  must be one of:',
+                '     \"Line-powered\"',
+#                '     \"Battery-powered\"',
+                '     \"Other (<explanation>)\"',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'test_elevation:'                       => {
+            'regexp' => qr/^\d+$/,
+            'text' => [
+                '- The elevation (in meters) of the location where the test took place must',
+                '  be provided.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+        },
+        'hw_temperature_[^_]+_connection:'      => {
+            'regexp' => qr/^./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The interface used to read the temperature data from the sensor must be',
+                '    specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_temperature_[^_]+_model:'           => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The model name or number of the temperature sensor used must be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+# I don't think that requiring temperature sensor serial number adds value
+#        'hw_temperature_[^_]+_serial:'          => {
+#            'regexp' => qr/./,
+#            'text' => [
+#                '    No value for $k was specified.',
+#                '',
+#                '    The serial number of the temperature sensor used must be specified.',
+#            ],
+#            'conditions' => [ [ 'power', qr/^1$/ ] ],
+#            'one_match'   => 0, # Check every line
+#        },
+        'hw_temperature_[^_]+_setup:'           => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    A description of the device or devices measured by this temperature sensor,',
+                '    as well as the approximate location of the sensor, must be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+        'hw_temperature_[^_]+_vendor:'          => {
+            'regexp' => qr/./,
+            'text' => [
+                '    No value for $k was specified.',
+                '',
+                '    The name of the manufacturer of the temperature sensor used must be specified.',
+            ],
+            'conditions' => [ [ 'power', qr/^1$/ ] ],
+            'one_match'   => 0, # Check every line
+        },
+
+    ##
+    ## General restrictions
+    ##
+        '[hs]w_\S+:'           => [ qr/.?/,
+                                    [],
+                                    0,
+                                    0,
+                                    $tradesub,
+                                  ],
+
+    ##
+    ## Notes length check
+    ##
+        'notes_*.*?_*\d+:' => {
+            'regexp'      => qr/.?/,
+            'text'        => ' ', # The standalone tool wants this not empty
+            'one_match'   => 0, # Check every line
+            'custom_test' => $noteslensub,
+        },
+
+    ##
+    ## Ensure that there are results for at least the minimum number of iterations for
+    ## all benchmarks.
+    ## Since this is coming from an array, leave it at the end so that if it doesn't
+    ## contain an even number of entries it won't mess up subsequent entries in the
+    ## syntax checker hash.
+        @benchmark_checks,
+
+);
+
+# These fields are internally-generated "dummy" fields, and never exist in
+# any file.  They should not be included when the syntax file is used by
+# the website submission handler.
+if( defined( $::global_config ) ) {
+
+    $syntax{'forbiddenused:'}   = [ qr/^0$/,
+                                    [
+                                      '- Forbidden flags were used!',
+                                    ],
+                                  ];
+    $syntax{'unknownused:'}     = [ qr/^0$/,
+                                    [
+                                      '- Your run was marked invalid because it has one or more flags',
+                                      '  in the \"unknown\" category. You might be able to resolve this',
+                                      '  problem without re-running your test; see',
+                                      "    https://www.spec.org/${main::lcsuite}/Docs/runcpu.html#flagsurl",
+                                      '  for more information.',
+                                    ],
+                                  ];
+}
+
+1;
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab mouse= colorcolumn=120:

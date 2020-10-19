@@ -1,0 +1,1030 @@
+#!/$SPEC/bin/specperl
+# Summarize benchmark successes & failures, help start the
+# preparation of SPEC porter's progress reports
+#
+# Copyright 2004-2019 Standard Performance Evaluation Corporation
+#
+#  Authors: John Henning, Cloyce Spradling
+#
+# $Id: port_progress 6275 2019-07-06 03:35:17Z CloyceS $
+#
+# History:
+# J. Henning 25 Nov 2002
+# update 6-Dec: pick up additional dir info
+# update 19-Apr: accept kit52 format of build error message;
+#                get list of benchmarks from bset.
+# update 10 Mar 2005: add ability to search by config file
+# cds 16 Apr 2005: modified to work with new and old rundir format
+#                  formatted directory lists more nicely
+#                  made strict clean
+#                  made less CPU-centric
+#                  eliminated use of backticks
+#                  other misc. meddling & performance improvement
+# jh/cds 2 Jun 2005: Allow for multiple suites/multiple benchsets
+# jh 22 mar 2006: add -q; adjust a regexp for reportable runs
+# cds 11 sep 2006: Add support for multi-workload runs
+#                  Don't mask early failures with later successes (for example,
+#                  if train1 fails and train2 succeeds, the failure should
+#                  still be noted)
+# cds 19 apr 2007: DO mask early failures with later successes because that's
+#                  what people want.
+#                  Fix bug introduced with multi-workload support where in-
+#                  progress runs got _no_ marking.
+# ...time passes...
+# cds 14 Aug 2012: Replaced print_wrapped with Text::Wrap::wrap
+# cds 3 Jun 2013:  Sort input files by mod time; add -a option
+# cds 21 Aug 2013: Add optional power reporting
+# jh/cds 7 Apr 2014: Select by benchmark or benchset name
+##################################################################
+
+#------------------------------------------------------------------------
+# preliminaries
+BEGIN {
+   if ($ENV{'SPEC'} eq '' || ! -d $ENV{'SPEC'}) {
+      die "Fatal: please ensure that the SPEC environment variable is set correctly.\n" .
+      "  Use: \$ source shrc\n   or: % source cshrc\n   or: C:\\> shrc.bat\n";
+   }
+   unshift @INC, "$ENV{SPEC}/bin", "$ENV{SPEC}/bin/lib";
+}
+
+use strict;
+use warnings;  # At least a while, due to degree of changes. -jh 4/2014
+use File::Basename;
+use Data::Dumper;
+use Getopt::Long;
+use Sys::Hostname;
+use Text::Wrap;
+require "vars_common.pl";  # For $::suite
+require "util_common.pl";  # For $::suite
+
+$Text::Wrap::unexpand = 0;
+$Text::Wrap::huge = 'overflow';
+
+#------------------------------------------------------------------------
+# globals that might be useful to adjust
+$Text::Wrap::columns = 80;
+my $bmark_len        = 15; # minimum number columns for benchmark names
+#my $debug            = "r";  # f=file info, b=build, r=run, R=report
+my $debug            = 0;
+my $separator        = "-"x79 . "\n";  # minimum
+my $verbose          = 3;
+my $width_ok_log     = 150;   # if log lines too narrow, regexp's may miss essential data
+
+#------------------------------------------------------------------------
+# other globals
+our (# hashes         key                                       content
+   %bad,            # {bmark}                                   1 if error
+   %bmarks_seen,    # {label.tune.bmark}                        status code
+   %detail,         # {bmark/label/tune/size}{code|time|power}  status, seconds, degrees
+   %error_logs,     # {bmark}{build|run}{log#}                  1 if error
+   %label_seen,     # {label}                                   1 if seen -and- matches any label regexp
+   %error_dir,      # {bmark/log#}{build|run}{path}             1 if error
+   %opts,           # options for getopts                       various
+   %runcpu,         # {log#}                                    runcpu: line
+   %summary,        # {benchmark}                               all human readable data for that bmark
+   %tunes,          # {base/peak}                               non-zero if seen -and- requested by user
+   %versions_seen,  # suite version(s) of logs analyzed         count per version (not used)
+   %systems_seen,   # hostname(s) from logs analyzed            count per hostname (not used)
+);
+
+our ( # arrays
+   @benchmarks,     # all benchmarks that we know about
+   @bmk_regexp,     # pieces of regexp to look for benchmarks
+   @tunes,          # %tunes made into array, contents present ONLY if user wants that tune.
+);
+
+our (
+   $bmark_regexp,
+   $config,
+   $longest_label,
+   $msg_codes_fixup,
+   $msg_fingerprint_please,
+   $msg_portability_flags_please,
+   $msg_usage_detail,
+   $msg_width_warning,
+   $table_width,
+   $version,
+);
+
+my $BASE0                  = basename $0;
+my $bmark_regexp_printable = "";
+my $number_logs_scanned    = 0;
+my $regexp_rate            = '^5';
+my $regexp_speed           = '^6';
+my $regexp_norate          = '^[^5]';
+my $regexp_nospeed         = '^[^6]';
+my $regepx_notwoXX         = '^[^2]';
+my $regexp_twoXX           = '^2';
+my $width_warned           = 0;
+
+
+#------------------------------------------------------------------------
+# main code begins here
+
+whine_init();
+%opts = (
+   'all'       => 0,           # Glob all the logs automatically?
+   'base'      => 1,           # Do show columns for base
+   'benchset'  => [],
+   'benchmark' => \@bmk_regexp,
+   'bmsort'    => 1,
+   'dev'       => 0,           # See below for default
+   'help'      => 0,
+   'peak'      => 1,           # Do show columns for peak
+   'power'     => 0,           # Output power for selected runs
+   'quiet'     => sub { $_[1] ? $verbose-- : $verbose++; },
+   'qq'        => sub { $verbose = $verbose - 2;  }, # undocumented
+   'qqq'       => sub { $verbose = $verbose - 3;  }, #   "
+   'qqqq'      => sub { $verbose = $verbose - 4;  }, #   "
+   'rate'      => sub { push @{$opts{'benchset'}}, 'specrate'; },
+   'speed'     => sub { push @{$opts{'benchset'}}, 'specspeed'; },
+   'status'    => 1,           # Output status for selected runs (you can't really turn this off)
+   'times'     => 0,           # Output times for selected runs
+   'twoXX'     => sub { push @{$opts{'benchset'}}, 'openmp'; },
+   'verbose'   => sub { $_[1] ? $verbose++ : $verbose--; },
+);
+
+# where are we?
+
+if (open(IN, "<$ENV{'SPEC'}/version.txt")) {
+   $version = <IN>;
+   $version =~ tr/\012\015//d;
+   if ($version =~ /^(\d+(?:\.\d*)?).*/) {
+      if (is_devel($1)) {
+         # It's a development kit; set opts appropriately
+         $opts{'dev'}   = 1;
+         $version = 'kit '.$1;
+      } else {
+         # Release or unknown
+         $version = 'v'.$version;
+      }
+   }
+} else {
+   # Just assume it's not a dev build
+   $version = basename($ENV{'SPEC'});
+}
+
+# what are we doing?
+
+my $rc = GetOptions (\%opts, qw(
+                     all|a
+                     base!
+                     benchmark|b=s@
+                     benchset|set|S=s@
+                     bmsort!
+                     config|c=s
+                     dev|development!
+                     help|h
+                     label|L=s
+                     peak!
+                     power!
+                     quiet|q!
+                     qq
+                     qqq
+                     qqqq
+                     rate!
+                     skipNT!
+                     speed!
+                     table
+                     times!
+                     twoXX!
+                     verbose!
+                    ));
+
+die "Unknown options; try --help for help" unless $rc;
+
+if ($opts{'help'}) {
+   print $msg_usage_detail;
+   exit;
+}
+
+for my $s (qw(config label)) {
+   if (defined $opts{$s} && $opts{$s} =~ m{^-}) {
+      print "Please specify a value for --$s\n  (Found '$opts{$s}' which looks like another switch, not a value for $s)\n";
+      exit;
+   }
+}
+for my $s (qw(benchmark benchset)) {
+   if (defined $opts{$s}[0] && $opts{$s}[0] =~ m{^-}) {
+      print "Please specify a value for --$s\n  (Found '$opts{$s}[0]' which looks like another switch, not a value for $s)\n";
+      exit;
+   }
+}
+
+$opts{'base'} || $opts{'peak'} || die "Don't use --nobase and --nopeak at the same time.\n";
+
+my %width = (
+   'times' => 5,            # 4 digits + space, or 'LONG '
+   'power' => 6,            # 4 digits + 'W ' or ' OVER '
+   'status' => 3,           # 2 chars + space
+);
+
+# Make up the benchset selector regexp
+my $bset_regexp = join('|', map { split(/[\s,]+/) } @{$opts{'benchset'}});
+if ($bset_regexp ne '') {
+   $bset_regexp = qr/$bset_regexp/i;
+} else {
+   undef $bset_regexp;
+}
+
+# Get list of benchmarks
+our $output;
+my @bsets = <$ENV{SPEC}/benchspec/[CMOAG]*/*.bset>;
+my %benchmarklist;
+foreach my $bset (@bsets) {
+   $output = 0;
+   do "$bset";
+   #next unless $output;
+   map { $benchmarklist{$_}++ } @benchmarks;
+   if (defined($bset_regexp) && $bset =~ /$bset_regexp/) {
+      push @bmk_regexp, (map { qr/\Q$_\E/ } @benchmarks);
+   }
+}
+@benchmarks = sort by_base_benchmark keys %benchmarklist;
+
+if (@bmk_regexp) {
+   $bmark_regexp_printable = join('|', @bmk_regexp);
+   print "Looking for benchmarks that match '$bmark_regexp_printable'\n" if ($verbose > 1 && !defined($bset_regexp));
+   $bmark_regexp = qr/$bmark_regexp_printable/i;
+}
+
+# If no explicit direction given, guess whether to skip non-tested benchmarks
+if (! defined $opts{'skipNT'}) {
+   if ($bmark_regexp || ($verbose < 2)) {
+      $opts{'skipNT'} = 1;
+   } else {
+      $opts{'skipNT'} = 0;
+   }
+}
+
+read_logs (identify_logs(@ARGV));
+
+print_main_table();
+
+if (! $opts{'table'}) { # --table means ONLY the table
+   print $msg_codes_fixup unless $verbose < 3;
+   print $msg_portability_flags_please unless $verbose < 2;
+   print_pointers_to_logs();
+}
+
+exit;
+
+#------------------------------------------------------------------------
+sub boring_bmark { # return true if this benchmark is not worth reporting
+   my $bmark = shift;
+   return 1 if defined($bmark_regexp) && $bmark !~ m{$bmark_regexp};
+   return 0;
+}
+
+#------------------------------------------------------------------------
+sub boring_label { # return true if label not worth reporting
+   my $label = shift;
+   return 1 if (defined($opts{'label'}) and ($label !~ m/$opts{'label'}/o));
+   return 0;
+}
+
+#------------------------------------------------------------------------
+sub by_base_benchmark { # sort by last two digits of the benchmark
+   if ($opts{'bmsort'}) {
+      (my $an = $a) =~ s/^\d(\d{2})\..*/$1/;
+      (my $bn = $b) =~ s/^\d(\d{2})\..*/$1/;
+      if (defined($an) && defined($bn)) {
+         return $an <=> $bn || $a cmp $b;
+      }
+   }
+
+   return $a cmp $b;
+}
+
+#------------------------------------------------------------------------
+sub compose_summary_lines {
+   foreach my $bmark (@benchmarks) {
+      print "considering whether $bmark is interesting\n" if $debug =~ m/R/;
+      $summary{$bmark} = "";
+      next if boring_bmark ($bmark);
+      foreach my $label (sort keys %label_seen) {
+         die "Wait, '$label' should have been ignored long ago" if boring_label($label);
+         foreach my $tune (@tunes) {
+            for(my $i = 1; $i <= 3; $i++) {
+               # $i is a hack to be able to tell how far into the columns we
+               # are without rearchitecting everything.
+               my $size_class = (qw(test train ref))[$i - 1];
+               my $detail_key = $bmark . "/" . $label . "/" . $tune . "/" . $size_class;
+               if (defined($detail{$detail_key}) && exists($detail{$detail_key}->{'code'})) {
+                  $summary{$bmark} .= sprintf '%*s', -1 * $width{'status'}, $detail{$detail_key}->{'code'};
+               } elsif (exists($bmarks_seen{$label.$tune.$bmark})) {
+                  if ($bmarks_seen{$label.$tune.$bmark} =~ m/^(CE|b\?|FE|NB)/) {
+                     # Regardless of what we've recorded previously for test
+                     # (or train), this build failure must be reported as the
+                     # overall status.
+                     my $current_width = ($i > 1) ? $width{'status'} * ($i - 1) : 0;
+                     substr($summary{$bmark}, -$current_width) = '' if $current_width;
+                     $summary{$bmark} .= sprintf "%*s", -($width{'status'} * $i), $bmarks_seen{$label.$tune.$bmark};
+                     $bmarks_seen{$label.$tune.$bmark} = "AlreadyPrintedCE";
+                  } elsif ($bmarks_seen{$label.$tune.$bmark} eq "built") {
+                     $summary{$bmark} .= sprintf '%*s', -1 * $width{'status'}, 'NR'; # Built, but this tune didn't run
+                  } else {
+                     $summary{$bmark} .= ' ' x $width{'status'}; # Build failed, already noted
+                  }
+               }
+               else {
+                  # This shouldn't happen, but at least make the spacing work out
+                  $summary{$bmark} .= ' ' x $width{'status'};
+               }
+            }
+            if ($opts{'times'} || $opts{'power'}) {
+               my %accum = ();
+               foreach my $thing (qw(times power)) {
+                  $accum{$thing} = [];
+                  foreach my $size_class (qw(test train ref)) {
+                     my $detail_key = $bmark . "/" . $label . "/" . $tune . "/" . $size_class;
+                     if (defined($detail{$detail_key}) && exists($detail{$detail_key}->{$thing})) {
+                        push @{$accum{$thing}}, sprintf '%*s', $width{$thing}, $detail{$detail_key}->{$thing};
+                     } else {
+                        push @{$accum{$thing}}, ' ' x $width{$thing};
+                     }
+                  }
+                  $summary{$bmark} .= ' '. join('', @{$accum{$thing}}) if $opts{$thing};
+               }
+            }
+            $summary{$bmark} .= ' ';
+         }
+         $summary{$bmark} .= ' ';
+      }
+   }
+}
+
+#------------------------------------------------------------------------
+sub identify_logs { # figure out what logs we are going to process
+   my @list           = @_;
+   my $printable_list = join " ", @list;
+   if (! $opts{'all'} && ! @list) {
+      die "\nPlease specify some logs to read, -or- use '-a'\n";
+   }
+   if ($opts{'all'}) {
+      push @list, glob('*.log');
+      die "\nNo log files found in directory:\n   $ENV{'PWD'}\n\n" if (@list == 0);
+   }
+
+   # silently support arguments separated by commas - a natural form
+   # when identifying logs numerically:   701-799,850-899
+   for (my $i = 0; $i < @list; $i++) {
+      if ($list[$i] =~ m/(.*),(.*)/) {
+         splice @list, $i, 1, ($1, $2);
+      }
+   }
+
+   if ($^O =~ /MSWin/i) {
+      # Go through @list looking for '*' and run those items through
+      # glob to get them expanded.
+      for(my $i = 0; $i < @list; $i++) {
+         if ($list[$i] =~ /\*/) {
+            splice @list, $i, 1, glob($list[$i]);
+         }
+      }
+   }
+
+   # allow logs to be identified by number
+   for (my $i = 0; $i < @list; $i++) {
+      my $low  = "";
+      my $high = "";
+      if ($list[$i] =~ m/^([0-9]+)$/) {
+         $low = $high = $1;
+      } elsif ($list[$i] =~ m/^([0-9]+)-([0-9]+)$/) {
+         $low = $1;
+         $high = $2;
+      } elsif ($list[$i] =~ m/^([0-9]+)-$/) {  # undocumented feature: you can say 22- and get logs 22..last
+         $low = $1;
+         my $lock = "lock." . $::suite;
+         if (-r $lock) {
+            $high = qx(cat $lock);
+            $high =~ tr/\012\015//d;
+         } else {
+            $high = $low;
+            warn ("could not read $lock, so reporting $low to $high");
+         }
+      }
+      if ($low ne "") {
+         my @more;
+         for (my $j = $low; $j <= $high; $j++) {
+            my $filename = sprintf "$::suite.%03d.log", $j;
+            push @more, $filename if -e $filename;
+         }
+         splice @list, $i, 1, @more;
+         #print (scalar @list), "\n";
+      }
+   }
+
+   # Squash duplicates http://perldoc.perl.org/perlfaq4.html
+   my %hash   = map { $_, 1 } @list;
+   @list = keys %hash;
+
+   # remove non-existent files
+   @list = grep { -f $_ } @list;
+
+   if (@list == 0) {
+      die "\nNo logs found matching:\n   $printable_list\n";
+   }
+
+   # Sort the file list by modification time
+   return sort { -M $b <=> -M $a } @list;
+
+}
+
+#------------------------------------------------------------------------
+sub my_pluralize { # Save some space by eliminating the parentheses on items that
+                # may or may not be plural.
+   my ($txt, $num) = @_;
+   $txt .= ($num == 1) ? '' : 's';
+   return $txt;
+}
+
+#------------------------------------------------------------------------
+sub print_main_table {
+   if ($verbose > 0) {
+      print "port_progress from SPEC $::suite $version (running on ".hostname." on " . scalar(localtime) . ")\n";
+      my $me = getlogin();
+      $me    = "(unknown)" if ! $me;
+      print "Reporter: $me\n";
+      print "Versions tested: ".join(', ', sort keys %versions_seen)."\n";
+      print "Systems tested: ".join(', ', sort keys %systems_seen)."\n";
+      print "\n";
+   }
+   #
+   # some preliminary matters
+   #
+   $bmark_len++;      # add one so even longest bmark has single space after it
+   @tunes           = sort keys %tunes; # should be _only_ requested tunes
+   $longest_label   = 0;                # should be _only_ requested labels
+   foreach my $label (sort keys %label_seen) {
+      die "how did '$label' get here?" if boring_label($label);
+      $longest_label = length $label if length $label > $longest_label;
+   }
+   my $header = prepare_main_header();
+   compose_summary_lines();
+   #
+   # found anything interesting?
+   #
+   my $empty = 1;
+   for my $bmark (keys %summary) {
+      if ($summary{$bmark} =~ m{\S}o) {
+         $empty = 0;
+         last;
+      }
+   }
+   if ($empty) {
+      if ($number_logs_scanned == 0) {
+         print "Did not find any logs to scan. [Did you forget to say '-a'?]\n";
+      } else {
+         print "Scanned $number_logs_scanned logs, but ";
+         if ($bmark_regexp_printable) {
+            print "no data found matching requested benchmarks:\n   $bmark_regexp_printable\n";
+            return;
+         } elsif (defined($opts{'label'})) {
+            print "no data found matching requested labels:\n   $opts{'label'}\n";
+         } else {
+            print "no useful data found\n"; 
+         }
+         return;
+      }
+   }
+   #
+   # control reaches here only if something useful to say
+   #
+   print $header;
+   foreach my $bmark (@benchmarks) {
+      next if $opts{'skipNT'} && ($summary{$bmark} =~ m/^\s*$/);
+      printf "%*s", -1 * $bmark_len, $bmark;
+      print $summary{$bmark}, "\n";
+   }
+}
+
+#------------------------------------------------------------------------
+sub prepare_main_header {
+#
+#                  ---------------------------------------------------  <-- $label_underline
+#                  apr09a-m64-less                                      <-- label (may be wrapped)
+#                  ---------------------------------------------------  <-- $label_underline
+#                  Base                      Peak
+#                  ------------------------- -------------------------
+#                  Status    Times           Status    Times            <-- info type
+#                  --------- --------------- --------- ---------------
+#                  Te Tr Ref Te   Tr   Ref   Te Tr Ref Te   Tr   Ref    <-- sizes
+#                  -- -- --- ---- ---- ----  -- -- --- ---- ---- ----
+# 520.omnetpp_r    S  S  S     78  497 5035  S  S  S     46  198 3452
+# 521.wrf_r        S  S  S    470 3110 LONG  S  S  S    209 1335 8063
+# 523.xalancbmk_r  S  S  S      0  639 4799  S  S  S      0  212 1984
+#                  ^______observation_____^                         ^
+#                  ^____________________segment_____________________^
+
+   my $out                = "";
+   my $observation_width  = 0;
+   $observation_width    += $width{'status'} * 3;
+   $observation_width    += ($opts{'times'} * ($width{'times'} * 3 + 1));
+   $observation_width    += ($opts{'power'} * ($width{'power'} * 3 + 1));
+   my $segment_wid        = $observation_width * @tunes + (@tunes - 1); # if needed, chop label into hunks this long
+   #
+   # make formatted labels and underlines for labels
+   my $label_underline = ' ' x $bmark_len;
+   my $numlabels       = 0;
+   foreach my $label (sort keys %label_seen) {
+      die "wait, unwanted '$label' should not be here" if boring_label($label);
+      $label_underline .= sprintf '%s  ', '-' x $segment_wid; # Two spaces between labels
+      $numlabels++;
+   }
+   $label_underline =~ s{\s+$}{}; # but no need for trailing space
+   $label_underline .= "\n";
+   $table_width   = length $label_underline;
+   $out .= $label_underline;
+   # break label across lines if needed:.................... if non-zero remainder, need 1 more line
+   my $num_label_lines  = int ($longest_label / $segment_wid) + ($longest_label % $segment_wid ? 1 : 0);
+   for (my $nsegment_printed = 0; $nsegment_printed < $num_label_lines; $nsegment_printed++) {
+      $out .= (' ' x $bmark_len);
+      foreach my $label (sort keys %label_seen) {
+         my $start = ($nsegment_printed * $segment_wid);
+         if ($start >= length $label) {
+            $out .= sprintf '%*s ', ($segment_wid + 1), "";
+         } else {
+            $out .= sprintf '%*s ', -1 * ($segment_wid + 1), substr($label, $start, $segment_wid);
+         }
+      }
+      $out .= "\n";
+   }
+   $out .= $label_underline;
+   #
+   # make labels and underlines for tuning
+   my $tmp = join(' ', map { sprintf("%*s", -1 * $observation_width, ucfirst($_)) } @tunes).'  ';
+   my $und = join(' ', map { '-' x $observation_width } @tunes).'  ';
+   $out .= ((' ' x $bmark_len).($tmp x $numlabels)."\n");
+   $out .= ((' ' x $bmark_len).($und x $numlabels)."\n");
+   #
+   # make labels for info type and their underlines
+   if ($opts{'times'} || $opts{'power'}) {
+      my @labels = map { ($_->[0]) ? sprintf('%*s', -1 * $_->[0], $_->[1]) : undef }
+        ([ $width{'status'} * 3,                  'Status' ],
+         [ $width{'times'}  * 3 * $opts{'times'}, 'Times'  ],
+         [ $width{'power'}  * 3 * $opts{'power'}, 'Power'  ]);
+      $tmp = (((join(' ', grep { defined } @labels)).' ') x @tunes).' ';
+      $out .= ((' ' x $bmark_len).($tmp x $numlabels)."\n");
+      @labels = map { ($_) ? ('-' x $_) : undef }
+        ($width{'status'} * 3,
+         $width{'times'}  * 3 * $opts{'times'},
+         $width{'power'}  * 3 * $opts{'power'});
+      $tmp = (((join(' ', grep { defined } @labels)).' ') x @tunes).' ';
+      $out .= ((' ' x $bmark_len).($tmp x $numlabels)."\n");
+   }
+   #
+   # make size labels and their underlines
+   $tmp = $und = '';
+   # benchmrk summary lines left-justify status codes and right-justfiy 
+   # numeric time / power values.  Do the same for headings.
+   if ($opts{"status"}) {
+      foreach my $size (qw(Te Tr Ref)) {
+         my $thiswidth = max( ($width{"status"} - 1), length $size);
+         $tmp .= sprintf '%*s ', -1 * $thiswidth, $size;
+         $und .= sprintf '%*s ', -1 * $thiswidth, ('-' x $thiswidth);
+      }
+   }
+   foreach my $thing (qw(times power)) {
+      if ($opts{$thing}) {
+         foreach my $size (qw(Te Tr Ref)) {
+            my $thiswidth = $width{$thing} - 1;
+            $tmp .= sprintf ' %*s', $thiswidth, $size;
+            $und .= sprintf ' %*s', $thiswidth, ('-' x $thiswidth);
+         }
+         $tmp .= ' '; # One space between data columns
+         $und .= ' ';
+      }
+   }
+   $tmp = (($tmp) x @tunes).' '; # Plus one (= two!) space between labels
+   $und = (($und) x @tunes).' ';
+   $out .= ((' ' x $bmark_len).($tmp x $numlabels)."\n");
+   $out .= ((' ' x $bmark_len).($und x $numlabels)."\n");
+
+   return $out;
+}
+
+#------------------------------------------------------------------------
+sub print_pointers_to_logs {
+   my $heading_width = ($table_width > length $separator)  ? $table_width : length $separator;
+   my $top    = "\n" . ("=" x $heading_width) . "\n";
+   my $bottom =        ("-" x $heading_width) . "\n";
+
+   if ($width_warned) { # also include in this report
+      print "\n$msg_width_warning\n";
+   }
+
+   my $firstlogs = 1;
+   foreach my $bmark (sort by_base_benchmark keys %bad) {
+      next if boring_bmark ($bmark);
+      print $top;
+      printf "%*s", -1 * $bmark_len, $bmark;
+      print $summary{$bmark}, "\n";
+      print $bottom;
+      print "*** Fingerprint needed for: $bmark\n\n";
+      unless ($verbose < 1) { # If you want to go find them yourself, then set super quiet
+         foreach my $type (qw(build run)) {
+            if (ref($error_logs{$bmark}->{$type}) eq 'HASH') {
+               print "Please analyze $type failures in logs: \n";
+               foreach my $log (sort keys %{$error_logs{$bmark}->{$type}}) {
+                  my $dirkey = $bmark . '/' . $log;
+                  my @dirs = sort keys %{$error_dir{$dirkey}->{$type}};
+                  my $dirline = my_pluralize('  Dir', @dirs + 0).': ';
+                  my $newline = print_simplified_runcpu_line($log, $runcpu{$log}, $dirline.join(', ', @dirs));
+                  if ($newline) {
+                     print wrap((' ' x 12).$dirline,
+                        (' ' x (length($dirline) + 12)),
+                        join(', ', @dirs))."\n";
+                  } else {
+                     print $dirline.join(', ', @dirs)."\n";
+                  }
+               }
+               if ($firstlogs) {
+                  $firstlogs = 0;
+                  print $msg_fingerprint_please unless $verbose < 2;
+               }
+            }
+         }
+      }
+   }
+}
+
+#------------------------------------------------------------------------
+sub print_simplified_runcpu_line {
+# Subroutine to chop out everything EXCEPT the essential switches
+# in the runcpu command line.  Do this by removing the first part,
+# which usually looks like this:
+#    /export/home/john/cpu2017/kit92/bin/harness/runcpu
+# and by removing the names of the things that we are running
+# and switches that we don't care about
+# and finally by chopping it down to just the first 72 characters
+
+   my ($log, $simplified, $next_header) = @_;
+
+   $simplified =~ tr/\012\015//d;
+   $simplified =~ s@.*run(?:cpu|spec) @@;   #chop off beginning of line
+   $simplified =~ s/-I//g;          #and switches we don't care about
+   $simplified =~ s/-n 1//g;
+   $simplified =~ s/-o \S+//g;
+   $simplified =~ s/--loose//g;
+   $simplified =~ s/-l//g;
+   $simplified =~ s/--nobuild//g;
+   # Convert all nnn.bmark to just nnn
+   $simplified =~ s/(\d{3})\.\S+/$1/g;
+   $simplified =~ tr/ / /s;  # reduce multiple spaces to 1
+   $simplified =~ s/ +$//;    # and chop any off end
+   $simplified = substr $simplified,0,72;
+   my $line = "   $log  $simplified";
+   print $line;
+   if (length($line.$next_header) > 80) {
+      print "\n";
+      return 1;
+   }
+   return 0;
+}
+
+#------------------------------------------------------------------------
+sub read_logs {
+   my ($build_dir, $bmark, $comparing_dir, $copycount, $curr_log_num, $detail_key, $label, $tune);
+   my @running_dirs; # e.g. run_peak_ref_apr18a-m32-less.0023
+   FILE:
+   for my $file (@_) {
+      if (! open LOG, "<$file") {
+         warn "could not open $file: $!\n";
+         next FILE;
+      }
+      $number_logs_scanned++;
+      # 
+      # If we are being selective about benchmarks, pre-scan, to avoid useless columns 
+      # in final report, and to avoid capturing data that will never be used.
+      if (defined $bmark_regexp) { 
+         my $boring = 1;
+         while (my $line = <LOG>) {
+            my $bmark;
+            if ($line =~ m/^\s+Building (\d{3}\.\S+) /o) { 
+               $bmark = $1; 
+            } elsif ($line =~ m/^\s+Running (?:\(#\d+\) )?(\d{3}\.\S+) /o) { 
+               $bmark = $1;
+            } else { 
+               next;
+            }
+            if (! boring_bmark($bmark) ) {
+               $boring = 0;
+               last;
+            }
+         }
+         close LOG;
+         next FILE if $boring;
+         if (! open LOG, "<$file") {
+            warn "could not re-open $file: $!\n";
+            next FILE;
+         }
+      }
+      #
+      # the real scan
+      my $fail_intentional = '';
+      while (my $line = <LOG>) {
+         $line =~ tr/\012\015//d; # Platform-agnostic chomp()
+         if ($line =~ m/^runcpu:/o) {   # Tuck away runcpu lines
+            print "runcpu:'$line'\n" if $debug;
+            $config = "none";
+            if ($line =~ m/-c\s+(\S+)/) {
+               $config = $1;
+            } elsif ($line =~ m/-co(?:n|nf|nfi|nfig)(?:\s+|=)(\S+)/) {
+               $config = $1;
+            }
+            print "    config='$config'\n" if $debug;
+            next FILE if ($line =~ m/--fake/);
+            if (defined $opts{'config'} && !($config =~ /$opts{'config'}/o)) {
+               next FILE;
+            }
+            ($curr_log_num = $file) =~ s/\Q$::suite\E\.(\d+(?:\.\d+)?)\.log$/$1/o;
+            $runcpu{$curr_log_num} = $line;
+         } elsif ($line =~ m/^runcpu v.*on "([^"]+)"$/) {
+            $systems_seen{$1}++;
+         } elsif ($line =~ m/^suite: (\S+) (.*)/) {
+            if ($1 ne $::suite) {
+               print "Warning: using port_progress from $::suite may not work on log files from $1 ($file)\n";
+            }
+            $versions_seen{$2}++;
+         } elsif ($line =~ m/^label\s*=\s*(\S+)/) {
+            $label = $1;
+            next FILE if boring_label ($label);  #  note: no support here for SINGLE runcpu with multiple labels
+            $label_seen{$label} = 1;
+         } elsif ($line =~ m/^\s*log_line_width\s*=\s*(\d+)/) {
+            if ($1 > 0 && $1 < $width_ok_log && !$width_warned) { # 0=unlimited=default
+               warn $msg_width_warning;
+               $width_warned=1;
+            }
+         } elsif ($line =~ m/^ERROR: fail or fail_(build|run) set/) {
+            $fail_intentional = $1;
+            $build_dir = 'unknown' unless defined($build_dir);
+         } elsif ($line =~ m/^\s+Building (\d{3}\.\S+) (base|peak) (\S+) /) {
+            #  Building 113.pthhmmer base aug09a-m64 default: (build_base_aug09a-m64.0000)
+            # Building 557.xz_r base jan06c-m64-less-gnu: (build_base_jan06c-m64-less-gnu.0000) [2016-01-06 18:35:44]
+            ($bmark, $tune, $label) = ($1, $2, $3);
+            $label =~ s/:$//; # when then "machine" specifier went away, unwanted punctuation crept in.  Drop it.
+            $fail_intentional = '';
+            next FILE if boring_label ($label);  #  note: no support here for SINGLE runcpu with multiple labels
+            $label_seen{$label} = 1;  # do not record that we saw it until after deciding that it is non-boring!
+            print "Building:'$line'\n" if $debug =~ m/b/;
+            $bmark_len = length $bmark if (length $bmark > $bmark_len);
+            $tunes{$tune}++ if $opts{$tune};
+            $bmarks_seen{$label.$tune.$bmark} = "b? "; # we started building...
+         } elsif ($line =~ m{^Wrote to makefile.*/(build|run)/(\S+)/Makefile}o) {
+            $build_dir = $2;
+            print "makefile:'$line'\n" if $debug =~ m/b/;
+         } elsif ($line =~ m/^\*\*\* Error.* build.*(\d{3}\.\S+)(?: (\S+))?/o) {
+            ($bmark, $tune)              = ($1, $2);
+            $build_dir = 'unknown' unless defined($build_dir);
+            print "errbld:'$line'\n" if $debug =~ m/b/;
+            $tunes{$tune}++ if $opts{$tune};
+            if ($fail_intentional eq 'build') {
+               # fail_build set; no status
+               $bmarks_seen{$label.$tune.$bmark} = "NB ";
+            } else {
+               if (! defined($label)) { print "$file: $line\n"; }
+               $bmarks_seen{$label.$tune.$bmark} = "CE ";  # might become FE later
+               $bad{$bmark}                    = 1;
+               $error_logs{$bmark}->{'build'}->{$curr_log_num} = 1;
+               my $dirkey                     = $bmark . "/" . $curr_log_num;
+               $error_dir{$dirkey}->{'build'}->{$build_dir}++;
+            }
+         } elsif ($line =~ m/^Build errors(?: for \S+)?: (.*)/) {
+            # Build errors: 110.pparest(base; CE)
+            # Build errors: 130.pfluid(peak; FE), 150.pdedup(peak; FE)
+            (my @err) = split ",", $1;
+            print "blderr:'$line'\n" if $debug =~ m/b/;
+            next if $err[$#err] =~ m{nobuild};
+            for my $err (@err) {
+               next if $err eq 'None';
+               ($bmark, $tune, my $code) = ($err =~ m/(\d{3}\..*)\((peak|base);\s+(..)\)/);
+               $tunes{$tune}++ if $opts{$tune};
+               if (!defined($bmarks_seen{$label.$tune.$bmark}) 
+                     or $bmarks_seen{$label.$tune.$bmark} eq '' 
+                     or $bmarks_seen{$label.$tune.$bmark} eq 'b?'
+               ) {
+                  $bmarks_seen{$label.$tune.$bmark} = "$code ";
+               }
+               print "$bmark $tune $label code:'$code'\n" if $debug =~ m/b/;
+            }
+         } elsif ($line =~ m/^Build successes(?: for \S+)?: (.*)/) {
+            # Build successes: 255.odrops2(base)
+            # Build successes: 253.ojohnripper(base), 253.ojohnripper(peak), 501.bzip2(base), 501.bzip2(peak)
+            (my @ok) = split ",", $1;
+            print "bldsuc:'$line'\n" if $debug =~ m/b/;
+            for my $ok (@ok) {
+               next if $ok eq 'None';
+               ($bmark, $tune) = ($ok =~ m/(\d{3}\..*)\((peak|base)/);
+               $tunes{$tune}++ if $opts{$tune};
+               $bmarks_seen{$label.$tune.$bmark} = "built";
+            }
+         } elsif ($line =~ m/Up to date (\d\d\d\.\S+) (base|peak) (\S+)/) {
+            #Up to date 603.bwaves_s base mar10h-m64
+            $bmark = $1;
+            $tune = $2;
+            $label = $3;
+            $tunes{$tune}++ if $opts{$tune};
+            $bmarks_seen{$label.$tune.$bmark} = "built";
+         } elsif ($line =~ m/^\s+Running (?:\(#\d+\) )?(\d{3}\.\S+) (\S+)(?: \((\S+)\))? (\S+) (\S+)/o) {
+            #   Running 483.xalancbmk train base mar17c default
+            #   Running (#1) 483.xalancbmk ref base mar17c default
+            #   Running 129.tera_tf mref (ref) base apr19a default
+            #   Running (#1) 129.tera_tf mref (ref) base apr19a default
+            ($bmark, my $size, my $size_class, $tune, $label) = ($1, $2, $3, $4, $5);
+            print "Running:'$line'\n" if $debug =~ m/r/;
+            $tunes{$tune}++ if $opts{$tune};
+            $fail_intentional = '';
+            next FILE if boring_label ($label);  #  note: no support here for SINGLE runcpu with multiple labels
+            $label_seen{$label} = 1;  # do not record that we saw it until after deciding that it is non-boring!
+            $size_class     = $size unless defined($size_class);
+            $detail_key     = $bmark . "/" . $label . "/" . $tune . "/" . $size_class;
+            @running_dirs   = ();
+            $comparing_dir  = "";
+            $copycount      = 0;
+         } elsif ($line =~ m/^\s+-C (.*)/) { # Record directories used during a run
+            my $tmpdir = $1;
+            print "dashC:'$line'\n" if $debug =~ m/r/;
+            $tmpdir =~ s|^.*/$bmark/run/||;
+            $copycount += 0;        # Convert to number (if it isn't already)
+            $running_dirs[$copycount] = $tmpdir;
+            $copycount++;
+         } elsif ($line =~ m/^(\S+): copy #?(\d+) non-zero return code/) {
+            $bmark     = $1;
+            my $copy   = $2;
+            print "nz:'$line'\n" if $debug =~ m/r/;
+            my $dirkey = $bmark . '/' . $curr_log_num;
+            $error_dir{$dirkey}->{'run'}->{$running_dirs[$copy]}++;
+         } elsif ($line =~ m{^comparing files in '.*?/run/(.+?)'$}o) {
+            $comparing_dir = $1;
+            print "comparing:'$line'\n" if $debug =~ m/r/;
+         } elsif ($line =~ m/^\s*(?:\*\*\* Miscompare|Compare command returned|Contents of compare.err)/o) {
+            # If there are miscompares or compare cmd failures, save the directories
+            print "miscomp:'$line'\n" if $debug =~ m/r/;
+            my $dirkey = $bmark . '/' . $curr_log_num;
+            if (defined $comparing_dir && $comparing_dir ne '') { # Directory name could be empty because we only pay attention to
+               # miscompares in RUN directories (not build directories, as happens # with feedback errors)
+               $error_dir{$dirkey}->{'run'}->{$comparing_dir}++;
+            }
+            # Error 998.rand base train ratio=-0.00, runtime=0.002653, power=40.00W, temp=21.22 degC, humidity=55.56%, errorcode=VE
+            # Success 999.specrand base train ratio=-0.00, runtime=0.006962, power=40.00W, temp=21.22 degC, humidity=55.56%
+            # Run 999.specrand base train ratio=-0.00, runtime=0.002646, power=40.00W, temp=21.22 degC, humidity=55.56%
+            # Error 510.parest_r base refrate ratio=4.87, runtime=538.468693, copies=1, threads=1, power=0.00W, temp=0.00 degC, humidity=0.00%, errorcode=VE
+         } elsif ($line =~ m/^\s*(Error|Run|Success) (\d{3}\.\S+) (\S+) (\S+) ratio=\S+\s+runtime=([-\d\.]+)(?:, copies=\d+, threads=\d+)?(?:, power=([\d\.]+)W)?.*?(?:, errorcode=([A-Z?]{2}))?$/o) {
+            my ($what, $bmark, $tune, $size, $elapsed, $power, $errcode) = ($1, $2, $3, $4, $5, $6, $7);
+            print "ratio:'$line'\n" if $debug =~ m/r/;
+            if ($debug =~ m/r/) {
+               my $e = defined($errcode) ? $errcode : '';
+               print "what:'$what' bmark:'$bmark' tune:'$tune' size:'$size' elapsed:'$elapsed' power:'$power' errcode:'$e'\n" 
+            }
+            if ($elapsed < 0) {
+               # This is an error, even if the tools thought it was a success
+               $errcode = 'TE';
+               $what    = 'Error';
+            }
+            $errcode                           = 'r?' if (!defined($errcode) or $errcode eq '');
+            $power                             = 0 if ! defined $power;
+            if (!defined($detail_key)) {
+               if (defined($bmark) and defined($label) and defined($tune) and defined($size)) {
+                  $detail_key  = $bmark . "/" . $label . "/" . $tune . "/" . $size;
+               } else {
+                  warn "I got confused trying to parse $file, moving to next file";
+                  next FILE;
+               }
+            }
+            $detail{$detail_key}->{'times'}    = ($elapsed > 9999) ? 'LONG' : sprintf '%d', $elapsed;
+            $detail{$detail_key}->{'power'}    = ($power > 9999) ? 'OVER' : sprintf '%d', $power;
+            $detail{$detail_key}->{'power'}   .= ($errcode eq 'PE') ? '*' : 'W';
+            $tunes{$tune}++ if $opts{$tune};
+            if ($what eq 'Run') {
+               # "Run" most resembles an error in that we don't know for sure
+               # that it succeeded (== would validate), but we don't need to
+               # go pointing at the run directory.
+               $detail{$detail_key}->{'code'}     = 'R?';
+            } elsif ($what eq 'Error') {
+               if ($fail_intentional eq 'run') {
+                  # fail set; no status
+                  $detail{$detail_key}->{'code'}     = 'NR';
+               } else {
+                  $detail{$detail_key}->{'code'}     = $errcode;
+                  if ($errcode ne 'PE' and $errcode ne 'EE') {
+                     # Runs with power or environment errors are not going leave any evidence in the run directory.
+                     # Also, they're only kinda bad.
+                     $bad{$bmark}             = 1;
+                     $error_logs{$bmark}->{'run'}->{$curr_log_num} = 1;
+                  }
+               }
+            } elsif ($what eq 'Success') {
+               $detail{$detail_key}->{'code'}     = 'S';
+            }
+         }
+      }
+   }
+}
+
+#------------------------------------------------------------------------
+# This subroutine name alphabetizes near the end; thus, various user msgs
+# are handy via scroll-to-bottom.
+sub whine_init { # init various complaints and messages
+
+   $msg_codes_fixup = <<EOF;
+
+In the report above, please replace the user name
+with either your real name or a disguise.  Please
+replace the labels at the top of the table
+with something more meaningful (e.g. "64-bit with
+Big Optimizations").
+
+Please replace:
+   "r?" by the appropriate run-time error code
+        (such as RE, VE, RM, VM, etc)
+   "b?" by the appropriate build-time error code
+        (such as CE, FE, CM, FM, etc)
+See codes list on SPEC's private server in
+  ... cpu/cpu2017/Failure_guidelines.html
+
+In the report section below, please replace the
+references to log file numbers with an approriate
+excerpt from the logfile to show the "fingerprint".
+
+Thanks!
+EOF
+
+   $msg_fingerprint_please = <<EOF;
+
+NOTE:
+At minimimum, a failure fingerprint MUST be provided.
+
+You are encouraged to go beyond that and figure out solutions -- for example,
+you might propose a portability fix.
+
+Once you have the fingerprint, remove the above lines about log numbers (they
+will not be of interest to your readers), replacing them with your summary and
+recommendation.
+
+You can also remove the line "Fingerprint needed for..." once you have
+actually provided one.
+
+EOF
+
+   $msg_portability_flags_please = <<EOF;
+$separator
+
+                     P---------+
+                     O  flags  |
+                     R---------+
+                     T
+                     A
+                     B
+                     I
+                     L
+                     I
+                     T
+                     Y
+Please record your ==+== here!
+
+$separator
+
+EOF
+
+   $msg_usage_detail = <<EOF;
+$0: Summarize portability successes and problems
+Usage: $BASE0 [options] log...
+       Reference logs by name or number; these do the same thing:
+          $BASE0 $::suite.020.log $::suite.02[789].log
+          $BASE0 20 27-29
+Options                                                    (alternate spelling)
+ --all                       Process all logs in current directory         (-a)
+ --[no]base                  [Do not] report on base
+ --benchmark bmark[,...]     Report on matching benchmarks                 (-b)
+ --benchset set[,...]        Report on matching benchsets            (--set|-S)
+ --[no]bmsort                Sort by last two digits of benchmark number
+ --config file               Restrict to matching config file(s)           (-c)
+ --[no]dev                   Set options appropriate for development kits
+ --label string              Restrict to matching binary label(s)          (-L)
+ --[no]peak                  Exactly what you think it means
+ --power                     Print average power
+ --quiet                     Be brief                                      (-q)
+ --rate                      Synonym for -S specrate
+ --speed                     Synonym for -S specspeed
+ --[no]skipNT                Be silent about benchmarks Not Tested
+ --table                     Print ONLY the summary table
+ --times                     Print runtimes
+ --twoxx                     Synonym for -S openmp
+ --verbose                   Be more discursive and voluminous
+EOF
+
+   $msg_width_warning = <<EOF;
+
+  *******************************************
+  * This procedure provides more detail about
+  * status if log_line_width is at least
+  *     $width_ok_log
+  * One or more logs had a smaller value.
+  *******************************************
+
+EOF
+}
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=3 tabstop=8 expandtab nosmarttab colorcolumn=120:

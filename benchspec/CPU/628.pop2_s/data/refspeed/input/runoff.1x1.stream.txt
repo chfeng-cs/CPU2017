@@ -1,0 +1,46 @@
+<streamstemplate>
+      <general_comment>
+         streams template for dlnd in CCSM4
+      </general_comment>
+<stream>
+      <comment>
+         Stream description file for Dai-Trenberth 1 degree runoff
+      </comment>
+      <dataSource>
+         NCAR OCE
+      </dataSource>
+      <domainInfo>
+         <variableNames>
+            time          time
+            xc            lon
+            yc            lat
+            area          area
+            mask          mask
+         </variableNames>
+         <filePath>
+            ./
+         </filePath>
+         <fileNames>
+            runoff.daitren.annual.090225.nc
+         </fileNames>
+      </domainInfo>
+      <fieldInfo>
+         <variableNames>
+            runoff roff
+         </variableNames>
+         <filePath>
+            ./
+         </filePath>
+         <fileNames>
+            runoff.daitren.annual.090225.nc
+         </fileNames>
+      </fieldInfo>
+      <!-- Information on the program that created this file -->
+      <build_streams_documentation>
+         This CCSM stream text file was created by build_streams using the command line:
+               /cesm1_0_2/scripts/ccsm_utils/Tools/build_streams -t dlnd.template.streams.xml -s RUNOFF.RX1   
+         For more information on build_streams:  
+             /cesm1_0_2/scripts/ccsm_utils/Tools/build_streams -help          
+      </build_streams_documentation>
+</stream>
+</streamstemplate>

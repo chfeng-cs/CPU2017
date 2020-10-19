@@ -1,0 +1,1523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <title>Overview - CPU 2017</title>
+      <!-- You'll want a nice wide screen when editing this .......................................................................... -->
+
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+      <style type="text/css">
+td.fineprint { width:20%;font-size:85%; vertical-align:middle;}
+.newterm {font-style:italic; font-weight:bold;}
+.contentsrl1     {padding:2px 8px; margin:12px 0em 5px .1em; font-size:110%; line-height:1.3; font-family:sans-serif; color:#eeeeef; background:#446688; }
+.contentsrl2     {margin:3px 0em 3px 1.8em; text-indent:-1em; line-height:1.3; } 
+.question        { margin: 1.5em 1em .2em 3em; text-indent:-1em; }
+.answer          { margin: .2em  1em .5em 3em; text-indent:0;}
+      </style>
+   </head>
+   <body>
+
+
+      <h1>SPEC CPU&reg;2017 Overview / What's New? </h1>
+      <table class="version">
+         <tr>
+            <th>$Id: overview.html 6356 2019-08-16 18:27:23Z JohnHenning $</th>
+            <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+         </tr>
+      </table>
+
+
+
+      <p class="l1">This document introduces SPEC CPU&reg;2017 via a series of questions and answers.   SPEC CPU 2017 is a
+      product of the SPEC&reg; non-profit corporation <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  
+      </p>
+
+      <table  class="noborder">
+         <tr>
+            <td>
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;"
+                                                                    href="#AboutBenchmarks">Benchmarks: good, bad, difficult, and standard</a></p>
+               <p class="contentsrl2"><a href="#Q1" >Q1.</a> What is SPEC?                                        </p>
+               <p class="contentsrl2"><a href="#Q2" >Q2.</a> What is a (good) benchmark?                          </p>
+               <p class="contentsrl2"><a href="#Q3" >Q3.</a> What are some common benchmarking mistakes?          </p>
+               <p class="contentsrl2"><a href="#Q4" >Q4.</a> Should I benchmark my own application?               </p>
+               <p class="contentsrl2"><a href="#Q5" >Q5.</a> Should I use a standard benchmark?                   </p>
+
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;" href="#Basics">
+                  SPEC CPU 2017 Basics</a></p>
+               <p class="contentsrl2"><a href="#Q6" >Q6.</a> What does SPEC CPU 2017 measure?                      </p>
+               <p class="contentsrl2"><a href="#Q7" >Q7.</a> Should I use CPU 2017? Why or why not?                </p>
+               <p class="contentsrl2"><a href="#Q8" >Q8.</a> What does SPEC provide?           </p>
+               <p class="contentsrl2"><a href="#Q9" >Q9.</a> What must I provide?      </p>
+               <p class="contentsrl2"><a href="#Q10">Q10.</a> What are the basic steps to run CPU 2017?  </p>
+               <p class="contentsrl2"><a href="#Q11">Q11.</a> How long does it take?  Is it longer than CPU 2006?</p>
+
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;" href="#SuitesAndBenchmarks">
+                  Suites and Benchmarks</a></p>
+               <p class="contentsrl2"><a href="#Q12">Q12.</a> What is a CPU 2017 "suite"?              </p>
+               <p class="contentsrl2"><a href="#Q13">Q13.</a> What are the benchmarks?                             </p>
+               <p class="contentsrl2"><a href="#Q14">Q14.</a> Are 5nn.benchmark and 6nn.benchmark different?  </p>
+
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;"
+                                                                    href="#AboutMetrics">CPU 2017 Metrics</a></p>
+               <p style="white-space:nowrap;" class="contentsrl2"><a href="#Q15">Q15.</a> What are "SPECspeed" and "SPECrate" metrics? </p>
+               <p class="contentsrl2"><a href="#Q16">Q16.</a> What are  "base" and "peak" metrics?                </p>
+               <p class="contentsrl2"><a href="#Q17">Q17.</a> Which SPEC CPU 2017 metric should I use?             </p>
+               <p class="contentsrl2"><a href="#Q18">Q18:</a> What is a "reference machine"? Why use one?         </p>
+            </td>
+
+            <td style="padding-left:2em;">
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;" href="#Q19">
+                  Q19. What's new in SPEC CPU 2017?</a></p>
+
+               <p class="contentsrl2"><a href="#Primary"              > a.</a> Primary content</p>
+               <p class="contentsrl3"><a href="#BenchmarksAndMetrics"    > 1.</a> Benchmarks and Metrics</p>
+               <p class="contentsrl3"><a href="#SourceCode"              > 2.</a> Source Code: C99, Fortran-2003, C++2003</p>
+               <p class="contentsrl3"><a href="#Rules"                   > 3.</a>  Rules</p>
+               <p class="contentsrl2"><a href="#Power"                > b.</a>  Power </p>
+               <p class="contentsrl2"><a href="#Docs"                 > c.</a>  Documentation</p>
+               <p class="contentsrl2"><a href="#Tools"                > d.</a>  Tools</p>
+               <p class="contentsrl3"><a href="#SPECrateSetup"           > 1.</a> SPECrate smarter setup</p>
+               <p class="contentsrl3"><a href="#sysinfo"                 > 2.</a> sysinfo is required</p>
+               <p class="contentsrl3"><a href="#CompilerVersion"         > 3.</a> Compiler versions are required</p>
+               <p class="contentsrl3"><a href="#ImageValidator"          > 4.</a> Image Validation</p>
+               <p class="contentsrl3"><a href="#Usability"               > 5.</a> Usability </p>
+               <p class="contentsrl3"><a href="#Removed"                 > 6.</a>  Removed items</p>
+
+
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;"
+                                                                    href="#Publishing" >Publishing results</a></p>
+               <p class="contentsrl2"><a href="#Q20">Q20:</a> Where can I find SPEC CPU 2017 results? </p>
+               <p class="contentsrl2"><a href="#Q21">Q21:</a> Can I publish elsewhere? Do the rules still apply?      </p>
+
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;"
+                                                                    href="#Transitions"> Transitions</a></p>
+               <p class="contentsrl2"><a href="#Q22">Q22:</a> What will happen to SPEC CPU 2006?                   </p>
+               <p class="contentsrl2"><a href="#Q23">Q23:</a> Can I convert CPU 2006 results to CPU 2017?              </p>
+
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;"
+                                                                    href="#Selection">SPEC CPU 2017 Benchmark Selection</a></p>
+               <p class="contentsrl2"><a href="#Q24">Q24:</a> What criteria were used?                            </p>
+               <p class="contentsrl2"><a href="#Q25">Q25:</a> Were some benchmarks 'kept' from CPU 2006?</p>
+               <p class="contentsrl2"><a href="#Q26">Q26.</a> Are the benchmarks comparable to other programs?</p>
+
+               <p style="margin-bottom:2px;"><a class="contentsrl1" style="color:white;text-decoration:none;" href="#Misc">
+                  Miscellaneous</a></p>
+               <p class="contentsrl2"><a href="#Q27">Q27:</a> Can I run the benchmarks manually?           </p>
+               <p class="contentsrl2"><a href="#Q28">Q28.</a> How do I contact SPEC?                                </p>
+               <p class="contentsrl2"><a href="#Q29">Q29.</a> What should I do next?                              </p>
+            </td>
+         </tr>
+      </table>
+
+
+      <h2 id="AboutBenchmarks" style="border:solid lightgray; border-width:1px 0px; ">Benchmarks; good, bad, difficult, and standard</h2>
+
+
+      <h4 id="Q1">Q1. What is SPEC?</h4>
+
+      <p class="l1"><var>SPEC</var> is the <var>Standard Performance Evaluation Corporation</var>, a non-profit organization
+      founded in 1988 to establish standardized performance benchmarks that are objective, meaningful, clearly defined, and
+      readily available.  SPEC members include hardware and software vendors, universities, and researchers.  [<a
+         href="https://www.spec.org/spec/" class="external">About SPEC</a>]</p>
+
+      <p class="l1">SPEC was founded on the realization that "An ounce of honest data is worth a pound of marketing hype".  </p>
+
+
+
+      <h4 id="Q2">Q2. What is a (good) benchmark?</h4>
+      <div class="l1">
+         <p>A surveyor's <var>bench&nbsp;mark</var> (two words) defines a known reference point by which other locations
+         may be measured.
+
+         <br />A computer <var>benchmark</var> performs a known set of operations by which computer performance can be
+         measured. </p> 
+
+         <table id="table1" class="l1" style="width:800px;">
+            <tr>
+               <td colspan="2"><b>Table 1: Characteristics of useful performance benchmarks</b></td>
+            </tr>
+            <tr>
+               <td>Specifies a <var>workload</var></td>
+               <td>A strictly-defined set of operations to be performed.</td>
+            </tr>
+            <tr>
+               <td class="nb">Produces at least one <var>metric</var></td>
+               <td><p class="snug">A numeric representation of performance.  Common metrics include:</p>
+                  <ul class="snugish">
+                     <li>Time  - For example, seconds to complete the workload.</li>
+                     <li>Throughput - Work completed per unit of time, for example, jobs per hour.</li>
+                  </ul>
+               </td>
+            </tr>
+            <tr>
+               <td>Is <var>reproducible</var></td>
+               <td>If repeated, will report similar <a href="#similar">(*)</a> metrics.</td>
+            </tr>
+            <tr>
+               <td>Is <var>portable</var></td>
+               <td>Can be run on a variety of interesting systems.</td>
+            </tr>
+            <tr>
+               <td>Is <var>comparable</var></td>
+               <td>If the metric is reported for multiple systems, the values are meaningful and useful. </td>
+            </tr>
+            <tr>
+               <td class="nb">Checks for correct operation</td>
+               <td><p class="snug"> Verify that meaningful output is generated and that the work is actually done.</p> 
+                  <div class="l2snugish" style="font-family:sans-serif;font-size:90%;font-style:italic;">"I can make it run as
+                     fast as you like if you remove the constraint of getting correct answers." <a href="#who">(**)</a></div> </td>
+            </tr>
+            <tr>
+               <td>Has <var>run rules</var></td>
+               <td>A clear definition of required and forbidden hardware, software, optimization, tuning, and procedures.</td>
+            </tr>
+            <tr>
+               <td colspan="2" style="font-size:90%;font-family:sans-serif;">
+                  <p id="similar" class="hanging1snug">(*) "Similar" performance will depend on context.  The benchmark
+                  should include guidelines as to what variation one should expect if the benchmark is run multiple
+                  times.</p>
+                  <p id="who" class="hanging1snug">(**) Author unknown.  If you know who said it first, <a
+                              href="techsupport.html" class="external">write</a>.</p></td>
+            </tr>
+         </table>
+
+      </div>
+
+
+      <h4 id="Q3">Q3. What are some common benchmarking mistakes?          </h4>
+
+      <p>Creating high-quality benchmarks takes time and effort.  There are some difficulties that need to be avoided.  
+      <br />The difficulties listed in the table are based on real examples, and the solutions are what SPEC CPU tries to
+      do about them.</p>
+  
+
+      <table>
+         <tr>
+            <th class="reverse">If the benchmark description says:</th>
+            <th class="reverse">There may be potential difficulties:</th>
+               <th class="reverse">Solutions</th>
+         </tr>
+         <tr>
+            <td><p class="hanging1csnug">1. It runs Loop 1 billion times.</p></td>
+            <td>Compiler X runs 1 billion times faster than Compiler Y, because
+               compilers are allowed to skip work that has no effect on program outputs
+               ("dead code elimination").   </td>
+               <td>Benchmarks should print something.
+            </td>
+         </tr>
+         <tr>
+            <td><p class="hanging1csnug">2. Answers are printed, but not checked, because
+               Minor Floating Point Differences are expected.</p></td>
+            <td>
+               <ul class="l0" style="padding-left:1em;">
+                  <li>What if Minor Floating Point Difference sends it down Utterly Different Program Path?
+                  </li>
+                  <li>If the program hits an error condition, it might "finish" twice as fast because half the work was
+                     never attempted.</li>
+               </ul>
+            </td>
+            <td>Answers should be validated, within some sort of tolerance.
+            </td>
+         </tr>
+         <tr>
+            <td><p class="hanging1csnug">3. The benchmark is already compiled.
+               <br />Just download and run.</p></td>
+            <td>You may want to compare new hardware, new operating systems, new compilers.  </td>
+            <td>Source code benchmarks allow a broader range of systems to be tested.</td>
+         </tr>
+         <tr>
+            <td><p class="hanging1csnug">4. The benchmark is portable.
+               <br />Just use compiler&nbsp;X and operating system&nbsp;Y.</p></td>
+            <td>You may want to compare other compilers and other operating systems.</td>
+            <td>Test across multiple compilers and OS versions prior to release.</td>
+         </tr>
+         <tr>
+            <td><p class="hanging1snug">5. The benchmark measures X.</p></td>
+            <td>Has this been checked? 
+            <br />If not, measurements may be dominated by benchmark setup time, rather than the intended operations.  </td>
+            <td>Analyze profile data prior to release, verify what it measures.</td>
+         </tr>
+         <tr>
+            <td><p class="hanging1csnug">6. The benchmark is a slightly modified version of Well Known Benchmark.</p></td>
+            <td>
+               <ul class="l0" style="padding-left:1em;">
+                  <li > Is there an exact writeup of the modifications? </li>
+                  <li > Did the modifications break comparability?</li>
+               </ul>
+            </td>
+               <td colspan="2">Someone should check.  
+                  <br />Create a process to do so.</td>
+         </tr>
+         <tr>
+            <td><p class="hanging1csnug">7. The benchmark does not have a Run&nbsp;Rules document, because it is obvious how to run
+               it correctly.</p></td>
+            <td>Although "obvious" now, questions may come up.
+               <br />A change that seems innocent to one person may surprise another.</td>
+            <td>Explicit rules improve the likelihood that results can be meaningfully compared. </td>
+         </tr>
+         <tr>
+            <td><p class="hanging1csnug">8. The benchmark is a collection of low-level operations representing X.</p></td>
+            <td>How do you know that it is representative?  </td>
+            <td>Prefer benchmarks that are derived from real applications.</td>
+         </tr>
+      </table>
+
+
+      <h4 id="Q4">Q4. Should I benchmark my own application?</h4>
+
+      <div class="l1">
+         <p>Yes, if you can; but it may be be difficult.</p> 
+
+         <p>Ideally, the best comparison test for systems would be your own application with your own workload.
+         Unfortunately, it is often impractical to get a wide set of comparable system measurements 
+         using your own application with your own workload.  For example, it may be difficult to extract the application
+         sections that you want to benchmark, or too difficult to remove confidential information from data sets.</p>
+
+         <p>It takes time and effort to create a <a href="#Q2">good</a> benchmark, and it is easy to fall into common 
+         <a href="#Q3">mistakes</a>.</p>
+
+      </div>
+
+      <h4 id="Q5">Q5. Should I use a standard benchmark?</h4>
+
+      <div class="l1">
+         <p>Maybe.  A standardized benchmarks may provide a reference point, if you use it carefully.</p>
+
+         <p>You may find that a standardized benchmark has already been run on systems that you are interested in.  Ideally,
+         that benchmark will provide all the characteristics of <a href="#table1">Table 1</a> while avoiding common benchmark
+         mistakes.</p>
+
+         <p>Before you consider the results of a standardized benchmark, you should consider whether it measures 
+         things that are important to your own application characteristics and computing needs.  For example, a benchmark
+         that emphasizes CPU performance will have limited usefulness if your primary concern is network throughput.</p>
+
+         <p>A standardized benchmark can serve as a useful reference point, but SPEC does not claim that any standardized benchmark
+         can replace benchmarking your own actual application when you are selecting vendors or products.</p>
+      </div>
+
+      <h2 id="Basics" style="border:solid lightgray; border-width:1px 0px; ">SPEC CPU 2017 Basics</h2>
+
+      <h4 id="Q6">Q6. What does SPEC CPU 2017 measure?</h4>
+      <div class="l1">
+
+         <p class="snugbot">SPEC CPU 2017 focuses on compute intensive performance, which means these benchmarks emphasize the
+         performance of: </p>
+
+         <ul class="l1snugish">
+            <li><b>Processor</b> - The CPU chip(s).</li>
+            <li><b>Memory</b> - The memory hierarchy, including caches and main memory. </li>
+            <li><b>Compilers</b> - C, C++, and Fortran compilers, including optimizers. </li>
+         </ul>
+
+         <p class="snugtop">SPEC CPU 2017 intentionally depends on all three of the above - not just the processor.</p>
+
+
+         <p>SPEC CPU 2017 is not intended to stress other computer components such as networking, graphics, Java libraries, or
+         the I/O system.  Note that there are <a class="external" href="https://www.spec.org/benchmarks.html">other</a> SPEC
+         benchmarks that focus on those areas.</p>
+      </div>
+
+
+      <h4 id="Q7">Q7.Should I use CPU 2017? Why or why not?  </h4>
+
+      <p class="l1">SPEC CPU 2017 provides a comparative measure of integer and/or floating point compute intensive performance.
+      If this matches with the type of workloads you are interested in, SPEC CPU 2017 provides a good reference point.</p>
+
+      <p class="l1">Other advantages to using SPEC CPU 2017 include:</p>
+
+      <ul class="l1">
+         <li> Most of the benchmark programs are drawn from actual end-user applications, as opposed to being synthetic
+            benchmarks.</li>
+         <li> Multiple vendors use the suite and support it.</li>
+         <li> SPEC CPU 2017 is highly portable.</li>
+         <li> Results are available at <a class="external"
+               href="https://www.spec.org/cpu2017/results/">https://www.spec.org/cpu2017/results</a></li> 
+         <li> The benchmarks are required to be run and reported according to a set of rules to ensure comparability and
+            repeatability.</li>
+      </ul>
+
+      <p class="l1"><b>Limitations of SPEC CPU 2017:</b> As <a href="#Q4">described above</a>, the ideal benchmark for vendor
+      or product selection would be your own workload on your own application.  Please bear in mind that no standardized
+      benchmark can provide a perfect model of the realities of your particular system and user community.</p>
+
+      <h4 id="Q8">Q8. What does SPEC provide? </h4>
+
+      <p class="l1">SPEC CPU 2017 is distributed as an ISO image that contains:</p>
+
+      <ul class="l1">
+         <li> Source code for the benchmarks</li>
+         <li> Data sets</li>
+         <li> A tool set for compiling, running, validating and reporting on the benchmarks </li>
+         <li> Pre-compiled tools for a variety of operating systems</li>
+         <li> Source code for the SPEC CPU 2017 tools, for systems not covered by the pre-compiled tools</li>
+         <li> Documentation</li>
+         <li> Run and reporting rules</li>
+      </ul>
+
+      <p class="l1">The documentation is also available at 
+      <a class="external" href="https://www.spec.org/cpu2017/Docs/index.html">www.spec.org/cpu2017/Docs/index.html</a>, including the 
+      <a class="external" href="https://www.spec.org/cpu2017/Docs/install-guide-unix.html">Unix</a> and 
+      <a class="external" href="https://www.spec.org/cpu2017/Docs/install-guide-windows.html">Windows</a> installation guides.</p>
+
+
+      <h4 id="Q9">Q9. What must I provide?  </h4>
+
+      <div class="l1">
+         <p class="snugbot">Briefly, you will need a computer running Linux, Mac OS X, Unix, or Microsoft Windows with:</p>
+
+         <ul class="snugish">
+            <li>1 to 2 GB of main <a class="external" href="system-requirements.html#memory">memory</a> per copy, if you want to run SPECrate
+               suites;  or
+               <br />16 GB to run SPECspeed suites.</li>
+            <li>250 GB <a class="external" href="system-requirements.html#disk">disk space</a> is recommended; a minimal installation needs 10 GB.</li>
+            <li>C, C++, and Fortran <a class="external" href="system-requirements.html#compilers">compilers</a> (or a set of pre-compiled
+               binaries from another CPU 2017 user).  </li>
+            <li>A variety of <a class="external" href="system-requirements.html#chips">chips</a> and 
+               <a class="external" href="system-requirements.html#operatingSystems">operating systems</a> are supported. </li>
+         </ul>
+
+         <p>The above is only an abbreviated summary.   See detail in the <a class="external" href="system-requirements.html">System
+            Requirements</a> document.</p>
+
+         <p><span class="new">New with CPU 2017</span>, the integer suites include a Fortran benchmark.  
+         <br />Reportable runs for all suites require compilation of all three languages (C, C++, Fortran).</p>
+
+
+      </div>
+
+      <h4 id="Q10">Q10. What are the basic steps to run SPEC CPU 2017?</h4>
+
+      <div class="l1">
+         <p class="snugbot">A one-page summary is in <a class="external" href="quick-start.html">SPEC CPU 2017 Quick Start</a>.  
+         Here is a summary of the summary:</p>
+
+         <ul class="snugish">
+            <li> Meet the <a class="external" href="system-requirements.html">System Requirements</a>.</li> 
+            <li> Install SPEC CPU 2017 [<a class="external" href="install-guide-unix.html">Unix</a>] 
+                 [<a class="external" href="install-guide-windows.html"> Windows</a>] </li> 
+            <li>Find a <var>config file</var> -- a file that defines how to build, run, and report on the SPEC CPU benchmarks in
+               a particular environment -- and customize it.  </li>
+            <li>Determine which <a href="#Q12">suite</a> you wish to run. </li>
+            <li>Use the <a href="runcpu.html" class="external">runcpu</a> command.</li>
+            <li>If you wish to generate results suitable for quoting in public, you will need to carefully study and adhere to
+               the <a class="external" href="runrules.html">Run Rules</a>.</li>
+         </ul>
+
+      </div>
+
+      <h4 id="Q11"> Q11: How long does it take to run?   Does CPU 2017 take longer than CPU 2006?</h4>
+
+      <p class="l1">Run time depends on the system, suite, compiler, tuning, and how many copies or threads are chosen.   
+      <br />One example system is shown below; your times will differ.</p>
+
+      <table class="l2">
+         <tr>
+            <td colspan="4"><b>Example run times - simple options chosen</b></td>
+         </tr>
+         <tr>
+            <td style="vertical-align:bottom;">Metric</td>
+            <td style="vertical-align:bottom;">Config Tested</td>
+            <td style="vertical-align:bottom;">Individual<br />Benchmarks</td>
+            <td style="vertical-align:bottom;text-align:right;">Full Run<br />(Reportable)</td>
+         </tr>
+         <tr>
+            <td>SPECrate 2017 Integer</td>
+            <td>&nbsp;1 copy</td>
+            <td>6 to 10 minutes</td>
+            <td style="text-align:right;">2.5 hours</td>
+         </tr>
+         <tr>
+            <td>SPECrate 2017 Floating Point</td>
+            <td>&nbsp;1 copy</td>
+            <td>5 to 36 minutes</td>
+            <td style="text-align:right;">4.8 hours</td>
+         </tr>
+         <tr>
+            <td>SPECspeed 2017 Integer</td>
+            <td>&nbsp;4 threads</td>
+            <td>6 to 15 minutes</td>
+            <td style="text-align:right;">3.1 hours</td>
+         </tr>
+         <tr>
+            <td>SPECspeed 2017 Floating Point</td>
+            <td>16 threads</td>
+            <td>6 to 75 minutes</td>
+            <td style="text-align:right;">4.7 hours</td>
+         </tr>
+         <tr>
+            <td colspan="4">One arbitrary example using a year 2016 system.  Your system will differ.   
+               <br />2 iterations <a href="#repeatable">chosen</a>, base only, <a href="#peak">no peak</a>.  Does not include compile time.</td>
+         </tr>
+      </table>
+
+      <p class="l1snugbot"><b>Does CPU 2017 take longer than CPU 2006?</b> </p>
+      <ul class="l1snug">
+         <li>Short answer: Probably not, if you <a href="#repeatable">choose</a> 2 iterations.</li>
+         <li>Long answer: Maybe, if you <a href="#repeatable">choose</a> 3, and depending on the system, compiler,
+            tuning, and other tester choices.</li>
+      </ul>
+
+      <table class="l2">
+         <tr>
+            <td colspan="4"><b>More complicated example: *both* base+peak, 64 copies, 3 iterations</b></td>
+         </tr>
+         <tr>
+            <td style="vertical-align:bottom;">Metric</td>
+            <td style="vertical-align:bottom;">Config Tested</td>
+            <td style="vertical-align:bottom;">Full Run<br />CPU 2006</td>
+            <td style="vertical-align:bottom;">Full Run<br />CPU 2017</td>
+         </tr>
+         <tr>
+            <td>SPECrate Integer</td>
+            <td>64 copies</td>
+            <td><a href="https://www.spec.org/cpu2006/results/res2017q4/cpu2006-20171211-51078.html">11.1</a> hours</td>
+            <td><a href="https://www.spec.org/cpu2017/results/res2017q4/cpu2017-20171212-01676.html">11.2</a> hours</td>
+         </tr>
+         <tr>
+            <td>SPECrate Floating Point</td>
+            <td>64 copies</td>
+            <td><a href="https://www.spec.org/cpu2006/results/res2017q4/cpu2006-20171211-51080.html">16.8</a> hours</td>
+            <td><a href="https://www.spec.org/cpu2017/results/res2017q4/cpu2017-20171212-01672.html">20.6</a> hours</td>
+         </tr>
+         <tr>
+            <td>SPECspeed Integer</td>
+            <td>32 threads</td>
+            <td>&nbsp;<a href="https://www.spec.org/cpu2006/results/res2017q4/cpu2006-20171211-51079.html">5.0</a> hours</td>
+            <td>&nbsp;<a href="https://www.spec.org/cpu2017/results/res2017q4/cpu2017-20171212-01671.html">6.0</a> hours</td>
+         </tr>
+         <tr>
+            <td>SPECspeed Floating Point</td>
+            <td>32 threads</td>
+            <td>&nbsp;<a href="https://www.spec.org/cpu2006/results/res2017q4/cpu2006-20171211-51077.html">4.3</a> hours</td>
+            <td>&nbsp;<a href="https://www.spec.org/cpu2017/results/res2017q4/cpu2017-20171212-01674.html">2.5</a> hours</td>
+         </tr>
+         <tr>
+            <td colspan="4">One arbitrary example using a year 2017 system.  Your system will differ.   
+               <br />3 iterations <a href="#repeatable">chosen</a>, base <a href="#peak">and peak</a>. Does not include compile time.</td>
+         </tr>
+      </table>
+
+<p class="l1">Another example is discussed in the <a class="external" href="faq.html#Run.02">FAQ</a></p>
+
+
+      <h2 id="SuitesAndBenchmarks" style="border:solid lightgray; border-width:1px 0px; ">Suites and Benchmarks </h2>
+
+      <h4 id="Q12">Q12. What is a CPU 2017 "suite"?  
+         <span id="suites"> </span>
+      </h4>
+
+      <div class="l1">
+         <p>A <var>suite</var> is a set of benchmarks that are run as a group to produce one of the overall metrics. </p> 
+
+         <p>SPEC CPU 2017 includes four suites that focus on different types of compute intensive performance:</p>
+
+         <!-- ReUsable: benchmarks, tags, and suites -->
+         <table class="snugtop">
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;"><b>Short<br />Tag</b></td>
+               <td style="vertical-align:middle;"><b>Suite</b></td>
+               <td style="vertical-align:middle;"><b>Contents</b></td>
+               <td style="vertical-align:middle;"><b>Metrics</b></td>
+               <td style="font-size:85%;"><b>How many copies?<br />What do Higher Scores Mean?</b></td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">intspeed</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#intspeed">SPECspeed&reg;2017 Integer</a> </td>
+               <td style="vertical-align:middle;">10 integer benchmarks</td>
+               <td style="font-family:monospace;">SPECspeed2017_int_base<br />SPECspeed2017_int_peak</td>
+               <td style="font-size:85%;vertical-align:middle;" rowspan="2">SPECspeed suites always run one copy of each benchmark.
+                  <br />Higher scores indicate that less time is needed.
+               </td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">fpspeed</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#fpspeed">SPECspeed&reg;2017 Floating Point</a> </td>
+               <td style="vertical-align:middle;">10 floating point benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECspeed2017_fp_base<br />SPECspeed2017_fp_peak</td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">intrate</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#intrate">SPECrate&reg;2017 Integer</a> </td>
+               <td style="vertical-align:middle;">10 integer benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECrate2017_int_base<br />SPECrate2017_int_peak</td>
+               <td style="font-size:85%;vertical-align:middle;" rowspan="2">SPECrate suites run multiple concurrent copies of
+                  each benchmark.  
+                  <br />The tester selects how many.
+                  <br />Higher scores indicate more <var>throughput</var> (work per unit of time). </td>
+            </tr>
+            <tr>
+               <td style="vertical-align:middle;font-family:monospace;vertical-align:middle;">fprate</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#fprate">SPECrate&reg;2017 Floating Point</a> </td>
+               <td style="vertical-align:middle;">13 floating point benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECrate2017_fp_base<br />SPECrate2017_fp_peak</td>
+            </tr>
+            <tr>
+               <td colspan="5" style="padding-top:3px;font-size:80%;">
+                  The "Short Tag" is the canonical abbreviation for use with <samp class="snugr">runcpu</samp>, where context
+                  is defined by the tools.  In a published document, context may not be clear.
+                  <br /> 
+                  To avoid ambiguity in published documents, the Suite Name or the Metrics should be spelled as
+                  shown above.
+               </td>
+            </tr>
+         </table>
+         <!-- end of ReUsable benchmarks, tags, and suites -->
+
+      </div>
+
+
+
+      <h4 id="Q13">Q13. What are the benchmarks? 
+         <span id="benchmarks"> </span>
+      </h4>
+
+      <p class="snugbot">SPEC CPU 2017 has 43 benchmarks, organized into 4 suites:</p>
+
+      <div class="l1">
+
+         <!-- ReUsableBegin benchmarkList -->
+         <!-- no class="external" here:
+            This section's primary home is the doc index, where nothing gets marked class=external, because that is
+            the point of the index. -->
+         <table id="benchmarkList">
+            <tr>
+               <th id="intrate" class="MajorCent">SPECrate&reg;2017<br />Integer</th>
+               <th id="intspeed" class="MajorCent">SPECspeed&reg;2017<br />Integer</th>
+               <th class="bold" style="text-align:center;">Language<a style="font-size:small;margin-left:2px;" href="#linkNote">[1]</a></th>
+               <th class="bold" style="text-align:right;">KLOC<a style="font-size:small;margin-left:2px;" href="#klocNote">[2]</a></th>
+               <th class="bold">Application Area</th>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/500.perlbench_r.html">500.perlbench_r</a></td> 
+               <td><a href="benchmarks/600.perlbench_s.html">600.perlbench_s </a></td> 
+               <td class="ttc">C       </td> 
+               <td class="ttr">362</td>
+               <td>Perl interpreter</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/502.gcc_r.html">502.gcc_r      </a></td> 
+               <td><a href="benchmarks/602.gcc_s.html">602.gcc_s       </a></td> 
+               <td class="ttc">C       </td> 
+               <td class="ttr">1,304</td>
+               <td> GNU C compiler</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/505.mcf_r.html">505.mcf_r      </a></td> 
+               <td><a href="benchmarks/605.mcf_s.html">605.mcf_s       </a></td> 
+               <td class="ttc">C       </td> 
+               <td class="ttr">3</td>
+               <td> Route planning</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/520.omnetpp_r.html">520.omnetpp_r  </a></td> 
+               <td><a href="benchmarks/620.omnetpp_s.html">620.omnetpp_s   </a></td> 
+               <td class="ttc">C++     </td> 
+               <td class="ttr">134</td>
+               <td> Discrete Event simulation - computer network </td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/523.xalancbmk_r.html">523.xalancbmk_r</a></td> 
+               <td><a href="benchmarks/623.xalancbmk_s.html">623.xalancbmk_s </a></td> 
+               <td class="ttc">C++     </td> 
+               <td class="ttr">520</td>
+               <td> XML to HTML conversion via XSLT</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/525.x264_r.html">525.x264_r     </a></td> 
+               <td><a href="benchmarks/625.x264_s.html">625.x264_s      </a></td> 
+               <td class="ttc">C       </td> 
+               <td class="ttr">96</td>
+               <td> Video compression</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/531.deepsjeng_r.html">531.deepsjeng_r</a></td> 
+               <td><a href="benchmarks/631.deepsjeng_s.html">631.deepsjeng_s </a></td> 
+               <td class="ttc">C++     </td> 
+               <td class="ttr">10</td>
+               <td> Artificial Intelligence: alpha-beta tree search (Chess)</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/541.leela_r.html">541.leela_r    </a></td> 
+               <td><a href="benchmarks/641.leela_s.html">641.leela_s     </a></td> 
+               <td class="ttc">C++     </td> 
+               <td class="ttr">21</td>
+               <td> Artificial Intelligence: Monte Carlo tree search (Go)</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/548.exchange2_r.html">548.exchange2_r</a></td> 
+               <td><a href="benchmarks/648.exchange2_s.html">648.exchange2_s </a></td> 
+               <td class="ttc">Fortran </td> 
+               <td class="ttr">1</td>
+               <td> Artificial Intelligence: recursive solution generator (Sudoku)</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/557.xz_r.html">557.xz_r       </a></td> 
+               <td><a href="benchmarks/657.xz_s.html">657.xz_s        </a></td> 
+               <td class="ttc">C       </td> 
+               <td class="ttr">33</td>
+               <td> General data compression</td>
+            </tr>
+
+
+            <tr>
+               <td colspan="5">&nbsp;</td>
+            </tr>
+            <tr>
+               <th id="fprate" class="MajorCent">SPECrate&reg;2017<br /> Floating Point</th>
+               <th id="fpspeed" class="MajorCent">SPECspeed&reg;2017<br />Floating Point</th>
+               <th class="bold" style="text-align:center;">Language<a style="font-size:small;margin-left:2px;" href="#linkNote">[1]</a></th>
+               <th class="bold" style="text-align:right;">KLOC<a style="font-size:small;margin-left:2px;" href="#klocNote">[2]</a></th>
+               <th class="bold">Application Area</th>
+            </tr> 
+            <tr>
+               <td><a href="benchmarks/503.bwaves_r.html">503.bwaves_r   </a></td> 
+               <td><a href="benchmarks/603.bwaves_s.html">  603.bwaves_s   </a> </td>  
+               <td class="ttc">Fortran         </td> 
+               <td class="ttr">1</td>
+               <td> Explosion modeling</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/507.cactuBSSN_r.html">507.cactuBSSN_r</a></td> 
+               <td><a href="benchmarks/607.cactuBSSN_s.html">  607.cactuBSSN_s</a> </td>  
+               <td class="ttc">C++, C, Fortran </td> 
+               <td class="ttr">257</td>
+               <td> Physics: relativity</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/508.namd_r.html">508.namd_r     </a></td> 
+               <td class="empty">  &nbsp;                         </td>  
+               <td class="ttc">C++             </td> 
+               <td class="ttr">8</td>
+               <td> Molecular dynamics</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/510.parest_r.html">510.parest_r   </a></td> 
+               <td class="empty">  &nbsp;                         </td>  
+               <td class="ttc">C++             </td> 
+               <td class="ttr">427</td>
+               <td> Biomedical imaging: optical tomography with finite elements</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/511.povray_r.html">511.povray_r   </a></td> 
+               <td class="empty">  &nbsp;                         </td>  
+               <td class="ttc">C++, C          </td> 
+               <td class="ttr">170</td>
+               <td> Ray tracing</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/519.lbm_r.html">519.lbm_r      </a></td> 
+               <td><a href="benchmarks/619.lbm_s.html">619.lbm_s      </a> </td>  
+               <td class="ttc">C               </td> 
+               <td class="ttr">1</td>
+               <td> Fluid dynamics</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/521.wrf_r.html">521.wrf_r      </a></td> 
+               <td><a href="benchmarks/621.wrf_s.html">  621.wrf_s      </a> </td>  
+               <td class="ttc">Fortran, C      </td> 
+               <td class="ttr">991</td>
+               <td> Weather forecasting</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/526.blender_r.html">526.blender_r  </a></td> 
+               <td class="empty">  &nbsp;                         </td>  
+               <td class="ttc">C++, C          </td> 
+               <td class="ttr">1,577</td>
+               <td>3D rendering and animation</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/527.cam4_r.html">527.cam4_r     </a></td> 
+               <td><a href="benchmarks/627.cam4_s.html">  627.cam4_s </a>     </td>  
+               <td class="ttc">Fortran, C      </td> 
+               <td class="ttr">407</td>
+               <td> Atmosphere modeling</td>
+            </tr>
+            <tr>
+               <td class="empty">&nbsp;                                                  </td> 
+               <td><a href="benchmarks/628.pop2_s.html">  628.pop2_s   </a>   </td>  
+               <td class="ttc">Fortran, C      </td> 
+               <td class="ttr">338</td>
+               <td>Wide-scale ocean modeling (climate level)</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/538.imagick_r.html">538.imagick_r  </a></td> 
+               <td><a href="benchmarks/638.imagick_s.html">  638.imagick_s  </a> </td>  
+               <td class="ttc">C               </td> 
+               <td class="ttr">259</td>
+               <td> Image manipulation</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/544.nab_r.html">544.nab_r      </a></td> 
+               <td><a href="benchmarks/644.nab_s.html">  644.nab_s      </a> </td>  
+               <td class="ttc">C               </td> 
+               <td class="ttr">24</td>
+               <td> Molecular dynamics</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/549.fotonik3d_r.html">549.fotonik3d_r</a></td> 
+               <td><a href="benchmarks/649.fotonik3d_s.html">  649.fotonik3d_s</a> </td>  
+               <td class="ttc">Fortran         </td> 
+               <td class="ttr">14</td>
+               <td> Computational Electromagnetics</td>
+            </tr>
+            <tr>
+               <td><a href="benchmarks/554.roms_r.html">554.roms_r     </a></td> 
+               <td><a href="benchmarks/654.roms_s.html">  654.roms_s     </a> </td>  
+               <td class="ttc">Fortran         </td> 
+               <td class="ttr">210</td>
+               <td> Regional ocean modeling</td>
+            </tr>
+
+            <tr>
+               <td colspan="2">&nbsp;</td>
+               <td colspan="3" style="font-size:85%;" id="linkNote">[1] For multi-language benchmarks, the first one listed
+                  determines library and link options (<a class="external" href="makevars.html#linkNote">details</a>)</td>
+            </tr>
+            <tr>
+               <td colspan="3">&nbsp;</td>
+               <td colspan="2" style="font-size:85%;" id="klocNote">[2] KLOC = line count (including comments/whitespace) for
+                  source files used in a build / 1000</td>
+            </tr>
+
+         </table>
+         <!-- benchmarkList ReUsableEnd -->
+
+      </div>
+
+      <h4 id="Q14">Q14. Are 5nn.benchmark and 6nn.benchmark different?  </h4>
+
+      <div class="l1">
+
+         <p class="snugbot">Most of the benchmarks in the table above are part of a pair:</p>
+         <pre class="snugish">
+ 5nn.benchmark_r for the SPECrate version
+ 6nn.benchmark_s for the SPECspeed version</pre>
+         <p class="snug">Benchmarks within a pair are similar to each other.  
+         <br /><b>Briefly</b>, differences include: workload sizes; compile flags; and run rules.
+         See: 
+         [<a class="external" href="system-requirements.html#memory">memory</a>] &nbsp;
+         [<a class="external" href="config.html#openmp">OpenMP</a>] &nbsp; 
+         [<a class="external" href="runrules.html#compilerParallel">rules</a>]
+         </p>
+
+         <p><b>More detail</b>: </p>
+
+         <ul>
+            <li id="memory"><p><b>Memory Usage, <kbd class="nb">-m32</kbd> and <kbd class="nb"> -m64</kbd></b> 
+
+               <br />Although the names are similar, the workloads often differ.
+               
+               <br />For SPECrate, you may be able to choose between 32-bit or 64-bit compilation (check your compiler
+               documentation for flags such as <kbd class="nb">-m32</kbd> or <kbd class="nbsnugr">-m64</kbd>).
+               <br />For SPECspeed, you will usually need 64 bits (<kbd class="nbsnuglr">-m64</kbd>).</p>
+
+            </li>
+            <li><p><span id="openmp"> </span>
+               <span id="OpenMP"> </span>
+               <b>OpenMP directives: never for SPECrate</b> 
+               <br />OpenMP directives are always suppressed (not visible to the compiler)
+               when building the SPECrate benchmarks.</p>
+            </li>
+            <li><p><b>OpenMP directives: optional for SPECspeed</b> 
+               <br />OpenMP directives are optionally available for all SPECspeed 2017 Floating Point benchmarks, and for one SPECspeed 2017
+               Integer benchmark, <samp class="snugr">657.xz_s</samp>. 
+               [<a href="config.html#openmp" class="external">OpenMP</a>]</p></li>
+
+            <li><p><b>Prohibited flags</b> 
+               <br />For SPECrate, compiler parallelization 
+               <a href="runrules.html#compilerParallel" class="external">is forbidden</a> 
+               -- both OpenMP and compiler autopar.</p></li>
+
+            <li><p><b>Other differences</b> 
+               <br />Some pairs enable different source via compile flags (which are automatically provided by the SPEC CPU
+               toolset).  For example, <samp>627.cam4_s</samp> includes the flag <samp class="nb">-DUSE_COSP</samp> to enable a different
+               method of cloud modeling than is used for <samp class="snugr">527.cam4_r</samp>; and the Chess program
+               <samp>deepsjeng</samp> is compiled with flags to tell it which size it should use for its primary data structures
+               (<samp class="nbsnugl">-DSMALL_MEMORY</samp> or <samp class="nbsnugr">-DBIG_MEMORY</samp>).</p></li>
+
+         </ul>
+      </div>
+
+      <h2 id="AboutMetrics" style="border:solid lightgray; border-width:1px 0px; ">
+         <span id="metrics"> </span>
+         <span id="Metrics"> </span>
+         CPU 2017 Metrics</h2>
+
+      <h4 id="Q15">
+
+         <span id="Speed-and-rate"> </span>         <span id="Speed-vs-rate"> </span>
+         <span id="Speed.and.rate"> </span>         <span id="Speed.vs.rate"> </span>
+         <span id="SpeedAndRate"> </span>           <span id="SpeedVsRate"> </span>
+         <span id="Speed_and_rate"> </span>         <span id="Speed_vs_rate"> </span>
+         <span id="Speedandrate"> </span>           <span id="Speedvsrate"> </span>
+         <span id="speed-and-rate"> </span>         <span id="speed-vs-rate"> </span>
+         <span id="speed.and.rate"> </span>         <span id="speed.vs.rate"> </span>
+         <span id="speedAndRate"> </span>           <span id="speedVsRate"> </span>
+         <span id="speed_and_rate"> </span>         <span id="speed_vs_rate"> </span>
+         <span id="speedandrate"> </span>           <span id="speedvsrate"> </span>
+
+         <span id="SPECspeed-and-SPECrate"> </span>      <span id="SPECspeed-vs-SPECrate"> </span>
+         <span id="SPECspeed.and.SPECrate"> </span>      <span id="SPECspeed.vs.SPECrate"> </span>
+         <span id="SPECspeed_and_SPECrate"> </span>      <span id="SPECspeed_vs_SPECrate"> </span>
+         <span id="SPECspeedandSPECrate"> </span>        <span id="SPECspeedvsSPECrate"> </span>
+         <span id="SpecspeedAndSpecrate"> </span>        <span id="SpecspeedVsSpecrate"> </span>
+         <span id="specspeed-and-specrate"> </span>      <span id="specspeed-vs-specrate"> </span>
+         <span id="specspeed.and.specrate"> </span>      <span id="specspeed.vs.specrate"> </span>
+         <span id="specspeedAndSpecrate"> </span>        <span id="specspeedVsSpecrate"> </span>
+         <span id="specspeed_and_specrate"> </span>      <span id="specspeed_vs_specrate"> </span>
+         <span id="specspeedandspecrate"> </span>        <span id="specspeedvsspecrate"> </span>
+
+         Q15. What are "SPECspeed" and "SPECrate" metrics? 
+      </h4>
+
+      <div class="l1">
+         <p class="snugbot">There are many ways to measure computer performance.  Among the most common are:</p>
+         <ul class="snugish">
+            <li>Time  - For example, seconds to complete a workload.</li>
+            <li>Throughput - Work completed per unit of time, for example, jobs per hour.</li>
+         </ul>
+
+         <p class="snugtop">SPECspeed is a time-based metric; SPECrate is a throughput metric. </p>
+
+         <table>
+            <tr>
+               <th class="MajorCent">Calculating SPECspeed&reg; Metrics</th>
+               <th class="MajorCent">Calculating SPECrate&reg; Metrics</th>
+            </tr>
+            <tr>
+               <td>1 copy of each benchmark in a suite is run. </td> 
+               <td style="padding-left:1em; border-left:thin solid gray;">
+                  The tester chooses how many concurrent  copies to run</td>
+            </tr>
+            <tr>
+               <td>The tester may choose how many OpenMP threads to use.</td> 
+               <td style="padding-left:1em; border-left:thin solid gray;">
+               OpenMP is disabled.</td>
+            </tr>
+            <tr>
+               <td><p class="snugish">For each benchmark, a performance ratio is calculated as:</p>
+                  <pre class="snugish">time on a reference machine / time on the SUT</pre></td>
+                  <td style="padding-left:1em; border-left:thin solid gray;">
+                     <p class="snugish">For each benchmark, a performance ratio is calculated as:</p>
+                     <pre class="snugish">number of copies * (time on a reference machine / time on the SUT)</pre></td>
+            </tr>
+            <tr>
+               <td>Higher scores mean that less time is needed.</td>
+               <td style="padding-left:1em; border-left:thin solid gray;">
+                  Higher scores mean that more work is done per unit of time.</td>
+            </tr>
+            <tr>
+               <td><p class="snugish">Example:</p>
+                  <ul class="snugish">
+                     <li>The reference machine ran 600.perlbench_s in 1775 seconds.</li>
+                     <li>A particular SUT took about 1/5 the time, scoring about 5.</li>
+                     <li>More precisely: <samp>1775/354.329738 = 5.009458</samp></li>
+                  </ul>
+               </td>
+               <td style="padding-left:1em; border-left:thin solid gray;">
+                  <p class="snugish">Example:</p>
+                  <ul class="snugish">
+                     <li>The reference machine ran 1 copy of 500.perlbench_r in 1592 seconds.</li> 
+                     <li>A particular SUT ran 8 copies in about 1/3 the time, scoring about 24. </li> 
+                     <li>More precisely: <samp>8*(1592/541.52471) = 23.518776</samp></li>
+                  </ul></td>
+            </tr>
+            <tr>
+               <td id="repeatable" style="padding-left:1em;" colspan="2"><p class="snug">For both SPECspeed and SPECrate, in
+                  order to provide some assurance that results are repeatable, the entire process is repeated.  <br />The
+                  tester may choose:</p>
+                  <ol class="snugish" style="list-style-type:lower-alpha;">
+                     <li>To run the suite of benchmarks three times, in which case the tools select the medians.</li>
+                     <li>Or to run twice, in which case the tools select the lower ratios (i.e. slower). <span class="new">New with CPU 2017</span></li>
+                  </ol>
+               </td>
+            </tr>
+            <tr>
+               <td style="padding-left:1em;" colspan="2">
+                  <p class="snugish">For both SPECspeed and SPECrate, the selected ratios are averaged using the Geometric
+                  Mean, which is reported as the overall metric.</p>
+               </td>
+            </tr>
+
+         </table>
+
+         <p>For the energy metrics, the calculations are done the same way, using <samp>energy</samp> instead of
+         <samp>time</samp> in the above formulas.</p>
+
+         <p class="snugbot">The reference times and reference energy may be found in the observations posted with 
+         <a class="external" href="https://www.spec.org/cpu2017/results">www.spec.org/cpu2017/results/</a></p>
+         <p class="l2snug">
+         <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00001.html">1</a>,
+         <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00002.html">2</a>,
+         <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00003.html">3</a>, and 
+         <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00004.html">4</a></p>
+         <p class="snug">If you would like more than 3 digits for the reference values, see the CSV versions:</p>
+         <p class="l2snugtop">
+         <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00001.csv">1</a>,
+         <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00002.csv">2</a>,
+         <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00003.csv">3</a>, and 
+         <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00004.csv">4</a>. 
+         </p>
+
+      </div>
+
+
+      <h4 id="Q16">
+         <span id="Base-and-peak"> </span>       <span id="Base-vs-peak"> </span>
+         <span id="Base.and.peak"> </span>       <span id="Base.vs.peak"> </span>
+         <span id="BaseAndPeak"> </span>         <span id="BaseVsPeak"> </span>
+         <span id="Base_and_peak"> </span>       <span id="Base_vs_peak"> </span>
+         <span id="Baseandpeak"> </span>         <span id="Basevspeak"> </span>
+         <span id="base-and-peak"> </span>       <span id="base-vs-peak"> </span>
+         <span id="base.and.peak"> </span>       <span id="base.vs.peak"> </span>
+         <span id="baseAndPeak"> </span>         <span id="baseVsPeak"> </span>
+         <span id="base_and_peak"> </span>       <span id="base_vs_peak"> </span>
+         <span id="baseandpeak"> </span>         <span id="basevspeak"> </span>
+
+         Q16. What are "base" and "peak" metrics?</h4>
+
+      <div class="l1">
+
+         <p class="snugbot">SPEC CPU benchmarks are distributed as source code, and must be compiled, which leads to the question:
+         <br />How should they be compiled? There are many possibilities, ranging from</p>
+         <pre class="snugish">--debug --no-optimize</pre> 
+         <p class="snugtop">at a low end through highly customized optimization and even source code re-writing at a high
+         end.  Any point chosen from that range might seem arbitrary to those whose interests lie at a different point.
+         Nevertheless, choices must be made.  </p>
+         <p>For CPU 2017, SPEC has chosen to allow two points in the range.  The first may be of more interest to those
+         who prefer a relatively simple build process; the second may be of more interest to those who are willing to invest
+         more effort in order to achieve better performance.</p>
+
+         <ul>
+            <li><p> The <var>base</var> metrics (such as SPECspeed2017_int_base) require that  all modules of a given language in a
+               suite must be compiled using the same flags, in the same order.  All reported results must include the base
+               metric.</p></li>
+
+            <li id="peak"><p> The optional <var>peak</var> metrics (such as SPECspeed2017_int_peak) allow greater flexibility.  
+               Different compiler options may be used for each benchmark, and feedback-directed
+               optimization is allowed.</p></li>
+         </ul>
+
+         <p>Options allowed under the base rules are a subset of those allowed under the peak rules.  A legal base
+         result is also legal under the peak rules but a legal peak result is NOT necessarily legal under the base rules.</p>
+
+         <p>For more information, see the 
+         <a class="external" href="runrules.html">SPEC CPU 2017 Run and Reporting Rules</a>.</p> 
+      </div>
+
+      <h4 id="Q17">Q17. Which SPEC CPU 2017 metric should I use? </h4>
+
+      <p class="l1snugbot">It depends on your needs; you get to choose, depending on how you use computers, and these choices will
+      differ from person to person.  
+      <br />Examples:</p>
+      <ul class="l2snugish">
+         <li>A single user running a variety of generic desktop programs may, perhaps, be interested in SPECspeed2017_int_base.</li>
+         <li>A group of scientists running customized modeling programs may, perhaps, be interested in
+            SPECrate2017_fp_peak.</li>
+      </ul>
+
+
+      <h4 id="Q18">Q18. What is a "reference machine"? Why use one?                      </h4>
+
+      <p class="l1">SPEC uses a reference machine to normalize the performance metrics used in the CPU 2017 suites. Each
+      benchmark is run and measured on this machine to establish a reference time for that benchmark. These times are then used
+      in the SPEC calculations.</p> 
+
+      <p class="l1">The reference machine is a historical Sun Microsystems server, the Sun Fire V490 with 2100 MHz
+      UltraSPARC-IV+ chips.  The UltraSPARC-IV+ was introduced in 2006, and is newer than the chip used in the CPU 2000 and
+      CPU 2006 reference machines (the 300 MHz 1997 UltraSPARC II).   </p>
+      <p class="l2" style="color:gray;">Sidebar: You may be tempted to look up the CPU 2006 score for the CPU 2017 reference
+      machine, and from that try to convert CPU 2006 scores to CPU 2017 scores.  There are two problems with such an attempt.
+      (1)&nbsp;Its score of 
+      <a class="external" href="https://www.spec.org/cpu2006/results/res2007q2/cpu2006-20070331-00717.html">78.8</a> was from
+      a different usage scenario: 8&nbsp;copies, 8&nbsp;cores, 4&nbsp;chips; vs. the reference scenario of 1&nbsp;copy,
+      1&nbsp;core, 1&nbsp;chip; and (2)&nbsp;In general scores across suites <a href="#Q23">cannot be converted</a>.)</p>
+
+      <p class="l1"> Note that when comparing any two systems measured with the CPU 2017, their performance relative to each
+      other would remain the same even if a different reference machine was used. This is a consequence of the mathematics
+      involved in calculating the individual and overall (geometric mean) metrics.  </p>
+
+      <h2 id="Q19" style="border:solid lightgray; border-width:1px 0px; ">
+         <span id="New"> </span>
+         <span id="new"> </span>
+         <span id="Whats-new"> </span>
+         <span id="Whats.new"> </span>
+         <span id="WhatsNew"> </span>
+         <span id="Whats_new"> </span>
+         <span id="Whatsnew"> </span>
+         <span id="whats-new"> </span>
+         <span id="whats.new"> </span>
+         <span id="whatsNew"> </span>
+         <span id="whats_new"> </span>
+         <span id="whatsnew"> </span>
+         Q19. What's new in SPEC CPU 2017?</h2>
+
+      <p>Compared to SPEC CPU 2006, what's new in SPEC CPU 2017?</p>
+
+      <h3 id="Primary">a. Primary content</h3>
+      <div class="l1">
+
+         <h4 style="margin-top:.3em;" id="BenchmarksAndMetrics">1.  Benchmarks and Metrics</h4>
+         <div class="l1">
+            <p class="snugbot">As mentioned elsewhere in this document:</p>
+            <ul class="snugish">
+               <li>SPEC CPU 2017 includes 4 new <a href="#suites">suites</a>.</li>
+               <li>They generate new <a href="#metrics">metrics</a>.</li>
+               <li> <a href="#memory">Memory</a> requirements differ for SPECspeed 2017 suites vs. 
+                  SPECrate 2017 suites.</li>
+               <li><a href="#openmp">OpenMP</a> can be used for SPECspeed 2017.  
+                      [<a href="config.html#openmp" class="external">detail</a>]</li>
+               <li>The suites contain 43 individual <a href="#benchmarks">benchmarks</a>.  </li>
+            </ul>
+         </div>
+
+         <h4 id="SourceCode">2.  Source Code: C99, Fortran-2003, C++2003</h4>
+         <table style="margin:.0em 0em 1em 2em;" class="noborder">
+            <tr class="snugish">
+               <td class="snugish">
+                  <p class="snugish">Total source code has increased, as shown in the graph [<a
+                     href="images/kloc.png">larger version</a>], because most benchmarks are derived from real
+                  applications (including various open source projects).  </p>
+                  <p>During benchmark development, SPEC spends substantial effort working to improve portability, using language standards to
+                  assist in the process.  For CPU 2017, the standards referenced were C99, Fortran-2003, and C++2003.  </p>
+                  <p class="snugbot"><span class="caution">Caution: </span> The benchmarks do not comply perfectly with
+                  ISO/ANSI lanaguage standards, because their source code is derived from real applications.  The <a
+                                           class="external" href="runrules.html#cater">rules</a> allow optimizers to assume standards *only*
+                                        where that does not prevent validation. </p>
+               </td>
+               <td style="vertical-align:bottom;">
+                  <a href="images/kloc.png">
+                     <img src="images/kloc.small.png" width="350" alt="suite growth graph" /></a>
+               </td>
+            </tr>
+         </table>
+
+         <h4 id="Rules">3. Rules</h4>
+         <ul class="l1">
+            <li>Rule <a class="external" href="runrules.html#MedianOrLowerOfTwo">1.2.1</a>: Reportable runs can use the
+               median, or the slower of two runs</li>
+            <li>Rule <a class="external" href="runrules.html#rule_2.3.1">2.3.1</a>: The standards referenced are C99,
+               Fortran-2003, C++2003.  </li>
+            <li>Rule <a class="external" href="runrules.html#rule_2.3.9">2.3.9</a>: Data models: expand to clarify
+               treatment of 64-bit file data</li>
+            <li>Rule <a class="external" href="runrules.html#rule_3.4">3.4</a> allows the peak run-time environment to
+               differ by benchmark.</li>
+            <li>Rule <a class="external" href="runrules.html#rule_3.6">3.6</a> and 
+               <a class="external" href="runrules.html#rule_3.7">3.7</a>: for both copies and threads, base must be 
+               the same, peak can differ.</li>
+            <li>Rule <a class="external" href="runrules.html#rule_4.1.2">4.1.2</a>: The sysinfo utility is required  for
+               reportable runs</li>
+            <li><a class="external" href="runrules.html#changes">More detail</a></li>
+         </ul>
+      </div>
+
+      <h3 id="Power">b. Power </h3>
+      <div class="l1">
+         <p>SPEC CPU 2017 includes the ability to optionally measure and report power, including
+         maximum&nbsp;power (W), average&nbsp;power (W), and total&nbsp;energy&nbsp;used&nbsp;(kJ).  </p>
+
+         <p>Power measurement and reporting for CPU 2017 is optional: Testers are not required to measure power.
+         </p>
+         <p class="snugbot">If you wish to measure power, you will need:</p>
+         <ul class="snug">
+            <li>A power analyzer.</li>
+            <li>A temperature sensor.</li>
+            <li>A Linux or Windows "Controller System", where you will run SPEC's Power and Temperature
+               reporting tool, SPEC PTDaemon&#8482; </li>
+         </ul>
+
+         <p><b>Metrics:</b> Details of the calculation of the energy metrics can be found <a class="external" href="result-fields.html#EnergyRatio">here</a>.
+         <br /><span class="new">New with SPEC CPU 2017 v1.1,</span> the energy metrics are no longer labelled "experimental".
+         They are fully supported and comparable.  </p>
+
+         <p>For more information, see the config file documentation on 
+         <a class="external" href="config.html#PowerMeasurement">Power Measurement</a>.</p> 
+      </div>
+
+      <h3 id="Docs">c. Documentation</h3>
+      <div class="l1">
+
+         <p>There is now a 1-page <a href="quick-start.html" class="external">Quick Start</a>.</p>
+         <p>There is a collection of working examples in the top-level <samp>config</samp> directory, with working flags
+            files.</p>
+         <p>Most documents have been updated for CPU 2017.  A few highlights of note:</p>
+
+         <p class="hanging1snugbot"><a href="makevars.html#whichSteps" class="external">Make Variables</a> has a handy table
+         of which variables affect which build steps.</p>
+
+         <p class="hanging1"><a href="config.html" class="external">SPEC CPU 2017 Config Files:</a>
+         <br />Reorganized for clarity.
+         <br />Examples have been tested, and many of them are on your installed copy of SPEC CPU 2017.</p>
+
+         <table style="margin-left:4em;" id="memorable"> 
+            <tr id="guessable">
+               <td style="test-align:center;vertical-align:middle;" id="topicURLs" class="reverse">#memorable 
+                  <br />#guessable 
+               <br /> #topicURLs</td>
+               <td ><p class="snug">For easier navigation, section URLs of the long document 
+                  <a href="config.html" class="external">config.html</a> are intended to be easy to memorize or guess.  </p> 
+                  <table class="noborder">
+                     <tr>
+                        <td style="padding-left:5em; padding-right:1em; text-align:right;"> If you memorize: </td> 
+                        <td><kbd>www.spec.org/cpu2017/Docs/config.html</kbd></td>
+                     </tr>
+                     <tr>
+                        <td style="padding-left:5em; padding-right:1em; text-align:right;">The rest is usually:</td>
+                        <td><kbd>#topic</kbd></td>
+                     </tr>
+                     <tr><td colspan="2">Examples:</td></tr>
+                  </table>
+               </td>
+            </tr>
+            <tr>
+               <th><a class="external" href="config.html#OpenMP">#OpenMP</a> </th>
+               <td>How to enable OpenMP for SPECspeed runs.</td>
+            </tr>
+            <tr>
+               <th><a class="external" href="config.html#PORTABILITY">#PORTABILITY</a></th>
+               <td>Which flags affect portability?</td>
+            </tr>
+            <tr>
+               <th><a class="external" href="config.html#precedence">#precedence</a></th>
+               <td>How config file sections get combined.</td>
+            </tr>
+            <tr>
+               <th><a class="external" href="config.html#reportable">#reportable</a></th>
+               <td>Strictly enforce rules.</td>
+            </tr>
+            <tr>
+               <th><a class="external" href="config.html#usingSubmit">#usingSubmit</a></th>
+               <td>How to send your SPECrate copies where you want them.</td>
+            </tr>
+            <tr>
+               <th><a class="external" href="config.html#variables">#variables</a> </th>
+               <td>How (and why) to tell the difference between <samp class="snugr">${variable}</samp>, 
+                  <samp class="snugr">$(variable)</samp>, <samp class="snugr">%{variable}</samp></td>
+            </tr>
+         </table>
+
+
+      
+
+
+      </div>
+
+      <h3 id="Tools">d. Tools</h3>
+      <div class="l1">
+
+         <table class="noborder">
+            <tr>
+               <td style="vertical-align:top;">
+                  <h4 style="margin-top:.7em;" id="SPECrateSetup">1. SPECrate smarter setup</h4>
+                  <p>As systems become larger, and as chips, cores, and hardware threads become smaller, SPECrate runs are asked to
+                  handle many more files.  For SPEC CPU 2006, runs with hundreds of copies would take hours to set up, requiring
+                  around 750 MB (million bytes, 10^6) of disk space for each additional copy after the first copy (setup only,
+                  prior to actually running benchmarks; base only; set up both integer and floating point).</p>
+
+                  <p> For SPEC CPU 2017, setup typically takes a few minutes, and each additional copy after the first requires
+                  about 200 KB (kilobytes, 10^3).   An example system doing SPECrate setup to a single spinning hard drive is shown
+                  in the graphs on the right [<a href="images/SPECrate_setup.png">larger version</a>].  The additional space and
+                  time needed per copy for SPEC CPU 2017 is so small as to be barely visible (bottom two lines, in blue).</p>
+
+                  <p>Of course, IO rates are subject to substantial variability according to operating system, file system, and
+                  storage type; and may hit "knees in the curve", as in the red line in the bottom graph, for various reasons.
+                  This particular test happened to hit a file system cache limit.
+                  </p>
+
+                  <p id="hardLinks" class="question">q. Why is SPECrate 2017 setup faster and smaller?</p>  
+                  <p class="answer">a. All input files are hard linked to the first copy.  The concept of hard links (<a
+                     class="external" href="https://en.wikipedia.org/wiki/Hard_link">Wikipedia</a>) is commonly supported on
+                  modern file systems.  Obviously, this optimization only helps benchmark setup, not benchmark output; which
+                  is why <a class="external" href="system-requirements.html#disk">System Requirements</a> recommends that you
+                  allow substantial disk space per copy.</p>
+                  <p class="question">q. What if my file system lacks hard links?</p>
+                  <p class="answer" style="margin-bottom:.2em;">a. If a SPECrate run is attempted on a file system that does
+                  not support hard links, the tools will fall back to the old method, making multiple copies.  To check
+                  whether this happens, search the <a class="external" href="config.html#log">log</a> for a message of the
+                  form:</p>
+                  <pre class="l2snugish">NOTICE: Linking <i>file</i> from <i>srcdir</i> failed
+...[additional text]...
+Switching to copy mode.</pre>
+                  <p class="l1snugish">If you set <a href="config.html" class="external">verbose</a> or 
+                  <a class="external" href="runcpu.html#verbose">--verbose</a>
+                  to 10 or higher, the NOTICE will appear on your screen.</p>
+
+               </td>
+               <td>
+                  <a href="images/SPECrate_setup.png">
+                     <img src="images/SPECrate_setup.small.png" width="350" alt="SPECrate setup graph" /></a>
+               </td>
+            </tr>
+         </table>
+
+         <h4 id="sysinfo">2. sysinfo is required</h4>
+         <p class="l1">For SPEC CPU 2017, results that are used in public must use 
+         <var>sysinfo</var>, which creates a contemporaneous record of the system under test (automatically, and therefore
+         not subject to human transcription error).  [<a href="config.html#sysinfo" class="external">details</a>]
+         </p>
+
+         <h4 id="CompilerVersion">3. Compiler versions are required</h4>
+         <p class="l1snugbot">SPEC CPU performance <a href="#Q6">depends on</a> compilers.  For CPU 2017, all config files
+         must include:</p>
+         <pre class="l2snugish">CC_VERSION_OPTION   = <i>(switch that causes version to be printed)</i>
+CXX VERSION_OPTION  = "       "    "      "       "  "  "
+FC_VERSION_OPTION   = "       "    "      "       "  "  "</pre>
+         <p class="l1snugtop">Builds will fail until you add the above to your config file.  
+         <br />Your installed copy of SPEC CPU 2017 includes Example config files that demonstrate what to include for a
+         variety of compilers.  [<a class="external" href="config.html#compilerVersion">detail</a>] </p>
+
+         <h4 id="ImageValidator">4. Image Validation</h4>
+         <p class="l1">Several benchmarks in CPU 2017 generate images.  In order to determine whether acceptable images are generated, SPEC
+         CPU 2017 validates the output using the Structured SIMilarity method, producing an Average Similarity (AVG SSIM).  The image 
+            validator is described in  <a class="external" href="utility.html#imagevalidate">SPEC CPU 2017 Utilities</a>.</p>
+
+         <table class="noborder">
+         <tr>
+            <td style="padding-left:30px;">
+                  <p class="snug" style="font-size:75%;"><i>Are both of these 'correct'?  Sometimes the answer is obvious.</i></p>
+                  <a href="images/blender.train.expected.png">
+                     <img  style="height:120px;" alt="blender train expected" src="images/icon.blender.train.expected.png" /></a>
+                  <a href="images/blender.train.produced.png">
+                     <img  style="height:120px;" src="images/icon.blender.train.produced.png" alt="blender train produced" /></a>
+                  <p class="snugtop" style="font-size:75%;text-align:right;"><i>AVG SSIM=0.661</i></p>
+            </td>
+      <td style="padding-left:30px;">
+         <p class="snug" style="font-size:75%;"><i>Sometimes, it's a little harder to decide</i></p>
+         <p class="snug"> <a href="images/blender.refrate.expected.png">
+         <img  alt="blender ref expected" style="height:120px;" src="images/icon.blender.refrate.expected.png" /></a>
+         <a href="images/blender.refrate.produced.png">
+            <img  alt="blender ref produced" style="height:120px;" src="images/icon.blender.refrate.produced.png" /></a></p>
+         <p class="snugtop" style="font-size:75%;text-align:right;"><i>AVG SSIM=0.998</i></p>
+      </td>
+   </tr>
+</table>
+
+
+         <h4 id="Usability">5. Usability </h4>
+         <div class="l1">
+
+            <p class="hanging1"><b>Environment - </b> It is easier to get things in and out of the enviornment now.  
+               <br />You can access environment
+               variables using <a href="config.html#ENVmacros" class="external">ENV macros</a>. 
+               <br />You can set the environment for the
+               full run using <a href="config.html#preenv" class="external">preenv</a>. 
+               <br />You can set the environment for a single
+               benchmark (in peak only) using <a href="config.html#preenv" class="external">envvars</a>.</p>
+
+            <p class="hanging1"><b>OMP_NUM_THREADS</b> is set automatically from your
+            <a class="external" href="runcpu.html#threads">--threads</a> or <a class="external" href="config.html#threads">threads</a>.</p>
+
+            <p class="hanging1"><b>Command line wins -</b> The former interaction of command line and config file was deemed too confusing.  
+               For CPU 2017, if an option can be specified both in a config file and on the <samp>runcpu</samp>
+               command line (example: <a class="external" href="config.html#copies">copies</a> or 
+               <a class="external" href="runcpu.html#copies">--copies</a>), the command line always takes precedence.  </p>
+
+            <p class="hanging1snugbot"><b>Header section - </b> The <a href="config.html#header" class="external">header</a>
+            section allows you to set many general options for the run (examples: number of <a href="config.html#iterations"
+               class="external">iterations</a>, whether to measure <a href="config.html#power" class="external">power</a>,
+            where to <a href="config.html#mailto" class="external">email</a> results).  For previous suites, all such
+            settings had to be at the top of the config file, which was sometimes inconvenient (e.g. when <a class="external"
+               href="config.html#include">including</a> files).  For CPU 2017, you can 
+            <a href="config.html#header" class="external"> return</a> to the header section at any time, using the section named </p>
+            <pre class="l2snug">default:</pre>
+            <p class="l1snug">or, equivalently,</p>
+            <pre class="l2snug">default=default=default:</pre>
+
+            <p class="hanging1"><b>Easier-to-navigate reference document - </b> <samp>config.html</samp> tries to provide
+            <a href="#memorable">#memorable</a>
+            <a href="#topicURLs">#topicURLs</a>.</p>
+
+            <p class="hanging1"><b>Macros</b> can be <a class="external" href="config.html#dumpmacros">dumped</a> and less scary 
+            <a class="external" href="config.html#info">info</a> messages can be printed.</p>
+
+            <p class="snugbot"><b>Synonyms</b> </p>
+            <ul class="l1snugish">
+            <li><b>config files - </b> A few items that tend to be mis-remembered are accepted both ways,
+            such as <a class="external" href="config.html#envvars">envvars</a> / 
+            <a class="external" href="config.html#env_vars">env_vars</a>.  </li>
+            <li><b>runcpu switches</b> can be abbreviated to uniqueness</li>
+            <li><b>runcpu suite selection</b>  is done with the canonical short tags: &nbsp;&nbsp; <samp>intrate fprate intspeed fpspeed</samp>
+               <br />It will also accept full metric names.  You can say:&nbsp;&nbsp; <samp class="nb">runcpu SPECspeed2017_int_base</samp>
+               <br />Some alternates may provoke <samp>runcpu</samp> to say that it is trying to DWIM 
+               (<a class="external" href="https://en.wikipedia.org/wiki/DWIM">wikipedia</a>) but these are not recommended. 
+               </li>
+            </ul>
+       
+
+         </div>
+
+         <h4 id="Removed">6. Removed items</h4>
+         <ul class="snugish">
+            <li>The <samp>parallel_setup</samp> features have been removed because setup is so much
+               faster now.  [<a href="runcpu.html#parallel_setup" class="external">detail</a>].</li>
+            <li>The <samp class="nb">--rate</samp> and <samp class="nb">--speed</samp> switches have been removed, because speed
+               and rate mode are now tied to the benchmark (5xx or 6xx).
+               [<a href="runcpu.html#rate" class="external">detail</a>].</li>
+            <li><b>runspec is gone</b>  The former <samp>runspec</samp> utility is renamed <samp>runcpu</samp> in SPEC CPU 2017.
+               &nbsp;&nbsp;[<a class="external" href="runspec.html">Why?</a>]</li>
+         </ul>
+      </div>
+
+
+
+
+
+      <h2 id="Publishing" style="border:solid lightgray; border-width:1px 0px; ">Publishing results </h2>
+
+      <h4 id="Q20">Q20: Where can I find SPEC CPU 2017 results?</h4>
+      <p class="l1">Results for measurements submitted to SPEC are available at 
+      <a class="external" href="https://www.spec.org/cpu2017/results/">https://www.spec.org/cpu2017/results/</a>.</p> 
+
+      <h4 id="Q21">Q21: Can I publish elsewhere? Do the rules still apply? </h4>
+      <div class="l1">
+         <p>Yes, SPEC CPU 2017 results can be published independently, and Yes, the rules still apply.</p>
+         <ul>
+            <li>The SPEC CPU license requires that published results must follow the <a
+           href="https://www.spec.org/cpu2017/Docs/runrules.html" class="external">SPEC CPU 2017 Run and Reporting Rules</a>.</li>
+            <li>Any public use of SPEC benchmark results is subject to the <a class="external"
+                  href="https://www.spec.org/fairuse.html">SPEC Fair Use Rule</a>, which requires (among other things) that
+               your statement must be clear; must be correct; must reference public data; must identify data sources; must
+               clearly distinguish between SPEC metrics and other types of data.</li>
+            <li>Your results must comply with any rule updates that may be posted from time to time at 
+               <br /><a class="external"
+                        href="https://www.spec.org/cpu2017/Docs/runrules.html">www.spec.org/cpu2017/Docs/runrules.html</a>.</li>
+            <li>Any SPEC member may request the rawfile from your result, per 
+               <a class="external" href="runrules.html#requiredDisclosure">Rule
+                  5.5</a>.</li>
+         </ul>
+         <p>Although you are allowed to publish indpendently, SPEC encourages results to be submitted for publication on 
+         <a class="external" href="https://www.spec.org/cpu2017/">SPEC's web site</a>, because it ensures a peer review
+         process and uniform presentation of all results.  </p> 
+         <p>The Fair Use rule recognizes that <a class="external" href="https://www.spec.org/fairuse.html#Academic">Academic and
+            Research</a> usage of the benchmarks may be less formal; the key requirement is that non-compliant numbers must be
+         clearly distinguished from rule-compliant results.</p>
+         <p>SPEC CPU results may be estimated.  Estimates must be <a class="external"
+            href="https://www.spec.org/fairuse.html#Estimates">clearly marked</a>.</p>
+      </div>
+
+
+      <h2 id="Transitions" style="border:solid lightgray; border-width:1px 0px; ">Transitions</h2>
+
+      <h4 id="Q22">Q22. What will happen to SPEC CPU 2006? </h4>
+
+      <p class="l1">Three months after the announcement of CPU 2017, SPEC
+      will require all CPU 2006 results submitted for publication on SPEC's web site to be accompanied by CPU 2017 results. Six
+      months after announcement, SPEC will stop accepting CPU 2006 results for publication on its web site. </p>
+
+      <p class="l1">After that point, you may continue to use SPEC CPU 2006.  You may publish new CPU 2006 results only if you <a
+         class="external" href="https://www.spec.org/fairuse.html#Retired">plainly disclose the retirement</a> (the link
+      includes sample disclosure language).</p>
+
+      <h4 id="Q23">Q23. Can I convert CPU 2006 results to CPU 2017?</h4>
+
+      <p class="l1">There is no formula for converting CPU 2006 results to CPU 2017 results and vice versa; they are
+      different products. There probably will be some correlation between CPU 2006 and CPU 2017 results (that is, machines with
+      higher CPU 2006 results often will have higher CPU 2017 results), but the correlation will be far from perfect, because
+      of differences in code, data sets, hardware stressed, metric calculations, and run rules.</p> 
+
+      <p class="l1"> SPEC encourages SPEC licensees to publish CPU 2017 numbers on older platforms to provide a historical
+      perspective on performance.  </p>
+
+      <h2 id="Selection" style="border:solid lightgray; border-width:1px 0px; ">SPEC CPU 2017 Benchmark Selection</h2>
+
+      <h4 id="Q24"> Q24: What criteria were used to select the benchmarks?</h4>
+
+      <p class="l1snugbot">SPEC considered:</p>
+      <ul class="l1snugish">
+         <li>Representativeness: Is it a well-known application or application area?</li>
+         <li>Availability of workloads that represent real problems.</li>
+         <li>Performance profile: Is the candidate compute bound, spending most of its time in the benchmark source, and little
+            time in IO and system services?</li>
+         <li>Portability to a variety of CPU architectures, including ARM, Itanium, Power ISA, SPARC, and x86.</li>
+         <li>Portability to various operating systems, including AIX, HP-UX, Linux, Mac OS X, Solaris, and Windows.</li>
+         <li>Memory usage: SPECspeed benchmarks should fit within 16 GB of main memory, and SPECrate benchmarks within 1 GB
+            per copy.</li>
+      </ul>
+
+      <h4 id="Q25">Q25. Were some benchmarks 'kept' from CPU 2006?</h4> 
+
+      <p class="l1">Although some of the benchmarks from CPU 2006 are included in CPU 2017, they have been given different
+      workloads and/or modified to use newer versions of the source code.  Therefore, for example, the CPU 2017
+      benchmark 505.mcf_r may perform differently than the CPU 2006 benchmark 429.mcf.</p>
+
+      <p class="l1">Some benchmarks were not retained because it was not possible to update the source or workload. 
+      Others were left out because SPEC felt that they did not add significant performance information compared to the
+      other benchmarks under consideration.</p>
+
+      <h4 id="Q26">Q26. Are the benchmarks comparable to other programs?</h4>
+
+      <p class="l1">Many of the SPEC CPU 2017 benchmarks have been derived from publicly available application programs.  The
+      individual benchmarks in this suite may be similar, but are NOT identical to benchmarks or programs with similar names
+      which may be available from sources other than SPEC.   In particular, SPEC has invested significant effort to improve
+      portability and to minimize hardware dependencies, to avoid unfairly favoring one hardware platform over another.  For
+      this reason, the application programs in this distribution may perform differently from commercially available versions of
+      the same application.  </p>
+
+      <p class="l1">Therefore, it is not valid to compare SPEC CPU 2017 benchmark results with anything other than other SPEC
+      CPU 2017 benchmark results.  </p>
+
+      <h2 id="Misc" style="border:solid lightgray; border-width:1px 0px; ">Miscellaneous</h2>
+
+      <h4 id="Q27"> Q27. Can I run the benchmarks manually?</h4>
+
+      <p class="l1">To generate rule-compliant results, an approved toolset must be used.  If several attempts at using the
+      SPEC-provided tools are not successful, you should <a href="#Q28">contact SPEC for technical support</a>. SPEC may be able
+      to help you, but this is not always possible -- for example, if you are attempting to build the tools on a platform that
+      is not available to SPEC.</p>
+
+      <p class="l1">If you just want to work with the benchmarks and do not care to generate publishable results, SPEC provides
+      information about <a class="external" href="runcpu-avoidance.html">how to do so</a>.</p> 
+
+
+      <h4 id="Q28">Q28. How do I contact SPEC? </h4>
+
+      <p class="l1">SPEC can be contacted in several ways. For general information, including other means of contacting SPEC,
+      please see SPEC's Web Site at:</p>
+
+      <p class="l2"><a class="external" href="https://www.spec.org/"><b>https://www.spec.org/</b></a></p>
+      <p class="l1">General questions can be emailed to: 
+      <a class="external" href="&#109;ailto&#58;info&#64;spec.&#111;rg">info&#64;spec.&#111;rg</a>
+      <br />CPU 2017 Technical Support Questions can be sent to: 
+      <a class="external" href="&#109;ailto&#58;cpu2017support&#64;spec.&#111;rg">cpu2017support&#64;spec.&#111;rg</a></p> 
+
+      <h4 id="Q29">Q29. What should I do next?</h4>
+
+      <p class="l1">If you don't have SPEC CPU 2017, it is hoped that you will consider <a class="external"
+         href="https://spec.org/order.html">ordering</a> it.
+      <br />If you are ready to get started, please follow one of these two paths:</p>
+
+      <table style="border-top:thin solid lightgray;" class="l2">
+         <tr>
+            <th class="bold">I feel impatient.  <br />Let me dive in.</th>
+            <td style="width:3em;" class="noborder">&nbsp;</td>
+            <th class="bold">I want a clear and complete explanation</th>
+         </tr>
+         <tr>
+            <td style="vertical-align:middle;"><a href="quick-start.html" class="external">Quick Start</a></td>
+            <td style="width:3em;" class="noborder">&nbsp;</td>
+            <td>Read the <a class="external" href="system-requirements.html">System Requirements</a>.
+               <br />Then follow the Install Guide for
+               <a class="external" href="install-guide-unix.html">Unix</a> or 
+               <a class="external" href="install-guide-windows.html">Windows</a>.
+            </td>
+         </tr>
+      </table>
+         
+
+
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Overview / What's New?:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+   </body>
+</html>
+
+
+

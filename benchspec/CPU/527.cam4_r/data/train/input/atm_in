@@ -1,0 +1,116 @@
+&cam_inparm
+ absems_data		= 'abs_ems_factors_fastvx.c030508.nc'
+ bnd_topo		= 'USGS-gtopo30_1.9x2.5_remap_c050602.nc'
+ dtime		= 1800
+ empty_htapes		= .true.
+ fincl1		= 'T:I','PS:I'
+ hfilename_spec		= 'h%t.nc'
+ mfilt		= 145
+ ncdata		= 'cami_0000-01-01_1.9x2.5_L26_APE_c080203.nc'
+ ndens		= 1
+ nhtfrq		= 1
+ print_energy_errors		= .false.
+/
+&chem_surfvals_nl
+ ch4vmr		= 1760.0e-9
+ co2vmr		= 367.0e-6
+ f11vmr		= 653.45e-12
+ f12vmr		= 535.0e-12
+ n2ovmr		= 316.0e-9
+/
+&cldfrc_nl
+ cldfrc_dp1		=  0.10D0 
+ cldfrc_dp2		=  500.0D0 
+ cldfrc_freeze_dry		= .true.
+ cldfrc_ice		= .false.
+ cldfrc_premit		=  75000.0D0 
+ cldfrc_rhminh		=  0.800D0 
+ cldfrc_rhminl		=  0.910D0 
+ cldfrc_sh1		=  0.04D0 
+ cldfrc_sh2		=  500.0D0 
+/
+&cldsed_nl
+ cldsed_ice_stokes_fac		=  0.5D0 
+/
+&cldwat_nl
+ cldwat_conke		=   5.0e-6  
+ cldwat_icritc		=   9.5e-6  
+ cldwat_icritw		=   2.0e-4  
+ cldwat_r3lcrit		=   10.0e-6  
+/
+&cospsimulator_nl
+ cosp_runall		= .true.
+ docosp		= .true.
+/
+&dyn_fv_inparm
+ del2coef		= 3.e+5
+ div24del2flag		=  2
+ fft_flt		= 1
+ filtcw		= 0
+ nspltvrm		= 1
+/
+&gw_drag_nl
+ fcrit2		= 1.0
+/
+&hkconv_nl
+ hkconv_c0		=   1.0e-4 
+ hkconv_cmftau		=  1800.0D0 
+/
+&phys_ctl_nl
+ atm_dep_flux		= .false.
+ cam_chempkg		= 'none'
+ cam_physpkg		= 'cam4'
+ conv_water_in_rad		=  0 
+ deep_scheme		= 'ZM'
+ do_iss		=  .false. 
+ do_tms		=  .false. 
+ eddy_scheme		= 'HB'
+ history_microphysics		=  .false. 
+ microp_scheme		= 'RK'
+ radiation_scheme		= 'camrt'
+ shallow_scheme		= 'Hack'
+ srf_flux_avg		= 0
+ waccmx_opt		= 'off'
+/
+&prescribed_aero_nl
+ prescribed_aero_cycle_yr		= 2000
+ prescribed_aero_datapath		= '.'
+ prescribed_aero_file		= 'aero_1.9x2.5_L26_2000clim_c091112.nc'
+ prescribed_aero_specifier		= 'sulf:SO4', 'bcar1:CB1', 'bcar2:CB2', 'ocar1:OC1', 'ocar2:OC2', 'sslt1:SSLT01', 'sslt2:SSLT02',
+  'sslt3:SSLT03', 'sslt4:SSLT04', 'dust1:DST01', 'dust2:DST02', 'dust3:DST03', 'dust4:DST04'
+ prescribed_aero_type		= 'CYCLICAL'
+/
+&prescribed_ozone_nl
+ prescribed_ozone_cycle_yr		= 2000
+ prescribed_ozone_datapath		= '.'
+ prescribed_ozone_file		= 'ozone_1.9x2.5_L26_2000clim_c091112.nc'
+ prescribed_ozone_name		= 'O3'
+ prescribed_ozone_type		= 'CYCLICAL'
+/
+&rad_cnst_nl
+ rad_climate		= 'P_Q:H2O', 'D_O2:O2', 'D_CO2:CO2', 'D_ozone:O3', 'D_N2O:N2O', 'D_CH4:CH4', 'D_CFC11:CFC11',
+  'D_CFC12:CFC12',
+  'D_sulf:sulfate_camrt_c080918.nc',
+  'D_dust1:dust1_camrt_c080918.nc',
+  'D_dust2:dust2_camrt_c080918.nc',
+  'D_dust3:dust3_camrt_c080918.nc',
+  'D_dust4:dust4_camrt_c080918.nc',
+  'D_bcar1:bcpho_camrt_c080918.nc',
+  'D_bcar2:bcphi_camrt_c080918.nc',
+  'D_ocar1:ocpho_camrt_c080918.nc',
+  'D_ocar2:ocphi_camrt_c080918.nc',
+  'D_SSLTA:ssam_camrt_c080918.nc',
+  'D_SSLTC:sscm_camrt_c080918.nc'
+/
+&solar_inparm
+ solar_const		= 1361.27
+ solar_htng_spctrl_scl		= .false.
+/
+&tropopause_nl
+ tropopause_climo_file		= 'clim_p_trop.nc'
+/
+&zmconv_nl
+ zmconv_c0_lnd		=  0.0035D0 
+ zmconv_c0_ocn		=  0.0035D0 
+ zmconv_ke		=  1.0E-6 
+/

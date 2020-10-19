@@ -1,0 +1,156 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+      <link rel="STYLESHEET" href="https://www.spec.org/cpu2017/Docs/css/cpudocs.css" type="text/css" />
+<meta name="revision"
+      content="$Id: blender.html 6320 2019-07-28 23:29:02Z JohnHenning $" />
+<title>526.blender_r</title>
+</head>
+
+<body>
+<div style="text-align: center">
+
+<h1>526.blender_r<br />
+SPEC CPU&reg;2017 Benchmark Description</h1>
+</div>
+
+<h3>Benchmark Name</h3>
+<p>526.blender_r</p>
+
+
+<h3>Benchmark Authors</h3>
+
+<p>Blender project development volunteers, supported by the Blender Foundation</p>
+<p>Adapted for the SPEC CPU&reg;2017 suite by the SPEC CPU&reg; subcommittee</p>
+
+
+<h3>Benchmark Program General Category</h3>
+
+<p>3D Rendering</p>
+
+
+<h3>Benchmark Description</h3>
+
+  <p>Blender is a free, open source 3D creation suite. It provides the ability
+  to render, model, simulate material properties, and animate assets to create
+  3D images.</p>
+
+
+<h3>Input Description</h3>
+
+  <p>The subbenchmark takes in a blender <tt>.blend</tt> file. The
+  <tt>.blend</tt> file specifies scene input geometry and rendering
+  parameters.</p>
+
+  <h4>Reference Inputs</h4>
+  <p>The reference input workload in speed mode and rate mode operate on a
+  <tt>.blend</tt> Blender file. The <tt>.blend</tt> file included with the
+  subbenchmark is a reduced version of the Weybec Crazy Glue shot 3 data set.
+  This data set input sets the output image size @ 1280x720 pixels.</p>
+
+
+  <h4>Training Inputs</h4>
+
+  <p>The input <tt>.blend</tt> file for the feedback training workload (train)
+  is a reduced version the Weybec Crazy Glue shot 5 data set. This data set
+  configures the output image size @ 320x200 pixels.</p>
+
+  <h4>Test Inputs</h4>
+
+  <p>The test workload <tt>.blend</tt> file is the default cube that loads up
+  with public builds of blender in GUI mode.</p>
+
+
+<h3>Output Description</h3>
+
+  <p>The image output from the render step is used as input to the SPEC&reg; utility <a class="external"
+   href="http://www.spec.org/cpu2017/Docs/utility.html#imagevalidate">imagevalidate</a>,
+  which calculates the Structural SIMilarity (SSIM) index over 8x8 pixel areas
+  between the benchmark-produced image and a SPEC-provided expected image.  SSIM
+  indexes range from -1 (maximally different) to 1 (identical) for each of those
+  regions.</p>
+
+  <p>If the images are too different, the image comparison program will issue an
+  error.  This is accomplished by specifying a threshold SSIM value, and if more
+  than 1% of samples go below the threshold, the benchmark does not pass
+  validation.</p>
+
+  <p>In all cases, the expected output suggests a completely identical image</p>
+  <pre>
+  &lt;filename&gt;: AVG SSIM = 1.000000000
+  </pre>
+  <p>which is then checked by <a class="external"
+   href="http://www.spec.org/cpu2017/Docs/utility.html#specdiff">specdiff</a> to
+  to verify that the overall average of SSIM values is at least 0.95.</p>
+
+
+<h3>Programming Language</h3>
+
+<p>ANSI C</p>
+<p>C++</p>
+
+
+<h3>Portability Notes</h3>
+
+<p>There several portability flags that may be useful, as shown in the example config files -- search for
+<tt>526.blender_r</tt> in <br /><tt>$SPEC/config/Example*cfg</tt> (Unix) or <br /><tt>%SPEC%\config\Example*.cfg</tt> (Windows).  </p>
+
+<p>Documentation of 526.blender_r portability flags is available at the 
+<a class="external" href="https://www.spec.org/cpu2017/Docs/benchmarks/flags/526.blender_r.flags.html">SPEC web site</a>
+ or in your installed copy of SPEC CPU&reg;2017:
+<br /><tt>$SPEC/benchspec/CPU2017/526.blender_r/Docs/flags.html</tt> (Unix) or
+<br /><tt>%SPEC%\benchspec\CPU2017\526.blender_r\Docs\flags.html</tt> (Windows).</p>
+
+<p><b>Reminder:</b> usage of 
+<a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#portability">portability flags must be approved by
+   the SPEC CPU&reg; Subcommittee</a>.  This is typically done by demonstrating that a flag is essential.   </p>
+
+<h4 id="unsigned">Portability RECOMMENDATION: Use Unsigned Char</h4>
+
+<p>The language standard says that <tt>char</tt> might have the same behavior as either <tt>signed char</tt>  or as <tt>unsigned char</tt>.  It does not
+specify which.  Blender code expects <tt>char</tt> to be unsigned, and the <a
+   href="https://www.blender.org/api/intranet/conventions/codingstyleguide.html">Blender Coding Style Guide</a> says 
+"Compiler flags are used to make sure we always use the unsigned variety."</p>
+
+<p>Therefore, if your system defaults to signed, you should find your compiler flag that changes to unsigned.  If you do not
+do so, you may see many thousands of warning messages during builds, and your generated binary might produce wrong answers.  </p>
+
+<p>For example, if you are using GCC, you might set:</p>
+
+  <pre>526.blender_r:
+  PORTABILITY = -funsigned-char</pre>
+
+<p>Other compilers have similar flags, for example:</p>
+<ul>
+   <li><tt>-qchars=unsigned</tt> IBM XLC</li>
+   <li><tt>-xchar=u</tt> Oracle Developer Studio</li>
+   <li><tt>-Muchar</tt> PGI</li>
+</ul>
+<p>Check your compiler documentation.</p>
+
+
+<h3 id="license">Sources and Licensing</h3>
+
+<p>The benchmark was contributed to SPEC CPU&reg; by the Blender Foundation, under the terms of GPLv3.  Additional licenses apply
+to specific components, as described in <a 
+   href="http://www.spec.org/cpu2017/Docs/licenses.html#bmk526.blender_r">SPEC CPU&reg;2017 Licenses</a>.</p>
+
+
+
+<h3>References</h3>
+<ul>
+  <li><a class="external" href="https://www.blender.org/">Blender Homepage</a></li>
+  <li><a class="external" href="https://en.wikipedia.org/wiki/Structural_similarity">Structural Similarity (SSIM) at Wikipedia</a></li>
+  <li><a class="external" href="https://en.wikipedia.org/wiki/Truevision_TGA">TARGA image file format at Wikipedia</a></li>
+  <li><a class="external" href="http://www.weybec.com">WEYBEC Homepage</a></li>
+</ul>
+
+<p>Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $</p>
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+
+</body>
+</html>
+

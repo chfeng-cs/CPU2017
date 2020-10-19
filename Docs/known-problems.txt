@@ -1,0 +1,241 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                         SPEC CPU(R)2017 Known Problems
+
+        $Id: known-problems.html 6360      Latest: www.spec.org/cpu2017/Docs/
+     2019-08-16 23:27:46Z JohnHenning $
+
+   Contents
+
+   Introduction
+
+   Open Problem Reports
+
+   3. Headings may appear to be off-center in ASCII plain text reports.
+
+   5. Why can't I override fields from sysinfo?
+
+   8. When measuring power, runcpu may hang.
+
+   Closed Problem Reports
+
+   1. Some lines may be tiny in PDF reports.
+
+   2. Some lines may be too wide in HTML reports.
+
+   4. Plain text columns should have better alignment.
+
+   6. The runcpu --comment option must not contain any blanks.
+
+   7. Can't use an undefined value as an ARRAY reference while formatting
+   results.
+
+Introduction
+
+   This document describes known problems in SPEC CPU(R)2017, a product of
+   the SPEC(R) non-profit corporation (about SPEC).
+
+   Do you have a problem with SPEC CPU 2017?
+   Try these, in this order:
+
+    1. Update your copy with runcpu --update.
+    2. Check the latest version of Frequently Asked Questions.
+    3. Check the latest version of Known Problems.
+    4. Check the src.alt list.    [What is a src.alt?]
+    5. Contact SPEC.
+
+   SPEC CPU 2017 was tested on a variety of systems prior to release,
+   including Unix, Linux, and Windows systems. Nevertheless, as with any
+   software product, problems may be found too late in the testing process to
+   be fixed in the release, or may be discovered after release.
+
+   If you discover problems that are not listed here or in the FAQ, please
+   report them to SPEC.
+
+   About the format of this document:
+
+     * Problems may be added in the Open section from time to time. In each
+       case, a workaround is given, if one is known.
+     * When problems are fixed, they are moved to the Closed section.
+
+   Notice to maintainers: When updating this document, please do not ever
+   re-use problem numbers.
+
+Open Problem Reports
+
+   Please see the latest on-line version of this document for information on
+   open problems and suggested workarounds.
+
+  3. Headings may appear to be off-center in ASCII plain text reports.
+
+     * Problem summary: For text reports, when comparing report titles vs.
+       data tables, the headings appear to be too far to the right. (#960)
+     * Details: The headings are actually centered relative to the widest
+       line in the report. Therefore, if the report has many lines that are
+       80 columns wide, but one line that is 250 columns wide, then the
+       headings will be printed near to column 125.
+     * Status: As of SPEC CPU 2017 v1.1, this problem is less severe, because
+       the common cause for very wide lines has been fixed. Nevertheless, it
+       is possible that you might notice that headings appear further right
+       than desired for plain text reports.
+
+  5. Why can't I override fields from sysinfo?
+
+     * Problem summary: Unwanted lines are sometimes included for fields that
+       are supplied by both sysinfo and by the config file. (#591)
+     * Details: The documentation says that when fields (such as hw_memory)
+       are supplied by sysinfo, a config file can supply a different value by
+       using a higher-priority section, for example:
+
+ intrate,fprate,intspeed,fpspeed:
+    hw_memory001 = 256 GB (8 x 32 GB 2Rx4 PC4-2133P-R,
+    hw_memory002 = running at 1600)
+
+     * Limitation: If you want your higher-priority section to "win", then
+       you need to make sure you supply exactly the same field names,
+       including any line numbers:
+
+ If sysinfo supplies    and you supply     Then the report will have
+ -------------------    --------------     -------------------------
+ hw_memory001           hw_memory001       2 lines for memory description
+ hw_memory002           hw_memory001
+
+ hw_memory001           hw_memory100       4 lines for memory description
+ hw_memory002           hw_memory200
+
+ sw_os                  sw_os100           3 lines for the operating system
+                        sw_os110
+
+     * Workaround: Check what sysinfo will supply, and match it. If that is
+       not possible, then you will need to edit the fields prior to using
+       rawformat to prepare final reports.
+
+  8. When measuring power, runcpu may hang.
+
+     * Problem summary: Certain power measurements may hang. (#963)
+
+     * Details: The problem occurs only if all the following conditions are
+       present:
+
+         1. You have selected runcpu --power or the corresponding config file
+            option.
+         2. You are running benchmarks drawn from multiple suites.
+         3. One of the suites uses preenv and another does not.
+
+     * Workaround: Split your runcpu command into one for each suite.
+
+ Instead of:
+    runcpu --config=myconfig intrate fprate
+ Try:
+    runcpu --config=myconfig intrate
+    runcpu --config=myconfig fprate
+
+
+Closed Problem Reports
+
+  1. Some lines may be tiny in PDF reports.
+
+     * Problem summary: Sometimes a line may be printed that is too small to
+       read. (#585,#598,#764,#536)
+     * Details: Commonly, the problem happened when SPEC CPU 2017 v1.0
+       automatically generated notes about environment variables.
+     * Resolution: As of SPEC CPU 2017 v1.1, environment variable reports are
+       automatically wrapped.
+     * Can fonts still be tiny? Maybe, but it is much less likely.
+
+          * The SPEC CPU toolset no longer generates extra-wide environment
+            variable notes.
+          * If you choose to create your own extra-wide notes, then you might
+            still see a tiny font.
+          * To avoid that problem, please avoid extra-wide notes, and please
+            keep an eye out for messages such as:
+
+     format: PDF ->
+     A line in your General Notes section is too long!
+
+  2. Some lines may be too wide in HTML reports.
+
+     * Problem summary: Sometimes a line may be printed that is much wider
+       than your screen.
+     * Resolution: The cause of this problem, and the resolution, are the
+       same as for the previous problem.
+
+  4. Plain text columns should have better alignment. (#630)
+
+     * Problem summary: These columns do not line up as well as they should:
+
+                 Base     Base       Base
+ Benchmarks     Copies  Run Time     Rate
+ -------------- ------  ---------  ---------
+ 500.perlbench_r     44        927       75.5  S
+ 500.perlbench_r     44        930       75.4  *
+ 502.gcc_r          44        846       73.6  S
+ 502.gcc_r          44        849       73.4  *
+ 505.mcf_r          44       1072       66.4  *
+ 505.mcf_r          44       1064       66.8  S
+ 520.omnetpp_r      44       1045       55.2  *
+ 520.omnetpp_r      44       1044       55.3  S
+ 523.xalancbmk_r     44        498       93.4  S
+ 523.xalancbmk_r     44        499       93.1  *
+ 525.x264_r         44        820       93.9  *
+ 525.x264_r         44        817       94.3  S
+
+     * Resolution: This problem was fixed in SPEC CPU 2017 v1.0.5.
+
+  6. The runcpu --comment option must not contain any blanks.
+
+     * Problem summary: In v1.0.0, you could not use blanks within a runcpu
+       --comment (#693, #783)
+     * Details: In SPEC CPU 2017 v1.0.0, if you use the --comment feature
+       with any blanks in the comment -- such as
+
+ runcpu --comment="Some descriptive text"
+
+       then you will see warning messages:
+
+ Can't find benchmark 'descriptive'
+ Can't find benchmark 'text'
+
+     * Resolution: This issue was fixed in SPEC CPU 2017 update v1.0.5.
+
+  7. Can't use an undefined value as an ARRAY reference while formatting
+  results. (#708, #763)
+
+     * Problem: After you edit a rawfile, you are unable to create reports
+       with SPEC CPU 2017 v1.0.0 rawformat. Instead of its normal termination
+       message:
+
+ rawformat finished at 2017-06-16 06:58:10; 38 total seconds elapsed
+
+       the program just stops, after printing messages similar to:
+
+ Parsing flags for 554.roms_r base: done
+ Doing flag reduction: done
+     format: flags -> CPU2017.001.fprate.flags.html
+ Can't use an undefined value as an ARRAY reference at /cpu2017/bin/formats/html.pl line 1390.
+
+     * Cause: This error may occur if you delete raw file fields instead of
+       editing them.
+     * Resolution: SPEC CPU 2017 v1.0.5 and later are less sensitive to
+       missing fields.
+
+   SPEC CPU(R)2017 Known Problems: Copyright (c) 2017-2019 Standard
+   Performance Evaluation Corporation (SPEC(R))
+
+

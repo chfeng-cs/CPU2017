@@ -1,0 +1,1 @@
+echo                         >> times.txt;echo "monitor_wrapper ../run_base_test_monitor_what.0000/specrand_ir_base.monitor_what 324342 24239"   >> times.txt;time sh -c "../run_base_test_monitor_what.0000/specrand_ir_base.monitor_what 324342 24239"     2>> times.txt 0<&- > rand.24239.out 2>> rand.24239.err

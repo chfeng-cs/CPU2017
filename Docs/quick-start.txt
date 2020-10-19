@@ -1,0 +1,196 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                          SPEC CPU(R)2017 Quick Start
+
+    $Id: quick-start.html 6309 2019-07-28  Latest: www.spec.org/cpu2017/Docs/
+           22:01:05Z JohnHenning $
+
+   This document provides a quick start for SPEC CPU(R)2017, a product of the
+   SPEC(R) non-profit corporation (about SPEC).
+
+   Do you want to start here?
+
+     * If you are new to SPEC CPU, benchmarking, compilers, response time vs.
+       throughput, SPECspeed vs. SPECrate, please see: Overview.
+     * Just want to dive in?     This document is for you.
+     * Just want an example? Scroll to bottom.
+
+   All users should read the rules before using results in public.
+
+   Decide which benchmark(s) to start with:   SPEC CPU 2017 includes 43
+   benchmarks arranged in 4 suites. You can run one or more individual
+   benchmarks, such as 500.perlbench_r, or you can run entire suites, using
+   one of the Short Tags below.
+
+                                                                 How many
+   Short                                                         copies?
+   Tag       Suite            Contents    Metrics                What do
+                                                                 Higher
+                                                                 Scores Mean?
+                                                                 SPECspeed
+                                                                 suites
+   intspeed  SPECspeed(R)2017 10 integer  SPECspeed2017_int_base always run
+             Integer          benchmarks  SPECspeed2017_int_peak one copy of
+                                                                 each
+                                                                 benchmark.
+                                                                 Higher
+                              10 floating                        scores
+   fpspeed   SPECspeed(R)2017 point       SPECspeed2017_fp_base  indicate
+             Floating Point   benchmarks  SPECspeed2017_fp_peak  that less
+                                                                 time is
+                                                                 needed.
+                                                                 SPECrate
+                                                                 suites run
+                                                                 multiple
+             SPECrate(R)2017  10 integer  SPECrate2017_int_base  concurrent
+   intrate   Integer          benchmarks  SPECrate2017_int_peak  copies of
+                                                                 each
+                                                                 benchmark.
+                                                                 The tester
+                                                                 selects how
+                                                                 many.
+                                                                 Higher
+                                                                 scores
+             SPECrate(R)2017  13 floating SPECrate2017_fp_base   indicate
+   fprate    Floating Point   point       SPECrate2017_fp_peak   more
+                              benchmarks                         throughput
+                                                                 (work per
+                                                                 unit of
+                                                                 time).
+   The "Short Tag" is the canonical abbreviation for use with runcpu, where
+   context is defined by the tools. In a published document, context may not
+   be clear.
+   To avoid ambiguity in published documents, the Suite Name or the Metrics
+   should be spelled as shown above.
+
+   Verify requirements:   (Brief summary; see detail in System Requirements)
+     - 1 to 2 GB of main memory to run SPECrate (per copy); 16 GB for
+   SPECspeed.
+     - 250 GB disk space is recommended; a minimal installation needs 10 GB.
+     - C, C++, and Fortran compilers (or a set of pre-compiled binaries from
+   another CPU 2017 user).
+   A variety of chips and operating systems are supported.
+
+   Install it:   Mount (Unix, Windows) the ISO image, then use install.sh or
+   install.bat. Install guides: Unix, Windows
+
+   Find a Config File:                    To use runcpu, you need a config
+   file - a file that defines how to build, run, and report on the SPEC CPU
+   benchmarks in a particular environment, including any needed PORTABILITY
+   flags for your compilers.
+
+    1. There are examples on your installed copy of SPEC CPU 2017. Look for
+       an Example that matches your compiler, operating system, and hardware,
+       in directory:
+
+ $SPEC/config/Example*        (Unix) or
+ %SPEC%\config\Example*       (Windows)
+
+    2. Or, look for results for a system similar to yours at
+       www.spec.org/cpu2017/results. Click the 'config' link.
+    3. Or, if you are using binaries supplied by another user of CPU 2017,
+       that person should also supply the config file.
+    4. Or, write your own.
+
+   Name it:   Copy your selection to a new file in the config directory. Do
+   not use blanks in the name. Hint: make the name something useful to *you*.
+
+ %SPEC%\config\Rahuls_first_test.cfg
+ $SPEC/config/JeffWantsYetAnotherTest.Compiler.v11.beta4.cfg
+
+   Edit the label:    Look for a line like one of these:
+
+ %define label something
+
+   or
+
+ label = something
+
+   The label is an arbitrary tag added to your binaries and directories,
+   which comes in handy when you need to hunt them down. As with the config
+   file name, make it something meaningful to *you*. No blanks are allowed.
+
+   Other Edits:
+
+    1. Look for any locations marked EDIT and make changes as needed.
+    2. Look for paths and adjust if needed (example: your compiler is in
+       /opt/bin but the config file uses /usr/bin).
+    3. Look for any commands in the config file, and verify that they will
+       not cause surprises.
+
+       Warning: SPEC CPU config files can execute arbitrary shell commands.
+       Read a config file before using it.
+       Don't be root. Don't run as Administrator. Turn privileges off.
+
+   Open a terminal window (Unix) or cmd window (Microsoft Windows) if you
+   have not already done so.
+
+   Set paths: Use a path command from the table below. On Unix systems,
+   determine whether you are using a C-compatible-shell (such as csh, tcsh)
+   or a Bourne-compatible shell (such as sh, bash, ksh, zsh).
+
+System    shell      Example                    Instructions
+                     C:\> f:                    Edit the file shrc.bat before using it, as
+Microsoft cmd.exe    F:\> cd diego\cpu2017      explained in the Windows Install Guide. If you
+Windows              F:\diego\cpu2017\> shrc    have done so, cd to your top directory and use:
+                                                shrc.bat
+          C-shell    % cd /home/subhash/cpu2017 cd to the directory where you installed SPEC CPU
+          compatible % source cshrc             2017 and say:
+                                                source cshrc
+                                                cd to the directory where you installed SPEC CPU
+Unix                                            2017 and try:
+          Bourne     $ cd /home/subhash/cpu2017 source shrc
+          compatible $ source shrc              If your shell is sufficiently old that it
+                                                responds source: not found then try:
+
+                                                 . ./shrc     <--that's dot-space-dot-slash-shrc
+
+   Check disk space: Verify your free disk space (Recommendations). On Unix,
+   use df and on Windows notice the last line on any dir command.
+
+   Ready to run: You're ready to give it a try. Enter runcpu --config=name
+   followed by a list of benchmarks or suites (see table above). Examples:
+
+ runcpu --config=eniac.cfg    --action=build 519.lbm_r
+ runcpu --config=colossus.cfg --threads=16   628.pop2_s
+ runcpu --config=z3.cfg       --copies=64    fprate
+
+   The first example compiles the benchmark named 519.lbm_r. The second runs
+   the SPECspeed benchmark 628.pop2_s using 16 OpenMP threads. The third runs
+   64 copies of all the SPECrate 2017 Floating Point benchmarks. The Install
+   Guide chapter on "Testing Your Installation" has suggestions that start
+   small and build up (Unix, Windows).
+
+   Example Install: This example presumes that your name is Walter, your
+   compiler is GCC, your operating system is Linux, and your hardware is x86.
+
+ $ sudo mount -t iso9660 -o ro,exec,loop cpu2017.iso /mnt
+ $ cd /mnt
+ $ ./install.sh                                       # Specify destination - for example, /home/walter/cpu2017
+ $ cd /home/walter/cpu2017/
+ $ source shrc
+ $ cd config
+ $ cp Example-gcc-linux-x86.cfg walter-try1.cfg       # Pick one matching *your* system!
+ $ vi walter-try1.cfg                                 # Customize paths and other items marked EDIT in the example
+ $ runcpu --config=walter-try1 SPECspeed2017_int_base
+
+   SPEC CPU(R)2017 Quick Start: Copyright (c) 2017-2019 Standard Performance
+   Evaluation Corporation (SPEC(R))
+
+

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo note0 = sysinfo_program was here

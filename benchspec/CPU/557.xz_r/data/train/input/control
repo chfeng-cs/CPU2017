@@ -1,0 +1,7 @@
+# File			Uncompressed SHA-512															Orig. Size	Comp@9e	Comp. Size	Max.Lvl	Notes
+# -------		--------------------------------------------------------------------------------------------------------------------------------	----------	-------	----------	-------	-----
+# input.combined	a841f68f38572a49d86226b7ff5baeb31bd19dc637a922a972b2e6d1257a890f6a544ecab967c313e370478c74f760eb229d4eef8a8d2836d233d3e9dd1430bf	51.3 MiB	0.153	7.9 MiB		8	From 401.bzip2 in CPU2006
+input.combined 40 a841f68f38572a49d86226b7ff5baeb31bd19dc637a922a972b2e6d1257a890f6a544ecab967c313e370478c74f760eb229d4eef8a8d2836d233d3e9dd1430bf 6356684 -1 8
+
+# IMG_2560.cr2		ec03e53b02deae89b6650f1de4bed76a012366fb3d4bdc791e8633d1a5964e03004523752ab008eff0d9e693689c53056533a05fc4b277f0086544c6c3cbbbf6	15.3 MiB	0.977	15.0 MiB	6	Canon CR2 raw image
+IMG_2560.cr2 40 ec03e53b02deae89b6650f1de4bed76a012366fb3d4bdc791e8633d1a5964e03004523752ab008eff0d9e693689c53056533a05fc4b277f0086544c6c3cbbbf6 40822692 40824404 4

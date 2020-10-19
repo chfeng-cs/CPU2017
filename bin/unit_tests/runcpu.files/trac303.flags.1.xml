@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription
+    SYSTEM "http://www.spec.org/dtd/cpuflags2.dtd"
+>
+
+<flagsdescription>
+
+<filename>trac303.flags.1</filename>
+
+<title>Test Flags File for Trac #303 Tests</title>
+
+<flag name="compiler_path_eater"
+      class="compiler"
+      regexp="/\S+/(CC|cc|f90)(?=\s|$)">
+<example>/path/to/{CC|cc|f90}</example>
+This flag is just to trim the path from the compiler line.
+<include text="$1" />
+<display enable="0" />
+</flag>
+
+</flagsdescription>

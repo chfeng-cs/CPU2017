@@ -1,0 +1,4479 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="generator" content="SPEC CPU2017 Tools  (flags v5178)" />
+<meta http-equiv="Content-type" content="text/html;charset=utf-8" />
+<style type="text/css" id="internalScreen" media="screen">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Most of the screen-specific CSS is also the common CSS */
+
+/* Style for the non-image W3C marking at the bottom of the page, courtesy of
+ * Marek Prokop (http://www.sovavsiti.cz/css/w3c_buttons.html)
+ */
+.w3cbutton3 {
+  margin: 1em 1em 0 0;
+  width: 9em;
+  border: 1px solid #ccc;
+  font-family: helvetica,arial,sans-serif;
+  font-size: 70%;
+  font-weight: bold;
+  float: left;
+}
+.w3cbutton3 a {
+  display: block;
+  width: 100%;
+}
+.w3cbutton3 a:link,
+.w3cbutton3 a:visited,
+.w3cbutton3 a:hover {
+  background-color: #fc6;
+  color: #000;
+  text-decoration: none;
+  border-bottom: none;
+}
+.w3cbutton3 span.w3c {
+  padding: 0 0.4em;
+  background-color: #fff;
+  color: #0c479d;
+}
+
+-->
+</style>
+<style type="text/css" id="internalPrint" media="print">
+<!--
+body {
+  margin:  1em;
+  border:  0;
+  padding: 0;
+  background: white;
+  color:      black;
+  font-family: "Times Roman", times, serif;
+}
+
+.tt {
+  font-family: monospace;
+}
+
+div.flagClass > h2 {
+  border-bottom: 1px dotted black;
+  width: 80%;
+  font-family: sans-serif;
+}
+
+div.flagDesc {
+  clear: both;
+  background-color: rgb(255, 245, 220);
+  border: 1px solid blue; /* XXX This is for debugging */ 
+  margin: 0 auto;
+  width: 90%;
+}
+
+li.flagName {
+  font-weight: bold;
+  width: 100%;
+  border-bottom: 1px solid black;
+  display: block;
+  margin: 0.5em 0 0.5em 0;
+  font-size: 125%;
+  white-space: nowrap;
+}
+
+/* (presumably short) informationals all get grouped together near the top
+ * of the flag description block.
+ */
+.flagOrigin, .flagDescClass, .flagDescCompiler, .flagDescRE, .flagDescParallel, .flagVar {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  float: left;
+  padding: 0.25em;
+  margin: 0 0 0.25em 0;
+}
+
+.flagDescClass::before {
+  content: "Flag Class: ";
+}
+.flagDescCompiler::before {
+  content: "Compilers that recognize this flag: ";
+}
+.flagDescRE::before {
+  content: "Regular Expression: ";
+}
+.flagDescParallel::before {
+  content: "Indicates automatic parallelization: ";
+}
+.flagVar::before {
+  content: "Found In: ";
+}
+
+span.flagDescInc {
+  border-bottom: 1px solid black;
+}
+
+/* The description text stands alone. */
+.descText {
+  clear: both;
+  padding: 0.5em 1em 0.5em 1em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin: 0.5em 0 0.5em 0;
+}
+
+/* This is a separate class so that in the print style sheet it can
+ * be ignored.
+ * Also, 'style="clear:both;"' is longer than 'class="clear"'
+ */
+.clear {
+  clear: both;
+}
+
+/* This is really for the link _to_ the flag report */
+li.unknown > a:link, a:visited { text-decoration: none; }
+
+.monospace {
+  font-family: Courier, "Courier New", monospace;
+}
+
+ul.flagDescList {
+  clear: both;
+  list-style-type: none;
+}
+
+/* Arrange for each flag description to have some headroom. */
+ul.flagDescList > li {
+  margin: 2em 0 0 0;
+}
+
+ul.flagDesc {
+  list-style-type: none;
+}
+
+div.flagTOC {
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  margin: 0 auto;
+  width: 95%;
+}
+
+ul.flagTOC {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.flagTOC > li {
+  border: thin dotted lightgray;
+  margin: 0 1em 0 0;
+  padding: 0.25em 0 0.25em 0;
+  float: left;
+  display: inline-block; /* Fix IE bug; compliant browsers will ignore this */
+  width: 22.3%;
+  min-height: 1.5em;
+  overflow: hidden; /* If the table gets squeezed too much, don't let the
+                     * text overlap
+                     */
+}
+
+ul.flagTOC > li > a {
+   color:blue;
+   text-decoration:none;
+}
+
+ul.SubMenu li {
+  border: 1px solid white; /* rgb(211, 211, 211); */
+}
+
+ul.SubMenu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: 1px solid black;
+  background-color: white;
+  margin: 0 0 0 2em;
+  padding: 0.25em 5em 0.25em 0.5em;
+  white-space: nowrap;
+}
+
+li:hover > ul.SubMenu, ul.SubMenu:hover {
+  display: block;
+}
+
+ul.SubMenu > li:hover, ul.flagTOC > li:hover {
+  background-color: rgb(176, 196, 238); /* lightsteelgray... almost */
+  border: 1px solid rgb(128, 128, 128);
+}
+
+
+.resultpage a:link, .resultpage a:visited {
+  text-decoration: none;
+  border-bottom: 1px dashed black;
+  color: inherit;
+}
+
+.resultpage {
+  margin: auto;
+  padding: 0;
+  width: 1000px;
+}
+
+.resultpage_landscape {
+  width: 1200px;
+}
+
+div.logo {
+  float: left;
+  width: 38px;
+  height: 57px;
+}
+
+.titlebarcontainer, .resultstable, .ncsection {
+  border: solid 1px;
+  width: 100%;
+  float: left;
+}
+
+.ncsection {
+  background-color: white;
+  color: black;
+}
+
+.titlebar {
+  float: left;
+  padding: 0em 1em 0em 1em;
+  text-align: center;
+  width: 91%;
+}
+
+div.titlebar > h1, div.titlebar > p {
+  margin: 0 1em 0 1em;
+}
+
+div.ncsection {
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+.systembar {
+  width: 65%;
+  font-size: 150%;
+  margin: 0;
+}
+
+td.systembar {
+  padding: 0.2em;
+}
+
+.metricbar {
+  margin: 0;
+  font-size: 120%;
+}
+
+/* CSS for the old-style div-based systembar */
+
+div.systembar {
+  float: left;
+  padding: 0.1em;
+  border-right: solid 1px black;
+}
+
+div.metricbar {
+  padding: 0.1em;
+  float: right;
+  width: 33%;
+  height: 50%;
+}
+
+.base, .metricbar#base {
+  background-color: #c8c8c8;
+  color: black;
+}
+
+.peak, .metricbar#peak {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+}
+
+.metricbar p {
+  margin: 0;
+  padding: 0.2em;
+}
+
+.datebar p, .systembar p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Datebar stuff for older results */
+.datebar p {
+  float: left;
+  border-left: solid 1px black;
+}
+
+span.item {
+  float: left;
+  margin: 0;
+  padding: 0.1em 0 0.1em 0.5em;
+}
+
+span.value {
+  float: right;
+  padding: 0.1em 0.5em 0.1em 0;
+}
+
+div.datebar {
+  width: 100%;
+  float: left;
+  min-height: 100%;
+  border: solid 1px black;
+}
+
+p#test_sponsor         { width: 48%; }
+p#tester               { width: 48%; }
+p#license_num          { width: 24%; }
+p#test_date            { width: 23%; }
+p#hw_avail, p#sw_avail { width: 25%; }
+
+/* Table-based datebar and systembar on newer results */
+table.datebar, table.titlebarcontainer {
+  float: left;
+  width: 100%;
+  min-height: 100%;
+  border-collapse: collapse;
+  border: solid 1px black;
+  table-layout: fixed;
+}
+
+table.datebar th {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-left: 0.5em;
+  padding: 0 0.5em 0 0.25em;
+}
+
+table.datebar td {
+  text-align: left;
+  padding: 0 0.5em 0 0;
+}
+
+table.titlebarcontainer tr {
+  vertical-align: top;
+}
+table.titlebarcontainer td {
+  border-right: 1px solid black;
+}
+
+th#license_num          { width: 17%; }
+th#test_sponsor         { width: 17%; }
+th#tester               { width: 17%; }
+th#test_date            { width: 22%; }
+th#hw_avail             { width: 22%; }
+th#sw_avail             { width: 22%; }
+td#license_num_val      { width: 52%; }
+td#test_sponsor_val     { width: 52%; }
+td#tester_val           { width: 52%; }
+td#test_date_val        { width: 13%; white-space: nowrap; }
+td#hw_avail_val         { width: 13%; white-space: nowrap; }
+td#sw_avail_val         { width: 13%; white-space: nowrap; }
+
+
+div.graph {
+  width: 100%
+  margin: auto;
+}
+
+div.sysdesc > h2 {
+  text-align: center;
+  background-color: #c8c8c8;
+  color: black;
+  padding: 0.5em 0 0.5em 0;
+  margin: 0;
+} 
+  
+div.sysdesc {
+  margin: 0.5em 0 0.5em 0;
+}
+
+div.infobox, div.sysdesc {
+  float: left;
+  width: 100%;
+  padding: 0;
+  border: solid 1px black;
+}
+
+div.infobox table {
+  width: 49%;
+  float: left;
+}
+
+div.infobox table tr {
+  vertical-align: top;
+}
+
+div.infobox table#Hardware,
+div.infobox table#BenchmarkSoftware {
+  width: 50%;
+  border-right: 1px solid black;
+}
+
+div.infobox table#Systems {
+  width: 100%;
+}
+
+div.infobox table#Power {
+  width: 100%;
+  border-top: 1px solid black;
+}
+
+div.infobox table#Systems tbody th {
+  width: 20%;
+}
+
+div.infobox thead th {
+  font-size: 200%;
+}
+
+div.infobox tbody th {
+  text-align: left;
+}
+
+.resultstable h2, div.notes h2 {
+  text-align: center;
+  margin: 0.1em;
+}
+
+div.notes h3 {
+  margin: 0.1em;
+}
+
+div.notes table {
+  width: 100%;
+}
+
+div.notes table tr td {
+  text-align: right;
+  vertical-align: top;
+}
+
+/* Alas, IE6... if only you didn't suck so much...
+div.notes table tr td + td {
+*/
+div.notes table td.al {
+  text-align: left;
+  width: 85%;
+}
+
+div.notes table tr td {
+  padding-bottom: 1em;
+}
+
+div.notes table.portability tr td {
+  padding: 0em;
+}
+
+div.notes table.portability {
+  padding: 1em;
+}
+
+.resultstable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.resultstable th.basecol, .resultstable th.peakcol {
+  padding: 0.1em;
+  font-size: 90%;
+}
+
+.resultstable th {
+  border: solid 2px black;
+}
+
+.resultstable td {
+  border: solid 1px #b8b8b8;
+}
+
+td.bm, th.bm { 
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
+
+td.l_edge { 
+  border-left: solid 2px black;
+}
+
+td.r_edge { 
+  border-right: solid 2px black;
+}
+
+.resultstable tfoot td {
+  text-align: center;
+  border: solid 2px black;
+}
+
+tr.table_metrics > td {
+  text-align: right;
+}
+
+th.basecol {
+  background-color: #c8c8c8;
+  color: black;
+}
+td.basecol {
+  text-align: right;
+  background-color: transparent;
+  color: black;
+}
+
+th.peakcol {
+  text-align: center;
+}
+
+.peakcol {
+  background-color: transparent;
+  color: #2626b3;       /* peak blue */
+  text-align: right;
+}
+
+td.bm {
+  /* Basically, the benchmark name and copies columns */
+  background-color: #c8c8c8;
+  color: black;
+}
+
+span.selected {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.selected a:link, .selected a:visited {
+  border-bottom: 0;
+}
+
+div.notes {
+  width: 100%;
+  float: left;
+  border: solid 1px black;
+}
+
+div.flagfooter {
+  text-align: center;
+}
+
+div.errors {
+  border: solid 2px red;
+}
+div.errors h2 {
+  background-color: transparent;
+  color: red;
+}
+
+div.footer {
+  border: none;
+}
+
+/* People find the "double underline" confusing.  And Safari 1.3 doesn't deal
+ * well with attempting to disable the border for userflag links.  So just
+ * give up and don't decorate user flags specially.
+********************
+span.userflag {
+  text-decoration: underline;
+}
+
+.userflag a:link {
+  border-bottom: 0;
+}
+********************
+*/
+
+/* Keep flags from being wrapped */
+span.userflag, span.flagtext {
+  white-space: nowrap;
+}
+/* Classes that contain links - useless on paper */
+.flagTOC, .SubMenu, .NoPrint {
+  display: none;
+}
+
+/* Don't decorate links - they're not clickable */
+a {
+  text-decoration: none;
+  background: inherit;
+  color: inherit;
+}
+
+.resultpage {
+  width: 100%;
+}
+
+.w3cbutton3 {
+  display: none;
+}
+-->
+</style>
+<title>511.povray_r Flags</title>
+</head><body>
+<h1>511.povray_r Flags</h1>
+
+
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+
+<div class="NoPrint">
+<h3>Sections</h3>
+<p>Selecting one of the following will take you directly to that section:</p>
+<ul>
+<li><a href="#Section_portability">Portability Flags</a></li>
+<li><a href="#Section_mandatory">Mandatory Flags</a></li>
+<li><a href="#Section_forbidden">Forbidden Flags</a></li>
+</ul>
+</div>
+
+<hr />
+
+<div class="flagClass" id="portability">
+<h2><a name="Section_portability" id="Section_portability">Portability Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b511.povray_r_DC99_COMPATIBLE_RADIOSITY">-DC99_COMPATIBLE_RADIOSITY</a></li>
+ <li><a href="#b511.povray_r_DNEED_INVHYP">-DNEED_INVHYP</a></li>
+ <li><a href="#b511.povray_r_DSPEC_WINDOWS_ICL">-DSPEC_WINDOWS_ICL</a></li>
+ <li><a href="#b511.povray_r_DSPEC_WINDOWS_VS">-DSPEC_WINDOWS_VS</a></li>
+ <li><a href="#b511.povray_r_DTARGET_OS_MAC">-DTARGET_OS_MAC</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DC99_COMPATIBLE_RADIOSITY" id="b511.povray_r_DC99_COMPATIBLE_RADIOSITY">-DC99_COMPATIBLE_RADIOSITY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DC99_COMPATIBLE_RADIOSITY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Select log or ilog functions for INHYP
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DNEED_INVHYP" id="b511.povray_r_DNEED_INVHYP">-DNEED_INVHYP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNEED_INVHYP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+User uses this to use the inv hyp functions in the source code
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSPEC_WINDOWS_ICL" id="b511.povray_r_DSPEC_WINDOWS_ICL">-DSPEC_WINDOWS_ICL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_WINDOWS_ICL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Definitions for Windows and Intel Compiler
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSPEC_WINDOWS_VS" id="b511.povray_r_DSPEC_WINDOWS_VS">-DSPEC_WINDOWS_VS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPEC_WINDOWS_VS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Definitions for Windows and Visual Studio compiler
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTARGET_OS_MAC" id="b511.povray_r_DTARGET_OS_MAC">-DTARGET_OS_MAC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTARGET_OS_MAC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Enable MacOS portability changes
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="mandatory">
+<h2><a name="Section_mandatory" id="Section_mandatory">Mandatory Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b511.povray_r_bench_includes">-I.,
+ -Ifrontend,
+ -Ibase</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_bench_includes" id="b511.povray_r_bench_includes">
+ -I.,
+ -Ifrontend,
+ -Ibase
+ </a></li>
+<li class="flagDescRE"><span class="tt">-I(?:\.|frontend|base)(?:\s+|$)</span></li>
+<li class="descText">
+<p>
+This flag is included automatically by Spec/object.pm.
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+<div class="flagClass" id="forbidden">
+<h2><a name="Section_forbidden" id="Section_forbidden">Forbidden Flags</a></h2>
+<div class="flagTOC">
+<ul class="flagTOC">
+ <li><a href="#b511.povray_r_DALIGN16">-DALIGN16</a></li>
+ <li><a href="#b511.povray_r_DALLOW_SMOOT_RAD_PREVIEW">-DALLOW_SMOOT_RAD_PREVIEW</a></li>
+ <li><a href="#b511.povray_r_DALTMAIN">-DALTMAIN</a></li>
+ <li><a href="#b511.povray_r_DAccumulatePoolStatistics">-DAccumulatePoolStatistics</a></li>
+ <li><a href="#b511.povray_r_DBBOX_EXTRA_STATS">-DBBOX_EXTRA_STATS</a></li>
+ <li><a href="#b511.povray_r_DBEGIN_POV_NAMESPACE">-DBEGIN_POV_NAMESPACE</a></li>
+ <li><a href="#b511.povray_r_DBLOB_EXTRA_STATS">-DBLOB_EXTRA_STATS</a></li>
+ <li><a href="#b511.povray_r_DBOUND_HUGE">-DBOUND_HUGE</a></li>
+ <li><a href="#b511.povray_r_DCALLOC">-DCALLOC</a></li>
+ <li><a href="#b511.povray_r_DCDECL">-DCDECL</a></li>
+ <li><a href="#b511.povray_r_DCOLC">-DCOLC</a></li>
+ <li><a href="#b511.povray_r_DCOMPILER_VER">-DCOMPILER_VER</a></li>
+ <li><a href="#b511.povray_r_DCONFIG_MATH">-DCONFIG_MATH</a></li>
+ <li><a href="#b511.povray_r_DCOOPERATE">-DCOOPERATE</a></li>
+ <li><a href="#b511.povray_r_DCOOPERATE_0">-DCOOPERATE_0</a></li>
+ <li><a href="#b511.povray_r_DCOOPERATE_1">-DCOOPERATE_1</a></li>
+ <li><a href="#b511.povray_r_DCOOPERATE_2">-DCOOPERATE_2</a></li>
+ <li><a href="#b511.povray_r_DCRITICAL_LENGTH">-DCRITICAL_LENGTH</a></li>
+ <li><a href="#b511.povray_r_DDBL">-DDBL</a></li>
+ <li><a href="#b511.povray_r_DDBL_FORMAT_STRING">-DDBL_FORMAT_STRING</a></li>
+ <li><a href="#b511.povray_r_DDEBUG_DEFAULTCPU">-DDEBUG_DEFAULTCPU</a></li>
+ <li><a href="#b511.povray_r_DDEBUG_FLOATFUNCTION">-DDEBUG_FLOATFUNCTION</a></li>
+ <li><a href="#b511.povray_r_DDEFAULT_ASSUMED_GAMMA">-DDEFAULT_ASSUMED_GAMMA</a></li>
+ <li><a href="#b511.povray_r_DDEFAULT_DISPLAY_GAMMA">-DDEFAULT_DISPLAY_GAMMA</a></li>
+ <li><a href="#b511.povray_r_DDEFAULT_ITEXTSTREAM_BUFFER_SIZE">-DDEFAULT_ITEXTSTREAM_BUFFER_SIZE</a></li>
+ <li><a href="#b511.povray_r_DDEFAULT_OUTPUT_FORMAT">-DDEFAULT_OUTPUT_FORMAT</a></li>
+ <li><a href="#b511.povray_r_DDELETE_FILE">-DDELETE_FILE</a></li>
+ <li><a href="#b511.povray_r_DDELETE_FILE_ERR">-DDELETE_FILE_ERR</a></li>
+ <li><a href="#b511.povray_r_DDISTRIBUTION_MESSAGE_2">-DDISTRIBUTION_MESSAGE_2</a></li>
+ <li><a href="#b511.povray_r_DDONT_SHOW_IMAGE_LIB_VERSIONS">-DDONT_SHOW_IMAGE_LIB_VERSIONS</a></li>
+ <li><a href="#b511.povray_r_DDRIVE_SEPARATOR">-DDRIVE_SEPARATOR</a></li>
+ <li><a href="#b511.povray_r_DDUMP_OBJECT_DATA">-DDUMP_OBJECT_DATA</a></li>
+ <li><a href="#b511.povray_r_DDYNAMIC_HASHTABLE">-DDYNAMIC_HASHTABLE</a></li>
+ <li><a href="#b511.povray_r_DEND_POV_NAMESPACE">-DEND_POV_NAMESPACE</a></li>
+ <li><a href="#b511.povray_r_DEPSILON">-DEPSILON</a></li>
+ <li><a href="#b511.povray_r_DEXIST_FILE">-DEXIST_FILE</a></li>
+ <li><a href="#b511.povray_r_DEXIST_FONT_FILE">-DEXIST_FONT_FILE</a></li>
+ <li><a href="#b511.povray_r_DEXIT_POVRAY">-DEXIT_POVRAY</a></li>
+ <li><a href="#b511.povray_r_DFILENAME_SEPARATOR">-DFILENAME_SEPARATOR</a></li>
+ <li><a href="#b511.povray_r_DFILE_NAME_LENGTH">-DFILE_NAME_LENGTH</a></li>
+ <li><a href="#b511.povray_r_DFINISH_POVRAY">-DFINISH_POVRAY</a></li>
+ <li><a href="#b511.povray_r_DFREE">-DFREE</a></li>
+ <li><a href="#b511.povray_r_DFRONTEND_ADDRESS">-DFRONTEND_ADDRESS</a></li>
+ <li><a href="#b511.povray_r_DFUDGE_FACTOR1">-DFUDGE_FACTOR1</a></li>
+ <li><a href="#b511.povray_r_DFUDGE_FACTOR2">-DFUDGE_FACTOR2</a></li>
+ <li><a href="#b511.povray_r_DFUDGE_FACTOR3">-DFUDGE_FACTOR3</a></li>
+ <li><a href="#b511.povray_r_DGETCOMMANDLINE">-DGETCOMMANDLINE</a></li>
+ <li><a href="#b511.povray_r_DGET_KEY">-DGET_KEY</a></li>
+ <li><a href="#b511.povray_r_DGET_KEY_EXISTS">-DGET_KEY_EXISTS</a></li>
+ <li><a href="#b511.povray_r_DGLOBAL_PHOTONS">-DGLOBAL_PHOTONS</a></li>
+ <li><a href="#b511.povray_r_DGREY">-DGREY</a></li>
+ <li><a href="#b511.povray_r_DHEAP">-DHEAP</a></li>
+ <li><a href="#b511.povray_r_DHFIELD_EXTRA_STATS">-DHFIELD_EXTRA_STATS</a></li>
+ <li><a href="#b511.povray_r_DHUGE_VAL">-DHUGE_VAL</a></li>
+ <li><a href="#b511.povray_r_DIFF_SWITCH_CAST">-DIFF_SWITCH_CAST</a></li>
+ <li><a href="#b511.povray_r_DINLINE_NOISE">-DINLINE_NOISE</a></li>
+ <li><a href="#b511.povray_r_DINLINE_PICK_IN_CUBE">-DINLINE_PICK_IN_CUBE</a></li>
+ <li><a href="#b511.povray_r_DIStream">-DIStream</a></li>
+ <li><a href="#b511.povray_r_DLATHE_EXTRA_STATS">-DLATHE_EXTRA_STATS</a></li>
+ <li><a href="#b511.povray_r_DLOW_COUNT_BRIGHT">-DLOW_COUNT_BRIGHT</a></li>
+ <li><a href="#b511.povray_r_DMALLOC">-DMALLOC</a></li>
+ <li><a href="#b511.povray_r_DMAX_BUFSIZE">-DMAX_BUFSIZE</a></li>
+ <li><a href="#b511.povray_r_DMAX_TRACE_LEVEL_LIMIT">-DMAX_TRACE_LEVEL_LIMIT</a></li>
+ <li><a href="#b511.povray_r_DMEDIA_INTERACTION">-DMEDIA_INTERACTION</a></li>
+ <li><a href="#b511.povray_r_DMEM_CLEAR_STRING">-DMEM_CLEAR_STRING</a></li>
+ <li><a href="#b511.povray_r_DMEM_GUARD">-DMEM_GUARD</a></li>
+ <li><a href="#b511.povray_r_DMEM_GUARD_STRING">-DMEM_GUARD_STRING</a></li>
+ <li><a href="#b511.povray_r_DMEM_HEADER">-DMEM_HEADER</a></li>
+ <li><a href="#b511.povray_r_DMEM_PREFILL">-DMEM_PREFILL</a></li>
+ <li><a href="#b511.povray_r_DMEM_PREFILL_STRING">-DMEM_PREFILL_STRING</a></li>
+ <li><a href="#b511.povray_r_DMEM_RECLAIM">-DMEM_RECLAIM</a></li>
+ <li><a href="#b511.povray_r_DMEM_STATS">-DMEM_STATS</a></li>
+ <li><a href="#b511.povray_r_DMEM_TAG">-DMEM_TAG</a></li>
+ <li><a href="#b511.povray_r_DMEM_TRACE">-DMEM_TRACE</a></li>
+ <li><a href="#b511.povray_r_DM_PI">-DM_PI</a></li>
+ <li><a href="#b511.povray_r_DM_PI_180">-DM_PI_180</a></li>
+ <li><a href="#b511.povray_r_DM_PI_2">-DM_PI_2</a></li>
+ <li><a href="#b511.povray_r_DM_PI_360">-DM_PI_360</a></li>
+ <li><a href="#b511.povray_r_DNEW_LINE_STRING">-DNEW_LINE_STRING</a></li>
+ <li><a href="#b511.povray_r_DNORMAL">-DNORMAL</a></li>
+ <li><a href="#b511.povray_r_DORDERED">-DORDERED</a></li>
+ <li><a href="#b511.povray_r_DOStream">-DOStream</a></li>
+ <li><a href="#b511.povray_r_DOT_DEBUG">-DOT_DEBUG</a></li>
+ <li><a href="#b511.povray_r_DPOVFPU_Run">-DPOVFPU_Run</a></li>
+ <li><a href="#b511.povray_r_DPOVMSAddress">-DPOVMSAddress</a></li>
+ <li><a href="#b511.povray_r_DPOVMSBool">-DPOVMSBool</a></li>
+ <li><a href="#b511.povray_r_DPOVMSFloat">-DPOVMSFloat</a></li>
+ <li><a href="#b511.povray_r_DPOVMSInt">-DPOVMSInt</a></li>
+ <li><a href="#b511.povray_r_DPOVMSLong">-DPOVMSLong</a></li>
+ <li><a href="#b511.povray_r_DPOVMSPixel">-DPOVMSPixel</a></li>
+ <li><a href="#b511.povray_r_DPOVMSStream">-DPOVMSStream</a></li>
+ <li><a href="#b511.povray_r_DPOVMSType">-DPOVMSType</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_ALLOW_BINARY_MODE">-DPOVMS_ALLOW_BINARY_MODE</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_ASSERT">-DPOVMS_ASSERT</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_ASSERT_OUTPUT">-DPOVMS_ASSERT_OUTPUT</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_CDECL">-DPOVMS_CDECL</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_DISCONNECTED">-DPOVMS_DISCONNECTED</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_EXPORT">-DPOVMS_EXPORT</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_EXPORT_STREAM_FUNCTIONS">-DPOVMS_EXPORT_STREAM_FUNCTIONS</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_LOG_OUTPUT">-DPOVMS_LOG_OUTPUT</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_NO_DUMP_SUPPORT">-DPOVMS_NO_DUMP_SUPPORT</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_NO_ORDERED_STREAM_DATA">-DPOVMS_NO_ORDERED_STREAM_DATA</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_AddressToQueue">-DPOVMS_Sys_AddressToQueue</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_Calloc">-DPOVMS_Sys_Calloc</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_Free">-DPOVMS_Sys_Free</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_Malloc">-DPOVMS_Sys_Malloc</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_Memmove">-DPOVMS_Sys_Memmove</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_QueueClose">-DPOVMS_Sys_QueueClose</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_QueueOpen">-DPOVMS_Sys_QueueOpen</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_QueueReceive">-DPOVMS_Sys_QueueReceive</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_QueueSend">-DPOVMS_Sys_QueueSend</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_QueueToAddress">-DPOVMS_Sys_QueueToAddress</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_Queue_Type">-DPOVMS_Sys_Queue_Type</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_Realloc">-DPOVMS_Sys_Realloc</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_Strlen">-DPOVMS_Sys_Strlen</a></li>
+ <li><a href="#b511.povray_r_DPOVMS_Sys_Timer">-DPOVMS_Sys_Timer</a></li>
+ <li><a href="#b511.povray_r_DPOVRAY_BEGIN_COOPERATE">-DPOVRAY_BEGIN_COOPERATE</a></li>
+ <li><a href="#b511.povray_r_DPOVRAY_COOPERATE_GLOBAL">-DPOVRAY_COOPERATE_GLOBAL</a></li>
+ <li><a href="#b511.povray_r_DPOVRAY_END_COOPERATE">-DPOVRAY_END_COOPERATE</a></li>
+ <li><a href="#b511.povray_r_DPOVRAY_PLATFORM_NAME">-DPOVRAY_PLATFORM_NAME</a></li>
+ <li><a href="#b511.povray_r_DPOV_ALLOW_FILE_READ">-DPOV_ALLOW_FILE_READ</a></li>
+ <li><a href="#b511.povray_r_DPOV_ALLOW_FILE_WRITE">-DPOV_ALLOW_FILE_WRITE</a></li>
+ <li><a href="#b511.povray_r_DPOV_ASSIGN_PIXEL">-DPOV_ASSIGN_PIXEL</a></li>
+ <li><a href="#b511.povray_r_DPOV_ASSIGN_PIXEL_UNCLIPPED">-DPOV_ASSIGN_PIXEL_UNCLIPPED</a></li>
+ <li><a href="#b511.povray_r_DPOV_BASE_NAMESPACE">-DPOV_BASE_NAMESPACE</a></li>
+ <li><a href="#b511.povray_r_DPOV_CALLOC">-DPOV_CALLOC</a></li>
+ <li><a href="#b511.povray_r_DPOV_CONVERT_TEXT_TO_UCS2">-DPOV_CONVERT_TEXT_TO_UCS2</a></li>
+ <li><a href="#b511.povray_r_DPOV_DISPLAY_CLOSE">-DPOV_DISPLAY_CLOSE</a></li>
+ <li><a href="#b511.povray_r_DPOV_DISPLAY_FINISHED">-DPOV_DISPLAY_FINISHED</a></li>
+ <li><a href="#b511.povray_r_DPOV_DISPLAY_INIT">-DPOV_DISPLAY_INIT</a></li>
+ <li><a href="#b511.povray_r_DPOV_DISPLAY_PLOT">-DPOV_DISPLAY_PLOT</a></li>
+ <li><a href="#b511.povray_r_DPOV_DISPLAY_PLOT_BOX">-DPOV_DISPLAY_PLOT_BOX</a></li>
+ <li><a href="#b511.povray_r_DPOV_DISPLAY_PLOT_RECT">-DPOV_DISPLAY_PLOT_RECT</a></li>
+ <li><a href="#b511.povray_r_DPOV_DISPLAY_PLOT_ROW">-DPOV_DISPLAY_PLOT_ROW</a></li>
+ <li><a href="#b511.povray_r_DPOV_ERROR_MARKER_TEXT">-DPOV_ERROR_MARKER_TEXT</a></li>
+ <li><a href="#b511.povray_r_DPOV_FREE">-DPOV_FREE</a></li>
+ <li><a href="#b511.povray_r_DPOV_FRONTEND_NAMESPACE">-DPOV_FRONTEND_NAMESPACE</a></li>
+ <li><a href="#b511.povray_r_DPOV_GET_FULL_PATH">-DPOV_GET_FULL_PATH</a></li>
+ <li><a href="#b511.povray_r_DPOV_IS1">-DPOV_IS1</a></li>
+ <li><a href="#b511.povray_r_DPOV_IS2">-DPOV_IS2</a></li>
+ <li><a href="#b511.povray_r_DPOV_IS3">-DPOV_IS3</a></li>
+ <li><a href="#b511.povray_r_DPOV_IS4">-DPOV_IS4</a></li>
+ <li><a href="#b511.povray_r_DPOV_LONG">-DPOV_LONG</a></li>
+ <li><a href="#b511.povray_r_DPOV_MALLOC">-DPOV_MALLOC</a></li>
+ <li><a href="#b511.povray_r_DPOV_MAX_CMD_LENGTH">-DPOV_MAX_CMD_LENGTH</a></li>
+ <li><a href="#b511.povray_r_DPOV_MEMCPY">-DPOV_MEMCPY</a></li>
+ <li><a href="#b511.povray_r_DPOV_MEMMOVE">-DPOV_MEMMOVE</a></li>
+ <li><a href="#b511.povray_r_DPOV_MEM_INIT">-DPOV_MEM_INIT</a></li>
+ <li><a href="#b511.povray_r_DPOV_MEM_RELEASE_ALL">-DPOV_MEM_RELEASE_ALL</a></li>
+ <li><a href="#b511.povray_r_DPOV_NAMESPACE">-DPOV_NAMESPACE</a></li>
+ <li><a href="#b511.povray_r_DPOV_NAME_MAX">-DPOV_NAME_MAX</a></li>
+ <li><a href="#b511.povray_r_DPOV_NUM_ECHO_LINES">-DPOV_NUM_ECHO_LINES</a></li>
+ <li><a href="#b511.povray_r_DPOV_POST_PIXEL">-DPOV_POST_PIXEL</a></li>
+ <li><a href="#b511.povray_r_DPOV_POST_SHUTDOWN">-DPOV_POST_SHUTDOWN</a></li>
+ <li><a href="#b511.povray_r_DPOV_PRE_PIXEL">-DPOV_PRE_PIXEL</a></li>
+ <li><a href="#b511.povray_r_DPOV_PRE_RENDER">-DPOV_PRE_RENDER</a></li>
+ <li><a href="#b511.povray_r_DPOV_PRE_SHUTDOWN">-DPOV_PRE_SHUTDOWN</a></li>
+ <li><a href="#b511.povray_r_DPOV_RAY_IS_OFFICIAL">-DPOV_RAY_IS_OFFICIAL</a></li>
+ <li><a href="#b511.povray_r_DPOV_REALLOC">-DPOV_REALLOC</a></li>
+ <li><a href="#b511.povray_r_DPOV_SEEK_CUR">-DPOV_SEEK_CUR</a></li>
+ <li><a href="#b511.povray_r_DPOV_SEEK_END">-DPOV_SEEK_END</a></li>
+ <li><a href="#b511.povray_r_DPOV_SEEK_SET">-DPOV_SEEK_SET</a></li>
+ <li><a href="#b511.povray_r_DPOV_SHELLOUT">-DPOV_SHELLOUT</a></li>
+ <li><a href="#b511.povray_r_DPOV_SPLIT_PATH">-DPOV_SPLIT_PATH</a></li>
+ <li><a href="#b511.povray_r_DPOV_STRDUP">-DPOV_STRDUP</a></li>
+ <li><a href="#b511.povray_r_DPOV_SYSTEM">-DPOV_SYSTEM</a></li>
+ <li><a href="#b511.povray_r_DPOV_ULONG">-DPOV_ULONG</a></li>
+ <li><a href="#b511.povray_r_DPOV_WHERE_ERROR">-DPOV_WHERE_ERROR</a></li>
+ <li><a href="#b511.povray_r_DPOV_WRITE_LINE">-DPOV_WRITE_LINE</a></li>
+ <li><a href="#b511.povray_r_DPRECISION_TIMER_AVAILABLE">-DPRECISION_TIMER_AVAILABLE</a></li>
+ <li><a href="#b511.povray_r_DPRECISION_TIMER_COUNT">-DPRECISION_TIMER_COUNT</a></li>
+ <li><a href="#b511.povray_r_DPRECISION_TIMER_INIT">-DPRECISION_TIMER_INIT</a></li>
+ <li><a href="#b511.povray_r_DPRECISION_TIMER_START">-DPRECISION_TIMER_START</a></li>
+ <li><a href="#b511.povray_r_DPRECISION_TIMER_STOP">-DPRECISION_TIMER_STOP</a></li>
+ <li><a href="#b511.povray_r_DPRINT_CREDITS">-DPRINT_CREDITS</a></li>
+ <li><a href="#b511.povray_r_DPRINT_OTHER_CREDITS">-DPRINT_OTHER_CREDITS</a></li>
+ <li><a href="#b511.povray_r_DPRISM_EXTRA_STATS">-DPRISM_EXTRA_STATS</a></li>
+ <li><a href="#b511.povray_r_DPRI_QUE">-DPRI_QUE</a></li>
+ <li><a href="#b511.povray_r_DQSORT">-DQSORT</a></li>
+ <li><a href="#b511.povray_r_DRADSTATS">-DRADSTATS</a></li>
+ <li><a href="#b511.povray_r_DRAD_GRADIENT">-DRAD_GRADIENT</a></li>
+ <li><a href="#b511.povray_r_DREAD_SYS_IMAGE">-DREAD_SYS_IMAGE</a></li>
+ <li><a href="#b511.povray_r_DREALLOC">-DREALLOC</a></li>
+ <li><a href="#b511.povray_r_DREFLECT_FOR_RADIANCE">-DREFLECT_FOR_RADIANCE</a></li>
+ <li><a href="#b511.povray_r_DRENAME_FILE">-DRENAME_FILE</a></li>
+ <li><a href="#b511.povray_r_DRENAME_FILE_ERR">-DRENAME_FILE_ERR</a></li>
+ <li><a href="#b511.povray_r_DSAFE_BUT_SLOW">-DSAFE_BUT_SLOW</a></li>
+ <li><a href="#b511.povray_r_DSAFE_METHOD">-DSAFE_METHOD</a></li>
+ <li><a href="#b511.povray_r_DSAW_METHOD">-DSAW_METHOD</a></li>
+ <li><a href="#b511.povray_r_DSCANF_EOF">-DSCANF_EOF</a></li>
+ <li><a href="#b511.povray_r_DSHOW_SAMPLE_SPOTS">-DSHOW_SAMPLE_SPOTS</a></li>
+ <li><a href="#b511.povray_r_DSIGMOID_METHOD">-DSIGMOID_METHOD</a></li>
+ <li><a href="#b511.povray_r_DSNGL">-DSNGL</a></li>
+ <li><a href="#b511.povray_r_DSOR_EXTRA_STATS">-DSOR_EXTRA_STATS</a></li>
+ <li><a href="#b511.povray_r_DSPLIT_TIME">-DSPLIT_TIME</a></li>
+ <li><a href="#b511.povray_r_DSTARTUP_POVRAY">-DSTARTUP_POVRAY</a></li>
+ <li><a href="#b511.povray_r_DSTART_TIME">-DSTART_TIME</a></li>
+ <li><a href="#b511.povray_r_DSTOP_TIME">-DSTOP_TIME</a></li>
+ <li><a href="#b511.povray_r_DSUPPORT_INTEGER_INSTRUCTIONS">-DSUPPORT_INTEGER_INSTRUCTIONS</a></li>
+ <li><a href="#b511.povray_r_DSYS_DEF_EXT">-DSYS_DEF_EXT</a></li>
+ <li><a href="#b511.povray_r_DSYS_FUNCTIONS">-DSYS_FUNCTIONS</a></li>
+ <li><a href="#b511.povray_r_DSYS_IMAGE_CLASS">-DSYS_IMAGE_CLASS</a></li>
+ <li><a href="#b511.povray_r_DSYS_IMAGE_HEADER">-DSYS_IMAGE_HEADER</a></li>
+ <li><a href="#b511.povray_r_DSYS_MATH_PARAM">-DSYS_MATH_PARAM</a></li>
+ <li><a href="#b511.povray_r_DSYS_MATH_RETURN">-DSYS_MATH_RETURN</a></li>
+ <li><a href="#b511.povray_r_DTEST_ABORT">-DTEST_ABORT</a></li>
+ <li><a href="#b511.povray_r_DTEST_SOLVER">-DTEST_SOLVER</a></li>
+ <li><a href="#b511.povray_r_DTEXTSTREAM_CRLF">-DTEXTSTREAM_CRLF</a></li>
+ <li><a href="#b511.povray_r_DTIME_ELAPSED">-DTIME_ELAPSED</a></li>
+ <li><a href="#b511.povray_r_DTORUS_EXTRA_STATS">-DTORUS_EXTRA_STATS</a></li>
+ <li><a href="#b511.povray_r_DTTF_DEBUG">-DTTF_DEBUG</a></li>
+ <li><a href="#b511.povray_r_DTTF_DEBUG2">-DTTF_DEBUG2</a></li>
+ <li><a href="#b511.povray_r_DTTF_DEBUG3">-DTTF_DEBUG3</a></li>
+ <li><a href="#b511.povray_r_DTWO_M_PI">-DTWO_M_PI</a></li>
+ <li><a href="#b511.povray_r_DUCS2">-DUCS2</a></li>
+ <li><a href="#b511.povray_r_DUCS4">-DUCS4</a></li>
+ <li><a href="#b511.povray_r_DUNORDERED">-DUNORDERED</a></li>
+ <li><a href="#b511.povray_r_DUSE_FASTER_NOISE">-DUSE_FASTER_NOISE</a></li>
+ <li><a href="#b511.povray_r_DUSE_LOCAL_POVMS_OUTPUT">-DUSE_LOCAL_POVMS_OUTPUT</a></li>
+ <li><a href="#b511.povray_r_DUSE_NEW_DIFFICULT_COEFFS">-DUSE_NEW_DIFFICULT_COEFFS</a></li>
+ <li><a href="#b511.povray_r_DUSE_SYSPROTO">-DUSE_SYSPROTO</a></li>
+ <li><a href="#b511.povray_r_DUSING_POV_NAMESPACE">-DUSING_POV_NAMESPACE</a></li>
+ <li><a href="#b511.povray_r_DWAIT_FOR_KEYPRESS">-DWAIT_FOR_KEYPRESS</a></li>
+ <li><a href="#b511.povray_r_D_DEBUG_POVMS_DUMP_MESSAGES_">-D_DEBUG_POVMS_DUMP_MESSAGES_</a></li>
+ <li><a href="#b511.povray_r_D_DEBUG_POVMS_TRACE_MEMORY_">-D_DEBUG_POVMS_TRACE_MEMORY_</a></li>
+ <li><a href="#b511.povray_r_D__cplusplus">-D__cplusplus</a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<ul class="flagDescList">
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DALIGN16" id="b511.povray_r_DALIGN16">-DALIGN16</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALIGN16(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to set alignment for some data structures. Disabled for everyone.
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DALLOW_SMOOT_RAD_PREVIEW" id="b511.povray_r_DALLOW_SMOOT_RAD_PREVIEW">-DALLOW_SMOOT_RAD_PREVIEW</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALLOW_SMOOT_RAD_PREVIEW(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to set this parameter to 1 for everyone
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DALTMAIN" id="b511.povray_r_DALTMAIN">-DALTMAIN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DALTMAIN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always undefined to enable local output
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DAccumulatePoolStatistics" id="b511.povray_r_DAccumulatePoolStatistics">-DAccumulatePoolStatistics</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DAccumulatePoolStatistics(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always undefined since we do not wish to use these statistics
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DBBOX_EXTRA_STATS" id="b511.povray_r_DBBOX_EXTRA_STATS">-DBBOX_EXTRA_STATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBBOX_EXTRA_STATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1 to generate extra statistics
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DBEGIN_POV_NAMESPACE" id="b511.povray_r_DBEGIN_POV_NAMESPACE">-DBEGIN_POV_NAMESPACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBEGIN_POV_NAMESPACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Just a macro to set the namespace
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DBLOB_EXTRA_STATS" id="b511.povray_r_DBLOB_EXTRA_STATS">-DBLOB_EXTRA_STATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBLOB_EXTRA_STATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1 to enable these statistics
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DBOUND_HUGE" id="b511.povray_r_DBOUND_HUGE">-DBOUND_HUGE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DBOUND_HUGE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Maximum lengths of a bounding box is set with this to 2.0e10
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCALLOC" id="b511.povray_r_DCALLOC">-DCALLOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCALLOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to declare the way your system calls calloc
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCDECL" id="b511.povray_r_DCDECL">-DCDECL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCDECL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCOLC" id="b511.povray_r_DCOLC">-DCOLC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOLC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to float
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCOMPILER_VER" id="b511.povray_r_DCOMPILER_VER">-DCOMPILER_VER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOMPILER_VER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCONFIG_MATH" id="b511.povray_r_DCONFIG_MATH">-DCONFIG_MATH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCONFIG_MATH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCOOPERATE" id="b511.povray_r_DCOOPERATE">-DCOOPERATE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOOPERATE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank since this is only for multi-threaded versions
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCOOPERATE_0" id="b511.povray_r_DCOOPERATE_0">-DCOOPERATE_0</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOOPERATE_0(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank since this is only for multi-threaded versions
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCOOPERATE_1" id="b511.povray_r_DCOOPERATE_1">-DCOOPERATE_1</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOOPERATE_1(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank since this is only for multi-threaded versions
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCOOPERATE_2" id="b511.povray_r_DCOOPERATE_2">-DCOOPERATE_2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCOOPERATE_2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank since this is only for multi-threaded versions
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DCRITICAL_LENGTH" id="b511.povray_r_DCRITICAL_LENGTH">-DCRITICAL_LENGTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DCRITICAL_LENGTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1.0e6
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDBL" id="b511.povray_r_DDBL">-DDBL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDBL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to double to use that data type
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDBL_FORMAT_STRING" id="b511.povray_r_DDBL_FORMAT_STRING">-DDBL_FORMAT_STRING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDBL_FORMAT_STRING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to %lf to print doubles
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDEBUG_DEFAULTCPU" id="b511.povray_r_DDEBUG_DEFAULTCPU">-DDEBUG_DEFAULTCPU</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_DEFAULTCPU(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0 since this enables debug when set to 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDEBUG_FLOATFUNCTION" id="b511.povray_r_DDEBUG_FLOATFUNCTION">-DDEBUG_FLOATFUNCTION</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEBUG_FLOATFUNCTION(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0 since this enables debug when set to 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDEFAULT_ASSUMED_GAMMA" id="b511.povray_r_DDEFAULT_ASSUMED_GAMMA">-DDEFAULT_ASSUMED_GAMMA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEFAULT_ASSUMED_GAMMA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDEFAULT_DISPLAY_GAMMA" id="b511.povray_r_DDEFAULT_DISPLAY_GAMMA">-DDEFAULT_DISPLAY_GAMMA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEFAULT_DISPLAY_GAMMA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 2.2
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDEFAULT_ITEXTSTREAM_BUFFER_SIZE" id="b511.povray_r_DDEFAULT_ITEXTSTREAM_BUFFER_SIZE">-DDEFAULT_ITEXTSTREAM_BUFFER_SIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEFAULT_ITEXTSTREAM_BUFFER_SIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 512
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDEFAULT_OUTPUT_FORMAT" id="b511.povray_r_DDEFAULT_OUTPUT_FORMAT">-DDEFAULT_OUTPUT_FORMAT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDEFAULT_OUTPUT_FORMAT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 't'
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDELETE_FILE" id="b511.povray_r_DDELETE_FILE">-DDELETE_FILE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDELETE_FILE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to unlink
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDELETE_FILE_ERR" id="b511.povray_r_DDELETE_FILE_ERR">-DDELETE_FILE_ERR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDELETE_FILE_ERR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to -1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDISTRIBUTION_MESSAGE_2" id="b511.povray_r_DDISTRIBUTION_MESSAGE_2">-DDISTRIBUTION_MESSAGE_2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDISTRIBUTION_MESSAGE_2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to help string
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDONT_SHOW_IMAGE_LIB_VERSIONS" id="b511.povray_r_DDONT_SHOW_IMAGE_LIB_VERSIONS">-DDONT_SHOW_IMAGE_LIB_VERSIONS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDONT_SHOW_IMAGE_LIB_VERSIONS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDRIVE_SEPARATOR" id="b511.povray_r_DDRIVE_SEPARATOR">-DDRIVE_SEPARATOR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDRIVE_SEPARATOR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set to ':' for some file systems
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDUMP_OBJECT_DATA" id="b511.povray_r_DDUMP_OBJECT_DATA">-DDUMP_OBJECT_DATA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDUMP_OBJECT_DATA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DDYNAMIC_HASHTABLE" id="b511.povray_r_DDYNAMIC_HASHTABLE">-DDYNAMIC_HASHTABLE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DDYNAMIC_HASHTABLE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DEND_POV_NAMESPACE" id="b511.povray_r_DEND_POV_NAMESPACE">-DEND_POV_NAMESPACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DEND_POV_NAMESPACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Convenient macro to delimit povray's namespace
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DEPSILON" id="b511.povray_r_DEPSILON">-DEPSILON</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DEPSILON(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1e-10
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DEXIST_FILE" id="b511.povray_r_DEXIST_FILE">-DEXIST_FILE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DEXIST_FILE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to POV_BASE_NAMESPACE::File_Exist(name)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DEXIST_FONT_FILE" id="b511.povray_r_DEXIST_FONT_FILE">-DEXIST_FONT_FILE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DEXIST_FONT_FILE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to False
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DEXIT_POVRAY" id="b511.povray_r_DEXIT_POVRAY">-DEXIT_POVRAY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DEXIT_POVRAY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Use to define povray's exit function
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DFILENAME_SEPARATOR" id="b511.povray_r_DFILENAME_SEPARATOR">-DFILENAME_SEPARATOR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFILENAME_SEPARATOR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set to :, / or \
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DFILE_NAME_LENGTH" id="b511.povray_r_DFILE_NAME_LENGTH">-DFILE_NAME_LENGTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFILE_NAME_LENGTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 150
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DFINISH_POVRAY" id="b511.povray_r_DFINISH_POVRAY">-DFINISH_POVRAY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFINISH_POVRAY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DFREE" id="b511.povray_r_DFREE">-DFREE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFREE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always free
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DFRONTEND_ADDRESS" id="b511.povray_r_DFRONTEND_ADDRESS">-DFRONTEND_ADDRESS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFRONTEND_ADDRESS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to povray_getoutputcontext()
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DFUDGE_FACTOR1" id="b511.povray_r_DFUDGE_FACTOR1">-DFUDGE_FACTOR1</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFUDGE_FACTOR1(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1.0e12
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DFUDGE_FACTOR2" id="b511.povray_r_DFUDGE_FACTOR2">-DFUDGE_FACTOR2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFUDGE_FACTOR2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to -1.0e-5
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DFUDGE_FACTOR3" id="b511.povray_r_DFUDGE_FACTOR3">-DFUDGE_FACTOR3</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DFUDGE_FACTOR3(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1.0e-7
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DGETCOMMANDLINE" id="b511.povray_r_DGETCOMMANDLINE">-DGETCOMMANDLINE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGETCOMMANDLINE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to ccommand
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DGET_KEY" id="b511.povray_r_DGET_KEY">-DGET_KEY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGET_KEY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always not set
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DGET_KEY_EXISTS" id="b511.povray_r_DGET_KEY_EXISTS">-DGET_KEY_EXISTS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGET_KEY_EXISTS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DGLOBAL_PHOTONS" id="b511.povray_r_DGLOBAL_PHOTONS">-DGLOBAL_PHOTONS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGLOBAL_PHOTONS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DGREY" id="b511.povray_r_DGREY">-DGREY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DGREY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always 'G'
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DHEAP" id="b511.povray_r_DHEAP">-DHEAP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHEAP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DHFIELD_EXTRA_STATS" id="b511.povray_r_DHFIELD_EXTRA_STATS">-DHFIELD_EXTRA_STATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHFIELD_EXTRA_STATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DHUGE_VAL" id="b511.povray_r_DHUGE_VAL">-DHUGE_VAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DHUGE_VAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 1.0e+17
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DIFF_SWITCH_CAST" id="b511.povray_r_DIFF_SWITCH_CAST">-DIFF_SWITCH_CAST</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DIFF_SWITCH_CAST(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to (int)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DINLINE_NOISE" id="b511.povray_r_DINLINE_NOISE">-DINLINE_NOISE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINLINE_NOISE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DINLINE_PICK_IN_CUBE" id="b511.povray_r_DINLINE_PICK_IN_CUBE">-DINLINE_PICK_IN_CUBE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DINLINE_PICK_IN_CUBE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DIStream" id="b511.povray_r_DIStream">-DIStream</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DIStream(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always IStream
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DLATHE_EXTRA_STATS" id="b511.povray_r_DLATHE_EXTRA_STATS">-DLATHE_EXTRA_STATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLATHE_EXTRA_STATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DLOW_COUNT_BRIGHT" id="b511.povray_r_DLOW_COUNT_BRIGHT">-DLOW_COUNT_BRIGHT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DLOW_COUNT_BRIGHT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always FALSE
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMALLOC" id="b511.povray_r_DMALLOC">-DMALLOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMALLOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always malloc
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMAX_BUFSIZE" id="b511.povray_r_DMAX_BUFSIZE">-DMAX_BUFSIZE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX_BUFSIZE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to MAX_INT
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMAX_TRACE_LEVEL_LIMIT" id="b511.povray_r_DMAX_TRACE_LEVEL_LIMIT">-DMAX_TRACE_LEVEL_LIMIT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMAX_TRACE_LEVEL_LIMIT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 256
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEDIA_INTERACTION" id="b511.povray_r_DMEDIA_INTERACTION">-DMEDIA_INTERACTION</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEDIA_INTERACTION(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_CLEAR_STRING" id="b511.povray_r_DMEM_CLEAR_STRING">-DMEM_CLEAR_STRING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_CLEAR_STRING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always "CLEA"
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_GUARD" id="b511.povray_r_DMEM_GUARD">-DMEM_GUARD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_GUARD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_GUARD_STRING" id="b511.povray_r_DMEM_GUARD_STRING">-DMEM_GUARD_STRING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_GUARD_STRING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always "GURD"
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_HEADER" id="b511.povray_r_DMEM_HEADER">-DMEM_HEADER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_HEADER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_PREFILL" id="b511.povray_r_DMEM_PREFILL">-DMEM_PREFILL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_PREFILL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always undefined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_PREFILL_STRING" id="b511.povray_r_DMEM_PREFILL_STRING">-DMEM_PREFILL_STRING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_PREFILL_STRING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Only "POVR" but not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_RECLAIM" id="b511.povray_r_DMEM_RECLAIM">-DMEM_RECLAIM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_RECLAIM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0 to disable garbage collection
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_STATS" id="b511.povray_r_DMEM_STATS">-DMEM_STATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_STATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0 to disable memory stats
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_TAG" id="b511.povray_r_DMEM_TAG">-DMEM_TAG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_TAG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0 to disable memory tagging
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DMEM_TRACE" id="b511.povray_r_DMEM_TRACE">-DMEM_TRACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DMEM_TRACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0 to disable memory tracing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DM_PI" id="b511.povray_r_DM_PI">-DM_PI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DM_PI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to define value of PI
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DM_PI_180" id="b511.povray_r_DM_PI_180">-DM_PI_180</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DM_PI_180(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to define value of PI/180
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DM_PI_2" id="b511.povray_r_DM_PI_2">-DM_PI_2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DM_PI_2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to define value of PI/2
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DM_PI_360" id="b511.povray_r_DM_PI_360">-DM_PI_360</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DM_PI_360(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Used to define value of PI/360
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DNEW_LINE_STRING" id="b511.povray_r_DNEW_LINE_STRING">-DNEW_LINE_STRING</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNEW_LINE_STRING(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always "\n"
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DNORMAL" id="b511.povray_r_DNORMAL">-DNORMAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DNORMAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always '0'
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DORDERED" id="b511.povray_r_DORDERED">-DORDERED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DORDERED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DOStream" id="b511.povray_r_DOStream">-DOStream</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOStream(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Macro OStream is defined to OStream
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DOT_DEBUG" id="b511.povray_r_DOT_DEBUG">-DOT_DEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DOT_DEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVFPU_Run" id="b511.povray_r_DPOVFPU_Run">-DPOVFPU_Run</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVFPU_Run(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always POVFPU_RunDefault(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMSAddress" id="b511.povray_r_DPOVMSAddress">-DPOVMSAddress</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMSAddress(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to void *
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMSBool" id="b511.povray_r_DPOVMSBool">-DPOVMSBool</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMSBool(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to int
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMSFloat" id="b511.povray_r_DPOVMSFloat">-DPOVMSFloat</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMSFloat(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to float
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMSInt" id="b511.povray_r_DPOVMSInt">-DPOVMSInt</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMSInt(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to int
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMSLong" id="b511.povray_r_DPOVMSLong">-DPOVMSLong</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMSLong(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to long
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMSPixel" id="b511.povray_r_DPOVMSPixel">-DPOVMSPixel</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMSPixel(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to unsigned char[4]
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMSStream" id="b511.povray_r_DPOVMSStream">-DPOVMSStream</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMSStream(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to unsigned char
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMSType" id="b511.povray_r_DPOVMSType">-DPOVMSType</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMSType(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always unsigned int
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_ALLOW_BINARY_MODE" id="b511.povray_r_DPOVMS_ALLOW_BINARY_MODE">-DPOVMS_ALLOW_BINARY_MODE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_ALLOW_BINARY_MODE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined based on ALTMAIN
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_ASSERT" id="b511.povray_r_DPOVMS_ASSERT">-DPOVMS_ASSERT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_ASSERT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to be POVMS_AssertFunction
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_ASSERT_OUTPUT" id="b511.povray_r_DPOVMS_ASSERT_OUTPUT">-DPOVMS_ASSERT_OUTPUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_ASSERT_OUTPUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always standard error print
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_CDECL" id="b511.povray_r_DPOVMS_CDECL">-DPOVMS_CDECL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_CDECL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to blank
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_DISCONNECTED" id="b511.povray_r_DPOVMS_DISCONNECTED">-DPOVMS_DISCONNECTED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_DISCONNECTED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never set
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_EXPORT" id="b511.povray_r_DPOVMS_EXPORT">-DPOVMS_EXPORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_EXPORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to be nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_EXPORT_STREAM_FUNCTIONS" id="b511.povray_r_DPOVMS_EXPORT_STREAM_FUNCTIONS">-DPOVMS_EXPORT_STREAM_FUNCTIONS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_EXPORT_STREAM_FUNCTIONS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Only defined to nothing in source by header file inclusion
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_LOG_OUTPUT" id="b511.povray_r_DPOVMS_LOG_OUTPUT">-DPOVMS_LOG_OUTPUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_LOG_OUTPUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Only defined in source to be nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_NO_DUMP_SUPPORT" id="b511.povray_r_DPOVMS_NO_DUMP_SUPPORT">-DPOVMS_NO_DUMP_SUPPORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_NO_DUMP_SUPPORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_NO_ORDERED_STREAM_DATA" id="b511.povray_r_DPOVMS_NO_ORDERED_STREAM_DATA">-DPOVMS_NO_ORDERED_STREAM_DATA</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_NO_ORDERED_STREAM_DATA(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_AddressToQueue" id="b511.povray_r_DPOVMS_Sys_AddressToQueue">-DPOVMS_Sys_AddressToQueue</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_AddressToQueue(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined in source to default
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_Calloc" id="b511.povray_r_DPOVMS_Sys_Calloc">-DPOVMS_Sys_Calloc</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_Calloc(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always calloc
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_Free" id="b511.povray_r_DPOVMS_Sys_Free">-DPOVMS_Sys_Free</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_Free(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always free
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_Malloc" id="b511.povray_r_DPOVMS_Sys_Malloc">-DPOVMS_Sys_Malloc</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_Malloc(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always malloc
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_Memmove" id="b511.povray_r_DPOVMS_Sys_Memmove">-DPOVMS_Sys_Memmove</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_Memmove(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always memmove
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_QueueClose" id="b511.povray_r_DPOVMS_Sys_QueueClose">-DPOVMS_Sys_QueueClose</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_QueueClose(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined in source to default
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_QueueOpen" id="b511.povray_r_DPOVMS_Sys_QueueOpen">-DPOVMS_Sys_QueueOpen</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_QueueOpen(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined in source to default
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_QueueReceive" id="b511.povray_r_DPOVMS_Sys_QueueReceive">-DPOVMS_Sys_QueueReceive</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_QueueReceive(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined in source to default
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_QueueSend" id="b511.povray_r_DPOVMS_Sys_QueueSend">-DPOVMS_Sys_QueueSend</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_QueueSend(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined in source to default
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_QueueToAddress" id="b511.povray_r_DPOVMS_Sys_QueueToAddress">-DPOVMS_Sys_QueueToAddress</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_QueueToAddress(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined in source to default
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_Queue_Type" id="b511.povray_r_DPOVMS_Sys_Queue_Type">-DPOVMS_Sys_Queue_Type</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_Queue_Type(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to POVMS_Sys_QueueNode_Default *
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_Realloc" id="b511.povray_r_DPOVMS_Sys_Realloc">-DPOVMS_Sys_Realloc</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_Realloc(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always hardcoded to realloc
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_Strlen" id="b511.povray_r_DPOVMS_Sys_Strlen">-DPOVMS_Sys_Strlen</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_Strlen(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always hardcoded to strlen
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVMS_Sys_Timer" id="b511.povray_r_DPOVMS_Sys_Timer">-DPOVMS_Sys_Timer</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVMS_Sys_Timer(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always hardcoded to 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVRAY_BEGIN_COOPERATE" id="b511.povray_r_DPOVRAY_BEGIN_COOPERATE">-DPOVRAY_BEGIN_COOPERATE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVRAY_BEGIN_COOPERATE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVRAY_COOPERATE_GLOBAL" id="b511.povray_r_DPOVRAY_COOPERATE_GLOBAL">-DPOVRAY_COOPERATE_GLOBAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVRAY_COOPERATE_GLOBAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVRAY_END_COOPERATE" id="b511.povray_r_DPOVRAY_END_COOPERATE">-DPOVRAY_END_COOPERATE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVRAY_END_COOPERATE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOVRAY_PLATFORM_NAME" id="b511.povray_r_DPOVRAY_PLATFORM_NAME">-DPOVRAY_PLATFORM_NAME</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOVRAY_PLATFORM_NAME(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to be "SPEC CPU2017"
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_ALLOW_FILE_READ" id="b511.povray_r_DPOV_ALLOW_FILE_READ">-DPOV_ALLOW_FILE_READ</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_ALLOW_FILE_READ(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to be 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_ALLOW_FILE_WRITE" id="b511.povray_r_DPOV_ALLOW_FILE_WRITE">-DPOV_ALLOW_FILE_WRITE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_ALLOW_FILE_WRITE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to be 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_ASSIGN_PIXEL" id="b511.povray_r_DPOV_ASSIGN_PIXEL">-DPOV_ASSIGN_PIXEL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_ASSIGN_PIXEL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_ASSIGN_PIXEL_UNCLIPPED" id="b511.povray_r_DPOV_ASSIGN_PIXEL_UNCLIPPED">-DPOV_ASSIGN_PIXEL_UNCLIPPED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_ASSIGN_PIXEL_UNCLIPPED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_BASE_NAMESPACE" id="b511.povray_r_DPOV_BASE_NAMESPACE">-DPOV_BASE_NAMESPACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_BASE_NAMESPACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to pov base for namespace standards
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_CALLOC" id="b511.povray_r_DPOV_CALLOC">-DPOV_CALLOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_CALLOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always calloc
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_CONVERT_TEXT_TO_UCS2" id="b511.povray_r_DPOV_CONVERT_TEXT_TO_UCS2">-DPOV_CONVERT_TEXT_TO_UCS2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_CONVERT_TEXT_TO_UCS2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always null
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_DISPLAY_CLOSE" id="b511.povray_r_DPOV_DISPLAY_CLOSE">-DPOV_DISPLAY_CLOSE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_DISPLAY_CLOSE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Hardcoded to support function in the source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_DISPLAY_FINISHED" id="b511.povray_r_DPOV_DISPLAY_FINISHED">-DPOV_DISPLAY_FINISHED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_DISPLAY_FINISHED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Hardcoded to support function in the source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_DISPLAY_INIT" id="b511.povray_r_DPOV_DISPLAY_INIT">-DPOV_DISPLAY_INIT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_DISPLAY_INIT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Hardcoded to support function in the source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_DISPLAY_PLOT" id="b511.povray_r_DPOV_DISPLAY_PLOT">-DPOV_DISPLAY_PLOT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_DISPLAY_PLOT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Hardcoded to support function in the source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_DISPLAY_PLOT_BOX" id="b511.povray_r_DPOV_DISPLAY_PLOT_BOX">-DPOV_DISPLAY_PLOT_BOX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_DISPLAY_PLOT_BOX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Hardcoded to support function in the source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_DISPLAY_PLOT_RECT" id="b511.povray_r_DPOV_DISPLAY_PLOT_RECT">-DPOV_DISPLAY_PLOT_RECT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_DISPLAY_PLOT_RECT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Hardcoded to support function in the source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_DISPLAY_PLOT_ROW" id="b511.povray_r_DPOV_DISPLAY_PLOT_ROW">-DPOV_DISPLAY_PLOT_ROW</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_DISPLAY_PLOT_ROW(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Hardcoded to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_ERROR_MARKER_TEXT" id="b511.povray_r_DPOV_ERROR_MARKER_TEXT">-DPOV_ERROR_MARKER_TEXT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_ERROR_MARKER_TEXT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to error string in the source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_FREE" id="b511.povray_r_DPOV_FREE">-DPOV_FREE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_FREE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to free
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_FRONTEND_NAMESPACE" id="b511.povray_r_DPOV_FRONTEND_NAMESPACE">-DPOV_FRONTEND_NAMESPACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_FRONTEND_NAMESPACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined for std in namespace designation
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_GET_FULL_PATH" id="b511.povray_r_DPOV_GET_FULL_PATH">-DPOV_GET_FULL_PATH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_GET_FULL_PATH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined in source to macro
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_IS1" id="b511.povray_r_DPOV_IS1">-DPOV_IS1</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_IS1(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always empty string
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_IS2" id="b511.povray_r_DPOV_IS2">-DPOV_IS2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_IS2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always empty string
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_IS3" id="b511.povray_r_DPOV_IS3">-DPOV_IS3</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_IS3(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always empty string
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_IS4" id="b511.povray_r_DPOV_IS4">-DPOV_IS4</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_IS4(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always empty string
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_LONG" id="b511.povray_r_DPOV_LONG">-DPOV_LONG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_LONG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to be a 64-bit integer type
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_MALLOC" id="b511.povray_r_DPOV_MALLOC">-DPOV_MALLOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_MALLOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined in source to malloc wrapper
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_MAX_CMD_LENGTH" id="b511.povray_r_DPOV_MAX_CMD_LENGTH">-DPOV_MAX_CMD_LENGTH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_MAX_CMD_LENGTH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always 250 in source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_MEMCPY" id="b511.povray_r_DPOV_MEMCPY">-DPOV_MEMCPY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_MEMCPY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always memcpy
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_MEMMOVE" id="b511.povray_r_DPOV_MEMMOVE">-DPOV_MEMMOVE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_MEMMOVE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to memmove wrapper
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_MEM_INIT" id="b511.povray_r_DPOV_MEM_INIT">-DPOV_MEM_INIT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_MEM_INIT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always mem_init
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_MEM_RELEASE_ALL" id="b511.povray_r_DPOV_MEM_RELEASE_ALL">-DPOV_MEM_RELEASE_ALL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_MEM_RELEASE_ALL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always mem_release_all
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_NAMESPACE" id="b511.povray_r_DPOV_NAMESPACE">-DPOV_NAMESPACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_NAMESPACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set to 8 for filesystems with 8.3 names
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_NAME_MAX" id="b511.povray_r_DPOV_NAME_MAX">-DPOV_NAME_MAX</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_NAME_MAX(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always 8
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_NUM_ECHO_LINES" id="b511.povray_r_DPOV_NUM_ECHO_LINES">-DPOV_NUM_ECHO_LINES</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_NUM_ECHO_LINES(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 8
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_POST_PIXEL" id="b511.povray_r_DPOV_POST_PIXEL">-DPOV_POST_PIXEL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_POST_PIXEL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_POST_SHUTDOWN" id="b511.povray_r_DPOV_POST_SHUTDOWN">-DPOV_POST_SHUTDOWN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_POST_SHUTDOWN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_PRE_PIXEL" id="b511.povray_r_DPOV_PRE_PIXEL">-DPOV_PRE_PIXEL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_PRE_PIXEL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defiend to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_PRE_RENDER" id="b511.povray_r_DPOV_PRE_RENDER">-DPOV_PRE_RENDER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_PRE_RENDER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defiend to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_PRE_SHUTDOWN" id="b511.povray_r_DPOV_PRE_SHUTDOWN">-DPOV_PRE_SHUTDOWN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_PRE_SHUTDOWN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defiend to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_RAY_IS_OFFICIAL" id="b511.povray_r_DPOV_RAY_IS_OFFICIAL">-DPOV_RAY_IS_OFFICIAL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_RAY_IS_OFFICIAL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_REALLOC" id="b511.povray_r_DPOV_REALLOC">-DPOV_REALLOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_REALLOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to realloc wrapper
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_SEEK_CUR" id="b511.povray_r_DPOV_SEEK_CUR">-DPOV_SEEK_CUR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_SEEK_CUR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to IOBase::seeki_cur
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_SEEK_END" id="b511.povray_r_DPOV_SEEK_END">-DPOV_SEEK_END</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_SEEK_END(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to IOBase::seek_end
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_SEEK_SET" id="b511.povray_r_DPOV_SEEK_SET">-DPOV_SEEK_SET</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_SEEK_SET(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to IOBase::seek_set
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_SHELLOUT" id="b511.povray_r_DPOV_SHELLOUT">-DPOV_SHELLOUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_SHELLOUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to pov_shellout wrapper
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_SPLIT_PATH" id="b511.povray_r_DPOV_SPLIT_PATH">-DPOV_SPLIT_PATH</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_SPLIT_PATH(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Macro defined to wrapper in source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_STRDUP" id="b511.povray_r_DPOV_STRDUP">-DPOV_STRDUP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_STRDUP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to strdup wrapper
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_SYSTEM" id="b511.povray_r_DPOV_SYSTEM">-DPOV_SYSTEM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_SYSTEM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to system(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_ULONG" id="b511.povray_r_DPOV_ULONG">-DPOV_ULONG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_ULONG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Set to unsigned long long
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_WHERE_ERROR" id="b511.povray_r_DPOV_WHERE_ERROR">-DPOV_WHERE_ERROR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_WHERE_ERROR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPOV_WRITE_LINE" id="b511.povray_r_DPOV_WRITE_LINE">-DPOV_WRITE_LINE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPOV_WRITE_LINE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRECISION_TIMER_AVAILABLE" id="b511.povray_r_DPRECISION_TIMER_AVAILABLE">-DPRECISION_TIMER_AVAILABLE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRECISION_TIMER_AVAILABLE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to 0 for SPEC_CPU
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRECISION_TIMER_COUNT" id="b511.povray_r_DPRECISION_TIMER_COUNT">-DPRECISION_TIMER_COUNT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRECISION_TIMER_COUNT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRECISION_TIMER_INIT" id="b511.povray_r_DPRECISION_TIMER_INIT">-DPRECISION_TIMER_INIT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRECISION_TIMER_INIT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRECISION_TIMER_START" id="b511.povray_r_DPRECISION_TIMER_START">-DPRECISION_TIMER_START</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRECISION_TIMER_START(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to ;
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRECISION_TIMER_STOP" id="b511.povray_r_DPRECISION_TIMER_STOP">-DPRECISION_TIMER_STOP</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRECISION_TIMER_STOP(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRINT_CREDITS" id="b511.povray_r_DPRINT_CREDITS">-DPRINT_CREDITS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_CREDITS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to Print_Credits(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRINT_OTHER_CREDITS" id="b511.povray_r_DPRINT_OTHER_CREDITS">-DPRINT_OTHER_CREDITS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRINT_OTHER_CREDITS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRISM_EXTRA_STATS" id="b511.povray_r_DPRISM_EXTRA_STATS">-DPRISM_EXTRA_STATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRISM_EXTRA_STATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DPRI_QUE" id="b511.povray_r_DPRI_QUE">-DPRI_QUE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DPRI_QUE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to HEAP in source
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DQSORT" id="b511.povray_r_DQSORT">-DQSORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DQSORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to qsort(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DRADSTATS" id="b511.povray_r_DRADSTATS">-DRADSTATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRADSTATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DRAD_GRADIENT" id="b511.povray_r_DRAD_GRADIENT">-DRAD_GRADIENT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRAD_GRADIENT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DREAD_SYS_IMAGE" id="b511.povray_r_DREAD_SYS_IMAGE">-DREAD_SYS_IMAGE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DREAD_SYS_IMAGE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to Read_Targe_Image(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DREALLOC" id="b511.povray_r_DREALLOC">-DREALLOC</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DREALLOC(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to realloc wrapper
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DREFLECT_FOR_RADIANCE" id="b511.povray_r_DREFLECT_FOR_RADIANCE">-DREFLECT_FOR_RADIANCE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DREFLECT_FOR_RADIANCE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DRENAME_FILE" id="b511.povray_r_DRENAME_FILE">-DRENAME_FILE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRENAME_FILE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to rename(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DRENAME_FILE_ERR" id="b511.povray_r_DRENAME_FILE_ERR">-DRENAME_FILE_ERR</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DRENAME_FILE_ERR(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to -1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSAFE_BUT_SLOW" id="b511.povray_r_DSAFE_BUT_SLOW">-DSAFE_BUT_SLOW</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSAFE_BUT_SLOW(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSAFE_METHOD" id="b511.povray_r_DSAFE_METHOD">-DSAFE_METHOD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSAFE_METHOD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to be 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSAW_METHOD" id="b511.povray_r_DSAW_METHOD">-DSAW_METHOD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSAW_METHOD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to be 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSCANF_EOF" id="b511.povray_r_DSCANF_EOF">-DSCANF_EOF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSCANF_EOF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to EOF macro
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSHOW_SAMPLE_SPOTS" id="b511.povray_r_DSHOW_SAMPLE_SPOTS">-DSHOW_SAMPLE_SPOTS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSHOW_SAMPLE_SPOTS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSIGMOID_METHOD" id="b511.povray_r_DSIGMOID_METHOD">-DSIGMOID_METHOD</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSIGMOID_METHOD(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSNGL" id="b511.povray_r_DSNGL">-DSNGL</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSNGL(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to float
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSOR_EXTRA_STATS" id="b511.povray_r_DSOR_EXTRA_STATS">-DSOR_EXTRA_STATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSOR_EXTRA_STATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to be 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSPLIT_TIME" id="b511.povray_r_DSPLIT_TIME">-DSPLIT_TIME</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSPLIT_TIME(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to POV_Std_Split_Time(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSTARTUP_POVRAY" id="b511.povray_r_DSTARTUP_POVRAY">-DSTARTUP_POVRAY</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTARTUP_POVRAY(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSTART_TIME" id="b511.povray_r_DSTART_TIME">-DSTART_TIME</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTART_TIME(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defiend to time(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSTOP_TIME" id="b511.povray_r_DSTOP_TIME">-DSTOP_TIME</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSTOP_TIME(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to time(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSUPPORT_INTEGER_INSTRUCTIONS" id="b511.povray_r_DSUPPORT_INTEGER_INSTRUCTIONS">-DSUPPORT_INTEGER_INSTRUCTIONS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSUPPORT_INTEGER_INSTRUCTIONS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSYS_DEF_EXT" id="b511.povray_r_DSYS_DEF_EXT">-DSYS_DEF_EXT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_DEF_EXT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to ".tga"
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSYS_FUNCTIONS" id="b511.povray_r_DSYS_FUNCTIONS">-DSYS_FUNCTIONS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_FUNCTIONS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 0
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSYS_IMAGE_CLASS" id="b511.povray_r_DSYS_IMAGE_CLASS">-DSYS_IMAGE_CLASS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_IMAGE_CLASS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to Targa_Image
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSYS_IMAGE_HEADER" id="b511.povray_r_DSYS_IMAGE_HEADER">-DSYS_IMAGE_HEADER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_IMAGE_HEADER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Prevents multiple inclusion of header files
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSYS_MATH_PARAM" id="b511.povray_r_DSYS_MATH_PARAM">-DSYS_MATH_PARAM</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_MATH_PARAM(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to double
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DSYS_MATH_RETURN" id="b511.povray_r_DSYS_MATH_RETURN">-DSYS_MATH_RETURN</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DSYS_MATH_RETURN(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always set to double
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTEST_ABORT" id="b511.povray_r_DTEST_ABORT">-DTEST_ABORT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTEST_ABORT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTEST_SOLVER" id="b511.povray_r_DTEST_SOLVER">-DTEST_SOLVER</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTEST_SOLVER(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTEXTSTREAM_CRLF" id="b511.povray_r_DTEXTSTREAM_CRLF">-DTEXTSTREAM_CRLF</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTEXTSTREAM_CRLF(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Never defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTIME_ELAPSED" id="b511.povray_r_DTIME_ELAPSED">-DTIME_ELAPSED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTIME_ELAPSED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to difftime(..)
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTORUS_EXTRA_STATS" id="b511.povray_r_DTORUS_EXTRA_STATS">-DTORUS_EXTRA_STATS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTORUS_EXTRA_STATS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTTF_DEBUG" id="b511.povray_r_DTTF_DEBUG">-DTTF_DEBUG</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTTF_DEBUG(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTTF_DEBUG2" id="b511.povray_r_DTTF_DEBUG2">-DTTF_DEBUG2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTTF_DEBUG2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTTF_DEBUG3" id="b511.povray_r_DTTF_DEBUG3">-DTTF_DEBUG3</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTTF_DEBUG3(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DTWO_M_PI" id="b511.povray_r_DTWO_M_PI">-DTWO_M_PI</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DTWO_M_PI(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined as 2*PI
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DUCS2" id="b511.povray_r_DUCS2">-DUCS2</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUCS2(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to unsigned short
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DUCS4" id="b511.povray_r_DUCS4">-DUCS4</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUCS4(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to unsigned int
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DUNORDERED" id="b511.povray_r_DUNORDERED">-DUNORDERED</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUNORDERED(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 1
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DUSE_FASTER_NOISE" id="b511.povray_r_DUSE_FASTER_NOISE">-DUSE_FASTER_NOISE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_FASTER_NOISE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always disabled
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DUSE_LOCAL_POVMS_OUTPUT" id="b511.povray_r_DUSE_LOCAL_POVMS_OUTPUT">-DUSE_LOCAL_POVMS_OUTPUT</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_LOCAL_POVMS_OUTPUT(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Always defined to 1 based on ALTMAIN
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DUSE_NEW_DIFFICULT_COEFFS" id="b511.povray_r_DUSE_NEW_DIFFICULT_COEFFS">-DUSE_NEW_DIFFICULT_COEFFS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_NEW_DIFFICULT_COEFFS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DUSE_SYSPROTO" id="b511.povray_r_DUSE_SYSPROTO">-DUSE_SYSPROTO</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSE_SYSPROTO(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DUSING_POV_NAMESPACE" id="b511.povray_r_DUSING_POV_NAMESPACE">-DUSING_POV_NAMESPACE</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DUSING_POV_NAMESPACE(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to be namespace helper macro
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_DWAIT_FOR_KEYPRESS" id="b511.povray_r_DWAIT_FOR_KEYPRESS">-DWAIT_FOR_KEYPRESS</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]DWAIT_FOR_KEYPRESS(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Defined to nothing
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_D_DEBUG_POVMS_DUMP_MESSAGES_" id="b511.povray_r_D_DEBUG_POVMS_DUMP_MESSAGES_">-D_DEBUG_POVMS_DUMP_MESSAGES_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_DEBUG_POVMS_DUMP_MESSAGES_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_D_DEBUG_POVMS_TRACE_MEMORY_" id="b511.povray_r_D_DEBUG_POVMS_TRACE_MEMORY_">-D_DEBUG_POVMS_TRACE_MEMORY_</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D_DEBUG_POVMS_TRACE_MEMORY_(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+Not defined
+</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<div class="flagDesc">
+<ul class="flagDesc">
+<li class="flagName"><a name="b511.povray_r_D__cplusplus" id="b511.povray_r_D__cplusplus">-D__cplusplus</a></li>
+<li class="flagDescRE"><span class="tt">(?:^|(?&lt;=\s))[-/]D__cplusplus(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)</span></li>
+<li class="descText">
+<p>
+portability changes for CPP
+</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+
+</div>
+<hr />
+</body>
+</html>

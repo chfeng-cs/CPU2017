@@ -1,0 +1,7 @@
+  &datm_nml
+    atm_in = 'datm_atm_in'
+    decomp = '1d'
+    factorFn = './COREv2.correction_factors.T62.121007.nc'
+    iradsw   = 1
+    presaero = .false.
+  /

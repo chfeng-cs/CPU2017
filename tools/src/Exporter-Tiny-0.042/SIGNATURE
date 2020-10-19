@@ -1,0 +1,49 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.73.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 33317486c4fa2cf7fec85bf92ed38ac0f64233a0 CONTRIBUTING
+SHA1 5980cc638348a4f7438480d881a82ae5e17a1630 COPYRIGHT
+SHA1 e3b0c464bb56d4285fa64e31a70b301692dd825c CREDITS
+SHA1 5c7b2ac127f2c84b4bac86a882a671fe17a933e3 Changes
+SHA1 3b20e9835f489bbf71b1deb6aa7c10729482aa77 INSTALL
+SHA1 34f5e12514b91055de4b164a1f2327ef5c30ba53 LICENSE
+SHA1 7d98e1b385b7b5d70cb9a1497eea3b233f4baa8a MANIFEST
+SHA1 525d4669e3507fc769ab765d6438218af3e9adbb META.json
+SHA1 e50e4613cc1d1abd87c290d1f2953eedad430de2 META.yml
+SHA1 1c9cf0c5db5b9abf7a137c2db5eebd93baafce48 Makefile.PL
+SHA1 29f2538f2e202b70d54cf08d0d7499fa7ddf4c5d README
+SHA1 a43593d3e3a79c5f455977ba75083d9f191f6af6 dist.ini
+SHA1 066ce57aee9422a1789f0b42a968b3bb16a4c117 doap.ttl
+SHA1 3f65666b300ab7e7a1e5e25fb69e4ce6675e0f63 examples/Example/Exporter.pm
+SHA1 90df17b2a1b5cf0ddf5e81d7f8c6fcdf6152f800 lib/Exporter/Shiny.pm
+SHA1 57ff9abef5131446f439a23224522805307fc743 lib/Exporter/Tiny.pm
+SHA1 6ba2757140a1c118ae5bac4c10ea8a6275ee15f2 t/01basic.t
+SHA1 8b9c883098fbdaf8999c6f8f909a79297870af86 t/02renaming.t
+SHA1 103845d83b41f8d3c503d50e9d6012790b25f77f t/03generators.t
+SHA1 6a20cb44b8b22885209f6c3f30cbcf5adb80c52c t/04into.t
+SHA1 e50bb7649f42c23b8873dd2e72ef63d85e443b28 t/05shiny.t
+SHA1 8c545aab416cd36ee4fde0cc50cf6b59200a9aac t/06notwant.t
+SHA1 803a876d8e5e5b5af567f7a3a6e7a1071a4a48ed t/07regexp.t
+SHA1 dbce3f55c87fefdfe5abba21afa5a9c9a9a08cf0 t/08tags.t
+SHA1 9cc0bdbc9fd24f98161b4d314bc7c841f2fa8efc t/09warnings.t
+SHA1 2b5c5da82a5c8f2d69d46915b9921d2ceb6ca214 t/10no.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1
+
+iEYEARECAAYFAlQwL/wACgkQzr+BKGoqfTkonACeP1ZH9sdg3mJTHQpxoxdgTNQP
+I8YAnjYQAQLXP2fg8wYUZKcbDS5aFJml
+=JZvp
+-----END PGP SIGNATURE-----

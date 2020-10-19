@@ -1,0 +1,142 @@
+#!/usr/bin/ksh
+
+# Build SPEC CPU tools for Solaris
+
+if [ -z "$SPEC" ]; then
+  if pwd | grep tools/src; then
+    SPEC=$(dirname $(dirname $(pwd)))
+  elif [ -f bin/runcpu -a -f MANIFEST -a -d tools/src ]; then
+    SPEC=$(pwd)
+  else
+    echo SPEC is not set, and I do not know what to set it to
+    exit 1
+  fi
+fi
+
+if [ "x$1" != "xdoit" ]; then
+  # Log the session
+  arch=$(uname -p | sed 's/i386/x86/')
+  suitever=$(cat $SPEC/version.txt)
+  echo Starting build of solaris-${arch} tools for kit $suitever
+  echo
+  echo Build log is in $SPEC/solaris-${arch}-${suitever}.buildlog.txt
+  echo
+  echo Tail the log manually if you want to watch the progress.
+  exec /usr/bin/ksh $0 doit $* >$SPEC/solaris-${arch}-${suitever}.buildlog.txt 2>&1
+else
+  shift
+fi
+
+PATH=/usr/xpg4/bin:/usr/bin
+# On Solaris 10 and earlier, /usr/ccs is a Thing
+if [ -d /usr/ccs/bin -a -d /usr/ccs ]; then
+  PATH=$PATH:/usr/ccs/bin
+fi
+if [ "x$SPECLANG" != x ]; then
+  PATH=$SPECLANG:$PATH
+else
+  PATH=/opt/developerstudio12.5/bin:$PATH
+fi
+export PATH
+CC=cc
+export CC
+CXX=CC
+export CXX
+
+# Informationals
+echo PATH is $PATH
+echo
+echo I am
+id
+echo
+echo My location is `pwd`
+echo
+echo This system is
+uname -a
+echo
+echo Running
+if [ `uname -r | sed -e 's/^5\.//'` -ge 11 ]; then
+  pkg info entire | grep Version: | sed 's/^.*Version: //'
+else
+  showrev | grep version: | sed 's/^.*version: //'
+fi
+echo
+echo The C compiler I will use today is
+$CC -V
+echo
+echo The C++ compiler I will use today is
+$CXX -V
+echo
+
+# Settings necessary for build
+ulimit -s 128000
+if isainfo | grep sparc >/dev/null; then
+  PAGESIZE=4M
+  if [ x$BITS = x ]; then
+    BITS=64
+  fi
+else
+  PAGESIZE=2M
+  BITS=32
+fi
+CFLAGS="-m$BITS `getconf LFS_CFLAGS` -xpagesize=$PAGESIZE"
+export CFLAGS
+LDFLAGS="-m$BITS"
+export LDFLAGS
+TARFLAGS="-with-rmt=/usr/sbin/rmt"
+export TARFLAGS
+XZCFLAGS="-fast -xchip=generic -xtarget=generic"
+export XZCFLAGS
+SUMCFLAGS="-xO4 -xchip=generic -xtarget=generic"
+export SUMCFLAGS
+SPECINVOKECFLAGS=-xc99
+export SPECINVOKECFLAGS
+
+# buildtools will put non-cpp flags into Perl's optimize list automatically,
+# which is why -xpagesize is omitted here.
+PERLFLAGS="-Doptimize=-xO4 -Aoptimize=-xchip=generic -Aoptimize=-xtarget=generic -Aoptimize=-g -Dcc=cc -Dlibswanted=socket -Alibswanted=nsl -Alibswanted=dl -Alibswanted=m"
+export PERLFLAGS
+
+# The assembly code in xz isn't compatible with Sun's assembler
+XZFLAGS="--disable-assembler"
+export XZFLAGS
+
+# Preserve sanity
+SKIPTOOLSINTRO="yes, please"
+export SKIPTOOLSINTRO
+
+cd tools/src
+time /usr/bin/ksh ./buildtools
+if [ $? -ne 0 ]; then
+  echo
+  echo Build failed
+  echo
+else
+  echo
+  echo Small proof of success:
+  echo
+  cd ../..
+  . ./shrc
+  specperl -V
+  echo
+  touch TOOLS.sha512
+  specperl $SPEC/bin/runcpu -V
+  echo
+  specperl $SPEC/bin/runcpu --test
+  if [ $? -eq 0 ]; then
+    echo
+    echo runcpu tests passed
+    echo
+    echo Here is a copy of this script:
+    echo =======================================================================
+    cat $0
+    echo =======================================================================
+    echo
+  else
+    echo
+    echo runcpu tests failed
+    echo
+  fi
+  echo
+  echo $(basename $0) run finished on $(date)
+fi

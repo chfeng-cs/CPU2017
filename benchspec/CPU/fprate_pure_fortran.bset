@@ -1,0 +1,19 @@
+# This file contains a list of the benchmarks written in
+# Fortran exclusively, from the fprate benchset.
+# It is automatically generated.
+
+$name        = 'fprate_pure_fortran';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+        503.bwaves_r
+        549.fotonik3d_r
+        554.roms_r
+);
+
+1;

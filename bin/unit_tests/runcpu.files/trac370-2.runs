@@ -1,0 +1,2 @@
+-a configpp --define "x=%{x}"
+-a configpp --define y=1 --define "x=%{y}"

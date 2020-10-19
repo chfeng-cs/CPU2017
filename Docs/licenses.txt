@@ -1,0 +1,426 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                            SPEC CPU(R)2017 Licenses
+
+     $Id: licenses.html 6307 2019-07-28    Latest: www.spec.org/cpu2017/Docs/
+           21:35:52Z JohnHenning $
+
+   Contents
+
+   Introduction to the SPEC CPU 2017 License Agreement
+
+   Freely-redistributable sources
+
+   Note 1: Licenses and bug reporting
+
+   Note 2: about "BSD" licenses
+
+   Benchmarks
+
+   SPEC CPU 2017 Tools
+
+Introduction to the SPEC CPU(R)2017 License Agreement
+
+   SPEC CPU(R)2017 is a product of the SPEC(R) non-profit corporation (about
+   SPEC). The SPEC CPU 2017 source code and tools are provided under a SPEC
+   License Agreement(pdf format; plain text is also available) The license
+   contains the terms and conditions of your agreement with SPEC. Read it
+   carefully before using the product. A copy is also on your distribution
+   media, in the Docs/licenses/ directory.
+
+   The following points are not a substitute for that License Agreement, but
+   may be helpful as an introduction:
+
+     * If your corporation buys SPEC CPU 2017, you may share it within your
+       corporation.
+     * Don't send it elsewhere.
+     * Don't post it to the public.
+     * Use it only for benchmarking.
+     * Public use is governed by:
+
+          * The SPEC-wide Fair Use Rule www.spec.org/fairuse.html and
+          * The SPEC CPU 2017 rules www.spec.org/cpu2017/Docs/runrules.html
+
+     * Freely-redistributable source components included within SPEC CPU 2017
+       are licensed separately, and remain freely redistributable.
+
+Freely-redistributable sources
+
+   SPEC gratefully acknowledges the many free and open source software
+   contributions that are used in SPEC CPU 2017.
+
+     * The directory redistributable_sources/original contains archives of
+       original sources that were used.
+     * The directory redistributable_sources/modified contains archives of
+       sources as modified by SPEC.
+     * The directory Docs/licenses contains copies of the license documents
+       for both SPEC and for redistributable sources.
+     * The file Docs/licenses.html (which you are reading now) identifies
+       which licenses apply to which source components, as used by benchmarks
+       and by the SPEC CPU 2017 tool set.
+
+  Note 1: Licenses and bug reporting
+
+   In the table below, several benchmarks are marked as using the GNU GPL.
+   For each, SPEC's updated sources are available in the ISO image for your
+   copy of SPEC CPU 2017, in a compressed tar file underneath
+   redistributable_sources/modified.
+
+   One possible use for modified sources is for bug reporting. If you wish to
+   provide an entire benchmark to a compiler developer, generally you are not
+   allowed to do so, unless the developer also has a license for SPEC CPU
+   2017. The exception is for the GPL benchmarks: for those, you may, if you
+   wish to do so, pass along the tarball from
+   redistributable_sources/modified. In that situation, please note that:
+
+     * The benchmark inputs are generally not redistributable, unless marked
+       otherwise.
+     * SPEC's validator and SPEC's expected answers are not redistributable.
+     * SPEC's benchmark setup and reporting harness are not redistributable.
+     * Included within each tarball in redistributable_sources/modified is
+       script simple-build<name>.sh, which creates a binary using
+       gcc/g++/gfortran on Linux/x86. Of course, to report a bug with some
+       other compiler, you will need to modify the example.
+
+  Note 2: about "BSD" licenses
+
+   SPEC tried to track down all software license references within all files
+   in SPEC CPU 2017. Many modules were found with BSD (or similar) licenses.
+   Copyrights for such modules must be acknowledged in the documentation if
+   they are shipped in binary form. Separate acknowledgment is not required
+   if they ship as source code (which is how SPEC CPU 2017 ships).
+
+   Nevertheless, having identified these modules, it seems only courteous to
+   acknowledge them -- even if not legally required. Most are acknowledged in
+   this document, with the exception of BSD contributions to 526.blender,
+   which are in an Appendix, because there are so many.
+
+   When considering BSD licenses, one should be careful not to confuse
+   "acknowledgment" with "advertising". To the best of SPEC's knowledge, no
+   BSD-licensed materials in SPEC CPU 2017 require advertisement. (Only one
+   source file in SPEC CPU 2017 mentions such a clause, and that file is
+   copyright by Berkeley, who have explicitly disclaimed the requirement.)
+
+Benchmarks
+
+   The table lists redistributable sources used by benchmarks, and the
+   license or licenses that apply to them.
+
+      Benchmark                Archive name                   License(s)
+                   perl-5.22.1.tar.xz                   Perl Artistic License
+                   HTML-Parser-3.71.tar.gz              Perl Artistic License
+                   IO-stringy-2.110.tar.gz              Perl Artistic License
+                   Mail-SpamAssassin-3.4.0.tar.bz2 (*)  Apache License,
+                                                        version 2.0
+                   MailTools-2.13.tar.gz (*)            Perl Artistic License
+                   MHonArc-2.6.19.tar.bz2 (*)           GNU GPL, version 2
+                   TimeDate-2.30.tar.gz                 Perl Artistic License
+                   mt19937ar.sep.tgz [description]      BSD License
+                   (*) Items marked with an asterisk do not provide any
+                   components linked into the benchmark executable. They are
+                   only part of the runtime workload.
+
+                   The benchmark includes:
+   500.perlbench_r
+   600.perlbench_s   * Components originally copyrighted by the Regents of the
+                       University of California and/or Constantin S.
+                       Svintsoff, available under the BSD license (within
+                       PathTools and File::Glob).
+                     * Code derived from the RSA Data Security, Inc. MD5
+                       Message-Digest Algorithm, available under the Perl
+                       Artistic License (see Digest/MD5.pm).
+                     * Unicode components, available under the Unicode
+                       license.
+
+                   mt19937ar.sep.tgz is the Mersenne Twister pseudorandom
+                   number generator with period 2^19937-1, Copyright 1997 -
+                   2002, Makoto Matsumoto and Takuji Nishimura; Copyright
+                   2005, Mutsuo Saito. The source includes a BSD license. It
+                   is used in specrand.c, which is used by several benchmarks.
+                   gcc-4.5.0.tar.xz                     GNU GPL, version 3
+                   gmp-6.0.0a.tar.xz                    GNU LGPL, version 3
+                   qsort.c [description]                BSD License
+                   The source directory includes xatexit.c Copyright (c) 1990
+                   Regents of the University of California; see the BSD
+   502.gcc_r       License.
+   602.gcc_s
+                   qsort.c is used by several benchmarks to improve
+                   consistency. It is from
+                   https://svn.FreeBSD.org/base/head/lib/libc/stdlib/qsort.c,
+                   Copyright (c) 1992, 1993 The Regents of the University of
+                   California, and on your distribution media in directory
+                   redistributable_sources/original/common/spec_qsort/
+   503.bwaves_r    Blast Waves was contributed by a SPEC member company.
+   603.bwaves_s
+                   msinttypes...zip [description]       BSD License
+                   qsort.c [description]                BSD License
+                   MCF is licensed directly to SPEC by Dr. Andreas Loebel,
+                   Konrad-Zuse-Zentrum Berlin (ZIB).
+   505.mcf_r
+   605.mcf_s       Several benchmarks, under BSD license, use the Microsoft
+                   Windows versions of inttypes.h and/or stdint.h from
+                   msinttypes-f9e7c5758ed9e3b9f4b2394de1881c704dd79de0.zip,
+                   posted at redistributable_sources/original/ and Copyright
+                   (c) 2006-2013 Alexander Chemeris.
+   507.cactuBSSN_r CactusBSSN.tgz                       GNU GPL, version 2
+   607.cactuBSSN_s
+   508.namd_r      NAMD is licensed directly to SPEC by the University of
+                   Illinois.
+                   PAREST is licensed directly to SPEC by the author, Wolfgang
+                   Bangerth.
+
+                   Note: Therefore, source code references to other terms
+   510.parest_r    under which the program may be available are not relevant
+                   for the SPEC CPU 2017 version.
+
+                   The source directory includes files from BOOST, used under
+                   the terms of the Boost Software License.
+                   spec-3.7.tar.xz                      GNU Affero GPL,
+                                                        version 3
+   511.povray_r    qsort.c [description]                BSD License
+                   POV-Ray was submitted to SPEC by one of its developers,
+                   Thorsten Froehlich, under the GNU Affero GPL, version 3
+   519.lbm_r       LBM is licensed directly to SPEC by the author, Thomas
+   619.lbm_s       Pohl.
+                   OMNeT++ is licensed directly to SPEC by OpenSim Ltd.
+
+                   Note: Therefore, source code references to other terms
+                   under which the program may be available are not relevant
+                   for the SPEC CPU 2017 version.
+   520.omnetpp_r
+   620.omnetpp_s   Under a BSD license, the benchmark uses a version of the
+                   Mersenne Twister pseudorandom number generator that differs
+                   somewhat from the version in mt19937ar.sep.tgz. The version
+                   in omnetpp is used under a BSD license, Copyright 1997 -
+                   2002, Makoto Matsumoto and Takuji Nishimura; Copyright 2000
+                   - 2003, Richard J. Wagner.
+                                                        Free use; see
+                   netcdf-3.6.0-p1.tar.xz               netcdf-3.6.0.license
+                                                        cfortran.h.license
+                   WRF is licensed directly to SPEC by UCAR.
+   521.wrf_r
+   621.wrf_s       Note: Therefore, source code references to other terms
+                   under which the program may be available are not relevant
+                   for the SPEC CPU 2017 version.
+
+                   The benchmark uses mpif.h, Copyright 2001 by Argonne
+                   National Laboratory, under the MCT license.
+   523.xalancbmk_r Xalan-C++ was submitted to SPEC by a member company, using
+   623.xalancbmk_s the Apache License, version 2.0
+                   x264-snapshot-20090515-2245.tar.bz2  GNU GPL, version 2
+                   pstdint.h                            BSD (Paul Hsieh)
+                   X264 is contributed to SPEC by VideoLAN under the GNU GPL,
+                   version 2
+
+                   Input files named 'BuckBunny.264' are derived from the
+   525.x264_r      sources for Big Buck Bunny from the Blender Foundation
+   625.x264_s      (peach.blender.org) and are licensed under the Creative
+                   Commons Attribution 3.0 license.
+
+                   The decoder 'ldecod' is from the H.264/AVC reference
+                   software implementation with an ITU copyright and
+                   disclaimer. SPEC previously used H.264/AVC by permission in
+                   SPEC CPU 2006 (464.h264ref).
+                   blender_20141028_48529.tar.xz        GNU GPL, version 3
+                   freetype-2.5.4.tar.bz2               GNU GPL, version 3
+                   libpng-1.5.10.tar.xz                 Free use; see libpng
+                                                        license
+                   msinttypes...zip [description]       BSD License
+                   mt19937ar.sep.tgz [description]      BSD License
+                   zlib-1.2.6.tar.bz2                   Free use; see the zlib
+                                                        license
+                   Blender was contributed to SPEC CPU 2017 by the Blender
+                   Foundation, under the terms of GNU GPL, version 3. Other
+                   redistributable sources added by SPEC are listed above. In
+                   addition, it should be noted that:
+
+   526.blender_r     * 15 source files in
+                       526.blender_r/src/blender/source/gameengine/Expressions
+                       are Copyright 1996-2000 Erwin Coumans and are
+                       acknowledged per the terms in the source files.
+                     * 13 header files in 526.blender_r/src/include are from
+                       the Independent JPEG Group's software. In accordance
+                       with its license, this paragraph serves as notification
+                       that the software has been modified: none of the
+                       executable code is present, only header files. The
+                       header files have not been changed.
+                     * 526.blender/src/blender/extern/glew/include/GL/glxew.h
+                       defines certain datatypes via excerpts from four X11
+                       headers, in accordance with their terms.
+                     * Many files available under BSD license are listed in an
+                       appendix.
+                                                        Public Domain, except
+                   cesm1_0_2.tar.xz                     as noted in the CESM
+                                                        license
+                                                        Free use; see
+                   netcdf-3.6.0-p1.tar.xz               netcdf-3.6.0.license
+                                                        cfortran.h.license
+                   qsort.c [description]                BSD License
+                   The ESMF files within 527.cam4 are marked as GPL. That
+                   marking may be obsolete, and it is possible that the
+                   Illinois NCSA license applies instead. In any case, SPEC's
+                   version is available at directory
+                   redistributable_sources/modified/.
+
+                   The benchmark uses 4 source files for list handling,
+                   copyright UNIVERSITY OF CHICAGO; see MCT_license.
+   527.cam4_r
+   627.cam4_s      The copyright holders below have contributed code under BSD
+                   (or similar) licenses, and their contributions are
+                   gratefully acknowledged.
+
+                     * "British Crown, the Met Office.": 10 files related to
+                       cosp; plus include/congvec.h and scops.F90.
+                     * "Centre National de la Recherche Scientifique":
+                       lidar_simulator.F90 and lmd_ipsl_stats.F90.
+                     * "Lawrence Livermore National Security Limited Liability
+                       Corporation": icarus.F90, llnl_stats.F90, pf_to_mr.F90,
+                       and prec_scops.F90.
+                     * "Regents of the Unversity of Colorado Author: Robert
+                       Pincus, Cooperative Institute for Research in the
+                       Environmental Sciences" cosp_modis_simulator.F90, and
+                       modis_simulator.F90.
+                     * "Roger Marchand, version 1.2": MISR_simulator.F90.
+   531.deepsjeng_r Deep Sjeng is licensed directly to SPEC by the author,
+   631.deepsjeng_s Gian-Carlo Pascutto
+   538.imagick_r   ImageMagick-6.8.9-1.tar.xz           Free use; see
+   638.imagick_s                                        ImageMagick license
+                   Leela is licensed directly to SPEC by the author,
+   541.leela_r     Gian-Carlo Pascutto
+   641.leela_s
+                   The source directory includes files from BOOST, used under
+                   the terms of the Boost Software License.
+                   AmberTools12.tar.xz                  GNU GPL, version 3
+   544.nab_r       regex-alpha3.8p1.tar.gz              Free use; see Spencer
+   644.nab_s                                            regexp license
+                   mt19937ar.sep.tgz [description]      BSD License
+   548.exchange2_r exchange2 is licensed directly to SPEC by the author,
+   648.exchange2_s Michael Metcalf.
+   549.fotonik3d_r Fotonik3D is licensed directly to SPEC by the author, Ulf
+   649.fotonik3d_s Andersson
+                   ROMS3.2_405.tar.xz                   Free use; see ROMS
+   554.roms_r                                           license
+   654.roms_s      Note: although netcdf is mentioned in the source, the
+                   benchmark as used does not actually require it, and the
+                   directory netcdf/ is not present.
+                   xz-5.0.5.tar.bz2                     Public Domain XZ Utils
+                   pxz-ae808463....tar.xz               GNU GPL, version 2
+                   msinttypes...zip [description]       BSD License
+                   cld.tar.xz                           GNU GPL, version 2
+   557.xz_r        cld.tar.xz is a set of virus signatures from Clam/AV, which
+   657.xz_s        are compressed during the run.
+
+                   The XZ Utils License says that liblzma is in the Public
+                   Domain, but notes that this may not be true after you are
+                   done linking an executable.
+                                                        See POP2 license
+                   cesm1_0_2.tar.xz                     Public Domain, except
+                                                        as noted in the CESM
+                                                        license
+                                                        Free use; see
+                   netcdf-3.6.0-p1.tar.xz               netcdf-3.6.0.license
+                                                        cfortran.h.license
+   628.pop2_s      The ESMF files within 628.pop2 are marked as GPL. That
+                   marking may be obsolete, and it is possible that the
+                   Illinois NCSA license applies instead. In any case, SPEC's
+                   version is available at directory
+                   redistributable_sources/modified/.
+
+                   The benchmark uses 4 source files for list handling,
+                   copyright UNIVERSITY OF CHICAGO; see MCT_license.
+   996.specrand_fs
+   997.specrand_fr mt19937ar.sep.tgz [description]      BSD License
+   998.specrand_is
+   999.specrand_ir
+
+SPEC CPU 2017 Tools
+
+   The following table lists the tools components, their associated archive
+   or archives, as well as the license or licenses that apply to them:
+
+             Archive name                           License(s)
+   perl-5.24.0.tar.xz                Perl Artistic License
+   Algorithm-Diff-1.1903.tar.gz      Perl Artistic License
+   Core14_AFMs.tar.xz [Core14 Notes] Adobe Core 14 license
+   Exporter-Tiny-0.042.tar.gz        Perl Artistic License
+   File-NFSLock-1.27.tar.gz          Perl Artistic License
+   Font-AFM-1.20.tar.gz              Perl Artistic License
+                                     Perl Artistic License, v2
+   Font-TTF-1.05.tar.gz              Test suite fonts: SIL Open Font License
+                                     v1.1
+   HTML-Parser-3.71.tar.gz           Perl Artistic License
+   IO-String-1.08.tar.gz             Perl Artistic License
+   IO-stringy-2.111.tar.gz           Perl Artistic License
+   List-MoreUtils-0.416.tar.gz       Perl Artistic License
+   MIME-tools-5.507.tar.gz           Perl Artistic License
+   MailTools-2.14.tar.gz             Perl Artistic License
+   PDF-API2-2.025.tar.gz             GNU LGPL, version 2.1
+   SVG-2.64.tar.gz                   Perl Artistic License
+   String-ShellQuote-1.04.tar.gz     Perl Artistic License
+   Test-Deep-0.119.tar.gz            Perl Artistic License
+   Text-CSV_XS-1.20.tgz              Perl Artistic License
+   TimeDate-2.30.tar.gz              Perl Artistic License
+   URI-1.69.tar.gz                   Perl Artistic License
+   XML-NamespaceSupport-1.11.tar.gz  Perl Artistic License
+   XML-SAX-0.99.tar.gz               Perl Artistic License
+   XML-SAX-Base-1.08.tar.gz          Perl Artistic License
+   XML-SAX-ExpatXS-1.33.tar.gz       Perl Artistic License
+   XSLoader-0.22.tar.gz              Perl Artistic License
+   coreutils-8.24.tar.xz             GNU GPL, version 3 or later
+   expat-2.1.0.tar.gz                MIT License
+   filepp-1.8.0.tar.gz               GNU GPL, version 2 or later
+   make-4.2.1.tar.bz2                GNU GPL, version 3 or later
+   makedepf90-2.8.8.tar.gz           GNU GPL, version 2
+   Parts of SPEC PTD                 Public Domain / BSD
+                                     University of Edinburgh GPL
+   rxp-1.5.0.tar.gz [RXP notes]      W3C software license
+                                     Unicode Character Database terms
+                                     OASIS XML Catalog copyright
+   tar-1.28.tar.xz                   GNU GPL, version 3 or later
+   xz-5.2.2.tar.xz                   Public Domain: XZ Utils license
+                                     GNU LGPL, version 2.1
+   zsh.zip                           Free use; see ZSH license
+
+   Adobe Core 14 Notes
+
+   The text version of the Adobe Font Metrics license has been modified to
+   include only the visible content from the original
+
+ MustRead.html
+
+   The modifications, although invisible, are nevertheless prominently noted,
+   as is required.
+   A pointer is also included to the unmodified original.
+   (One cannot help but wonder if the inclusion of invisible ink was a little
+   test?)
+
+   RXP notes
+
+     * The files nf16check.c, nf16check.h, nf16data.c, and nf16data.h in RXP
+       are covered under the W3C Software Notice and License.
+     * The contents of nf16data.c in RXP are derived from the Unicode
+       Character Database files. Those files are not included in the RXP
+       distribution, but we include a copy of the Unicode Terms of Use.
+     * The contents of catalog_dtd.c in RXP are derived from the XML Catalog
+       DTD specification. See the OASIS_XML Catalog copyright.
+
+   SPEC CPU(R)2017 Licenses: Copyright (c) 2017-2019 Standard Performance
+   Evaluation Corporation (SPEC(R))
+
+

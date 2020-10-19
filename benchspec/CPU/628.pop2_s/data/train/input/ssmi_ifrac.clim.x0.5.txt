@@ -1,0 +1,46 @@
+<streamstemplate>
+      <general_comment>
+         streams template for dice in CCSM4
+      </general_comment>
+<stream>
+      <comment>
+         Streams template for SSMI data at different resolutions
+      </comment>
+      <dataSource>
+         SSMI
+      </dataSource>
+      <domainInfo>
+         <variableNames>
+            time    time
+            xc      lon
+            yc      lat
+            area    area
+            mask    mask
+         </variableNames>
+         <filePath>
+            ./
+         </filePath>
+         <fileNames>
+            domain.ocn.x0.5.090227.nc
+         </fileNames>
+      </domainInfo>
+      <fieldInfo>
+         <variableNames>
+            ifrac  ifrac
+         </variableNames>
+         <filePath>
+            ./
+         </filePath>
+         <fileNames>
+            ssmi_ifrac.clim.x0.5.090319.nc
+         </fileNames>
+      </fieldInfo>
+      <!-- Information on the program that created this file -->
+      <build_streams_documentation>
+         This CCSM stream text file was created by build_streams using the command line:
+               /cesm1_0_2/scripts/ccsm_utils/Tools/build_streams -t dice.template.streams.xml -s SSMI   
+         For more information on build_streams:  
+             /cesm1_0_2/scripts/ccsm_utils/Tools/build_streams -help          
+      </build_streams_documentation>
+</stream>
+</streamstemplate>

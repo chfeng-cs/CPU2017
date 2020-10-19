@@ -1,0 +1,4 @@
+  INFO: top-level macro: 
+  INFO: included macro: %{inclevel}
+WARNING: The preprocessor macro 'unused' was defined on the
+# $SPEC/bin/harness/runcpu -S toplevel -S unused -c trac367.cfg

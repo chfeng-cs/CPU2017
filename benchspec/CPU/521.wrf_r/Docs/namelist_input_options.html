@@ -1,0 +1,1670 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>NAMELIST.INPUT Options</title></head><body>
+<b>WRF NAMELIST.INPUT FILE DESCRIPTION</b>
+<p>The namelist.input file is used for both the real.exe and wrf.exe executables. Within the file, multiple<strong> </strong>columns
+are used for multiple domains (nests) and the "max_dom" parameter
+determines the number of domains (and nests) to use. So, for example,
+if you define 3 columns for parameter in the namelist but set <em>max_dom</em> = 2, the last column will be ignored.<strong> </strong>Note that not all parameters have multiple columns.</p>
+<p>&lt;WRF INSTALL DIR&gt;/run/README.namelist contains descriptions of
+all the namelist variables as well as variables that can be added to
+the namelist for special model setups.<br />
+&lt;WRF INSTALL DIR&gt;/test/em_real directory contains several sample namelist.input files. </p>
+<p> </p>
+<table border="0" cellpadding="0" cellspacing="0" width="700">
+
+  <tbody><tr>
+    <td bgcolor="#f4f4f4" valign="top"><strong>Name</strong></td>
+    <td bgcolor="#f4f4f4" valign="top"><strong>Value</strong></td>
+    <td bgcolor="#f4f4f4" valign="top"><strong>Description</strong></td>
+  </tr>
+  <tr>
+    <td bgcolor="#f4f4f4" valign="top"> </td>
+    <td bgcolor="#f4f4f4" valign="top"> </td>
+    <td bgcolor="#f4f4f4" valign="top"> </td>
+  </tr>
+  <tr>
+    <td bgcolor="#f4f4f4" valign="top" width="163"><p><span id="time_control"><strong>&amp;time_control</strong> </span></p></td>
+    <td bgcolor="#f4f4f4" valign="top" width="48"><p> </p></td>
+    <td bgcolor="#f4f4f4" valign="top" width="489"><p><strong>Time control </strong></p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="163"><span id="run_days">run_days</span></td>
+    <td bgcolor="#e6e6e6" valign="top" width="48"><p>1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="489"><p>run time in days</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#f4f4f4" valign="top" width="163"><span id="run_hours">run_hours</span></td>
+    <td bgcolor="#f4f4f4" valign="top" width="48"><p>0</p></td>
+    <td bgcolor="#f4f4f4" valign="top" width="489"><p>run time in hours<br />
+Note: if it is more than 1 day, one may use both run_days and run_hours
+or just run_hours. e.g. if the total run length is 36 hrs, you may set
+run_days = 1, and run_hours = 12, or run_days = 0, and run_hours 36</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="163"><span id="run_minutes">run_minutes</span></td>
+    <td bgcolor="#e6e6e6" valign="top" width="48"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="489"><p>run time in minutes</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="run_seconds">run_seconds </span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>run time in seconds</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="start_year">start_year    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>2001</p></td>
+    <td valign="top" width="489"><p>Four digit year of starting time</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="start_month">start_month    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>06</p></td>
+    <td valign="top" width="489"><p>Two digit month of starting time</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="start_day">start_day    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>11</p></td>
+    <td valign="top" width="489"><p>Two digit day of starting time</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="start_hour">start_hour    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>12</p></td>
+    <td valign="top" width="489"><p>Two digit hour of starting time</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="start_minute">start_minute    (max_dom)</span></p></td>
+    <td valign="top" width="48"><p>00</p></td>
+    <td valign="top" width="489"><p>Two digit minute of starting time</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="start_second">start_second    (max_dom)</span></p></td>
+    <td valign="top" width="48"><p>00</p></td>
+    <td valign="top" width="489"><p>Two
+digit second of starting time. Note: the start time is used to name the
+first wrfout file. It also controls the start time for nest domains,
+and the time to restart</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="end_year">end_year    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>2001</p></td>
+    <td valign="top" width="489"><p>Four digit year of ending time</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="end_month">end_month    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>06</p></td>
+    <td valign="top" width="489"><p>Two digit month of ending time</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="end_day">end_day    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>12</p></td>
+    <td valign="top" width="489"><p>Two digit day of ending time</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="end_hour">end_hour    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>12</p></td>
+    <td valign="top" width="489"><p>Two digit hour of ending time</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="end_minute">end_minute    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>00</p></td>
+    <td valign="top" width="489"><p>Two digit minute of ending time</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="end_second">end_second    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>00</p></td>
+    <td valign="top" width="489"><p>Two digit second of ending time.
+    Note all end times also control when the nest domain integrations end. All    start and end times are used by <em>real.exe</em>.
+One may use either run_days/run_hours etc. or end_year/month/day/hour
+etc. to control the length of model integration. But run_days/run_hours
+takes precedence over the end times. Program <em>real.exe</em> uses start and end times only.</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="interval_seconds">interval_seconds </span></p></td>
+    <td valign="top" width="48"><p>10800</p></td>
+    <td valign="top" width="489"><p>time interval between incoming real data, which will be    the interval between the lateral boundary condition file (for <em>real</em> only)</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="input_from_file">input_from_file    (max_dom) </span></p></td>
+    <td bgcolor="#f4f4f4" valign="top" width="48"><p>.true.</p></td>
+    <td valign="top" width="489"><p>logical; whether nested run will have input files for    domains other than 1</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="163"><p><span id="fine_input_stream">fine_input_stream    (max_dom) </span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="48"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="489"><p>selected fields from nest input</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="163"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="48"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="489"><p>all fields from nest input are used </p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="163"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="48"><p>2</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="489"><p>only nest input specified from input stream 2 (defined in    the Registry) are used</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="history_interval">history_interval    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>60</p></td>
+    <td valign="top" width="489"><p>history output file interval in minutes (integer only)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="163"><p><span id="history_interval_mo">history_interval_mo    (max_dom)</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="48"><p>1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="489"><p>history output file interval in months (integer); used as    alternative to history_interval</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="history_interval_d">history_interval_d    (max_dom)</span></p></td>
+    <td valign="top" width="48"><p>1</p></td>
+    <td valign="top" width="489"><p>history output file interval in days (integer); used as    alternative to history_interval</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="history_interval_h">history_interval_h    (max_dom)</span></p></td>
+    <td valign="top" width="48"><p>1</p></td>
+    <td valign="top" width="489"><p>history output file interval in hours (integer); used as    alternative to history_interval</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="history_interval_m">history_interval_m    (max_dom)</span></p></td>
+    <td valign="top" width="48"><p>1</p></td>
+    <td valign="top" width="489"><p>history
+output file interval in minutes (integer); used as alternative to
+history_interval and is equivalent to history_interval</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="history_interval_s">history_interval_s    (max_dom)</span></p></td>
+    <td valign="top" width="48"><p>1</p></td>
+    <td valign="top" width="489"><p>history output file interval in seconds (integer); used as    alternative to history_interval</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="frames_per_outfile">frames_per_outfile    (max_dom) </span></p></td>
+    <td valign="top" width="48"><p>1</p></td>
+    <td valign="top" width="489"><p>output times per history output file, used to split output    files into smaller pieces</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="restart">restart </span></p></td>
+    <td valign="top" width="48"><p> </p></td>
+    <td valign="top" width="489"><p>whether this run is a restart run<br />
+    .false. = not a restart </p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="restart_interval">restart_interval</span></p></td>
+    <td valign="top" width="48"><p>1440</p></td>
+    <td valign="top" width="489"><p>restart output file interval in minutes</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="163"><p><span id="Auxinput1_inname">Auxinput1_inname</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="48"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="489"><p>input from WPS (this is the default):<br />
+“met_em.d&lt;domain&gt;_&lt;date&gt;”<br />
+input from SI:<br />
+“wrf_real_input_em.d&lt;domain&gt;_&lt;date&gt;”<br />
+    </p>    </td>
+  </tr>
+  
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="io_form_history">io_form_history </span></p></td>
+    <td valign="top" width="48"><p>2</p></td>
+    <td valign="top" width="489"><p>1 = binary format (no supported post-processing software available)<br />
+      2 = netCDF<br />
+      4 = PHDF5 format (no supported post-processing software available)<br />
+      5 = GRIB 1<br />
+      10 = GRIB 2<br />
+    102 = split netCDF files one per processor (no supported post-processing software for split files)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="io_form_restart">io_form_restart </span></p></td>
+    <td valign="top" width="48"><p>2</p></td>
+    <td valign="top" width="489"><p>2 = netCDF; 102 = split netCDF files one per processor (must    restart with the same number of processors)</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="io_form_input">io_form_input</span></p></td>
+    <td valign="top" width="48"><p>2</p></td>
+    <td valign="top" width="489"><p>2 = NetCDF</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="io_form_boundary">io_form_boundary</span></p></td>
+    <td valign="top" width="48"><p>2</p></td>
+    <td valign="top" width="489"><p>1 = binary format (no supported post-processing software)<br />
+      2 = netCDF<br />
+      4 = PHDF5 format (no supported post-processing software)<br />
+    5 = GRIB1 format (no supported post-processing software)</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="debug_level">debug_level </span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>0,50,100,200,300 values give increasing prints</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="auxhist2_outname">auxhist2_outname </span></p></td>
+    <td valign="top" width="48"><p> </p></td>
+    <td valign="top" width="489"><p>"rainfall_d&lt;domain&gt;"--file
+name for extra output; if not specified,
+auxhist2_d&lt;domain&gt;_&lt;date&gt; will be used. Also note that to
+write variables in output other than the history file requires
+Registry.EM file change</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="auxhist2_interval">auxhist2_interval</span></p></td>
+    <td valign="top" width="48"><p>10</p></td>
+    <td valign="top" width="489"><p>interval in minutes</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="io_form_auxhist2">io_form_auxhist2 </span></p></td>
+    <td valign="top" width="48"><p>2</p></td>
+    <td valign="top" width="489"><p>output in netCDF</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="auxinput11_interval">auxinput11_interval</span></p></td>
+    <td valign="top" width="48"><p> </p></td>
+    <td valign="top" width="489"><p> </p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="auxinput11_end_h">auxinput11_end_h</span></p></td>
+    <td valign="top" width="48"><p> </p></td>
+    <td valign="top" width="489"><p> </p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="163"><p>nocolons</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="48"><p>.false.</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="489"><p>replace : with _ in output file names</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="write_input">write_input </span></p></td>
+    <td valign="top" width="48"><p>t</p></td>
+    <td valign="top" width="489"><p>write input-formatted data as output for 3DVAR application</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="inputout_interval">inputout_interval </span></p></td>
+    <td valign="top" width="48"><p>180</p></td>
+    <td valign="top" width="489"><p>interval in minutes when writing input-formatted data </p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="input_outname">input_outname </span></p></td>
+    <td valign="top" width="48"><p> </p></td>
+    <td valign="top" width="489"><p>Output file name from 3DVAR<br />
+“wrf_3dvar_input_d&lt;domain&gt;_&lt;date&gt;”</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="inputout_begin_y">inputout_begin_y </span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>beginning year to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="inputout_begin_mo">inputout_begin_mo </span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>beginning month to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="inputout_begin_d">inputout_begin_d </span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>beginning day to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="inputout_begin_h">inputout_begin_h </span></p></td>
+    <td valign="top" width="48"><p>3</p></td>
+    <td valign="top" width="489"><p>beginning hour to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="Inputout_begin_m">Inputout_begin_m</span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>beginning minute to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="inputout_begin_s">inputout_begin_s </span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>beginning second to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="inputout_end_y">inputout_end_y</span> </p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>ending year to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="inputout_end_mo">inputout_end_mo</span> </p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>ending month to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="inputout_end_d">inputout_end_d </span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>ending day to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="inputout_end_h">inputout_end_h</span> </p></td>
+    <td valign="top" width="48"><p>12</p></td>
+    <td valign="top" width="489"><p>ending hour to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="163"><p><span id="Inputout_end_m">Inputout_end_m</span></p></td>
+    <td valign="top" width="48"><p>0</p></td>
+    <td valign="top" width="489"><p>ending minute to write 3DVAR data</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p><span id="inputout_end_s">inputout_end_s</span> </p></td>
+    <td valign="top" width="48"><p>0 </p></td>
+    <td valign="top" width="489"><p>ending second to write 3DVAR data.</p></td>
+  </tr>
+  <tr bgcolor="#f4f4f4">
+    <td valign="top" width="163"><p> </p></td>
+    <td valign="top" width="48"><p> </p></td>
+    <td valign="top" width="489"><p>The above example shows that the input-formatted data are    output starting from hour 3 to hour 12 in 180 min interval.</p></td>
+  </tr>
+</tbody></table>
+<p> </p>
+<table bgcolor="#f4f4f4" border="0" cellpadding="0" cellspacing="0" width="700">
+  <tbody><tr>
+    <td valign="top" width="189"><p><strong><span id="domains">&amp;domains</span></strong> </p></td>
+    <td valign="top" width="58"><p> </p></td>
+    <td valign="top" width="453"><p><strong>domain def: dimensions, nesting params</strong></p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="time_step">time_step</span> </p></td>
+    <td valign="top" width="58"><p>60</p></td>
+    <td valign="top" width="453"><p>time step for integration in integer seconds (recommended    6*dx in km for a typical case)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="time_step_fract_num">time_step_fract_num</span> </p></td>
+    <td valign="top" width="58"><p>0</p></td>
+    <td valign="top" width="453"><p>numerator for fractional time step </p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="time_step_fract_den">time_step_fract_den</span> </p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>denominator
+for fractional time step Example, if you want to use 60.3 sec as your
+time step, set time_step = 60, time_step_fract_num = 3, and
+time_step_fract_den = 10</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="max_dom">max_dom</span> </p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>number of domains - set it to &gt; 1 if it is a nested run</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="s_we">s_we    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>start index in x (west-east) direction (leave as is)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="e_we">e_we    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>91</p></td>
+    <td valign="top" width="453"><p>end index in x (west-east) direction (staggered dimension)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="s_sn">s_sn    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>start index in y (south-north) direction (leave as is)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="e_sn">e_sn    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>82</p></td>
+    <td valign="top" width="453"><p>end index in y (south-north) direction (staggered    dimension)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="s_vert">s_vert    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>start index in z (vertical) direction (leave as is)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="e_vert">e_vert    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>28</p></td>
+    <td valign="top" width="453"><p>end
+index in z (vertical) direction (staggered dimension - this refers to
+full levels). Most variables are on unstaggered levels. Vertical
+dimensions need to be the same for all nests.</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="num_metgrid_levels">num_metgrid_levels</span></p></td>
+    <td valign="top" width="58"><p>40</p></td>
+    <td valign="top" width="453"><p>number of vertical levels in the incoming data: type    ncdump –h to find out</p>
+    <p>(WPS data only)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="eta_levels">eta_levels</span></p></td>
+    <td valign="top" width="58"><p>1.0..0.0</p></td>
+    <td valign="top" width="453"><p>model eta levels (WPS data only). If a user does not    specify this, real will provide a set of levels</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="force_sfc_in_vinterp">force_sfc_in_vinterp</span></p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>use surface data as lower boundary when interpolating    through this many eta levels</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="p_top_requested">p_top_requested</span></p></td>
+    <td valign="top" width="58"><p>5000</p></td>
+    <td valign="top" width="453"><p>p_top to use in the model</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="interp_type">interp_type</span></p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>vertical interpolation; 1: linear in pressure; 2: linear    in log(pressure)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="lagrange_order">lagrange_order</span></p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>vertical interpolation order; 1: linear; 2: quadratic</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="lowest_lev_from_sfc">lowest_lev_from_sfc</span></p></td>
+    <td valign="top" width="58"><p>.false.</p></td>
+    <td valign="top" width="453"><p>T = use surface values for the lowest eta (u,v,t,q); F =    use traditional interpolation</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="dx">dx    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>10000</p></td>
+    <td valign="top" width="453"><p>grid length in x direction, unit in meters</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="dy">dy    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>10000</p></td>
+    <td valign="top" width="453"><p>grid length in y direction, unit in meters</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="ztop">ztop    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>19000.</p></td>
+    <td valign="top" width="453"><p>used in mass model for idealized cases</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="grid_id">grid_id    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>domain identifier</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="parent_id">parent_id    (max_dom) </span></p></td>
+    <td valign="top" width="58"><p>0</p></td>
+    <td valign="top" width="453"><p>id of the parent domain</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="i_parent_start">i_parent_start    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>0</p></td>
+    <td valign="top" width="453"><p>starting LLC I-indices from the parent domain</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="j_parent_start">j_parent_start    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>0</p></td>
+    <td valign="top" width="453"><p>starting LLC J-indices from the parent domain</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="parent_grid_ratio">parent_grid_ratio    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>parent-to-nest
+domain grid size ratio: for real-data cases the ratio has to be odd;
+for idealized cases, the ratio can be even if feedback is set to 0.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="parent_time_step_ratio">parent_time_step_ratio    (max_dom)</span></p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>parent-to-nest time step ratio; it can be different from    the parent_grid_ratio</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="feedback">feedback</span> </p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>feedback from nest to its parent domain; 0 = no feedback</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="smooth_option">smooth_option </span></p></td>
+    <td valign="top" width="58"><p>0 </p></td>
+    <td valign="top" width="453"><p>smoothing option for parent domain, used only with feedback option on.<br />
+      0 = no smoothing<br />
+      1 = 1-2-1 smoothing<br />
+    2 = smoothing-desmoothing</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p> </p></td>
+    <td valign="top" width="58"><p> </p></td>
+    <td valign="top" width="453"><p><em>Namelist variables for controlling the moving nest option:</em><br />
+Note that moving nest needs to be activated at the compile time by
+adding -DMOVE_NESTS to the ARCHFLAGS. The maximum number of moves,
+max_moves, is set to be 50, but can be modified in source code file <em>frame/module_driver_constants.F</em></p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="num_moves">num_moves</span></p></td>
+    <td valign="top" width="58"><p>2,</p></td>
+    <td valign="top" width="453"><p>total number of moves for all domains</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="move_id">move_id    (max_moves)</span></p></td>
+    <td valign="top" width="58"><p>2,2,</p></td>
+    <td valign="top" width="453"><p>a list of nest domain id's, one per move</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="move_interval">move_interval    (max_moves)</span></p></td>
+    <td valign="top" width="58"><p>60,120</p></td>
+    <td valign="top" width="453"><p>time in minutes since the start of this domain</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="move_cd_x">move_cd_x    (max_moves)</span></p></td>
+    <td valign="top" width="58"><p>1,-1,</p></td>
+    <td valign="top" width="453"><p>the number of parent domain grid cells to move in i    direction</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="move_cd_y">move_cd_y    (max_moves)</span></p></td>
+    <td valign="top" width="58"><p>-1,1,</p></td>
+    <td valign="top" width="453"><p>the
+number of parent domain grid cells to move in j direction (positive in
+increasing i/j directions, and negative in decreasing i/j directions.
+The limitation now is to move only 1 grid cell at each move.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="vortex_interval">vortex_interval    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>15</p></td>
+    <td valign="top" width="453"><p>how often the new vortex position is computed</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="max_vortex_speed">max_vortex_speed    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>40</p></td>
+    <td valign="top" width="453"><p>used to compute the search radius for the new vortex    position</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="corral_dist">corral_dist    (max_dom)</span> </p></td>
+    <td valign="top" width="58"><p>8</p></td>
+    <td valign="top" width="453"><p>how many coarse grid cells the moving nest is allowed to    get near the coarse grid boundary</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="tile_sz_x">tile_sz_x </span></p></td>
+    <td valign="top" width="58"><p>0</p></td>
+    <td valign="top" width="453"><p>number of points in tile x direction</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="tile_sz_y">tile_sz_y </span></p></td>
+    <td valign="top" width="58"><p>0</p></td>
+    <td valign="top" width="453"><p>number of points in tile y direction can be determined    automatically</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="numtiles">numtiles </span></p></td>
+    <td valign="top" width="58"><p>1</p></td>
+    <td valign="top" width="453"><p>number of tiles per patch (alternative to above two items)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="189"><p><span id="nproc_x">nproc_x </span></p></td>
+    <td valign="top" width="58"><p>-1</p></td>
+    <td valign="top" width="453"><p>number of processors in x for decomposition</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="189"><p><span id="nproc_y">nproc_y </span></p></td>
+    <td valign="top" width="58"><p>-1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="453"><p>number
+of processors in y for decomposition -1: code will do automatic
+decomposition &gt;1: for both: will be used for decomposition</p></td>
+  </tr>
+</tbody></table>
+<p> </p>
+<table bgcolor="#f4f4f4" border="0" cellpadding="0" cellspacing="0" width="700">
+  <tbody><tr>
+    <td valign="top" width="185"><p><strong><span id="physics">&amp;physics</span></strong> </p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p><strong>physics options</strong></p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p><span id="mp_physics">mp_physics    (max_dom)</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>microphysics option</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>no microphysics</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>Kessler scheme: : A warm-rain (i.e. no ice) scheme used commonly in idealized cloud modeling studies.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>2</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>Lin
+et al. scheme: a sophisticated scheme that has ice, snow and graupel
+processes, suitable for real-data high-resolution simulations.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>3</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>WRF
+Single-Moment (WSM) 3-class simple ice scheme: A simple efficient
+scheme with ice and snow processes suitable for mesoscale grid sizes.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>4</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>WRF
+Single-Moment (WSM) 5-class scheme. A slightly more sophisticated
+version of option 3 that allows for mixed-phase processes and
+super-cooled water. This scheme has been preliminarily tested for
+WRF-NMM.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>5</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>Ferrier
+scheme: A scheme that includes prognostic mixed-phase processes. This
+scheme was recently changed so that ice saturation is assumed at
+temperatures colder than -30C rather than -10C as in the original
+implementation. This scheme is well tested for WRF-NMM, used
+operationally at NCEP.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>6</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>WSM
+6-class graupel scheme: A new scheme with ice, snow and graupel
+processes suitable for high-resolution simulations. This scheme has
+been preliminarily tested for WRF-NMM.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>8</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p><span xml:lang="de" lang="de">Thompson    graupel scheme</span>:
+a scheme with six classes of moisture species plus number concentration
+for ice as prognostic variables. This scheme has been preliminarily
+tested for WRF-NMM.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>10</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>Morrison 2-moment scheme</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="mp_zero_out">mp_zero_out</span></p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p>For non-zero mp_physics options, to keep Qv &gt;= 0, and to    set the other moisture fields &lt; a threshold value to zero</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>0</p></td>
+    <td valign="top" width="470"><p>no action taken, no adjustment to any moist field</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>1</p></td>
+    <td valign="top" width="470"><p>except for Qv, all other moist arrays are set to zero if    they fall below a critical value</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>2</p></td>
+    <td valign="top" width="470"><p>Qv is &gt;= 0, all other moist arrays are set to zero if    they fall below a critical value</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p><span id="mp_zero_out_thresh">mp_zero_out_thresh</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>1.e-8</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>critical value for moisture variable threshold, below    which moist arrays (except for Qv) are set to zero (unit: kg/kg)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="ra_lw_physics">ra_lw_physics    (max_dom)</span></p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p>longwave radiation option</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>0</p></td>
+    <td valign="top" width="470"><p>no longwave radiation</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>1</p></td>
+    <td valign="top" width="470"><p>RRTM
+scheme: Rapid Radiative Transfer Model. An accurate scheme using
+look-up tables for efficiency. Accounts for multiple bands, trace
+gases, and microphysics species. This scheme has been preliminarily
+tested for WRF-NMM.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>3</p></td>
+    <td valign="top" width="470"><p>CAM scheme</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>99</p></td>
+    <td valign="top" width="470"><p>GFDL
+scheme: Geophysical Fluid Dynamics Laboratory (GFDL) longwave. An older
+version multi-band, transmission table look-up scheme with carbon
+dioxide, ozone and water vapor absorptions. Cloud microphysics effects
+are included. This scheme is well tested for WRF-NMM, used
+operationally at NCEP.<br />
+Note: If it is desired to run GFDL with a microphysics scheme other
+than Ferrier, a modification to module_ra_gfdleta.F is needed to
+comment out (!) #define FERRIER_GFDL.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p><span id="ra_sw_physics">ra_sw_physics    (max_dom)</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>shortwave radiation option</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>no shortwave radiation</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>Dudhia
+scheme: Simple downward integration allowing for efficient cloud and
+clear-sky absorption and scattering. This scheme has been preliminarily
+tested for WRF-NMM.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>2</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>Goddard Shortwave  scheme: Two-stream multi-band scheme with ozone from climatology and cloud  effects.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>3</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>CAM scheme</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>99</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>GFDL
+scheme: Geophysical Fluid Dynamics Laboratory (GFDL) shortwave. A two
+spectral bands, k-distribution scheme with ozone and water vapor as the
+main absorbing gases. Cloud microphysics effects are included. This
+scheme is well-tested for WRF-NMM, used operationally at NCEP.<br />
+        <strong><em>Note: </em></strong><em>If
+it is desired to run GFDL with a microphysics scheme other than
+Ferrier, a modification to module_ra_gfdleta.F is needed to comment out
+(!) #define FERRIER_GFDL.</em></p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="radt">radt    (max_dom)</span> </p></td>
+    <td valign="top" width="45"><p>30</p></td>
+    <td valign="top" width="470"><p>minutes between radiation physics calls. Recommend 1 minute    per km of dx (e.g. 10 for 10 km grid)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p><span id="co2tf">co2tf</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>CO2
+transmission function flag for GFDL radiation only. Set it to 1 for
+ARW, which allows generation of CO2 function internally</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="cam_abs_freq_s">cam_abs_freq_s</span></p></td>
+    <td valign="top" width="45"><p>21600</p></td>
+    <td valign="top" width="470"><p>CAM clearsky longwave absorption calculation frequency    (recommended minimum value to speed scheme up)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p>levsiz</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>59</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>for CAM radiation input ozone levels</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="paerlev">paerlev</span></p></td>
+    <td valign="top" width="45"><p>29</p></td>
+    <td valign="top" width="470"><p>for CAM radiation input aerosol levels</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p>cam_abs_dim1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>4</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>for CAM absorption save array</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="cam_abs_dim2">cam_abs_dim2</span></p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p>for CAM 2nd absorption save array<br />
+    (same as e_vert)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="sf_sfclay_physics">sf_sfclay_physics    (max_dom)</span> </p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p>surface-layer option </p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p> </p></td><td> </td>
+    <td valign="top" width="470"><p>0 = no surface-layer<br />
+1 = Monin-Obukhov Similarity scheme: Based on Monin-Obukhov with
+Carslon-Boland viscous sub-layer and standard similarity functions from
+look-up tables<br />
+2 = Monin-Obukhov (Janjic Eta) Similarity scheme: Based on similarity
+theory with viscous sublayers both over solid surfaces and water
+points. This scheme is well tested for WRF-NMM, used operationally at
+NCEP<br />
+      3 = NCEP GFS scheme (NMM only)<br />
+    7 = Pleim-Xu (ARW only), only tested with Pleim-Xu surface and ACM2 PBL</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="sf_surface_physics">sf_surface_physics    (max_dom)</span> </p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p>land-surface option (set before running <em>real</em>; also set correct num_soil_layers)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>0</p></td>
+    <td valign="top" width="470"><p>0 = no surface temp prediction</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>1</p></td>
+    <td valign="top" width="470"><p>Thermal Diffusion scheme: soil temperature only scheme, using five layers.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>2</p></td>
+    <td valign="top" width="470"><p>Noah
+Land-Surface Model: Unified NCEP/NCAR/AFWA scheme with soil temperature
+and moisture in four layers, fractional snow cover and frozen soil
+physics. This scheme has been preliminarily tested for WRF-NMM.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>3</p></td>
+    <td valign="top" width="470"><p>RUC
+Land-Surface Model: Rapid Update Cycle operational scheme with soil
+temperature and moisture in six layers, multi-layer snow and frozen
+soil physics. This scheme has been preliminarily tested for WRF-NMM.</p></td>
+  </tr>
+  <tr>
+    <td valign="top"> </td>
+    <td valign="top">7</td>
+    <td valign="top">Pleim-Xu scheme (ARW only)</td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="bl_pbl_physics">bl_pbl_physics (max_dom)</span> </p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p>boundary-layer option</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p></p></td>
+    <td valign="top" width="470"><p>0 = no boundary-layer<br />
+      1 = YSU scheme<br />
+      2 = Mellor-Yamada-Janjic (Eta) TKE scheme<br />
+      3 = NCEP GFS scheme (NMM only)<br />
+      7 = ACM2 (Pleim) scheme<br />
+    99 = MRF scheme (to be removed)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="bldt">bldt    (max_dom)</span> </p></td>
+    <td valign="top" width="45"><p>0</p></td>
+    <td valign="top" width="470"><p>minutes between boundary-layer physics calls<br />
+    0 = call every time step</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="cu_physics">cu_physics    (max_dom)</span> </p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p>cumulus option</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>0</p></td>
+    <td valign="top" width="470"><p>no cumulus</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>1</p></td>
+    <td valign="top" width="470"><p><span xml:lang="de" lang="de">Kain-Fritsch (new Eta) scheme</span>: deep and shallow sub-grid scheme using a mass flux  approach with downdrafts and CAPE removal time scale</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>2</p></td>
+    <td valign="top" width="470"><p>Betts-Miller-Janjic
+scheme: adjustment scheme for deep and shallow convection relaxing
+towards variable temperature and humidity profiles determined from
+thermodynamic considerations. </p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>3</p></td>
+    <td valign="top" width="470"><p>Grell-Devenyi ensemble scheme: Multi-closure, multi-parameter, ensemble method  with typically 144 sub-grid members</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>4</p></td>
+    <td valign="top" width="470"><p>Simplied
+Arakawa-Schubert (NMM only). Penetrative convection is simulated
+following Pan and Wu (1995), which is based on Arakawa and Schubert
+(1974) as simplified by Grell (1993) and with a saturated downdraft.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>5</p></td>
+    <td valign="top" width="470"><p>New Grell scheme (G3)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>99</p></td>
+    <td valign="top" width="470"><p>previous Kain-Fritsch scheme</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p><span id="cudt">cudt </span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>minutes between cumulus physics calls. For example, 10.0 minutes. 0 = call every time step</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="isfflx">isfflx</span></p></td>
+    <td valign="top" width="45"><p>1</p></td>
+    <td valign="top" width="470"><p>heat and moisture fluxes from the surface<br />
+      1 = with fluxes from the surface<br />
+      0 = no flux from the surface (not for sf_surface_sfclay = 2).<br />
+      If diff_opt=2, km_opt=2 or 3 then<br />
+      0 = constant fluxes defind by tke_drag_coefficient, tke_heat_flux;<br />
+      1 = use model computed u*, and heat and moisture fluxes;<br />
+    2 = use model computed u*, and specified heat flux by tke_heat_flux</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p><span id="ifsnow">ifsnow</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>snow-cover effects (only works for sf_surface_physics = 1)<br />
+      0 = without snow-cover effect<br />
+    1 = with snow-cover effect</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="icloud">icloud</span></p></td>
+    <td valign="top" width="45"><p>1</p></td>
+    <td valign="top" width="470"><p>cloud effect to the optical depth in radiation (only works for ra_sw_physics = 1 and ra_lw_physics = 1)<br />
+      0 = without cloud effect<br />
+    1 = with cloud effect </p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p>swrat_scat</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="45"><p>1.</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="470"><p>Scattering tuning parameter (default 1 is 1.e-5 m2/kg)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="surface_input_source">surface_input_source</span> </p></td>
+    <td valign="top" width="45"><p>1,2</p></td>
+    <td valign="top" width="470"><p>where landuse and soil category data come from<br />
+      1 = WPS/geogrid<br />
+    2 = GRIB data from another model (only if arrays VEGCAT/SOILCAT exist)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="num_soil_layers">num_soil_layers</span> </p></td>
+    <td valign="top" width="45"><p>  </p></td>
+    <td valign="top" width="470"><p>number of soil layers in land surface model (set in <em>real</em>)<br />
+      2 = Pleim-Xu land-surface model<br />
+      4 = Noah land-surface model<br />
+      5 = thermal diffusion scheme for temp only<br />
+    6 = RUC land-surface model</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="ucmcall">ucmcall</span></p></td>
+    <td valign="top" width="45"><p>0</p></td>
+    <td valign="top" width="470"><p>activate urban canopy model (in Noah LSM only) (0=no,    1=yes)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="maxiens">maxiens</span> </p></td>
+    <td valign="top" width="45"><p>1</p></td>
+    <td valign="top" width="470"><p>Grell-Devenyi only</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="maxens">maxens</span> </p></td>
+    <td valign="top" width="45"><p>3</p></td>
+    <td valign="top" width="470"><p>G-D only</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="maxens2">maxens2 </span></p></td>
+    <td valign="top" width="45"><p>3</p></td>
+    <td valign="top" width="470"><p>G-D only</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="maxens3">maxens3 </span></p></td>
+    <td valign="top" width="45"><p>16 </p></td>
+    <td valign="top" width="470"><p>G-D only</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="ensdim">ensdim</span> </p></td>
+    <td valign="top" width="45"><p>144 </p></td>
+    <td valign="top" width="470"><p>G-D
+only. These are recommended numbers. If you would like to use any other
+number, consult the code, know what you are doing.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="seaice_threshold">seaice_threshold</span></p></td>
+    <td valign="top" width="45"><p>271.</p></td>
+    <td valign="top" width="470"><p>tsk
+&lt; seaice_threshold, if water point and 5-layer slab scheme, set to
+land point and permanent ice; if water point and Noah scheme, set to
+land point, permanent ice, set temps from 3 m to surface, and set smois
+and sh2o</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="sst_update">sst_update</span></p></td>
+    <td valign="top" width="45"><p> </p></td>
+    <td valign="top" width="470"><p>option to use time-varying SST during a model simulation    (set in <em>real</em>)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>0</p></td>
+    <td valign="top" width="470"><p>no SST update </p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p> </p></td>
+    <td valign="top" width="45"><p>1</p></td>
+    <td valign="top" width="470"><p><em>real.exe</em>
+will create wrflowinp_d01 file at the same time interval as the
+available input data. To use it in wrf.exe, add auxinput5_inname =
+"wrflowinp_d01", auxinput5_interval, and auxinput5_end_h in namelist
+section <em>&amp;time_control</em></p></td>
+  </tr>
+</tbody></table>
+<p> </p>
+<table bgcolor="#f4f4f4" border="0" cellpadding="0" cellspacing="0" width="700">
+  <tbody><tr>
+    <td height="24" valign="top" width="185"><p><strong><span id="fdda">&amp;fdda (grid nudging)</span></strong> </p></td>
+    <td valign="top" width="69"><p> </p></td>
+    <td valign="top" width="446"><p><strong>for grid and obs nudging</strong></p></td>
+  </tr>
+
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="grid_fdda">grid_fdda    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>1</p></td>
+    <td valign="top" width="446"><p>grid-nudging on (=0 off) for each domain</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="gfdda_inname">gfdda_inname</span></p></td>
+    <td valign="top" width="69"><p> </p></td>
+    <td valign="top" width="446"><p>Defined name in real<br />
+    “wrffdda_d&lt;domain&gt;”</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="gfdda_interval">gfdda_interval    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>360</p></td>
+    <td valign="top" width="446"><p>Time interval (min) between analysis times</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="gfdda_end_h">gfdda_end_h    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>6</p></td>
+    <td valign="top" width="446"><p>Time (h) to stop nudging after start of forecast</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="io_form_gfdda">io_form_gfdda</span></p></td>
+    <td valign="top" width="69"><p>2</p></td>
+    <td valign="top" width="446"><p>Analysis format (2 = netcdf)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="fgdt">fgdt    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p>Calculation frequency (in minutes) for analysis nudging.<br />
+    0 = every time step, recommended</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="if_no_pbl_nudging_uv">if_no_pbl_nudging_uv    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p>0 = nudging in the pbl<br />
+    1 = no nudging of u and v in the pbl</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="if_no_pbl_nudging_t">if_no_pbl_nudging_t    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p>0 = nudging in the pbl<br />
+    1 = no nudging of temp in the pbl</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="if_no_pbl_nudging_t2">if_no_pbl_nudging_t    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p>0 = nudging in the pbl<br />
+    1 = no nudging of qvapor in the pbl</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="if_zfac_uv">if_zfac_uv    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p>0 = nudge u and v all layers<br />
+    1 = limit nudging to levels above k_zfac_uv</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="k_zfac_uv">k_zfac_uv</span></p></td>
+    <td valign="top" width="69"><p>10</p></td>
+    <td valign="top" width="446"><p>10 = model level below which nudging is switched off for u and v</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="if_zfac_t">if_zfac_t    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p> </p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="k_zfac_t">k_zfac_t</span></p></td>
+    <td valign="top" width="69"><p>10</p></td>
+    <td valign="top" width="446"><p>10 = model level below which nudging is switched off for temp</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="if_zfac_q">if_zfac_q    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p> </p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="k_zfac_q">k_zfac_q</span></p></td>
+    <td valign="top" width="69"><p>10</p></td>
+    <td valign="top" width="446"><p>10 = model level below which nudging is switched off for water qvapor</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="guv">guv    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0.0003</p></td>
+    <td valign="top" width="446"><p>nudging coefficient for u and v (sec-1)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="gt">gt    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0.0003</p></td>
+    <td valign="top" width="446"><p>nudging coefficient for temp (sec-1)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="gq">gq    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0.0003</p></td>
+    <td valign="top" width="446"><p>nudging coefficient for qvapor (sec-1)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="if_ramping">if_ramping</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p>0= nudging ends as a step function, 1= ramping nudging    down at end of period</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="dtramp_min">dtramp_min</span></p></td>
+    <td valign="top" width="69"><p>60.</p></td>
+    <td valign="top" width="446"><p>time (min) for ramping function, 60.0=ramping starts at last analysis time, </p>
+    <p>-60.0=ramping ends at last analysis time</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><strong>(for obs nudging)</strong></p></td>
+    <td valign="top" width="69"><p> </p></td>
+    <td valign="top" width="446"><p><strong>Observation nudging </strong></p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_nudge_opt">obs_nudge_opt    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>1</p></td>
+    <td valign="top" width="446"><p>0 = obs-nudging fdda off<br />
+      1 = obs-nudging fdda on<br />
+    for each domain: also need to set auxinput11_interval and auxinput11_end_h in time_control namelist</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="max_obs">max_obs</span></p></td>
+    <td valign="top" width="69"><p>150000</p></td>
+    <td valign="top" width="446"><p>max number of observations used on a domain during any given time window</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="fdda_start">fdda_start</span></p></td>
+    <td valign="top" width="69"><p>0.</p></td>
+    <td valign="top" width="446"><p>obs nudging start time in minutes</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="fdda_end">fdda_end </span></p></td>
+    <td valign="top" width="69"><p>180.</p></td>
+    <td valign="top" width="446"><p>obs nudging end time in minutes</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_nudge_wind">obs_nudge_wind    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>1</p></td>
+    <td valign="top" width="446"><p>whether to nudge wind: (=0 off)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_coef_wind">obs_coef_wind    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>6.e-4</p></td>
+    <td valign="top" width="446"><p>nudging coefficient for wind, unit: s-1</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_nudge_temp">obs_nudge_temp    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>1</p></td>
+    <td valign="top" width="446"><p>whether to nudge temperature: (=0 off)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_coef_temp">obs_coef_temp    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>6.e-4</p></td>
+    <td valign="top" width="446"><p>nudging coefficient for temp, unit: s-1</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_nudge_mois">obs_nudge_mois    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>1</p></td>
+    <td valign="top" width="446"><p>whether to nudge water vapor mixing ratio: (=0 off)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_coef_mois">obs_coef_mois    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>6.e-4</p></td>
+    <td valign="top" width="446"><p>nudging coefficient for water vapor mixing ratio, unit:    s-1</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_nudge_pstr">obs_nudge_pstr    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p>whether to nudge surface pressure (not used)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_coef_pstr">obs_coef_pstr    (max_dom)</span></p></td>
+    <td valign="top" width="69"><p>0.</p></td>
+    <td valign="top" width="446"><p>nudging coefficient for surface pressure, unit: s-1 (not used)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_rinxy">obs_rinxy</span></p></td>
+    <td valign="top" width="69"><p>200.</p></td>
+    <td valign="top" width="446"><p>horizontal radius of influence in km</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_rinsig">obs_rinsig</span></p></td>
+    <td valign="top" width="69"><p>0.1</p></td>
+    <td valign="top" width="446"><p>vertical radius of influence in eta</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_twindo">obs_twindo</span></p></td>
+    <td valign="top" width="69"><p>0.6667</p></td>
+    <td valign="top" width="446"><p>half-period time window over which an observation will be used for nudging; the unit is in hours</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_npfi">obs_npfi</span></p></td>
+    <td valign="top" width="69"><p>10</p></td>
+    <td valign="top" width="446"><p>freq in coarse grid timesteps for diag prints</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_ionf">obs_ionf</span></p></td>
+    <td valign="top" width="69"><p>2</p></td>
+    <td valign="top" width="446"><p>freq in coarse grid timesteps for obs input and err calc</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_idynin">obs_idynin</span></p></td>
+    <td valign="top" width="69"><p>0</p></td>
+    <td valign="top" width="446"><p>for dynamic initialization using a ramp-down function to gradually turn off the FDDA before the pure forecast (=1 on)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="185"><p><span id="obs_dtramp">obs_dtramp</span></p></td>
+    <td valign="top" width="69"><p>40.</p></td>
+    <td valign="top" width="446"><p>time period in minutes over which the nudging is ramped down from one to zero.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_ipf_in4dob">obs_ipf_in4dob</span></p></td>
+    <td valign="top" width="69"><p>.true.</p></td>
+    <td valign="top" width="446"><p>print obs input diagnostics (=.false. off)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="185"><p><span id="obs_ipf_errob">obs_ipf_errob</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="69"><p>.true.</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="446"><p>.false. = don't print obs error diagnostics<br />
+    .true. = print obs error diagnostics</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="185"><p><span id="obs_ipf_nudob">obs_ipf_nudob</span></p></td>
+    <td valign="top" width="69"><p>.true.</p></td>
+    <td valign="top" width="446"><p>.false. = don't print obs nudge diagnostics<br />
+    .true. = print obs nudge diagnostics</p></td>
+  </tr>
+</tbody></table>
+<p> </p>
+<table bgcolor="#f4f4f4" border="0" cellpadding="0" cellspacing="0" width="700">
+  <tbody><tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><em><strong><span id="dynamics">&amp;dynamics</span></strong></em></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p><strong>Diffusion, damping, advection options</strong></p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="dyn_opt">dyn_opt</span> </p></td>
+    <td valign="top" width="60"><p>2</p></td>
+    <td valign="top" width="414"><p>dynamical core option: advanced research WRF core (Eulerian mass)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="rk_ord">rk_ord </span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>time-integration scheme option:<br />
+      2 = Runge-Kutta 2nd order<br />
+    3 = Runge-Kutta 3rd order (recommended)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="diff_opt">diff_opt </span></p></td>
+    <td valign="top" width="60"><p> </p></td>
+    <td valign="top" width="414"><p>turbulence and mixing option:</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p> </p></td>
+    <td valign="top" width="60"><p>0 </p></td>
+    <td valign="top" width="414"><p>No turbulence or explicit spatial numerical filters    (km_opt IS IGNORED).</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p> </p></td>
+    <td valign="top" width="60"><p>1</p></td>
+    <td valign="top" width="414"><p>Simple
+diffusion: evaluates 2nd order diffusion term on coordinate surfaces.
+uses kvdif for vertical diff unless PBL option is used. may be used
+with km_opt = 1 and 4. (= 1, recommended for real-data case)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p> </p></td>
+    <td valign="top" width="60"><p>2</p></td>
+    <td valign="top" width="414"><p>Full
+diffusion: evaluates mixing terms in physical space (stress form)
+(x,y,z). turbulence parameterization is chosen by specifying km_opt.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="km_opt">km_opt </span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>eddy coefficient option</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>Constant: K is specified by namelist values for horizontal and vertical diffusion.(use khdif and kvdif)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>2</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>1.5 order TKE closure (3D)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>3</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>Smagorinsky first order closure (3D) Note: option 2 and 3    are not recommended for DX &gt; 2 km</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>4</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>Horizontal
+Smagorinsky first order closure (recommended for real-data case). K for
+horizontal diffusion is diagnosed from just horizontal deformation. The
+vertical diffusion is assumed to be done by the PBL scheme (2D)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="diff_6th_opt">diff_6th_opt    (max_dom)</span></p></td>
+    <td valign="top" width="60"><p>0</p></td>
+    <td valign="top" width="414"><p>6th-order numerical diffusion<br />
+      0 = no 6th-order diffusion (default)<br />
+      1 = 6th-order numerical diffusion<br />
+      2 = 6th-order numerical diffusion but prohibit up-gradient    diffusion</p>    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="diff_6th_factor">diff_6th_factor    (max_dom)</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>0.12</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>6th-order
+numerical diffusion non-dimensional rate (max value 1.0 corresponds to
+complete removal of 2dx wave in one timestep)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="damp_opt">damp_opt</span> </p></td>
+    <td valign="top" width="60"><p> </p></td>
+    <td valign="top" width="414"><p>upper level damping flag</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p> </p></td>
+    <td valign="top" width="60"><p>0</p></td>
+    <td valign="top" width="414"><p>without damping</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p> </p></td>
+    <td valign="top" width="60"><p>1</p></td>
+    <td valign="top" width="414"><p>with diffusive damping (dampcoef nondimensional ~ 0.01 - 0.1. May be used for real-data runs)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p> </p></td>
+    <td valign="top" width="60"><p>2</p></td>
+    <td valign="top" width="414"><p>with Rayleigh damping (dampcoef inverse time scale [1/s], e.g. 0.003)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p> </p></td>
+    <td valign="top" width="60"><p>3</p></td>
+    <td valign="top" width="414"><p>with w-Rayleigh damping (dampcoef inverse time scale [1/s] e.g. 0.2; for real-data cases)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="zdamp">zdamp    (max_dom)</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>5000</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>damping depth (m) from model top</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="dampcoef">dampcoef    (max_dom)</span> </p></td>
+    <td valign="top" width="60"><p>0.</p></td>
+    <td valign="top" width="414"><p>damping coefficient (see damp_opt)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="w_damping">w_damping</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>vertical velocity damping flag (for operational use)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>without damping</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>with damping</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="base_pres">base_pres</span></p></td>
+    <td valign="top" width="60"><p>100000.</p></td>
+    <td valign="top" width="414"><p>Base state surface pressure (Pa), real only. Do not    change.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="base_temp">base_temp</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>290.</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>Base state sea level temperature (K), real only.</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="base_lapse">base_lapse </span></p></td>
+    <td valign="top" width="60"><p>50.</p></td>
+    <td valign="top" width="414"><p>real-data ONLY, lapse rate (K), DO NOT CHANGE.</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="khdif">khdif    (max_dom) </span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>horizontal diffusion constant (m^2/s)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="kvdif">kvdif    (max_dom)</span> </p></td>
+    <td valign="top" width="60"><p>0</p></td>
+    <td valign="top" width="414"><p>vertical diffusion constant (m^2/s)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="smdiv">smdiv    (max_dom)</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>0.1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>divergence damping (0.1 is typical)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="emdiv">emdiv    (max_dom)</span> </p></td>
+    <td valign="top" width="60"><p>0.01</p></td>
+    <td valign="top" width="414"><p>external-mode filter coef for mass coordinate model (0.01    is typical for real-data cases)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="epssm">epssm    (max_dom)</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>.1</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>time off-centering for vertical sound waves</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="non_hydrostatic">non_hydrostatic    (max_dom)</span></p></td>
+    <td valign="top" width="60"><p>.true.</p></td>
+    <td valign="top" width="414"><p>whether running the model in hydrostatic or non-hydro mode</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="pert_coriolis">pert_coriolis    (max_dom)</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>.false.</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>Coriolis only acts on wind perturbation (idealized)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="mix_full_fields">mix_full_fields</span></p></td>
+    <td valign="top" width="60"><p>.false.</p></td>
+    <td valign="top" width="414"><p>For diff_opt=2    only, vertical diffusion acts on full fields (not just on perturbation from    1D base_ profile) (idealized)</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="h_mom_adv_order">h_mom_adv_order    (max_dom) </span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>5</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>horizontal momentum advection order (5=5th, etc.)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="v_mom_adv_order">v_mom_adv_order    (max_dom) </span></p></td>
+    <td valign="top" width="60"><p>3</p></td>
+    <td valign="top" width="414"><p>vertical momentum advection order</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="h_sca_adv_order">h_sca_adv_order    (max_dom)</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>5</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>horizontal scalar advection order</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="v_sca_adv_order">v_sca_adv_order    (max_dom)</span> </p></td>
+    <td valign="top" width="60"><p>3</p></td>
+    <td valign="top" width="414"><p>vertical scalar advection order</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="time_step_sound">time_step_sound    (max_dom)</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>4</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>number
+of sound steps per time-step (if using a time_step much larger than
+6*dx (in km), increase number of sound steps). = 0: the value computed
+automatically</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="pd_moist">pd_moist    (max_dom)</span></p></td>
+    <td valign="top" width="60"><p>.false.</p></td>
+    <td valign="top" width="414"><p>positive define advection of moisture; set to .true. to    turn it on</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="pd_scalar">pd_scalar    (max_dom)</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>.false.</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>positive define advection of scalars</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="pd_tke">pd_tke    (max_dom)</span></p></td>
+    <td valign="top" width="60"><p>.false.</p></td>
+    <td valign="top" width="414"><p>positive define advection of tke</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="pd_chem">pd_chem    (max_dom)</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>.false.</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>positive define advection of chem vars</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="226"><p><span id="tke_drag_coefficient">tke_drag_coefficient    (max_dom)</span></p></td>
+    <td valign="top" width="60"><p>0</p></td>
+    <td valign="top" width="414"><p>surface drag coefficient (Cd, dimensionless) for    diff_opt=2 only</p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="226"><p><span id="tke_heat_flux">tke_heat_flux    (max_dom)</span></p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="60"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="414"><p>surface thermal flux (H/rho*cp), K m/s) for diff_opt = 2    only</p></td>
+  </tr>
+</tbody></table>
+<p> </p>
+<table bgcolor="#f4f4f4" border="0" cellpadding="0" cellspacing="0" width="700">
+  <tbody><tr>
+    <td valign="top" width="206"><p><em><strong><span id="bdy_control">&amp;bdy_control</span></strong></em></p></td>
+    <td valign="top" width="56"><p> </p></td>
+    <td valign="top" width="438"><p><strong>boundary condition control</strong></p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="206"><p><span id="spec_bdy_width">spec_bdy_width</span> </p></td>
+    <td valign="top" width="56"><p>5</p></td>
+    <td valign="top" width="438"><p>total number of rows for specified boundary value nudging</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="206"><p><span id="spec_zone">spec_zone</span> </p></td>
+    <td valign="top" width="56"><p>1</p></td>
+    <td valign="top" width="438"><p>number of points in specified zone (spec b.c. option)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="206"><p><span id="relax_zone">relax_zone</span> </p></td>
+    <td valign="top" width="56"><p>4</p></td>
+    <td valign="top" width="438"><p>number of points in relaxation zone (spec b.c. option)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="206"><p><span id="specified">specified    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>specified boundary conditions (only can be used for to    domain 1) </p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="206"><p> </p></td>
+    <td valign="top" width="56"><p> </p></td>
+    <td valign="top" width="438"><p>The above 4 namelists are used for real-data runs only</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="206"><p><span id="periodic_x">periodic_x    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>periodic boundary conditions in x direction</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="206"><p><span id="symmetric_xs">symmetric_xs    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>symmetric boundary conditions at x start (west)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="206"><p><span id="symmetric_xe">symmetric_xe    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>symmetric boundary conditions at x end (east)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="206"><p><span id="open_xs">open_xs    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>open boundary conditions at x start (west)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="206"><p><span id="open_xe">open_xe    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>open boundary conditions at x end (east)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="206"><p><span id="periodic_y">periodic_y    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>periodic boundary conditions in y direction</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="206"><p><span id="symmetric_ys">symmetric_ys    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>symmetric boundary conditions at y start (south)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="206"><p><span id="symmetric_ye">symmetric_ye    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>symmetric boundary conditions at y end (north)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="206"><p><span id="open_ys">open_ys    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>open boundary conditions at y start (south)</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="206"><p><span id="open_ye">open_ye    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>open boundary conditions at y end (north)</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="206"><p><span id="nested">nested    (max_dom)</span> </p></td>
+    <td valign="top" width="56"><p>.false.</p></td>
+    <td valign="top" width="438"><p>nested boundary conditions (must be set to .true. for    nests)</p></td>
+  </tr>
+</tbody></table>
+<p> </p>
+<table bgcolor="#f4f4f4" border="0" cellpadding="0" cellspacing="0" width="700">
+  <tbody><tr>
+    <td valign="top" width="178"><p><em><strong><span id="namelist_quilt">&amp;namelist_quilt</span></strong></em></p></td>
+    <td valign="top" width="46"><p> </p></td>
+    <td valign="top" width="476"><p><strong>Option for async I/O for MPI apps</strong></p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="178"><p><span id="nio_tasks_per_group">nio_tasks_per_group</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="46"><p>0</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="476"><p>default value is 0: no quilting; &gt; 0 quilting I/O</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="178"><p><span id="nio_groups">nio_groups </span></p></td>
+    <td valign="top" width="46"><p>1</p></td>
+    <td valign="top" width="476"><p>default 1</p></td>
+  </tr>
+</tbody></table>
+<p> </p>
+<table bgcolor="#f4f4f4" border="0" cellpadding="0" cellspacing="0" width="700">
+  <tbody><tr>
+    <td valign="top" width="178"><p><strong><span id="grib2">&amp;grib2</span> </strong></p></td>
+    <td valign="top" width="47"><p> </p></td>
+    <td valign="top" width="475"><p><strong>Grib2</strong></p></td>
+  </tr>
+  <tr>
+    <td bgcolor="#e6e6e6" valign="top" width="178"><p><span id="background_proc_id">background_proc_id</span> </p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="47"><p>255</p></td>
+    <td bgcolor="#e6e6e6" valign="top" width="475"><p>Background
+generating process identifier, typically defined by the originating
+center to identify the background data that was used in creating the
+data. This is octet 13 of Section 4 in the grib2 message</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="178"><p><span id="forecast_proc_id">forecast_proc_id</span> </p></td>
+    <td valign="top" width="47"><p>255</p></td>
+    <td valign="top" width="475"><p>Analysis
+or generating forecast process identifier, typically defined by the
+originating center to identify the forecast process that was used to
+generate the data. This is octet 14 of Section 4 in the grib2 message</p></td>
+  </tr>
+  <tr bgcolor="#e6e6e6">
+    <td valign="top" width="178"><p><span id="production_status">production_status</span> </p></td>
+    <td valign="top" width="47"><p>255</p></td>
+    <td valign="top" width="475"><p>Production
+status of processed data in the grib2 message. See Code Table 1.3 of
+the grib2 manual. This is octet 20 of Section 1 in the grib2 record</p></td>
+  </tr>
+  <tr>
+    <td valign="top" width="178"><p><span id="compression">compression</span> </p></td>
+    <td valign="top" width="47"><p>40</p></td>
+    <td valign="top" width="475"><p>The compression method to encode the output grib2 message.    Only 40 for jpeg2000 or 41 for PNG are supported</p></td>
+  </tr>
+</tbody></table>
+<p> </p>
+<p> </p>
+
+</body></html>

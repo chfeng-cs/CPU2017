@@ -1,0 +1,1 @@
+-C -f 'egrep -i "Reading config|ERROR|obsolete"'

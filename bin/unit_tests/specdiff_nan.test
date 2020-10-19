@@ -1,0 +1,62 @@
+#!/bin/zsh
+
+testdir=$SPEC/tmp/tests/specdiff
+rm -rf $testdir
+mkdir -p $testdir
+output=$testdir/$(basename $0).out
+rm -f $output
+
+if [ -d "$SPEC" ]; then
+  . $SPEC/shrc
+fi
+
+if ! specperl -e 1 || [ ! -d "$SPEC" ]; then
+  echo I need specperl to be able to run, and I need to know where '$SPEC' is
+  echo PATH=$PATH
+  echo SPEC=$SPEC
+  echo specperl is at $(which specperl)
+  exit 1
+fi
+
+echo Interrupt this process manually if it more than a few seconds elapse between dots
+
+echo -n testing one number per line
+echo "1.201" > $testdir/good
+for args in '--floatcompare' '--abstol 0.01' '--floatcompare --calctol' '--abstol 0.01 --calctol' '--floatcompare --calctol --showerr' '--abstol 0.01 --calctol --debug'; do
+  for nan in '1.201' 2 'nana makes good cookies' "Nan's cookies are the best" indefinite infinite 'nan' 'NaN' 'NaN%' 'NAN' 'NaNQ' 'NaNS' 'qNaN' 'sNaN' '1.#SNAN' '1.#QNAN' '-1.#IND' '-NaN' 'NaN12345' '-sNaN12300' '-NaN(s1234)' '-1.#INF' 'INF' Infinity 'ThisIsNotANaN'; do
+    rm -f $testdir/bad
+    echo "$nan" > $testdir/bad
+    (echo '--------------------------'; echo "test group 1: $nan") >> $output
+    eval "specperl $SPEC/bin/harness/specdiff $args $testdir/good $testdir/bad >> $output"
+    echo -n '.'
+  done
+done
+echo done
+
+echo -n testing two numbers per line, NaN first
+echo "1.201 2.306" > $testdir/good
+for args in '--floatcompare' '--abstol 0.01' '--floatcompare --calctol' '--abstol 0.01 --calctol' '--floatcompare --calctol --showerr' '--abstol 0.01 --calctol --debug'; do
+  for nan in '1.201' 2 'nan' 'NaN' 'NaN%' 'NAN' 'NaNQ' 'NaNS' 'qNaN' 'sNaN' '1.#SNAN' '1.#QNAN' '-1.#IND' '-NaN' 'NaN12345' '-sNaN12300' '-NaN(s1234)' '-1.#INF' 'INF' Infinity 'ThisIsNotANaN'; do
+    rm -f $testdir/bad
+    echo "$nan 2.306" > $testdir/bad
+    (echo '--------------------------'; echo "test group 2.1:$nan 2.306") >> $output
+    eval "specperl $SPEC/bin/harness/specdiff $args $testdir/good $testdir/bad >> $output"
+    echo -n '.'
+  done
+done
+echo done
+
+echo -n testing two numbers per line, NaN second
+echo "1.201 2.306" > $testdir/good
+for args in '--floatcompare' '--abstol 0.01' '--floatcompare --calctol' '--abstol 0.01 --calctol' '--floatcompare --calctol --showerr' '--abstol 0.01 --calctol --debug'; do
+  for nan in '2.306' 3 'nan' 'NaN' 'NaN%' 'NAN' 'NaNQ' 'NaNS' 'qNaN' 'sNaN' '1.#SNAN' '1.#QNAN' '-1.#IND' '-NaN' 'NaN12345' '-sNaN12300' '-NaN(s1234)' '-1.#INF' 'INF' Infinity 'ThisIsNotANaN'; do
+    rm -f $testdir/bad
+    echo "1.201 $nan" > $testdir/bad
+    (echo '--------------------------'; echo "test group 2.2:1.201 $nan") >> $output
+    eval "specperl $SPEC/bin/harness/specdiff $args $testdir/good $testdir/bad >> $output"
+    echo -n '.'
+  done
+done
+echo done
+
+diff -u $0.ref $output && echo looks okay || echo FAIL

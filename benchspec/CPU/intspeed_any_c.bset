@@ -1,0 +1,22 @@
+# This file contains a list of the benchmarks written in
+# C (in part or in whole), from the intspeed benchset.
+# It is automatically generated.
+
+$name        = 'intspeed_any_c';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+        600.perlbench_s
+        602.gcc_s
+        605.mcf_s
+        625.x264_s
+        657.xz_s
+        998.specrand_is
+);
+
+1;

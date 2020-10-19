@@ -1,0 +1,72 @@
+#!/bin/sh
+
+# Rename a benchmark.  Assumes Subversion
+# No support is provided.
+# $Id: rename_benchmark 4403 2016-06-09 19:50:26Z CloyceS $
+
+if [ "x$SPEC" = x ]; then
+  SPEC=`pwd`
+fi
+
+cd $SPEC
+
+if [ ! -f bin/harness/runcpu -o ! -d benchspec ]; then
+    echo "Error: \$SPEC must be set, or $0 must be run in the top of the benchmark tree"
+    exit 1
+fi
+
+if [ "x$1" = x ]; then
+  echo "Usage: $0 <OLDnnn.name> <NEWnnn.name>"
+  exit 1
+fi
+
+OLD=$1
+OLDNUM=`echo $OLD | sed 's/^\([0-9][0-9][0-9]\)\..*/\1/'`
+OLDNAME=`echo $OLD | sed 's/^[0-9][0-9][0-9]\.//'`
+NEW=$2
+NEWNUM=`echo $NEW | sed 's/^\([0-9][0-9][0-9]\)\..*/\1/'`
+NEWNAME=`echo $NEW | sed 's/^[0-9][0-9][0-9]\.//'`
+if [ "x$OLDNUM" = x -o "x$OLDNAME" = x -o "x$NEWNUM" = x -o "x$NEWNAME" = x ]; then
+  echo "Usage: $0 <OLDnnn.name> <NEWnnn.name>"
+  exit 1
+fi
+
+BMARKPATH=
+BSET=
+for i in benchspec/[A-Z]*; do
+  if [ -d $i/$OLD ]; then
+    BMARKPATH=$i/$OLD
+    BSET=$i
+  fi
+done
+
+if [ "x$BSET" = x -o "x$BMARKPATH" = x ]; then
+  echo "Error: $OLD cannot be found."
+  echo "Usage: $0 <OLDnnn.name> <NEWnnn.name>"
+  exit 1
+fi
+
+echo "Found $OLD in $BSET at $BMARKPATH"
+
+cd $BMARKPATH
+svn rm Docs/$OLD.txt Docs/flags.html >/dev/null 2>&1
+rm -f Docs/$OLD.txt Docs/flags.html >/dev/null 2>&1
+# Fix up svn:ignore props
+(echo $NEW.txt; echo flags.html; svn pg svn:ignore Docs | egrep -v "flags.html|$OLD.txt") | svn ps svn:ignore -F - Docs
+svn pg svn:ignore . | perl -pe "s/$OLD/$NEW/g" | svn ps svn:ignore -F - .
+svn mv Docs/$OLD.html Docs/$NEW.html
+perl -pi -e "s/$OLD\\b/$NEW/g; s/$OLDNUM\\b/$NEWNUM/g; if (/^\s*\\\$benchname/) { s/.*/\\\$benchname = '$NEWNAME';/ } elsif (/^\s*\\\$benchnum/) { s/.*/\\\$benchnum  = '$NEWNUM';/ }" Docs/$NEW.html Spec/flags.xml Spec/object.pm
+cat $SPEC/version.txt > version.txt
+BENCHLANG=`perl -e 'do "Spec/object.pm"; print $benchlang."\n"'`
+cd ..
+# Fix up vars_common.pl for the formatter
+perl -pi -e "BEGIN { (\$old, \$new, \$lang) = splice @ARGV,0,3 } s/^(.*?)\\S*\$old\\S*?\\s*,.*/sprintf '%s%-20s,  %-10s],', \$1, qq|'\$new'|, qq|'\$lang'|/ge || s/\$old/\$new/g;" $OLD $NEW $BENCHLANG $SPEC/bin/vars_common.pl
+# Fix up benchsets
+perl -pi -e "s/$OLD\\b/$NEW/g;" *.bset
+# Fix up OTHER benchmarks
+perl -pi -e "s/$OLD\\b/$NEW/g;" */Spec/object.pm
+# Move the benchmark directory
+svn mv $OLD $NEW
+perl -pi -e "BEGIN { \$msg=q|  *) $OLD: Renamed to $NEW|.\"\\n\"; \$start = 0 } (\$currnum) = (\$_ =~ /\\)\s+(\d+[^:]+):/); if (\$start == 0 && /^======/) { \$start = 1 } elsif (\$start == 1 && (/^\$/ || \$currnum gt '$OLD')) { print \$msg; \$start = -1; }" $SPEC/Revisions
+svn diff --no-diff-added --no-diff-deleted $SPEC | egrep -v '\((deleted|added)\)$|^============='
+

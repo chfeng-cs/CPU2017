@@ -1,0 +1,92 @@
+                                  999.specrand
+                  SPEC CPU(R)2017 NOT-A-Benchmark Description
+
+  NOT-A-Benchmark Name
+
+   999.specrand
+
+  What do you mean NOT-A-Benchmark?
+
+   999.specrand is not timed; it's purpose is primarily as a short, but
+   important, diagnostic.
+
+   Although it is not timed, in all other respects, it behaves like an
+   ordinary benchmark.
+   Therefore the remainder of this description will stop tediously inserting
+   "NOT-A".
+
+  Benchmark Author
+
+   Cloyce D. Spradling <cloyce+specrand [at] headgear.org>
+
+  Benchmark Program General Category
+
+   Mine Canary
+
+  Benchmark Description
+
+   999.specrand is a small harness for the [1]Mersenne Twister algorithm.
+
+   The benchmark simply generates a sequence of pseudorandom numbers starting
+   with a known seed. This benchmark is not a timed component of CPU2017;
+   rather, it's there as an indicator of larger problems. Several of the
+   other benchmarks use the specrand code as their PRNG. Thus, a failure in
+   999.specrand would point out a source of error in those codes as well.
+   This is cheap (in both time and space) insurance.
+
+  Input Description
+
+   999.specrand's input consists of two numbers: a seed value for the PRNG,
+   and a count of the numbers to generate.
+
+  Output Description
+
+   The specified number of random numbers are generated and output four
+   times.
+
+   The first set is unscaled output from spec_rand() output as a standard
+   floating point number with no precision modifiers (printf '%f' format).
+   The second set is output from spec_rand() scaled to between 1 and 2^31-1
+   (0x7fffffff, or the maximum positive value that a signed 32-bit integer
+   can hold), and is output as a the original number, the multiplier, and the
+   result as a standard integer (printf '%d' format).
+
+   The third set is the output from spec_lrand48() scaled to between 0 and 1
+   and output in printf '%f' format. The fourth sequence is unscaled output
+   from spec_lrand48() in printf '%d' format.
+
+   The PRNG is re-seeded between sequences.
+
+  Programming Language
+
+   ANSI C
+
+  Known portability issues
+
+   None
+
+  Sources and Licensing
+
+   The benchmark is based on the Mersenne Twister pseudorandom number
+   generator with period 2^19937-1, Copyright 1997 - 2002, Makoto Matsumoto
+   and Takuji Nishimura; Copyright 2005, Mutsuo Saito, under BSD license.
+
+   Please see details in the document [2]SPEC CPU(R)2017 Licenses.
+
+  References
+
+     * [3]Mersenne Twister home page
+     * [4]Mersenne Twister on Wikipedia
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+   2. https://www.spec.org/cpu2017/Docs/licenses.html#bmk999.specrand_ir
+   3. http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+   4. https://en.wikipedia.org/wiki/Mersenne_twister

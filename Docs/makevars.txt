@@ -1,0 +1,442 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+                         SPEC CPU(R)2017 Make Variables
+
+     $Id: makevars.html 6317 2019-07-28    Latest: www.spec.org/cpu2017/Docs/
+           22:50:53Z JohnHenning $
+
+   Contents
+
+   1. Introduction
+
+   2. Which steps use which flags?
+
+   3. Items used in Makefile.defaults
+
+   4. Order of flag application
+
+   a. No feedback
+
+   b. Feedback
+
+1. Introduction
+
+   This document explains the use of make variables with SPEC CPU(R)2017, a
+   product of the SPEC(R) non-profit corporation (about SPEC).
+
+   For SPEC CPU you do not write your own Makefiles, nor do you use your
+   platform's native make program. Instead, your config file supplies options
+   that are sent to a SPEC-supplied copy of GNU make, known as specmake.
+
+     * Basic options for specmake are described in the Config Files document.
+     * Advanced options for specmake are described in the document you are
+       reading now.
+     * The specmake utility can be run directly from the command line, as
+       described in Utilities.
+
+   If you are asking questions like the following, this document is for you.
+
+     * Can I send an OPTIMIZATION flag only to the compiler? Only the linker?
+       Both?
+     * Which PORTABILITY options go to the Fortran preprocessor?
+     * Is it possible to get linker flags before the list of objects? After?
+
+2. Which steps use which flags?
+
+Y     indicates that an option affects a particular compilation phase
+Y(D) is explained in Note 1.
+Portability options                                     Additional options
+                           specpp[1] Compiler Linker[2]                        specpp[1] Compiler Linker[2]
+FPPPORTABILITY             Y                            FPPFLAGS               Y
+EXTRA_FPPPORTABILITY                                    EXTRA_FPPFLAGS
+PORTABILITY                Y(D)      Y        Y         EXTRA_{C|CXX|F}FLAGS             Y
+FPORTABILITY                                            LDFLAGS
+{C|CXX}PORTABILITY                   Y        Y         LD{C|CXX|F}FLAGS       [3]
+EXTRA_PORTABILITY          Y(D)      Y                  EXTRA_LDFLAGS
+EXTRA_FPORTABILITY                                      LIBS
+EXTRA_{C|CXX}PORTABILITY             Y                  OS_LIBS                                   Y
+LDPORTABILITY                                           EXTRA_LIBS             [4]
+PORTABILITY_LIBS                              Y         EXTRA_{C|CXX|F}LIBS
+PORTABILITY_{C|CXX|F}LIBS                               LDOPTIONS
+                                                        LDOUT_OPTIONS
+Optimization options                                    LDOUT_EXTRA_OPTIONS
+                           specpp[1] Compiler Linker[2]
+FPPOPTIMIZE                Y                            Multi-pass (FDO) build options
+EXTRA_FPPOPTIMIZE                                                              specpp[1] Compiler Linker[2]
+OPTIMIZE                                                PASSn_FPPFLAGS         Y
+FOPTIMIZE                  Y(D)      Y        Y         PASSn_OPTIMIZE         Y(D)      Y        Y
+EXTRA_OPTIMIZE                                          PASSn_FOPTIMIZE
+EXTRA_FOPTIMIZE                                         PASSn_{C|CXX}OPTIMIZE            Y        Y
+{C|CXX}OPTIMIZE                      Y        Y         PASSn_FLAGS                      Y        Y
+EXTRA_{C|CXX}OPTIMIZE                                   PASSn_{C|CXX|F}FLAGS             Y
+LDOPTIMIZE                                              PASSn_LDFLAGS                             Y
+OPTIMIZATION_LIBS                             Y         PASSn_LD{C|CXX|F}FLAGS
+OPTIMIZATION_{C|CXX|F}LIBS
+[1] specpp: FPPP options are sent to specpp, a SPEC-supplied Fortran
+preprocessor. From Y(D) options, -Dx /Dx -Ux /Ux go to specpp (it    521.wrf_r:
+does not see the rest). In the example, speccp sees the mumble        FPORTABILITY = -DMUMBLE --endian-fix
+request but not the endian request. The compiler sees the endian
+request but not the mumble request. (more detail)
+[2] Linking: For multi-language benchmarks, the first one mentioned  511.povray=peak: # primary is C++
+in the Documentation Index benchmarks table is considered "primary",  LDCXXFLAGS     = -link:shared  # used
+meaning that only its flags are used for linking. In the example,     EXTRA_LDCFLAGS = --bigpages # ignored
+the --bigpages switch is not used. (more detail)
+[3] objects: The list of object files is inserted just before the library options. (more detail)
+
+[4] LDOUT: The flag that specifies the destination (typically -o or -Fe) is inserted just before the
+LDOUT_OPTIONS. (more detail)
+
+3. Items used in Makefile.defaults
+
+   Build settings come from three sources:
+
+    1. Benchmark definition files
+
+ $SPEC/benchspec/CPU/<benchmark>/Spec/object.pm   (Unix)  or
+ %SPEC%\benchspec\CPU\<benchmark>\Spec\object.pm  (Microsoft Windows)
+
+    2. A file called Makefile.spec, which is generated from your config file.
+       It is found in
+
+ $SPEC/benchspec/CPU/<benchmark>/build/build_<tune>_<label>.nnnn/Makefile.spec or
+ %SPEC%\benchspec\CPU\<benchmark>\build\build_<tune>_<label>.nnnn\Makefile.spec
+
+    3. The overall control file which is used by all benchmarks, and which
+       contains most of the build rules:
+
+ $SPEC/benchspec/Makefile.defaults or
+ %SPEC%\benchspec\Makefile.defaults
+
+   The list above is in order from highest to lowest priority. That is, if a
+   setting for a particular variable exists in object.pm, it cannot be
+   overridden. Variables not specified in object.pm can be set by the user in
+   the config file and thus in Makefile.spec. If a setting is needed, and
+   does not appear in either of those two places, a reasonable default is
+   provided by Makefile.defaults.
+
+   Do you need to worry about all three of these?
+
+    1. Usually you do not need to think about settings from object.pm because
+       these set very basic choices that define a benchmark, for example
+       switches to include benchmark header files, disable use of MPI, or
+       disable code that is known to be non-portable. (If you believe that a
+       flag defined in object.pm causes a problem, you may write to SPEC.)
+    2. Usually, you do need to think about settings in your own config file.
+    3. Occasionally, you might want to see how your config file settings
+       interact with Makefile.defaults, especially if you are adept at
+       reading GNU makefiles.
+
+   This section is addressed to such readers. The table below briefly
+   describes nearly all the items in Makefile.defaults and classifies by
+   type:
+
+     config   = If you wish, you are free to set this in your config file.
+     bench    = The benchmark sets it in Spec/object.pm.  Do not attempt to touch.
+     tools    = Something computed by SPEC tools.  Really do not touch.
+     xdebug   = eXtra item for debug, normally useful only during development.
+
+ Type    Item                 Meaning
+ -----   -------------------  --------------------------------------------------------------------------------------------------
+ bench   BENCHLANG            Benchmark language; one of C, CXX, F, F77
+ tools   BENCHMARK            The formal benchmark name, e.g. 999.specrand
+ bench   BENCH_CFLAGS         Benchmark specific C flags predefined by SPEC; cannot be changed
+ bench   BENCH_CXXFLAGS       Benchmark specific C++ flags predefined by SPEC; cannot be changed
+ bench   BENCH_FFLAGS         Benchmark specific Fortran flags predefined by SPEC; cannot be changed
+ bench   BENCH_FLAGS          Benchmark specific flags predefined by SPEC; cannot be changed
+ bench   BENCH_FPPFLAGS       Benchmark specific Fotran preprocessor flags predefined by SPEC; cannot be changed
+ config  CC                   How to invoke your C compiler
+ config  CLD                  How to invoke the linker when building C programs (default: CC)
+ config  COBJOPT              Special OBJOPT for C.   Defaults to same as OBJOPT.
+ config  COPTIMIZE            Optimization flags to be used when compiling and when linking C programs
+ config  CPORTABILITY         Portability options to be applied when compiling and when linking C programs
+ tools   CPUFLAGS             Macros defined on a suite-wide basis for C, C++, and preprocessed Fortran codes
+ config  CXX                  How to invoke your C++ compiler
+ tools   CXXC                 Same as CXX.  A minor coding trick uses this to help figure out how to invoke linker.
+ config  CXXLD                How to invoke the linker when building C++ programs (default: CXX)
+ config  CXXOBJOPT            Special OBJOPT for C++.   Defaults to same as OBJOPT.
+ config  CXXOPTIMIZE          Optimization flags to be used when compiling and when linking C++ programs
+ config  CXXPORTABILITY       Portability options to be applied when compiling and when linking C++ programs
+ config  ECHO                 How to spell "echo" command.  Defaults to 'echo'.
+ bench   EXEBASE              Name of the base benchmark executable (without label or tuning information)
+ config  EXTRA_CFLAGS         Additional flags to use when compiling and when linking C programs
+ config  EXTRA_CLIBS          Additional libraries to link in to C benchmarks.
+ config  EXTRA_COPTIMIZE      Additional optimization flags to pass to your C compiler
+ config  EXTRA_CPORTABILITY   Additional portability flags to pass to your C compiler (not used when linking)
+ config  EXTRA_CXXFLAGS       Additional flags to use when compiling and when linking C++ programs
+ config  EXTRA_CXXLIBS        Additional libraries to link in to C++ and mixed-language benchmarks.
+ config  EXTRA_CXXOPTIMIZE    Additional optimization flags to pass to your C++ compiler
+ config  EXTRA_CXXPORTABILITY Additional portability flags to pass to your C++ compiler (not used when linking)
+ config  EXTRA_FFLAGS         Additional flags to use when compiling and when linking Fortran programs
+ config  EXTRA_FLIBS          Additional libraries to link in to Fortran and C and Fortran mixed-language benchmarks.
+ config  EXTRA_FOPTIMIZE      Additional optimization flags to pass to your Fortran compiler
+ config  EXTRA_FPORTABILITY   Additional portability flags to pass to your Fortran compiler (not used when linking)
+ config  EXTRA_FPPFLAGS       Additional flags to pass to Fortran preprocessor
+ config  EXTRA_LDFLAGS        Additional flags to pass to your linker
+ config  EXTRA_LIBS           Extra libraries to appear at the end of the link command
+ config  EXTRA_OPTIMIZE       Additional flags to pass to all compilers
+ config  EXTRA_PORTABILITY    Additional portability flags to pass to all compilers (not used when linking)
+ config  EXTRA_RMFILES        Additional files to be deleted before a build
+ config  EXTRA_SOURCES        Sources to add when doing a build. Must be explained to SPEC!
+ config  FC                   How to invoke your Fortran-90 compiler
+ tools   FDO                  The current build pass number (for FDO builds only)
+ tools   FDO_COPTIMIZE        Optimization flags to pass to the C compiler to do the current FDO pass
+ tools   FDO_CXXOPTIMIZE      Optimization flags to pass to the C++ compiler to do the current FDO pass
+ tools   FDO_FOPTIMIZE        Optimization flags to pass to the Fortran compiler to do the current FDO pass
+ tools   FDO_LDCFLAGS         For the linker used with C programs, flags to pass to the linker to do the current FDO pass
+ tools   FDO_LDCXXFLAGS       For the linker used with C++ programs, flags to pass to the linker to do the current FDO pass
+ tools   FDO_LDFFLAGS         For the linker used with Fortran programs, flags to pass to the linker to do the current FDO pass
+ tools   FDO_LDFLAGS          Flags to pass to the linker to do the current FDO pass
+ tools   FDO_OPTIMIZE         Optimization flags for the current FDO pass
+ tools   FINAL_CFLAGS         Full list of flags passed to C compiler
+ tools   FINAL_CXXFLAGS       Full list of flags passed to C++ compiler
+ tools   FINAL_FFLAGS         Full list of flags passed to F90 compiler
+ tools   FINAL_FPPFLAGS       Full list of flags passed to Fortran preprocessor
+ tools   FINAL_LDOPT          Full list of flags passed to linker
+ tools   FINAL_LIBS           Full list of libraries
+ tools   FINAL_SOURCES        Full list of source files to be used for compilation
+ config  FLD                  How to invoke the linker when building Fortran programs (default: FC)
+ config  FOBJOPT              Special OBJOPT for f90.   Defaults to same as OBJOPT.
+ config  FOPTIMIZE            Optimization flags to be used when compiling and when linking Fortran programs
+ config  FPORTABILITY         Portability options to be applied when compiling and when linking Fortran programs
+ config  FPPFLAGS             Flags to be added to Fortran preprocessor
+ config  FPPPORTABILITY       Portability flags to be added to Fortran preprocessor
+ tools   FPP_USED             Does this benchmark use the Fortran preprocessor?
+ config  LABEL                Desired label for the object files.  Set via 'label' in config file or '--label' on command line.
+ tools   LD                   The name of your linker.  Do not set this directly; set the language specific value (CLD, FLD, etc)
+ config  LDCFLAGS             Flags to add to link lines used for C builds
+ config  LDCXXFLAGS           Flags to add to link lines used for C++ builds
+ config  LDFFLAGS             Flags to add to link lines used for Fortran benchmarks or benchmarks that use both Fortran and C
+ config  LDFLAGS              Flags to add to link lines for all languages
+ config  LDOPTIMIZE           Optimization flags for the linker
+ config  LDOPTIONS            Additional options to supply to the linker
+ tools   LDOPTFLAGS           Optimization flags supplied to the linker
+ config  LDOUT                Linker flag used to specify an output file.  Defaults to '-Fe$@' on Windows and '-o $@' elsewhere.
+ config  LDOUT_OPTIONS        Flags that need to appear after LDOUT
+ config  LDOUT_EXTRA_OPTIONS  More flags that need to appear after LDOUT
+ config  LDPORTABILITY        Portability flags to be used when linking
+ config  LIBS                 Libraries to link into the final executable
+ config  MATHLIBOPT           Set of math libraries (if any) to link into the final executable
+ tools   MATH_LIBS            Set of math libraries (if any) to link into the final executable (just $MATHLIBOPT again)
+ bench   NAME                 The benchmark name, e.g. dealII
+ config  NEEDATFILE           Reduce length of command lines by using @files. (Set NEEDATFILE=1 to enable the feature.)
+ bench   NEED_MATH            Flag telling whether or not the benchmark needs to be linked with the math libraries
+ bench   NUMBER               The benchmark number, e.g. 447
+ config  OBJ                  The file name extension for object files.  Defaults to '.obj' on Windows and '.o' elsewhere
+ tools   OBJNAMES             Name of a file to store the names of the object files
+ config  OBJOPT               Option to compile and name an output file. Defaults to "-c -Fo$@" on Windows and "-c -o $@" elsewhere.
+ tools   OBJS                 List of object files needed to link the final executable
+ config  OPTIMIZATION_LIBS    Libraries used for optimization purposes, to be added to all builds
+ config  OPTIMIZATION_CLIBS   Libraries used for optimization purposes, to be added to C builds
+ config  OPTIMIZATION_CXXLIBS Libraries used for optimization purposes, to be added to C++ builds
+ config  OPTIMIZATION_FLIBS   Libraries used for optimization purposes, to be added to Fortran and mixed C and Fortran builds
+ config  OPTIMIZE             Optimization flags.  Typically used only for a single benchmark.
+ tools   OS                   Name of OS being used.  Supplied automatically by specmake.
+ config  OS_LIBS              List of OS-specific libs to link with
+ tools   OUTPUT_RMFILES       Files to be cleaned bewteen builds
+ config  PASSn_*              PASSn_ may prefixed to these, to add to that option only for the nth pass:
+                               LDOPT  FLAGS    OPTIMIZE     LDFLAGS
+                                      CFLAGS   COPTIMIZE    LDCFLAGS
+                                      CXXFLAGS CXXOPTIMIZE  LDCXXFLAGS
+                                      FFLAGS   FOPTIMIZE    LDFFLAGS
+ config  PORTABILITY          Portability options to be applied to all steps for all programs
+ config  PORTABILITY_CLIBS    Portability libraries to link in with C benchmarks.
+ config  PORTABILITY_CXXLIBS  Portability libraries to link in with C++ benchmarks.
+ config  PORTABILITY_FLIBS    Portability libraries to link in with Fortran and mixed-language benchmarks.
+ config  PORTABILITY_LIBS     Portability libraries to link in with all benchmarks.
+ xdebug  PPCFLAGS             Flags that enable your C preprocessor
+ xdebug  PPCXXFLAGS           Flags that enable your C++ preprocessor
+ xdebug  PPFLAGS              Flags that enable your C/C++ preprocessor
+ xdebug  PP_SOURCES           List of preprocessed sources
+ tools   PRIMARY_BENCHLANG    Primary benchmark language; one of C, CXX, F, F77
+ tools   RAW_FFLAGS           Temporary variable, used while figuring out final flag list
+ config  RMRF                 The name of a program (with arguments, if necessary) that can be used to delete a directory tree.
+ config  RM_SOURCES           Sources to exclude from a build.  Must explained to SPEC!
+ bench   SOURCES              What the benchmark/src/Makefile expects will normally be used
+ tools   TARGET               Benchmarks with multiple executables use Makefile.exename.spec.  runcpu sets TARGET=exename
+ tools   tmpBENCHLANG         Temporary variable, used while figuring out languages
+ tools   TMP1_SOURCES         Temporary variable, used while figuring out final source file list
+ tools   TMP2_SOURCES         Temporary variable, used while figuring out final source file list
+ tools   TMP3_SOURCES         Temporary variable, used while figuring out final source file list
+ tools   TMP_SOURCES          Temporary variable, used while figuring out final source file list
+ tools   TUNE                 The tuning currently being used (to set in config file, use tune=)
+
+4. Order of flag application
+
+   Sometimes, you may need more detail about flag order and presence (e.g. Is
+   OPTIMIZE applied before or after COPTIMIZE? Is LDOPTIONS included for both
+   FDO and non-FDO builds?) In such cases, you have several choices:
+
+    1. You can do a fake build. In practice, this is often the easiest, and
+       is highly recommended. Fake is your friend.
+    2. You can read Makefile.defaults, in conjunction with the previous
+       section.
+    3. You can consult the lists below, which show where all user-settable
+       variables end up (position-wise). The lists are automatically
+       generated from Makefile.defaults and therefore may save you
+       considerable time versus trying to read it on your own.
+
+  4.a. No feedback
+
+
+ C only:
+ Compilation: CC COBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CFLAGS OPTIMIZE COPTIMIZE PORTABILITY CPORTABILITY EXTRA_CFLAGS
+              EXTRA_OPTIMIZE EXTRA_COPTIMIZE EXTRA_PORTABILITY EXTRA_CPORTABILITY <source>
+ Linkage: CLD(or CC) LDFLAGS LDCFLAGS EXTRA_LDFLAGS OPTIMIZE COPTIMIZE LDOPTIMIZE PORTABILITY CPORTABILITY LDPORTABILITY
+          EXTRA_OPTIMIZE EXTRA_COPTIMIZE <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_CLIBS PORTABILITY_LIBS
+          PORTABILITY_CLIBS EXTRA_LIBS EXTRA_CLIBS LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ C++ only:
+ Compilation: CXX CXXOBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CXXFLAGS OPTIMIZE CXXOPTIMIZE PORTABILITY CXXPORTABILITY
+              EXTRA_CXXFLAGS EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE EXTRA_PORTABILITY EXTRA_CXXPORTABILITY <source>
+ Linkage: CXXLD(or CXX) LDFLAGS LDCXXFLAGS EXTRA_LDFLAGS OPTIMIZE CXXOPTIMIZE LDOPTIMIZE PORTABILITY CXXPORTABILITY LDPORTABILITY
+          EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_CXXLIBS PORTABILITY_LIBS
+          PORTABILITY_CXXLIBS EXTRA_LIBS EXTRA_CXXLIBS LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ Fortran only:
+ FPP: specpp FPPFLAGS -DSPEC -DNDEBUG <-D & -U from BENCH_FLAGS> BENCH_FPPFLAGS <-D & -U from OPTIMIZE> <-D & -U from FOPTIMIZE>
+      FPPOPTIMIZE <-D & -U from PORTABILITY> <-D & -U from FPORTABILITY> FPPPORTABILITY EXTRA_FPPFLAGS <-D & -U from EXTRA_OPTIMIZE>
+      <-D & -U from EXTRA_FOPTIMIZE> EXTRA_FPPOPTIMIZE <-D & -U from EXTRA_PORTABILITY> <-D & -U from EXTRA_FPORTABILITY>
+      EXTRA_FPPPORTABILITY <source> -o <source>.fppized.f9x
+ Compilation: FC FOBJOPT <object> BENCH_FLAGS BENCH_FFLAGS OPTIMIZE FOPTIMIZE PORTABILITY FPORTABILITY EXTRA_FFLAGS EXTRA_OPTIMIZE
+              EXTRA_FOPTIMIZE EXTRA_PORTABILITY EXTRA_FPORTABILITY <source>
+ Linkage: FLD(or FC) LDFLAGS LDFFLAGS EXTRA_LDFLAGS OPTIMIZE FOPTIMIZE LDOPTIMIZE PORTABILITY FPORTABILITY LDPORTABILITY
+          EXTRA_OPTIMIZE EXTRA_FOPTIMIZE <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_FLIBS PORTABILITY_LIBS
+          PORTABILITY_FLIBS EXTRA_LIBS EXTRA_FLIBS LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ Mixed C++ and C:
+ Compilation: CXX CXXOBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CXXFLAGS OPTIMIZE CXXOPTIMIZE PORTABILITY CXXPORTABILITY
+              EXTRA_CXXFLAGS EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE EXTRA_PORTABILITY EXTRA_CXXPORTABILITY <source>
+ Compilation: CC COBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CFLAGS OPTIMIZE COPTIMIZE PORTABILITY CPORTABILITY EXTRA_CFLAGS
+              EXTRA_OPTIMIZE EXTRA_COPTIMIZE EXTRA_PORTABILITY EXTRA_CPORTABILITY <source>
+ Linkage: CXXLD(or CXX) LDFLAGS LDCXXFLAGS EXTRA_LDFLAGS OPTIMIZE CXXOPTIMIZE LDOPTIMIZE PORTABILITY CXXPORTABILITY LDPORTABILITY
+          EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_CXXLIBS PORTABILITY_LIBS
+          PORTABILITY_CXXLIBS EXTRA_LIBS EXTRA_CXXLIBS LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ Mixed Fortran and C:
+ FPP: specpp FPPFLAGS -DSPEC -DNDEBUG <-D & -U from BENCH_FLAGS> BENCH_FPPFLAGS <-D & -U from OPTIMIZE> <-D & -U from FOPTIMIZE>
+      FPPOPTIMIZE <-D & -U from PORTABILITY> <-D & -U from FPORTABILITY> FPPPORTABILITY EXTRA_FPPFLAGS <-D & -U from EXTRA_OPTIMIZE>
+      <-D & -U from EXTRA_FOPTIMIZE> EXTRA_FPPOPTIMIZE <-D & -U from EXTRA_PORTABILITY> <-D & -U from EXTRA_FPORTABILITY>
+      EXTRA_FPPPORTABILITY <source> -o <source>.fppized.f9x
+ Compilation: FC FOBJOPT <object> BENCH_FLAGS BENCH_FFLAGS OPTIMIZE FOPTIMIZE PORTABILITY FPORTABILITY EXTRA_FFLAGS EXTRA_OPTIMIZE
+              EXTRA_FOPTIMIZE EXTRA_PORTABILITY EXTRA_FPORTABILITY <source>
+ Compilation: CC COBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CFLAGS OPTIMIZE COPTIMIZE PORTABILITY CPORTABILITY EXTRA_CFLAGS
+              EXTRA_OPTIMIZE EXTRA_COPTIMIZE EXTRA_PORTABILITY EXTRA_CPORTABILITY <source>
+ Linkage: FLD(or FC) LDFLAGS LDFFLAGS EXTRA_LDFLAGS OPTIMIZE FOPTIMIZE LDOPTIMIZE PORTABILITY FPORTABILITY LDPORTABILITY
+          EXTRA_OPTIMIZE EXTRA_FOPTIMIZE <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_FLIBS PORTABILITY_LIBS
+          PORTABILITY_FLIBS EXTRA_LIBS EXTRA_FLIBS LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ Mixed C++, C, and Fortran:
+ Compilation: CXX CXXOBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CXXFLAGS OPTIMIZE CXXOPTIMIZE PORTABILITY CXXPORTABILITY
+              EXTRA_CXXFLAGS EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE EXTRA_PORTABILITY EXTRA_CXXPORTABILITY <source>
+ Compilation: CC COBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CFLAGS OPTIMIZE COPTIMIZE PORTABILITY CPORTABILITY EXTRA_CFLAGS
+              EXTRA_OPTIMIZE EXTRA_COPTIMIZE EXTRA_PORTABILITY EXTRA_CPORTABILITY <source>
+ Compilation: FC FOBJOPT <object> BENCH_FLAGS BENCH_FFLAGS OPTIMIZE FOPTIMIZE PORTABILITY FPORTABILITY EXTRA_FFLAGS EXTRA_OPTIMIZE
+              EXTRA_FOPTIMIZE EXTRA_PORTABILITY EXTRA_FPORTABILITY <source>
+ Linkage: CXXLD(or CXX) LDFLAGS LDCXXFLAGS EXTRA_LDFLAGS OPTIMIZE CXXOPTIMIZE LDOPTIMIZE PORTABILITY CXXPORTABILITY LDPORTABILITY
+          EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_CXXLIBS PORTABILITY_LIBS
+          PORTABILITY_CXXLIBS EXTRA_LIBS EXTRA_CXXLIBS LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+
+  4.b. Feedback
+
+   In this section, "PASSn" indicates the pass number for FDO, where n is 1,
+   2, etc.
+
+
+ C only:
+ Compilation: CC COBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CFLAGS PASSn_FLAGS PASSn_CFLAGS OPTIMIZE COPTIMIZE
+              PASSn_OPTIMIZE PASSn_COPTIMIZE PORTABILITY CPORTABILITY EXTRA_CFLAGS EXTRA_OPTIMIZE EXTRA_COPTIMIZE EXTRA_PORTABILITY
+              EXTRA_CPORTABILITY <source>
+ Linkage: CLD(or CC) LDFLAGS LDCFLAGS EXTRA_LDFLAGS PASSn_LDFLAGS PASSn_FLAGS PASSn_LDCFLAGS OPTIMIZE COPTIMIZE PASSn_OPTIMIZE
+          PASSn_COPTIMIZE LDOPTIMIZE PORTABILITY CPORTABILITY LDPORTABILITY EXTRA_OPTIMIZE EXTRA_COPTIMIZE <objects> LIBS OS_LIBS
+          MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_CLIBS PORTABILITY_LIBS PORTABILITY_CLIBS EXTRA_LIBS EXTRA_CLIBS LDOPTIONS
+          PASSn_LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ C++ only:
+ Compilation: CXX CXXOBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CXXFLAGS PASSn_FLAGS PASSn_CXXFLAGS OPTIMIZE CXXOPTIMIZE
+              PASSn_OPTIMIZE PASSn_CXXOPTIMIZE PORTABILITY CXXPORTABILITY EXTRA_CXXFLAGS EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE
+              EXTRA_PORTABILITY EXTRA_CXXPORTABILITY <source>
+ Linkage: CXXLD(or CXX) LDFLAGS LDCXXFLAGS EXTRA_LDFLAGS PASSn_LDFLAGS PASSn_FLAGS PASSn_LDCXXFLAGS OPTIMIZE CXXOPTIMIZE
+          PASSn_OPTIMIZE PASSn_CXXOPTIMIZE LDOPTIMIZE PORTABILITY CXXPORTABILITY LDPORTABILITY EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE
+          <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_CXXLIBS PORTABILITY_LIBS PORTABILITY_CXXLIBS EXTRA_LIBS
+          EXTRA_CXXLIBS LDOPTIONS PASSn_LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ Fortran only:
+ FPP: specpp FPPFLAGS -DSPEC -DNDEBUG <-D & -U from BENCH_FLAGS> BENCH_FPPFLAGS PASSn_FPPFLAGS <-D & -U from OPTIMIZE>
+      <-D & -U from FOPTIMIZE> <-D & -U from PASSn_OPTIMIZE> <-D & -U from PASSn_FOPTIMIZE> FPPOPTIMIZE <-D & -U from PORTABILITY>
+      <-D & -U from FPORTABILITY> FPPPORTABILITY EXTRA_FPPFLAGS <-D & -U from EXTRA_OPTIMIZE> <-D & -U from EXTRA_FOPTIMIZE>
+      EXTRA_FPPOPTIMIZE <-D & -U from EXTRA_PORTABILITY> <-D & -U from EXTRA_FPORTABILITY> EXTRA_FPPPORTABILITY <source> -o
+      <source>.fppized.f9x
+ Compilation: FC FOBJOPT <object> BENCH_FLAGS BENCH_FFLAGS PASSn_FLAGS PASSn_FFLAGS OPTIMIZE FOPTIMIZE PASSn_OPTIMIZE
+              PASSn_FOPTIMIZE PORTABILITY FPORTABILITY EXTRA_FFLAGS EXTRA_OPTIMIZE EXTRA_FOPTIMIZE EXTRA_PORTABILITY
+              EXTRA_FPORTABILITY <source>
+ Linkage: FLD(or FC) LDFLAGS LDFFLAGS EXTRA_LDFLAGS PASSn_LDFLAGS PASSn_FLAGS PASSn_LDFFLAGS OPTIMIZE FOPTIMIZE PASSn_OPTIMIZE
+          PASSn_FOPTIMIZE LDOPTIMIZE PORTABILITY FPORTABILITY LDPORTABILITY EXTRA_OPTIMIZE EXTRA_FOPTIMIZE <objects> LIBS OS_LIBS
+          MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_FLIBS PORTABILITY_LIBS PORTABILITY_FLIBS EXTRA_LIBS EXTRA_FLIBS LDOPTIONS
+          PASSn_LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ Mixed C++ and C:
+ Compilation: CXX CXXOBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CXXFLAGS PASSn_FLAGS PASSn_CXXFLAGS OPTIMIZE CXXOPTIMIZE
+              PASSn_OPTIMIZE PASSn_CXXOPTIMIZE PORTABILITY CXXPORTABILITY EXTRA_CXXFLAGS EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE
+              EXTRA_PORTABILITY EXTRA_CXXPORTABILITY <source>
+ Compilation: CC COBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CFLAGS PASSn_FLAGS PASSn_CFLAGS OPTIMIZE COPTIMIZE
+              PASSn_OPTIMIZE PASSn_COPTIMIZE PORTABILITY CPORTABILITY EXTRA_CFLAGS EXTRA_OPTIMIZE EXTRA_COPTIMIZE EXTRA_PORTABILITY
+              EXTRA_CPORTABILITY <source>
+ Linkage: CXXLD(or CXX) LDFLAGS LDCXXFLAGS EXTRA_LDFLAGS PASSn_LDFLAGS PASSn_FLAGS PASSn_LDCXXFLAGS OPTIMIZE CXXOPTIMIZE
+          PASSn_OPTIMIZE PASSn_CXXOPTIMIZE LDOPTIMIZE PORTABILITY CXXPORTABILITY LDPORTABILITY EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE
+          <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_CXXLIBS PORTABILITY_LIBS PORTABILITY_CXXLIBS EXTRA_LIBS
+          EXTRA_CXXLIBS LDOPTIONS PASSn_LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ Mixed Fortran and C:
+ FPP: specpp FPPFLAGS -DSPEC -DNDEBUG <-D & -U from BENCH_FLAGS> BENCH_FPPFLAGS PASSn_FPPFLAGS <-D & -U from OPTIMIZE>
+      <-D & -U from FOPTIMIZE> <-D & -U from PASSn_OPTIMIZE> <-D & -U from PASSn_FOPTIMIZE> FPPOPTIMIZE <-D & -U from PORTABILITY>
+      <-D & -U from FPORTABILITY> FPPPORTABILITY EXTRA_FPPFLAGS <-D & -U from EXTRA_OPTIMIZE> <-D & -U from EXTRA_FOPTIMIZE>
+      EXTRA_FPPOPTIMIZE <-D & -U from EXTRA_PORTABILITY> <-D & -U from EXTRA_FPORTABILITY> EXTRA_FPPPORTABILITY <source> -o
+      <source>.fppized.f9x
+ Compilation: FC FOBJOPT <object> BENCH_FLAGS BENCH_FFLAGS PASSn_FLAGS PASSn_FFLAGS OPTIMIZE FOPTIMIZE PASSn_OPTIMIZE
+              PASSn_FOPTIMIZE PORTABILITY FPORTABILITY EXTRA_FFLAGS EXTRA_OPTIMIZE EXTRA_FOPTIMIZE EXTRA_PORTABILITY
+              EXTRA_FPORTABILITY <source>
+ Compilation: CC COBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CFLAGS PASSn_FLAGS PASSn_CFLAGS OPTIMIZE COPTIMIZE
+              PASSn_OPTIMIZE PASSn_COPTIMIZE PORTABILITY CPORTABILITY EXTRA_CFLAGS EXTRA_OPTIMIZE EXTRA_COPTIMIZE EXTRA_PORTABILITY
+              EXTRA_CPORTABILITY <source>
+ Linkage: FLD(or FC) LDFLAGS LDFFLAGS EXTRA_LDFLAGS PASSn_LDFLAGS PASSn_FLAGS PASSn_LDFFLAGS OPTIMIZE FOPTIMIZE PASSn_OPTIMIZE
+          PASSn_FOPTIMIZE LDOPTIMIZE PORTABILITY FPORTABILITY LDPORTABILITY EXTRA_OPTIMIZE EXTRA_FOPTIMIZE <objects> LIBS OS_LIBS
+          MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_FLIBS PORTABILITY_LIBS PORTABILITY_FLIBS EXTRA_LIBS EXTRA_FLIBS LDOPTIONS
+          PASSn_LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+ Mixed C++, C, and Fortran:
+ Compilation: CXX CXXOBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CXXFLAGS PASSn_FLAGS PASSn_CXXFLAGS OPTIMIZE CXXOPTIMIZE
+              PASSn_OPTIMIZE PASSn_CXXOPTIMIZE PORTABILITY CXXPORTABILITY EXTRA_CXXFLAGS EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE
+              EXTRA_PORTABILITY EXTRA_CXXPORTABILITY <source>
+ Compilation: CC COBJOPT <object> -DSPEC -DNDEBUG BENCH_FLAGS BENCH_CFLAGS PASSn_FLAGS PASSn_CFLAGS OPTIMIZE COPTIMIZE
+              PASSn_OPTIMIZE PASSn_COPTIMIZE PORTABILITY CPORTABILITY EXTRA_CFLAGS EXTRA_OPTIMIZE EXTRA_COPTIMIZE EXTRA_PORTABILITY
+              EXTRA_CPORTABILITY <source>
+ Compilation: FC FOBJOPT <object> BENCH_FLAGS BENCH_FFLAGS PASSn_FLAGS PASSn_FFLAGS OPTIMIZE FOPTIMIZE PASSn_OPTIMIZE
+              PASSn_FOPTIMIZE PORTABILITY FPORTABILITY EXTRA_FFLAGS EXTRA_OPTIMIZE EXTRA_FOPTIMIZE EXTRA_PORTABILITY
+              EXTRA_FPORTABILITY <source>
+ Linkage: CXXLD(or CXX) LDFLAGS LDCXXFLAGS EXTRA_LDFLAGS PASSn_LDFLAGS PASSn_FLAGS PASSn_LDCXXFLAGS OPTIMIZE CXXOPTIMIZE
+          PASSn_OPTIMIZE PASSn_CXXOPTIMIZE LDOPTIMIZE PORTABILITY CXXPORTABILITY LDPORTABILITY EXTRA_OPTIMIZE EXTRA_CXXOPTIMIZE
+          <objects> LIBS OS_LIBS MATH_LIBS OPTIMIZATION_LIBS OPTIMIZATION_CXXLIBS PORTABILITY_LIBS PORTABILITY_CXXLIBS EXTRA_LIBS
+          EXTRA_CXXLIBS LDOPTIONS PASSn_LDOPTIONS LDOUT LDOUT_OPTIONS LDOUT_EXTRA_OPTIONS
+
+
+   SPEC CPU(R)2017 Make Variables: Copyright (c) 2017-2019 Standard
+   Performance Evaluation Corporation (SPEC(R))
+
+

@@ -1,0 +1,239 @@
+#!/usr/bin/perl
+
+#
+# generate_formatter_benchsets - Read benchset, refpower, and reftime files
+# and output the $fm::bmarklist hashref that the formatter uses.
+# No support is provided for this script.
+#
+# Copyright 2015-2018 Standard Performance Evaluation Corporation
+#
+# $Id: generate_formatter_benchsets 6072 2018-10-26 03:41:07Z CloyceS $
+
+use strict;
+use File::Basename;
+use Data::Dumper;
+use Getopt::Long;
+use Scalar::Util qw(reftype);
+use Storable qw(dclone);
+use JSON::PP;
+
+BEGIN {
+    if ($ENV{'SPEC'} eq '' or !-d $ENV{'SPEC'}) {
+        die "SPEC is not set";
+    }
+}
+
+my %opts = (
+    'verbose' => 1,
+    'silent'  => 0,
+    'indent'  => 1,
+    'json'    => 'json',
+);
+
+my $rc = GetOptions(\%opts, (qw(
+    verbose|v=i
+    silent!
+    indent|i=i
+    json|output|o=s
+    )));
+die "Error parsing command-line options" unless $rc;
+
+$opts{'json'} = $opts{'json'} eq 'json';
+$opts{'verbose'} = 0 if $opts{'silent'};
+
+my $json;
+
+if ($opts{'json'}) {
+    $opts{'indent'} = $opts{'indent'} > 0;
+    $json = JSON::PP->new->pretty($opts{'indent'})->canonical(1);
+} else {
+    $Data::Dumper::Indent = $opts{'indent'};
+    $Data::Dumper::Purity = 1;
+    $Data::Dumper::Sortkeys = 1;
+}
+
+my $bmarklist = { };
+
+BENCHSET: foreach my $bset (@ARGV) {
+    my $name = basename($bset, qw(.bset));
+    my $dir  = basename(dirname($bset));
+    my $class = "Spec::Benchset::${name}";
+    print "Reading $class from $bset\n" if $opts{'verbose'};
+    eval "
+    package $class;
+    require '$bset';
+    ";
+    if ($@) {
+        print "\nError requiring benchset file '$bset': $@\n" if $opts{'verbose'};
+        next BENCHSET;
+    }
+    my $curref = { 'topdir' => $dir };
+    {
+        no strict 'refs';
+        # Mandatory items that all benchsets must have
+        foreach my $item (qw(name unitbase metric metricbase ref train test output)) {
+            $curref->{$item} = ${"${class}::${item}"};
+            if (!defined($curref->{$item})) {
+                print "\nERROR getting $item from $bset\n" if $opts{'verbose'} > 1;
+                undef $curref;
+            }
+        }
+        next BENCHSET unless defined($curref);
+
+        # Since this is the formatter, there's no need to continue with a
+        # benchset if it won't cause outputs to be generated.
+        if (!$curref->{'output'}) {
+            print "$name generates no output; skipping\n" if $opts{'verbose'} > 1;
+            next BENCHSET;
+        }
+
+        # Optional items
+        foreach my $item (qw(rate_multiplier speed_multiplier no_output)) {
+            $curref->{$item} = ${"${class}::${item}"};
+            if (!defined($curref->{$item})) {
+                print "\nERROR getting optional $item from $bset\n" if $opts{'verbose'} > 2;
+                delete $curref->{$item};
+            }
+        }
+
+        foreach my $bmark (@{"${class}::benchmarks"}) {
+            my $benchinfo = get_benchmark_info($bmark, $curref);
+            push @{$curref->{'benchmarklist'}}, $bmark;
+            $curref->{'benchmarks'}->{$bmark} = {
+                'langs'      => $benchinfo->{'langs'},
+                'references' => { %{$benchinfo->{'refinfo'}} },
+            };
+            if (!defined($benchinfo)) {
+                print "\nERROR getting info for $bmark in $bset\n" if $opts{'verbose'} > 1;
+                undef $curref;
+            }
+        }
+        next BENCHSET unless defined($curref);
+    }
+    next BENCHSET unless defined($curref);
+    $bmarklist->{$name} = { %$curref };
+}
+
+if ($opts{'json'}) {
+    print STDERR $json->encode($bmarklist)."\n";
+}
+else {
+    print STDERR Data::Dumper->Dump([$bmarklist],['fm::bmarklist'])."\n";
+    print STDERR "# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab:\n";
+}
+
+sub get_benchmark_info {
+    my ($bmark, $bset_info) = @_;
+    my ($name, $num);
+    if ($bmark !~ m/^(\d{3})\.(\S+)$/) {
+        print "Can't figure out name/number for $bmark\n" if $opts{'verbose'};
+        return undef;
+    }
+    ($num, $name) = ($1, $2);
+    my @benchmarks = <$ENV{'SPEC'}/benchspec/*/$bmark/Spec/object.pm>;
+    if (@benchmarks == 0) {
+        print "Found no object.pm files for $bmark\n" if $opts{'verbose'};
+        return undef;
+    } elsif (@benchmarks > 1) {
+        print "Found too many object.pm files for $bmark:\n\t".join("\n\t", @benchmarks)."\n" if $opts{'verbose'};
+        return undef;
+    }
+    my $class = "Spec::Benchmark::${name}${num}";
+    eval "
+    package $class;
+    require '$benchmarks[0]';
+    ";
+    {
+        no strict 'refs';
+
+        # Assemble the list of ALL benchmark languages used across all
+        # executables
+        my @langs = sort map { split(/,/) } (values %{"${class}::benchlang"}, ${"${class}::benchlang"});
+
+        # Get the refrence times
+        my $refinfo = get_benchmark_reference_data($bmark, %{"${class}::workloads"});
+
+        return {
+            'langs'   => join(",", @langs),
+            'refinfo' => $refinfo,
+        };
+    }
+}
+
+sub get_benchmark_reference_data {
+    my ($bmark, %workloads) = @_;
+    my $refinfo = {};
+
+    # Read reference data for the workloads that actually exist as named
+    foreach my $refinfo_file (get_refinfo_files($bmark)) {
+        foreach my $refinfo_line (read_refinfo_file($refinfo_file)) {
+            my ($what, $size, $reference) = @$refinfo_line;
+            $refinfo->{$size}->{$what} = $reference;
+        }
+    }
+
+    # Now process the workloads borrowed
+    my %remotes = ();
+    foreach my $size (sort keys %workloads) {
+        # This isn't an error, as the reftime/power file for, say, refrate can
+        # contain data for refspeed.
+        if (exists($refinfo->{$size})) {
+            print "Already have data for remote workload $size in $bmark\n" if $opts{'verbose'};
+            next;
+        }
+        die "Can't handle multiple dirs for a remote workload for $bmark\n" if @{$workloads{$size}} > 1;
+        foreach my $dir (@{$workloads{$size}}) {
+            if (reftype($dir) eq 'ARRAY') {
+                # Remote benchmark, with benchmark name and workload size
+                my ($remote, $remote_size, @sizelist) = @{$dir};
+                die "Can't handle multiple size workloads in a remote benchmark ([".join(',', @sizelist)."] from $remote via $bmark)\n" if @sizelist;
+                $remote_size = $size unless $remote_size ne '';
+                if (reftype($remotes{$remote}) ne 'HASH') {
+                    $remotes{$remote} = get_benchmark_info($remote, {});
+                }
+                if (!exists($remotes{$remote}->{'refinfo'})
+                        or reftype($remotes{$remote}->{'refinfo'}) ne 'HASH') {
+                    die "No refinfo for $remote could be found\n";
+                }
+                $refinfo->{$size} = dclone($remotes{$remote}->{'refinfo'}->{$remote_size});
+            } else {
+                # Different size from the same benchmark
+                die "No refinfo for size '$size' referenced by size '$dir' in $bmark\n" unless exists($refinfo->{$dir}) and reftype($refinfo->{$dir}) eq 'HASH';
+                $refinfo->{$size} = dclone($refinfo->{$dir});
+            }
+        }
+    }
+
+    return $refinfo;
+}
+
+sub get_refinfo_files {
+    my ($bmark) = @_;
+
+    return <$ENV{'SPEC'}/benchspec/*/$bmark/data/*/ref*>;
+}
+
+sub read_refinfo_file {
+    my ($fname) = @_;
+
+    my $ifh = new IO::File '<'.$fname;
+    die "Couldn't open '$fname' for reading: $!\n" unless defined($ifh);
+    my $what = basename($fname);
+    $what =~ s/^ref//;
+
+    my @lines = ();
+    while(defined(my $line = $ifh->getline())) {
+        next if $line =~ /^\s*(#|$)/;
+        my ($size, $class, $reference) = split(/\s+/, $line);
+        die "Invalid reference time/power value ('$reference') in $fname\n" unless ($reference+0 > 1);
+        push @lines, [ $what, $size, $reference+0 ];
+    }
+    $ifh->close();
+
+    return @lines;
+}
+
+__END__
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab colorcolumn=120:

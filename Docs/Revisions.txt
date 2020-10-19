@@ -1,0 +1,399 @@
+Revisions file for SPEC CPU2017
+
+Version 1.1.0 - 21 August 2019
+=============
+   1) Tools
+      - Added a blank line to separate sysinfo notes from user notes
+      - Changed sysinfo's self-hash generation to SHA-512 subset from MD5
+      - Updated PTD run scripts to find PTD binaries by default
+      - Updated sysinfo to check contents of /sys/devices/virtual/dmi/id/product_family
+      - Updated PTD to 1.9.1
+   2) Example config files and flags:
+      - Intel: Simplified and merged the examples (#813)
+               Fixed up Windows flags file (#975)
+      - GCC Sparc: Mentioned a GCC v9 workaround that may be needed (#954)
+      - gcc.xml: Updated links to licenses (#956)
+      - Updated notes about tested versions (#933)
+      - Added flags to example configs to include debug symbols (#967)
+      - Removed sw_peak_ptrsize setting when there are no peak flags (#968)
+   3) Docs:
+      - Updated trademark info (#893ff)
+      - Updated licenses (#882)
+      - Config files:
+         - Added description of interaction of iterations and reportable (#962)
+         - Noted that hw_cpu_max_mhz and hw_cpu_nominal_mhz are required (#934)
+      - Changes in V1.1
+         - Better described benchmark changes (#770, #799, #809, #841, #953)
+      - Known Problems
+         - Added item about power runs hanging (#963)
+         - Marked several problems as 'Closed' (#971)
+      - Overview:
+         - Clarified calculation of metrics (#888)
+      - Result fields:
+         - Noted that hw_cpu_max_mhz and hw_cpu_nominal_mhz are required (#934)
+      - runcpu:
+         - Added description of interaction of iterations and reportable (#962)
+      - Run rules:
+         - Clarified rule 3.9.5(f) regarding auto-ranging
+         - Clarified calculation of metrics (#888)
+
+Version 1.0.901 - 7 July 2019 - v1.1.0 Release Candidate 1
+===============
+   1) Tools
+      - Fixed race that could cause sysinfo to appear to fail (#551)
+      - Fixed missing energy metric in HTML reports from 1.1 dev kits (#938)
+      - Removed trailing period from "Max MHz." field (#943)
+      - Made syntax checker complain about missing/empty hw_cpu_max_mhz (#935)
+      - For sysinfo on Linux, include system product name and vendor (#945)
+      - Fixed and expanded sysinfo vulnerability reporting on Linux (#946)
+      - Fixed missing runcpu command in CSV output on bad config files (#918)
+      - Fixed port_progress success reports for PE/EE runs (#947)
+      - Fixed trademark marking in the result formatters (#835)
+      - Adjusted sysinfo search table for distribution version info on Linux
+      - Enabled logging by default in SPEC-supplied PTD start scripts (#949)
+      - Ignore values from bad power samples when calculating aggregates (#926)
+      - Updated list of OpenMP environment variables from OpenMP 5.0
+      - Store per-benchmark environment changes (ENV_*) in the raw file (#536)
+      - Fixed leftover peak compiler version info on basepeak benchmarks (#950)
+      - Fixed language list in compiler version notes
+      - Made notes about environment variables set by preENV_* read-only
+      - Moved notes for preENV_* and ENV_* settings to their own section (#536)
+      - Fixed disappearing tools version info on raw file reformat (#951)
+      - Fixed presentation of current ranges when auto-ranging is used (#952)
+      - Fixed port_progress --rate switch (#930)
+      - Fixed rare port_progress warning noise (#931)
+      - Fixed last problems with --nopower not clearing PE/EE errors (#924)
+      - Updated PTD to 1.9.1_RC2
+   2) Docs
+      - config.html
+        - Described how to set initial current range (#928)
+      - result-fields.html
+        - Added details about metric calculation (#937)
+      - Clarified application of EXTRA_<lang>LIBS in mixed-language benchmarks
+      - faq.html
+        - Noted remedy to an install failure on RHEL8+
+        - Updated the advice for build problems with 510.parest (#770)
+   3) Examples
+      - Updated GCC on x86 Linux config to note success testing GCC 8.3.0 (#792)
+      - Updated GCC on x86 Linux config to note success testing GCC 9.1.0 (#792)
+      - Fixed unknown flag in Oracle Developer Studio flags file (#929)
+      - Replaced Clang/LLVM on x86 Linux config with AOCC config (#812)
+   4) 510.parest: Fixed incorrect pointer/int comparison (#770)
+   5) 521.wrf: Made inclusion of "/usr/include/time.h" on macOS optional (#953)
+
+Version 1.0.503 - 21 May 2019
+===============
+   1) Tools
+      - Fixed missing error messages in syntax checker for some power fields
+      - Fixed power analyzer calibration date handling in syntax checker (#864)
+      - Fixed power provisioning field handling in syntax checker
+      - Improved sysinfo:
+         - Improved Solaris fields (#870)
+         - Added sysctl data for MacOS (#600)
+      - Fixed "experimental" power markings in 1.1 development kits (#873)
+      - Fixed syntax checker handling of long fw_bios field (#878)
+      - Removed cache/memory size adminitions about fractional sizes (#881)
+      - Fixed generation of fakereportable reports with power enabled (#871)
+      - Improved syntax checker messages around proper suite version (#877)
+      - Eliminated Perl warnings from macro expression evaluation (#876)
+      - Added suggestion of --nopower when power data is corrupted (#879)
+      - Improved syntax checker messages about invalid runs (#832)
+      - Fixed omission of new power-related report fields from new runs (#872)
+      - Slightly improved messages when PTD dies in the middle of a run (#885)
+      - Removed requirement to quote *nix pathnames in macro definitions (#592)
+      - Changed sw_power_management to power_management (now mandatory) (#868)
+      - Updated PTD to 1.9.1_RC1; it is the minimum required version (#887)
+      - Enabled logging of generated compile options at -v 90 or higher
+      - Added all power fields to text report; changed max width to 132 (#889)
+      - Cleaned up some Perl 5.28+ warnings
+      - Added support for current auto-ranging
+      - Fixed run hang on certain power measurement error conditions (#891)
+      - Fixed syntax checker quoting problems for some multi-line fields
+      - Fixed missing results in raw files from runs with power errors (#890)
+      - Softened error message from formatters for runs with power errors
+      - Fixed PDF formatter crash on raw file with no results (#892)
+      - Fixed lingering PE/EE status on results formatted with --nopower (#916)
+      - Made PE/EE a non-fatal error even for reportable runs (#919)
+      - Fixed rare double-reporting of power sample statistics (#920)
+      - Fixed power data serialized as strings (#922)
+      - Stopped rawformat from renaming raw files it won't overwrite (#925)
+   2) Docs
+      - Remove v1.0 language that said power support was preliminary (#849)
+      - changes-in-v1.1.html: added (#863)
+      - config.html
+         - clarify power/temperature fields and how {id}s work (#853)
+         - clarify several fields (#849)
+         - add section on getting started with power (#860, #883)
+         - fix "New" markings (#852)
+         - improve example syntax for several fields (#878)
+         - provide a picture of example power connections (#886)
+      - faq.html
+         - move most of the power stuff to config.html (#860)
+      - flag-description.html
+         - document the notation NODISPLAY (#838)
+      - result-fields.html
+         - clarify several fields (#849)
+      - runcpu.html
+         - clarify effect of runcpu vs. config file power options (#862)
+         - use rawformat --nopower to format as performance-only (#880)
+         - document the notation NODISPLAY (#838)
+      - runrules.html
+         - remove 'draft' markings (#861)
+         - give better visibility to list of power-related changes (#865)
+         - sw_avail does not include SPEC CPU itself (#874)
+         - power_management disclosure requirements (#868)
+         - current_range can be set by benchmark for base and peak (#884)
+      - utility.html
+         - add extract_misc (#859)
+         - use rawformat --nopower to format as performance-only (#880)
+   3) Examples
+      - Updated Intel Compiler on Linux example config files (#813)
+      - Hardened example Intel Compiler 18.0 flags file (#730)
+   4) 500.perlbench: Marked "SPEC CPU" trademark in benchmark description
+   5) 502.gcc: Marked "SPEC CPU" trademark in benchmark description
+   6) 503.bwaves: Marked "SPEC CPU" trademark in benchmark description
+   7) 505.mcf: Marked "SPEC CPU" trademark in benchmark description
+   8) 507.cactuBSSN: Marked "SPEC CPU" trademark in benchmark description
+   9) 508.namd: Marked "SPEC CPU" trademark in benchmark description
+  10) 510.parest: Marked "SPEC CPU" trademark in benchmark description
+  11) 511.povray: Marked "SPEC CPU" trademark in benchmark description
+  12) 519.lbm: Marked "SPEC CPU" trademark in benchmark description
+  13) 520.omnetpp: Marked "SPEC CPU" trademark in benchmark description
+  14) 521.wrf: Marked "SPEC CPU" trademark in benchmark description
+  15) 523.xalancbmk: Marked "SPEC CPU" trademark in benchmark description
+  16) 525.x264: Marked "SPEC CPU" trademark in benchmark description
+  17) 526.blender: Marked "SPEC CPU" trademark in benchmark description
+  18) 527.cam4: Marked "SPEC CPU" trademark in benchmark description
+  19) 531.deepsjeng: Marked "SPEC CPU" trademark in benchmark description
+  20) 538.imagick: Marked "SPEC CPU" trademark in benchmark description
+  21) 541.leela: Marked "SPEC CPU" trademark in benchmark description
+  22) 544.nab: Marked "SPEC CPU" trademark in benchmark description
+  23) 548.exchange2: Marked "SPEC CPU" trademark in benchmark description
+  24) 549.fotonik3d: Marked "SPEC CPU" trademark in benchmark description
+  25) 554.roms: Marked "SPEC CPU" trademark in benchmark description
+  26) 557.xz: Marked "SPEC CPU" trademark in benchmark description
+  27) 628.pop2: Marked "SPEC CPU" trademark in benchmark description
+  28) 999.specrand: Marked "SPEC CPU" trademark in benchmark description
+
+
+Version 1.0.502 - 9 April 2019
+===============
+   1) Tools
+      - Fixed config file data deserialization error introduced by #833 (#843)
+      - Ensure that runs from SPEC_NOCHECK installs are not submittable (#713)
+      - Do not build in incomplete build dir caused by extra files (#732)
+      - Improved verify_hash message for extended hash mismatches (#830)
+      - Made verify_hash handle multiple files in one invocation (#400)
+      - Made formatter abort when compressed sections can't be extracted (#829)
+      - Fixed version output in some messages for .0 releases (#724)
+      - Fixed merging of compiler version information (#733)
+      - Updated PTD to 1.9.0
+      - Fixed extra blank lines in compiler version notes (#706)
+      - Fixed lack of language list in compiler version notes (#848)
+      - Prevent setting fields in the editable portion of the raw file that will
+        end up under the fence (#719)
+      - Fixed errors that could cause syntax checker messages to be incomplete
+      - Record suite version in log and cause port_progress to print it (#847)
+      - Fixed a couple of potential Perl warnings in sysinfo on Linux (#819)
+      - Fixed "missing command file" problem with "specinvoke -nn | sh" (#702)
+      - Fixed incorrect fakereportable failure when fail_build is set (#787)
+      - Fixed src.alts not being reported properly (#842)
+      - Version check now loads update metadata instead of special files (#750)
+      - Improved error messages related to runcpu test failures (#712)
+   2) Docs
+      - config.html
+         - mention effect of basepeak on threads (#844)
+         - clarify the basepeak scenarios and syntax requirements (#846)
+         - fix spacing in tables of options (#850)
+         - fix ordering of options and table of contents(#851)
+   3) Examples
+      - Update Oracle Developer Studio flags to version 12.6
+      - Set basepeak in the 'default' section, not 'default=peak' (#846)
+   4) 500.perlbench: Fixed tmpfile exhaustion problem for test workload (#841)
+                     Disabled setting signal handlers (nosignal src.alt)
+   5) 502.gcc: Disabled setting signal handlers (nosignal src.alt)
+   6) 520.omnetpp: Disabled setting signal handlers (nosignal src.alt)
+   7) 525.x264: Disabled setting signal handlers (nosignal src.alt)
+   8) 526.blender: Disabled setting signal handlers (nosignal src.alt)
+   9) 527.cam4: Eliminated race condition on tmp variable (private_tmp src.alt)
+  10) 538.imagick: Disabled setting signal handlers (nosignal src.alt)
+
+Version 1.0.501 - 13 March 2019
+===============
+   1) Tools
+      - Fixed update selection (#805, #807)
+      - Fixed display of unknown flags in PDF (#823)
+      - Fixed ARRAY(garbage) in ultra-rare error message (#831)
+      - Require extended hashes when formatting results (#828)
+      - Replaced serialized Perl and bare text in results with JSON (#833)
+      - Fixed tools version reporting for runs from git clones
+      - Fixed specpp handling of conditionals with undefined symbols (#840)
+   2) Docs
+      - Fixed broken links to text documents (#696)
+      - Fixed other broken links (#825)
+      - Added this document (Revisions.txt) to official docs directory (#821)
+      - Added config/AboutTheseExamples.txt (#822)
+      - faq.html
+          #Run.05   For 621.wrf_s, check libgfortran (cpu2017support-242)
+          #Build.05 When defining gcc_dir, you probably want quotes (#827)
+      - overview.html#Q11 Does CPU2017 take longer than CPU2006?
+      - config.html
+          Added documentation of temperature meter fields for power results
+          Added documentation of new power-related fields
+      - Clarified precedence for SPEC_*_OPENMP in flags-mandatory (#839)
+      - runrules.html
+         - Provide full support for power measurements and energy metrics.
+           See 1.6, 1.7, 3.9, 4.1, 4.2.5, 4.3, and 4.10.3.
+         - 4.4 Clarify that rawformat may be used to update results.
+         - 4.6.b Clarify that rawformat may be used to fix flags files.
+         - 4.7 The rule about equivalent systems has been removed and
+           replaced: A result may be published for only one system.
+         - 5.6 Estimates are not allowed for power, for performance.
+   3) Examples
+      - Use quotes in %defines that may be likely to contain operators (#827)
+      - Update Example-studio-solaris.cfg to version 12.6
+   4) 500.perlbench: Include nosignal src.alt (#824; osgcpu-51410)
+   5) 502.gcc: Include nosignal src.alt (#824; osgcpu-51411)
+   6) 505.mcf: explain that OpenMP is intentionally suppressed.
+   7) 520.omnetpp: Include nosignal src.alt (#824; osgcpu-51412)
+   8) 521.wrf: add same text as faq.html#Run.05
+   9) 525.x264: Include nosignal src.alt (#824; osgcpu-51413)
+  10) 526.blender
+      - Fix threads.c incompatibility with GLIBC 2.26+ (#799, #809)
+      - Include nosignal src.alt (#824; osgcpu-51414)
+  11) 527.cam4: Include private_tmp src.alt (osgcpu-52050)
+  12) 538.imagick: Include nosignal src.alt (#824; osgcpu-51415)
+
+Version 1.0.5 - 22 May 2018
+=============
+   1) Tools
+      - Fixed PS/PDF failure with too many hw_vendor/hw_model lines (#715)
+      - Fixed sysinfo check of dmidecode protection (#751)
+      - Remove RC6 from list of acceptable suite hashes (#760)
+      - Require a firmware release date (#756)
+      - Eliminated fractional cache size complaints in subcheck (#765)
+      - Fixed HTML/PDF formatter crash on missing hw_* fields (#763)
+      - Changed notes_comp heading to just "Compiler Notes" (#777)
+      - Fixed handling of cache descriptions with extra optional info (#782)
+      - Complain about "CPU" in hw_cpu_name field (#773)
+      - Fix sysinfo warnings on systems where lscpu doesn't know sockets (#774)
+      - Fix problem with multi-word runcpu arguments (thanks to ARM) (#783,#693)
+      - Try harder to keep submitter info at the bottom of general notes (#779(
+      - Add POWER server firmware version detection to sysinfo (#785)
+      - Try harder to keep temporary files with error output around (#778)
+      - Attempt to protect against typeset environment variables in shrc (#767)
+      - Allow firmware version to appear anywhere in fw_bios (#761)
+      - Improved sysinfo OS reporting on Windows (#743)
+      - Added sysinfo spectre/meltdown vulnerability reporting for Linux (#786)
+      - Fixed alignment in text report table (#630)
+      - Fixed inconsistent field ordering in raw files (#784)
+      - Protect against bad characters in labels (#791)
+      - Provide PC4 template in sysinfo (#546)
+      - Fixed update trying to remove current directory (#803)
+      - Improve reporting of available versions (#802)
+   2) Docs
+      - All: avoid tag <tt> (not in HTML5)
+           avoid unwanted line breaks within examples (#794)
+           Eliminated all non-CRLF text doc files (#696)
+      - config.html
+           #fw_bios: include both version and availability date (#756)
+           #hw_cpu_name: Explain what to do if two chip types. (#754)
+           #hw_memory: many more details, including links to JEDEC (#546)
+           #parallel_test: add info about effect with SPECspeed (#671)
+           #preenv: 627.cam4_s OMP_STACKSIZE illustrated examples
+           #preprocessor: reorganized chapter on preprocessor (#592)
+           #troubleshooting: dead link works now (#793)
+           #usr: added warning for a common error (#592)
+      - faq.html
+           #Build.04: for 510.parest, suggest use of C++2003 language dialect
+           #Miscompare.07: Why is 627.cam4_s failing?
+           #Miscompare.08: for 505.mcf, you may need -fno-strict-aliasing
+      - install guides: clarify instructions to verify ISO (#795)
+      - install-guide-windows.html: fixup directory dialog (#436)
+      - overview.html: SPECspeed needs -m64 (#797)
+      - runcpu.html
+           #check: correctly describe defaults for --output_format=check (#726)
+           #parallel_test: add info about effect with SPECspeed (#671)
+           #update: clarify.  Provide example (#801)
+      - runrules.html: Editorial clarification to rule 2.3.11 (#776)
+      - system-requirements.html: mention stack sizes
+                                  SPECspeed needs -m64 (#797)
+      - techsupport.html: include config and log file (cpu2017support-177)
+      - tools-build.html: clarify that all builds should be recorded.
+      - utility.html: document simpler spelling of printpath (#699)
+   3) Examples:
+      - Emphasize that tiny examples are not complete (#798)
+      - Fixed typo in mandatory flags example text for -Isha-2
+      - Enforce legal characters in labels (#790)
+      - gcc examples:
+           updates for GCC 8.1
+           use -std=c++03      (helps 510.parest)
+           use -fgnu89-inline  (helps 502.gcc)
+      - clang example: adjust flags file path to openmp dir (#796)
+   4) 502.gcc
+      - Simplify portability recommendations: -fgnu89-inline (#771)
+      - Mention that spec_qsort does not meet strict ansi aliasing rules (#772)
+   5) 505.mcf
+      - Detailed discussion of spec_qsort and ansi aliasing rules (#772)
+   6) 507.cactuBSSN
+      - Fixed contact info in the benchmark description
+   7) 510.parest
+      - Suggest use of C++2003 language dialect (#768)
+   8) 511.povray
+      - Mention that spec_qsort does not meet strict ansi aliasing rules (#772)
+   9) 526.blender
+      - Fix threads.c incompatibility with newer glibc (#799)
+  10) 527.cam4
+      - Mention that spec_qsort does not meet strict ansi aliasing rules (#772)
+      - cam4.html: point to config.html#preenv and mention process stack
+  11) 548.exchange2
+      - Fix a name in the benchmark description
+  12) 557.xz:
+      - Improved benchmark description
+
+Version 1.0.2 - 20 July 2017
+===============
+   1) Tools
+      - Fixed unused macro warnings when running with --check_version (#738)
+      - Fixed problems with release/development determination (#740)
+      - Fixed storage of sysinfo_program_hash in the raw file (#749)
+   2) Docs
+      - Fixed comment bug in example config file for Visual Studio
+      - Improved rate vs. speed summary in overview
+   3) 557.xz:
+      - Improved benchmark description
+
+Version 1.0.1 - 16 June 2017
+=============
+   1) Tools
+      - Fixed spurious "your suite is too old" message from rawformat (#728)
+      - Fixed sysinfo's hw_nthreadspercore calculation on Windows (#731)
+      - Windows sysinfo output reworked to be faster and more complete (#734)
+      - Got rid of possibly incorrect memory speed units from dmidecode (#735)
+   2) Docs
+      - Fixed presentation of some fixed-format text
+      - Updated known problems
+      - Updated tools build instructions
+
+Version 1.0.0 - 2 June 2017
+=============
+   1) Tools
+      - Fixed errors in base-only PDF and PostScript outputs (#711)
+      - Changed maximum length of sysinfo notes to 90 columns
+      - Fixed hw_model and tester line order reversal in PS/PDF (#714, #718)
+      - Updated banner messages from runcpu and rawformat
+   2) Docs
+      - Cleaned up generated text docs warning
+      - Changed references to SPEC's website to HTTPS
+      - Updated example flags file for clang
+      - Fixed markup errors
+      - Fixed example for notes_submit
+   3) Clarified rules 3.4 and 3.5 re: submit
+   4) 521.wrf: Updated benchmark description
+
+History prior to this point is in
+     non-dist/cpu2017.Revisions.pre-v1.txt
+at the SPEC Members' private website.
+
+------------------------------------------------------------------------------
+$Id: Revisions 6366 2019-08-21 20:15:11Z CloyceS $

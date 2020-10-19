@@ -1,0 +1,243 @@
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+The following text file was automatically generated from a document that
+you really should read in HTML format.  This text document is only a poor
+fallback if you cannot read HTML, and using it is NOT RECOMMENDED.
+
+To read this document in the recommended way, point your favorite web
+browser at one of these 3 places:
+(1) The SPEC site https://www.spec.org/cpu2017/Docs/
+(2) The Docs directory from the original CPU2017 ISO image
+(3) The Docs directory on the system where you have installed
+    your SPEC CPU2017 tree - for example:
+    /spec/cpu2017/Docs/ (Unix) or D:\spec\cpu2017\Docs\ (Windows)
+--------------------------------------------------------------------------
+  W A R N I N G      W A R N I N G      W A R N I N G      W A R N I N G
+--------------------------------------------------------------------------
+
+  SPEC CPU(R)2017
+  Additional acknowledgments for 526.blender_r
+
+   SPEC(R) tried to track down all software license references within all
+   files in SPEC CPU 2017. Many modules were found with BSD (or similar)
+   licenses. Copyrights for such modules must be acknowledged in the
+   documentation if they are shipped in binary form. Separate acknowledgment
+   is not required if they ship as source code (which is how SPEC CPU ships).
+
+   Nevertheless, having identified these modules, it seems only courteous to
+   acknowledge them -- even if not legally required. See the document SPEC
+   CPU 2017 Licenses, and this appendix for 526.blender_r (separated because
+   there are so many).
+
+   The copyright holders below have contributed code under BSD (or similar)
+   licenses, and their contributions to 526.blender_r are gratefully
+   acknowledged.
+
+   "Advanced Micro Devices, Inc. http://bulletphysics.org"
+
+    4 files in 526.blender_r/src/blender/extern/bullet2/src/
+
+   "Aladdin Enterprises."
+
+    526.blender_r/src/blender/intern/cycles/util/util_md5.cpp
+    526.blender_r/src/blender/intern/cycles/util/util_md5.h
+
+   "Blender Foundation."
+
+    526.blender_r/src/blender/intern/cycles/subd/subd_mesh.cpp
+    526.blender_r/src/blender/intern/cycles/subd/subd_mesh.h
+
+   "Communications and Remote Sensing Laboratory, Universite catholique de
+   Louvain (UCL), Belgium", "Professor Benoit Macq", "David Janssens",
+   "Yannick Verschueren", "Francois-Olivier Devaux and Antonin Descampe",
+   "Herve Drolon, FreeImage Team"
+
+    12 files under 526.blender_r/src/blender/extern/libopenjpeg/
+
+   "Communications and Remote Sensing Laboratory, Universite catholique de
+   Louvain (UCL), Belgium", "Professor Benoit Macq", "David Janssens",
+   "Yannick Verschueren", "Francois-Olivier Devaux and Antonin Descampe",
+   "Herve Drolon, FreeImage Team", "Parvatha Elangovan"
+
+    526.blender_r/src/blender/extern/libopenjpeg/j2k.h
+
+   "Communications and Remote Sensing Laboratory, Universite catholique de
+   Louvain (UCL), Belgium", "Professor Benoit Macq", "David Janssens",
+   "Yannick Verschueren", "Francois-Olivier Devaux and Antonin Descampe",
+   "Herve Drolon, FreeImage Team", "Parvatha Elangovan", "Kaori Hagihara"
+
+    526.blender_r/src/blender/extern/libopenjpeg/openjpeg.h
+
+   "Communications and Remote Sensing Laboratory, Universite catholique de
+   Louvain (UCL), Belgium", "Professor Benoit Macq", "Francois-Olivier Devaux
+   and Antonin Descampe", "Herve Drolon, FreeImage Team"
+
+    526.blender_r/src/blender/extern/libopenjpeg/raw.h
+
+   "Communications and Remote Sensing Laboratory, Universite catholique de
+   Louvain (UCL), Belgium", "Professor Benoit Macq", "Yannick Verschueren",
+   "Herve Drolon, FreeImage Team"
+
+    526.blender_r/src/blender/extern/libopenjpeg/jp2.h
+    526.blender_r/src/blender/extern/libopenjpeg/jpt.h
+
+   "Communications and Remote Sensing Laboratory, Universite catholique de
+   Louvain (UCL), Belgium", "Professor Benoit Macq", "Yannick Verschueren",
+   "Kaori Hagihara"
+
+    526.blender_r/src/blender/extern/libopenjpeg/cidx_manager.h
+    526.blender_r/src/blender/extern/libopenjpeg/indexbox_manager.h
+
+   "Erwin Coumans http://bullet.googlecode.com"
+
+    526.blender_r/src/blender/extern/bullet2/src/LinearMath/btScalar.h
+
+   "Erwin Coumans http://bulletphysics.com"
+
+    4 files in 526.blender_r/src/blender/extern/bullet2/src/
+
+   "Erwin Coumans http://bulletphysics.org"
+
+    60 files in 526.blender_r/src/blender/extern/bullet2/src/
+
+   "Erwin Coumans http://continuousphysics.com/Bullet/", "Simon Hobbs"
+
+    526.blender_r/src/blender/extern/bullet2/src/BulletCollision/BroadphaseCollision/btAxisSweep3.h
+
+   "Erwin Coumans http://continuousphysics.com/Bullet/"
+
+    526.blender_r/src/blender/intern/rigidbody/rb_bullet_api.cpp
+      4 files in 526.blender_r/src/blender/source/gameengine/Physics/
+     84 files in 526.blender_r/src/blender/extern/bullet2/src/
+
+   "Frances Y. Kuo and Stephen Joe"
+
+    526.blender_r/src/blender/intern/cycles/render/sobol.cpp
+
+   "Francisco Leon Najera. C.C. 80087371. email: projectileman@yahoo.com"
+
+    11 files in 526.blender_r/src/blender/extern/bullet2/src/BulletCollision/Gimpact
+
+   "Gino van den Bergen Erwin Coumans http://continuousphysics.com/Bullet/"
+
+    13 files in 526.blender_r/src/blender/extern/bullet2/src/LinearMath/
+
+   "Google Inc. http://code.google.com/p/ceres-solver/"
+
+    256 files in 526.blender_r/src/blender/extern/libmv/third_party/ceres
+
+   "Google Inc."
+
+    526.blender_r/src/blender/source/blender/imbuf/intern/dds/FlipDXT.cpp
+     21 files in 526.blender_r/src/blender/extern/gtest/
+      8 files in 526.blender_r/src/blender/extern/libmv/third_party/gflags/
+     29 files in 526.blender_r/src/blender/extern/libmv/third_party/glog/src/
+
+   "Herve Drolon, FreeImage Team"
+
+      4 files in 526.blender_r/src/blender/extern/libopenjpeg/
+
+   "Herve Drolon, FreeImage Team", "Callum Lerwick <seg at haxxed.com>"
+
+    526.blender_r/src/blender/extern/libopenjpeg/opj_malloc.h
+
+   "Industrial Light & Magic, a division of Lucas Digital Ltd. LLC."
+
+    526.blender_r/src/blender/intern/cycles/util/util_transform.cpp
+
+   "Intel Corporation."
+
+    19 files in 526.blender_r/src/blender/extern/Eigen3/Eigen/src/
+
+   "Jason Evans <jasone@canonware.com>.", "Mozilla Foundation.", "Facebook,
+   Inc."
+
+    526.blender_r/src/blender/intern/atomic/atomic_ops.h
+
+   "Lukas Hosek and Alexander Wilkie"
+
+    526.blender_r/src/blender/intern/cycles/render/sky_model.cpp
+    526.blender_r/src/blender/intern/cycles/render/sky_model.h
+    526.blender_r/src/blender/intern/cycles/render/sky_model_data.h
+
+   "Makoto Matsumoto and Takuji Nishimura,"
+
+    526.blender_r/src/blender/source/blender/python/mathutils/mathutils_noise.c
+ 526.blender_r/src/blender/intern/smoke/intern/MERSENNETWISTER.h
+
+   "Makoto Matsumoto and Takuji Nishimura,", "Richard J. Wagner"
+
+    526.blender_r/src/blender/intern/smoke/intern/MERSENNETWISTER.h
+
+   "Mikko Mononen memon@inside.org"
+
+   11 files in  526.blender_r/src/blender/extern/recastnavigation/
+
+   "Milan Ikits <milan ikits[]ieee org>", "Marcelo E. Magallon
+   <mmagallo[]debian org>", "Lev Povalahev"
+
+    5 files in 526.blender_r/src/blender/extern/glew-es
+    4 files in 526.blender_r/src/blender/extern/glew/
+
+   "Morten S. Mikkelsen"
+
+    526.blender_r/src/blender/intern/mikktspace/mikktspace.c
+    526.blender_r/src/blender/intern/mikktspace/mikktspace.h
+
+   "Ole Kniemeyer, MAXON, www.maxon.net"
+
+    526.blender_r/src/blender/extern/bullet2/src/LinearMath/btConvexHullComputer.h
+
+   "Ricardo Padrela"
+
+ 526.blender_r/src/blender/extern/bullet2/src/BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.h
+
+   "Robert Penner"
+
+    526.blender_r/src/blender/source/blender/blenlib/BLI_easing.h
+    526.blender_r/src/blender/source/blender/blenlib/intern/easing.c
+
+   "Russell L. Smith. Email: russ@q12.org Web: www.q12.org Bullet Continuous
+   Collision Detection and Physics Library", "Erwin Coumans
+   http://continuousphysics.com/Bullet/"
+
+ 526.blender_r/src/blender/extern/bullet2/src/BulletCollision/CollisionDispatch/btBoxBoxDetector.h
+
+   "Russell L. Smith. Email: russ@q12.org Web: www.q12.org"
+
+    526.blender_r/src/blender/extern/bullet2/src/BulletDynamics/MLCPSolvers/btDantzigLCP.h
+
+   "Sony Computer Entertainment Inc."
+
+    3 files in 526.blender_r/src/blender/extern/bullet2/src/BulletDynamics/ConstraintSolver/
+
+   "Sony Pictures Imageworks Inc., et al. Modifications", "Blender
+   Foundation."
+
+    28 files in 526.blender_r/src/blender/intern/cycles/kernel/
+
+   "Sony Pictures Imageworks Inc., et al."
+
+    526.blender_r/src/blender/intern/cycles/kernel/shaders/stdosl.h
+    526.blender_r/src/blender/intern/opencolorio/ocio_impl_glsl.cc
+
+   "Stan Melax http://www.melax.com/"
+
+    526.blender_r/src/blender/extern/bullet2/src/LinearMath/btConvexHull.h
+
+   "Starbreeze Studios"
+
+ 526.blender_r/src/blender/extern/bullet2/src/BulletDynamics/ConstraintSolver/btConeTwistConstraint.h
+
+   "Stephen Thompson", "Erwin Coumans"
+
+    526.blender_r/src/blender/extern/bullet2/src/BulletDynamics/Featherstone/btMultiBody.h
+
+   "Timothy A. Davis,"
+
+    526.blender_r/src/blender/extern/colamd/Include/colamd.h
+
+   "the University of Florida."
+
+    526.blender_r/src/blender/extern/Eigen3/Eigen/src/OrderingMethods/Eigen_Colamd.h

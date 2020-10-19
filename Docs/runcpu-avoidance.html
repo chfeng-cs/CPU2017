@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Avoiding runcpu - CPU 2017</title>
+<!-- You'll want a nice wide screen when editing this .......................................................................... -->
+
+<link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+<link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+<style type="text/css">
+
+</style>
+
+</head>
+<body>
+
+
+<h1>Avoiding runcpu
+   <span style="font-size:75%;"> <br />Using the SPEC CPU&reg;2017 benchmarks while making minimal use of
+      the SPEC&reg; tool set</span></h1>
+<table class="version">
+   <tr>
+      <th>$Id: runcpu-avoidance.html 6307 2019-07-28 21:35:52Z JohnHenning $</th>
+      <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+   </tr>
+</table>
+
+
+
+<p class="contents">Contents</p>
+<p class="contentsl1" style="margin-top:0.2em;"><a href="#intro"     >Introduction</a> </p>
+<p class="contentsl1"><a href="#env"   >Environment</a></p>
+
+<p class="contentsl1"><a href="#steps"   >Steps</a></p>
+<p class="contentsl2"><a href="#rules">Review one rule</a></p>
+<p class="contentsl2"><a href="#install">Install</a> </p>
+<p class="contentsl2"><a href="#pickone">Pick a benchmark</a></p>
+<p class="contentsl2"><a href="#getconfig">Pick a config file</a></p>
+<p class="contentsl2"><a href="#makedirs">Fake it</a></p>
+<p class="contentsl2"><a href="#findlog">Find the log</a></p>
+<p class="contentsl2"><a href="#findbuild">Find the build dir</a></p>
+<p class="contentsl2"><a href="#copy">Copy the build dir (triple only)</a></p>
+<p class="contentsl2"><a href="#buildit">Build it</a></p>
+<p class="contentsl2"><a href="#findrun">Place the binary in the run dir</a></p>
+<p class="contentsl2"><a href="#copyrun">Copy the run dir</a></p>
+<p class="contentsl2"><a href="#runit">Run it</a></p>
+<p class="contentsl2"><a href="#savework">Save your work</a></p>
+<p class="contentsl2"><a href="#moredirs"> Repeat</a></p>
+<p class="contentsl2last"><a href="#validation">Validation</a></p>
+
+<h2 id="intro">Introduction</h2>
+
+<p>This document describes how to use the SPEC CPU&reg;2017 benchmarks while avoiding most of the tools.  SPEC CPU 2017 is a
+product of the SPEC&reg; non-profit corporation <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  You
+might be interested in this document if you have a need for more direct access to the benchmarks.  For example:</p>
+
+<ul>
+  <li><p>Some users want to work directly with benchmark source code and compile by hand, rather than through the SPEC supplied tools.
+  Perhaps an experimental compiler is under development, and it is more convenient to just issue "<samp class="snuglr">cc</samp>" commands in a sandbox.
+  Perhaps a custom build process is needed in order to add instrumentation.</p></li>
+
+  <li><p>Some users want to run the benchmarks directly from the command line, rather than via the SPEC supplied tools.  Perhaps this is
+  part of a debugging effort, or is needed in order to collect a performance "trace".</p></li>
+
+</ul>
+
+<p>If the above describes you, here is a suggested path which should lead quickly to your desired state.  This document 
+shows you how to use SPEC's tools for the minimal purpose of just generating work directories, for use as a private
+sandbox.  <b>Note, </b> however, that you cannot do formal, "reportable" runs without using SPEC's toolset.</p>
+
+    <div style="border: thin solid red; padding:4px; width:800px; margin:1em 3em;">
+    <span id="testIsBad" class="caution">Caution: </span> Examples below use 
+    <a class="external" href="runcpu.html#size">size=test</a> in order to demonstrate working with a benchmark with its
+    simplest workload.  The <samp>test</samp> workload would be wildly inappropriate for performance work.  Once you
+    understand the techniques shown here, use the <samp>ref</samp> workload.  If you are unable to do that (perhaps because
+    you are using a slow simulator), you still should not use <samp class="snugr">test</samp>, because it is likely to lead
+    your research in the wrong direction.  For example, the <samp>500.perlbench_r</samp> test workload is a subset of the
+    Perl installation validation tests.  Various other benchmark <samp>test</samp> workloads just do a quick check that the
+    binary starts and can open its files, then take the rest of the day off to go get a cup of tea (that is, do almost none
+    of their real work).  If you are really unable to simulate the <samp>ref</samp> workload, a more defensible choice would
+    be either <samp>train</samp> or (better) to sample traces from <samp class="snugr">ref</samp>.  
+    </div>
+
+    <p class="hanging1" id="license"><b>License reminder:</b> Various commands below demonstrate copying benchmarks among
+    systems.  These examples assume that all the systems belong to licensed users of SPEC CPU 2017.  For the SPEC CPU license,
+    see <a class="external" href="https://www.spec.org/cpu2017/Docs/licenses/SPEC-License.pdf"
+       >www.spec.org/cpu2017/Docs/licenses/SPEC-License.pdf</a> and for information about all the licensed software in SPEC
+    CPU 2017, see <a class="external" href="licenses.html">SPEC CPU 2017 Licenses</a>.</p>
+
+<h2 id="env">Environments</h2>
+
+<p>Three different environments are referenced in this document, using these labels:</p>
+<ul>
+<li><p>"<i>Unified</i>": The SPEC toolset, the compilers, and the run environment are all on the same system.</p></li>
+<li><p>"<i>Cross compile</i>": The SPEC toolset and the compilers are on one system; the run time environment is a different
+system.</p> </li>
+<li><p>"<i>Triple</i>": The SPEC toolset is on one system, the compiler is on a second, and the run time environment is a
+third.</p></li>
+</ul>
+
+<h2 id="steps">Steps</h2>
+
+<ol>
+<li id="rules"> 
+
+    <p><b>Review one rule:</b> Please read the rule on 
+    <a class="external" href="runrules.html#research">research/academic usage</a>.  It is understood that the suite may be
+    used in ways other than the formal environment that the tools help to enforce.  If you plan to publish
+    your results, you must state how your usage of the suite differs from the standard usage.</p>  
+
+    <p>So even if you skip over the tools and the run rules today, you should plan a time to come back and learn them
+    later.</p></li>
+
+
+<li id="install"> <p><b>Install:</b> Get through a successful installation, even if it is on a different system than the one that
+   you care about.  Yes, we are about to teach you how to mostly bypass the tools, but there will still be some minimal use.  So
+   you need a working toolset and a valid installation.  If you have troubles with the install procedures described in <a
+   class="external" href="install-guide-unix.html">install-guide-unix.html</a> or <a class="external"
+   href="install-guide-windows.html">install-guide-windows.html</a>, please see <a class="external"
+   href="techsupport.html">techsupport.html</a> and we'll try to help you.</p></li> 
+
+<li id="pickone">
+   <p><b>Pick a benchmark:</b> Pick a benchmark that will be your starting point.</p>
+
+    <p>Choose one benchmark from the CPU 2017 suite that you'd like to start with.  For example, you might start with
+    503.bwaves_r (Fortran) or 519.lbm_r (C).  These are two of the shortest benchmarks for lines of code, and therefore
+    relatively easy to understand.</p></li>
+
+<li id="getconfig"> <p><b>Pick a config file:</b> Pick a config file for an environment that resembles your environment.  You'll
+    find a variety of config files in the directory <samp class="nb">$SPEC/config/</samp> on Unix systems, or <samp
+    class="nb">%SPEC%\config\</samp> on Windows, or at <a class="external"
+    href="https://www.spec.org/cpu2017/">www.spec.org/cpu2017</a> with the submitted CPU 2017 results.  Don't worry if the config
+    file you pick doesn't exactly match your environment; you're just looking for a somewhat reasonable starting point.</p></li> 
+
+<li id="makedirs"> 
+    <p><b>Fake it:</b> Execute a "fake" run to set up run directories, including a build directory for source code, for the
+    benchmark.</p>
+
+
+    <p>For example, let's suppose that you want to work with 503.bwaves_r and your environment is at least partially similar to
+    the environment described in the comments for <samp class="nbsnugr">Example-gcc-linux-aarch64.cfg</samp>:</p>
+
+<pre class="l1snugish">$ <b>pwd</b>
+/Users/reiner/spec/cpu2017/rc6
+$ <b>source shrc</b>
+$ <b>cd config</b>
+$ <b>cp Example-gcc-macosx.cfg my_test.cfg </b>
+$ <b>runcpu --fake --loose --size test --tune base --config my_test 519.lbm_r </b>  <a style="font-family:sans-serif;font-size:small;" href="#testIsBad">[warning: size=test]</a>
+runcpu v5577 - Copyright 1999-2017 Standard Performance Evaluation Corporation
+.
+.
+. (lots of stuff goes by)
+.
+.
+
+Success: 1x519.lbm_r
+
+The log for this run is in /reiner/cpu2017/result/CPU2017.007.log
+
+runcpu finished at 2017-05-15 11:12:09; 4 total seconds elapsed
+$  <a class="exnote" href="config.html#exampleFormat">(Notes about examples)</a> </pre>
+
+<p class="snugtop"> This command should report a success for the build, run and validation phases of the test case, but the
+actual commands have not been run.  It is only a report of what would be run according to the config file that you have
+supplied.  </p></li>
+
+<li id="findlog">
+    <p><b>Find the log:</b> Near the bottom of the output from the previous step, notice the location of the log file for
+    this run -- in the example above, log number 007.  The log file contains a record of the commands as reported by the
+    "fake" run.  You can find the commands by searching for "<samp class="snuglr">%%</samp>".</p></li>
+
+<li id="findbuild">
+    <p><b>Find the build dir:</b> To find the build directory that was set up in the fake run, you can search for the
+    string <samp class="nb">build/</samp> in the log:</p>
+
+<pre class="l1snugish">$ <b>cd $SPEC/result</b>
+$ <b>grep build/ CPU2017.005.log</b>
+Wrote to makefile '/reiner/cpu2017/benchspec/CPU/519.lbm_r/build/build_base_mytest-m64.0000/Makefile.deps':
+Wrote to makefile '/reiner/cpu2017/benchspec/CPU/519.lbm_r/build/build_base_mytest-m64.0000/Makefile.spec':
+$ </pre>
+
+   <p>Or, you can just go directly to the benchmark <samp>build</samp> directories and look 
+   for the most recent one.  For example:,</p>
+
+<pre class="l1snugish">$ <b>go 519.lbm build</b>
+/reiner/cpu2017/benchspec/CPU/519.lbm_r/build
+$ <b>ls -gtd build*</b>
+drwxrwxr-x  17 staff  578 May 15 11:12 build_base_mytest-m64.0000
+$ </pre>
+
+   <p class="snugtop">In the example above, <a class="external" href="utility.html#go">go</a> is shorthand for getting us
+   around the SPEC tree.  The <samp class="nb">ls -gtd</samp> command prints the names of each build subdirectory, with
+   the most recent first.  If this is your first time here, there will be only one directory listed, as in the example above.
+   (On Windows, the "go" command is not available; use <samp>cd</samp> to get to the analogous directory, which would be spelt
+   with reversed slashes.  The top of the SPEC tree is "<samp class="snuglr">%SPEC%</samp>", not "<samp class="snuglr">$SPEC</samp>".  Instead of 
+   "<samp class="nbsnuglr">ls -gtd</samp>", you would say something like "<samp class="nbsnuglr">dir build*/o:d</samp>".)
+   </p> 
+
+    <p>You can work in this build directory, make source code changes, and try other build commands without affecting the
+    original sources.  </p>  </li>
+    
+   <li id="copy">
+   <p><b>Copy the build dir (triple only):</b> If you are using a unified or cross-compile <a href="#env">environment</a>,
+   you can skip to the next step.  But if you are using a triple environment, then you will want to package up the build
+   directory with a program such as <samp>tar</samp> --  a handy copy is in the <samp>bin</samp> directory of your SPEC installation,
+   as <a href="utility.html#spectar" class="external">spectar</a>.  You can compress it with 
+   <a class="external" href="utility.html#specxz">specxz</a>.  Then, you will move the package off to whatever system
+   has compilers.</p>
+   
+   <p>For example, you might say something like this:</p>
+
+<pre class="l1snugish">$ <b>spectar -cf - build_base_mytest-m64.0000/ | specxz &gt; mybuild.tar.xz</b>
+$ <b>scp mybuild.tar.xz john@somesys:     </b>                             <a style="font-family:sans-serif;font-size:small;" href="#license">[reminder: copying]</a>
+mybuild.tar.xz                          100%   11KB 181.7KB/s   00:00    
+$  </pre>
+
+   <p class="snug">Note that the above example assumes that you have versions of <samp>xz</samp> and <samp>tar</samp> available
+   on the system that has compilers, which you will use to unpack the compressed tarfile, typically with a command similar to
+   this:</p>
+   <p class="l1ex"><b>xz -dc mybuild.tar.xz | tar -xvf  -</b></p>   
+   <p class="snugtop">If you don't have <samp>xz</samp> available, you might try <samp>bzip2</samp> or <samp>gzip</samp> on both the
+   sending and receiving systems.  If you use some other compression utility, be sure that it does not corrupt the files by
+   destroying line endings, re-wrapping long lines, or otherwise subtracting value.</p></li>
+
+<li id="buildit"> 
+    <p><b>Build it:</b> Generate an executable using the build directory.  If you are using a unified or cross-compile <a
+    href="#env">environment</a>, then you can say commands such as these:</p>
+
+<pre class="l1snugish">$ <b>cd build_base_mytest-m64.0000/</b>
+$ <b>specmake clean</b>
+rm -rf *.o  lbm.out
+find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+rm -rf lbm_r
+rm -rf lbm_r.exe
+rm -rf core
+rm -rf compiler-version.err options.err compiler-version.out make.out options.out
+$ <b>specmake</b>
+/SW/compilers/gcc-6.2.0/bin/gcc -std=c99 -m64 -c -o lbm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP
+  -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize 
+  -DSPEC_LP64  lbm.c
+specmake: /SW/compilers/gcc-6.2.0/bin/gcc: Command not found
+specmake: *** [/reiner/cpu2017/benchspec/Makefile.defaults:347: lbm.o] Error 127
+</pre>
+<p class="snugish">Note above that the config file expected the compiler to be in a different location than where it is on
+this system.  At this point, we have three choices: redo the <samp>runcpu</samp> after editing the config file; or edit <samp
+class="snugr">Makefile.spec</samp>; or override the location by setting the makevar <samp>SPECLANG</samp> on the command
+line.  
+<br /><samp class="snugr">SPECLANG</samp>, despite its name, is just an ordinary user-created make variable, indicating the
+directory where compilers can be found for use with our SPEC CPU tests.</p>
+<pre class="l1snugish">$ <b>which gcc</b>
+/davidz6.2/bin/gcc
+$ <b>specmake SPECLANG=/davidz6.2/bin/</b>
+/davidz6.2/bin/gcc -std=c99 -m64 -c -o lbm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP 
+   -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize 
+  -DSPEC_LP64  lbm.c
+/davidz6.2/bin/gcc -std=c99 -m64 -c -o main.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP 
+   -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize 
+  -DSPEC_LP64  main.c
+/davidz6.2/bin/gcc -std=c99 -m64     
+  -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize
+   lbm.o main.o -lm  -o lbm_r  
+$  </pre>
+
+
+   <p class="snugtop">You can also carry out a dry run of the build, which will display the build commands without attempting
+   to run them, by adding <samp class="nb">-n</samp> to the <samp>specmake</samp> command line.  You might find it useful to capture the output of
+   <samp class="nb">specmake -n</samp> to a file, so it can easily be edited, and used as a script.</p>
+
+   <p>If you are trying to debug a new system, you can prototype changes to <samp class="nb">Makefile.spec</samp> or even 
+   to the benchmark sources.</p>  
+   
+   <p>If you are using a triple <a href="#env">environment</a>, then presumably it's because you don't have <samp>specmake</samp>
+   working on the system where the compiler resides.  But fear not: <samp>specmake</samp> is just GNU make under another name, so
+   whatever <samp>make</samp> you have handy on the target system might work fine with the above commands.  If not, then you'll
+   need to extract the build commands from the <a href="#findlog">log</a> and try them on the system that has the
+   compilers, using commands such as the following:</p>
+
+<pre class="l1snugish">$ <b>go result</b>
+/reiner/cpu2017/result
+$ <b>grep -n %% CPU2017.007.log | grep make | grep build </b>
+403:%% Fake commands from make (specmake -n --output-sync --jobs=4 build):
+407:%% End of fake output from make (specmake -n --output-sync --jobs=4 build)
+$ <b>head -407 CPU2017.007.log | tail -5</b>
+%% Fake commands from make (specmake -n --output-sync --jobs=4 build):
+/SW/compilers/gcc-6.2.0/bin/gcc -std=c99 -m64 -c -o lbm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP 
+   -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize 
+   -DSPEC_LP64  lbm.c
+/SW/compilers/gcc-6.2.0/bin/gcc -std=c99 -m64 -c -o main.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP 
+   -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize 
+   -DSPEC_LP64  main.c
+/SW/compilers/gcc-6.2.0/bin/gcc -std=c99 -m64     
+   -g -O3 -march=native -fno-strict-aliasing -fno-unsafe-math-optimizations  -fno-tree-loop-vectorize 
+   lbm.o main.o -lm  -o lbm_r  
+%% End of fake output from make (specmake -n --output-sync --jobs=4 build)
+$</pre>
+
+   <p>The first command above uses <samp class="nb">grep -n</samp> to find the line numbers of interest, and the second
+   command prints them.</p> 
+
+   </li>
+
+<li id="findrun"> 
+    <p><b>Find the run directory, and add the binary to it: </b> Using techniques similar to those used to find the build
+    directory, find the run directory established <a href="#makedirs">above</a>, and place the binary into it.  If you are
+    using a unified or cross-compile <a href="#env">environment</a>, you can copy the binary directly into the run directory;
+    if you are using a triple environment, then you'll have to retrieve the binary from the compilation system using whatever
+    program you use to communicate between systems.</p>
+    
+    <p>In a unified environment, the commands might look something like this:</p>
+
+<pre class="l1snugish">$ <b>go result</b>
+/reiner/cpu2017/result
+$ <b>grep 'Setting up' CPU2017.007.log</b>
+Setting up environment for running 519.lbm_r...
+  Setting up 519.lbm_r test base mytest-m64 (1 copy): run_base_test_mytest-m64.0000
+$ <b>go 519.lbm run </b>
+/reiner/cpu2017/benchspec/CPU/519.lbm_r/run
+$ <b>cd run_base_test_mytest-m64.0000/</b>
+$ <b>cp ../../build/build_base_mytest-m64.0000/lbm_r .</b>
+$  </pre>
+
+<p class="snugtop"> In the result directory, we search log 007 to find the correct name of the directory, go there, and copy
+the binary into it.</p></li>
+
+
+<li id="copyrun">
+   <p><b>Copy the run dir:</b> If you are using a unified <a href="#env">environment</a>, you can skip this step.  Otherwise,
+   you'll need to package up the run directory and transport it to the system where you want to run the benchmark.  For
+   example:</p>
+
+<pre class="l1snugish">$ <b>go 519.l run</b>
+/reiner/cpu2017/benchspec/CPU/519.lbm_r/run
+$ <b>spectar cf - run_base_test_mytest-m64.0000/ | specxz &gt; myrun.tar.xz</b>
+$ <b>scp myrun.tar.xz john@mysys:</b>                                   <a style="font-family:sans-serif;font-size:small;" href="#license">[reminder: copying]</a>
+myrun.tar.xz                    100%   43KB 329.2KB/s   00:00    
+$  </pre>
+
+   <p class="snugtop">Note that the above example assumes that you have versions of <samp>xz</samp> and <samp>tar</samp> available on
+   the run time system, which you will use to unpack the compressed tarfile, typically with something like this:</p>
+   <p class="l1ex"><b>xz -dc myrun.tar.xz | tar -xvf  -</b></p>
+
+   <p class="snugtop">If you don't have <samp>xz</samp> available, you might try <samp>bzip2</samp> or <samp>gzip</samp> on both the
+   sending and receiving systems.  If you use some other compression utility, be sure that it does not corrupt the files by
+   destroying line endings, re-wrapping long lines, or otherwise subtracting value.</p></li>
+
+<li id="runit"> <p><b>Run it:</b> If you are using a unified <a href="#env">environment</a>, you can use 
+   <a class="external" href="utility.html#specinvoke">specinvoke</a> to see the command lines that run the benchmark, and/or
+   capture them to a shell script.  You can also run them using judicious(*) cut and paste:</p>
+
+<pre class="l1snugish">$ <b>go 519.lbm run run_base_test_mytest-m64.0000</b>
+/reiner/cpu2017/benchspec/CPU/519.lbm_r/run/run_base_test_mytest-m64.0000
+$ <b>cp ../../build/build_base_mytest-m64.0000/lbm_r .</b>
+$ <b>specinvoke -n</b>
+# specinvoke r&lt;dev&gt;
+#  Invoked as: specinvoke -n
+# timer ticks over every 1000 ns
+# Use another -n on the command line to see chdir commands and env dump
+# Starting run for copy #0
+../run_base_test_mytest-m64.0000/lbm_r_base.mytest-m64 20 reference.dat 0 1 100_100_130_cf_a.of 
+   0&lt;&amp;- &gt; lbm.out 2&gt;&gt; lbm.err
+specinvoke exit: rc=0
+</pre>
+<p class="snug"> (*) Note above that the <samp>lbm_r</samp> binary to include additional identifiers (<samp
+   class="nbsnuglr">_base.mytest-m64</samp>) - which we simply ignore in the command that is cut-and-pasted, because the binary
+built by hand is just <samp class="snugr">lbm_r</samp>.</p>
+
+<pre class="l1snugish">$ <b>./lbm_r 20 reference.dat 0 1 100_100_130_cf_a.of 0&lt;&amp;- &gt; lbm.out 2&gt;&gt; lbm.err</b> <a style="font-family:sans-serif;font-size:small;" href="#testIsBad">[warning: size=test]</a>
+$ <b>cat lbm.out</b>
+MAIN_printInfo:
+        grid size      : 100 x 100 x 130 = 1.30 * 10^6 Cells
+        nTimeSteps     : 20
+        result file    : reference.dat
+        action         : nothing
+        simulation type: channel flow
+        obstacle file  : 100_100_130_cf_a.of
+
+LBM_showGridStatistics:
+        nObstacleCells:  498440 nAccelCells:       0 nFluidCells:  801560
+        minRho: 1.000000 maxRho: 1.000000 Mass: 1.300000e+06
+        minU  : 0.000000 maxU  : 0.000000
+
+LBM_showGridStatistics:
+        nObstacleCells:  498440 nAccelCells:       0 nFluidCells:  801560
+        minRho: 1.000000 maxRho: 1.040865 Mass: 1.300963e+06
+        minU  : 0.000000 maxU  : 0.012647
+$  </pre>
+
+  <p>If you are using a cross-compile or triple environment, you can capture the commands to a file and execute that.  Be
+  sure to follow the instructions carefully for how to do that, noting in particular the items above your environment, at the
+  <a class="external" href="utility.html#specinvoke">specinvoke</a> chapter of SPEC CPU 2017 Utilities.</p>
+  
+  <p>Alternatively, you can extract the run commands from the log.</p>
+
+<pre class="l1snugish">$ <b>go result</b>
+/reiner/cpu2017/result
+$ <b>grep -n %% CPU2017.007.log | grep benchmark_run</b>
+498:%% Fake commands from benchmark_run (/reiner/cpu2017/bin/spe...):
+605:%% End of fake output from benchmark_run (/reiner/cpu2017/bin/spe...)
+$ <b>head -605 CPU2017.007.log | tail -4</b>
+cd /reiner/cpu2017/benchspec/CPU/519.lbm_r/run/run_base_test_mytest-m64.0000
+../run_base_test_mytest-m64.0000/lbm_r_base.mytest-m64 20 reference.dat 0 1 100_100_130_cf_a.of 
+   0&lt;&amp;- &gt; lbm.out 2&gt;&gt; lbm.err
+specinvoke exit: rc=0
+%% End of fake output from benchmark_run (/reiner/cpu2017/bin/spe...)
+$  </pre></li>
+
+<li id="savework"> <p><b>Save your work:</b> Important: if you are at all interested in saving your work, move the <samp
+   class="nb">build/build*</samp> and <samp class="nb">run/run*</samp> directories to some safer location.  That way, your
+   work areas will not be accidentally deleted the next time someone comes along and uses one of <samp>runcpu</samp> <a
+   class="external" href="runcpu.html#cleaning">cleanup actions.</a>.</p></li> 
+
+<li id="moredirs"> 
+   <p><b>Repeat:</b> Admittedly, the large number of steps that it took to get here may seem like a lot of trouble.  But
+   that's why you <a href="#pickone">started</a> with a simple benchmark and the simplest workload (<samp
+   class="nbsnugl">--size test</samp> in the <a href="#makedirs">fake step</a>).  Now that you've got the pattern down, it is
+   hoped that it will be straightforward to repeat the process for the other available workloads: <samp
+   class="nb">--size=train</samp> and <samp class="nbsnugr">--size=ref</samp>, and then for additional
+   benchmarks.</p>
+    
+    <p>But if you're finding it tedious... then maybe this is an opportunity to sell you on the notion of using <a
+    class="external" href="runcpu.html">runcpu</a> after all, which automates all this tedium.  If the reason you came here was
+    because <samp>runcpu</samp> doesn't work on your brand-new environment, then perhaps you'll want to try to get it built, using
+    the hints in <a class="external" href="tools-build.html">tools-build.html</a>.</p></li> 
+</ol>
+
+<h2 id="validation">Validation</h2>
+
+<p>Note that this document has only discussed getting the benchmarks built and running.  Presumably at some point you'd like to
+know whether your system got the correct answer.  At that point, you can use <samp class="snugr">specdiff</samp>, which is explained in <a
+class="external" href="utility.html#specdiff">utility.html</a>.  </p> 
+
+
+<p style="border-top:thin solid black;">
+Avoiding runcpu: Using the SPEC CPU&reg;2017 benchmarks while making minimal use of the SPEC tool set:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+</body></html>
+

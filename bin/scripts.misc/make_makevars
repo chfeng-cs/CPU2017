@@ -1,0 +1,326 @@
+#!/usr/bin/perl
+
+# Regenerate makevars.html section 4.
+# $Id: make_makevars 5354 2017-02-18 23:03:12Z CloyceS $
+
+use strict;
+use File::Find;
+use IO::File;
+use Data::Dumper;
+use File::Temp qw(tempdir);
+use Text::Wrap;
+use File::Basename;
+use Getopt::Long;
+use List::MoreUtils qw(all minmax uniq first_index);
+use Storable qw(dclone);
+
+$| = 1;
+$Data::Dumper::SortKeys = 1;
+$Data::Dumper::Indent = 1;
+
+my %opts = (
+    'cols'      => 132,
+    'tabs'      => 0,
+    'make'      => 'specmake',
+    'help'      => 0,
+);
+
+my $rc = GetOptions(\%opts, qw(
+        cols|columns|c=i
+        tabs!
+        make=s
+        help|h
+        ));
+usage(!$rc) if (!$rc or $opts{'help'});
+
+$Text::Wrap::columns = $opts{'cols'};
+$Text::Wrap::unexpand = $opts{'tabs'};
+
+# Figure out a version number for myself
+my $rev = '$Revision: 5354 $';
+$rev =~ s/\$Revision: (\S+)\s*\$$/$1/;   # Will only work on Subversion checkout
+if ($rev eq "\$Revision\$") {
+    # git-svn at work; try harder to get the revision number
+    $rev = qx{git svn info $0 2>/dev/null};
+    if ($rev =~ /^Last Changed Rev\S*: (\d+)$/m) {
+        $rev = $1;
+        chomp(my $hash = qx{git svn find-rev r$rev});
+        if ($hash ne '') {
+            my ($curhash, $curdate) = split(/\s+/, qx/git log -n 1 --format="format:%H %ci" ${hash}...HEAD -- $0/, 2);
+            if ($curhash ne '' and $curhash ne $hash) {
+                $rev .= " + git $curhash of $curdate";
+            }
+        }
+    }
+}
+if ($rev eq "\$Revision\$" or $rev eq '') {
+    $rev = 'UNKNOWN';
+}
+
+# Check for GNU Make 4+
+$rc = qx/$opts{'make'} --version 2>&1/;
+if ($rc !~ /GNU Make (\d+)/is) {
+    die "$0 needs GNU Make 4+.  For '$opts{'make'} --version', got\n$rc\nStopped";
+}
+if ($1 < 4) {
+    die "$0 needs GNU Make 4+.  For '$opts{'make'}', got $1\nStopped";
+}
+
+die '$SPEC not set!' unless ($ENV{'SPEC'} ne '' and -d $ENV{'SPEC'});
+
+# Read in the original file
+die "No makevars.html in \$SPEC/Docs!\nStopped" unless (-f "$ENV{'SPEC'}/Docs/makevars.html");
+my $ifh = new IO::File '<'."$ENV{'SPEC'}/Docs/makevars.html";
+die "Couldn't open \$SPEC/Docs/makevars.html for reading: $!\nStopped" unless defined($ifh);
+my @makevars = $ifh->getlines();
+$ifh->close();
+die "No <pre> section for vars breakdowns in \$SPEC/Docs/makevars.html\nStopped" unless (grep { /<pre\s+id="order/ } @makevars) == 2;
+
+# Find the runcpu test config file that does all the variable setting.
+# Look for a few variables that nobody ever sets, and the config file
+# with settings for all of them is the one we want.
+my %cfgfound = ();
+sub wanted {
+    return unless /\.cfg$/;
+    my $fh = new IO::File '<'.$File::Find::name;
+    return unless defined($fh);
+    my $strange_var_re = qr/^(CXXLD|RM_SOURCES|OPTIMIZATION_FLIBS|PASS2_FPPFLAGS)\s*=/;
+    while(defined(my $line = $fh->getline())) {
+        $cfgfound{$File::Find::name}++ if $line =~ /$strange_var_re/;
+    }
+}
+find(\&wanted, $ENV{'SPEC'}.'/bin/unit_tests/runcpu.files');
+my ($cfgfile) = sort { $cfgfound{$a} <=> $cfgfound{$b} } grep { $cfgfound{$_} >= 4 } keys %cfgfound;
+die "No configuration file found\nStopped" unless (-f $cfgfile);
+
+# Make a temporary makefile with the settings from $cfgfile
+my $tmpdir = tempdir('makevars.XXXXXX', TMPDIR => 1, CLEANUP => 1);
+print "Using temporary dir $tmpdir\n";
+
+# Write the base makefile
+my $ofh = new IO::File '>'.$tmpdir.'/Makefile';
+die "Couldn't open Makefile for writing in $tmpdir: $!\nStopped" unless defined($ofh);
+$ofh->print('-include $(SPEC)/benchspec/Makefile.defaults'."\n");
+$ofh->close();
+
+# Write the dependencies makefile
+$ofh = new IO::File '>'.$tmpdir.'/Makefile.deps';
+die "Couldn't open Makefile.deps for writing in $tmpdir: $!\nStopped" unless defined($ofh);
+$ofh->print("# Nothing goes here\n");
+$ofh->close();
+
+# And Makefile.spec, where the settings go
+$ofh = new IO::File '>'.$tmpdir.'/Makefile.spec';
+die "Couldn't open Makefile.spec for writing in $tmpdir: $!\nStopped" unless defined($ofh);
+$ifh = new IO::File '<'.$cfgfile;
+die "Couldn't open $cfgfile for reading: $!\nStopped" unless defined($ifh);
+while(defined(my $line = $ifh->getline())) {
+    next unless $line =~ /^\s*(\S+)\s*=\s*.*\1$/;
+    $ofh->print($line);
+}
+$ifh->close();
+# Now add some boilerplate-type stuff that's always in Makefile.spec:
+$ofh->print("TUNE=base\n");
+$ofh->print("EXT=optgen\n");
+$ofh->print("NUMBER=000\n");
+$ofh->print("NAME=optgen\n");
+$ofh->print("SOURCES=file.\$(firstword \$(BENCHLANG))\n");
+$ofh->print("EXEBASE=optgen\n");
+$ofh->print("NEED_MATH=\n");
+$ofh->print("#BENCHLANG=C (will be provided on the command line)\n");
+$ofh->print("include benchlang\n");
+$ofh->print("OBJ=\n");
+$ofh->print("COBJOPT=COBJOPT <object>\n");
+$ofh->print("FOBJOPT=FOBJOPT <object>\n");
+$ofh->print("CXXOBJOPT=CXXOBJOPT <object>\n");
+$ofh->print("BENCH_FLAGS=-DBENCH_FLAGS BENCH_FLAGS\n");
+$ofh->print("BENCH_CFLAGS=-DBENCH_CFLAGS BENCH_CFLAGS\n");
+$ofh->print("BENCH_FFLAGS=-DBENCH_FFLAGS BENCH_FFLAGS\n");
+$ofh->print("BENCH_FPPFLAGS=-DBENCH_FPPFLAGS BENCH_FPPFLAGS\n");
+$ofh->print("BENCH_CXXFLAGS=-DBENCH_CXXFLAGS BENCH_CXXFLAGS\n");
+$ofh->print("LDOUT=LDOUT\n");
+$ofh->print("LDOUT_OPTIONS=LDOUT_OPTIONS\n");
+$ofh->print("LDOUT_EXTRA_OPTIONS=LDOUT_EXTRA_OPTIONS\n");
+
+$ofh->close();
+
+my %varmap = (
+    'C'       => [ 0, 'C only' ],
+    'CXX'     => [ 1, 'C++ only' ],
+    'CXX,C'   => [ 3, 'Mixed C++ and C' ],
+    'F'       => [ 2, 'Fortran only' ],
+    'F,C'     => [ 4, 'Mixed Fortran and C' ],
+    'CXX,C,F' => [ 5, 'Mixed C++, C, and Fortran' ],
+);
+my @varlists;
+
+my %rc = ();
+for my $type (qw(normal fdo)) {
+    $rc{$type} = [
+        "<pre id=\"order_${type}\">",
+        "<!-- generated by ".basename($0)." r$rev -->",
+    ];
+    for my $lang (sort { $varmap{$a}->[0] <=> $varmap{$b}->[0] } keys %varmap) {
+        push @{$rc{$type}}, "${varmap{$lang}->[1]}:";
+        print STDERR "Working on ${varmap{$lang}->[1]} for $type builds...\n";
+        $lang =~ s/,/ /g;
+        $ofh = new IO::File '>'.$tmpdir.'/benchlang';
+        die "Couldn't open 'benchlang' for writing in $tmpdir: $!\nStopped" unless defined($ofh);
+        $ofh->print("BENCHLANG=$lang\n");
+        $ofh->close();
+        my @specmake = ($opts{'make'}, '-C', $tmpdir);
+        push @specmake, 'FDO=PASS1' if $type eq 'fdo';
+        open(MAKEOUT, '-|', @specmake, 'options') or die "Can't run '@specmake options' in pipe: $!\nStopped";
+        while(defined(my $line = <MAKEOUT>)) {
+            next unless $line =~ s/^(COMP|LINK|FPP):\s+"?//;
+            my $what = { 'COMP' => 'Compilation', 'LINK' => 'Linkage' }->{$1} || $1;
+            chomp($line);
+            $line =~ s/"$//;
+            $line =~ tr/ / /s;
+            $line =~ s/-D(\S+)\s+\1/$1/g;  # Flags that are all included
+            $line =~ s/-D((?!SPEC|NDEBUG)\S+)/<-D!\&!-U!from!$1>/g;
+            $line =~ s/PASS1_/PASSn_/g;
+
+            # Now split up $line to get the list of variables in order.  The
+            # uniq should not be needed; it's just insurance.
+            push @varlists, bless [ uniq grep { !/^[<-]/ } map { s/^.*!from!(\S+)>$/$1/; $_ } split (/\s+/, $line) ], "$type-$what-$lang";
+
+            if ($what eq 'Linkage') {
+                $line =~ s/^((\S+?)LD)/$1(or ${2}C)/;
+                $line =~ s/CXXC\)/CXX)/;
+            }
+            my $rc = escape_html(wrap("$what: ", (' ' x (length($what) + 2)), $line));
+            $rc =~ s/!/ /gso;
+            push @{$rc{$type}}, split(/\n/, $rc);
+        }
+        push @{$rc{$type}}, '';
+        close(MAKEOUT);
+    }
+    push @{$rc{$type}}, '</pre>';
+}
+
+# Write var_order
+print STDERR "Writing new var_order...\n";
+
+# Make a single list of variables where the order for all the individual
+# lists is preserved.
+my $save_varlist = dclone(\@varlists);
+my @varlist;
+while(@varlists and grep { $#{$_} > 0 } @varlists) {
+    # Get rid of empty lists
+    while($#{$varlists[0]} < 0) {
+        shift @varlists;
+    }
+    while (@{$varlists[0]}) {
+        my $elem = shift @{$varlists[0]};
+        push @varlist, find_intervening($elem, [ @varlist ], @varlists);
+    }
+}
+my $idx = 0;
+my %var_idx = map { $_ => $idx++ } @varlist;
+
+# Verify that the order is correct for each of the lists
+$idx = 1;
+@varlists = @{$save_varlist};
+for my $varlistref (@varlists) {
+    print "Checking list $idx ($varlistref)...";
+    my $lastval = -9999;
+    if (all { my $cur = $_; my $curlast = $lastval; $lastval = $_; $curlast <= $cur } map { $var_idx{$_} } @{$varlistref}) {
+        print "ok\n";
+    } else {
+        print "BAD\n";
+        print Data::Dumper->Dump([\@varlist],['varlist'])."\n";
+        die "List order mismatch:\n".
+            "Specific list: (".join(',', map { "$_\[$var_idx{$_}\]" } @{$varlistref}).")\n".
+            "Stopped";
+    }
+    $idx++;
+}
+
+$ofh = new IO::File '>'."$ENV{'SPEC'}/bin/formatter/var_order";
+die "Couldn't open \$SPEC/bin/formatter/var_order for writing: $!\nStopped" unless defined($ofh);
+$ofh->print(
+    "# generated by ".basename($0)." r$rev\n",
+    "\@tmpload::varorder = (qw(\n",
+    '    '.join("\n    ", @varlist)."\n",
+    "));\n",
+    "\n",
+    "1;\n"
+);
+$ofh->close();
+
+# Rewrite makevars.html
+print STDERR "Writing new makevars.html...\n";
+$ofh = new IO::File '>'."$ENV{'SPEC'}/Docs/makevars.html";
+die "Couldn't open \$SPEC/Docs/makevars.html for writing: $!\nStopped" unless defined($ofh);
+while(defined(my $line = shift @makevars)) {
+    if ($line =~ /<pre\s+id="order_([^"]+)">/ and exists($rc{$1})) {
+        # Dump the new stuff in
+        $ofh->print(join("\n", @{$rc{$1}})."\n");
+        $line = shift @makevars while($line !~ m#</pre>#);
+    } else {
+        $ofh->print($line);
+    }
+}
+$ofh->close();
+
+sub escape_html {
+    my ($str) = @_;
+
+    $str =~ s/\&(?!#\d+;|#x[\da-fA-F]+;|[\da-zA-Z]+;)/\&amp;/g;
+    $str =~ s/</&lt;/gso;
+    $str =~ s/>/&gt;/gso;
+
+    return $str;
+}
+
+sub usage {
+    my ($rc) = @_;
+
+    print <<"EOH";
+$0 r$rev
+
+Usage: $0 [options]
+Options:
+    --make=<makeprog>   Use GNU make named <makeprog> (default: $opts{'make'})
+    --colums=<cols>     Wrap output lines at <cols> columns
+    -C <cols>           Same as --columns
+    --[no]tabs          Do [not] convert space sequences to tabs
+    --help              Print this message
+
+EOH
+    exit($rc) if defined($rc);
+}
+
+# Given an item and a list of lists of items, return a list of items such that
+# all items appearing in all lists before the initial item are output in
+# before that item.  Cycles are detected and will cause an abort; as that
+# indicates that no global ordering is possible.
+sub find_intervening {
+    my ($elem, $seenref, @lists) = @_;
+
+    if (grep { $elem eq $_ } @$seenref) {
+        die "find_intervening: '$elem' already searched for: ['".join("','", @$seenref)."']\nStopped";
+    }
+    $seenref = [ @$seenref, $elem ];
+    my @rc = ();
+    for my $listref (@lists) {
+        my $idx = first_index { $_ eq $elem } @$listref;
+        if ($idx > 0) {
+            # Each of the intervening elements now becomes a candidate
+            my @candidates = splice @$listref, 0, $idx;
+            shift @$listref; # Get rid of $elem
+            foreach my $candidate (@candidates) {
+                push @rc, find_intervening($candidate, $seenref, @lists);
+            }
+        } elsif ($idx == 0) {
+            # Present; nothing intervening, so just toss it
+            shift @$listref;
+        }
+    }
+
+    return (@rc, $elem);
+}
+
+# Editor settings: (please leave this at the end of the file)
+# vim: set filetype=perl syntax=perl shiftwidth=4 tabstop=8 expandtab nosmarttab:

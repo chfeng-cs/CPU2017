@@ -1,0 +1,42 @@
+runcpu banner
+Using tools
+Reading file manifests...
+Loading runcpu modules...
+Locating benchmarks...found some benchmarks in some benchsets.
+Reading config file 'trac242.cfg'
+  INFO: conditional: 63 copies on 8 cores
+  INFO: math: 63 copies on 8 cores
+  INFO: math and ?:: 63 copies on 8 cores
+ERROR: Undefined preprocessor macro 'first' referenced on line 28
+       of <cfgdir>/trac242.cfg
+Pre-processed configuration file dump follows:
+--------------------------------------------------------------------
+# Invocation command line:
+# $SPEC/bin/harness/runcpu -a configpp -c trac242.cfg
+# output_root was not used for this run
+############################################################################
+sysinfo_program=
+
+# Should be unexpanded
+copies = %{copies}
+
+# Should be 63
+copies = 63
+
+# Should be 63
+copies = 63
+
+# Should be 63
+copies = 63
+
+notes0 = 
+notes100 = notes0 is not '...some options or something...'
+
+notes1 = 
+notes101 = notes1 is not '...some other options...'
+
+--------------------------------------------------------------------
+
+The log for this run is in [log file]
+
+runcpu finished at [timestamp]

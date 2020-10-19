@@ -1,0 +1,97 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+      <link rel="STYLESHEET" href="https://www.spec.org/cpu2017/Docs/css/cpudocs.css" type="text/css" />
+<style type="text/css">
+.new         {color:#074015; background:#ffffc0; font-size:80%; font-style:italic;}
+</style>
+<title>548.exchange2_r</title>
+<meta name="generator" content="Cloyce+VIM 7.0" />
+<meta name="revision"
+      content="$Id: exchange2.html 6320 2019-07-28 23:29:02Z JohnHenning $" />
+</head>
+
+<body>
+<div style="text-align: center">
+
+<h1>548.exchange2_r<br />
+SPEC CPU&reg;2017 Benchmark Description</h1>
+</div>
+
+<h3>Benchmark Name</h3>
+<p>548.exchange2_r</p>
+
+
+<h3>Benchmark Author</h3>
+<p>Michael Metcalf, Berlin</p>
+
+<p>Michael Metcalf is the author of <a href="https://dl.acm.org/author_page.cfm?id=81100436361&amp;CFID=922239540">many</a> articles
+and <a href="https://www.amazon.com/Michael-Metcalf/e/B000APW8I2/">books</a> on Fortran.</p>
+
+
+<h3>Benchmark Program General Category</h3>
+<p>Games: Sudoku Puzzle Generator</p>
+
+
+<h3>Benchmark Description</h3>
+<p>
+   This program was written for development
+   of non-trivial 9x9 sudoku puzzles. It has been used extensively 
+   in informal competitions, which run for days. 
+   Incidentally, it tests many Fortran 95 array handling features 
+   (including some intrinsic functions) for use with integer arrays. 
+   Unusually, it relies heavily on recursion (up to eight levels deep) but, 
+   in contrast to most Fortran programs, uses no floating-point arithmetic. 
+</p>
+
+
+<h3>Input Description</h3>
+
+<p>The input data file contains in each record a valid sudoku puzzle (one
+   that has one and only one solution). It is represented as a string of 81 
+   digits, 1 to 9 for the clues, and 0 for the empty cells. Each puzzle 
+   acts as a seed for the production of further valid puzzles with an 
+   identical pattern of clues. 
+
+   For convenience, the submitted program contains a data set of 27 puzzles
+   in the form of an initialization expression. A second set can be extracted 
+   from the first by not transposing the puzzle on input.</p>
+
+
+<h3>Output Description</h3>
+<p>
+   The file s.txt contains each new puzzle as an 81-digit string 
+   followed by a sequence number and 1 or 2 codes.
+</p>
+
+
+<h3>Programming Language</h3>
+
+<p>Fortran 95</p>
+
+
+<h3>Known portability issues</h3>
+<p>None</p>
+
+
+<h3 id="license">Sources and Licensing</h3>
+
+<p>Exchange2 is licensed directly to SPEC by the author, Michael Metcalf.</p>
+
+
+
+<h3>References</h3>
+<ul>
+  <li>A Sudoku program in Fortran 95: <a
+    href="https://dl.acm.org/citation.cfm?id=1124709">https://dl.acm.org/citation.cfm?id=1124709</a></li>
+</ul>
+
+
+<p>Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $</p>
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+
+</body>
+</html>

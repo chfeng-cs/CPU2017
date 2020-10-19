@@ -1,0 +1,147 @@
+                                 526.blender_r
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   526.blender_r
+
+  Benchmark Authors
+
+   Blender project development volunteers, supported by the Blender
+   Foundation
+
+   Adapted for the SPEC CPU(R)2017 suite by the SPEC CPU(R) subcommittee
+
+  Benchmark Program General Category
+
+   3D Rendering
+
+  Benchmark Description
+
+   Blender is a free, open source 3D creation suite. It provides the ability
+   to render, model, simulate material properties, and animate assets to
+   create 3D images.
+
+  Input Description
+
+   The subbenchmark takes in a blender .blend file. The .blend file specifies
+   scene input geometry and rendering parameters.
+
+    Reference Inputs
+
+   The reference input workload in speed mode and rate mode operate on a
+   .blend Blender file. The .blend file included with the subbenchmark is a
+   reduced version of the Weybec Crazy Glue shot 3 data set. This data set
+   input sets the output image size @ 1280x720 pixels.
+
+    Training Inputs
+
+   The input .blend file for the feedback training workload (train) is a
+   reduced version the Weybec Crazy Glue shot 5 data set. This data set
+   configures the output image size @ 320x200 pixels.
+
+    Test Inputs
+
+   The test workload .blend file is the default cube that loads up with
+   public builds of blender in GUI mode.
+
+  Output Description
+
+   The image output from the render step is used as input to the SPEC(R)
+   utility [1]imagevalidate, which calculates the Structural SIMilarity
+   (SSIM) index over 8x8 pixel areas between the benchmark-produced image and
+   a SPEC-provided expected image. SSIM indexes range from -1 (maximally
+   different) to 1 (identical) for each of those regions.
+
+   If the images are too different, the image comparison program will issue
+   an error. This is accomplished by specifying a threshold SSIM value, and
+   if more than 1% of samples go below the threshold, the benchmark does not
+   pass validation.
+
+   In all cases, the expected output suggests a completely identical image
+
+   <filename>: AVG SSIM = 1.000000000
+
+
+   which is then checked by [2]specdiff to to verify that the overall average
+   of SSIM values is at least 0.95.
+
+  Programming Language
+
+   ANSI C
+
+   C++
+
+  Portability Notes
+
+   There several portability flags that may be useful, as shown in the
+   example config files -- search for 526.blender_r in
+   $SPEC/config/Example*cfg (Unix) or
+   %SPEC%\config\Example*.cfg (Windows).
+
+   Documentation of 526.blender_r portability flags is available at the
+   [3]SPEC web site or in your installed copy of SPEC CPU(R)2017:
+   $SPEC/benchspec/CPU2017/526.blender_r/Docs/flags.html (Unix) or
+   %SPEC%\benchspec\CPU2017\526.blender_r\Docs\flags.html (Windows).
+
+   Reminder: usage of [4]portability flags must be approved by the SPEC
+   CPU(R) Subcommittee. This is typically done by demonstrating that a flag
+   is essential.
+
+    Portability RECOMMENDATION: Use Unsigned Char
+
+   The language standard says that char might have the same behavior as
+   either signed char or as unsigned char. It does not specify which. Blender
+   code expects char to be unsigned, and the [5]Blender Coding Style Guide
+   says "Compiler flags are used to make sure we always use the unsigned
+   variety."
+
+   Therefore, if your system defaults to signed, you should find your
+   compiler flag that changes to unsigned. If you do not do so, you may see
+   many thousands of warning messages during builds, and your generated
+   binary might produce wrong answers.
+
+   For example, if you are using GCC, you might set:
+
+ 526.blender_r:
+   PORTABILITY = -funsigned-char
+
+   Other compilers have similar flags, for example:
+
+     * -qchars=unsigned IBM XLC
+     * -xchar=u Oracle Developer Studio
+     * -Muchar PGI
+
+   Check your compiler documentation.
+
+  Sources and Licensing
+
+   The benchmark was contributed to SPEC CPU(R) by the Blender Foundation,
+   under the terms of GPLv3. Additional licenses apply to specific
+   components, as described in [6]SPEC CPU(R)2017 Licenses.
+
+  References
+
+     * [7]Blender Homepage
+     * [8]Structural Similarity (SSIM) at Wikipedia
+     * [9]TARGA image file format at Wikipedia
+     * [10]WEYBEC Homepage
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. http://www.spec.org/cpu2017/Docs/utility.html#imagevalidate
+   2. http://www.spec.org/cpu2017/Docs/utility.html#specdiff
+   3. https://www.spec.org/cpu2017/Docs/benchmarks/flags/526.blender_r.flags.html
+   4. https://www.spec.org/cpu2017/Docs/runrules.html#portability
+   5. https://www.blender.org/api/intranet/conventions/codingstyleguide.html
+   6. http://www.spec.org/cpu2017/Docs/licenses.html#bmk526.blender_r
+   7. https://www.blender.org/
+   8. https://en.wikipedia.org/wiki/Structural_similarity
+   9. https://en.wikipedia.org/wiki/Truevision_TGA
+  10. http://www.weybec.com/

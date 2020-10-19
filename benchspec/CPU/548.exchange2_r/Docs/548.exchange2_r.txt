@@ -1,0 +1,70 @@
+                                548.exchange2_r
+                     SPEC CPU(R)2017 Benchmark Description
+
+  Benchmark Name
+
+   548.exchange2_r
+
+  Benchmark Author
+
+   Michael Metcalf, Berlin
+
+   Michael Metcalf is the author of [1]many articles and [2]books on Fortran.
+
+  Benchmark Program General Category
+
+   Games: Sudoku Puzzle Generator
+
+  Benchmark Description
+
+   This program was written for development of non-trivial 9x9 sudoku
+   puzzles. It has been used extensively in informal competitions, which run
+   for days. Incidentally, it tests many Fortran 95 array handling features
+   (including some intrinsic functions) for use with integer arrays.
+   Unusually, it relies heavily on recursion (up to eight levels deep) but,
+   in contrast to most Fortran programs, uses no floating-point arithmetic.
+
+  Input Description
+
+   The input data file contains in each record a valid sudoku puzzle (one
+   that has one and only one solution). It is represented as a string of 81
+   digits, 1 to 9 for the clues, and 0 for the empty cells. Each puzzle acts
+   as a seed for the production of further valid puzzles with an identical
+   pattern of clues. For convenience, the submitted program contains a data
+   set of 27 puzzles in the form of an initialization expression. A second
+   set can be extracted from the first by not transposing the puzzle on
+   input.
+
+  Output Description
+
+   The file s.txt contains each new puzzle as an 81-digit string followed by
+   a sequence number and 1 or 2 codes.
+
+  Programming Language
+
+   Fortran 95
+
+  Known portability issues
+
+   None
+
+  Sources and Licensing
+
+   Exchange2 is licensed directly to SPEC by the author, Michael Metcalf.
+
+  References
+
+     * A Sudoku program in Fortran 95:
+       [3]https://dl.acm.org/citation.cfm?id=1124709
+
+   Last updated: $Date: 2019-07-28 19:29:02 -0400 (Sun, 28 Jul 2019) $
+
+   Copyright (c) 2017-2019 Standard Performance Evaluation Corporation
+   (SPEC(R))
+
+References
+
+   Visible links
+   1. https://dl.acm.org/author_page.cfm?id=81100436361&CFID=922239540
+   2. https://www.amazon.com/Michael-Metcalf/e/B000APW8I2/
+   3. https://dl.acm.org/citation.cfm?id=1124709

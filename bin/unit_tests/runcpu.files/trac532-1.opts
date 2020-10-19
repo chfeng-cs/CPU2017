@@ -1,0 +1,1 @@
+-p 'TRAC532CHECK=pre-exec' -P 'unset TRAC532CHECK' -f 'grep "Setting.*TRAC532CHECK" | sort | uniq -c' -D specdiff -d '-o'

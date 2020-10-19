@@ -1,0 +1,484 @@
+=head2 Wed Dec  7 05:12:08 2016: C<Module> L<SVG|SVG>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.64>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:11 2016: C<Module> L<IO::Stringy|IO::Stringy>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.111>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:13 2016: C<Module> L<Date::Parse|Date::Parse>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.30>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:16 2016: C<Module> L<Mail|Mail>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.14>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:18 2016: C<Module> L<Test::Deep|Test::Deep>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.119>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:25 2016: C<Module> L<MIME::Tools|MIME::Tools>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 5.507>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:32 2016: C<Module> L<IO::String|IO::String>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.08>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:36 2016: C<Module> L<Font::TTF|Font::TTF>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.05>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:40 2016: C<Module> L<PDF::API2|PDF::API2>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 2.025>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:12:56 2016: C<Module> L<Text::CSV_XS|Text::CSV_XS>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.20>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:14:28 2016: C<Module> L<URI|URI>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.69>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:14:32 2016: C<Module> L<XML::SAX::Base|XML::SAX::Base>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.08>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:14:35 2016: C<Module> L<XML::NamespaceSupport|XML::NamespaceSupport>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.11>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:14:37 2016: C<Module> L<XML::SAX|XML::SAX>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.99>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:14:41 2016: C<Module> L<Algorithm::Diff|Algorithm::Diff>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.1903>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:14:43 2016: C<Module> L<Font::AFM|Font::AFM>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.20>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:14:45 2016: C<Module> L<File::NFSLock|File::NFSLock>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.27>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:16:12 2016: C<Module> L<String::ShellQuote|String::ShellQuote>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.04>
+
+=item *
+
+C<EXE_FILES: shell-quote>
+
+=back
+
+=head2 Wed Dec  7 05:16:14 2016: C<Module> L<XSLoader|XSLoader>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.22>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:16:16 2016: C<Module> L<Exporter::Tiny|Exporter::Tiny>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.042>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:16:26 2016: C<Module> L<List::MoreUtils|List::MoreUtils>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 0.416>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+
+=head2 Wed Dec  7 05:16:34 2016: C<Module> L<XML::SAX::ExpatXS|XML::SAX::ExpatXS>
+
+=over 4
+
+=item *
+
+C<installed into: /home/subkun01/CPUv6/RC4_toolbuild/tools/output/lib/perl5/site_perl/5.24.0>
+
+=item *
+
+C<LINKTYPE: dynamic>
+
+=item *
+
+C<VERSION: 1.33>
+
+=item *
+
+C<EXE_FILES: >
+
+=back
+

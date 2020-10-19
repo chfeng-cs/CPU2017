@@ -1,0 +1,45 @@
+#
+# Makefile for specinvoke
+# Copyright 1996-2016 Standard Performance Evaluation Corporation
+#
+# $Id: Makefile.in 4311 2016-05-18 14:23:16Z CloyceS $
+
+# @configure_input@
+
+
+prefix      = @prefix@
+exec_prefix = @exec_prefix@
+bindir      = @bindir@
+
+CC=@CC@
+OPTIMIZE=@OPTIMIZE@
+DEFS=@DEFS@
+CPPFLAGS=@CPPFLAGS@
+CFLAGS=@CFLAGS@ $(CPPFLAGS) $(DEFS) $(OPTIMIZE) $(EXTRA_CFLAGS) $(SPECINVOKE_CFLAGS)
+LIBS=@LIBS@ $(EXTRA_LIBS)
+LDFLAGS=@LDFLAGS@ $(EXTRA_LDFLAGS)
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+
+# For multi-architecture support
+srcdir = @srcdir@
+VPATH = @srcdir@
+
+all: specinvoke
+
+specinvoke: specinvoke.o unix.o getopt.o
+	$(CC) $(LDFLAGS) -o $@ specinvoke.o unix.o getopt.o
+
+install: specinvoke
+	$(INSTALL_PROGRAM) specinvoke $(bindir)
+
+clean:
+	rm -f specinvoke core *.o
+
+distclean: clean
+	rm -rf Makefile config.h config.log config.cache config.status
+
+%.o: %.c specinvoke.h
+	$(CC) $(CFLAGS) -c -o $@ $<
+

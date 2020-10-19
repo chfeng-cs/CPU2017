@@ -1,0 +1,9 @@
+ &shr_strdata_nml
+   dataMode       = 'NULL'
+   domainFile     = './domain.lnd.fv4x5_gx3v7.091218.nc'
+   streams        = 'null ' ,
+                    'null ' ,
+                    'null ' 
+   vectors        = 'null '
+   dtlimit        = 1.5
+  /

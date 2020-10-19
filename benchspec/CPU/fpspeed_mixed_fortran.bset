@@ -1,0 +1,20 @@
+# This file contains a list of the benchmarks written in
+# Fortran with other languages, from the fpspeed benchset.
+# It is automatically generated.
+
+$name        = 'fpspeed_mixed_fortran';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+        607.cactuBSSN_s
+        621.wrf_s
+        627.cam4_s
+        628.pop2_s
+);
+
+1;

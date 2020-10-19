@@ -1,0 +1,169 @@
+#!/bin/ksh
+
+#########################################################
+# ---------------------------------------------------
+# Work-arounds to build the SPEC tools on Tru64 Alpha
+# ---------------------------------------------------
+#
+# Kick off build with tools/src/buildtools.log/build-tru64-aplha (this script).
+#
+#
+# Workarounds to build specsum:
+# -----------------------------
+# In tools/src/specsum/gnulib/gettext.h -
+#  Need a ";" at line 147 before "static" to avoid an error.
+#
+# Add definition of isblank() to tools/src/specsum/tests/test-c-ctype.c -
+# #define isblank(c) ((c) == ' ' || (c) == '\t')
+# This is missing in Tru64.
+# See https://lists.gnu.org/archive/html/bug-tar/2007-06/msg00007.html
+#
+# In spite of the above work-arounds, "make check" for specsum fails because
+# the test programs cannot be built:
+#
+# tools/src/specsum/tests/test-intprops.c -
+# cc: Error: test-intprops.c, line 163: Invalid statement. (badstmt)
+#   CHECK_SBINOP (+, ADD, INT_MAX, 1, int, true, INT_MIN);
+# --^
+#
+# This failure is worked around by setting BUILDTOOLS_KEEP_GOING, but a better
+# solution would be to find some combination of source code and compiler flags
+# that will allow the tests to build and succeed.
+#
+#
+# Workarounds to build specinvoke:
+# --------------------------------
+# You may get error messages related to missing stdbool.h (line 64 of
+# specinvoke.h).
+# As a work-around -
+# 1) copy tools/src/specsum/gnulib/stdbool.h to tools/src/specinvoke.
+# 2) In tools/src/buildtools.log/build-tru64-alpha (this script),
+#    add the following lines -
+# 	 SPECINVOKECFLAGS="-DHAVE_STDBOOL_H -I."
+# 	 export SPECINVOKECFLAGS
+#
+#
+# specperl test failure:
+# ----------------------
+# ext/POSIX/t/math .............................................. #   Failed test 'lround -0.25 -> +0'
+# #   at t/math.t line 123.
+# #          got: '1'
+# #     expected: '0'
+# # Looks like you failed 1 test of 138.
+# FAILED at test 94
+#
+# This failure is worked around by setting BUILDTOOLS_KEEP_GOING, but a better
+# solution would be to find some combination of source code and compiler flags
+# that will allow the tests to build and succeed.
+#
+#########################################################
+
+
+
+echo today the environment is:
+uname -a
+head -1 /etc/motd
+/usr/sbin/psrinfo -v
+echo
+sleep 2
+
+PATH=/usr/bin:/bin
+export PATH
+echo PATH is $PATH and current dir is
+pwd
+echo
+sleep 2
+
+echo compiler version:
+cc -V
+echo
+sleep 2
+
+echo i am
+id
+echo
+sleep 2
+
+SKIPTOOLSINTRO="yes"
+export SKIPTOOLSINTRO
+
+# This is needed to disable the failing specsum tests.  It disables
+# all of the other tests too...
+BUILDTOOLS_KEEP_GOING="yes"
+export BUILDTOOLS_KEEP_GOING
+
+
+echo this script is
+echo =======================================================
+cat $0
+echo =======================================================
+echo
+sleep 2
+
+ZLIB_DEFINES=-DNO_vsnprintf
+export ZLIB_DEFINES
+
+XZFLAGS="ac_cv_prog_cc_c99="
+XZCFLAGS="-pthread -DPRIx64=\\\"llx\\\" -DPRIx32=\\\"x\\\""
+export XZFLAGS XZCFLAGS
+
+SUMCFLAGS="-O4 -DPRIuMAX=\\\"llu\\\" -DPRIx64=\\\"llx\\\" -I/tmp/tmpinclude"
+export SUMCFLAGS
+
+SPECINVOKECFLAGS="-DHAVE_STDBOOL_H -I."
+export SPECINVOKECFLAGS
+
+# src/system.h needs
+#   typedef uint64_t uintmax_t
+# So create a include file for it
+rm -rf /tmp/tmpinclude
+mkdir /tmp/tmpinclude
+cat >/tmp/tmpinclude/inttypes.h <<EOH
+#ifndef _FAKE_INTTYPES_H
+#define _FAKE_INTTYPES_H
+#include </usr/include/inttypes.h>
+typedef uint64_t uintmax_t
+#endif /* !_FAKE_INTTYPES_H */
+EOH
+
+
+cd tools/src
+
+# Control doing (or not) each build while debugging.
+# To use the DOxxx options, you have to SKIPALL first
+#SKIPALL=1
+#export SKIPALL
+#DOTOOLSRM=1
+#export DOTOOLSRM
+#DOCLEAN=1
+#export DOCLEAN
+#DOMAKE=1
+#export DOMAKE
+#DOXZ=1
+#export DOXZ
+#DOTAR=1
+#export DOTAR
+#DOSUM=1
+#export DOSUM
+#DOSPECINVOKE=1
+#export DOSPECINVOKE
+#DORXP=1
+#export DORXP
+#DOEXPAT=1
+#export DOEXPAT
+#DOPERL=1
+#export DOPERL
+#DOPERL2=1
+#export DOPERL2
+
+echo ./buildtools
+ksh ./buildtools
+
+echo
+echo
+cd ../..
+. ./shrc
+specperl -V
+echo
+echo Done
+

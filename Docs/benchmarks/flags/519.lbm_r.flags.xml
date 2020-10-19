@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags in 519.lbm_r.
+
+  Copyright 2013-2017 Standard Performance Evaluation Corporation
+
+  $Revision: 5894 $
+  $Date: 2018-04-13 18:53:49 -0400 (Fri, 13 Apr 2018) $
+-->
+<flagsdescription>
+
+<filename>519.lbm_r.flags</filename>
+
+<title>519.lbm_r Flags</title>
+
+<header>
+<![CDATA[
+<p>These are flags that appear in the benchmark sources, categorized as to
+   whether they are portability candidates, mandatory, or forbidden.</p>
+]]>
+</header>
+
+<!-- COLLIDE_STREAM is being ignored; it is set in the source code -->
+
+<flag name="DLARGE_WORKLOAD" class="mandatory">
+  This flag is supplied by the benchmark harness when building 619.lbm_s.  It
+  increases the size of the internal data structures.
+</flag>
+
+<flag name="D_OPENMP" class="forbidden">
+This macro must be set by the compilation system when building the benchmark
+with OpenMP parallelization.  It may not be set explicitly.
+</flag>
+
+
+</flagsdescription>

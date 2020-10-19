@@ -1,0 +1,40 @@
+
+=================================
+seed = 1
+count = 11
+
+%f sequence (unscaled):
+0.417022     
+0.092339     
+
+%d sequence (scaled) (1-2147483647):
+(     0.417022 * 0x7fffffff) + 1 = 895547923    
+(     0.092339 * 0x7fffffff) + 1 = 198295624    
+
+%f sequence (scaled):
+       895547922 / 0x7fffffffL = 0.417022     
+       198295624 / 0x7fffffffL = 0.092339     
+
+%d sequence (unscaled) (1-2147483647):
+895547922       
+198295624       
+
+=================================
+seed = -1
+count = 11
+
+%f sequence (unscaled):
+0.097632     
+0.969506     
+
+%d sequence (scaled) (1-2147483647):
+(     0.097632 * 0x7fffffff) + 1 = 209663186    
+(     0.969506 * 0x7fffffff) + 1 = 2081998143   
+
+%f sequence (scaled):
+       209663185 / 0x7fffffffL = 0.097632     
+      2081998143 / 0x7fffffffL = 0.969506     
+
+%d sequence (unscaled) (1-2147483647):
+209663185       
+2081998143      

@@ -1,0 +1,21 @@
+# This file contains a list of the benchmarks written in
+# C with other languages, from the fprate benchset.
+# It is automatically generated.
+
+$name        = 'fprate_mixed_c';
+$unitbase    = 'NOTAnyKindOfCPUmark';
+$metricbase  = 'some_or_none';
+$metric      = 'CPU2017';
+$ref         = 'ref';
+$train       = 'train';
+$test        = 'test';
+$output      = 0;
+@benchmarks = qw(
+        507.cactuBSSN_r
+        511.povray_r
+        521.wrf_r
+        526.blender_r
+        527.cam4_r
+);
+
+1;

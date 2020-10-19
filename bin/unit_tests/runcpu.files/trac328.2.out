@@ -1,0 +1,22 @@
+runcpu banner
+Using tools
+Reading file manifests...
+Loading runcpu modules...
+Locating benchmarks...found some benchmarks in some benchsets.
+Reading config file 'trac328.cfg'
+Notice: Ignored non-comment line in file <cfgdir>/trac328.cfg:
+  line 2: "%{option}"
+Pre-processed configuration file dump follows:
+--------------------------------------------------------------------
+# Invocation command line:
+# $SPEC/bin/harness/runcpu --configpp -c trac328.cfg
+# output_root was not used for this run
+############################################################################
+sysinfo_program=
+%{option}
+
+--------------------------------------------------------------------
+
+The log for this run is in [log file]
+
+runcpu finished at [timestamp]

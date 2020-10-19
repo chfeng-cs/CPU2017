@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE flagsdescription SYSTEM
+       "http://www.spec.org/dtd/cpuflags2.dtd">
+
+<!-- This file defines flags in 548.exchange2_r.
+
+  Copyright 2009-2017 Standard Performance Evaluation Corporation
+
+  $Revision: 5894 $
+  $Date: 2018-04-13 18:53:49 -0400 (Fri, 13 Apr 2018) $
+-->
+<flagsdescription>
+
+<filename>548.exchange2_r.flags</filename>
+
+<title>548.exchange2_r Flags</title>
+
+<header>
+<![CDATA[
+<p>548.exchange2_r does not use portability flags.</p>
+]]>
+</header>
+
+
+</flagsdescription>

@@ -1,0 +1,92 @@
+<!DOCTYPE html
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+      <link rel="STYLESHEET" href="https://www.spec.org/cpu2017/Docs/css/cpudocs.css" type="text/css" />
+<title>508.namd_r</title>
+<meta name="generator" content="Cloyce+VIM 6.2" />
+<meta name="revision"
+      content="$Id: namd.html 6320 2019-07-28 23:29:02Z JohnHenning $" />
+</head>
+
+<body>
+<div style="text-align: center">
+<h1>508.namd_r<br />
+SPEC CPU&reg;2017 Benchmark Description</h1>
+</div>
+ 
+<h3>Benchmark Name</h3>
+<p>508.namd_r</p>
+
+<h3>Benchmark Author</h3>
+<p>Jim Phillips &lt;jim &#x5b;at&#x5d; ks.uiuc.edu&gt;<br />
+Theoretical and Computational Biophysics Group<br />
+University of Illinois<br />
+Urbana-Champaign</p>
+
+<h3>Benchmark Program General Category</h3>
+<p>Scientific, Structural Biology, Classical Molecular Dynamics
+Simulation</p>
+ 
+<h3>Benchmark Description</h3>
+<p>The 508.namd_r benchmark is derived from the data layout and inner
+loop of NAMD, a parallel program for the simulation of large
+biomolecular systems.</p>
+<p>Although NAMD scales to over 200,000 cores for very large systems,
+serial performance is equally important to the over 50,000 users who
+have downloaded the program over the past decade.
+Almost all of the runtime is spent calculating inter-atomic interactions
+in a small set of functions.
+This set was separated from the bulk of the code to form
+a compact benchmark for CPU2017.</p>
+
+<h3>Input Description</h3>
+<p>The file <tt>apoa1.input</tt> is a 92224 atom simulation of apolipoprotein
+A-I and is used as a standard NAMD benchmark. This particular file
+format is created by NAMD 2.9 using the "dumpbench" command, and
+eliminates the need for file readers and other setup code from the
+benchmark. Test, train and ref read from the same input file, but run
+the code for different number of iterations. For ref the code is run
+for 49 iterations. For training 7 iterations should be used to properly
+weight pairlist creation and usage.</p>
+
+<h3>Output Description</h3>
+<p>CPU2017 uses the "<tt>--output namd.out</tt>" command-line option
+to produce an output file, <tt>namd.out</tt>,
+containing various checksums on the force calculations. These should
+be consistent across platforms, within roundoff error, and it is used for
+validation. </p>
+
+
+<h3>Known portability issues</h3>
+<p>The benchmark is written in conservative C++, is quite portable,
+and the inner loop code (module <tt>ComputeNonbondedStd.C</tt>) contains no
+aliasing. The erfc() function is required for startup. On Windows,
+<span style="white-space:nowrap; font-family:monospace;">-DSPEC_NEED_ERFC</span>
+is defined during compilation to build a version
+of erfc() for little-endian, 32-bit and 64-bit platforms. This is only
+needed for startup, and should not affect overall performance.</p>
+
+<h3 id="license">Sources and Licensing</h3>
+
+<p>NAMD was contributed directly to SPEC&reg; by the University of Illinois, and eventually became 508.namd_r.</p>
+
+<h3>Reference</h3>
+<ul>
+<li><a href=
+"http://www.ks.uiuc.edu/Research/namd/">http://www.ks.uiuc.edu/Research/namd/</a>
+</li>
+<li>James C. Phillips, Rosemary Braun, Wei Wang, James Gumbart,
+Emad Tajkhorshid, Elizabeth Villa, Christophe Chipot, Robert D. Skeel,
+Laxmikant Kale, and Klaus Schulten.
+Scalable molecular dynamics with NAMD.
+<em>Journal of Computational Chemistry</em>,
+<strong>26:1781-1802, 2005.</strong></li>
+</ul>
+
+<p style="border-top:thin solid black;">
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+
+</body>
+</html>

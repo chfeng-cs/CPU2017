@@ -1,0 +1,893 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+      <style type="text/css">
+td.fineprint { width:20%;font-size:85%; vertical-align:middle;}
+table.obs    { border:none; }
+td.obs       { text-align:left;  vertical-align:middle; font-size:85%; border:none; padding:0px 2px; margin:0em; }
+th.obs       { text-align:right; vertical-align:middle; font-size:85%; border:none; padding:0px 2px; margin:0em; }
+th.InstallType { font-family:sans-serif; color:#eeeeef; background:#446688; text-align: center; vertical-align:middle; }
+td.BuildNotes { font-size:85%; }
+td.toolset { white-space:nowrap; font-family:monospace; font-size:110%; font-weight:bold; }
+      </style>
+      <title>System Requirements - CPU 2017</title>
+      <!-- You'll want a nice wide screen when editing this .......................................................................... -->
+
+   </head>
+
+   <body> 
+
+      <h1 style="margin-bottom:4px;">SPEC CPU&reg;2017 System Requirements</h1>
+      <table class="version">
+         <tr>
+            <th>$Id: system-requirements.html 6309 2019-07-28 22:01:05Z JohnHenning $</th>
+            <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+         </tr>
+      </table>
+
+
+      <table>
+         <tr>
+            <td>
+               <p class="contents">Contents</p>
+               <p class="contentsl1">    <a href="#overview"     >Overview</a></p> 
+               <p class="contentsl1">    <a href="#intro"        >I.</a>&nbsp;Introduction</p> 
+               <p class="contentsl1">    <a href="#hw"          >II.</a> Hardware</p>
+               <p class="contentsl2">    <a href="#CPUs"              >A.</a> CPU</p>
+               <p class="contentsl2">    <a href="#memory"            >B.</a> Memory</p>
+               <p class="contentsl2">    <a href="#disk"              >C.</a> Disk </p>
+               <p class="contentsl1">    <a href="#sw"         >III.</a> Software</p>
+               <p class="contentsl2">    <a href="#os"                >A.</a>&nbsp;Operating&nbsp;System</p>
+               <p class="contentsl2">    <a href="#compilers"         >B.</a>&nbsp;Compilers or binaries</p>
+               <p class="contentsl1">    <a href="#install"     >IV.</a> Install media</p>
+               <p class="contentsl1">    <a href="#root"        >V.</a> Don't be root.  Don't be Administrator.  Turn
+               privileges off.  (Usually.)</p>
+               <p class="contentsl1">    <a href="#problems"    >VI.</a> Problems?</p>
+            </td>
+
+            <td style="vertical-align:middle;">
+               <table id="overview" style="margin-top:3em;">
+
+                  <tr>
+                     <th colspan="4" style="font-size:125%;" class="reverse">System Requirements Overview </th> 
+                  </tr>
+
+                  <tr>
+                     <th class="sansb" colspan="2">CPU </th>
+                     <td >ARM, Power ISA, SPARC, or x86.  </td>
+                     <td class="fineprint">Limitations apply. 
+                        See: <a href="#SupportedTools">Supported Toolsets</a>.
+                     </td>
+                  </tr>
+
+                  <tr>
+                     <th rowspan="2" class="sansb">Physical Memory</th>
+                     <th style="text-align:right;border-bottom:none;" class="sansb" >SPECspeed&reg; </th>
+                     <td >16&nbsp;GB</td>
+                     <td class="fineprint" rowspan="2">May vary: <a href="#memory">memory</a> detail. </td>
+                  </tr>
+                  <tr>
+                     <th style="text-align:right;border-top:none;" class="sansb" >SPECrate&reg; </th> 
+                     <td >1 to 2&nbsp;GB&nbsp;per&nbsp;copy</td> 
+                  </tr>
+
+                  <tr>
+                     <th rowspan="2" class="sansb">Disk Space</th>
+                     <th class="sansb" style="text-align:right;">Recommended</th>
+                     <td style="text-align:left;border-bottom:none;">250&nbsp;GB.  For SPECrate, add 1.2&nbsp;GB&nbsp;per&nbsp;copy</td>
+                     <td class="fineprint">
+                        May vary: see <a href="#disk">disk</a> detail.  
+                     </td>
+                  </tr>
+                  <tr>
+                     <td colspan="3">Other options are available for smaller installations: see <a
+                     href="#disk">disk</a> detail.
+                     </td>
+                  </tr>
+
+                  <tr>
+                     <th colspan="2" class="sansb">Operating System</th>
+                     <td >AIX, Linux, Mac OS X, Solaris, or Windows.  </td>
+                     <td class="fineprint">Limitations apply. 
+                        See: <a href="#SupportedTools">Supported Toolsets</a>.
+                     </td>
+                  </tr>
+
+                  <tr>
+                     <th colspan="2" class="sansb">Compilers</th>
+                     <td >
+                        <p class="snug">C99, C++2003, Fortran-2003. </p> 
+                        <p class="l1snug">or</p>
+                        <p class="snug">Pre-compiled benchmarks. </p>
+                     </td>
+                     <td class="fineprint">
+                        All 3 are required for <a class="external" href="runcpu.html#reportable">reportable</a>. See:
+                        <a href="#compilers">Compilers</a> and <a href="#binaries">Precompiled binaries</a>.
+                     </td>
+                  </tr>
+
+                  <tr> 
+                     <td colspan="4" class="reverse" style="font-size:60%;"> &nbsp; </td>
+                  </tr>
+
+               </table>
+            </td>
+         </tr>
+      </table>
+
+
+
+
+
+      <h2 id="intro">I. Introduction: Suites and Metrics</h2>
+
+      <div class="l1"> 
+
+         <p>This document describes the system requirements for SPEC CPU&reg;2017, a product of the SPEC&reg; non-profit
+         corporation <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  SPEC CPU 2017 
+         includes source code and data sets for 43 benchmarks, organized into 4 suites: </p>
+
+         <div class="l1"> 
+
+         <!-- ReUsable: benchmarks, tags, and suites -->
+         <table class="snugtop">
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;"><b>Short<br />Tag</b></td>
+               <td style="vertical-align:middle;"><b>Suite</b></td>
+               <td style="vertical-align:middle;"><b>Contents</b></td>
+               <td style="vertical-align:middle;"><b>Metrics</b></td>
+               <td style="font-size:85%;"><b>How many copies?<br />What do Higher Scores Mean?</b></td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">intspeed</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#intspeed">SPECspeed&reg;2017 Integer</a> </td>
+               <td style="vertical-align:middle;">10 integer benchmarks</td>
+               <td style="font-family:monospace;">SPECspeed2017_int_base<br />SPECspeed2017_int_peak</td>
+               <td style="font-size:85%;vertical-align:middle;" rowspan="2">SPECspeed suites always run one copy of each benchmark.
+                  <br />Higher scores indicate that less time is needed.
+               </td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">fpspeed</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#fpspeed">SPECspeed&reg;2017 Floating Point</a> </td>
+               <td style="vertical-align:middle;">10 floating point benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECspeed2017_fp_base<br />SPECspeed2017_fp_peak</td>
+            </tr>
+            <tr>
+               <td style="font-family:monospace;vertical-align:middle;">intrate</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#intrate">SPECrate&reg;2017 Integer</a> </td>
+               <td style="vertical-align:middle;">10 integer benchmarks</td>
+               <td style="vertical-align:middle;font-family:monospace;">SPECrate2017_int_base<br />SPECrate2017_int_peak</td>
+               <td style="font-size:85%;vertical-align:middle;" rowspan="2">SPECrate suites run multiple concurrent copies of
+                  each benchmark.  
+                  <br />The tester selects how many.
+                  <br />Higher scores indicate more <var>throughput</var> (work per unit of time). </td>
+            </tr>
+            <tr>
+               <td style="vertical-align:middle;font-family:monospace;vertical-align:middle;">fprate</td>
+               <td style="vertical-align:middle"><a class="external" href="index.html#fprate">SPECrate&reg;2017 Floating Point</a> </td>
+               <td style="vertical-align:middle;">13 floating point benchmarks</td>
+               <td style="font-family:monospace;">SPECrate2017_fp_base<br />SPECrate2017_fp_peak</td>
+            </tr>
+            <tr>
+               <td colspan="5" style="padding-top:3px;font-size:80%;">
+                  The "Short Tag" is the canonical abbreviation for use with <samp class="snugr">runcpu</samp>, where context
+                  is defined by the tools.  In a published document, context may not be clear.
+                  <br /> 
+                  To avoid ambiguity in published documents, the Suite Name or the Metrics should be spelled as
+                  shown above.
+               </td>
+            </tr>
+         </table>
+         <!-- end of ReUsable benchmarks, tags, and suites -->
+
+         </div>
+
+         <p>You may choose which suite(s) you would like to run (there is no requirement to run all of them), and your <span
+            class="alarm">choice affects hardware</span> requirements: both <a href="#memory">memory</a> and <a
+            href="#disk">disk</a> space differ between SPECspeed and SPECrate.</p>
+
+         <p>Having chosen a suite, if you will use your results in <a class="external"
+            href="https://www.spec.org/fairuse.html">public</a>, then you must run all the benchmarks in the suite (<a
+            class="external" href="https://www.spec.org/fairuse.html#ComplianceExceptions">exceptions</a>) and produce at
+         least the base metric.  The peak metric is optional.  If producing both base and peak, you will need more <a
+            href="#disk">disk</a> space.</p>
+
+      </div>
+
+
+      <h2 id="hw">II. Hardware requirements</h2>
+
+      <h3 id="CPUs">II.A. CPU
+         <span id="Cpus"> </span>
+         <span id="cpus"> </span>
+         <span id="Chips"> </span>
+         <span id="chips"> </span>
+      </h3>
+
+
+      <h4>II.A.1 CPUs supported</h4>
+
+      <div class="l1">
+
+         <p class="snugbot">SPEC supplies toolsets for ARM, Power ISA, SPARC, or x86.  
+         <br /><span class="alarm">Limitations apply:</span> </p>
+         <p class="l1snugtop">Although SPEC CPU suites are intended to be useful with a wide range of chip architectures,  in
+         some cases it is possible that you may find that your chip is not compatible with the available toolsets (for
+         example, if your chip is too old to run one of the supported OS+chip combinations).  See the section on <a
+         href="#SupportedTools">Supported Tools</a>.</p>
+
+      </div>
+
+
+      <h4 >II.A.2 CPUs: Physical, Virtual, SMP, OpenMP</h4>
+
+      <div class="l1">
+
+         <p>You can use SPEC CPU 2017 to measure the compute performance of a system with physical or virtual CPUs/processors.
+         You can choose to measure all of the processors on a system, or a subset.</p>
+
+         <p class="snugbot"><b>Typical: full system, all its CPUs</b></p>
+         <p class="l1snugtop">Usually SPEC CPU has been used to measure entire systems, with all of the physical
+         CPU chips. </p>
+
+         <p class="snugbot"><b>Alternatives: VM, partition, zone,...</b></p>
+         <p class="l1snugtop">There is no prohibition against using SPEC CPU 2017 to measure a subset of the CPU resources on a
+         system, for example with a Virtual Machine (VM), partition, zone, domain, container, processor set, core, hardware thread,
+         or other subset.</p>  
+
+         <p class="l1">If you use a subset (such as a VM), it must have enough <a href="#memory">memory</a> and <a
+            href="#disk">disk</a>.  For <a href="https://www.spec.org/fairuse.html" class="external">public</a> results, follow the
+         usual <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html">rules</a>. (Examples: 
+         use only methods that are documented, supported, and generally available to customers; 
+         fully disclose what you do, with sufficent detail so that the result can be reproduced; 
+         and if you enhance performance by doing something outside the subset -- such as temporarily
+         silencing all the "noisy neighbor" VMs -- fully disclose that, too.) </p>
+
+            
+         <p class="snugbot"><b>How many CPUs?</b> <span style="font-size:80%;">[<a href="#MultipleCPUs">link</a>]</span>.
+         <span id="Using-multiple-CPUs"> </span>
+         <span id="Using.multiple.CPUs"> </span>
+         <span id="UsingMultipleCpus"> </span>
+         <span id="Using_multiple_CPUs"> </span>
+         <span id="UsingmultipleCPUs"> </span>
+         <span id="using-multiple-CPUs"> </span>
+         <span id="using-multiple-cpus"> </span>
+         <span id="using.multiple.CPUs"> </span>
+         <span id="using.multiple.cpus"> </span>
+         <span id="usingMultipleCpus"> </span>
+         <span id="using_multiple_CPUs"> </span>
+         <span id="using_multiple_cpus"> </span>
+         <span id="usingmultipleCPUs"> </span>
+         <span id="usingmultiplecpus"> </span>
+
+         <span id="Multiple-CPUs"> </span>
+         <span id="Multiple.CPUs"> </span>
+         <span id="MultipleCPUs"> </span>
+         <span id="MultipleCpus"> </span>
+         <span id="Multiple_CPUs"> </span>
+         <span id="multiple-CPUs"> </span>
+         <span id="multiple-cpus"> </span>
+         <span id="multiple.CPUs"> </span>
+         <span id="multiple.cpus"> </span>
+         <span id="multipleCPUs"> </span>
+         <span id="multipleCpus"> </span>
+         <span id="multiple_CPUs"> </span>
+         <span id="multiple_cpus"> </span>
+         <span id="multiplecpus"> </span>
+
+         <span id="OpenMP"> </span>
+         <span id="Openmp"> </span>
+         <span id="openmp"> </span>
+
+         <span id="SPECrate"> </span>
+         <span id="Specrate"> </span>
+         <span id="specrate"> </span>
+
+         <span id="SPECspeed"> </span>
+         <span id="Specspeed"> </span>
+         <span id="specspeed"> </span>
+         </p>
+
+         <p class="l1snugtop">You can use SPEC CPU 2017 to measure performance with arbitrarily large numbers of processors.
+         Usually, if your operating system can handle it, the SPEC CPU toolset can also handle it; if not, <a class="external"
+            href="https://www.spec.org/cpu2017/Docs/techsupport.html">contact SPEC</a>.  (Of course, you must meet the
+            other requirements of this document, such as sufficient <a href="#disk">disk</a> and <a href="#memory">memory</a>
+            for your intended test.)</p>
+
+         <p class="l1snug"><b>SPECrate</b> suites run multiple identical jobs at the same time.</p>
+         <p class="l2snug">Typically, your OS spreads them across CPUs
+         using capabilities known as <b>SMP</b> (Symmetric MultiProcessing).</p>
+         <p class="l1snug"><b>SPECspeed</b> suites run a single job at a time.</p>
+         <p class="l2snug">Some of the jobs can use multiple CPUs via <b>OpenMP</b> or 
+         compiler auto-parallelization.</p>
+
+         <p class="l1">The above points are summarized in the table below  </p>
+
+         <table class="l2"> 
+            <tr>
+               <th class="reverse" colspan="3" >SPEC CPU 2017 use of multiple CPUs</th>
+            </tr>
+
+            <tr>
+               <th class="sansb" >&nbsp;</th>
+               <th class="sansb" >SPECspeed</th>
+               <th class="sansb" >SPECrate</th>
+            </tr>
+
+            <tr>
+               <th class="sansb">Copies</th>
+               <td>Only one copy of each benchmark is run at a time.</td>
+               <td>Multiple copies of each benchmark run simultaneously.</td>
+            </tr>
+
+            <tr>
+               <th class="sansb">Compiler Parallelism</th>
+               <td>May be compiled using OpenMP and/or compiler automatic parallelism.</td>
+               <td>OpenMP and compiler autopar are forbidden.</td>
+            </tr>
+
+            <tr>
+               <th class="sansb">How To</th>
+               <td>
+                  At build time, <a class="external" 
+                     href="https://www.spec.org/cpu2017/Docs/config.html#OpenMP">enable OpenMP</a>.
+                  <br />Use <a class="external" href="runcpu.html#threads">runcpu --threads=N</a> 
+                  <br />or the corresponding <a class="external" href="config.html#threads">config file</a> feature. 
+               </td>
+               <td>Use <a class="external" href="runcpu.html#copies">runcpu --copies</a> 
+                  <br />or the corresponding <a class="external" href="config.html#copies">config file</a> feature.
+               </td>
+            </tr>
+         </table>
+
+      </div>
+
+
+      <h3 id="memory" style="margin-bottom:.05em;">II.B. Memory</h3>
+
+      <p style="margin-top:.1em;margin-bottom:2em;font-size:75%;">(In this section, 1&nbsp;GB&nbsp;=&nbsp;2^30&nbsp;bytes.) </p>
+
+      <p class="snugbot"><b>Physical Memory</b>  </p>
+
+      <table class="l3">
+         <tr>
+            <th rowspan="2">SPECrate</th>
+            <td style="text-align:right;"><kbd>1&nbsp;GB</kbd></td>
+            <td><b>per copy</b>, if compiled for a 32-bit address space. </td>
+         </tr>
+         <tr>
+            <td style="text-align:right;"><kbd>2&nbsp;GB</kbd></td>
+            <td><b>per copy</b>, if compiled for a 64-bit address space.</td>
+         </tr>
+         <tr>
+            <th>SPECspeed</th>
+            <td style="text-align:right;"><kbd>16&nbsp;GB</kbd></td>
+            <td>minimum system main memory.  </td>
+         </tr>
+         <tr>
+            <td style="font-size:75%;" colspan="3">Your needs may vary; see warnings <a href="#nominal">below</a>.  </td>
+         </tr>
+      </table>
+
+
+
+      <p class="snugbot"><b>Virtual Memory</b></p>
+
+      <table class="l3">
+         <tr>
+            <th>SPECrate</th>
+            <td><kbd class="nb">-m32</kbd><br /><kbd class="nb">-m64</kbd></td>
+            <td>You may be able to choose 32-bit or 64-bit compiles, depending on your OS, compiler, and libraries.
+               <br />Check your
+               compiler documentation for switches such as <kbd class="nb">-m32</kbd> and <kbd class="nbsnugr">-m64</kbd>.</td>
+         </tr>
+         <tr>
+            <th>SPECspeed</th>
+            <td><kbd class="nb">-m64</kbd></td>
+            <td>The SPECspeed benchmarks do not fit in 32 bits.  
+               <br />Compile them for 64 bits (for example via <kbd
+                  class="nbsnugr">-m64</kbd>).  
+               <br />Process limits must allow large stacks.</td>
+         </tr>
+         <tr>
+            <td style="font-size:75%;" colspan="3">Your needs may vary; see warnings <a href="#nominal">below</a>.  </td>
+         </tr>
+      </table>
+
+
+      <p class="snugbot"><b>More detail</b> </p>
+
+      <div class="l1">
+
+         <p class="snugbot">The nominal memory requirements are based on pre-release testing by SPEC using Linux with GCC and </p>
+         <pre class="l1snugish">
+-m64          for SPECspeed 
+-m32          for SPECrate
+ps -o vsz     to record memory usage </pre>
+
+         <p class="snug">which measured the SPECrate benchmarks at 0.89&nbsp;GB and SPECspeed at 14.99&nbsp;GB, 
+         thus leaving a small margin for overhead vs. the nominal 1&nbsp;GB and 16&nbsp;GB.</p> 
+
+         <p>If you compile the SPECrate benchmarks in 64-bit mode, more memory will be needed.  On one system that was tested
+         prior to the release of SPEC CPU 2017, the largest benchmark used 1450 MB when compiled with <samp class="nbsnugr">-m64</samp>.  Your
+         system might need more.</p>  
+
+         <p>The SPECspeed benchmark 627.cam4_s needs large stacks, both for the main process (typically controlled via
+         <samp class="nbsnugr">ulimit -s</samp>) and for OpenMP threads (typically controlled through your config file setting of
+         environment variables).  See the 
+         <a href="https://www.spec.org/cpu2017/Docs/faq.html#Miscompare.07" class="external">FAQ</a> item on cam4.</p>
+
+
+      </div>
+      <p id="nominal" class="snugbot"><span class="alarm">Warnings:</span></p>
+         <ul class="snugish">
+      <li>Your memory needs may differ.</li>
+            <li>Some systems have more overhead than others.</li>
+            <li>Memory usage may vary depending on type of hardware, operating system, compiler, tuning, and other
+               factors.</li>
+            <li>Compiling SPECrate for 64-bit environments requires more memory than 32-bit. </li>
+            <li>When an operating system runs out of memory, errors may occur that are difficult to diagnose. </li>
+      <li>Your memory needs may differ.</li>
+         </ul>
+
+
+
+
+         <h3 id="disk" style="margin-bottom:.05em;">II.C. Disk space
+   <span id="Disk-Space"> </span>
+   <span id="Disk.Space"> </span>
+   <span id="DiskSpace"> </span>
+   <span id="Disk_Space"> </span>
+   <span id="disk-space"> </span>
+   <span id="disk.space"> </span>
+   <span id="diskSpace"> </span>
+   <span id="disk_space"> </span>
+   <span id="diskspace"> </span>
+
+   <span id="Disk"> </span>
+
+   <span id="DASD"> </span>
+   <span id="Dasd"> </span>
+   <span id="dasd"> </span>
+
+      
+      </h3>
+      <p style="margin-top:.1em;margin-bottom:2em;font-size:75%">(In this section, 1&nbsp;GB&nbsp;=&nbsp;10^9&nbsp;bytes.) </p>
+
+      <div class="l1">
+
+         <p>The disk space recommendations below are only estimates.  Your environment may differ.</p>
+
+
+         <table>
+            <tr>
+               <th class="sansb" style="border-top:none;">Installation Type</th>
+               <th class="sansb" style="padding-left:2em;border-top:none;">Intended Usage </th>
+               <td class="obs" style="width:35%;"><b>Detail:</b> observations from one user's system.
+                  <span class="alarm">Yours may differ!</span>
+               </td>
+            </tr>
+
+            <tr>
+               <th class="InstallType">Development
+                  <br />250&nbsp;GB 
+                  <br />+
+                  <br />1.2&nbsp;GB&nbsp;/&nbsp;copy
+               </th>
+               <td>
+                  <ul class="snug">
+                     <li>Install, compile, and run on a single system.</li>  
+                     <li>Do tuning runs.  Test compiler options.</li>
+                     <li>Keep 2 to 4 sets of builds and runs.</li>
+                     <li>  Eventually you will still need <a
+                        class="external" href="runcpu.html#cleaning">clean up</a>.</li>
+                  </ul> 
+               </td>
+               <td>
+                  <table class="obs">
+                     <tr>
+                        <th class="obs">2.5&nbsp;GB</th>  <!-- johns actual: 2.4 -->
+                        <td class="obs">Install SPEC CPU 2017</td>
+                     </tr>
+                     <tr>
+                        <th class="obs">26&nbsp;GB</th> <!-- johns actual: 25.5, consisting of 
+                        speed = (1.04 exe + 4.82 build) * 2 (base/peak) = 11.72 plus
+                        rate = (1.30 exe * 2) + 5.04 base + 6.13 peak) = 13.77  -->
+                        <td class="obs">Build base+peak for all 4 suites </td>
+                     </tr>
+                     <tr>
+                        <th class="obs">34&nbsp;GB </th> <!-- johns actual: 33.6 consisting of 
+                        speed = 9.1*2 = 18.2 plus 
+                        rate = 7.7*2 = 15.4   -->
+                        <td class="obs">Reportable directories, base+peak, 4 suites, 1 copy</td>
+                     </tr>
+                     <tr>
+                        <th class="obs">
+                           0.6&nbsp;GB  <!-- johns actual: 0.55, from (intrate base 0.200 + fprate base 0.074) * 2 -->
+                        </th>
+                        <td class="obs">Add another copy to intrate and fprate, base+peak</td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+
+            <tr>
+               <th class="InstallType">Reportable&nbsp;Basic<br />
+                 40 GB
+                  <br />+
+                  <br />0.8&nbsp;GB&nbsp;/&nbsp;copy
+               </th>
+               <td> 
+                  <ul class="snug">
+                     <li>Install binaries built elsewhere.  </li>
+                     <li>Use <a class="external" href="runcpu.html#reportable">--reportable</a> for 1 suite 
+                     <br />(intrate, fprate, intspeed, or fpspeed)</li>
+                     <li>Requires <a href="runcpu.html#cleaning" class="external">clean up</a> between suites. </li>
+                     <li>Cannot select multiple suites with one runcpu command</li>
+                  </ul>
+               </td>
+               <td>
+                  <table class="obs">
+                     <tr>
+                        <th class="obs">2.5&nbsp;GB</th>  <!-- johns actual: 2.4 -->
+                        <td class="obs">Install SPEC CPU 2017</td>
+                     </tr>
+                     <tr>
+                        <th class="obs">
+                           5&nbsp;GB <!-- johns actual: (1.04 peak speed + 1.30 peak rate) * 2 to include base+peak = 4.7 -->
+                        </th>
+                        <td class="obs">
+                           Install benchmark binaries (base+peak) for all 4 suites 
+                        </td>
+                     </tr>
+                     <tr>
+                        <th class="obs">
+                           10&nbsp;GB <!-- johns actual: 4.7 for largest single set (int speed peak) * 2 for base+peak = 9.4 -->
+                        </th>
+                        <td class="obs">Reportable directories, base+peak, 1 suite, 1 copy<br /></td>
+                     </tr>
+                     <tr>
+                        <th class="obs">
+                           0.4&nbsp;GB  <!-- johns actual: largest = intrate at 0.198 * 2 (for base+peak) = 0.4 -->
+                        </th>
+                        <td class="obs">Add another copy, base+peak, 1 suite</td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+
+            <tr>
+               <th class="InstallType">Minimized
+                  <br /> 10 GB
+                  <br />+
+                  <br />0.2 GB / copy
+               </th>
+               <td> 
+                  <ul class="snug">
+                     <li><span class="alarm">Cannot</span> do reportable runs.  </li>
+                     <li><span class="alarm">Cannot</span> build a full suite<span style="font-size:85%;" > 
+                        (intrate, fprate, intspeed, fpspeed)</span></li>
+                     <li>Can build and run 1 benchmark <span style="font-size:85%;">(e.g. 500.perlbench_r)</span>  </li>
+                     <li>Must use <a class="external" href="config.html#minimize_builddirs">minimize_builddirs</a>.</li>
+                     <li>Must <a class="external" href="runcpu.html#cleaning">runcpu --action=clobber</a> frequently </li> 
+                  </ul>
+               </td>
+               <td>
+                  <table class="obs">
+                     <tr>
+                        <th class="obs">2.5&nbsp;GB</th>  <!-- johns actual: 2.4 -->
+                        <td class="obs">Install SPEC CPU 2017</td>
+                     </tr>
+                     <tr>
+                        <th class="obs">2.5&nbsp;GB</th> <!-- johns actual: 2.25 for largest single bmark, 625.x264_s -->
+                        <td class="obs">Build and run largest single benchmark, <a class="external"  
+                        href="config.html#minimize_builddirs">minimize_builddirs</a>, base only </td>
+                     </tr>
+                     <tr>
+                        <th class="obs">0.1 GB </th> <!-- johns actual: largest=502.gcc at 0.06 -->
+                        <td class="obs">Add another copy, base only, largest single benchmark </td>
+                     </tr>
+                  </table>
+               </td>
+            </tr>
+
+            <tr>
+               <td colspan="3" style="font-size:85%;">
+                  The "Detail" column on the right shows actual disk space usage on one particular system.
+                  <br />Your usage may differ, due to hardware, operating system, disk type, file system type, compiler, and,
+                  especially, compiler tuning.  
+                  <br />The far left column is a factor of 2x to 4x the detail column. 
+                  <br />Once you know the space consumption pattern for your hw/sw, you might
+                  adjust the above calculations to be more accurate for your needs.
+               </td>
+            </tr>
+
+         </table>
+
+
+      </div>
+
+
+      <h2 id="sw">III. Software requirements</h2>
+
+      <h3 id="os">III.A. Operating System
+         <span id="Operating-Systems"> </span>
+         <span id="Operating.Systems"> </span>
+         <span id="OperatingSystems"> </span>
+         <span id="Operating_Systems"> </span>
+         <span id="operating-systems"> </span>
+         <span id="operating.systems"> </span>
+         <span id="operatingSystems"> </span>
+         <span id="operating_systems"> </span>
+         <span id="operatingsystems"> </span>
+
+         <span id="Operating-System"> </span>
+         <span id="Operating.System"> </span>
+         <span id="OperatingSystem"> </span>
+         <span id="Operating_System"> </span>
+         <span id="operating-system"> </span>
+         <span id="operating.system"> </span>
+         <span id="operatingSystem"> </span>
+         <span id="operating_system"> </span>
+         <span id="operatingsystem"> </span>
+         <span id="Supported-tools"> </span>
+         <span id="Supported.tools"> </span>
+         <span id="SupportedTools"> </span>
+         <span id="Supported_tools"> </span>
+         <span id="Supportedtools"> </span>
+         <span id="supported-tools"> </span>
+         <span id="supported.tools"> </span>
+         <span id="supportedTools"> </span>
+         <span id="supported_tools"> </span>
+         <span id="supportedtools"> </span>
+
+         <span id="Tools"> </span>
+         <span id="tools"> </span>
+
+         <span id="Tool-sets"> </span>
+         <span id="Tool.sets"> </span>
+         <span id="ToolSets"> </span>
+         <span id="Tool_sets"> </span>
+         <span id="Toolsets"> </span>
+         <span id="tool-sets"> </span>
+         <span id="tool.sets"> </span>
+         <span id="toolSets"> </span>
+         <span id="tool_sets"> </span>
+         <span id="toolsets"> </span>
+
+         <span id="OS"> </span>
+
+      </h3> 
+
+      <div class="l1"> 
+
+         <p>The SPEC CPU 2017 toolset relies on several open source components, including GNU Make, Perl, and others.  SPEC
+         supplies pre-built versions of these for particular combinations of hardware and operating system, as shown in the
+         table below.</p>  
+
+         <table style="margin:2em 4em;"> 
+            <tr>
+               <th class="reverse" colspan="2">Supported Toolsets for SPEC CPU 2017 V1.0</th>
+            </tr>
+            <tr>
+               <th class="sansb">Toolset</th>
+               <th class="sansb">Intended Use</th>
+            </tr>
+            <tr>
+               <td class="toolset">aix-ppc</td>
+               <td>64-bit PowerPC systems running AIX V7.1 or later.</td>
+            </tr>
+            <tr>
+               <td class="toolset">linux-aarch64</td>
+               <td>64-bit AArch64 systems running Linux.</td>
+            </tr>
+            <tr>
+               <td class="toolset">linux-armv7l</td>
+               <td>Linux systems with ARM Cortex-A7-compatible CPUs. </td>
+            </tr>
+            <tr>
+               <td class="toolset">linux-ppc</td>
+               <td>32-bit PowerPC systems running Linux.</td>
+            </tr>
+            <tr>
+               <td class="toolset">linux-ppc64</td>
+               <td>64-bit big-endian PowerPC Linux systems</td>
+            </tr>
+            <tr>
+               <td class="toolset">linux-ppc64le</td>
+               <td>64-bit little-endian PowerPC Linux systems</td>
+            </tr>
+            <tr>
+               <td class="toolset">linux-sparc</td>
+               <td>64-bit Linux systems on SPARC hardware</td>
+            </tr>
+            <tr>
+               <td class="toolset">linux-x86_64</td>
+               <td>x86_64 Linux systems</td>
+            </tr>
+            <tr>
+               <td class="toolset">macosx-x86</td>
+               <td>MacOS X 10.6+ on Intel systems.</td>
+            </tr>
+            <tr>
+               <td  class="toolset">solaris-sparc</td>
+               <td>64-bit SPARC systems running Solaris 10 08/11 or later, including Solaris 11 and later.</td>
+            </tr>
+            <tr>
+               <td class="toolset">solaris-x86</td>
+               <td>x86 systems running Solaris 10 08/11 or later, including Solaris 11 and later.</td>
+            </tr>
+            <tr>
+               <td class="toolset">windows-x64</td>
+               <td>Windows systems running Windows 7 or later</td>
+            </tr>
+
+            <tr>
+               <td colspan="2">
+                  <p class="snug"><span class="alarm">Limitations apply:</span> Although SPEC has tested the above, it is
+                  possible that you may enounter an OS+chip combination that is not compatible with its intended toolet.  In
+                  such cases: </p>
+
+                  <ul class="snug">
+                     <li>Please ensure that your OS+chip meets the minimum required version.</li>
+                     <li>Please check the list of <a href="https://www.spec.org/cpu2017/Docs/faq.html" class="external">Frequently
+                           Asked Questions</a></li>
+                     <li>If the tools still fail, please consult 
+                        <a href="https://www.spec.org/cpu2017/Docs/techsupport.html" class="external">Technical Support</a>.
+                     </li>
+                  </ul>
+               </td>
+            </tr>
+
+         </table>
+
+         <p style="margin-top:2em;" class="snugbot"><b>What about other systems?</b> For systems that are not listed in the
+         table of supported toolsets:</p>
+         <ul>
+            <li>It is possible that the tools might work, but SPEC has not tested them.  </li>
+            <li><p>If the tools do not work, it might or might not be possible for you to build them yourself.</p>
+               <p class="l1">If you would like to try to build the tools, please see the document <a class="external"
+               href="tools-build.html">Building the SPEC CPU017 Toolset</a>.  
+            <br />SPEC may be able to <a href="techsupport.html" class="external">provide advice</a> for your build; however,
+            it will not always be practical for SPEC to do so.
+            <br />You might not succeed.</p></li>
+
+            <li><p class="snug">SPEC CPU 2017 V1.0 includes two unsupported toolsets:</p>
+               <ul class="snugish">
+                  <li><kbd class="nb">tru64-alpha</kbd>  64-bit Tru64 UNIX V5.1 or later</li>
+                  <li><kbd class="nb">hpux11iv3-ipf</kbd> For IPF systems running HP-UX 11iv3 or later.</li>
+               </ul>
+               <p class="snugtop">These toolsets have received less testing than other tool sets.  More importantly, if you
+               try them, you are very likely to find unresolved benchmark portability problems.  Nevertheless, the toolsets
+               are provided as a courtesy for possible interest, perhaps when benchmarking historical systems.  It is
+               doubtful that you would complete a reportable run with them; you might be able to 
+               <a class="external" href="runrules.html#estimates">estimate</a> performance from partial runs.  If you develop
+               performance-neutral source changes to allow more benchmarks to complete, you might want to 
+               <a class="external" href="techsupport.html">write</a> to SPEC to suggest inclusion of your patches in future
+               versions.</p>
+            </li>
+         </ul>
+
+      </div>
+
+
+      <h3 id="compilers">III.B. Compilers or binaries</h3> 
+
+      <div class="l1">
+
+         <p>SPEC supplies the benchmarks in source code form.  Therefore, you will need either:</p>
+         <ol style="list-style:decimal">
+            <li>A set of compilers.  All three are needed:
+               <ol style="list-style:lower-alpha">
+                  <li>C99</li>
+                  <li>C++2003</li>
+                  <li>Fortran 2003</li>
+               </ol>
+
+               <p>--or--</p></li>
+
+            <li id="binaries">A pre-compiled set of benchmark binaries (executables), given to you by another user of the
+               same revision of SPEC CPU 2017.  
+               <br /><span class="alarm">Note</span> that SPEC does not supply binaries.  As mentioned above, SPEC supplies source code.
+               <br />Binaries generated by a different revision of SPEC CPU 2017 will not work.  
+               <br />You
+               might also need a set of run-time libraries for those executables.  
+               <br />Note that even if someone else compiles
+               the benchmarks, the <span class="caution">tester is responsible</span> for compliance with the rules: do
+               <span class="caution">not</span> accept binaries from untrusted sources. </li>
+         </ol>
+
+         <p><span class="new">New with CPU 2017</span>, the integer suites include a Fortran benchmark.  
+         <br />Reportable runs for all suites require compilation of all three languages (C, C++, Fortran).</p>
+
+         <p class="snugbot"><b>Config file</b></p>
+         <ul class="snugish">
+            <li>To compile the benchmarks, you will need a <var>config file</var>: a file that defines how to build, run,
+               and report on the SPEC CPU benchmarks in a particular environment.  </li>
+            <li>You might be able to use or modify one of the Example config files that are included with your installed copy
+               of SPEC CPU 2017, or a config file from a result published at 
+               <a class="external" href="https://www.spec.org/cpu2017/">wwww.spec.org/cpu2017</a>.   The installation guides
+               provide guidance (<a class="external" href="install-guide-unix.html#config">unix</a>, 
+               <a class="external" href="install-guide-windows.html#config">windows</a>). </li>
+            <li>Some compilers might not have working examples, and you may need to write your own config file using the <a
+                  class="external" href="config.html">documentation</a>.  </li>
+            <li>Occasionally, it might not be possible to create a working config file because a compiler does not support
+               features that are used in the benchmarks.   If that occurs, you will need to discuss such problems with the
+               compiler vendor, not with SPEC.</li>
+         </ul>
+
+      </div>
+
+
+
+      <h2 id="install">IV. Install Media</h2>
+
+      <div class="l1">
+
+         <p>You should be familiar either with basic shell commands for Unix (<samp class="snuglr">ls, cp, mkdir ...</samp>) or basic commands
+         for the Windows Command Prompt (<samp class="snuglr">dir, copy, mkdir...</samp>).</p>
+
+         <p id="ISO">You will need access to the SPEC CPU 2017 installation media, typically as an ISO image.  The Installation
+         Guides&nbsp;(<a class="external" href="install-guide-unix.html">Unix</a>&nbsp;<a class="external"
+            href="install-guide-windows.html">Windows</a>) explain how to use it.  </p>
+
+         <p>On some systems, the mount command may require privileges or may require additional software.  In such cases, you
+         might need to burn a physical DVD using some other system; or, you might need to use the procedure described in the
+         appendix to the <a class="external" href="install-guide-unix.html">Unix installation guide</a> to extract a tarball
+         and use that instead.</p>
+
+         <p class="l1">Please note that the SPEC CPU 2017 <span class="alarm">license agreement does not allow</span> you to
+         post the SPEC CPU 2017 software on any public server.  If your institution has a SPEC CPU 2017 license, then it's fine to
+         post it on an internal server that is accessible only to members of your institution.</p>
+
+      </div>
+
+      <h2 id="root">V. Don't be root.  Don't run as Administrator.  Turn privileges off. (Usually.)</h2>
+
+      <p class="l1">Usually, you do not need privileges.  The one known exception is that during installation, on some systems it is
+      possible that you might need a privileged user to mount the installation media or to allocate resources, for example disk
+      space.  </p>
+      
+      <p class="l1">After installation is complete, you should not need privileges to run SPEC CPU benchmarks. In general, it is
+      recommended that you use an ordinary user account for SPEC CPU; that way, if your config file accidentally tries to
+      delete the wrong directory, you are much less likely to damage your system.</p>
+
+
+   <p style="margin:.5em 1em .2em 6em; text-indent:-4em;"> 
+   <span class="alarm">Warning:</span> SPEC CPU config files can execute <span class="caution"> arbitrary </span><a
+         class="external" href="config.html#shell" >shell</a> commands.
+      <br />Read a config file before using it.</p>
+
+      <p class="l1snugbot"> SPEC recommends: </p>
+      <ul class="l2snugtop">
+         <li>Do not become "root" on Unix systems.  </li>
+         <li>Do not "run as administrator" on Microsoft Windows systems. </li> 
+         <li>On all systems, turn privileges off.</li>  
+         <li>If you discover that an ordinary user account cannot run a benchmark, figure out what specific permission is
+            needed (example: write permission for <samp class="snugr">%SPEC%</samp>) or what specific resource needs adjusting (example: stack
+            hard <samp class="snugr">ulimit</samp>).  Acquire privileges only long enough to fix the specific permission or specific resource,
+            then turn privileges off again.</li>
+      </ul>
+
+      <h2 id="problems">VI. Problems?</h2>
+
+      <p>In case of difficulties, please check the document <a class="external" href="faq.html">SPEC CPU 2017 Frequently Asked
+         Questions</a>.</p>
+
+
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 System Requirements:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+
+   </body>
+</html>
+

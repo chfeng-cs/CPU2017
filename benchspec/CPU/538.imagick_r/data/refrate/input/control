@@ -1,0 +1,5 @@
+# Format is:
+# exename outputfile errfile time? arg [arg...]
+#
+convert refrate_convert.out refrate_convert.err -limit disk 0 refrate_input.tga -edge 41 -resample 181% -emboss 31 -colorspace YUV -mean-shift 19x19+15% -resize 30% refrate_output.tga
+imagevalidate refrate_validate.out refrate_validate.err -avg -threshold 0.95 -maxthreshold 0.001 refrate.tga

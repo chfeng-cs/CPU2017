@@ -1,0 +1,914 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <meta name="Author" content="$Id: result-fields.html 6358 2019-08-16 19:59:38Z JohnHenning $" />
+      <!-- You'll want a nice wide screen when editing this .......................................................................... -->
+      <title>Result Files - CPU 2017</title>
+
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+
+      <style type="text/css">
+th {font-weight:bold; font-family:sans-serif;}
+      </style>
+   </head>
+
+   <body>
+      <!-- This should be a pretty complete list of links that are likely to come
+         out of any CPU 2017 result.
+      -->
+      <div class="center">
+         <h1>SPEC CPU&reg;2017 Result File Fields</h1>
+         <table class="version">
+            <tr>
+               <th style="font-weight:normal">$Id: result-fields.html 6358 2019-08-16 19:59:38Z JohnHenning $</th>
+               <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+            </tr>
+         </table>
+      </div>
+
+
+      <p>This document provides a glossary that briefly defines terms that are used in
+      reports from the SPEC CPU&reg;2017 benchmarks, a product of the SPEC&reg; non-profit corporation 
+      <a href="https://www.spec.org/spec/" class="external">(about SPEC)</a>.  
+      Typically you arrive somewhere in the middle of this document by following a link from a
+      report; rarely would someone sit down to read this top to bottom.
+      <br />If you are that rare someone: Welcome!  </p>
+
+<div style="border-top:thin solid gray;width:700px;margin-left:5em;">
+   <p class="snug"><b>Contents</b></p> 
+
+      <p class="contentsl1">Top Matter</p>
+      <p class="contentsl2"><a href="#sec_topbar">Report Titles</a></p>
+      <p class="contentsl2"><a href="#metric">Performance Metrics</a></p>
+      <p class="contentsl2"><a href="#energy">Energy Metrics</a></p>
+      <p class="contentsl2"><a href="#testerAndDate">Tester and Date Info</a></p>
+      <p class="contentsl1">Benchmark-by-benchmark result details</p>
+      <p class="contentsl2"><a href="#resultsTable">Results Table</a></p>
+      <p class="contentsl1">Descriptions</p>
+      <p class="contentsl2"><a href="#testersNotes">Tester-provided notes</a></p>
+      <p class="contentsl2"><a href="#Flags">Flags</a></p>
+      <p class="contentsl2"><a href="#Hardware">Hardware description</a></p>
+      <p class="contentsl2"><a href="#Software">Software description</a></p>
+      <p class="contentsl2"><a href="#Power">Power and Temperature information</a></p>
+      <p class="contentsl2last"><a href="#Other">Other information</a></p>
+</div>
+
+
+      <h2 id="sec_topbar">Report Titles</h2>
+
+      <table>
+         <tr>
+            <th id="SPECCPU2017FloatingPointRateResult">SPEC CPU&reg;2017 Floating Point Rate Result</th>
+            <td>Report for  measurements that use a suite of 13 floating-point intensive benchmarks.
+               <br />Higher scores = more throughput.
+               <br />The tester chooses how many copies to run.
+               <div style="font-size:80%;">
+                  [<a class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SuitesAndBenchmarks">Suites and Benchmarks</a>]
+                  [<a class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SpeedAndRate">SPECspeed&reg; and SPECrate&reg;</a>]
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <th id="SPECCPU2017FloatingPointSpeedResult">SPEC CPU&reg;2017 Floating Point Speed Result</th>
+            <td>Report for  measurements that use a suite of 10 floating-point intensive benchmarks.
+               <br />Higher scores = shorter times.
+               <br />One copy of one program is run at a time.
+               <div style="font-size:80%;">
+                  [<a class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SuitesAndBenchmarks">Suites and Benchmarks</a>]
+                  [<a class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SpeedAndRate">SPECspeed&reg; and SPECrate&reg;</a>]
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <th id="SPECCPU2017IntegerRateResult">SPEC CPU&reg;2017 Integer Rate Result</th>
+            <td>Report for  measurements that use a suite of 10 integer intensive benchmarks.
+               <br />Higher scores = more throughput.
+               <br />The tester chooses how many copies to run.
+               <div style="font-size:80%;">
+                  [<a class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SuitesAndBenchmarks">Suites and Benchmarks</a>]
+                  [<a class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SpeedAndRate">SPECspeed&reg; and SPECrate&reg;</a>]
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <th id="SPECCPU2017IntegerSpeedResult"> SPEC CPU&reg;2017 Integer Speed Result</th>
+            <td>Report for  measurements that use a suite of 10 integer intensive benchmarks.
+               <br />Higher scores = shorter times.
+               <br />One copy of one program is run at a time.
+               <div style="font-size:80%;">
+                  [<a class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SuitesAndBenchmarks">Suites and Benchmarks</a>]
+                  [<a class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SpeedAndRate">SPECspeed&reg; and SPECrate&reg;</a>]
+               </div>
+            </td>
+         </tr>
+      </table>
+
+      <h2 id="metric">
+         <span id="SPECspeed2017intbase"> </span>
+         <span id="SPECspeed2017intpeak"> </span>
+         <span id="SPECspeed2017fpbase">  </span>
+         <span id="SPECspeed2017fppeak">  </span>
+         <span id="SPECrate2017intbase">  </span>
+         <span id="SPECrate2017intpeak">  </span>
+         <span id="SPECrate2017fpbase">  </span>
+         <span id="SPECrate2017fppeak">  </span>
+         Performance Metrics</h2>
+
+      <table>
+         <tr>
+            <th style="vertical-align:middle;">Metric</th>
+            <th style="vertical-align:middle;text-align:center;">Depends on</th>
+            <th>Overall ratio<br />for suite of</th>
+            <th>Compile <br />method</th>
+         </tr>
+         <tr>
+            <th > SPECspeed2017_int_base</th>
+            <td style="text-align:center;vertical-align:middle;" rowspan="4">Time required,
+               <br /> running 1 task at a time.
+               <br /><span style="font-size:85%;">Higher score=better performance.</span></td>
+            <td style="vertical-align:middle;" rowspan="2">10 integer <br />benchmarks</td>
+            <td>Less aggressive</td>
+         </tr>
+         <tr>
+            <th  > SPECspeed2017_int_peak</th>
+            <td>More aggressive</td>
+         </tr>
+         <tr>
+            <th > SPECspeed2017_fp_base</th>
+            <td style="vertical-align:middle;" rowspan="2">10 floating point <br />benchmarks</td>
+            <td>Less aggressive</td>
+         </tr>
+         <tr>
+            <th  > SPECspeed2017_fp_peak</th>
+            <td>More aggressive</td>
+         </tr>
+         <tr>
+            <th > SPECrate2017_int_base</th>
+            <td style="text-align:center;vertical-align:middle;" rowspan="4">
+               Throughput: work per unit of time;
+               <br />tester picks how much work is attempted.
+               <br /><span style="font-size:85%;">Higher score=better performance.</span></td>
+            <td style="vertical-align:middle;" rowspan="2">10 integer <br />benchmarks</td>
+            <td>Less aggressive</td>
+         </tr>
+         <tr>
+            <th  > SPECrate2017_int_peak</th>
+            <td>More aggressive</td>
+         </tr>
+         <tr>
+            <th > SPECrate2017_fp_base</th>
+            <td style="vertical-align:middle;" rowspan="2">13 floating point <br />benchmarks</td>
+            <td>Less aggressive</td>
+         </tr>
+         <tr>
+            <th  > SPECrate2017_fp_peak</th>
+            <td>More aggressive</td>
+         </tr>
+         <tr>
+            <td>&nbsp;</td>
+            <td style="text-align:center;">
+                  <a style="font-size:80%;" class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SpeedAndRate">SPECspeed and SPECrate</a>
+            </td>
+            <td>
+                  <a style="font-size:80%;" class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#SuitesAndBenchmarks">Suites and Benchmarks</a>
+            </td>
+            <td>
+                  <a style="font-size:80%;" class="external"
+                     href="https://www.spec.org/cpu2017/Docs/overview.html#BaseAndPeak">Base and Peak</a> </td>
+         </tr>
+      </table>
+
+
+      <h2 id="energy">Energy Metrics </h2>
+
+      <table>
+         <tr>
+            <th  id="SPECspeed2017intenergybase"> <span id="expSPECspeed2017intenergybase"> </span>
+               SPECspeed2017_int_energy_base
+            </th>
+            <td>Overall energy ratio running
+               1 integer program at a time, base tuning.
+               <br />Higher scores = more computing per unit of energy.
+            </td>
+         </tr>
+         <tr>
+            <th  id="SPECspeed2017intenergypeak"> <span id="expSPECspeed2017intenergypeak"> </span>
+               SPECspeed2017_int_energy_peak
+            </th>
+            <td>Overall energy ratio running
+               1 integer program at a time, peak tuning.
+               <br />Higher scores = more computing per unit of energy.
+            </td>
+         </tr>
+         <tr>
+            <th  id="SPECspeed2017fpenergybase"> <span id="expSPECspeed2017fpenergybase"> </span>
+               SPECspeed2017_fp_energy_base
+            </th>
+            <td>Overall energy ratio running
+               1 floating point program at a time, base tuning.
+               <br />Higher scores = more computing per unit of energy.
+            </td>
+         </tr>
+         <tr>
+            <th id="SPECspeed2017fpenergypeak"> <span id="expSPECspeed2017fpenergypeak"> </span>
+               SPECspeed2017_fp_energy_peak
+            </th>
+            <td>Overall energy ratio running
+               1 floating point program at a time, peak tuning.
+               <br />Higher scores = more computing per unit of energy.
+            </td>
+         </tr>
+         <tr>
+            <th  id="SPECrate2017intenergybase"> <span id="expSPECrate2017intenergybase"> </span>
+               SPECrate2017_int_energy_base
+            </th>
+            <td>Overall energy ratio running N integer programs (tester chooses N), base tuning.
+               <br />Higher scores = more computing per unit of energy.
+            </td>
+         </tr>
+         <tr>
+            <th  id="SPECrate2017intenergypeak"> <span id="expSPECrate2017intenergypeak"> </span>
+               SPECrate2017_int_energy_peak
+            </th>
+            <td>Overall energy ratio running N integer programs (tester chooses N), peak tuning.
+               <br />Higher scores = more computing per unit of energy.
+            </td>
+         </tr>
+         <tr>
+            <th  id="SPECrate2017fpenergybase"> <span id="expSPECrate2017fpenergybase"> </span>
+               SPECrate2017_fp_energy_base
+            </th>
+            <td>Overall energy ratio running N floating point programs (tester chooses N), base tuning.
+               <br />Higher scores = more computing per unit of energy.
+            </td>
+         </tr>
+         <tr>
+            <th  id="SPECrate2017fpenergypeak"> <span id="expSPECrate2017fpenergypeak"> </span>
+               SPECrate2017_fp_energy_peak
+            </th>
+            <td>Overall energy ratio running N floating point programs (tester chooses N), peak tuning.
+               <br />Higher scores = more computing per unit of energy.
+            </td>
+         </tr>
+         <tr>
+            <td colspan="2">(For the initial release of SPEC CPU 2017, the energy metrics
+               were marked "exp" because they were considered "experimental".)  </td>
+         </tr>
+
+      </table>
+
+      <h2 id="testerAndDate">Tester and Date Info</h2>
+
+      <table>
+         <tr>
+            <th id="CPU2017License"> CPU 2017 license #</th>
+            <td>The SPEC CPU license number of the organization or individual that ran the test.</td>
+         </tr>
+         <tr>
+            <th  id="HardwareAvailability"> <span id="HardwareAvail"> </span> Hardware Availability</th>
+            <td>The date when <strong>all</strong> the hardware necessary to run the result is generally available.  For example,
+               if the CPU is available in <samp class="nb">Aug-2025</samp> but the memory is not available until <samp
+                                                class="nbsnugr">Jan-2026</samp>, then the hardware availability date is <samp class="nb">Jan-2026</samp> (unless some
+                                             other component pushes it out farther).</td>
+         </tr>
+         <tr>
+            <th  id="SoftwareAvailability"> <span id="SoftwareAvail"> </span> Software Availability</th>
+            <td>The date when <strong>all</strong> the software necessary to run the result is generally available.  For example,
+               if the operating system is available in <samp class="nb">Aug-2025</samp> but the compiler is not available until <samp
+                                                             class="nbsnugr">Jan-2026</samp>, then the software availability date is <samp class="nb">Jan-2026</samp> (unless some
+                                                          other component pushes it out farther).</td>
+         </tr>
+         <tr>
+            <th id="TestDate"> Test Date</th>
+            <td>The date when the test is run.  This value is obtained from the system under test.</td>
+         </tr>
+         <tr>
+            <th id="TestSponsor"> Test Sponsor</th>
+            <td>The name of the organization or individual that sponsored the test.
+               Generally, this is the name of the license holder.</td>
+         </tr>
+         <tr>
+            <th id="Testedby"> Tested by</th>
+            <td>The name of the organization or individual that ran the test.  If there are
+               installations in multiple geographic locations, sometimes that will also be
+               listed in this field.</td>
+         </tr>
+      </table>
+
+      <h2 id="resultsTable">Results Table</h2>
+
+      <table>
+         <tr>
+            <th  id="ResultsTable">
+               <span id="BaseResultsTable"> </span>
+               <span id="PeakResultsTable"> </span>
+               Result table</th>
+            <td>In addition to the graph, the results of the individual benchmark runs
+               are also presented in table form.</td>
+         </tr>
+         <tr>
+            <th id="Benchmark"> Benchmark</th>
+            <td>The name of the benchmark.</td>
+         </tr>
+         <tr>
+            <th id="Copies"> Copies</th>
+            <td>For SPECrate runs, this column indicates the number of benchmark
+               copies that were run simultaneously.</td>
+         </tr>
+         <tr>
+            <th id="Threads"> Threads</th>
+            <td>For SPECspeed runs, this column indicates the number of OpenMP threads
+               that the benchmark was allowed to use simultaneously.</td>
+         </tr>
+         <tr>
+            <th id="Seconds"> Seconds</th>
+            <td>For SPECspeed runs, this is the amount of time in seconds that the benchmark took to run.
+               <br />For SPECrate runs, it is the amount of time between the start of the first copy and the end of the last
+               copy.</td>
+         </tr>
+         <tr>
+            <th id="Ratio"> Ratio</th>
+            <td>Number of copies * (time on a reference machine / time on the system under test)
+               <br />Thus higher == better.  When comparing systems, the system with the higher ratio does more computing per unit of time.
+               <br />For SPECspeed, the number of copies is always 1.  For SPECrate, the tester picks the number of copies.
+               <br />The reference times may be found in the observations posted with www.spec.org/cpu2017/results/ 
+               <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00001.html">1</a>,
+               <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00002.html">2</a>,
+               <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00003.html">3</a>, and 
+               <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00004.html">4</a>.
+               <div style="font-size:85%;">(The HTML reports round most values to 3 significant digits.  
+                  <br />If you are looking for more exact values from the reference system, use the CSV reports
+                  <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00001.csv">1</a>,
+                  <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00002.csv">2</a>,
+                  <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00003.csv">3</a>, and 
+                  <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00004.csv">4</a>.)
+               </div>
+            </td>
+         </tr>
+         <tr>
+            <th id="EnergykJ"> Energy kJoules</th>
+            <td>Amount of energy consumed (in kiloJoules) during the execution of the benchmark, computed as watts * seconds /
+               1000.  </td>
+         </tr>
+         <tr>
+            <th id="MaximumPower"> Maximum Power</th>
+            <td>Maximum power consumed (in watts) during the execution of the benchmark.  </td>
+         </tr>
+         <tr>
+            <th id="AveragePower"> Average Power</th>
+            <td>Average power consumed (in watts) during the execution of the benchmark.  </td>
+         </tr>
+         <tr>
+            <th id="EnergyRatio"> Energy Ratio</th>
+            <td>Number of copies * (energy on the reference machine / energy on the system under test)
+               <br />Thus higher == better.
+               When comparing systems, the system with the higher Energy Ratio does more computing per unit of energy.
+               <br />For SPECspeed, the number of copies is always 1.  For SPECrate, the tester picks the number of copies.
+               <br />The reference energy may be found in the observations posted with www.spec.org/cpu2017/results/ 
+               <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00001.html">1</a>,
+               <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00002.html">2</a>,
+               <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00003.html">3</a>, and 
+               <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00004.html">4</a>.
+               <div style="font-size:85%;">(The HTML reports round most values to 3 significant digits.  
+                  <br />If you are looking for more exact values from the reference system, use the CSV reports
+                  <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00001.csv">1</a>,
+                  <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00002.csv">2</a>,
+                  <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00003.csv">3</a>, and 
+                  <a class="external" href="https://www.spec.org/cpu2017/results/res2017q2/cpu2017-20161026-00004.csv">4</a>.)
+               </div>
+            </td>
+         </tr>
+      </table>
+
+      <h2 id="testersNotes">Tester-provided notes</h2>
+
+      <table>
+         <tr>
+            <th  id="NotesTuningInformation">
+               <span id="NotesTuningInformationContinued"> </span>
+               Notes/Tuning Information</th>
+            <td>Tester's  free-form notes.</td>
+         </tr>
+         <tr>
+            <th  id="CompilerNotes">
+               <span id="CompilerNotesContinued"> </span>
+               <span id="CompilerInvocationNotes"> </span>
+               <span id="CompilerInvocationNotesContinued"> </span>
+               Compiler Notes</th>
+            <td>Tester's notes about any compiler-specific information (example: special paths, setup scripts, and so forth.)</td>
+         </tr>
+         <tr>
+            <th  id="SubmitNotes"           >
+               <span id="SubmitNotesContinued"> </span>
+               Submit Notes</th>
+            <td>Tester's  notes about how the config file <a class="external" href="config.html#submit">submit</a> option was
+               used to assign processes to processors. </td>
+         </tr>
+         <tr>
+            <th  id="PortabilityNotes"       >
+               <span id="PortabilityNotesContinued"> </span>
+               Portability Notes</th>
+            <td>Tester's  notes about portability options and flags used to build the benchmarks.</td>
+         </tr>
+         <tr>
+            <th  id="BaseTuningNotes"        >
+               <span id="BaseTuningNotesContinued"> </span>
+               Base Tuning Notes</th>
+            <td>Tester's  notes about base optimization options and flags used to build the benchmarks.</td>
+         </tr>
+         <tr>
+            <th  id="PeakTuningNotes"        >
+               <span id="PeakTuningNotesContinued"> </span>
+               Peak Tuning Notes</th>
+            <td>Tester's  notes about peak optimization options and flags used to build the benchmarks.</td>
+         </tr>
+         <tr>
+            <th  id="OperatingSystemNotes"   >
+               <span id="OperatingSystemNotesContinued"> </span>
+               Operating System Notes</th>
+            <td>Tester's  notes about changes to the default operating system state and other OS tuning.</td>
+         </tr>
+         <tr>
+            <th  id="PlatformNotes"          >
+               <span id="PlatformNotesContinued"> </span>
+               Platform Notes</th>
+            <td>Tester's  notes about changes to the default hardware state and other non-OS tuning.</td>
+         </tr>
+         <tr>
+            <th  id="ComponentNotes"         >
+               <span id="ComponentNotesContinued"> </span>
+               Component Notes</th>
+            <td>Tester's  notes about components needed to build a particular system (for
+               <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#UserBuilt">User-Built</a>
+               systems).</td>
+         </tr>
+         <tr>
+            <th  id="GeneralNotes"           >
+               <span id="GeneralNotesContinued"> </span>
+               General Notes</th>
+            <td>Tester's  notes about anything not covered in the other notes sections.</td>
+         </tr>
+         <tr>
+            <th  id="CompilerVersionNotes"  >
+               <span id="PeakCompilerVersionNotes"> </span>
+               <span id="BaseCompilerVersionNotes"> </span>
+               Compiler Version Notes</th>
+            <td>This section is automatically generated.
+               <br />It contains output from <a class="external" href="config.html#compilerVersion">CC_VERSION_OPTION</a>
+               (and FC_VERSION_OPTION and CXX_VERSION_OPTION).</td>
+         </tr>
+      </table>
+
+      <h2 id="Flags">Flags</h2>
+      <table>
+         <tr>
+            <th style="white-space:nowrap;" id="CompilationFlagsUsed">
+               <span id="CompilationFlagsUsedContinued"> </span>
+               Compilation Flags Used</th>
+            <td>This section is generated automatically.  It lists the compiler flags that were used, and links to descriptions.</td>
+         </tr>
+         <tr>
+            <th>
+               <span id="BenchmarksusingFortranCandCXX"> </span>
+               <span id="BenchmarksusingbothCandCXX"> </span>
+               <span id="BenchmarksusingbothFortranandC"> </span>
+               <span id="CXXbenchmarks"> </span>
+               <span id="Cbenchmarks"> </span>
+               <span id="Fortranbenchmarks"> </span>
+               Benchmarks Using <span style="font-weight:normal;"><i>&lt;language&gt;</i></span></th>
+            <td>The compiler flags are reported according to the languages used by the benchmarks.
+               <br />For base, the rules require
+               <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#BaseFlags">consistency</a> by
+               language.  <br />For a list of which benchmarks use which languages, see the table of
+               <a class="external" href="https://www.spec.org/cpu2017/Docs/index.html#benchmarks">Benchmarks</a> in the
+               documentation index.</td>
+         </tr>
+         <tr>
+            <th  id="CompilerInvocation"  >
+               <span id="BaseCompilerInvocation"> </span>
+               <span id="PeakCompilerInvocation"> </span>
+               Compiler Invocation</th>
+            <td>How the compilers are invoked.</td>
+         </tr>
+
+         <tr>
+            <th  id="PortabilityFlags"    >
+               <span id="BasePortabilityFlags"> </span>
+               <span id="PeakPortabilityFlags"> </span>
+               Portability Flags</th>
+            <td>Flags that are claimed to be necessary in order to solve platform differences, under the
+               <a class="external" href="https://www.spec.org/cpu2017/Docs/runrules.html#portability">portability</a> rule.
+               <br />Generally required to be performance-neutral.</td>
+         </tr>
+         <tr>
+            <th  id="OptimizationFlags"   >
+               <span id="BaseOptimizationFlags"> </span>
+               <span id="PeakOptimizationFlags"> </span>
+               Optimization Flags</th>
+            <td>Flags that improve (or are intended to improve) performance.</td>
+         </tr>
+         <tr>
+            <th  id="OtherFlags"          >
+               <span id="BaseOtherFlags"> </span>
+               <span id="PeakOtherFlags"> </span>
+               Other Flags</th>
+            <td>Compile flags that are classified as neither portability nor optimization.</td>
+         </tr>
+         <tr>
+            <th  id="UnknownFlags"        >
+               <span id="BaseUnknownFlags"> </span>
+               <span id="PeakUnknownFlags"> </span>
+               Unknown Flags</th>
+            <td>Flags that are not described.
+               <br />Results with unknown flags are marked "invalid" and must not be published.
+               <br />If you have a result with this problem, you might be able to fix it, by editing your flags file and
+               reloading it with
+               <a class="external" href="https://www.spec.org/cpu2017/Docs/flag-description.html#rawformat">rawformat</a>.</td>
+         </tr>
+         <tr>
+            <th  id="ForbiddenFlags"      >
+               <span id="BaseForbiddenFlags"> </span>
+               <span id="PeakForbiddenFlags"> </span>
+               Forbidden Flags</th>
+            <td>This section of the reports lists compilation flags used that are designated as "forbidden".
+               <br />Results using forbidden flags are marked "invalid" and must not be published.</td>
+         </tr>
+         <tr>
+            <th id="Errors"> Errors</th>
+            <td>This section is automatically inserted when there are errors present that prevent the result from being a valid reportable result.</td>
+         </tr>
+      </table>
+
+      <h2 id="Hardware">Hardware description</h2>
+
+      <p>See the run rules section on <a class="external" href="runrules.html#hardwareConfig">Hardware Configuration</a>
+      disclosure.</p>
+
+      <table>
+         <tr>
+            <th id="CPUName"> CPU Name</th>
+            <td>A manufacturer-determined processor formal name.</td>
+         </tr>
+
+         <tr>
+            <th id="MaxMHz"> Maximum CPU MHz</th>
+            <td>The maximum clock frequency of the CPU, as specified by the chip vendor, expressed in megahertz. 
+               For reportable runs, you need to disclose both the Nominal and the Max MHz.</td>
+         </tr>
+
+         <tr>
+            <th id="Nominal"> Nominal CPU MHz</th>
+            <td>The nominal clock frequency of the CPU, as specified by the chip vendor, expressed in megahertz.
+               For reportable runs, you need to disclose both the Nominal and the Max MHz.</td>
+         </tr>
+
+         <tr>
+            <th id="Enabled"> CPU(s) enabled</th>
+            <td>The number of CPUs that were enabled and active during the benchmark run.  More information about CPU counting is in the <a
+                class="external" href="runrules.html#CountCPUs">run rules</a>.</td>
+         </tr>
+         <tr>
+            <th id="Orderable"> CPU(s) orderable</th>
+            <td>The number of CPUs that can be ordered in a system of the type
+               being tested.</td>
+         </tr>
+
+         <tr>
+            <th id="CacheL1"> L1 Cache</th>
+            <td>Description (size and organization) of the CPU's primary cache.  This cache is also referred to as
+               "L1 cache".</td>
+         </tr>
+
+         <tr>
+            <th id="L2"> L2 Cache</th>
+            <td>Description (size and organization) of the CPU's secondary cache.  This cache is also referred to as
+               "L2 cache".</td>
+         </tr>
+
+         <tr>
+            <th id="L3"> L3 Cache</th>
+            <td>Description (size and organization) of the CPU's tertiary, or "Level 3" cache.</td>
+         </tr>
+
+         <tr>
+            <th id="OtherCache"> Other Cache</th>
+            <td>Description (size and organization) of any other levels of cache memory.</td>
+         </tr>
+
+         <tr>
+            <th id="Memory"> Memory</th>
+            <td>Description of the system main memory configuration.
+               <br />Options that affect performance, such as arrangement of memory modules, interleaving, latency, etc, are
+               documented here.</td>
+         </tr>
+
+         <tr>
+            <th id="Storage"> Storage Subsystem</th>
+            <td>A description of the disk subsystem (size, type, and RAID level if any) of
+               the storage used to hold the benchmark tree during the run.</td>
+         </tr>
+
+         <tr>
+            <th id="OtherHardware"> Other Hardware</th>
+            <td>Any additional equipment added to improve performance. </td>
+         </tr>
+      </table>
+
+
+      <h2 id="Software">Software description</h2>
+
+      <p>See the run rules section on <a class="external" href="runrules.html#softwareConfig">Software Configuration</a>
+      disclosure.</p>
+
+      <table>
+         <tr>
+            <th id="OS"> Operating System</th>
+            <td>The operating system name and version.  If there are patches applied that
+               affect performance, they must be disclosed in the
+               <a href="#NotesTuningInformation">notes</a>.</td>
+         </tr>
+         <tr>
+            <th id="Compiler"> Compiler</th>
+            <td>The names and versions of all compilers, preprocessors, and performance
+               libraries used to generate the result.</td>
+         </tr>
+         <tr>
+            <th id="Parallel">Parallel</th>
+            <td>This field is automatically set to "Yes" if compiler flags are used that are marked with the <a
+                class="external" href="flag-description.html#parallel">parallel</a> attribute, indicating that they cause
+             either automatic or explicit parallelism.  </td>
+         </tr>
+         <tr>
+            <th id="Firmware"> System Firmware</th>
+            <td>The customer-accessible name and version of the firmware used on the system under test.</td>
+         </tr>
+         <tr>
+            <th id="FileSystem"> File System</th>
+            <td>The type of the filesystem used to contain the run directories.</td>
+         </tr>
+         <tr>
+            <th id="SystemState"> System State</th>
+            <td>The state (sometimes called "run level") of the system while the benchmarks
+               were being run.  Generally, this is "single user", "multi-user", "default",
+               etc.</td>
+         </tr>
+         <tr>
+            <th id="BasePointers"> Base Pointers</th>
+            <td>Indicates whether all the benchmarks in base used 32-bit pointers, 64-bit pointers, or a mixture.  <br />For
+               example, if the C and C++ benchmarks used 32-bit pointers, and the Fortran benchmarks used 64-bit
+               pointers, then "32/64-bit" would be reported here.  </td>
+         </tr>
+         <tr>
+            <th id="PeakPointers"> Peak Pointers</th>
+            <td>Indicates whether all the benchmarks in peak used 32-bit pointers, 64-bit pointers,
+               or a mixture.
+            </td>
+         </tr>
+         <tr>
+            <th id="OtherSoftware"> Other Software</th>
+            <td>Any performance-relevant non-compiler software used, including third-party libraries, accelerators, etc.</td>
+         </tr>
+      </table>
+
+
+      <h2 id="Power">Power and Temperature information</h2>
+
+      <p>Measured power and temperature data:</p>
+
+      <table>
+         <tr>
+            <th id="MaxPowerW"> Maximum Power (W)</th>
+            <td>Maximum power (in Watts) that was measured during the entire benchmark suite run.  </td>
+         </tr>
+         <tr>
+            <th id="IdlePowerW"> Idle Power (W)</th>
+            <td>This is a 60 second measurement of idle power (in Watts) on the machine, is made after the benchmark has been run
+               and the system was given time 10 seconds to rest.  </td>
+         </tr>
+         <tr>
+            <th id="MinTemperatureC"> Minimum Temperature (C)</th>
+            <td>Lowest temperature measured (in C) that was registered during the entire benchmark suite run.  </td>
+         </tr>
+      </table>
+
+      <p>User-supplied power and temperature information:</p>
+
+      <table>
+         <tr>
+            <th id="Elevationm"> Test Site Elevation (m)</th>
+            <td>The elevation above sea level of the test site in meters.  This is relevant because the reduced density of air at higher
+               altitudes causes air cooling to be less efficient.  </td>
+         </tr>
+         <tr>
+            <th id="LineStandard"> Power Line Standard</th>
+            <td>Description of the line standards for the main AC power as provided by the local utility company which is used to power the
+               SUT. This field includes the standard voltage and frequency, followed by the number of phases and wires used to connect
+               the SUT to the AC power line. </td>
+         </tr>
+         <tr>
+            <th id="Provisioning"> Power Provisioning</th>
+            <td>Description of how the SUT is powered.  This field can have one of three possible values:
+               <ul>
+                  <li>"Line-powered": The SUT is powered by an external AC power source.</li>
+                  <li>"Battery-powered": The SUT is designed to be able to run normal operations without an external source of power.</li>
+                  <li>"Other (&lt;explanation&gt;)": Neither line- nor battery-powered, with short explanatory text in parentheses.  The
+                     explanation may be expanded upon in the power notes section.</li>
+               </ul>
+               <p class="snugbot">Note: for SPEC CPU 2017, "Battery-powered" is not an acceptable choice for reportable runs -- see 
+               <a class="external" href="runrules.html#rule_3.9.2">rule 3.9.2 (e)</a>.</p>
+               </td>
+         </tr>
+
+
+         <tr>
+            <th id="PowerManagement"> Power Management</th>
+            <td>This field indicates whether power management for the SUT is enabled or disabled.  Details for settings are
+               required to be in the power notes section. </td>
+         </tr>
+         <tr>
+            <th id="ManagementFW"> System Management Firmware Version</th>
+            <td>A version number or string identifying the management firmware running on the SUT, or "None" if no management controller
+               was installed. </td>
+         </tr>
+         <tr>
+            <th id="MemoryMode"> Memory Operation Mode</th>
+            <td>Description of how the memory subsystem on the SUT is configured.  This field can have one of three possible values:
+               <ul>
+                  <li>"Normal": Memory is configured without redundancy of any kind, and the complete installed capacity is available
+                     for use by the OS and user programs.</li>
+                  <li>"Mirrored": Memory is configured so that all locations are redundant and a failure of any installed piece of memory
+                     will not interrupt or pause system operation.</li>
+                  <li>"Spare": Memory is configured so that there is some extra capacity available so that memory from a failing component
+                     can be copied to the spare in the event of a partial failure.</li>
+                  <li>"Other (&lt;explanation&gt;)": Memory is configured in some other way, and a short explanation is provided.  The
+                     explanation can be expanded upon in the power notes section of the result.</li>
+               </ul>
+            </td>
+         </tr>
+
+         <tr>
+            <th id="PowerSupply"> Power Supply </th>
+            <td>The number and rating of the power supplies used in this system for this run.</td>
+         </tr>
+         <tr>
+            <th id="PowerSupplyDetails"> Power Supply Details
+               <span id="Details"> </span>
+            </th>
+            <td>Additional details about the power supply, such as a part number or other identifier.</td>
+         </tr>
+         <tr>
+            <th id="Backplane"> Backplane Installed</th>
+            <td>If the system has options for multiple back- or center-planes to support different storage or CPU/memory options, the
+               description and part or model number of the installed parts must be disclosed. </td>
+         </tr>
+         <tr>
+            <th id="OtherStorage"> Other Installed Storage Devices</th>
+            <td>If the system has storage devices such as additional disks, optical drives, HBAs, etc, that were installed but not used
+               for the benchmark run, the description and model numbers of those devices must be disclosed, as they consume power even
+               when idle. </td>
+         </tr>
+         <tr>
+            <th id="StorageModels"> Storage Device Model Numbers</th>
+            <td>The model numbers of the storage devices used for the benchmark runs must be disclosed, as different models of identical
+               capacity may have different power consumption characteristics. </td>
+         </tr>
+         <tr>
+            <th id="NICsInstalled"> Installed Network Interfaces</th>
+            <td>The number and model numbers of the network devices installed in the system.</td>
+         </tr>
+         <tr>
+            <th id="NICsEnabledFWOS"> Network Interfaces Enabled</th>
+            <td>The number of installed network interfaces enabled at the firmware level and configured in the operating system
+               respectively must be disclosed, as unconfigured or inactive network interfaces may have different power consumption
+               characteristics than interfaces which are configured or enabled. </td>
+         </tr>
+         <tr>
+            <th id="NICsConnectedSpeed"> Network Interfaces Connected and Their Speeds</th>
+            <td>The number of network interfaces physically connected to networks and the speeds at which they are connected must be
+               disclosed, as inactive interfaces may consume different amounts of power than active ones, and differing speeds (even
+               when compatible) may consume different amounts of power. </td>
+         </tr>
+
+         <tr>
+            <th id="OtherHWModels"> Model Numbers for Other Installed Hardware</th>
+            <td>If the system has hardware devices installed that consume any amount of power that are not disclosed in other fields,
+               the name and model numbers of that hardware must be disclosed. </td>
+         </tr>
+
+         <tr>
+            <th id="PowerAnalyzer"> Power Analyzer</th>
+            <td>Name used to connect the PTDaemon to the power analyzer.
+               If more that one power analyzer was used, there will be multiple descriptions presented.</td>
+         </tr>
+         <tr>
+            <th id="TemperatureMeter"> Temperature Meter</th>
+            <td>The name used to connect the PTDaemon to the temperature meter.  If more that one temperature meter was used,
+               there will be multiple descriptions presented.</td>
+         </tr>
+         <tr>
+            <th id="HardwareVendor"> Hardware Vendor</th>
+            <td>Name of the company that provides the power analyzer or temperature meter.</td>
+         </tr>
+         <tr>
+            <th id="Model"> Model</th>
+            <td>The model of the power analyzer or temperature meter.</td>
+         </tr>
+         <tr>
+            <th id="SerialNumber"> Serial Number</th>
+            <td>Serial number of the power analyzer being used.  </td>
+         </tr>
+         <tr>
+            <th id="InputConnection"> Input Connection</th>
+            <td>A description of the interface used to connect the power analyzer or temperature meter
+               to the PTDaemon host system, e.g. RS-232 (serial port), USC, GPIB, etc.</td>
+         </tr>
+         <tr>
+            <th id="MetrologyInstitute"> Metrology Institute</th>
+            <td>Name of the accreditation organization of the institute that did the calibration of the meter (e.g.
+               NIST, PTB, AIST, NML, CNAS, etc.).
+               <br />A <a class="external" href="https://www.nist.gov/iaao/national-metrology-laboratories">list of
+                 national metrology institutes</a> for many countries is maintained by the United States National
+               Institute of Standards.  If the main site is unavailable, the content may be viewable on
+               the <a class="external" href="https://archive.org/">Internet Archive</a>'s
+               <a class="external" href="https://web.archive.org/web/*/https://www.nist.gov/iaao/national-metrology-laboratories">
+                 Wayback Machine</a>.</td>
+         </tr>
+         <tr>
+            <th id="CalibrationBy"> Calibration By</th>
+            <td>Organization that performed the power analyzer calibration.</td>
+         </tr>
+         <tr>
+            <th id="CalibrationLabel"> Calibration Label</th>
+            <td>A number or character string which uniquely identifies this meter calibration event.
+               <br />May appear on the calibration certificate or on a sticker applied to the power analyzer.
+               The format of this number is specified by the metrology institute.</td>
+         </tr>
+         <tr>
+            <th id="CalibrationDate"> Calibration Date</th>
+            <td>The date (DD-MMM-YYYY) the calibration certificate was issued, from the calibration label or the calibration
+               certificate. </td>
+         </tr>
+         <tr>
+            <th id="PTDaemonVersion"> PTDaemon Version</th>
+            <td>Version of the Power and Temperature Daemon (automatically filled out). </td>
+         </tr>
+         <tr>
+            <th id="SetupDescription"> Setup Description</th>
+            <td>A brief description of how the power analyzer or temperature meter was arranged with the SUT. 
+               <br />May include which power supply was connected to this power analyzer, or how far
+               away this temperature meter was from the air intake of the system.</td>
+         </tr>
+         <tr>
+            <th id="CurrentRangesUsed"> Current Ranges Used</th>
+            <td>A list of current (amperage) ranges used to configure the power analyzer while
+               running the benchmarks (automatically filled out).</td>
+         </tr>
+         <tr>
+            <th id="VoltageRangeUsed"> Voltage Range Used</th>
+            <td>Voltage range used to configure the power analyzer while running the benchmarks (automatically filled out).</td>
+         </tr>
+      </table>
+
+      <h2 id="Other">Other information</h2>
+
+      <table>
+         <tr>
+            <th id="Median"> Median results</th>
+            <td>For a reportable CPU 2017 run, two or three iterations of each benchmark are run, and either the median of the three
+               runs, or the slower of the two,  is selected to be part of the overall metric.  In output formats that support it,
+               the selected results are <span style="font-weight: bold; text-decoration: underline;">underlined in bold</span>.</td>
+         </tr>
+         <tr>
+            <th id="RunOrder"> Run order</th>
+            <td> When you read a results table, results are listed in the order that they were run, in column-major order.  In
+               other words, if you're interested in reading results in the same order that they were produced, start in the
+               upper-left corner and read down the first column, then read the middle column, and so forth.  If both base and
+               peak tuning are used, all base runs are completed before starting peak.
+               <br /><a class="external" href="https://www.spec.org/cpu2017/Docs/runcpu.html#section1.4">[details]</a></td>
+         </tr>
+      </table>
+
+<p style="border-top:thin solid black;">
+SPEC CPU&reg;2017 Result File Fields:
+Copyright&nbsp;&copy;&nbsp;2017-2019 Standard Performance Evaluation Corporation (SPEC&reg;)</p>
+<!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+   the table of contents will actually position the desired section at the top of your browser window -->
+<p style="margin:300px 1em;">&nbsp;</p>
+
+   </body>
+<!-- vim: set filetype=xhtml syntax=xhtml shiftwidth=3 tabstop=8 expandtab nosmarttab colorcolumn=138: -->
+</html>

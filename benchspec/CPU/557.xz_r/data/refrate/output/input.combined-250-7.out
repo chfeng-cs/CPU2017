@@ -1,0 +1,13 @@
+SPEC CPU XZ driver: input=input.combined.xz insize=250
+Loading Input Data
+Compressed size: 8252524; Uncompressed size: 53779568
+SHA-512 of decompressed data compared successfully!
+SHA-512 of input file: be957ce5221d1d33f55f05e45edea35ae4682c2831024fe3e3ae22466aa31ff4f952b76fb1ca5762e614c00fff06c6a7cb628cfd8f5729370c8d751114dfaada
+Input data 262144000 bytes in length
+Compressing Input Data, level 7
+Compressed data is between 40401484 and 41217675 bytes in length
+Finished compressing data
+Uncompressing previously compressed data
+Uncompressed data 262144000 bytes in length
+Uncompressed data compared correctly
+Tested 250 MiB buffer: OK!

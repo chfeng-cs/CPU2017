@@ -1,0 +1,58 @@
+
+MCF SPEC CPU version 1.11
+Copyright (c) 1998-2000 Zuse Institut Berlin (ZIB)
+Copyright (c) 2000-2002 Andreas Loebel & ZIB
+Copyright (c) 2003-2005 Andreas Loebel
+Copyright (c) 2006-2010 Dres. Loebel, Borndoerfer & Weider GbR (LBW)
+
+nodes                      : 5985
+active arcs                : 102404
+simplex iterations         : 45986
+objective value            : 3180065918
+new implicit arcs          : 1000000
+active arcs                : 1102404
+simplex iterations         : 57610
+objective value            : 2060058590
+erased arcs                : 998080
+new implicit arcs          : 721331
+active arcs                : 825655
+simplex iterations         : 70075
+objective value            : 2060055934
+erased arcs                : 719199
+new implicit arcs          : 807
+active arcs                : 107263
+simplex iterations         : 70415
+objective value            : 2060055898
+erased arcs                : 935
+new implicit arcs          : 579
+active arcs                : 106907
+simplex iterations         : 70428
+objective value            : 2060055880
+erased arcs                : 578
+new implicit arcs          : 34
+active arcs                : 106363
+simplex iterations         : 70450
+objective value            : 2060055880
+erased arcs                : 34
+new implicit arcs          : 1
+active arcs                : 106330
+simplex iterations         : 70451
+objective value            : 2060055880
+erased arcs                : 1
+new implicit arcs          : 6
+active arcs                : 106335
+simplex iterations         : 70460
+objective value            : 2060055880
+erased arcs                : 10
+new implicit arcs          : 8
+active arcs                : 106333
+simplex iterations         : 70583
+objective value            : 2060055879
+erased arcs                : 114
+new implicit arcs          : 3538
+active arcs                : 109757
+simplex iterations         : 71002
+objective value            : 2060055866
+erased arcs                : 3547
+checksum                   : 2060055866
+done

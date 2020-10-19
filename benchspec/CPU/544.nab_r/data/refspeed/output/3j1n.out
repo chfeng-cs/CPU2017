@@ -1,0 +1,26 @@
+nabmd 3j1n 20140317
+
+Reading .pdb file (3j1n/3j1n.pdb)
+Reading .prm file (3j1n/3j1n.prm)
+title:
+default_name                                                                    
+      iter    Total
+ff:     0 490665981616042475520.00
+Initial energy is 490665981616042475520.0000000
+Starting molecular dynamics with Born solvation energy...
+
+      iter    Total
+ff:     0 490665981616042475520.00
+ff:   220 746979.33
+
+...Done, md returns 0
+      iter    Total
+ff:     0 823894.46
+Initial energy is 823894.4642720
+Starting molecular dynamics with in vaccuo non-bonded energy...
+
+      iter    Total
+ff:     0 823894.46
+ff:   220 197030.70
+
+...Done, md returns 0

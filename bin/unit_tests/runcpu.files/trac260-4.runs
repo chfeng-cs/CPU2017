@@ -1,0 +1,4 @@
+# Expect all workloads run; test and train to be parallel
+--reportable
+# Expect test and train run; test to be parallel
+--parallel_test_workloads test

@@ -1,0 +1,4 @@
+runcpu banner
+  INFO: FOONOTPREEXISTING is 
+Setting FOONOTPREEXISTING = "/foo/bar:"
+runcpu finished at [timestamp]

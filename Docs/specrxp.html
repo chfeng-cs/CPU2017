@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <!-- Creator     : groff version 1.19.2 -->
+      <!-- CreationDate: Wed Mar 19 04:51:14 2008 -->
+      <meta name="generator" content="groff -Thtml, see www.gnu.org" />
+      <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+      <meta name="Content-Style" content="text/css" />
+      <style type="text/css">
+p     { margin-top: 0; margin-bottom: 0; }
+pre   { margin-top: 0; margin-bottom: 0; }
+th {white-space:nowrap;}
+      </style>
+      <link rel="STYLESHEET" href="css/cpudocs.css" type="text/css" />
+      <link rel="STYLESHEET" href="css/cpudocsNoLinkie.css" media="print" type="text/css" />
+      <title>specrxp - CPU 2017</title>
+
+   </head>
+   <body>
+
+      <h1>specrxp (RXP)</h1>
+      <table class="version">
+         <tr>
+            <th>$Id: specrxp.html 6317 2019-07-28 22:50:53Z JohnHenning $</th>
+            <td>Latest: <a class="external" href="https://www.spec.org/cpu2017/Docs/">www.spec.org/cpu2017/Docs/</a></td>
+         </tr>
+         <tr>
+            <th colspan="2">Your installed copy of SPEC CPU&reg;2017 includes a copy of Richard Tobin's 
+               <a class="external" href="http://www.cogsci.ed.ac.uk/~richard/rxp.html">RXP</a>, built as 
+               <a class="external" href="utility.html#specrxp">specrxp</a> to avoid any potential conflict with the original.  
+               <br />This is its manpage.</th> 
+         </tr>
+      </table>
+
+      <p>
+      <a href="#NAME">NAME</a><br />
+      <a href="#SYNOPSIS">SYNOPSIS</a><br />
+      <a href="#DESCRIPTION">DESCRIPTION</a><br />
+      <a href="#OPTIONS">OPTIONS</a><br />
+      <a href="#EXIT_STATUS">EXIT STATUS</a><br />
+      <a href="#ENVIRONMENT">ENVIRONMENT</a><br />
+      </p>
+
+      <hr />
+
+
+      <h2 id="NAME">NAME</h2>
+
+
+      <p style="margin-left:11%; margin-top: 1em">rxp - XML
+      parser program</p>
+
+      <h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+
+      <p style="margin-left:11%; margin-top: 1em"><b>rxp</b> [
+      <b>&minus;abemnNRsStvVx</b> ] [ <b>-o b|p|0|1|2|3|i|d</b> ]
+      [ <b>U 0|1|2</b> ] [ <b>-c</b> <i>encoding</i> ] [
+      <i>url</i> ]</p>
+
+      <h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+
+      <p style="margin-left:11%; margin-top: 1em"><b>rxp</b>
+      reads and parses XML from the <i>url</i> (or standard input
+      if none is provided) and writes it to standard output,
+      optionally expanding entities, defaulting attributes, and
+      translating to a different output encoding.</p>
+
+      <p style="margin-left:11%; margin-top: 1em"><b>rxp</b>
+      accepts XML 1.0 and 1.1, and the corresponding versions of
+      XML namespaces. It implements the Oasis XML catalog
+      specification.</p>
+
+      <p style="margin-left:11%; margin-top: 1em">Common option
+      combinations are <b>-Nxs</b> to check a document for
+      well-formedness and namespace well-formedness, and
+      <b>-VNxs</b> to also check for DTD-validity.</p>
+
+      <h2 id="OPTIONS">OPTIONS</h2>
+
+
+      <table>
+         <tr>
+            <th>-a</th> 
+            <td > Insert declared
+               default values for omitted attributes.</td>
+         </tr>
+         <tr> 
+            <th>-v</th>
+            <td > Be verbose.</td>
+         </tr>
+         <tr> 
+            <th>-V</th>
+            <td > Validate the
+               document. Repeating this option will make the program treat
+               validity errors as well-formedness errors, and exit after
+               the first validity error (otherwise a warning will be
+               printed for each one).</td>
+         </tr>
+         <tr>
+            <th>-d</th>
+            <td > Read the whole DTD
+               (internal and external parts) regardless of any standalone
+               declaration. Otherwise a declaration
+               &quot;standalone=&rsquo;yes&rsquo;&quot; will prevent the
+               external part from being read (unless validation is
+               selected). </td>
+         </tr>
+         <tr>
+            <th>-N</th>
+            <td > Enable XML
+               namespace support. The document will be checked for correct
+               namespace syntax, and if <b>-b</b> is specified qualified
+               element and attribute names will be displayed with their
+               URIs. </td>
+         </tr>
+         <tr>
+            <th>-R</th>
+            <td > The value of this
+               flag is a time limit in seconds, after which the program
+               will abort. This is to protect against denial-of-service
+               attacks using malicious documents.</td>
+         </tr>
+         <tr>
+            <th>-S</th>
+            <td > Keep track of
+               xml:space attributes. This will only affect output when
+               <b>-b</b> is specified.</td>
+         </tr>
+         <tr>
+            <th>-e</th>
+            <td > Obsolete, do not
+               use. </td>
+         </tr>
+         <tr>
+            <th>-E</th>
+            <td > Do not expand
+               entity references (opposite of old <b>-e</b> flag)</td>
+         </tr>
+         <tr> 
+            <th>-s</th>
+            <td > Be silent (that is,
+               suppress output). Useful for benchmarking or if you just
+               want to see the error messages.</td>
+         </tr>
+         <tr>
+            <th>-b</th>
+            <td > Print output as
+               &quot;bits&quot;. </td>
+         </tr>
+         <tr>
+            <th>-n</th>
+            <td > Treat the input as
+               normalised SGML rather than XML. Not intended for general
+               use. </td>
+         </tr>
+         <tr>
+            <th>-o</th>
+            <td > If this flag is
+               <b>p</b>, output is in the default (plain) format. If it is
+               <b>b</b>, output is printed as &quot;bits&quot; (equivalent
+               to <b>-b</b>). If it is <b>0</b>, output is suppressed
+               (equivalent to <b>-s</b>). If it is <b>1</b>, <b>2</b> or
+               <b>3</b>, output is in first, second or third canonical
+               form. If it is <b>i</b>, output is a dump of the
+               document&rsquo;s infoset. If it is <b>d</b>, output is in a
+               form suitable for use with &quot;diff&quot;; in particular
+               attributes are sorted into alphabetical order.</td>
+         </tr>
+         <tr>
+            <th>-m</th>
+            <td > Merge PCData across
+               entity references. This will only affect the output when
+               <b>-b</b> is specified.</td>
+         </tr>
+         <tr>
+            <th>-t</th>
+            <td > Read in the input
+               as a tree, rather than bits. Should make no difference to
+               the output.</td>
+         </tr>
+         <tr>
+            <th>-u <i>base_uri</i> </th>
+            <td> Use the specified base URI when
+               resolving system identifiers.
+            </td> 
+         </tr>
+         <tr> 
+            <th>-U</th>
+            <td > This flag controls
+               Unicode normalization checking and is only relevant when
+               parsing XML 1.1 documents. If it is <b>0</b>, no checking is
+               done. If it is <b>1</b>, <b>rxp</b> checks that the document
+               is fully normalized as defined by the W3C character model.
+               If it is <b>2</b>, the document is checked and any unknown
+               characters (which may be ones corresponding to a newer
+               version of Unicode than <b>rxp</b> knows about) will also
+               cause an error.</td>
+         </tr>
+         <tr> 
+            <th>-x</th>
+            <td > Strict XML mode.
+               This suppresses some warnings (eg entity redefinitions) but
+               treats all XML well-formedness errors as fatal. This flag
+               implies the <b>-a</b> flag, and sets the output encoding to
+               UTF-8 unless the <b>-c</b> flag is given. It sets the output
+               format to first canonical form unless the <b>-o</b>,
+               <b>-b</b> or <b>-s</b> flag is given.</td>
+         </tr>
+         <tr>
+            <th> -c <i>encoding</i> </th>
+            <td>
+               Produce output in the specified
+               character encoding. Known encodings include
+               <b>ISO-8859-1</b>, <b>UTF-8</b>, <b>ISO-10646-UCS</b> and
+               <b>UTF-16</b>. 16-bit encoding names my be suffixed with
+               <b>-B</b> or <b>-L</b> to specify big- or little-endian byte
+               order (the default is the host byte order). If no <b>-c</b>
+               or <b>-x</b> option is given, output is in the same encoding
+               as the input document.
+            </td>
+         </tr>
+         <tr>
+            <th> -D <i>name sysid</i> </th>
+            <td>
+               Force use of the document type
+               specified by <i>sysid</i>. The root element name for
+               validation is <i>name</i>. Any DTD in the document is
+               ignored. This flag does not imply validation; use <b>-V</b>
+               if required.
+            </td>
+         </tr>
+         <tr> 
+            <th>-i</th> 
+            <td > Do xml:id
+               processing. Attributes named xml:id are recognised as IDs
+               even if not declared.</td>
+         </tr>
+         <tr>
+            <th>-I</th> 
+            <td > The same as
+               <b>-i</b>, but in addition xml:id attributes are checked for
+               uniqueness. </td>
+         </tr>
+         <tr> 
+            <th>-z</th> 
+            <td > Use a shorter
+               format for error messages. Particularly useful when using
+               the parser in Emacs compilation mode, so that Emacs can find
+               the error location.</td>
+         </tr> 
+      </table>
+
+      <h2 id="EXIT_STATUS">EXIT STATUS</h2>
+
+
+      <p style="margin-left:11%; margin-top: 1em">If the
+      <b>-V</b> flag is given, and the document is well-formed but
+      not valid, 2 is returned. If the document is not
+      well-formed, or a system error occurs, 1 is returned.
+      Otherwise 0 is returned. Since the parser can expand
+      external entities even when not validating, it treats
+      certain errors which are technically validity errors as
+      well-formedness errors. If <b>-x</b> is not specified, some
+      well-formedness errors produce only warnings and do not
+      affect the exit status.</p>
+
+      <h2 id="ENVIRONMENT">ENVIRONMENT</h2>
+
+
+      <p style="margin-left:11%; margin-top: 1em">If the
+      environment variable <b>XML_CATALOG_FILES</b> is set, XML
+      catalog processing is enabled. The variable should be set to
+      a space-separated list of catalog files. The variable
+      <b>XML_CATALOG_PREFER</b> may be set to <b>public</b> or
+      <b>system</b> to set the initial mode for catalog
+      processing; the default is <b>system</b>.</p>
+
+      <p style="margin-left:11%; margin-top: 1em">If the variable
+      <b>RXPURL</b> is set, it is used as the URL of the document
+      to parse. This may be useful in CGI scripts and the like to
+      avoid shell parsing of a user-supplied argument.</p>
+
+      <p style="margin-left:11%; margin-top: 1em">The variable
+      <b>http_proxy</b> can be used to specify a proxy for HTTP
+      connections. The syntax is <b>hostname[:port]</b>.</p>
+      <hr />
+
+
+      <!-- this space intentionally left blank: some empty space at the bottom increases the probability that clicking on a link in
+         the table of contents will actually position the desired section at the top of your browser window -->
+         <p style="margin-bottom:500px;">&nbsp;</p>
+
+
+   </body>
+</html>
