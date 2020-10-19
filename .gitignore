@@ -1,0 +1,7 @@
+*.o
+*.cfg.*
+*.log
+*.log.debug
+lock.*
+./tmp/*
+*/*/*/run/*
