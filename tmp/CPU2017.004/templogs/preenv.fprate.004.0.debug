@@ -1,0 +1,426 @@
+1603150254.77: Retrieving flags file (/home/cuda/abelardoj/CPU2017/config/flags/gcc.xml)...
+1603150254.78: Created default regexp '(?:^|(?<=\s))-D_FILE_OFFSET_BITS=64(?=\s|$)' for F-D_FILE_OFFSET_BITS:64 in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.78: Created default regexp '(?:^|(?<=\s))-fno-aggressive-loop-optimizations(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-aggressive-loop-optimizations in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.78: Created default regexp '(?:^|(?<=\s))-fconvert=big-endian(?=\s|$)' for F-fconvert:big-endian in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.78: Created default regexp '(?:^|(?<=\s))-ffast-math(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-ffast-math in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-ffixed-form(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-ffixed-form in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fgnu89-inline(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fgnu89-inline in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-flto(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-flto in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fno-math-errno(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-math-errno in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fopenmp(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fopenmp in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fprefetch-loop-arrays(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fprefetch-loop-arrays in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fprofile-generate(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fprofile-generate in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fprofile-use(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fprofile-use in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fsigned-char(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fsigned-char in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fsigned-zeros(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fsigned-zeros in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fno-strict-aliasing(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-strict-aliasing in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fno-tree-loop-vectorize(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-tree-loop-vectorize in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-funcse(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-funcse in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fno-underscoring(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-underscoring in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-funroll-all-loops(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-funroll-all-loops in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-funroll-loops(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-funroll-loops in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-fno-unsafe-math-optimizations(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-unsafe-math-optimizations in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-funsigned-char(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-funsigned-char in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-mavx(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-mavx in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-mfmaf(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-mfmaf in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-mrecip(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-mrecip in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-mvis3(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-mvis3 in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-Ofast(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-Ofast in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-Wall(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-Wall in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.79: Created default regexp '(?:^|(?<=\s))-Wno-return-type(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-Wno-return-type in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150254.87:   '503.bwaves_r' added
+1603150254.87:   '507.cactuBSSN_r' added
+1603150254.87:   '508.namd_r' added
+1603150254.87:   '510.parest_r' added
+1603150254.87:   '511.povray_r' added
+1603150254.87:   '519.lbm_r' added
+1603150254.87:   '521.wrf_r' added
+1603150254.87:   '526.blender_r' added
+1603150254.87:   '527.cam4_r' added
+1603150254.87:   '538.imagick_r' added
+1603150254.87:   '544.nab_r' added
+1603150254.87:   '549.fotonik3d_r' added
+1603150254.87:   '554.roms_r' added
+1603150254.87:   '997.specrand_fr' added
+1603150254.99: Verbosity = 5
+1603150254.99: Action    = build
+1603150254.99: Tune      = base
+1603150254.99: Label     = mytest-64
+1603150254.99: Size      = refrate
+1603150254.99: benchmarks= 503.bwaves_r,507.cactuBSSN_r,508.namd_r,510.parest_r,511.povray_r,519.lbm_r,521.wrf_r,526.blender_r,527.cam4_r,538.imagick_r,544.nab_r,549.fotonik3d_r,554.roms_r,997.specrand_fr
+1603150254.99: outputs   = txt,html,cfg,pdf,csv
+1603150254.99: username  = cuda
+1603150254.99: Environment settings:
+1603150254.99: LD_LIBRARY_PATH = "%{gcc_dir}/lib64/:%{gcc_dir}/lib/:/lib64"
+
+1603150254.99: Benchmarks selected: 503.bwaves_r, 507.cactuBSSN_r, 508.namd_r, 510.parest_r, 511.povray_r, 519.lbm_r, 521.wrf_r, 526.blender_r, 527.cam4_r, 538.imagick_r, 544.nab_r, 549.fotonik3d_r, 554.roms_r, 997.specrand_fr
+1603150254.99: /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.mytest-64 does not exist
+1603150254.99: build_check('503.bwaves_r base mytest-64' (Spec::Benchmark::bwaves_r503=HASH(0x1454fb68)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150254.99: 	Spec::Benchmark::instance(Spec::Benchmark::bwaves_r503=HASH(0x13fc0f70), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.00: /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.mytest-64 does not exist
+1603150255.00: build_check('507.cactuBSSN_r base mytest-64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x1451c600)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.00: 	Spec::Benchmark::instance(Spec::Benchmark::cactuBSSN_r507=HASH(0x141a2688), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.00: /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.mytest-64 does not exist
+1603150255.00: build_check('508.namd_r base mytest-64' (Spec::Benchmark::namd_r508=HASH(0x1456cfd8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.00: 	Spec::Benchmark::instance(Spec::Benchmark::namd_r508=HASH(0x1406e438), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.01: /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.mytest-64 does not exist
+1603150255.01: build_check('510.parest_r base mytest-64' (Spec::Benchmark::parest_r510=HASH(0x145446d0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.01: 	Spec::Benchmark::instance(Spec::Benchmark::parest_r510=HASH(0x140768e0), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.01: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/imagevalidate_511_base.mytest-64 does not exist
+1603150255.01: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/povray_r_base.mytest-64 does not exist
+1603150255.01: build_check('511.povray_r base mytest-64' (Spec::Benchmark::povray_r511=HASH(0x1457edb0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.01: 	Spec::Benchmark::instance(Spec::Benchmark::povray_r511=HASH(0x14425620), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.02: /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/exe/lbm_r_base.mytest-64 does not exist
+1603150255.02: build_check('519.lbm_r base mytest-64' (Spec::Benchmark::lbm_r519=HASH(0x14565b70)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.02: 	Spec::Benchmark::instance(Spec::Benchmark::lbm_r519=HASH(0x1407e1d8), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.02: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/diffwrf_521_base.mytest-64 does not exist
+1603150255.02: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/wrf_r_base.mytest-64 does not exist
+1603150255.02: build_check('521.wrf_r base mytest-64' (Spec::Benchmark::wrf_r521=HASH(0x1450f658)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.02: 	Spec::Benchmark::instance(Spec::Benchmark::wrf_r521=HASH(0x142972a8), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.03: /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/blender_r_base.mytest-64 does not exist
+1603150255.03: /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/imagevalidate_526_base.mytest-64 does not exist
+1603150255.03: build_check('526.blender_r base mytest-64' (Spec::Benchmark::blender_r526=HASH(0x144eeb28)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.03: 	Spec::Benchmark::instance(Spec::Benchmark::blender_r526=HASH(0x14483db8), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.03: /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_r_base.mytest-64 does not exist
+1603150255.03: /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_validate_527_base.mytest-64 does not exist
+1603150255.03: build_check('527.cam4_r base mytest-64' (Spec::Benchmark::cam4_r527=HASH(0x144e69a0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.03: 	Spec::Benchmark::instance(Spec::Benchmark::cam4_r527=HASH(0x14429478), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.03: /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagevalidate_538_base.mytest-64 does not exist
+1603150255.03: /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagick_r_base.mytest-64 does not exist
+1603150255.04: build_check('538.imagick_r base mytest-64' (Spec::Benchmark::imagick_r538=HASH(0x144daae8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.04: 	Spec::Benchmark::instance(Spec::Benchmark::imagick_r538=HASH(0x144a36f8), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.04: /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/exe/nab_r_base.mytest-64 does not exist
+1603150255.04: build_check('544.nab_r base mytest-64' (Spec::Benchmark::nab_r544=HASH(0x144e4028)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.04: 	Spec::Benchmark::instance(Spec::Benchmark::nab_r544=HASH(0x14480e30), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.04: /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/exe/fotonik3d_r_base.mytest-64 does not exist
+1603150255.04: build_check('549.fotonik3d_r base mytest-64' (Spec::Benchmark::fotonik3d_r549=HASH(0x1450fb98)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.04: 	Spec::Benchmark::instance(Spec::Benchmark::fotonik3d_r549=HASH(0x14073658), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.05: /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/exe/roms_r_base.mytest-64 does not exist
+1603150255.05: build_check('554.roms_r base mytest-64' (Spec::Benchmark::roms_r554=HASH(0x14516438)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.05: 	Spec::Benchmark::instance(Spec::Benchmark::roms_r554=HASH(0x14080c58), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.05: /home/cuda/abelardoj/CPU2017/benchspec/CPU/997.specrand_fr/exe/specrand_fr_base.mytest-64 does not exist
+1603150255.05: build_check('997.specrand_fr base mytest-64' (Spec::Benchmark::specrand_fr997=HASH(0x1458c910)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.05: 	Spec::Benchmark::instance(Spec::Benchmark::specrand_fr997=HASH(0x1419eb78), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150255.05: /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.mytest-64 does not exist
+1603150255.06: build_check('503.bwaves_r base mytest-64' (Spec::Benchmark::bwaves_r503=HASH(0x144cf080)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.06: 	Spec::Benchmark::instance(Spec::Benchmark::bwaves_r503=HASH(0x13fc0f70), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.06: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603150255.06: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603150255.06: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603150255.06: /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.mytest-64 does not exist
+1603150255.06: build_check('507.cactuBSSN_r base mytest-64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x141b6dc8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.06: 	Spec::Benchmark::instance(Spec::Benchmark::cactuBSSN_r507=HASH(0x141a2688), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.06: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603150255.06: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603150255.06: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603150255.06: /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.mytest-64 does not exist
+1603150255.06: build_check('508.namd_r base mytest-64' (Spec::Benchmark::namd_r508=HASH(0x14588900)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.06: 	Spec::Benchmark::instance(Spec::Benchmark::namd_r508=HASH(0x1406e438), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.07: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603150255.07: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603150255.07: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603150255.07: /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.mytest-64 does not exist
+1603150255.07: build_check('510.parest_r base mytest-64' (Spec::Benchmark::parest_r510=HASH(0x1453f230)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.07: 	Spec::Benchmark::instance(Spec::Benchmark::parest_r510=HASH(0x140768e0), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.07: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603150255.07: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603150255.07: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603150255.07: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/imagevalidate_511_base.mytest-64 does not exist
+1603150255.07: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/povray_r_base.mytest-64 does not exist
+1603150255.07: build_check('511.povray_r base mytest-64' (Spec::Benchmark::povray_r511=HASH(0x145b07c0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.07: 	Spec::Benchmark::instance(Spec::Benchmark::povray_r511=HASH(0x14425620), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.07: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603150255.07: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603150255.08: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603150255.08: /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/exe/lbm_r_base.mytest-64 does not exist
+1603150255.08: build_check('519.lbm_r base mytest-64' (Spec::Benchmark::lbm_r519=HASH(0x14588d98)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.08: 	Spec::Benchmark::instance(Spec::Benchmark::lbm_r519=HASH(0x1407e1d8), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.08: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603150255.08: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603150255.08: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603150255.08: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/diffwrf_521_base.mytest-64 does not exist
+1603150255.08: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/wrf_r_base.mytest-64 does not exist
+1603150255.08: build_check('521.wrf_r base mytest-64' (Spec::Benchmark::wrf_r521=HASH(0x14581f88)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.08: 	Spec::Benchmark::instance(Spec::Benchmark::wrf_r521=HASH(0x142972a8), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.08: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603150255.08: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603150255.08: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603150255.09: /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/blender_r_base.mytest-64 does not exist
+1603150255.09: /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/imagevalidate_526_base.mytest-64 does not exist
+1603150255.09: build_check('526.blender_r base mytest-64' (Spec::Benchmark::blender_r526=HASH(0x144f2c48)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.09: 	Spec::Benchmark::instance(Spec::Benchmark::blender_r526=HASH(0x14483db8), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.09: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603150255.09: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603150255.09: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603150255.09: /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_r_base.mytest-64 does not exist
+1603150255.09: /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_validate_527_base.mytest-64 does not exist
+1603150255.09: build_check('527.cam4_r base mytest-64' (Spec::Benchmark::cam4_r527=HASH(0x14565f00)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.09: 	Spec::Benchmark::instance(Spec::Benchmark::cam4_r527=HASH(0x14429478), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.09: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603150255.09: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603150255.09: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603150255.10: /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagevalidate_538_base.mytest-64 does not exist
+1603150255.10: /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagick_r_base.mytest-64 does not exist
+1603150255.10: build_check('538.imagick_r base mytest-64' (Spec::Benchmark::imagick_r538=HASH(0x1450f700)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.10: 	Spec::Benchmark::instance(Spec::Benchmark::imagick_r538=HASH(0x144a36f8), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.10: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603150255.10: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603150255.10: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603150255.10: /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/exe/nab_r_base.mytest-64 does not exist
+1603150255.10: build_check('544.nab_r base mytest-64' (Spec::Benchmark::nab_r544=HASH(0x14565c00)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.10: 	Spec::Benchmark::instance(Spec::Benchmark::nab_r544=HASH(0x14480e30), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.10: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603150255.10: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603150255.10: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603150255.11: /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/exe/fotonik3d_r_base.mytest-64 does not exist
+1603150255.11: build_check('549.fotonik3d_r base mytest-64' (Spec::Benchmark::fotonik3d_r549=HASH(0x14537df8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.11: 	Spec::Benchmark::instance(Spec::Benchmark::fotonik3d_r549=HASH(0x14073658), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.11: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603150255.11: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603150255.11: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603150255.11: /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/exe/roms_r_base.mytest-64 does not exist
+1603150255.11: build_check('554.roms_r base mytest-64' (Spec::Benchmark::roms_r554=HASH(0x14523140)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.11: 	Spec::Benchmark::instance(Spec::Benchmark::roms_r554=HASH(0x14080c58), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.11: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603150255.11: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603150255.11: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603150255.11: /home/cuda/abelardoj/CPU2017/benchspec/CPU/997.specrand_fr/exe/specrand_fr_base.mytest-64 does not exist
+1603150255.11: build_check('997.specrand_fr base mytest-64' (Spec::Benchmark::specrand_fr997=HASH(0x144feee0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150255.11: 	Spec::Benchmark::instance(Spec::Benchmark::specrand_fr997=HASH(0x1419eb78), Spec::Config=HASH(0x136d3220), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150255.12: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603150255.12: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603150255.12: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603150255.12: Compiling Binaries
+1603150255.12: ------------------------------------------------------------------------
+1603150255.12: /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.mytest-64 does not exist
+1603150255.12: build_check('503.bwaves_r base mytest-64' (Spec::Benchmark::bwaves_r503=HASH(0x144cf080)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150255.12:   Building 503.bwaves_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:30:55]
+1603150255.13:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/build/build_base_mytest-64.0000' for 503.bwaves_r base mytest-64 build
+1603150255.13: Comparing SHA-512 hashes:
+1603150255.13:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/src/Makefile
+1603150255.13:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/build/build_base_mytest-64.0000/Makefile
+1603150255.17:   Compile for '503.bwaves_r' started at: 2020-10-19 16:30:55 (1603150255)
+1603150255.18: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150255.18: Start make.clean command: 2020-10-19 16:30:55 (1603150255.18249)
+1603150255.29: rm -rf *.o  bwaves_1.out bwaves_2.out
+1603150255.29: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150255.29: rm -rf bwaves_r
+1603150255.29: rm -rf bwaves_r.exe
+1603150255.29: rm -rf core
+1603150255.35: Stop make.clean command: 2020-10-19 16:30:55 (1603150255.35324)
+1603150255.35: Elapsed time for make.clean command: 00:00:00 (0.170751810073853)
+1603150255.35: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150255.36: Start make command: 2020-10-19 16:30:55 (1603150255.35504)
+1603150255.46: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 fill1.F -o fill1.fppized.f
+1603150255.46: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 fill2.F -o fill2.fppized.f
+1603150255.46: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 jacobian_lam.F -o jacobian_lam.fppized.f
+1603150255.46: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 flow_lam.F -o flow_lam.fppized.f
+1603150255.46: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 flux_lam.F -o flux_lam.fppized.f
+1603150255.46: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 block_solver.F -o block_solver.fppized.f
+1603150255.46: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 shell_lam.F -o shell_lam.fppized.f
+1603150255.46: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o fill1.fppized.o -g -O3 fill1.fppized.f
+1603150255.46: pgfortran-Error-Unknown switch: -mabi=lp64
+1603150255.46: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:391: fill1.fppized.o] Error 1
+1603150255.46: specmake: *** Waiting for unfinished jobs....
+1603150255.46: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o fill2.fppized.o -g -O3 fill2.fppized.f
+1603150255.46: pgfortran-Error-Unknown switch: -mabi=lp64
+1603150255.46: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:391: fill2.fppized.o] Error 1
+1603150255.46: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o jacobian_lam.fppized.o -g -O3 jacobian_lam.fppized.f
+1603150255.46: pgfortran-Error-Unknown switch: -mabi=lp64
+1603150255.46: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:391: jacobian_lam.fppized.o] Error 1
+1603150255.46: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o flow_lam.fppized.o -g -O3 flow_lam.fppized.f
+1603150255.46: pgfortran-Error-Unknown switch: -mabi=lp64
+1603150255.46: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:391: flow_lam.fppized.o] Error 1
+1603150255.46: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o flux_lam.fppized.o -g -O3 flux_lam.fppized.f
+1603150255.46: pgfortran-Error-Unknown switch: -mabi=lp64
+1603150255.46: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:391: flux_lam.fppized.o] Error 1
+1603150255.46: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o block_solver.fppized.o -g -O3 block_solver.fppized.f
+1603150255.46: pgfortran-Error-Unknown switch: -mabi=lp64
+1603150255.46: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:391: block_solver.fppized.o] Error 1
+1603150255.46: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o shell_lam.fppized.o -g -O3 shell_lam.fppized.f
+1603150255.46: pgfortran-Error-Unknown switch: -mabi=lp64
+1603150255.46: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:391: shell_lam.fppized.o] Error 1
+1603150255.61: Stop make command: 2020-10-19 16:30:55 (1603150255.60611)
+1603150255.61: Elapsed time for make command: 00:00:00 (0.251071929931641)
+1603150255.61: Error with make 'specmake --output-sync --jobs=8 build':
+1603150255.61:   ----------------------------------------------------------------------------
+1603150255.61:   Please review this file:
+1603150255.61:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/build/build_base_mytest-64.0000/make.out"
+1603150255.61:   ----------------------------------------------------------------------------
+1603150255.61:   Command returned exit code 2
+1603150255.61:   Error with make!
+1603150255.61:   Compile for '503.bwaves_r' ended at: 2020-10-19 16:30:55 (1603150255)
+1603150255.61:   Elapsed compile for '503.bwaves_r': 00:00:00 (0)
+1603150255.61: *** Error building 503.bwaves_r base
+1603150255.61: ------------------------------------------------------------------------
+1603150255.62: /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.mytest-64 does not exist
+1603150255.62: build_check('507.cactuBSSN_r base mytest-64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x141b6dc8)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150255.62:   Building 507.cactuBSSN_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:30:55]
+1603150255.71:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_mytest-64.0000' for 507.cactuBSSN_r base mytest-64 build
+1603150256.25: Comparing SHA-512 hashes:
+1603150256.25:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/src/Makefile
+1603150256.25:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_mytest-64.0000/Makefile
+1603150256.31:   Compile for '507.cactuBSSN_r' started at: 2020-10-19 16:30:56 (1603150256)
+1603150256.33: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150256.33: Start make.clean command: 2020-10-19 16:30:56 (1603150256.32669)
+1603150256.43: rm -rf *.o  gxx.xl gxy.xl spec_train.out
+1603150256.43: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150256.43: rm -rf cactusBSSN_r
+1603150256.43: rm -rf cactusBSSN_r.exe
+1603150256.43: rm -rf core
+1603150256.51: Stop make.clean command: 2020-10-19 16:30:56 (1603150256.50697)
+1603150256.51: Elapsed time for make.clean command: 00:00:00 (0.180279016494751)
+1603150256.51: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150256.51: Start make command: 2020-10-19 16:30:56 (1603150256.50903)
+1603150256.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o gnu/getopt.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  gnu/getopt.c
+1603150256.61: pgcc-Error-Unknown switch: -mabi=lp64
+1603150256.61: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: gnu/getopt.o] Error 1
+1603150256.61: specmake: *** Waiting for unfinished jobs....
+1603150256.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o gnu/getopt1.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  gnu/getopt1.c
+1603150256.61: pgcc-Error-Unknown switch: -mabi=lp64
+1603150256.61: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: gnu/getopt1.o] Error 1
+1603150256.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o gnu/regex.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  gnu/regex.c
+1603150256.61: pgcc-Error-Unknown switch: -mabi=lp64
+1603150256.61: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: gnu/regex.o] Error 1
+1603150256.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o ADMBase/InitSymBound.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/InitSymBound.c
+1603150256.61: pgcc-Error-Unknown switch: -mabi=lp64
+1603150256.61: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: ADMBase/InitSymBound.o] Error 1
+1603150256.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o ADMBase/Initialisation.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/Initialisation.c
+1603150256.61: pgcc-Error-Unknown switch: -mabi=lp64
+1603150256.61: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: ADMBase/Initialisation.o] Error 1
+1603150256.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o ADMBase/ParamCheck.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/ParamCheck.c
+1603150256.61: pgcc-Error-Unknown switch: -mabi=lp64
+1603150256.61: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: ADMBase/ParamCheck.o] Error 1
+1603150256.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o ADMBase/Static.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/Static.c
+1603150256.61: pgcc-Error-Unknown switch: -mabi=lp64
+1603150256.61: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: ADMBase/Static.o] Error 1
+1603150256.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o ADMBase/cctk_Bindings/cctk_ThornBindings.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/cctk_Bindings/cctk_ThornBindings.c
+1603150256.61: pgcc-Error-Unknown switch: -mabi=lp64
+1603150256.61: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: ADMBase/cctk_Bindings/cctk_ThornBindings.o] Error 1
+1603150256.72: Stop make command: 2020-10-19 16:30:56 (1603150256.71845)
+1603150256.72: Elapsed time for make command: 00:00:00 (0.20941686630249)
+1603150256.72: Error with make 'specmake --output-sync --jobs=8 build':
+1603150256.72:   ----------------------------------------------------------------------------
+1603150256.72:   Please review this file:
+1603150256.72:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_mytest-64.0000/make.out"
+1603150256.72:   ----------------------------------------------------------------------------
+1603150256.72:   Command returned exit code 2
+1603150256.72:   Error with make!
+1603150256.72:   Compile for '507.cactuBSSN_r' ended at: 2020-10-19 16:30:56 (1603150256)
+1603150256.72:   Elapsed compile for '507.cactuBSSN_r': 00:00:00 (0)
+1603150256.72: *** Error building 507.cactuBSSN_r base
+1603150256.73: ------------------------------------------------------------------------
+1603150256.73: /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.mytest-64 does not exist
+1603150256.73: build_check('508.namd_r base mytest-64' (Spec::Benchmark::namd_r508=HASH(0x14588900)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150256.73:   Building 508.namd_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:30:56]
+1603150256.73:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_mytest-64.0000' for 508.namd_r base mytest-64 build
+1603150256.75: Comparing SHA-512 hashes:
+1603150256.75:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/src/Makefile
+1603150256.75:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_mytest-64.0000/Makefile
+1603150256.79:   Compile for '508.namd_r' started at: 2020-10-19 16:30:56 (1603150256)
+1603150256.80: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150256.80: Start make.clean command: 2020-10-19 16:30:56 (1603150256.80338)
+1603150256.91: rm -rf *.o  apoa1.train.output
+1603150256.91: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150256.91: rm -rf namd_r
+1603150256.91: rm -rf namd_r.exe
+1603150256.91: rm -rf core
+1603150256.97: Stop make.clean command: 2020-10-19 16:30:56 (1603150256.97373)
+1603150256.97: Elapsed time for make.clean command: 00:00:00 (0.170351028442383)
+1603150256.98: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150256.98: Start make command: 2020-10-19 16:30:56 (1603150256.97563)
+1603150257.08: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o Compute.o -DSPEC -DNDEBUG  -DNAMD_DISABLE_SSE -DSPEC_AUTO_SUPPRESS_OPENMP -g -O3         -DSPEC_LP64  Compute.C
+1603150257.08: specmake: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++: Command not found
+1603150257.08: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:361: Compute.o] Error 127
+1603150257.14: Stop make command: 2020-10-19 16:30:57 (1603150257.1373)
+1603150257.14: Elapsed time for make command: 00:00:00 (0.161668062210083)
+1603150257.14: Error with make 'specmake --output-sync --jobs=8 build':
+1603150257.14:   ----------------------------------------------------------------------------
+1603150257.14:   Please review this file:
+1603150257.14:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_mytest-64.0000/make.out"
+1603150257.14:   ----------------------------------------------------------------------------
+1603150257.14:   Command returned exit code 2
+1603150257.14:   Error with make!
+1603150257.14:   Compile for '508.namd_r' ended at: 2020-10-19 16:30:57 (1603150257)
+1603150257.14:   Elapsed compile for '508.namd_r': 00:00:01 (1)
+1603150257.14: *** Error building 508.namd_r base
+1603150257.14: ------------------------------------------------------------------------
+1603150257.14: /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.mytest-64 does not exist
+1603150257.15: build_check('510.parest_r base mytest-64' (Spec::Benchmark::parest_r510=HASH(0x1453f230)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150257.15:   Building 510.parest_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:30:57]
+1603150257.32:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_mytest-64.0000' for 510.parest_r base mytest-64 build
+1603150258.41: Comparing SHA-512 hashes:
+1603150258.41:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/src/Makefile
+1603150258.41:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_mytest-64.0000/Makefile
+1603150258.46:   Compile for '510.parest_r' started at: 2020-10-19 16:30:58 (1603150258)
+1603150258.47: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150258.47: Start make.clean command: 2020-10-19 16:30:58 (1603150258.46578)
+1603150258.57: rm -rf *.o  001-m0.vtk 002-m0.vtk log me.prm statistics
+1603150258.57: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150258.57: rm -rf parest_r
+1603150258.57: rm -rf parest_r.exe
+1603150258.57: rm -rf core
+1603150258.65: Stop make.clean command: 2020-10-19 16:30:58 (1603150258.64738)
+1603150258.65: Elapsed time for make.clean command: 00:00:00 (0.181602001190186)
+1603150258.65: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150258.65: Start make command: 2020-10-19 16:30:58 (1603150258.64926)
+1603150258.75: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++      -O3 -fast -fopenmp -Mnouniform -Bstatic  -mabi=lp64 -c -o source/base/auto_derivative_function.o -DSPEC -DNDEBUG -Iinclude -I. -DSPEC_AUTO_SUPPRESS_OPENMP  -g -O3         -DSPEC_LP64  source/base/auto_derivative_function.cc
+1603150258.75: specmake: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++: Command not found
+1603150258.75: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:356: source/base/auto_derivative_function.o] Error 127
+1603150258.81: Stop make command: 2020-10-19 16:30:58 (1603150258.81241)
+1603150258.81: Elapsed time for make command: 00:00:00 (0.163155078887939)
+1603150258.81: Error with make 'specmake --output-sync --jobs=8 build':
+1603150258.81:   ----------------------------------------------------------------------------
+1603150258.81:   Please review this file:
+1603150258.81:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_mytest-64.0000/make.out"
+1603150258.81:   ----------------------------------------------------------------------------
+1603150258.81:   Command returned exit code 2
+1603150258.82:   Error with make!
+1603150258.82:   Compile for '510.parest_r' ended at: 2020-10-19 16:30:58 (1603150258)
+1603150258.82:   Elapsed compile for '510.parest_r': 00:00:00 (0)
+1603150258.82: *** Error building 510.parest_r base
+1603150258.82: ------------------------------------------------------------------------
+1603150258.82: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/imagevalidate_511_base.mytest-64 does not exist
+1603150258.82: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/povray_r_base.mytest-64 does not exist
+1603150258.82: build_check('511.povray_r base mytest-64' (Spec::Benchmark::povray_r511=HASH(0x145b07c0)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150258.82:   Building 511.povray_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:30:58]
+1603150258.84:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/build/build_base_mytest-64.0000' for 511.povray_r base mytest-64 build
+1603150258.97: Comparing SHA-512 hashes:
+1603150258.97:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/src/Makefile
+1603150258.97:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/build/build_base_mytest-64.0000/Makefile
+1603150259.08:   Compile for '511.povray_r' started at: 2020-10-19 16:30:59 (1603150259)
+1603150259.09: Issuing make.clean.imagevalidate_511 command 'specmake --output-sync --jobs=8 clean TARGET=imagevalidate_511'
+1603150259.09: Start make.clean.imagevalidate_511 command: 2020-10-19 16:30:59 (1603150259.0936)

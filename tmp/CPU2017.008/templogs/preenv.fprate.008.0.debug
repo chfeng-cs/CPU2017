@@ -1,0 +1,343 @@
+1603152803.71:   '503.bwaves_r' added
+1603152803.71:   '507.cactuBSSN_r' added
+1603152803.71:   '508.namd_r' added
+1603152803.71:   '510.parest_r' added
+1603152803.71:   '511.povray_r' added
+1603152803.71:   '519.lbm_r' added
+1603152803.71:   '521.wrf_r' added
+1603152803.71:   '526.blender_r' added
+1603152803.71:   '527.cam4_r' added
+1603152803.71:   '538.imagick_r' added
+1603152803.71:   '544.nab_r' added
+1603152803.71:   '549.fotonik3d_r' added
+1603152803.71:   '554.roms_r' added
+1603152803.71:   '997.specrand_fr' added
+1603152803.87: Verbosity = 5
+1603152803.87: Action    = build
+1603152803.87: Tune      = base
+1603152803.87: Label     = pgi-dev-r194377-aarch64
+1603152803.87: Size      = refrate
+1603152803.87: benchmarks= 503.bwaves_r,507.cactuBSSN_r,508.namd_r,510.parest_r,511.povray_r,519.lbm_r,521.wrf_r,526.blender_r,527.cam4_r,538.imagick_r,544.nab_r,549.fotonik3d_r,554.roms_r,997.specrand_fr
+1603152803.87: outputs   = txt,csv
+1603152803.87: username  = cuda
+1603152803.87: Environment settings:
+1603152803.87: LD_LIBRARY_PATH = "%{pgi_dir}/lib64/:%{pgi_dir}/lib/:/lib64"
+
+1603152803.87: Benchmarks selected: 503.bwaves_r, 507.cactuBSSN_r, 508.namd_r, 510.parest_r, 511.povray_r, 519.lbm_r, 521.wrf_r, 526.blender_r, 527.cam4_r, 538.imagick_r, 544.nab_r, 549.fotonik3d_r, 554.roms_r, 997.specrand_fr
+1603152803.88: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.88:   found in the config file.  They will be installed after build.
+1603152803.88: build_check('503.bwaves_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::bwaves_r503=HASH(0x139c7868)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.88: 	Spec::Benchmark::instance(Spec::Benchmark::bwaves_r503=HASH(0x133c8868), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.88: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.88:   found in the config file.  They will be installed after build.
+1603152803.88: build_check('507.cactuBSSN_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x13b5a8c8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.88: 	Spec::Benchmark::instance(Spec::Benchmark::cactuBSSN_r507=HASH(0x13458460), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.89: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.89:   found in the config file.  They will be installed after build.
+1603152803.89: build_check('508.namd_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::namd_r508=HASH(0x1399ad18)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.89: 	Spec::Benchmark::instance(Spec::Benchmark::namd_r508=HASH(0x13906b18), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.89: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.89:   found in the config file.  They will be installed after build.
+1603152803.89: build_check('510.parest_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::parest_r510=HASH(0x13a0ec00)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.89: 	Spec::Benchmark::instance(Spec::Benchmark::parest_r510=HASH(0x13908508), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.89: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/imagevalidate_511_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/povray_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.89:   found in the config file.  They will be installed after build.
+1603152803.89: build_check('511.povray_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::povray_r511=HASH(0x13983728)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.89: 	Spec::Benchmark::instance(Spec::Benchmark::povray_r511=HASH(0x1350b908), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.90: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/exe/lbm_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.90:   found in the config file.  They will be installed after build.
+1603152803.90: build_check('519.lbm_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::lbm_r519=HASH(0x139499a8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.90: 	Spec::Benchmark::instance(Spec::Benchmark::lbm_r519=HASH(0x13616498), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.90: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/diffwrf_521_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/wrf_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.90:   found in the config file.  They will be installed after build.
+1603152803.90: build_check('521.wrf_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::wrf_r521=HASH(0x1396e948)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.90: 	Spec::Benchmark::instance(Spec::Benchmark::wrf_r521=HASH(0x134640e0), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.91: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/blender_r_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/imagevalidate_526_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.91:   found in the config file.  They will be installed after build.
+1603152803.91: build_check('526.blender_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::blender_r526=HASH(0x13994938)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.91: 	Spec::Benchmark::instance(Spec::Benchmark::blender_r526=HASH(0x1349b140), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.91: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_r_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_validate_527_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.91:   found in the config file.  They will be installed after build.
+1603152803.91: build_check('527.cam4_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::cam4_r527=HASH(0x13b9ee78)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.91: 	Spec::Benchmark::instance(Spec::Benchmark::cam4_r527=HASH(0x1353f350), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.91: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagevalidate_538_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagick_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.91:   found in the config file.  They will be installed after build.
+1603152803.91: build_check('538.imagick_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::imagick_r538=HASH(0x13975170)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.91: 	Spec::Benchmark::instance(Spec::Benchmark::imagick_r538=HASH(0x1389dee0), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.92: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/exe/nab_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.92:   found in the config file.  They will be installed after build.
+1603152803.92: build_check('544.nab_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::nab_r544=HASH(0x1393bf60)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.92: 	Spec::Benchmark::instance(Spec::Benchmark::nab_r544=HASH(0x13498e18), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.92: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/exe/fotonik3d_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.92:   found in the config file.  They will be installed after build.
+1603152803.92: build_check('549.fotonik3d_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::fotonik3d_r549=HASH(0x1392f490)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.92: 	Spec::Benchmark::instance(Spec::Benchmark::fotonik3d_r549=HASH(0x13923280), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.92: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/exe/roms_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.92:   found in the config file.  They will be installed after build.
+1603152803.92: build_check('554.roms_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::roms_r554=HASH(0x13baf108)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.92: 	Spec::Benchmark::instance(Spec::Benchmark::roms_r554=HASH(0x1390d3b8), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.93: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/997.specrand_fr/exe/specrand_fr_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.93:   found in the config file.  They will be installed after build.
+1603152803.93: build_check('997.specrand_fr base pgi-dev-r194377-aarch64' (Spec::Benchmark::specrand_fr997=HASH(0x13961950)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.93: 	Spec::Benchmark::instance(Spec::Benchmark::specrand_fr997=HASH(0x138d9f90), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603152803.93: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.93:   found in the config file.  They will be installed after build.
+1603152803.93: build_check('503.bwaves_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::bwaves_r503=HASH(0x1392f670)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.93: 	Spec::Benchmark::instance(Spec::Benchmark::bwaves_r503=HASH(0x133c8868), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.93: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603152803.93: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603152803.93: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603152803.94: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.94:   found in the config file.  They will be installed after build.
+1603152803.94: build_check('507.cactuBSSN_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x13a0f4b8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.94: 	Spec::Benchmark::instance(Spec::Benchmark::cactuBSSN_r507=HASH(0x13458460), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.94: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603152803.94: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603152803.94: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603152803.94: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.94:   found in the config file.  They will be installed after build.
+1603152803.94: build_check('508.namd_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::namd_r508=HASH(0x1392f760)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.94: 	Spec::Benchmark::instance(Spec::Benchmark::namd_r508=HASH(0x13906b18), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.94: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603152803.94: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603152803.94: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603152803.94: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.94:   found in the config file.  They will be installed after build.
+1603152803.94: build_check('510.parest_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::parest_r510=HASH(0x13965378)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.94: 	Spec::Benchmark::instance(Spec::Benchmark::parest_r510=HASH(0x13908508), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.95: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603152803.95: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603152803.95: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603152803.95: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/imagevalidate_511_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/povray_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.95:   found in the config file.  They will be installed after build.
+1603152803.95: build_check('511.povray_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::povray_r511=HASH(0x1354bf10)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.95: 	Spec::Benchmark::instance(Spec::Benchmark::povray_r511=HASH(0x1350b908), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.95: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603152803.95: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603152803.95: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603152803.95: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/exe/lbm_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.95:   found in the config file.  They will be installed after build.
+1603152803.95: build_check('519.lbm_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::lbm_r519=HASH(0x13a07df8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.95: 	Spec::Benchmark::instance(Spec::Benchmark::lbm_r519=HASH(0x13616498), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.95: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603152803.95: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603152803.95: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603152803.96: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/diffwrf_521_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/wrf_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.96:   found in the config file.  They will be installed after build.
+1603152803.96: build_check('521.wrf_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::wrf_r521=HASH(0x13b5a2f8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.96: 	Spec::Benchmark::instance(Spec::Benchmark::wrf_r521=HASH(0x134640e0), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.96: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603152803.96: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603152803.96: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603152803.96: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/blender_r_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/imagevalidate_526_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.96:   found in the config file.  They will be installed after build.
+1603152803.96: build_check('526.blender_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::blender_r526=HASH(0x139f75a0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.96: 	Spec::Benchmark::instance(Spec::Benchmark::blender_r526=HASH(0x1349b140), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.96: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603152803.96: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603152803.96: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603152803.97: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_r_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_validate_527_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.97:   found in the config file.  They will be installed after build.
+1603152803.97: build_check('527.cam4_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::cam4_r527=HASH(0x13bb7d70)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.97: 	Spec::Benchmark::instance(Spec::Benchmark::cam4_r527=HASH(0x1353f350), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.97: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603152803.97: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603152803.97: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603152803.97: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagevalidate_538_base.pgi-dev-r194377-aarch64,/home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagick_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.97:   found in the config file.  They will be installed after build.
+1603152803.97: build_check('538.imagick_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::imagick_r538=HASH(0x13ba6c08)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.97: 	Spec::Benchmark::instance(Spec::Benchmark::imagick_r538=HASH(0x1389dee0), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.97: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603152803.97: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603152803.97: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603152803.97: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/exe/nab_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.97:   found in the config file.  They will be installed after build.
+1603152803.98: build_check('544.nab_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::nab_r544=HASH(0x1354c288)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.98: 	Spec::Benchmark::instance(Spec::Benchmark::nab_r544=HASH(0x13498e18), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.98: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603152803.98: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603152803.98: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603152803.98: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/exe/fotonik3d_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.98:   found in the config file.  They will be installed after build.
+1603152803.98: build_check('549.fotonik3d_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::fotonik3d_r549=HASH(0x13944a78)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.98: 	Spec::Benchmark::instance(Spec::Benchmark::fotonik3d_r549=HASH(0x13923280), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.98: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603152803.98: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603152803.98: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603152803.98: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/exe/roms_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.98:   found in the config file.  They will be installed after build.
+1603152803.98: build_check('554.roms_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::roms_r554=HASH(0x13997fe8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.98: 	Spec::Benchmark::instance(Spec::Benchmark::roms_r554=HASH(0x1390d3b8), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.98: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603152803.98: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603152803.98: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603152803.99: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/997.specrand_fr/exe/specrand_fr_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.99:   found in the config file.  They will be installed after build.
+1603152803.99: build_check('997.specrand_fr base pgi-dev-r194377-aarch64' (Spec::Benchmark::specrand_fr997=HASH(0x139dbe18)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603152803.99: 	Spec::Benchmark::instance(Spec::Benchmark::specrand_fr997=HASH(0x138d9f90), Spec::Config=HASH(0x12addf78), "base", "refrate", "pgi-dev-r194377-aarch64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603152803.99: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603152803.99: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603152803.99: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603152803.99: Compiling Binaries
+1603152803.99: ------------------------------------------------------------------------
+1603152803.99: When checking options for /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.pgi-dev-r194377-aarch64, no checksums were
+1603152803.99:   found in the config file.  They will be installed after build.
+1603152803.99: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152803.99:   found in the config file.  They will be installed after build.
+1603152803.99: build_check('503.bwaves_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::bwaves_r503=HASH(0x1392f670)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603152804.00:   Building 503.bwaves_r base pgi-dev-r194377-aarch64: (build_base_pgi-dev-r194377-aarch64.0000) [2020-10-19 17:13:23]
+1603152804.00:    Creating directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/build/build_base_pgi-dev-r194377-aarch64.0000' for 503.bwaves_r base pgi-dev-r194377-aarch64 build
+1603152804.00: Comparing SHA-512 hashes:
+1603152804.00:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/src/Makefile
+1603152804.00:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/build/build_base_pgi-dev-r194377-aarch64.0000/Makefile
+1603152804.04:   Compile for '503.bwaves_r' started at: 2020-10-19 17:13:24 (1603152804)
+1603152804.06: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603152804.06: Start make.clean command: 2020-10-19 17:13:24 (1603152804.05613)
+1603152804.16: rm -rf *.o  bwaves_1.out bwaves_2.out
+1603152804.16: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603152804.16: rm -rf bwaves_r
+1603152804.16: rm -rf bwaves_r.exe
+1603152804.16: rm -rf core
+1603152804.23: Stop make.clean command: 2020-10-19 17:13:24 (1603152804.22682)
+1603152804.23: Elapsed time for make.clean command: 00:00:00 (0.170687913894653)
+1603152804.23: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603152804.23: Start make command: 2020-10-19 17:13:24 (1603152804.22879)
+1603152804.33: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 fill1.F -o fill1.fppized.f
+1603152804.33: /home/cuda/dareed/pgi_compiler/hpc_sdk/Linux_aarch64/20XX-dev/bin/pgfortran -c -o fill1.fppized.o -fast -Bstatic -Mfprelaxed fill1.fppized.f
+1603152804.33: specmake: /home/cuda/dareed/pgi_compiler/hpc_sdk/Linux_aarch64/20XX-dev/bin/pgfortran: Command not found
+1603152804.33: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:391: fill1.fppized.o] Error 127
+1603152804.33: specmake: *** Waiting for unfinished jobs....
+1603152804.33: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 fill2.F -o fill2.fppized.f
+1603152804.33: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 jacobian_lam.F -o jacobian_lam.fppized.f
+1603152804.33: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 flow_lam.F -o flow_lam.fppized.f
+1603152804.33: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 flux_lam.F -o flux_lam.fppized.f
+1603152804.33: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 block_solver.F -o block_solver.fppized.f
+1603152804.33: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 shell_lam.F -o shell_lam.fppized.f
+1603152804.44: Stop make command: 2020-10-19 17:13:24 (1603152804.436)
+1603152804.44: Elapsed time for make command: 00:00:00 (0.207214117050171)
+1603152804.44: Error with make 'specmake --output-sync --jobs=8 build':
+1603152804.44:   ----------------------------------------------------------------------------
+1603152804.44:   Please review this file:
+1603152804.44:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/build/build_base_pgi-dev-r194377-aarch64.0000/make.out"
+1603152804.44:   ----------------------------------------------------------------------------
+1603152804.44:   Command returned exit code 2
+1603152804.44:   Error with make!
+1603152804.44:   Compile for '503.bwaves_r' ended at: 2020-10-19 17:13:24 (1603152804)
+1603152804.44:   Elapsed compile for '503.bwaves_r': 00:00:00 (0)
+1603152804.44: *** Error building 503.bwaves_r base
+1603152804.44: ------------------------------------------------------------------------
+1603152804.45: When checking options for /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.pgi-dev-r194377-aarch64, no checksums were
+1603152804.45:   found in the config file.  They will be installed after build.
+1603152804.45: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152804.45:   found in the config file.  They will be installed after build.
+1603152804.45: build_check('507.cactuBSSN_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x13a0f4b8)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603152804.45:   Building 507.cactuBSSN_r base pgi-dev-r194377-aarch64: (build_base_pgi-dev-r194377-aarch64.0000) [2020-10-19 17:13:24]
+1603152804.45:    Creating directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_pgi-dev-r194377-aarch64.0000' for 507.cactuBSSN_r base pgi-dev-r194377-aarch64 build
+1603152804.99: Comparing SHA-512 hashes:
+1603152804.99:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/src/Makefile
+1603152804.99:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_pgi-dev-r194377-aarch64.0000/Makefile
+1603152805.06:   Compile for '507.cactuBSSN_r' started at: 2020-10-19 17:13:25 (1603152805)
+1603152805.07: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603152805.08: Start make.clean command: 2020-10-19 17:13:25 (1603152805.07501)
+1603152805.18: rm -rf *.o  gxx.xl gxy.xl spec_train.out
+1603152805.18: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603152805.18: rm -rf cactusBSSN_r
+1603152805.18: rm -rf cactusBSSN_r.exe
+1603152805.18: rm -rf core
+1603152805.26: Stop make.clean command: 2020-10-19 17:13:25 (1603152805.25549)
+1603152805.26: Elapsed time for make.clean command: 00:00:00 (0.180482864379883)
+1603152805.26: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603152805.26: Start make command: 2020-10-19 17:13:25 (1603152805.25758)
+1603152805.36: /home/cuda/dareed/pgi_compiler/hpc_sdk/Linux_aarch64/20XX-dev/bin/pgcc -c -o gnu/getopt.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -fast -Bstatic -Mfprelaxed               -DSPEC_LP64  gnu/getopt.c
+1603152805.36: specmake: /home/cuda/dareed/pgi_compiler/hpc_sdk/Linux_aarch64/20XX-dev/bin/pgcc: Command not found
+1603152805.36: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:347: gnu/getopt.o] Error 127
+1603152805.42: Stop make command: 2020-10-19 17:13:25 (1603152805.4227)
+1603152805.42: Elapsed time for make command: 00:00:00 (0.165113925933838)
+1603152805.42: Error with make 'specmake --output-sync --jobs=8 build':
+1603152805.42:   ----------------------------------------------------------------------------
+1603152805.42:   Please review this file:
+1603152805.42:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_pgi-dev-r194377-aarch64.0000/make.out"
+1603152805.42:   ----------------------------------------------------------------------------
+1603152805.42:   Command returned exit code 2
+1603152805.43:   Error with make!
+1603152805.43:   Compile for '507.cactuBSSN_r' ended at: 2020-10-19 17:13:25 (1603152805)
+1603152805.43:   Elapsed compile for '507.cactuBSSN_r': 00:00:00 (0)
+1603152805.43: *** Error building 507.cactuBSSN_r base
+1603152805.43: ------------------------------------------------------------------------
+1603152805.43: When checking options for /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.pgi-dev-r194377-aarch64, no checksums were
+1603152805.43:   found in the config file.  They will be installed after build.
+1603152805.43: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152805.43:   found in the config file.  They will be installed after build.
+1603152805.43: build_check('508.namd_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::namd_r508=HASH(0x1392f760)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603152805.43:   Building 508.namd_r base pgi-dev-r194377-aarch64: (build_base_pgi-dev-r194377-aarch64.0000) [2020-10-19 17:13:25]
+1603152805.44:    Creating directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_pgi-dev-r194377-aarch64.0000' for 508.namd_r base pgi-dev-r194377-aarch64 build
+1603152805.46: Comparing SHA-512 hashes:
+1603152805.46:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/src/Makefile
+1603152805.46:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_pgi-dev-r194377-aarch64.0000/Makefile
+1603152805.50:   Compile for '508.namd_r' started at: 2020-10-19 17:13:25 (1603152805)
+1603152805.51: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603152805.51: Start make.clean command: 2020-10-19 17:13:25 (1603152805.5076)
+1603152805.61: rm -rf *.o  apoa1.train.output
+1603152805.61: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603152805.61: rm -rf namd_r
+1603152805.61: rm -rf namd_r.exe
+1603152805.61: rm -rf core
+1603152805.68: Stop make.clean command: 2020-10-19 17:13:25 (1603152805.67802)
+1603152805.68: Elapsed time for make.clean command: 00:00:00 (0.170418977737427)
+1603152805.68: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603152805.68: Start make command: 2020-10-19 17:13:25 (1603152805.67993)
+1603152805.78: /home/cuda/dareed/pgi_compiler/hpc_sdk/Linux_aarch64/20XX-dev/bin/pgc++ -c -o Compute.o -DSPEC -DNDEBUG  -DNAMD_DISABLE_SSE -DSPEC_AUTO_SUPPRESS_OPENMP -fast -Bstatic -Mfprelaxed         -DSPEC_LP64  Compute.C
+1603152805.78: specmake: /home/cuda/dareed/pgi_compiler/hpc_sdk/Linux_aarch64/20XX-dev/bin/pgc++: Command not found
+1603152805.78: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:361: Compute.o] Error 127
+1603152805.84: Stop make command: 2020-10-19 17:13:25 (1603152805.84188)
+1603152805.84: Elapsed time for make command: 00:00:00 (0.161953926086426)
+1603152805.84: Error with make 'specmake --output-sync --jobs=8 build':
+1603152805.84:   ----------------------------------------------------------------------------
+1603152805.84:   Please review this file:
+1603152805.84:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_pgi-dev-r194377-aarch64.0000/make.out"
+1603152805.84:   ----------------------------------------------------------------------------
+1603152805.84:   Command returned exit code 2
+1603152805.85:   Error with make!
+1603152805.85:   Compile for '508.namd_r' ended at: 2020-10-19 17:13:25 (1603152805)
+1603152805.85:   Elapsed compile for '508.namd_r': 00:00:00 (0)
+1603152805.85: *** Error building 508.namd_r base
+1603152805.85: ------------------------------------------------------------------------
+1603152805.85: When checking options for /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.pgi-dev-r194377-aarch64, no checksums were
+1603152805.85:   found in the config file.  They will be installed after build.
+1603152805.85: When checking executables (/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.pgi-dev-r194377-aarch64), no checksums were
+1603152805.85:   found in the config file.  They will be installed after build.
+1603152805.85: build_check('510.parest_r base pgi-dev-r194377-aarch64' (Spec::Benchmark::parest_r510=HASH(0x13965378)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603152805.85:   Building 510.parest_r base pgi-dev-r194377-aarch64: (build_base_pgi-dev-r194377-aarch64.0000) [2020-10-19 17:13:25]
+1603152805.86:    Creating directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_pgi-dev-r194377-aarch64.0000' for 510.parest_r base pgi-dev-r194377-aarch64 build

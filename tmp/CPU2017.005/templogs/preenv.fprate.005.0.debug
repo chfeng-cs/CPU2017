@@ -1,0 +1,1701 @@
+1603150303.79: Retrieving flags file (/home/cuda/abelardoj/CPU2017/config/flags/gcc.xml)...
+1603150303.81: Created default regexp '(?:^|(?<=\s))-D_FILE_OFFSET_BITS=64(?=\s|$)' for F-D_FILE_OFFSET_BITS:64 in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fno-aggressive-loop-optimizations(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-aggressive-loop-optimizations in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fconvert=big-endian(?=\s|$)' for F-fconvert:big-endian in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-ffast-math(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-ffast-math in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-ffixed-form(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-ffixed-form in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fgnu89-inline(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fgnu89-inline in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-flto(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-flto in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fno-math-errno(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-math-errno in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fopenmp(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fopenmp in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fprefetch-loop-arrays(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fprefetch-loop-arrays in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fprofile-generate(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fprofile-generate in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fprofile-use(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fprofile-use in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fsigned-char(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fsigned-char in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fsigned-zeros(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fsigned-zeros in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.81: Created default regexp '(?:^|(?<=\s))-fno-strict-aliasing(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-strict-aliasing in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-fno-tree-loop-vectorize(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-tree-loop-vectorize in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-funcse(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-funcse in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-fno-underscoring(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-underscoring in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-funroll-all-loops(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-funroll-all-loops in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-funroll-loops(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-funroll-loops in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-fno-unsafe-math-optimizations(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-fno-unsafe-math-optimizations in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-funsigned-char(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-funsigned-char in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-mavx(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-mavx in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-mfmaf(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-mfmaf in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-mrecip(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-mrecip in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-mvis3(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-mvis3 in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-Ofast(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-Ofast in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-Wall(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-Wall in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.82: Created default regexp '(?:^|(?<=\s))-Wno-return-type(?:\([^\)]+\))?(?:=\S*)?(?=\s|$)' for F-Wno-return-type in /home/cuda/abelardoj/CPU2017/config/flags/gcc.xml
+1603150303.90:   '503.bwaves_r' added
+1603150303.90:   '507.cactuBSSN_r' added
+1603150303.90:   '508.namd_r' added
+1603150303.90:   '510.parest_r' added
+1603150303.90:   '511.povray_r' added
+1603150303.90:   '519.lbm_r' added
+1603150303.90:   '521.wrf_r' added
+1603150303.90:   '526.blender_r' added
+1603150303.90:   '527.cam4_r' added
+1603150303.90:   '538.imagick_r' added
+1603150303.90:   '544.nab_r' added
+1603150303.90:   '549.fotonik3d_r' added
+1603150303.90:   '554.roms_r' added
+1603150303.90:   '997.specrand_fr' added
+1603150304.02: Verbosity = 5
+1603150304.02: Action    = build
+1603150304.02: Tune      = base
+1603150304.02: Label     = mytest-64
+1603150304.02: Size      = refrate
+1603150304.02: benchmarks= 503.bwaves_r,507.cactuBSSN_r,508.namd_r,510.parest_r,511.povray_r,519.lbm_r,521.wrf_r,526.blender_r,527.cam4_r,538.imagick_r,544.nab_r,549.fotonik3d_r,554.roms_r,997.specrand_fr
+1603150304.02: outputs   = txt,html,cfg,pdf,csv
+1603150304.02: username  = cuda
+1603150304.02: Environment settings:
+1603150304.02: LD_LIBRARY_PATH = "%{gcc_dir}/lib64/:%{gcc_dir}/lib/:/lib64"
+
+1603150304.02: Benchmarks selected: 503.bwaves_r, 507.cactuBSSN_r, 508.namd_r, 510.parest_r, 511.povray_r, 519.lbm_r, 521.wrf_r, 526.blender_r, 527.cam4_r, 538.imagick_r, 544.nab_r, 549.fotonik3d_r, 554.roms_r, 997.specrand_fr
+1603150304.02: /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.mytest-64 does not exist
+1603150304.02: build_check('503.bwaves_r base mytest-64' (Spec::Benchmark::bwaves_r503=HASH(0x5c62ce8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.02: 	Spec::Benchmark::instance(Spec::Benchmark::bwaves_r503=HASH(0x57fb2f8), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.03: /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.mytest-64 does not exist
+1603150304.03: build_check('507.cactuBSSN_r base mytest-64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x5ccf0e8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.03: 	Spec::Benchmark::instance(Spec::Benchmark::cactuBSSN_r507=HASH(0x5951450), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.03: /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.mytest-64 does not exist
+1603150304.03: build_check('508.namd_r base mytest-64' (Spec::Benchmark::namd_r508=HASH(0x5c48780)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.03: 	Spec::Benchmark::instance(Spec::Benchmark::namd_r508=HASH(0x595e590), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.04: /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.mytest-64 does not exist
+1603150304.04: build_check('510.parest_r base mytest-64' (Spec::Benchmark::parest_r510=HASH(0x5c501b8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.04: 	Spec::Benchmark::instance(Spec::Benchmark::parest_r510=HASH(0x5965aa8), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.04: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/imagevalidate_511_base.mytest-64 does not exist
+1603150304.04: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/povray_r_base.mytest-64 does not exist
+1603150304.04: build_check('511.povray_r base mytest-64' (Spec::Benchmark::povray_r511=HASH(0x5c58930)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.04: 	Spec::Benchmark::instance(Spec::Benchmark::povray_r511=HASH(0x5ad68d0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.05: /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/exe/lbm_r_base.mytest-64 does not exist
+1603150304.05: build_check('519.lbm_r base mytest-64' (Spec::Benchmark::lbm_r519=HASH(0x5c2cf78)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.05: 	Spec::Benchmark::instance(Spec::Benchmark::lbm_r519=HASH(0x58410e0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.05: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/diffwrf_521_base.mytest-64 does not exist
+1603150304.05: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/wrf_r_base.mytest-64 does not exist
+1603150304.05: build_check('521.wrf_r base mytest-64' (Spec::Benchmark::wrf_r521=HASH(0x5cec3b8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.05: 	Spec::Benchmark::instance(Spec::Benchmark::wrf_r521=HASH(0x5be22c8), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.06: /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/blender_r_base.mytest-64 does not exist
+1603150304.06: /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/imagevalidate_526_base.mytest-64 does not exist
+1603150304.06: build_check('526.blender_r base mytest-64' (Spec::Benchmark::blender_r526=HASH(0x5cec0d0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.06: 	Spec::Benchmark::instance(Spec::Benchmark::blender_r526=HASH(0x577dea0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.06: /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_r_base.mytest-64 does not exist
+1603150304.06: /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_validate_527_base.mytest-64 does not exist
+1603150304.06: build_check('527.cam4_r base mytest-64' (Spec::Benchmark::cam4_r527=HASH(0x5c319d8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.06: 	Spec::Benchmark::instance(Spec::Benchmark::cam4_r527=HASH(0x58fc2f0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.07: /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagevalidate_538_base.mytest-64 does not exist
+1603150304.07: /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagick_r_base.mytest-64 does not exist
+1603150304.07: build_check('538.imagick_r base mytest-64' (Spec::Benchmark::imagick_r538=HASH(0x5c5c100)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.07: 	Spec::Benchmark::instance(Spec::Benchmark::imagick_r538=HASH(0x579e258), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.07: /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/exe/nab_r_base.mytest-64 does not exist
+1603150304.07: build_check('544.nab_r base mytest-64' (Spec::Benchmark::nab_r544=HASH(0x5c44eb8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.07: 	Spec::Benchmark::instance(Spec::Benchmark::nab_r544=HASH(0x58460c8), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.07: /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/exe/fotonik3d_r_base.mytest-64 does not exist
+1603150304.07: build_check('549.fotonik3d_r base mytest-64' (Spec::Benchmark::fotonik3d_r549=HASH(0x5c442b8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.07: 	Spec::Benchmark::instance(Spec::Benchmark::fotonik3d_r549=HASH(0x582c260), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.08: /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/exe/roms_r_base.mytest-64 does not exist
+1603150304.08: build_check('554.roms_r base mytest-64' (Spec::Benchmark::roms_r554=HASH(0x5cbf200)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.08: 	Spec::Benchmark::instance(Spec::Benchmark::roms_r554=HASH(0x584a1b0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.08: /home/cuda/abelardoj/CPU2017/benchspec/CPU/997.specrand_fr/exe/specrand_fr_base.mytest-64 does not exist
+1603150304.08: build_check('997.specrand_fr base mytest-64' (Spec::Benchmark::specrand_fr997=HASH(0x5cecbc8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.08: 	Spec::Benchmark::instance(Spec::Benchmark::specrand_fr997=HASH(0x5841668), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 676
+
+1603150304.09: /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.mytest-64 does not exist
+1603150304.09: build_check('503.bwaves_r base mytest-64' (Spec::Benchmark::bwaves_r503=HASH(0x5c588d0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.09: 	Spec::Benchmark::instance(Spec::Benchmark::bwaves_r503=HASH(0x57fb2f8), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.09: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603150304.09: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603150304.09: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/data/refrate
+1603150304.09: /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.mytest-64 does not exist
+1603150304.09: build_check('507.cactuBSSN_r base mytest-64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x5c35128)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.09: 	Spec::Benchmark::instance(Spec::Benchmark::cactuBSSN_r507=HASH(0x5951450), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.09: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603150304.09: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603150304.09: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/data/refrate
+1603150304.09: /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.mytest-64 does not exist
+1603150304.10: build_check('508.namd_r base mytest-64' (Spec::Benchmark::namd_r508=HASH(0x5cdbac0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.10: 	Spec::Benchmark::instance(Spec::Benchmark::namd_r508=HASH(0x595e590), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.10: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603150304.10: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603150304.10: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/data/refrate
+1603150304.10: /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.mytest-64 does not exist
+1603150304.10: build_check('510.parest_r base mytest-64' (Spec::Benchmark::parest_r510=HASH(0x5c8afe8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.10: 	Spec::Benchmark::instance(Spec::Benchmark::parest_r510=HASH(0x5965aa8), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.10: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603150304.10: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603150304.10: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/data/refrate
+1603150304.10: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/imagevalidate_511_base.mytest-64 does not exist
+1603150304.10: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/povray_r_base.mytest-64 does not exist
+1603150304.10: build_check('511.povray_r base mytest-64' (Spec::Benchmark::povray_r511=HASH(0x5cc2438)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.10: 	Spec::Benchmark::instance(Spec::Benchmark::povray_r511=HASH(0x5ad68d0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.10: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603150304.11: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603150304.11: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/data/refrate
+1603150304.11: /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/exe/lbm_r_base.mytest-64 does not exist
+1603150304.11: build_check('519.lbm_r base mytest-64' (Spec::Benchmark::lbm_r519=HASH(0x5c5c1f0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.11: 	Spec::Benchmark::instance(Spec::Benchmark::lbm_r519=HASH(0x58410e0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.11: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603150304.11: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603150304.11: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/data/refrate
+1603150304.11: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/diffwrf_521_base.mytest-64 does not exist
+1603150304.11: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/wrf_r_base.mytest-64 does not exist
+1603150304.11: build_check('521.wrf_r base mytest-64' (Spec::Benchmark::wrf_r521=HASH(0x5c34b88)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.11: 	Spec::Benchmark::instance(Spec::Benchmark::wrf_r521=HASH(0x5be22c8), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.11: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603150304.11: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603150304.12: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/data/refrate
+1603150304.12: /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/blender_r_base.mytest-64 does not exist
+1603150304.12: /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/exe/imagevalidate_526_base.mytest-64 does not exist
+1603150304.12: build_check('526.blender_r base mytest-64' (Spec::Benchmark::blender_r526=HASH(0x5cdd9b0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.12: 	Spec::Benchmark::instance(Spec::Benchmark::blender_r526=HASH(0x577dea0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.12: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603150304.12: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603150304.12: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/526.blender_r/data/refrate
+1603150304.12: /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_r_base.mytest-64 does not exist
+1603150304.12: /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/exe/cam4_validate_527_base.mytest-64 does not exist
+1603150304.12: build_check('527.cam4_r base mytest-64' (Spec::Benchmark::cam4_r527=HASH(0x5cbeeb8)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.12: 	Spec::Benchmark::instance(Spec::Benchmark::cam4_r527=HASH(0x58fc2f0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.12: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603150304.13: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603150304.13: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/527.cam4_r/data/refrate
+1603150304.13: /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagevalidate_538_base.mytest-64 does not exist
+1603150304.13: /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/exe/imagick_r_base.mytest-64 does not exist
+1603150304.13: build_check('538.imagick_r base mytest-64' (Spec::Benchmark::imagick_r538=HASH(0x5c502c0)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.13: 	Spec::Benchmark::instance(Spec::Benchmark::imagick_r538=HASH(0x579e258), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.13: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603150304.13: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603150304.13: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/538.imagick_r/data/refrate
+1603150304.13: /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/exe/nab_r_base.mytest-64 does not exist
+1603150304.13: build_check('544.nab_r base mytest-64' (Spec::Benchmark::nab_r544=HASH(0x5c44588)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.13: 	Spec::Benchmark::instance(Spec::Benchmark::nab_r544=HASH(0x58460c8), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.13: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603150304.13: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603150304.13: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/544.nab_r/data/refrate
+1603150304.14: /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/exe/fotonik3d_r_base.mytest-64 does not exist
+1603150304.14: build_check('549.fotonik3d_r base mytest-64' (Spec::Benchmark::fotonik3d_r549=HASH(0x5c86c98)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.14: 	Spec::Benchmark::instance(Spec::Benchmark::fotonik3d_r549=HASH(0x582c260), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.14: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603150304.14: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603150304.14: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/549.fotonik3d_r/data/refrate
+1603150304.14: /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/exe/roms_r_base.mytest-64 does not exist
+1603150304.14: build_check('554.roms_r base mytest-64' (Spec::Benchmark::roms_r554=HASH(0x5d09c38)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.14: 	Spec::Benchmark::instance(Spec::Benchmark::roms_r554=HASH(0x584a1b0), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.14: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603150304.14: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603150304.14: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/554.roms_r/data/refrate
+1603150304.15: /home/cuda/abelardoj/CPU2017/benchspec/CPU/997.specrand_fr/exe/specrand_fr_base.mytest-64 does not exist
+1603150304.15: build_check('997.specrand_fr base mytest-64' (Spec::Benchmark::specrand_fr997=HASH(0x5c35008)), check_exe=1, check_options=0) called at /home/cuda/abelardoj/CPU2017/bin/harness/benchmark.pm line 315.
+1603150304.15: 	Spec::Benchmark::instance(Spec::Benchmark::specrand_fr997=HASH(0x5841668), Spec::Config=HASH(0x4d9ebb8), "base", "refrate", "mytest-64") called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 764
+
+1603150304.15: Found reftime file in /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603150304.15: Found input directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603150304.15: Found output directory under /home/cuda/abelardoj/CPU2017/benchspec/CPU/999.specrand_ir/data/refrate
+1603150304.15: Compiling Binaries
+1603150304.15: ------------------------------------------------------------------------
+1603150304.15: /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.mytest-64 does not exist
+1603150304.15: build_check('503.bwaves_r base mytest-64' (Spec::Benchmark::bwaves_r503=HASH(0x5c588d0)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150304.15:   Building 503.bwaves_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:31:44]
+1603150304.16:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/build/build_base_mytest-64.0000' for 503.bwaves_r base mytest-64 build
+1603150304.16: Comparing SHA-512 hashes:
+1603150304.16:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/src/Makefile
+1603150304.16:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/build/build_base_mytest-64.0000/Makefile
+1603150304.20:   Compile for '503.bwaves_r' started at: 2020-10-19 16:31:44 (1603150304)
+1603150304.21: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150304.21: Start make.clean command: 2020-10-19 16:31:44 (1603150304.21425)
+1603150304.32: rm -rf *.o  bwaves_1.out bwaves_2.out
+1603150304.32: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150304.32: rm -rf bwaves_r
+1603150304.32: rm -rf bwaves_r.exe
+1603150304.32: rm -rf core
+1603150304.39: Stop make.clean command: 2020-10-19 16:31:44 (1603150304.38472)
+1603150304.39: Elapsed time for make.clean command: 00:00:00 (0.170467138290405)
+1603150304.39: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150304.39: Start make command: 2020-10-19 16:31:44 (1603150304.3865)
+1603150304.49: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 fill1.F -o fill1.fppized.f
+1603150304.49: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 fill2.F -o fill2.fppized.f
+1603150304.49: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 jacobian_lam.F -o jacobian_lam.fppized.f
+1603150304.49: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 flow_lam.F -o flow_lam.fppized.f
+1603150304.49: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 flux_lam.F -o flux_lam.fppized.f
+1603150304.49: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 block_solver.F -o block_solver.fppized.f
+1603150304.49: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 shell_lam.F -o shell_lam.fppized.f
+1603150304.69: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o flow_lam.fppized.o -g -O3 flow_lam.fppized.f
+1603150304.69: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o fill1.fppized.o -g -O3 fill1.fppized.f
+1603150304.90: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o fill2.fppized.o -g -O3 fill2.fppized.f
+1603150305.20: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o jacobian_lam.fppized.o -g -O3 jacobian_lam.fppized.f
+1603150306.30: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o block_solver.fppized.o -g -O3 block_solver.fppized.f
+1603150306.90: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o flux_lam.fppized.o -g -O3 flux_lam.fppized.f
+1603150329.23: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o shell_lam.fppized.o -g -O3 shell_lam.fppized.f
+1603150329.43: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          block_solver.fppized.o flow_lam.fppized.o flux_lam.fppized.o jacobian_lam.fppized.o shell_lam.fppized.o fill1.fppized.o fill2.fppized.o                      -o bwaves_r  
+1603150329.43: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCudaFuncs.o): In function `hxiInitCudaFuncs':
+1603150329.43: /proj/build/dev/Linux_aarch64/rte/nvomp/src/hxrt/platform_cuda/hxCudaFuncs.c:65: warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+1603150329.43: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x467): R_AARCH64_ABS64 used with TLS symbol hxiAsyncLaunchDesc
+1603150329.43: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x6f4): R_AARCH64_ABS64 used with TLS symbol setCurrentDevice.currentDevice
+1603150329.43: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHost.o)(.debug_info+0x37): R_AARCH64_ABS64 used with TLS symbol queueAllocator
+1603150329.43: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8db): R_AARCH64_ABS64 used with TLS symbol tpFreeTasks
+1603150329.43: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8fd): R_AARCH64_ABS64 used with TLS symbol tpWaitingTasks
+1603150329.43: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x958): R_AARCH64_ABS64 used with TLS symbol tpHostThreadInfo
+1603150329.53: Stop make command: 2020-10-19 16:32:09 (1603150329.53184)
+1603150329.53: Elapsed time for make command: 00:00:25 (25.1453449726105)
+1603150329.53: Issuing options command 'specmake --output-sync --jobs=8 options'
+1603150329.53: Start options command: 2020-10-19 16:32:09 (1603150329.53386)
+1603150329.64: FPP: "specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 <source> -o <source>.fppized.f9x"
+1603150329.64: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150329.64: P: BENCH_FPPFLAGS="-w -DSPEC_AUTO_SUPPRESS_OPENMP"
+1603150329.64: O: OPTIMIZE=""
+1603150329.64: O: EXTRA_OPTIMIZE=""
+1603150329.64: O: FPPOPTIMIZE=""
+1603150329.64: O: EXTRA_FPPOPTIMIZE=""
+1603150329.64: O: FOPTIMIZE=""
+1603150329.64: O: EXTRA_FOPTIMIZE=""
+1603150329.64: P: PORTABILITY=""
+1603150329.64: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150329.64: P: FPORTABILITY=""
+1603150329.64: P: EXTRA_FPORTABILITY=""
+1603150329.64: COMP: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o options.o -g -O3 <source>"
+1603150329.64: C: FC="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150329.64: C: FOBJOPT="-c -o options"
+1603150329.64: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150329.64: P: BENCH_FLAGS=""
+1603150329.64: P: BENCH_FFLAGS=""
+1603150329.64: O: OPTIMIZE="-g -O3"
+1603150329.64: O: FOPTIMIZE=""
+1603150329.64: P: PORTABILITY=""
+1603150329.64: P: FPORTABILITY=""
+1603150329.64: O: EXTRA_FFLAGS=""
+1603150329.64: O: EXTRA_OPTIMIZE=""
+1603150329.64: O: EXTRA_FOPTIMIZE=""
+1603150329.64: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150329.64: P: EXTRA_FPORTABILITY=""
+1603150329.64: LINK: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          <objects>            -o options  "
+1603150329.64: C: LD="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150329.64: O: OPTIMIZE="-g -O3"
+1603150329.64: C: LDOUT="-o options"
+1603150329.70: Stop options command: 2020-10-19 16:32:09 (1603150329.69948)
+1603150329.70: Elapsed time for options command: 00:00:00 (0.165612936019897)
+1603150329.70: Issuing compiler-version command 'specmake --output-sync --jobs=8 compiler-version'
+1603150329.70: Start compiler-version command: 2020-10-19 16:32:09 (1603150329.70193)
+1603150330.01:  FC_VERSION_OPTION:
+1603150330.01: Export NVCOMPILER=/opt/hpc_sdk/Linux_aarch64/dev
+1603150330.01: Export PGI=/opt/hpc_sdk
+1603150330.01: /usr/bin/ld /usr/lib/aarch64-linux-gnu/crt1.o /usr/lib/aarch64-linux-gnu/crti.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/trace_init.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginT.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/f90main.o -m aarch64linux -dynamic-linker /lib/ld-linux-aarch64.so.1 /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/nvhpc.ld -L/opt/hpc_sdk/Linux_aarch64/dev/compilers/lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7 -Bstatic -Bstatic -Bstatic -lnvf -Bstatic -lnvomp -ldl -Bstatic -as-needed -latomic -Bstatic -lnvhpcatm -no-as-needed -ldl -lpthread -Bstatic --start-group -lnvcpumath -lnvc --end-group -lrt -lpthread -lm --start-group -lgcc -lgcc_eh -lc --end-group /usr/lib/gcc/aarch64-linux-gnu/7/crtend.o /usr/lib/aarch64-linux-gnu/crtn.o
+1603150330.01: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCudaFuncs.o): In function `hxiInitCudaFuncs':
+1603150330.01: /proj/build/dev/Linux_aarch64/rte/nvomp/src/hxrt/platform_cuda/hxCudaFuncs.c:65: warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+1603150330.01: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/f90main.o: In function `main':
+1603150330.01: /proj/build/dev/Linux_aarch64/rte/f90/f90/lib-linuxarm64/../src-fio/f90main.c:73: undefined reference to `MAIN_'
+1603150330.01: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x467): R_AARCH64_ABS64 used with TLS symbol hxiAsyncLaunchDesc
+1603150330.01: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x6f4): R_AARCH64_ABS64 used with TLS symbol setCurrentDevice.currentDevice
+1603150330.01: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHost.o)(.debug_info+0x37): R_AARCH64_ABS64 used with TLS symbol queueAllocator
+1603150330.01: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8db): R_AARCH64_ABS64 used with TLS symbol tpFreeTasks
+1603150330.01: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8fd): R_AARCH64_ABS64 used with TLS symbol tpWaitingTasks
+1603150330.01: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x958): R_AARCH64_ABS64 used with TLS symbol tpHostThreadInfo
+1603150330.01: pgfortran-Fatal-linker completed with exit code 1
+
+1603150330.01: specmake: [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:502: compiler-version] Error 2 (ignored)
+1603150330.08: Stop compiler-version command: 2020-10-19 16:32:10 (1603150330.07522)
+1603150330.08: Elapsed time for compiler-version command: 00:00:00 (0.373286008834839)
+1603150330.08:   Compile for '503.bwaves_r' ended at: 2020-10-19 16:32:10 (1603150330)
+1603150330.08:   Elapsed compile for '503.bwaves_r': 00:00:26 (26)
+1603150330.15: Comparing SHA-512 hashes:
+1603150330.15:   cc09b6e7db0fdbec8a36f2298d48b23f486dffcce6984341bebf054600e75f6b6aa2dad0091127ff6916a3346e0630089cc6db49a6081811d54fb26bd98d515e bwaves_r
+1603150330.15:   cc09b6e7db0fdbec8a36f2298d48b23f486dffcce6984341bebf054600e75f6b6aa2dad0091127ff6916a3346e0630089cc6db49a6081811d54fb26bd98d515e /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/exe/bwaves_r_base.mytest-64
+1603150330.23: Wrote to makefile '/home/cuda/abelardoj/CPU2017/tmp/CPU2017.005.0/options.503.bwaves_r.base/Makefile.deps':
+1603150330.23: # End dependencies
+1603150330.23: # These are the build dependencies
+1603150330.23: Wrote to makefile '/home/cuda/abelardoj/CPU2017/tmp/CPU2017.005.0/options.503.bwaves_r.base/Makefile.spec':
+1603150330.23: TUNE=base
+1603150330.23: LABEL=mytest-64
+1603150330.23: NUMBER=503
+1603150330.23: NAME=bwaves_r
+1603150330.23: SOURCES= block_solver.F flow_lam.F flux_lam.F jacobian_lam.F shell_lam.F \
+1603150330.23: 	 fill1.F fill2.F
+1603150330.23: EXEBASE=bwaves_r
+1603150330.23: NEED_MATH=
+1603150330.23: BENCHLANG=F
+1603150330.23: BENCH_FPPFLAGS   = -w -DSPEC_AUTO_SUPPRESS_OPENMP
+1603150330.23: CC               = $(SPECLANG)pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic
+1603150330.23: CC_VERSION_OPTION = -v
+1603150330.23: CXX              = $(SPECLANG)pg++      -O3 -fast -fopenmp -Mnouniform -Bstatic
+1603150330.23: CXX_VERSION_OPTION = -v
+1603150330.23: EXTRA_PORTABILITY = -DSPEC_LP64
+1603150330.23: FC               = $(SPECLANG)pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic
+1603150330.23: FC_VERSION_OPTION = -v
+1603150330.23: OPTIMIZE         = -g -O3
+1603150330.23: OS               = unix
+1603150330.23: SPECLANG         = /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/
+1603150330.23: absolutely_no_locking = 0
+1603150330.23: action           = build
+1603150330.23: allow_label_override = 0
+1603150330.23: backup_config    = 1
+1603150330.23: baseexe          = bwaves_r
+1603150330.23: basepeak         = 1
+1603150330.23: benchdir         = benchspec
+1603150330.23: benchmark        = 503.bwaves_r
+1603150330.23: binary           = 
+1603150330.23: bindir           = exe
+1603150330.23: builddir         = build
+1603150330.23: bundleaction     = 
+1603150330.23: bundlename       = 
+1603150330.23: calctol          = 1
+1603150330.23: changedhash      = 0
+1603150330.23: check_version    = 0
+1603150330.23: clean_between_builds = no
+1603150330.23: command_add_redirect = 1
+1603150330.23: commanderrfile   = speccmds.err
+1603150330.23: commandexe       = bwaves_r_base.mytest-64
+1603150330.23: commandfile      = speccmds.cmd
+1603150330.23: commandoutfile   = speccmds.out
+1603150330.23: commandstdoutfile = speccmds.stdout
+1603150330.23: comparedir       = compare
+1603150330.23: compareerrfile   = compare.err
+1603150330.23: comparefile      = compare.cmd
+1603150330.23: compareoutfile   = compare.out
+1603150330.23: comparestdoutfile = compare.stdout
+1603150330.23: compile_error    = 0
+1603150330.23: compwhite        = 
+1603150330.23: configdir        = config
+1603150330.23: configfile       = arm-aarch64-pgi-static
+1603150330.23: configpath       = /home/cuda/abelardoj/CPU2017/config/arm-aarch64-pgi-static.cfg
+1603150330.23: copies           = 1
+1603150330.23: current_range    = 
+1603150330.23: datadir          = data
+1603150330.23: default_size     = ref
+1603150330.23: default_submit   = $command
+1603150330.23: delay            = 0
+1603150330.23: deletebinaries   = 0
+1603150330.23: deletework       = 0
+1603150330.23: dependent_workloads = 0
+1603150330.23: device           = 
+1603150330.23: difflines        = 10
+1603150330.23: dirprot          = 511
+1603150330.23: discard_power_samples = 0
+1603150330.23: enable_monitor   = 1
+1603150330.23: endian           = 12345678
+1603150330.23: env_vars         = 0
+1603150330.23: expand_notes     = 0
+1603150330.23: expid            = 
+1603150330.23: exthash_bits     = 256
+1603150330.23: failflags        = 0
+1603150330.23: fake             = 0
+1603150330.23: feedback         = 1
+1603150330.23: flag_url_base    = https://www.spec.org/auto/cpu2017/Docs/benchmarks/flags/
+1603150330.23: floatcompare     = 
+1603150330.23: force_monitor    = 0
+1603150330.23: from_runcpu      = 2
+1603150330.23: fw_bios          = 
+1603150330.23: hostname         = hp-arm64-09-02
+1603150330.23: http_proxy       = 
+1603150330.23: http_timeout     = 30
+1603150330.23: hw_avail         = 
+1603150330.23: hw_cpu_max_mhz   = 
+1603150330.23: hw_cpu_name      = could not determine
+1603150330.23: hw_cpu_nominal_mhz = 
+1603150330.23: hw_disk          = 876 GB  add more disk info here
+1603150330.23: hw_memory001     = 251.302 GB fixme: If using DDR4, the format is:
+1603150330.23: hw_memory002     = 'N GB (N x N GB nRxn PC4-nnnnX-X)'
+1603150330.23: hw_model         = 
+1603150330.23: hw_nchips        = could not determine
+1603150330.23: hw_ncores        = 
+1603150330.23: hw_ncpuorder     = 
+1603150330.23: hw_nthreadspercore = 
+1603150330.23: hw_ocache        = 
+1603150330.23: hw_other         = 
+1603150330.23: hw_pcache        = 
+1603150330.23: hw_scache        = 
+1603150330.23: hw_tcache        = 
+1603150330.23: hw_vendor        = My Corporation
+1603150330.23: idle_current_range = 
+1603150330.23: idledelay        = 10
+1603150330.23: idleduration     = 60
+1603150330.23: ignore_errors    = 1
+1603150330.23: ignore_sigint    = 0
+1603150330.23: ignorecase       = 
+1603150330.23: info_wrap_columns = 50
+1603150330.23: inputdir         = input
+1603150330.23: inputgenerrfile  = inputgen.err
+1603150330.23: inputgenfile     = inputgen.cmd
+1603150330.23: inputgenoutfile  = inputgen.out
+1603150330.23: inputgenstdoutfile = inputgen.stdout
+1603150330.23: iteration        = -1
+1603150330.23: iterations       = 1
+1603150330.23: keeptmp          = 0
+1603150330.23: label            = mytest-64
+1603150330.23: license_num      = nnn (Your SPEC license number)
+1603150330.23: line_width       = 1020
+1603150330.23: link_input_files = 1
+1603150330.23: locking          = 1
+1603150330.23: log              = CPU2017
+1603150330.23: log_line_width   = 1020
+1603150330.23: log_timestamp    = 0
+1603150330.23: logfile          = /home/cuda/abelardoj/CPU2017/tmp/CPU2017.005/templogs/preenv.fprate.005.0
+1603150330.23: logname          = /home/cuda/abelardoj/CPU2017/tmp/CPU2017.005/templogs/preenv.fprate.005.0
+1603150330.23: lognum           = 005.0
+1603150330.23: mail_reports     = all
+1603150330.23: mailcompress     = 0
+1603150330.23: mailmethod       = smtp
+1603150330.23: mailport         = 25
+1603150330.23: mailserver       = 127.0.0.1
+1603150330.23: mailto           = 
+1603150330.23: make             = specmake
+1603150330.23: make_no_clobber  = 0
+1603150330.23: makefile_template = Makefile.YYYtArGeTYYYspec
+1603150330.23: makeflags        = --jobs=8
+1603150330.23: max_average_uncertainty = 1
+1603150330.23: max_hum_limit    = 0
+1603150330.23: max_report_runs  = 3
+1603150330.23: max_unknown_uncertainty = 1
+1603150330.23: mean_anyway      = 1
+1603150330.23: meter_connect_timeout = 30
+1603150330.23: meter_errors_default = 5
+1603150330.23: meter_errors_percentage = 5
+1603150330.23: min_report_runs  = 2
+1603150330.23: min_temp_limit   = 20
+1603150330.23: minimize_builddirs = 0
+1603150330.23: minimize_rundirs = 0
+1603150330.23: name             = bwaves_r
+1603150330.23: nansupport       = 
+1603150330.23: need_math        = 
+1603150330.23: no_input_handler = close
+1603150330.23: no_monitor       = 
+1603150330.23: noratios         = 0
+1603150330.23: note_preenv      = 1
+1603150330.23: notes_plat_sysinfo_000 = 
+1603150330.23: notes_plat_sysinfo_005 =  Sysinfo program /home/cuda/abelardoj/CPU2017/bin/sysinfo
+1603150330.23: notes_plat_sysinfo_010 =  Rev: r6365 of 2019-08-21 295195f888a3d7edb1e6e46a485a0011
+1603150330.23: notes_plat_sysinfo_015 =  running on hp-arm64-09-02 Mon Oct 19 16:31:43 2020
+1603150330.23: notes_plat_sysinfo_020 = 
+1603150330.23: notes_plat_sysinfo_025 =  SUT (System Under Test) info as seen by some common utilities.
+1603150330.23: notes_plat_sysinfo_030 =  For more information on this section, see
+1603150330.23: notes_plat_sysinfo_035 =     https://www.spec.org/cpu2017/Docs/config.html\#sysinfo
+1603150330.23: notes_plat_sysinfo_040 = 
+1603150330.23: notes_plat_sysinfo_045 =  From /proc/cpuinfo
+1603150330.23: notes_plat_sysinfo_050 =  *
+1603150330.23: notes_plat_sysinfo_055 =  * Did not identify cpu model.  If you would
+1603150330.23: notes_plat_sysinfo_060 =  * like to write your own sysinfo program, see
+1603150330.23: notes_plat_sysinfo_065 =  * www.spec.org/cpu2017/config.html\#sysinfo
+1603150330.23: notes_plat_sysinfo_070 =  *
+1603150330.23: notes_plat_sysinfo_075 =  *
+1603150330.23: notes_plat_sysinfo_080 =  * 0 "physical id" tags found.  Perhaps this is an older system,
+1603150330.23: notes_plat_sysinfo_085 =  * or a virtualized system.  Not attempting to guess how to
+1603150330.23: notes_plat_sysinfo_090 =  * count chips/cores for this system.
+1603150330.23: notes_plat_sysinfo_095 =  *
+1603150330.23: notes_plat_sysinfo_100 =        224 "processors"
+1603150330.23: notes_plat_sysinfo_105 =     cores, siblings (Caution: counting these is hw and system dependent. The following
+1603150330.23: notes_plat_sysinfo_110 =     excerpts from /proc/cpuinfo might not be reliable.  Use with caution.)
+1603150330.23: notes_plat_sysinfo_115 = 
+1603150330.23: notes_plat_sysinfo_120 =  From lscpu:
+1603150330.23: notes_plat_sysinfo_125 =       Architecture:        aarch64
+1603150330.23: notes_plat_sysinfo_130 =       Byte Order:          Little Endian
+1603150330.23: notes_plat_sysinfo_135 =       CPU(s):              224
+1603150330.23: notes_plat_sysinfo_140 =       On-line CPU(s) list: 0-223
+1603150330.23: notes_plat_sysinfo_145 =       Thread(s) per core:  4
+1603150330.23: notes_plat_sysinfo_150 =       Core(s) per socket:  28
+1603150330.23: notes_plat_sysinfo_155 =       Socket(s):           2
+1603150330.23: notes_plat_sysinfo_160 =       NUMA node(s):        2
+1603150330.23: notes_plat_sysinfo_165 =       Vendor ID:           Cavium
+1603150330.23: notes_plat_sysinfo_170 =       Model:               1
+1603150330.23: notes_plat_sysinfo_175 =       Model name:          ThunderX2 99xx
+1603150330.23: notes_plat_sysinfo_180 =       Stepping:            0x1
+1603150330.23: notes_plat_sysinfo_185 =       BogoMIPS:            400.00
+1603150330.23: notes_plat_sysinfo_190 =       L1d cache:           32K
+1603150330.23: notes_plat_sysinfo_195 =       L1i cache:           32K
+1603150330.23: notes_plat_sysinfo_200 =       L2 cache:            256K
+1603150330.23: notes_plat_sysinfo_205 =       L3 cache:            32768K
+1603150330.23: notes_plat_sysinfo_210 =       NUMA node0 CPU(s):   0-111
+1603150330.23: notes_plat_sysinfo_215 =       NUMA node1 CPU(s):   112-223
+1603150330.23: notes_plat_sysinfo_220 =       Flags:               fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics cpuid
+1603150330.23: notes_plat_sysinfo_225 =       asimdrdm
+1603150330.23: notes_plat_sysinfo_230 = 
+1603150330.23: notes_plat_sysinfo_235 =  From numactl --hardware  WARNING: a numactl 'node' might or might not correspond to a
+1603150330.23: notes_plat_sysinfo_240 =  physical chip.
+1603150330.23: notes_plat_sysinfo_245 =    available: 2 nodes (0-1)
+1603150330.23: notes_plat_sysinfo_250 =    node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
+1603150330.23: notes_plat_sysinfo_255 =    28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56
+1603150330.23: notes_plat_sysinfo_260 =    57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85
+1603150330.23: notes_plat_sysinfo_265 =    86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110
+1603150330.23: notes_plat_sysinfo_270 =    111
+1603150330.23: notes_plat_sysinfo_275 =    node 0 size: 128835 MB
+1603150330.23: notes_plat_sysinfo_280 =    node 0 free: 112470 MB
+1603150330.23: notes_plat_sysinfo_285 =    node 1 cpus: 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129
+1603150330.23: notes_plat_sysinfo_290 =    130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151
+1603150330.23: notes_plat_sysinfo_295 =    152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173
+1603150330.23: notes_plat_sysinfo_300 =    174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195
+1603150330.23: notes_plat_sysinfo_305 =    196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217
+1603150330.23: notes_plat_sysinfo_310 =    218 219 220 221 222 223
+1603150330.23: notes_plat_sysinfo_315 =    node 1 size: 128497 MB
+1603150330.23: notes_plat_sysinfo_320 =    node 1 free: 112154 MB
+1603150330.23: notes_plat_sysinfo_325 =    node distances:
+1603150330.23: notes_plat_sysinfo_330 =    node   0   1
+1603150330.23: notes_plat_sysinfo_335 =      0:  10  20
+1603150330.23: notes_plat_sysinfo_340 =      1:  20  10
+1603150330.23: notes_plat_sysinfo_345 = 
+1603150330.23: notes_plat_sysinfo_350 =  From /proc/meminfo
+1603150330.23: notes_plat_sysinfo_355 =     MemTotal:       263508816 kB
+1603150330.23: notes_plat_sysinfo_360 =     HugePages_Total:       0
+1603150330.23: notes_plat_sysinfo_365 =     Hugepagesize:       2048 kB
+1603150330.23: notes_plat_sysinfo_370 = 
+1603150330.23: notes_plat_sysinfo_375 =  /usr/bin/lsb_release -d
+1603150330.23: notes_plat_sysinfo_380 =     Ubuntu 18.04.3 LTS
+1603150330.23: notes_plat_sysinfo_385 = 
+1603150330.23: notes_plat_sysinfo_390 =  From /etc/*release* /etc/*version*
+1603150330.23: notes_plat_sysinfo_395 =     debian_version: buster/sid
+1603150330.23: notes_plat_sysinfo_400 =     os-release:
+1603150330.23: notes_plat_sysinfo_405 =        NAME="Ubuntu"
+1603150330.23: notes_plat_sysinfo_410 =        VERSION="18.04.3 LTS (Bionic Beaver)"
+1603150330.23: notes_plat_sysinfo_415 =        ID=ubuntu
+1603150330.23: notes_plat_sysinfo_420 =        ID_LIKE=debian
+1603150330.23: notes_plat_sysinfo_425 =        PRETTY_NAME="Ubuntu 18.04.3 LTS"
+1603150330.23: notes_plat_sysinfo_430 =        VERSION_ID="18.04"
+1603150330.23: notes_plat_sysinfo_435 =        HOME_URL="https://www.ubuntu.com/"
+1603150330.23: notes_plat_sysinfo_440 =        SUPPORT_URL="https://help.ubuntu.com/"
+1603150330.23: notes_plat_sysinfo_445 = 
+1603150330.23: notes_plat_sysinfo_450 =  uname -a:
+1603150330.23: notes_plat_sysinfo_455 =     Linux hp-arm64-09-02 5.0.0-23-generic \#24~18.04.1-Ubuntu SMP Mon Jul 29 16:10:24 UTC
+1603150330.23: notes_plat_sysinfo_460 =     2019 aarch64 aarch64 aarch64 GNU/Linux
+1603150330.23: notes_plat_sysinfo_465 = 
+1603150330.23: notes_plat_sysinfo_470 =  Kernel self-reported vulnerability status:
+1603150330.23: notes_plat_sysinfo_475 = 
+1603150330.23: notes_plat_sysinfo_480 =  CVE-2018-3620 (L1 Terminal Fault):        No status reported
+1603150330.23: notes_plat_sysinfo_485 =  Microarchitectural Data Sampling:         No status reported
+1603150330.23: notes_plat_sysinfo_490 =  CVE-2017-5754 (Meltdown):                 No status reported
+1603150330.23: notes_plat_sysinfo_495 =  CVE-2018-3639 (Speculative Store Bypass): No status reported
+1603150330.23: notes_plat_sysinfo_500 =  CVE-2017-5753 (Spectre variant 1):        No status reported
+1603150330.23: notes_plat_sysinfo_505 =  CVE-2017-5715 (Spectre variant 2):        No status reported
+1603150330.23: notes_plat_sysinfo_510 = 
+1603150330.23: notes_plat_sysinfo_515 =  run-level 5 Oct 8 09:37
+1603150330.23: notes_plat_sysinfo_520 = 
+1603150330.23: notes_plat_sysinfo_525 =  SPEC is set to: /home/cuda/abelardoj/CPU2017
+1603150330.23: notes_plat_sysinfo_530 =     Filesystem     Type  Size  Used Avail Use% Mounted on
+1603150330.23: notes_plat_sysinfo_535 =     /dev/sdc4      ext4  876G  128G  704G  16% /
+1603150330.23: notes_plat_sysinfo_540 = 
+1603150330.23: notes_plat_sysinfo_545 =  From /sys/devices/virtual/dmi/id
+1603150330.23: notes_plat_sysinfo_550 =      BIOS:    American Megatrends Inc. L50_5.13_1.0.6 07/10/2018
+1603150330.23: notes_plat_sysinfo_555 =      Vendor:  HPE
+1603150330.23: notes_plat_sysinfo_560 =      Product: Apollo 70
+1603150330.23: notes_plat_sysinfo_565 =      Product Family: CN99XX
+1603150330.23: notes_plat_sysinfo_570 = 
+1603150330.23: notes_plat_sysinfo_575 =  Cannot run dmidecode; consider saying (as root)
+1603150330.23: notes_plat_sysinfo_580 =     chmod +s /usr/sbin/dmidecode
+1603150330.23: notes_plat_sysinfo_585 = 
+1603150330.23: notes_plat_sysinfo_590 =  (End of data from sysinfo program)
+1603150330.23: notes_wrap_columns = 0
+1603150330.23: notes_wrap_indent =   
+1603150330.23: num              = 503
+1603150330.23: obiwan           = 
+1603150330.23: os_exe_ext       = 
+1603150330.23: output_format    = txt,html,cfg,pdf,csv
+1603150330.23: output_root      = 
+1603150330.23: outputdir        = output
+1603150330.23: parallel_test    = 0
+1603150330.23: parallel_test_submit = 0
+1603150330.23: parallel_test_workloads = 
+1603150330.23: path             = /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r
+1603150330.23: plain_train      = 1
+1603150330.23: platform         = 
+1603150330.23: power            = 0
+1603150330.23: preENV_LD_LIBRARY_PATH = %{gcc_dir}/lib64/:%{gcc_dir}/lib/:/lib64
+1603150330.23: preenv           = 0
+1603150330.23: prefix           = 
+1603150330.23: prepared_by      = cuda  (is never output, only tags rawfile)
+1603150330.23: ranks            = 1
+1603150330.23: rawhash_bits     = 256
+1603150330.23: rebuild          = 0
+1603150330.23: reftime          = reftime
+1603150330.23: reportable       = 0
+1603150330.23: resultdir        = result
+1603150330.23: review           = 0
+1603150330.23: run              = all
+1603150330.23: runcpu           = /home/cuda/abelardoj/CPU2017/bin/harness/runcpu --configfile arm-aarch64-pgi-static --action build --noreportable --nopower --runmode rate --tune base --size refrate fprate --nopreenv --note-preenv --logfile /home/cuda/abelardoj/CPU2017/tmp/CPU2017.005/templogs/preenv.fprate.005.0 --lognum 005.0 --from_runcpu 2
+1603150330.23: rundir           = run
+1603150330.23: runmode          = rate
+1603150330.23: safe_eval        = 1
+1603150330.23: save_build_files = 
+1603150330.23: section_specifier_fatal = 1
+1603150330.23: setprocgroup     = 1
+1603150330.23: setup_error      = 0
+1603150330.23: sigint           = 2
+1603150330.23: size             = refrate
+1603150330.23: size_class       = ref
+1603150330.23: skipabstol       = 
+1603150330.23: skipobiwan       = 
+1603150330.23: skipreltol       = 
+1603150330.23: skiptol          = 
+1603150330.23: smarttune        = base
+1603150330.23: specdiff         = specdiff
+1603150330.23: specrun          = specinvoke
+1603150330.23: srcalt           = 
+1603150330.23: srcdir           = src
+1603150330.23: srcsource        = /home/cuda/abelardoj/CPU2017/benchspec/CPU/503.bwaves_r/src
+1603150330.23: stagger          = 10
+1603150330.23: strict_rundir_verify = 1
+1603150330.23: sw_avail         = 
+1603150330.23: sw_base_ptrsize  = 64-bit
+1603150330.23: sw_compiler001   = C/C++/Fortran: Version 6.2.0 of GCC, the
+1603150330.23: sw_compiler002   = GNU Compiler Collection
+1603150330.23: sw_file          = ext4
+1603150330.23: sw_os001         = Ubuntu 18.04.3 LTS
+1603150330.23: sw_os002         = 5.0.0-23-generic
+1603150330.23: sw_other         = 
+1603150330.23: sw_peak_ptrsize  = Not Applicable
+1603150330.23: sw_state         = Run level 5 (add definition here)
+1603150330.23: sysinfo_hash_bits = 256
+1603150330.23: sysinfo_program  = specperl /home/cuda/abelardoj/CPU2017/bin/sysinfo
+1603150330.23: sysinfo_program_hash = sysinfo:SHA:1b187da62efa5d65f0e989c214b6a257d16a31d3cf135973c9043da741052207
+1603150330.23: table            = 1
+1603150330.23: teeout           = 0
+1603150330.23: test_date        = Oct-2020
+1603150330.23: test_sponsor     = My Corporation
+1603150330.23: tester           = My Corporation
+1603150330.23: threads          = 1
+1603150330.23: top              = /home/cuda/abelardoj/CPU2017
+1603150330.23: train_single_thread = 0
+1603150330.23: train_with       = train
+1603150330.23: tune             = base
+1603150330.23: uid              = 1001
+1603150330.23: unbuffer         = 1
+1603150330.23: uncertainty_exception = 5
+1603150330.23: update           = 0
+1603150330.23: update_url       = http://www.spec.org/auto/cpu2017/updates/
+1603150330.23: use_submit_for_compare = 0
+1603150330.23: use_submit_for_speed = 0
+1603150330.23: username         = cuda
+1603150330.23: valid_build      = yes
+1603150330.23: verbose          = 5
+1603150330.23: verify_binaries  = 1
+1603150330.23: version          = 1.000503
+1603150330.23: voltage_range    = 
+1603150330.23: worklist         = list
+1603150330.23: OUTPUT_RMFILES   = bwaves_1.out bwaves_2.out
+1603150330.35: FPP: "specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 <source> -o <source>.fppized.f9x"
+1603150330.35: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150330.35: P: BENCH_FPPFLAGS="-w -DSPEC_AUTO_SUPPRESS_OPENMP"
+1603150330.35: O: OPTIMIZE=""
+1603150330.35: O: EXTRA_OPTIMIZE=""
+1603150330.35: O: FPPOPTIMIZE=""
+1603150330.35: O: EXTRA_FPPOPTIMIZE=""
+1603150330.35: O: FOPTIMIZE=""
+1603150330.35: O: EXTRA_FOPTIMIZE=""
+1603150330.35: P: PORTABILITY=""
+1603150330.35: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150330.35: P: FPORTABILITY=""
+1603150330.35: P: EXTRA_FPORTABILITY=""
+1603150330.35: COMP: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o options.o -g -O3 <source>"
+1603150330.35: C: FC="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150330.35: C: FOBJOPT="-c -o options"
+1603150330.35: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150330.35: P: BENCH_FLAGS=""
+1603150330.35: P: BENCH_FFLAGS=""
+1603150330.35: O: OPTIMIZE="-g -O3"
+1603150330.35: O: FOPTIMIZE=""
+1603150330.35: P: PORTABILITY=""
+1603150330.35: P: FPORTABILITY=""
+1603150330.35: O: EXTRA_FFLAGS=""
+1603150330.35: O: EXTRA_OPTIMIZE=""
+1603150330.35: O: EXTRA_FOPTIMIZE=""
+1603150330.35: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150330.35: P: EXTRA_FPORTABILITY=""
+1603150330.35: LINK: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          <objects>            -o options  "
+1603150330.35: C: LD="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150330.35: O: OPTIMIZE="-g -O3"
+1603150330.35: C: LDOUT="-o options"
+1603150330.72:  FC_VERSION_OPTION:
+1603150330.72: Export NVCOMPILER=/opt/hpc_sdk/Linux_aarch64/dev
+1603150330.72: Export PGI=/opt/hpc_sdk
+1603150330.72: /usr/bin/ld /usr/lib/aarch64-linux-gnu/crt1.o /usr/lib/aarch64-linux-gnu/crti.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/trace_init.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginT.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/f90main.o -m aarch64linux -dynamic-linker /lib/ld-linux-aarch64.so.1 /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/nvhpc.ld -L/opt/hpc_sdk/Linux_aarch64/dev/compilers/lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7 -Bstatic -Bstatic -Bstatic -lnvf -Bstatic -lnvomp -ldl -Bstatic -as-needed -latomic -Bstatic -lnvhpcatm -no-as-needed -ldl -lpthread -Bstatic --start-group -lnvcpumath -lnvc --end-group -lrt -lpthread -lm --start-group -lgcc -lgcc_eh -lc --end-group /usr/lib/gcc/aarch64-linux-gnu/7/crtend.o /usr/lib/aarch64-linux-gnu/crtn.o
+1603150330.72: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCudaFuncs.o): In function `hxiInitCudaFuncs':
+1603150330.72: /proj/build/dev/Linux_aarch64/rte/nvomp/src/hxrt/platform_cuda/hxCudaFuncs.c:65: warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+1603150330.72: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/f90main.o: In function `main':
+1603150330.72: /proj/build/dev/Linux_aarch64/rte/f90/f90/lib-linuxarm64/../src-fio/f90main.c:73: undefined reference to `MAIN_'
+1603150330.72: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x467): R_AARCH64_ABS64 used with TLS symbol hxiAsyncLaunchDesc
+1603150330.72: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x6f4): R_AARCH64_ABS64 used with TLS symbol setCurrentDevice.currentDevice
+1603150330.72: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHost.o)(.debug_info+0x37): R_AARCH64_ABS64 used with TLS symbol queueAllocator
+1603150330.72: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8db): R_AARCH64_ABS64 used with TLS symbol tpFreeTasks
+1603150330.72: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8fd): R_AARCH64_ABS64 used with TLS symbol tpWaitingTasks
+1603150330.72: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x958): R_AARCH64_ABS64 used with TLS symbol tpHostThreadInfo
+1603150330.72: pgfortran-Fatal-linker completed with exit code 1
+
+1603150330.72: specmake: [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:502: compiler-version] Error 2 (ignored)
+1603150330.79: option_cksum list contains ------------------------------------
+1603150330.79: Non-makefile options:
+1603150330.79: strict_rundir_verify="1"
+1603150330.79: version="1.000"
+1603150330.79: FPP: "specpp -DSPEC -DNDEBUG -w -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 <source> -o <source>.fppized.f9x"
+1603150330.79: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150330.79: P: BENCH_FPPFLAGS="-w -DSPEC_AUTO_SUPPRESS_OPENMP"
+1603150330.79: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150330.79: COMP: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o options.o -g -O3 <source>"
+1603150330.79: C: FC="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150330.79: C: FOBJOPT="-c -o options"
+1603150330.79: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150330.79: O: OPTIMIZE="-g -O3"
+1603150330.79: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150330.79: LINK: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          <objects>            -o options  "
+1603150330.79: C: LD="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150330.79: O: OPTIMIZE="-g -O3"
+1603150330.79: C: LDOUT="-o options"
+1603150330.79: ------------------------------------ end option_cksum list
+1603150330.79: compiler_version list contains ------------------------------------
+1603150330.79:  FC_VERSION_OPTION:
+1603150330.79: Export NVCOMPILER=/opt/hpc_sdk/Linux_aarch64/dev
+1603150330.79: Export PGI=/opt/hpc_sdk
+1603150330.79: /usr/bin/ld /usr/lib/aarch64-linux-gnu/crt1.o /usr/lib/aarch64-linux-gnu/crti.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/trace_init.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginT.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/f90main.o -m aarch64linux -dynamic-linker /lib/ld-linux-aarch64.so.1 /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/nvhpc.ld -L/opt/hpc_sdk/Linux_aarch64/dev/compilers/lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7 -Bstatic -Bstatic -Bstatic -lnvf -Bstatic -lnvomp -ldl -Bstatic -as-needed -latomic -Bstatic -lnvhpcatm -no-as-needed -ldl -lpthread -Bstatic --start-group -lnvcpumath -lnvc --end-group -lrt -lpthread -lm --start-group -lgcc -lgcc_eh -lc --end-group /usr/lib/gcc/aarch64-linux-gnu/7/crtend.o /usr/lib/aarch64-linux-gnu/crtn.o
+1603150330.79: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCudaFuncs.o): In function `hxiInitCudaFuncs':
+1603150330.79: /proj/build/dev/Linux_aarch64/rte/nvomp/src/hxrt/platform_cuda/hxCudaFuncs.c:65: warning: Using 'dlopen' in statically linked applications requires at runtime the shared libraries from the glibc version used for linking
+1603150330.79: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/f90main.o: In function `main':
+1603150330.79: /proj/build/dev/Linux_aarch64/rte/f90/f90/lib-linuxarm64/../src-fio/f90main.c:73: undefined reference to `MAIN_'
+1603150330.79: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x467): R_AARCH64_ABS64 used with TLS symbol hxiAsyncLaunchDesc
+1603150330.79: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x6f4): R_AARCH64_ABS64 used with TLS symbol setCurrentDevice.currentDevice
+1603150330.79: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHost.o)(.debug_info+0x37): R_AARCH64_ABS64 used with TLS symbol queueAllocator
+1603150330.79: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8db): R_AARCH64_ABS64 used with TLS symbol tpFreeTasks
+1603150330.79: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8fd): R_AARCH64_ABS64 used with TLS symbol tpWaitingTasks
+1603150330.79: /usr/bin/ld: /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x958): R_AARCH64_ABS64 used with TLS symbol tpHostThreadInfo
+1603150330.79: pgfortran-Fatal-linker completed with exit code 1
+1603150330.79: ----------------------------------------- end compiler_version list
+1603150330.79: update_config_exehash(Spec::Config=HASH(0x4d9ebb8), mytest-64) called
+1603150330.79: Found new hash signature for 503.bwaves_r=base=mytest-64
+1603150330.79: Updating config file /home/cuda/abelardoj/CPU2017/config/arm-aarch64-pgi-static.cfg
+1603150330.79: /home/cuda/abelardoj/CPU2017/config/arm-aarch64-pgi-static.cfg will be saved as /home/cuda/abelardoj/CPU2017/config/arm-aarch64-pgi-static.cfg.2020-10-19T163210
+1603150330.80: ------------------------------------------------------------------------
+1603150330.80: /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/exe/cactusBSSN_r_base.mytest-64 does not exist
+1603150330.81: build_check('507.cactuBSSN_r base mytest-64' (Spec::Benchmark::cactuBSSN_r507=HASH(0x5c35128)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150330.81:   Building 507.cactuBSSN_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:32:10]
+1603150330.90:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_mytest-64.0000' for 507.cactuBSSN_r base mytest-64 build
+1603150331.44: Comparing SHA-512 hashes:
+1603150331.44:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/src/Makefile
+1603150331.44:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_mytest-64.0000/Makefile
+1603150331.50:   Compile for '507.cactuBSSN_r' started at: 2020-10-19 16:32:11 (1603150331)
+1603150331.51: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150331.52: Start make.clean command: 2020-10-19 16:32:11 (1603150331.51516)
+1603150331.62: rm -rf *.o  gxx.xl gxy.xl spec_train.out
+1603150331.62: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150331.62: rm -rf cactusBSSN_r
+1603150331.62: rm -rf cactusBSSN_r.exe
+1603150331.62: rm -rf core
+1603150331.70: Stop make.clean command: 2020-10-19 16:32:11 (1603150331.69534)
+1603150331.70: Elapsed time for make.clean command: 00:00:00 (0.180186986923218)
+1603150331.70: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150331.70: Start make command: 2020-10-19 16:32:11 (1603150331.69744)
+1603150331.90: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o gnu/getopt.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  gnu/getopt.c
+1603150331.90: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o gnu/getopt1.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  gnu/getopt1.c
+1603150331.90: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o ADMBase/cctk_Bindings/cctk_ThornBindings.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/cctk_Bindings/cctk_ThornBindings.c
+1603150332.00: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o ADMCoupling/cctk_Bindings/cctk_ThornBindings.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMCoupling/cctk_Bindings/cctk_ThornBindings.c
+1603150332.00: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o ADMMacros/cctk_Bindings/cctk_ThornBindings.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMMacros/cctk_Bindings/cctk_ThornBindings.c
+1603150332.11: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o ADMBase/ParamCheck.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/ParamCheck.c
+1603150332.11: "ADMBase/ParamCheck.c", line 74: warning: variable "cctki_dummy_int" was set
+1603150332.11:           but never used
+1603150332.11:     DECLARE_CCTK_ARGUMENTS
+1603150332.11:     ^
+1603150332.11: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o ADMMacros/SetLocalSpatialOrder.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMMacros/SetLocalSpatialOrder.c
+1603150332.11: "ADMMacros/SetLocalSpatialOrder.c", line 76: warning: variable
+1603150332.11:           "cctki_dummy_int" was set but never used
+1603150332.11:     DECLARE_CCTK_ARGUMENTS
+1603150332.11:     ^
+
+1603150332.21: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/Check.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/Check.c
+1603150332.21: "Boundary/Check.c", line 75: warning: variable "cctki_dummy_int" was set but
+1603150332.21:           never used
+1603150332.21:     DECLARE_CCTK_ARGUMENTS
+1603150332.21:     ^
+1603150332.21: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o ADMBase/InitSymBound.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/InitSymBound.c
+1603150332.21: "ADMBase/InitSymBound.c", line 54: warning: variable "cctki_dummy_int" was set
+1603150332.21:           but never used
+1603150332.21:     DECLARE_CCTK_ARGUMENTS 
+1603150332.21:     ^
+1603150332.21: "ADMBase/InitSymBound.c", line 159: warning: variable "cctki_dummy_int" was set
+1603150332.21:           but never used
+1603150332.21:     DECLARE_CCTK_ARGUMENTS
+1603150332.21:     ^
+
+1603150332.31: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o ADMBase/Static.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/Static.c
+1603150332.31: "ADMBase/Static.c", line 17: warning: variable "cctki_dummy_int" was set but
+1603150332.31:           never used
+1603150332.31:     DECLARE_CCTK_ARGUMENTS
+1603150332.31:     ^
+1603150332.31: "ADMBase/Static.c", line 35: warning: variable "cctki_dummy_int" was set but
+1603150332.31:           never used
+1603150332.31:     DECLARE_CCTK_ARGUMENTS
+1603150332.31:     ^
+1603150332.31: "ADMBase/Static.c", line 57: warning: variable "cctki_dummy_int" was set but
+1603150332.31:           never used
+1603150332.31:     DECLARE_CCTK_ARGUMENTS
+1603150332.31:     ^
+
+1603150332.41: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/NoneBoundary.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/NoneBoundary.c
+1603150332.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/Register.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/Register.c
+1603150332.81: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/Boundary.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/Boundary.c
+1603150332.81: "Boundary/Boundary.c", line 1028: warning: variable "cctki_dummy_int" was set
+1603150332.81:           but never used
+1603150332.81:     DECLARE_CCTK_ARGUMENTS
+1603150332.81:     ^
+
+1603150333.41: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/FlatBoundary.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/FlatBoundary.c
+1603150333.51: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/cctk_Bindings/cctk_ThornBindings.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/cctk_Bindings/cctk_ThornBindings.c
+1603150333.51: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/CopyBoundary.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/CopyBoundary.c
+1603150333.61: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o ADMBase/Initialisation.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  ADMBase/Initialisation.c
+1603150333.61: "ADMBase/Initialisation.c", line 88: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 189: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 231: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 279: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 321: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 369: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 391: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 413: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 435: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 457: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+1603150333.61: "ADMBase/Initialisation.c", line 479: warning: variable "cctki_dummy_int" was
+1603150333.61:           set but never used
+1603150333.61:     DECLARE_CCTK_ARGUMENTS
+1603150333.61:     ^
+
+1603150333.72: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/IO/FortranBindingsIO.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/IO/FortranBindingsIO.c
+1603150333.82: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/IO/OverloadIO.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/IO/OverloadIO.c
+1603150333.92: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/cctk_Bindings/cctk_ThornBindings.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/cctk_Bindings/cctk_ThornBindings.c
+1603150334.02: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/IO/IOMethods.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/IO/IOMethods.c
+1603150334.12: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/comm/CactusSync.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/comm/CactusSync.c
+1603150334.12: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/StaticBoundary.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/StaticBoundary.c
+1603150334.22: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/comm/CactusDefaultComm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/comm/CactusDefaultComm.c
+1603150334.22: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/comm/Interp.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/comm/Interp.c
+1603150334.52: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Banner.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Banner.c
+1603150334.52: "Cactus/main/Banner.c", line 81: warning: variable "commandargs" was declared
+1603150334.52:           but never referenced
+1603150334.52:     char **commandargs;
+1603150334.52:            ^
+
+1603150334.72: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/comm/OverloadComm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/comm/OverloadComm.c
+1603150334.72: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/RobinBoundary.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/RobinBoundary.c
+1603150334.82: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/comm/Reduction.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/comm/Reduction.c
+1603150334.82: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/CactusDefaultEvolve.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/CactusDefaultEvolve.c
+1603150334.82: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/CactusDefaultMainLoopIndex.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/CactusDefaultMainLoopIndex.c
+1603150334.82: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/CactusDefaultInitialise.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/CactusDefaultInitialise.c
+1603150334.92: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/ActiveThorns.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/ActiveThorns.c
+1603150334.92: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/CactusDefaultShutdown.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/CactusDefaultShutdown.c
+1603150335.02: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/CallStartupFunctions.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/CallStartupFunctions.c
+1603150335.12: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/DebugDefines.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/DebugDefines.c
+1603150335.22: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/ConfigData.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/ConfigData.c
+1603150335.33: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Complex.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Complex.c
+1603150335.33: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/CommandLine.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/CommandLine.c
+1603150335.33: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/DefaultTimers.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/DefaultTimers.c
+1603150335.33: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Dummies.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Dummies.c
+1603150335.43: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/FortranWrappers.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/FortranWrappers.c
+1603150335.63: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/GHExtensions.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/GHExtensions.c
+1603150335.63: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/InitialiseCactus.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/InitialiseCactus.c
+1603150335.73: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/MainUtils.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/MainUtils.c
+1603150335.73: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/RadiationBoundary.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/RadiationBoundary.c
+1603150335.83: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/InitialiseDataStructures.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/InitialiseDataStructures.c
+1603150335.93: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Coord.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Coord.c
+1603150336.03: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/OverloadMain.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/OverloadMain.c
+1603150336.03: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Names.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Names.c
+1603150336.23: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/ProcessEnvironment.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/ProcessEnvironment.c
+1603150336.23: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/ProcessParameterDatabase.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/ProcessParameterDatabase.c
+1603150336.23: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/ProcessCommandLine.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/ProcessCommandLine.c
+1603150336.33: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/SetupCache.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/SetupCache.c
+1603150336.53: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/SetParams.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/SetParams.c
+1603150336.53: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/ShutdownCactus.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/ShutdownCactus.c
+1603150336.63: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Subsystems.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Subsystems.c
+1603150336.73: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Termination.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Termination.c
+1603150336.73: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Traverse.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Traverse.c
+1603150336.73: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/flesh.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -DCCTK_DISABLE_RESTRICT=1 -g -O3         -DSPEC_LP64  Cactus/main/flesh.cc
+1603150336.73: specmake: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++: Command not found
+1603150336.73: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:356: Cactus/main/flesh.o] Error 127
+1603150336.73: specmake: *** Waiting for unfinished jobs....
+1603150336.83: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/GroupsOnGH.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/GroupsOnGH.c
+1603150337.24: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/WarnLevel.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/WarnLevel.c
+1603150337.64: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Groups.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Groups.c
+1603150337.94: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/Parameters.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/Parameters.c
+1603150338.44: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o gnu/regex.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  gnu/regex.c
+1603150338.44: "gnu/regex.c", line 4542: warning: variable "destination" was declared but
+1603150338.44:           never referenced
+1603150338.44:                     PUSH_FAILURE_POINT (p1 + mcnt, d, -2);
+1603150338.44:                     ^
+1603150338.44: "gnu/regex.c", line 4696: warning: variable "destination" was declared but
+1603150338.44:           never referenced
+1603150338.44:             PUSH_FAILURE_POINT (p + mcnt, NULL, -2);
+1603150338.44:             ^
+1603150338.44: "gnu/regex.c", line 4753: warning: variable "destination" was declared but
+1603150338.44:           never referenced
+1603150338.44:             PUSH_FAILURE_POINT (p + mcnt, d, -2);
+1603150338.44:             ^
+1603150338.44: "gnu/regex.c", line 4915: warning: variable "pdummy" was set but never used
+1603150338.44:               unsigned char *pdummy;
+1603150338.44:                              ^
+1603150338.44: "gnu/regex.c", line 4916: warning: variable "sdummy" was set but never used
+1603150338.44:               const char *sdummy;
+1603150338.44:                           ^
+1603150338.44: "gnu/regex.c", line 4962: warning: variable "destination" was declared but
+1603150338.44:           never referenced
+1603150338.44:             PUSH_FAILURE_POINT (NULL, NULL, -2);
+1603150338.44:             ^
+1603150338.44: "gnu/regex.c", line 4975: warning: variable "destination" was declared but
+1603150338.44:           never referenced
+1603150338.44:             PUSH_FAILURE_POINT (NULL, NULL, -2);
+1603150338.44:             ^
+1603150338.44: "gnu/regex.c", line 5238: warning: transfer of control bypasses initialization
+1603150338.44:           of:
+1603150338.44:             variable "same_str_p" (declared at line 4123)
+1603150338.44:       goto restore_best_regs;
+1603150338.44:       ^
+
+1603150339.34: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Boundary/ScalarBoundary.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Boundary/ScalarBoundary.c
+1603150340.24: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Cactus/main/ScheduleInterface.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP -Iinclude -DCCODE -g -O3               -DSPEC_LP64  Cactus/main/ScheduleInterface.c
+1603150340.32: Stop make command: 2020-10-19 16:32:20 (1603150340.32111)
+1603150340.32: Elapsed time for make command: 00:00:08 (8.62366509437561)
+1603150340.32: Error with make 'specmake --output-sync --jobs=8 build':
+1603150340.32:   ----------------------------------------------------------------------------
+1603150340.32:   Please review this file:
+1603150340.32:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/507.cactuBSSN_r/build/build_base_mytest-64.0000/make.out"
+1603150340.32:   ----------------------------------------------------------------------------
+1603150340.32:   Command returned exit code 2
+1603150340.33:   Error with make!
+1603150340.33:   Compile for '507.cactuBSSN_r' ended at: 2020-10-19 16:32:20 (1603150340)
+1603150340.33:   Elapsed compile for '507.cactuBSSN_r': 00:00:09 (9)
+1603150340.33: *** Error building 507.cactuBSSN_r base
+1603150340.33: ------------------------------------------------------------------------
+1603150340.33: /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/exe/namd_r_base.mytest-64 does not exist
+1603150340.33: build_check('508.namd_r base mytest-64' (Spec::Benchmark::namd_r508=HASH(0x5cdbac0)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150340.33:   Building 508.namd_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:32:20]
+1603150340.34:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_mytest-64.0000' for 508.namd_r base mytest-64 build
+1603150340.36: Comparing SHA-512 hashes:
+1603150340.36:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/src/Makefile
+1603150340.36:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_mytest-64.0000/Makefile
+1603150340.40:   Compile for '508.namd_r' started at: 2020-10-19 16:32:20 (1603150340)
+1603150340.41: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150340.41: Start make.clean command: 2020-10-19 16:32:20 (1603150340.40841)
+1603150340.51: rm -rf *.o  apoa1.train.output
+1603150340.51: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150340.51: rm -rf namd_r
+1603150340.51: rm -rf namd_r.exe
+1603150340.51: rm -rf core
+1603150340.58: Stop make.clean command: 2020-10-19 16:32:20 (1603150340.57901)
+1603150340.58: Elapsed time for make.clean command: 00:00:00 (0.170593023300171)
+1603150340.58: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150340.58: Start make command: 2020-10-19 16:32:20 (1603150340.58094)
+1603150340.69: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o Compute.o -DSPEC -DNDEBUG  -DNAMD_DISABLE_SSE -DSPEC_AUTO_SUPPRESS_OPENMP -g -O3         -DSPEC_LP64  Compute.C
+1603150340.69: specmake: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++: Command not found
+1603150340.69: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:361: Compute.o] Error 127
+1603150340.74: Stop make command: 2020-10-19 16:32:20 (1603150340.74271)
+1603150340.74: Elapsed time for make command: 00:00:00 (0.161769151687622)
+1603150340.74: Error with make 'specmake --output-sync --jobs=8 build':
+1603150340.74:   ----------------------------------------------------------------------------
+1603150340.74:   Please review this file:
+1603150340.74:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/508.namd_r/build/build_base_mytest-64.0000/make.out"
+1603150340.74:   ----------------------------------------------------------------------------
+1603150340.74:   Command returned exit code 2
+1603150340.75:   Error with make!
+1603150340.75:   Compile for '508.namd_r' ended at: 2020-10-19 16:32:20 (1603150340)
+1603150340.75:   Elapsed compile for '508.namd_r': 00:00:00 (0)
+1603150340.75: *** Error building 508.namd_r base
+1603150340.75: ------------------------------------------------------------------------
+1603150340.75: /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/exe/parest_r_base.mytest-64 does not exist
+1603150340.75: build_check('510.parest_r base mytest-64' (Spec::Benchmark::parest_r510=HASH(0x5c8afe8)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150340.75:   Building 510.parest_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:32:20]
+1603150340.92:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_mytest-64.0000' for 510.parest_r base mytest-64 build
+1603150342.01: Comparing SHA-512 hashes:
+1603150342.01:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/src/Makefile
+1603150342.01:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_mytest-64.0000/Makefile
+1603150342.06:   Compile for '510.parest_r' started at: 2020-10-19 16:32:22 (1603150342)
+1603150342.07: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150342.07: Start make.clean command: 2020-10-19 16:32:22 (1603150342.06836)
+1603150342.17: rm -rf *.o  001-m0.vtk 002-m0.vtk log me.prm statistics
+1603150342.17: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150342.17: rm -rf parest_r
+1603150342.17: rm -rf parest_r.exe
+1603150342.17: rm -rf core
+1603150342.25: Stop make.clean command: 2020-10-19 16:32:22 (1603150342.25005)
+1603150342.25: Elapsed time for make.clean command: 00:00:00 (0.181694984436035)
+1603150342.25: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150342.25: Start make command: 2020-10-19 16:32:22 (1603150342.25197)
+1603150342.36: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o source/base/auto_derivative_function.o -DSPEC -DNDEBUG -Iinclude -I. -DSPEC_AUTO_SUPPRESS_OPENMP  -g -O3         -DSPEC_LP64  source/base/auto_derivative_function.cc
+1603150342.36: specmake: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++: Command not found
+1603150342.36: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:356: source/base/auto_derivative_function.o] Error 127
+1603150342.42: Stop make command: 2020-10-19 16:32:22 (1603150342.41521)
+1603150342.42: Elapsed time for make command: 00:00:00 (0.163239002227783)
+1603150342.42: Error with make 'specmake --output-sync --jobs=8 build':
+1603150342.42:   ----------------------------------------------------------------------------
+1603150342.42:   Please review this file:
+1603150342.42:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_mytest-64.0000/make.out"
+1603150342.42:   ----------------------------------------------------------------------------
+1603150342.42:   Command returned exit code 2
+1603150342.42:   Error with make!
+1603150342.42:   Compile for '510.parest_r' ended at: 2020-10-19 16:32:22 (1603150342)
+1603150342.42:   Elapsed compile for '510.parest_r': 00:00:00 (0)
+1603150342.42: *** Error building 510.parest_r base
+1603150342.42: ------------------------------------------------------------------------
+1603150342.42: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/imagevalidate_511_base.mytest-64 does not exist
+1603150342.42: /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/exe/povray_r_base.mytest-64 does not exist
+1603150342.42: build_check('511.povray_r base mytest-64' (Spec::Benchmark::povray_r511=HASH(0x5cc2438)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150342.43:   Building 511.povray_r base mytest-64: (build_base_mytest-64.0001) [2020-10-19 16:32:22]
+1603150342.43:    Creating directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/build/build_base_mytest-64.0001' for 511.povray_r base mytest-64 build
+1603150342.56: Comparing SHA-512 hashes:
+1603150342.56:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/src/Makefile
+1603150342.56:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/build/build_base_mytest-64.0001/Makefile
+1603150342.66:   Compile for '511.povray_r' started at: 2020-10-19 16:32:22 (1603150342)
+1603150342.67: Issuing make.clean.imagevalidate_511 command 'specmake --output-sync --jobs=8 clean TARGET=imagevalidate_511'
+1603150342.67: Start make.clean.imagevalidate_511 command: 2020-10-19 16:32:22 (1603150342.67121)
+1603150342.84: Stop make.clean.imagevalidate_511 command: 2020-10-19 16:32:22 (1603150342.84358)
+1603150342.84: Elapsed time for make.clean.imagevalidate_511 command: 00:00:00 (0.172369003295898)
+1603150342.85: Issuing make.clean.povray_r command 'specmake --output-sync --jobs=8 clean TARGET=povray_r'
+1603150342.85: Start make.clean.povray_r command: 2020-10-19 16:32:22 (1603150342.84556)
+1603150343.02: Stop make.clean.povray_r command: 2020-10-19 16:32:23 (1603150343.018)
+1603150343.02: Elapsed time for make.clean.povray_r command: 00:00:00 (0.172440052032471)
+1603150343.02: Issuing make.imagevalidate_511 command 'specmake --output-sync --jobs=8 build TARGET=imagevalidate_511'
+1603150343.02: Start make.imagevalidate_511 command: 2020-10-19 16:32:23 (1603150343.02022)
+1603150345.43: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o image_validator/ImageValidator.o -DSPEC -DNDEBUG -Ifrontend -Ibase -I. -Ispec_qsort -DSPEC_AUTO_SUPPRESS_OPENMP  -g -O3               -DSPEC_LP64  image_validator/ImageValidator.c
+1603150345.43: "image_validator/ImageValidator.c", line 714: warning: enumerated type mixed
+1603150345.43:           with another type
+1603150345.43:       read_le8 (fin, tga->datatypecode);
+1603150345.43:       ^
+1603150345.43: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++      -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          image_validator/ImageValidator.o                      -o imagevalidate_511  
+1603150345.43: specmake: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pg++: Command not found
+1603150345.43: specmake: *** [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:337: imagevalidate_511] Error 127
+1603150345.57: Stop make.imagevalidate_511 command: 2020-10-19 16:32:25 (1603150345.57052)
+1603150345.57: Elapsed time for make.imagevalidate_511 command: 00:00:02 (2.55029797554016)
+1603150345.57: Error with make.imagevalidate_511 'specmake --output-sync --jobs=8 build TARGET=imagevalidate_511':
+1603150345.57:   ----------------------------------------------------------------------------
+1603150345.57:   Please review this file:
+1603150345.57:     "/home/cuda/abelardoj/CPU2017/benchspec/CPU/511.povray_r/build/build_base_mytest-64.0001/make.imagevalidate_511.out"
+1603150345.57:   ----------------------------------------------------------------------------
+1603150345.57:   Command returned exit code 2
+1603150345.58:   Error with make!
+1603150345.58:   Compile for '511.povray_r' ended at: 2020-10-19 16:32:25 (1603150345)
+1603150345.58:   Elapsed compile for '511.povray_r': 00:00:03 (3)
+1603150345.58: *** Error building 511.povray_r base
+1603150345.58: ------------------------------------------------------------------------
+1603150345.58: /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/exe/lbm_r_base.mytest-64 does not exist
+1603150345.58: build_check('519.lbm_r base mytest-64' (Spec::Benchmark::lbm_r519=HASH(0x5c5c1f0)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150345.58:   Building 519.lbm_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:32:25]
+1603150345.58:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/build/build_base_mytest-64.0000' for 519.lbm_r base mytest-64 build
+1603150345.59: Comparing SHA-512 hashes:
+1603150345.59:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/src/Makefile
+1603150345.59:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/build/build_base_mytest-64.0000/Makefile
+1603150345.63:   Compile for '519.lbm_r' started at: 2020-10-19 16:32:25 (1603150345)
+1603150345.64: Issuing make.clean command 'specmake --output-sync --jobs=8 clean'
+1603150345.64: Start make.clean command: 2020-10-19 16:32:25 (1603150345.64219)
+1603150345.75: rm -rf *.o  lbm.out
+1603150345.75: find . \( -name \*.o -o -name '*.fppized.f*' -o -name '*.i' -o -name '*.mod' \) -print | xargs rm -rf
+1603150345.75: rm -rf lbm_r
+1603150345.75: rm -rf lbm_r.exe
+1603150345.75: rm -rf core
+1603150345.81: Stop make.clean command: 2020-10-19 16:32:25 (1603150345.81272)
+1603150345.81: Elapsed time for make.clean command: 00:00:00 (0.170530080795288)
+1603150345.81: Issuing make command 'specmake --output-sync --jobs=8 build'
+1603150345.81: Start make command: 2020-10-19 16:32:25 (1603150345.81454)
+1603150346.12: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o main.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP  -g -O3               -DSPEC_LP64  main.c
+1603150347.62: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o lbm.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP  -g -O3               -DSPEC_LP64  lbm.c
+1603150347.72: /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          lbm.o main.o             -lm         -o lbm_r  
+1603150347.85: Stop make command: 2020-10-19 16:32:27 (1603150347.85161)
+1603150347.85: Elapsed time for make command: 00:00:02 (2.03707385063171)
+1603150347.85: Issuing options command 'specmake --output-sync --jobs=8 options'
+1603150347.85: Start options command: 2020-10-19 16:32:27 (1603150347.85357)
+1603150347.96: COMP: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o options.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP  -g -O3               -DSPEC_LP64  <source>"
+1603150347.96: C: CC="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150347.96: C: COBJOPT="-c -o options"
+1603150347.96: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150347.96: P: BENCH_FLAGS="-DSPEC_AUTO_SUPPRESS_OPENMP"
+1603150347.96: P: BENCH_CFLAGS=""
+1603150347.96: O: OPTIMIZE="-g -O3"
+1603150347.96: O: COPTIMIZE=""
+1603150347.96: P: PORTABILITY=""
+1603150347.96: P: CPORTABILITY=""
+1603150347.96: O: EXTRA_CFLAGS=""
+1603150347.96: O: EXTRA_OPTIMIZE=""
+1603150347.96: O: EXTRA_COPTIMIZE=""
+1603150347.96: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150347.96: P: EXTRA_CPORTABILITY=""
+1603150347.96: LINK: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          <objects>   -lm         -o options  "
+1603150347.96: C: LD="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150347.96: O: OPTIMIZE="-g -O3"
+1603150347.96: C: MATH_LIBS="-lm"
+1603150347.96: C: LDOUT="-o options"
+1603150348.02: Stop options command: 2020-10-19 16:32:28 (1603150348.01849)
+1603150348.02: Elapsed time for options command: 00:00:00 (0.164921998977661)
+1603150348.02: Issuing compiler-version command 'specmake --output-sync --jobs=8 compiler-version'
+1603150348.02: Start compiler-version command: 2020-10-19 16:32:28 (1603150348.0206)
+1603150348.23:  CC_VERSION_OPTION:
+1603150348.23: Export NVCOMPILER=/opt/hpc_sdk/Linux_aarch64/dev
+1603150348.23: Export PGI=/opt/hpc_sdk
+1603150348.23: /usr/bin/ld /usr/lib/aarch64-linux-gnu/crt1.o /usr/lib/aarch64-linux-gnu/crti.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/trace_init.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginT.o -m aarch64linux -dynamic-linker /lib/ld-linux-aarch64.so.1 /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/nvhpc.ld -L/opt/hpc_sdk/Linux_aarch64/dev/compilers/lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7 -Bstatic -Bstatic -Bstatic -Bstatic -lnvomp -ldl -Bstatic -as-needed -latomic -Bstatic -lnvhpcatm -no-as-needed -ldl -lpthread -Bstatic --start-group -lnvcpumath -lnvc --end-group -lm --start-group -lgcc -lgcc_eh -lc --end-group /usr/lib/gcc/aarch64-linux-gnu/7/crtend.o /usr/lib/aarch64-linux-gnu/crtn.o
+1603150348.23: /usr/lib/aarch64-linux-gnu/crt1.o: In function `_start':
+1603150348.23: (.text+0x18): undefined reference to `main'
+1603150348.23: (.text+0x1c): undefined reference to `main'
+1603150348.23: (.text+0x20): undefined reference to `main'
+1603150348.23: (.text+0x24): undefined reference to `main'
+1603150348.23: pgcc-Fatal-linker completed with exit code 1
+
+1603150348.23: specmake: [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:502: compiler-version] Error 2 (ignored)
+1603150348.29: Stop compiler-version command: 2020-10-19 16:32:28 (1603150348.2909)
+1603150348.29: Elapsed time for compiler-version command: 00:00:00 (0.270296812057495)
+1603150348.30:   Compile for '519.lbm_r' ended at: 2020-10-19 16:32:28 (1603150348)
+1603150348.30:   Elapsed compile for '519.lbm_r': 00:00:03 (3)
+1603150348.31: Comparing SHA-512 hashes:
+1603150348.31:   8ed69a696f3c0fcfd670d2d6f7f775659f47ce905da0eca81cec2c5a3d1a9d06eb6c1e71d25f737bedcd3cd552c5edfa50157331d365481d35e357bf358e6def lbm_r
+1603150348.31:   8ed69a696f3c0fcfd670d2d6f7f775659f47ce905da0eca81cec2c5a3d1a9d06eb6c1e71d25f737bedcd3cd552c5edfa50157331d365481d35e357bf358e6def /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/exe/lbm_r_base.mytest-64
+1603150348.37: Wrote to makefile '/home/cuda/abelardoj/CPU2017/tmp/CPU2017.005.0/options.519.lbm_r.base/Makefile.deps':
+1603150348.37: # End dependencies
+1603150348.37: # These are the build dependencies
+1603150348.37: Wrote to makefile '/home/cuda/abelardoj/CPU2017/tmp/CPU2017.005.0/options.519.lbm_r.base/Makefile.spec':
+1603150348.37: TUNE=base
+1603150348.37: LABEL=mytest-64
+1603150348.37: NUMBER=519
+1603150348.37: NAME=lbm_r
+1603150348.37: SOURCES= lbm.c main.c
+1603150348.37: EXEBASE=lbm_r
+1603150348.37: NEED_MATH=yes
+1603150348.37: BENCHLANG=C
+1603150348.37: BENCH_FLAGS      = -DSPEC_AUTO_SUPPRESS_OPENMP
+1603150348.37: CC               = $(SPECLANG)pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic
+1603150348.37: CC_VERSION_OPTION = -v
+1603150348.37: CXX              = $(SPECLANG)pg++      -O3 -fast -fopenmp -Mnouniform -Bstatic
+1603150348.37: CXX_VERSION_OPTION = -v
+1603150348.37: EXTRA_PORTABILITY = -DSPEC_LP64
+1603150348.37: FC               = $(SPECLANG)pgfortran -O3 -fast -fopenmp -Mnouniform -Bstatic
+1603150348.37: FC_VERSION_OPTION = -v
+1603150348.37: OPTIMIZE         = -g -O3
+1603150348.37: OS               = unix
+1603150348.37: SPECLANG         = /opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/
+1603150348.37: absolutely_no_locking = 0
+1603150348.37: abstol           = 1e-07
+1603150348.37: action           = build
+1603150348.37: allow_label_override = 0
+1603150348.37: backup_config    = 1
+1603150348.37: baseexe          = lbm_r
+1603150348.37: basepeak         = 1
+1603150348.37: benchdir         = benchspec
+1603150348.37: benchmark        = 519.lbm_r
+1603150348.37: binary           = 
+1603150348.37: bindir           = exe
+1603150348.37: builddir         = build
+1603150348.37: bundleaction     = 
+1603150348.37: bundlename       = 
+1603150348.37: calctol          = 1
+1603150348.37: changedhash      = 0
+1603150348.37: check_version    = 0
+1603150348.37: clean_between_builds = no
+1603150348.37: command_add_redirect = 1
+1603150348.37: commanderrfile   = speccmds.err
+1603150348.37: commandexe       = lbm_r_base.mytest-64
+1603150348.37: commandfile      = speccmds.cmd
+1603150348.37: commandoutfile   = speccmds.out
+1603150348.37: commandstdoutfile = speccmds.stdout
+1603150348.37: comparedir       = compare
+1603150348.37: compareerrfile   = compare.err
+1603150348.37: comparefile      = compare.cmd
+1603150348.37: compareoutfile   = compare.out
+1603150348.37: comparestdoutfile = compare.stdout
+1603150348.37: compile_error    = 0
+1603150348.37: compwhite        = 
+1603150348.37: configdir        = config
+1603150348.37: configfile       = arm-aarch64-pgi-static
+1603150348.37: configpath       = /home/cuda/abelardoj/CPU2017/config/arm-aarch64-pgi-static.cfg
+1603150348.37: copies           = 1
+1603150348.37: current_range    = 
+1603150348.37: datadir          = data
+1603150348.37: default_size     = ref
+1603150348.37: default_submit   = $command
+1603150348.37: delay            = 0
+1603150348.37: deletebinaries   = 0
+1603150348.37: deletework       = 0
+1603150348.37: dependent_workloads = 0
+1603150348.37: device           = 
+1603150348.37: difflines        = 10
+1603150348.37: dirprot          = 511
+1603150348.37: discard_power_samples = 0
+1603150348.37: enable_monitor   = 1
+1603150348.37: endian           = 12345678
+1603150348.37: env_vars         = 0
+1603150348.37: expand_notes     = 0
+1603150348.37: expid            = 
+1603150348.37: exthash_bits     = 256
+1603150348.37: failflags        = 0
+1603150348.37: fake             = 0
+1603150348.37: feedback         = 1
+1603150348.37: flag_url_base    = https://www.spec.org/auto/cpu2017/Docs/benchmarks/flags/
+1603150348.37: floatcompare     = 
+1603150348.37: force_monitor    = 0
+1603150348.37: from_runcpu      = 2
+1603150348.37: fw_bios          = 
+1603150348.37: hostname         = hp-arm64-09-02
+1603150348.37: http_proxy       = 
+1603150348.37: http_timeout     = 30
+1603150348.37: hw_avail         = 
+1603150348.37: hw_cpu_max_mhz   = 
+1603150348.37: hw_cpu_name      = could not determine
+1603150348.37: hw_cpu_nominal_mhz = 
+1603150348.37: hw_disk          = 876 GB  add more disk info here
+1603150348.37: hw_memory001     = 251.302 GB fixme: If using DDR4, the format is:
+1603150348.37: hw_memory002     = 'N GB (N x N GB nRxn PC4-nnnnX-X)'
+1603150348.37: hw_model         = 
+1603150348.37: hw_nchips        = could not determine
+1603150348.37: hw_ncores        = 
+1603150348.37: hw_ncpuorder     = 
+1603150348.37: hw_nthreadspercore = 
+1603150348.37: hw_ocache        = 
+1603150348.37: hw_other         = 
+1603150348.37: hw_pcache        = 
+1603150348.37: hw_scache        = 
+1603150348.37: hw_tcache        = 
+1603150348.37: hw_vendor        = My Corporation
+1603150348.37: idle_current_range = 
+1603150348.37: idledelay        = 10
+1603150348.37: idleduration     = 60
+1603150348.37: ignore_errors    = 1
+1603150348.37: ignore_sigint    = 0
+1603150348.37: ignorecase       = 
+1603150348.37: info_wrap_columns = 50
+1603150348.37: inputdir         = input
+1603150348.37: inputgenerrfile  = inputgen.err
+1603150348.37: inputgenfile     = inputgen.cmd
+1603150348.37: inputgenoutfile  = inputgen.out
+1603150348.37: inputgenstdoutfile = inputgen.stdout
+1603150348.37: iteration        = -1
+1603150348.37: iterations       = 1
+1603150348.37: keeptmp          = 0
+1603150348.37: label            = mytest-64
+1603150348.37: license_num      = nnn (Your SPEC license number)
+1603150348.37: line_width       = 1020
+1603150348.37: link_input_files = 1
+1603150348.37: locking          = 1
+1603150348.37: log              = CPU2017
+1603150348.37: log_line_width   = 1020
+1603150348.37: log_timestamp    = 0
+1603150348.37: logfile          = /home/cuda/abelardoj/CPU2017/tmp/CPU2017.005/templogs/preenv.fprate.005.0
+1603150348.37: logname          = /home/cuda/abelardoj/CPU2017/tmp/CPU2017.005/templogs/preenv.fprate.005.0
+1603150348.37: lognum           = 005.0
+1603150348.37: mail_reports     = all
+1603150348.37: mailcompress     = 0
+1603150348.37: mailmethod       = smtp
+1603150348.37: mailport         = 25
+1603150348.37: mailserver       = 127.0.0.1
+1603150348.37: mailto           = 
+1603150348.37: make             = specmake
+1603150348.37: make_no_clobber  = 0
+1603150348.37: makefile_template = Makefile.YYYtArGeTYYYspec
+1603150348.37: makeflags        = --jobs=8
+1603150348.37: max_average_uncertainty = 1
+1603150348.37: max_hum_limit    = 0
+1603150348.37: max_report_runs  = 3
+1603150348.37: max_unknown_uncertainty = 1
+1603150348.37: mean_anyway      = 1
+1603150348.37: meter_connect_timeout = 30
+1603150348.37: meter_errors_default = 5
+1603150348.37: meter_errors_percentage = 5
+1603150348.37: min_report_runs  = 2
+1603150348.37: min_temp_limit   = 20
+1603150348.37: minimize_builddirs = 0
+1603150348.37: minimize_rundirs = 0
+1603150348.37: name             = lbm_r
+1603150348.37: nansupport       = 
+1603150348.37: need_math        = yes
+1603150348.37: no_input_handler = close
+1603150348.37: no_monitor       = 
+1603150348.37: noratios         = 0
+1603150348.37: note_preenv      = 1
+1603150348.37: notes_plat_sysinfo_000 = 
+1603150348.37: notes_plat_sysinfo_005 =  Sysinfo program /home/cuda/abelardoj/CPU2017/bin/sysinfo
+1603150348.37: notes_plat_sysinfo_010 =  Rev: r6365 of 2019-08-21 295195f888a3d7edb1e6e46a485a0011
+1603150348.37: notes_plat_sysinfo_015 =  running on hp-arm64-09-02 Mon Oct 19 16:31:43 2020
+1603150348.37: notes_plat_sysinfo_020 = 
+1603150348.37: notes_plat_sysinfo_025 =  SUT (System Under Test) info as seen by some common utilities.
+1603150348.37: notes_plat_sysinfo_030 =  For more information on this section, see
+1603150348.37: notes_plat_sysinfo_035 =     https://www.spec.org/cpu2017/Docs/config.html\#sysinfo
+1603150348.37: notes_plat_sysinfo_040 = 
+1603150348.37: notes_plat_sysinfo_045 =  From /proc/cpuinfo
+1603150348.37: notes_plat_sysinfo_050 =  *
+1603150348.37: notes_plat_sysinfo_055 =  * Did not identify cpu model.  If you would
+1603150348.37: notes_plat_sysinfo_060 =  * like to write your own sysinfo program, see
+1603150348.37: notes_plat_sysinfo_065 =  * www.spec.org/cpu2017/config.html\#sysinfo
+1603150348.37: notes_plat_sysinfo_070 =  *
+1603150348.37: notes_plat_sysinfo_075 =  *
+1603150348.37: notes_plat_sysinfo_080 =  * 0 "physical id" tags found.  Perhaps this is an older system,
+1603150348.37: notes_plat_sysinfo_085 =  * or a virtualized system.  Not attempting to guess how to
+1603150348.37: notes_plat_sysinfo_090 =  * count chips/cores for this system.
+1603150348.37: notes_plat_sysinfo_095 =  *
+1603150348.37: notes_plat_sysinfo_100 =        224 "processors"
+1603150348.37: notes_plat_sysinfo_105 =     cores, siblings (Caution: counting these is hw and system dependent. The following
+1603150348.37: notes_plat_sysinfo_110 =     excerpts from /proc/cpuinfo might not be reliable.  Use with caution.)
+1603150348.37: notes_plat_sysinfo_115 = 
+1603150348.37: notes_plat_sysinfo_120 =  From lscpu:
+1603150348.37: notes_plat_sysinfo_125 =       Architecture:        aarch64
+1603150348.37: notes_plat_sysinfo_130 =       Byte Order:          Little Endian
+1603150348.37: notes_plat_sysinfo_135 =       CPU(s):              224
+1603150348.37: notes_plat_sysinfo_140 =       On-line CPU(s) list: 0-223
+1603150348.37: notes_plat_sysinfo_145 =       Thread(s) per core:  4
+1603150348.37: notes_plat_sysinfo_150 =       Core(s) per socket:  28
+1603150348.37: notes_plat_sysinfo_155 =       Socket(s):           2
+1603150348.37: notes_plat_sysinfo_160 =       NUMA node(s):        2
+1603150348.37: notes_plat_sysinfo_165 =       Vendor ID:           Cavium
+1603150348.37: notes_plat_sysinfo_170 =       Model:               1
+1603150348.37: notes_plat_sysinfo_175 =       Model name:          ThunderX2 99xx
+1603150348.37: notes_plat_sysinfo_180 =       Stepping:            0x1
+1603150348.37: notes_plat_sysinfo_185 =       BogoMIPS:            400.00
+1603150348.37: notes_plat_sysinfo_190 =       L1d cache:           32K
+1603150348.37: notes_plat_sysinfo_195 =       L1i cache:           32K
+1603150348.37: notes_plat_sysinfo_200 =       L2 cache:            256K
+1603150348.37: notes_plat_sysinfo_205 =       L3 cache:            32768K
+1603150348.37: notes_plat_sysinfo_210 =       NUMA node0 CPU(s):   0-111
+1603150348.37: notes_plat_sysinfo_215 =       NUMA node1 CPU(s):   112-223
+1603150348.37: notes_plat_sysinfo_220 =       Flags:               fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics cpuid
+1603150348.37: notes_plat_sysinfo_225 =       asimdrdm
+1603150348.37: notes_plat_sysinfo_230 = 
+1603150348.37: notes_plat_sysinfo_235 =  From numactl --hardware  WARNING: a numactl 'node' might or might not correspond to a
+1603150348.37: notes_plat_sysinfo_240 =  physical chip.
+1603150348.37: notes_plat_sysinfo_245 =    available: 2 nodes (0-1)
+1603150348.37: notes_plat_sysinfo_250 =    node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
+1603150348.37: notes_plat_sysinfo_255 =    28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56
+1603150348.37: notes_plat_sysinfo_260 =    57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85
+1603150348.37: notes_plat_sysinfo_265 =    86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110
+1603150348.37: notes_plat_sysinfo_270 =    111
+1603150348.37: notes_plat_sysinfo_275 =    node 0 size: 128835 MB
+1603150348.37: notes_plat_sysinfo_280 =    node 0 free: 112470 MB
+1603150348.37: notes_plat_sysinfo_285 =    node 1 cpus: 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129
+1603150348.37: notes_plat_sysinfo_290 =    130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151
+1603150348.37: notes_plat_sysinfo_295 =    152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173
+1603150348.37: notes_plat_sysinfo_300 =    174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195
+1603150348.37: notes_plat_sysinfo_305 =    196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215 216 217
+1603150348.37: notes_plat_sysinfo_310 =    218 219 220 221 222 223
+1603150348.37: notes_plat_sysinfo_315 =    node 1 size: 128497 MB
+1603150348.37: notes_plat_sysinfo_320 =    node 1 free: 112154 MB
+1603150348.37: notes_plat_sysinfo_325 =    node distances:
+1603150348.37: notes_plat_sysinfo_330 =    node   0   1
+1603150348.37: notes_plat_sysinfo_335 =      0:  10  20
+1603150348.37: notes_plat_sysinfo_340 =      1:  20  10
+1603150348.37: notes_plat_sysinfo_345 = 
+1603150348.37: notes_plat_sysinfo_350 =  From /proc/meminfo
+1603150348.37: notes_plat_sysinfo_355 =     MemTotal:       263508816 kB
+1603150348.37: notes_plat_sysinfo_360 =     HugePages_Total:       0
+1603150348.37: notes_plat_sysinfo_365 =     Hugepagesize:       2048 kB
+1603150348.37: notes_plat_sysinfo_370 = 
+1603150348.37: notes_plat_sysinfo_375 =  /usr/bin/lsb_release -d
+1603150348.37: notes_plat_sysinfo_380 =     Ubuntu 18.04.3 LTS
+1603150348.37: notes_plat_sysinfo_385 = 
+1603150348.37: notes_plat_sysinfo_390 =  From /etc/*release* /etc/*version*
+1603150348.37: notes_plat_sysinfo_395 =     debian_version: buster/sid
+1603150348.37: notes_plat_sysinfo_400 =     os-release:
+1603150348.37: notes_plat_sysinfo_405 =        NAME="Ubuntu"
+1603150348.37: notes_plat_sysinfo_410 =        VERSION="18.04.3 LTS (Bionic Beaver)"
+1603150348.37: notes_plat_sysinfo_415 =        ID=ubuntu
+1603150348.37: notes_plat_sysinfo_420 =        ID_LIKE=debian
+1603150348.37: notes_plat_sysinfo_425 =        PRETTY_NAME="Ubuntu 18.04.3 LTS"
+1603150348.37: notes_plat_sysinfo_430 =        VERSION_ID="18.04"
+1603150348.37: notes_plat_sysinfo_435 =        HOME_URL="https://www.ubuntu.com/"
+1603150348.37: notes_plat_sysinfo_440 =        SUPPORT_URL="https://help.ubuntu.com/"
+1603150348.37: notes_plat_sysinfo_445 = 
+1603150348.37: notes_plat_sysinfo_450 =  uname -a:
+1603150348.37: notes_plat_sysinfo_455 =     Linux hp-arm64-09-02 5.0.0-23-generic \#24~18.04.1-Ubuntu SMP Mon Jul 29 16:10:24 UTC
+1603150348.37: notes_plat_sysinfo_460 =     2019 aarch64 aarch64 aarch64 GNU/Linux
+1603150348.37: notes_plat_sysinfo_465 = 
+1603150348.37: notes_plat_sysinfo_470 =  Kernel self-reported vulnerability status:
+1603150348.37: notes_plat_sysinfo_475 = 
+1603150348.37: notes_plat_sysinfo_480 =  CVE-2018-3620 (L1 Terminal Fault):        No status reported
+1603150348.37: notes_plat_sysinfo_485 =  Microarchitectural Data Sampling:         No status reported
+1603150348.37: notes_plat_sysinfo_490 =  CVE-2017-5754 (Meltdown):                 No status reported
+1603150348.37: notes_plat_sysinfo_495 =  CVE-2018-3639 (Speculative Store Bypass): No status reported
+1603150348.37: notes_plat_sysinfo_500 =  CVE-2017-5753 (Spectre variant 1):        No status reported
+1603150348.37: notes_plat_sysinfo_505 =  CVE-2017-5715 (Spectre variant 2):        No status reported
+1603150348.37: notes_plat_sysinfo_510 = 
+1603150348.37: notes_plat_sysinfo_515 =  run-level 5 Oct 8 09:37
+1603150348.37: notes_plat_sysinfo_520 = 
+1603150348.37: notes_plat_sysinfo_525 =  SPEC is set to: /home/cuda/abelardoj/CPU2017
+1603150348.37: notes_plat_sysinfo_530 =     Filesystem     Type  Size  Used Avail Use% Mounted on
+1603150348.37: notes_plat_sysinfo_535 =     /dev/sdc4      ext4  876G  128G  704G  16% /
+1603150348.37: notes_plat_sysinfo_540 = 
+1603150348.37: notes_plat_sysinfo_545 =  From /sys/devices/virtual/dmi/id
+1603150348.37: notes_plat_sysinfo_550 =      BIOS:    American Megatrends Inc. L50_5.13_1.0.6 07/10/2018
+1603150348.37: notes_plat_sysinfo_555 =      Vendor:  HPE
+1603150348.37: notes_plat_sysinfo_560 =      Product: Apollo 70
+1603150348.37: notes_plat_sysinfo_565 =      Product Family: CN99XX
+1603150348.37: notes_plat_sysinfo_570 = 
+1603150348.37: notes_plat_sysinfo_575 =  Cannot run dmidecode; consider saying (as root)
+1603150348.37: notes_plat_sysinfo_580 =     chmod +s /usr/sbin/dmidecode
+1603150348.37: notes_plat_sysinfo_585 = 
+1603150348.37: notes_plat_sysinfo_590 =  (End of data from sysinfo program)
+1603150348.37: notes_wrap_columns = 0
+1603150348.37: notes_wrap_indent =   
+1603150348.37: num              = 519
+1603150348.37: obiwan           = 
+1603150348.37: oldhash          = 
+1603150348.37: os_exe_ext       = 
+1603150348.37: output_format    = txt,html,cfg,pdf,csv
+1603150348.37: output_root      = 
+1603150348.37: outputdir        = output
+1603150348.37: parallel_test    = 0
+1603150348.37: parallel_test_submit = 0
+1603150348.37: parallel_test_workloads = 
+1603150348.37: path             = /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r
+1603150348.37: plain_train      = 1
+1603150348.37: platform         = 
+1603150348.37: power            = 0
+1603150348.37: preENV_LD_LIBRARY_PATH = %{gcc_dir}/lib64/:%{gcc_dir}/lib/:/lib64
+1603150348.37: preenv           = 0
+1603150348.37: prefix           = 
+1603150348.37: prepared_by      = cuda  (is never output, only tags rawfile)
+1603150348.37: ranks            = 1
+1603150348.37: rawhash_bits     = 256
+1603150348.37: rebuild          = 0
+1603150348.37: reftime          = reftime
+1603150348.37: reltol           = 
+1603150348.37: reportable       = 0
+1603150348.37: resultdir        = result
+1603150348.37: review           = 0
+1603150348.37: run              = all
+1603150348.37: runcpu           = /home/cuda/abelardoj/CPU2017/bin/harness/runcpu --configfile arm-aarch64-pgi-static --action build --noreportable --nopower --runmode rate --tune base --size refrate fprate --nopreenv --note-preenv --logfile /home/cuda/abelardoj/CPU2017/tmp/CPU2017.005/templogs/preenv.fprate.005.0 --lognum 005.0 --from_runcpu 2
+1603150348.37: rundir           = run
+1603150348.37: runmode          = rate
+1603150348.37: safe_eval        = 1
+1603150348.37: save_build_files = 
+1603150348.37: section_specifier_fatal = 1
+1603150348.37: setprocgroup     = 1
+1603150348.37: setup_error      = 0
+1603150348.37: sigint           = 2
+1603150348.37: size             = refrate
+1603150348.37: size_class       = ref
+1603150348.37: skipabstol       = 
+1603150348.37: skipobiwan       = 
+1603150348.37: skipreltol       = 
+1603150348.37: skiptol          = 
+1603150348.37: smarttune        = base
+1603150348.37: specdiff         = specdiff
+1603150348.37: specrun          = specinvoke
+1603150348.37: srcalt           = 
+1603150348.37: srcdir           = src
+1603150348.37: srcsource        = /home/cuda/abelardoj/CPU2017/benchspec/CPU/519.lbm_r/src
+1603150348.37: stagger          = 10
+1603150348.37: strict_rundir_verify = 1
+1603150348.37: sw_avail         = 
+1603150348.37: sw_base_ptrsize  = 64-bit
+1603150348.37: sw_compiler001   = C/C++/Fortran: Version 6.2.0 of GCC, the
+1603150348.37: sw_compiler002   = GNU Compiler Collection
+1603150348.37: sw_file          = ext4
+1603150348.37: sw_os001         = Ubuntu 18.04.3 LTS
+1603150348.37: sw_os002         = 5.0.0-23-generic
+1603150348.37: sw_other         = 
+1603150348.37: sw_peak_ptrsize  = Not Applicable
+1603150348.37: sw_state         = Run level 5 (add definition here)
+1603150348.37: sysinfo_hash_bits = 256
+1603150348.37: sysinfo_program  = specperl /home/cuda/abelardoj/CPU2017/bin/sysinfo
+1603150348.37: sysinfo_program_hash = sysinfo:SHA:1b187da62efa5d65f0e989c214b6a257d16a31d3cf135973c9043da741052207
+1603150348.37: table            = 1
+1603150348.37: teeout           = 0
+1603150348.37: test_date        = Oct-2020
+1603150348.37: test_sponsor     = My Corporation
+1603150348.37: tester           = My Corporation
+1603150348.37: threads          = 1
+1603150348.37: top              = /home/cuda/abelardoj/CPU2017
+1603150348.37: train_single_thread = 0
+1603150348.37: train_with       = train
+1603150348.37: tune             = base
+1603150348.37: uid              = 1001
+1603150348.37: unbuffer         = 1
+1603150348.37: uncertainty_exception = 5
+1603150348.37: update           = 0
+1603150348.37: update_url       = http://www.spec.org/auto/cpu2017/updates/
+1603150348.37: use_submit_for_compare = 0
+1603150348.37: use_submit_for_speed = 0
+1603150348.37: username         = cuda
+1603150348.37: valid_build      = yes
+1603150348.37: verbose          = 5
+1603150348.37: verify_binaries  = 1
+1603150348.37: version          = 1.000503
+1603150348.37: voltage_range    = 
+1603150348.37: worklist         = list
+1603150348.37: OUTPUT_RMFILES   = lbm.out
+1603150348.48: COMP: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o options.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP  -g -O3               -DSPEC_LP64  <source>"
+1603150348.48: C: CC="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150348.48: C: COBJOPT="-c -o options"
+1603150348.48: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150348.48: P: BENCH_FLAGS="-DSPEC_AUTO_SUPPRESS_OPENMP"
+1603150348.48: P: BENCH_CFLAGS=""
+1603150348.48: O: OPTIMIZE="-g -O3"
+1603150348.48: O: COPTIMIZE=""
+1603150348.48: P: PORTABILITY=""
+1603150348.48: P: CPORTABILITY=""
+1603150348.48: O: EXTRA_CFLAGS=""
+1603150348.48: O: EXTRA_OPTIMIZE=""
+1603150348.48: O: EXTRA_COPTIMIZE=""
+1603150348.48: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150348.48: P: EXTRA_CPORTABILITY=""
+1603150348.48: LINK: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          <objects>   -lm         -o options  "
+1603150348.48: C: LD="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150348.48: O: OPTIMIZE="-g -O3"
+1603150348.48: C: MATH_LIBS="-lm"
+1603150348.48: C: LDOUT="-o options"
+1603150348.75:  CC_VERSION_OPTION:
+1603150348.75: Export NVCOMPILER=/opt/hpc_sdk/Linux_aarch64/dev
+1603150348.75: Export PGI=/opt/hpc_sdk
+1603150348.75: /usr/bin/ld /usr/lib/aarch64-linux-gnu/crt1.o /usr/lib/aarch64-linux-gnu/crti.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/trace_init.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginT.o -m aarch64linux -dynamic-linker /lib/ld-linux-aarch64.so.1 /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/nvhpc.ld -L/opt/hpc_sdk/Linux_aarch64/dev/compilers/lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7 -Bstatic -Bstatic -Bstatic -Bstatic -lnvomp -ldl -Bstatic -as-needed -latomic -Bstatic -lnvhpcatm -no-as-needed -ldl -lpthread -Bstatic --start-group -lnvcpumath -lnvc --end-group -lm --start-group -lgcc -lgcc_eh -lc --end-group /usr/lib/gcc/aarch64-linux-gnu/7/crtend.o /usr/lib/aarch64-linux-gnu/crtn.o
+1603150348.75: /usr/lib/aarch64-linux-gnu/crt1.o: In function `_start':
+1603150348.75: (.text+0x18): undefined reference to `main'
+1603150348.75: (.text+0x1c): undefined reference to `main'
+1603150348.75: (.text+0x20): undefined reference to `main'
+1603150348.75: (.text+0x24): undefined reference to `main'
+1603150348.75: pgcc-Fatal-linker completed with exit code 1
+
+1603150348.75: specmake: [/home/cuda/abelardoj/CPU2017/benchspec/Makefile.defaults:502: compiler-version] Error 2 (ignored)
+1603150348.82: option_cksum list contains ------------------------------------
+1603150348.82: Non-makefile options:
+1603150348.82: strict_rundir_verify="1"
+1603150348.82: version="1.000"
+1603150348.82: COMP: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic -c -o options.o -DSPEC -DNDEBUG -DSPEC_AUTO_SUPPRESS_OPENMP  -g -O3               -DSPEC_LP64  <source>"
+1603150348.82: C: CC="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150348.82: C: COBJOPT="-c -o options"
+1603150348.82: P: CPUFLAGS="-DSPEC -DNDEBUG"
+1603150348.82: P: BENCH_FLAGS="-DSPEC_AUTO_SUPPRESS_OPENMP"
+1603150348.82: O: OPTIMIZE="-g -O3"
+1603150348.82: P: EXTRA_PORTABILITY="-DSPEC_LP64"
+1603150348.82: LINK: "/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic      -g -O3          <objects>   -lm         -o options  "
+1603150348.82: C: LD="/opt/hpc_sdk/Linux_aarch64/dev/compilers//bin/pgcc      -O3 -fast -fopenmp -Mnouniform -Bstatic"
+1603150348.82: O: OPTIMIZE="-g -O3"
+1603150348.82: C: MATH_LIBS="-lm"
+1603150348.82: C: LDOUT="-o options"
+1603150348.82: ------------------------------------ end option_cksum list
+1603150348.82: compiler_version list contains ------------------------------------
+1603150348.82:  CC_VERSION_OPTION:
+1603150348.82: Export NVCOMPILER=/opt/hpc_sdk/Linux_aarch64/dev
+1603150348.82: Export PGI=/opt/hpc_sdk
+1603150348.82: /usr/bin/ld /usr/lib/aarch64-linux-gnu/crt1.o /usr/lib/aarch64-linux-gnu/crti.o /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/trace_init.o /usr/lib/gcc/aarch64-linux-gnu/7/crtbeginT.o -m aarch64linux -dynamic-linker /lib/ld-linux-aarch64.so.1 /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/nvhpc.ld -L/opt/hpc_sdk/Linux_aarch64/dev/compilers/lib -L/usr/lib/aarch64-linux-gnu -L/usr/lib/gcc/aarch64-linux-gnu/7 -Bstatic -Bstatic -Bstatic -Bstatic -lnvomp -ldl -Bstatic -as-needed -latomic -Bstatic -lnvhpcatm -no-as-needed -ldl -lpthread -Bstatic --start-group -lnvcpumath -lnvc --end-group -lm --start-group -lgcc -lgcc_eh -lc --end-group /usr/lib/gcc/aarch64-linux-gnu/7/crtend.o /usr/lib/aarch64-linux-gnu/crtn.o
+1603150348.82: /usr/lib/aarch64-linux-gnu/crt1.o: In function `_start':
+1603150348.82: (.text+0x18): undefined reference to `main'
+1603150348.82: (.text+0x1c): undefined reference to `main'
+1603150348.82: (.text+0x20): undefined reference to `main'
+1603150348.82: (.text+0x24): undefined reference to `main'
+1603150348.82: pgcc-Fatal-linker completed with exit code 1
+1603150348.82: ----------------------------------------- end compiler_version list
+1603150348.82: update_config_exehash(Spec::Config=HASH(0x4d9ebb8), mytest-64) called
+1603150348.82: Found new hash signature for 519.lbm_r=base=mytest-64
+1603150348.82: Updating config file /home/cuda/abelardoj/CPU2017/config/arm-aarch64-pgi-static.cfg
+1603150348.82: /home/cuda/abelardoj/CPU2017/config/arm-aarch64-pgi-static.cfg will be saved as /home/cuda/abelardoj/CPU2017/config/arm-aarch64-pgi-static.cfg.2020-10-19T163228
+1603150348.83: ------------------------------------------------------------------------
+1603150348.83: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/diffwrf_521_base.mytest-64 does not exist
+1603150348.83: /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/exe/wrf_r_base.mytest-64 does not exist
+1603150348.83: build_check('521.wrf_r base mytest-64' (Spec::Benchmark::wrf_r521=HASH(0x5c34b88)), check_exe=1, check_options=1) called at /home/cuda/abelardoj/CPU2017/bin/harness/runcpu line 1033.
+
+1603150348.84:   Building 521.wrf_r base mytest-64: (build_base_mytest-64.0000) [2020-10-19 16:32:28]
+1603150348.93:    Using existing directory at '/home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/build/build_base_mytest-64.0000' for 521.wrf_r base mytest-64 build
+1603150349.76: Comparing SHA-512 hashes:
+1603150349.76:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/src/Makefile
+1603150349.76:   a744d08c01ea13df07c929b2eb54739190be53aef8c5f9764728525162e748182bc265b53595b7c8869d32172368d3a565a94c5ec2a82e545ba5f2a34ac51c04 /home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/build/build_base_mytest-64.0000/Makefile
+1603150349.88:   Compile for '521.wrf_r' started at: 2020-10-19 16:32:29 (1603150349)
+1603150349.89: Issuing make.clean.diffwrf_521 command 'specmake --output-sync --jobs=8 clean TARGET=diffwrf_521'
+1603150349.89: Start make.clean.diffwrf_521 command: 2020-10-19 16:32:29 (1603150349.89161)
+1603150350.07: Stop make.clean.diffwrf_521 command: 2020-10-19 16:32:30 (1603150350.07359)
+1603150350.07: Elapsed time for make.clean.diffwrf_521 command: 00:00:00 (0.1819748878479)
+1603150350.08: Issuing make.clean.wrf_r command 'specmake --output-sync --jobs=8 clean TARGET=wrf_r'
+1603150350.08: Start make.clean.wrf_r command: 2020-10-19 16:32:30 (1603150350.0757)
+1603150350.26: Stop make.clean.wrf_r command: 2020-10-19 16:32:30 (1603150350.25724)
+1603150350.26: Elapsed time for make.clean.wrf_r command: 00:00:00 (0.181534051895142)
+1603150350.26: Issuing make.diffwrf_521 command 'specmake --output-sync --jobs=8 build TARGET=diffwrf_521'
+1603150350.26: Start make.diffwrf_521 command: 2020-10-19 16:32:30 (1603150350.25954)
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_Fraction.F90 -o ESMF_Fraction.fppized.f90
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_Stubs.F90 -o ESMF_Stubs.fppized.f90
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_Calendar.F90 -o ESMF_Calendar.fppized.f90
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_BaseTime.F90 -o ESMF_BaseTime.fppized.f90
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_AlarmClock.F90 -o ESMF_AlarmClock.fppized.f90
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_Mod.F90 -o ESMF_Mod.fppized.f90
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_Alarm.F90 -o ESMF_Alarm.fppized.f90
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_Base.F90 -o ESMF_Base.fppized.f90
+1603150350.36: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_Time.F90 -o ESMF_Time.fppized.f90
+1603150350.37: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_TimeInterval.F90 -o ESMF_TimeInterval.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 adapt_timestep_em.F90 -o adapt_timestep_em.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 Meat.F90 -o Meat.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_driver_constants.F90 -o module_driver_constants.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 ESMF_Clock.F90 -o ESMF_Clock.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_utility.F90 -o module_utility.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_streams.F90 -o module_streams.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_symbols_util.F90 -o module_symbols_util.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_bc_em.F90 -o module_bc_em.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_model_constants.F90 -o module_model_constants.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_wrf_error.F90 -o module_wrf_error.fppized.f90
+1603150350.47: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_comm_dm.F90 -o module_comm_dm.fppized.f90
+1603150350.57: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_state_description.F90 -o module_state_description.fppized.f90
+1603150350.57: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_bc.F90 -o module_bc.fppized.f90
+1603150350.67: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_domain_type.F90 -o module_domain_type.fppized.f90
+1603150350.97: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_comm_dm_0.F90 -o module_comm_dm_0.fppized.f90
+1603150351.37: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_domain.F90 -o module_domain.fppized.f90
+1603150352.67: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_dm.F90 -o module_dm.fppized.f90
+1603150352.97: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_configure.F90 -o module_configure.fppized.f90
+1603150354.28: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_alloc_space_3.F90 -o module_alloc_space_3.fppized.f90
+1603150354.48: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_alloc_space_4.F90 -o module_alloc_space_4.fppized.f90
+1603150354.48: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_alloc_space_2.F90 -o module_alloc_space_2.fppized.f90
+1603150354.48: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_machine.F90 -o module_machine.fppized.f90
+1603150354.68: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_alloc_space_0.F90 -o module_alloc_space_0.fppized.f90
+1603150354.78: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_alloc_space_1.F90 -o module_alloc_space_1.fppized.f90
+1603150354.98: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_alloc_space_5.F90 -o module_alloc_space_5.fppized.f90
+1603150354.98: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_comm_dm_2.F90 -o module_comm_dm_2.fppized.f90
+1603150354.98: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_comm_nesting_dm.F90 -o module_comm_nesting_dm.fppized.f90
+1603150354.98: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_comm_dm_1.F90 -o module_comm_dm_1.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_cpl.F90 -o module_cpl.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_cpl_oasis3.F90 -o module_cpl_oasis3.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 c1f2kb.F90 -o c1f2kb.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_timing.F90 -o module_timing.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_comm_dm_3.F90 -o module_comm_dm_3.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 c1f3kb.F90 -o c1f3kb.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 c1f4kb.F90 -o c1f4kb.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 c1f5kb.F90 -o c1f5kb.fppized.f90
+1603150355.08: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 c1fm1b.F90 -o c1fm1b.fppized.f90
+1603150355.18: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 c1fgkb.F90 -o c1fgkb.fppized.f90
+1603150355.18: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 cfft1b.F90 -o cfft1b.fppized.f90
+1603150355.18: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 cfft1i.F90 -o cfft1i.fppized.f90
+1603150355.18: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 couple_or_uncouple_em.F90 -o couple_or_uncouple_em.fppized.f90
+1603150355.29: /home/cuda/abelardoj/CPU2017/bin/specperl /home/cuda/abelardoj/CPU2017/bin/harness/specpp -DSPEC -DNDEBUG -DSTUBMPI -DSPEC_AUTO_SUPPRESS_OPENMP -w -m literal.pm -I. -I./inc -I./netcdf/include -DDM_PARALLEL -DEM_CORE=1 -DNMM_CORE=0 -DNMM_MAX_DIM=2600 -DCOAMPS_CORE=0 -DDA_CORE=0 -DEXP_CORE=0 -DIWORDSIZE=4 -DDWORDSIZE=8 -DRWORDSIZE=4 -DLWORDSIZE=4 -DNETCDF -DINTIO -DCONFIG_BUF_LEN=32768 -DMAX_DOMAINS_F=21 -DNMM_NEST=0 -DMAX_HISTORY=25 -DSPEC_AUTO_SUPPRESS_OPENMP -DSPEC_LP64 module_tiles.F90 -o module_tiles.fppized.f90
