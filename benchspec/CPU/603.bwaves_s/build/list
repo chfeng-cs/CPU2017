@@ -1,3 +1,3 @@
-build_base_mytest-64.0000 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/603.bwaves_s/build/build_base_mytest-64.0000 label=mytest-64 lock=0 tune=base type=build username=cuda
-build_base_pgi-dev-r194377-aarch64.0000 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/603.bwaves_s/build/build_base_pgi-dev-r194377-aarch64.0000 label=pgi-dev-r194377-aarch64 lock=0 tune=base type=build username=cuda
-__END__
+version https://git-lfs.github.com/spec/v1
+oid sha256:6c23deaf6c37dc5c97dac382d3605b33e85ef2761a9027a5d7b4300885e8603a
+size 620

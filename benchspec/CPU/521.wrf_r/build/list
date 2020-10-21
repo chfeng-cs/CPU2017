@@ -1,4 +1,3 @@
-build_base_mytest-64.0000 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/build/build_base_mytest-64.0000 label=mytest-64 lock=1 tune=base type=build username=cuda
-build_base_mytest-64.0001 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/build/build_base_mytest-64.0001 label=mytest-64 lock=0 tune=base type=build username=cuda
-build_base_pgi-dev-r194377-aarch64.0000 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/521.wrf_r/build/build_base_pgi-dev-r194377-aarch64.0000 label=pgi-dev-r194377-aarch64 lock=0 tune=base type=build username=cuda
-__END__
+version https://git-lfs.github.com/spec/v1
+oid sha256:3f90a969b82a72069888b6cc42584940ffd1e773232196ae5bf7764cd7eed12a
+size 784

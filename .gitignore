@@ -5,3 +5,6 @@
 lock.*
 ./tmp/*
 */*/*/run/*
+*/tmp/*/
+./tmp/CPU*
+tmp/*

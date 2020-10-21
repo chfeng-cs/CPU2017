@@ -1,3 +1,3 @@
-build_base_mytest-64.0000 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/627.cam4_s/build/build_base_mytest-64.0000 label=mytest-64 lock=0 tune=base type=build username=cuda
-build_base_pgi-dev-r194377-aarch64.0000 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/627.cam4_s/build/build_base_pgi-dev-r194377-aarch64.0000 label=pgi-dev-r194377-aarch64 lock=0 tune=base type=build username=cuda
-__END__
+version https://git-lfs.github.com/spec/v1
+oid sha256:e2e85fed8f507f0c990f76721e9776c471a1a1b3036cb5130da43aed87b527ed
+size 614

@@ -1,4 +1,3 @@
-build_base_mytest-64.0000 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_mytest-64.0000 label=mytest-64 lock=0 tune=base type=build username=cuda
-build_base_pgi-dev-r194377-aarch64.0000 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_pgi-dev-r194377-aarch64.0000 label=pgi-dev-r194377-aarch64 lock=1 tune=base type=build username=cuda
-build_base_pgi-dev-r194377-aarch64.0001 dir=/home/cuda/abelardoj/CPU2017/benchspec/CPU/510.parest_r/build/build_base_pgi-dev-r194377-aarch64.0001 label=pgi-dev-r194377-aarch64 lock=0 tune=base type=build username=cuda
-__END__
+version https://git-lfs.github.com/spec/v1
+oid sha256:523853a58477263a4659f01d8508fecef84bfb894bc2ef92ae04695f6cb81dff
+size 838
