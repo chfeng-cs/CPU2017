@@ -1,0 +1,400 @@
+##################################################################################################################################
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN                                                      #
+#                                                                                                                                #
+# 'reportable' flag not set during run                                                                                           #
+# 654.roms_s (base) did not have enough runs!                                                                                    #
+# 607.cactuBSSN_s (base) did not have enough runs!                                                                               #
+# 649.fotonik3d_s (base) did not have enough runs!                                                                               #
+# 627.cam4_s (base) did not have enough runs!                                                                                    #
+# 621.wrf_s (base) did not have enough runs!                                                                                     #
+# 638.imagick_s (base) did not have enough runs!                                                                                 #
+# 619.lbm_s (base) did not have enough runs!                                                                                     #
+# 628.pop2_s (base) did not have enough runs!                                                                                    #
+# 603.bwaves_s (base) did not have enough runs!                                                                                  #
+# 644.nab_s (base) did not have enough runs!                                                                                     #
+# 607.cactuBSSN_s (base) had invalid runs!                                                                                       #
+# 628.pop2_s (base) had invalid runs!                                                                                            #
+# Run of 607.cactuBSSN_s (base) was not valid; status is CE                                                                      #
+# Run of 628.pop2_s (base) was not valid; status is CE                                                                           #
+# Unknown flags were used! See                                                                                                   #
+#      https://www.spec.org/cpu2017/Docs/runcpu.html#flagsurl                                                                    #
+# for information about how to get rid of this error.                                                                            #
+# Error 607.cactuBSSN_s: Error with make!                                                                                        #
+# Error 628.pop2_s: Error with make!                                                                                             #
+#                                                                                                                                #
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN                                                      #
+##################################################################################################################################
+                                           SPEC CPU(R)2017 Floating Point Speed Result
+                                                         My Corporation 
+
+                           CPU2017 License: nnn (Your SPEC license number)          Test date: Oct-2020
+                           Test sponsor: My Corporation                 Hardware availability:         
+                           Tested by:    My Corporation                 Software availability:         
+
+                       Estimated                       Estimated
+                 Base     Base        Base        Peak     Peak        Peak
+Benchmarks      Threads  Run Time     Ratio      Threads  Run Time     Ratio
+--------------- -------  ---------  ---------    -------  ---------  ---------
+603.bwaves_s          1       2584      22.8   *
+607.cactuBSSN_s       1         --            CE
+619.lbm_s             1       1238       4.23  *
+621.wrf_s             1       3468       3.81  *
+627.cam4_s            1       4501       1.97  *
+628.pop2_s            1         --            CE
+638.imagick_s         1       5837       2.47  *
+644.nab_s             1       3447       5.07  *
+649.fotonik3d_s       1       1102       8.27  *
+654.roms_s            1       3901       4.04  *
+=================================================================================
+603.bwaves_s          1       2584      22.8   *
+607.cactuBSSN_s                               NR
+619.lbm_s             1       1238       4.23  *
+621.wrf_s             1       3468       3.81  *
+627.cam4_s            1       4501       1.97  *
+628.pop2_s                                    NR
+638.imagick_s         1       5837       2.47  *
+644.nab_s             1       3447       5.07  *
+649.fotonik3d_s       1       1102       8.27  *
+654.roms_s            1       3901       4.04  *
+ Est. SPECspeed(R)2017_fp_base           4.84
+ Est. SPECspeed(R)2017_fp_peak                                         Not Run
+
+
+                                                             HARDWARE
+                                                             --------
+            CPU Name: ARMv8 rev 0 (v8l)
+             Max MHz:  
+             Nominal:  
+             Enabled:  cores, could not determine chips,  threads/core
+           Orderable:  
+            Cache L1:  
+                  L2:  
+                  L3:  
+               Other:  
+              Memory: 15.223 GB fixme: If using DDR4, the format is:
+                      'N GB (N x N GB nRxn PC4-nnnnX-X)'
+             Storage: 3.7 TB  add more disk info here
+               Other:  
+
+
+                                                             SOFTWARE
+                                                             --------
+                  OS: Ubuntu 18.04.5 LTS
+                      4.14.150-tegra
+            Compiler: C/C++/Fortran: Version 8.3.0 r3 of GCC, the
+                      GNU Compiler Collection, Nvidia build
+            Parallel: No
+            Firmware:  
+         File System: nfs4
+        System State: Run level 5 (add definition here)
+       Base Pointers: 64-bit
+       Peak Pointers: Not Applicable
+               Other:  
+    Power Management: --
+
+
+                                                   Environment Variables Notes
+                                                   ---------------------------
+    Environment variables set by runcpu before the start of the run:
+    LD_LIBRARY_PATH =
+         "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/lib64/:/opt/hpc_sdk/Linux_
+         aarch64/dev/compilers/bin/lib/:/lib64"
+    OMP_STACKSIZE = "120M"
+    
+
+                                                          Platform Notes
+                                                          --------------
+    
+     Sysinfo program /home/cuda/abelardoj/CPU2017/bin/sysinfo
+     Rev: r6365 of 2019-08-21 295195f888a3d7edb1e6e46a485a0011
+     running on jetson Fri Oct 23 12:49:15 2020
+    
+     SUT (System Under Test) info as seen by some common utilities.
+     For more information on this section, see
+        https://www.spec.org/cpu2017/Docs/config.html#sysinfo
+    
+     From /proc/cpuinfo
+        model name : ARMv8 Processor rev 0 (v8l)
+     *
+     * 0 "physical id" tags found.  Perhaps this is an older system,
+     * or a virtualized system.  Not attempting to guess how to
+     * count chips/cores for this system.
+     *
+           8 "processors"
+        cores, siblings (Caution: counting these is hw and system dependent. The following
+        excerpts from /proc/cpuinfo might not be reliable.  Use with caution.)
+    
+     From lscpu:
+          Architecture:        aarch64
+          Byte Order:          Little Endian
+          CPU(s):              8
+          On-line CPU(s) list: 0-7
+          Thread(s) per core:  1
+          Core(s) per socket:  2
+          Socket(s):           4
+          Vendor ID:           Nvidia
+          Model:               0
+          Model name:          ARMv8 Processor rev 0 (v8l)
+          Stepping:            0x0
+          CPU max MHz:         2419.2000
+          CPU min MHz:         115.2000
+          BogoMIPS:            62.50
+          L1d cache:           64K
+          L1i cache:           128K
+          L2 cache:            2048K
+          L3 cache:            4096K
+          Flags:               fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp
+          cpuid asimdrdm dcpop
+    
+     From numactl --hardware  WARNING: a numactl 'node' might or might not correspond to a
+     physical chip.
+    
+     From /proc/meminfo
+        MemTotal:       15961960 kB
+        HugePages_Total:       0
+        Hugepagesize:       2048 kB
+    
+     /usr/bin/lsb_release -d
+        Ubuntu 18.04.5 LTS
+    
+     From /etc/*release* /etc/*version*
+        debian_version: buster/sid
+        nv_tegra_release: # R32 (release), REVISION: 4.4, GCID: 23942405, BOARD: t186ref,
+        EABI: aarch64, DATE: Fri Oct 16 19:37:08 UTC 2020
+        nv_tegra_release.dpkg-old:
+           # R00 (release), REVISION: 0.0, GCID: 19758840, BOARD: t186ref, EABI: aarch64,
+           DATE: Mon Mar 23 21:14:14 UTC 2020
+           # NVCONFIG PROFILE: INTERNAL
+           75b93fe4bef6ef585bfec2c980ce5bfe5705fef4
+           */usr/lib/aarch64-linux-gnu/tegra/libnvdla_runtime.so
+           17a0e09ec53305dc9c8e12f907ee669ff92d90d6
+           */usr/lib/aarch64-linux-gnu/tegra/libnvtnr.so
+           4d23c79a366f7aea07ad2b36adf50079df751760
+           */usr/lib/aarch64-linux-gnu/tegra/libtegrav4l2.so
+           29ef4ecb0f92345fe7b613964ed70ee661d9b682
+           */usr/lib/aarch64-linux-gnu/tegra/libnvwinsys.so
+           49fb843a06276c9c88d9aff00e88899f7e5320ba
+           */usr/lib/aarch64-linux-gnu/tegra/libnvomx.so
+           6f4490e71bf0fb75ea7b5e373a59dafc2308a87a
+           */usr/lib/aarch64-linux-gnu/tegra/libnvfusacap.so
+        os-release:
+           NAME="Ubuntu"
+           VERSION="18.04.5 LTS (Bionic Beaver)"
+           ID=ubuntu
+           ID_LIKE=debian
+           PRETTY_NAME="Ubuntu 18.04.5 LTS"
+           VERSION_ID="18.04"
+           HOME_URL="https://www.ubuntu.com/"
+           SUPPORT_URL="https://help.ubuntu.com/"
+    
+     uname -a:
+        Linux jetson 4.14.150-tegra #2 SMP PREEMPT Mon Mar 23 13:33:17 PDT 2020 aarch64
+        aarch64 aarch64 GNU/Linux
+    
+     Kernel self-reported vulnerability status:
+    
+     CVE-2018-3620 (L1 Terminal Fault):        No status reported
+     Microarchitectural Data Sampling:         No status reported
+     CVE-2017-5754 (Meltdown):                 No status reported
+     CVE-2018-3639 (Speculative Store Bypass): No status reported
+     CVE-2017-5753 (Spectre variant 1):        No status reported
+     CVE-2017-5715 (Spectre variant 2):        No status reported
+    
+     run-level 5 Oct 21 12:58
+    
+     SPEC is set to: /home/cuda/abelardoj/CPU2017
+        Filesystem                                                       Type  Size  Used
+        Avail Use% Mounted on
+        192.168.3.2:/media/btrfsdrive1/Shared/workspace_remote/abelardoj nfs4  3.7T  2.9T
+        777G  80% /home/cuda/abelardoj
+    
+     Additional information from dmidecode follows.  WARNING: Use caution when you interpret
+     this section. The 'dmidecode' program reads system data which is "intended to allow
+     hardware to be accurately determined", but the intent may not be met, as there are
+     frequent changes to hardware, firmware, and the "DMTF SMBIOS" standard.
+    
+     (End of data from sysinfo program)
+
+                                                      Compiler Version Notes
+                                                      ----------------------
+    ==============================================================================
+    C          | 619.lbm_s(base) 638.imagick_s(base) 644.nab_s(base)
+    ------------------------------------------------------------------------------
+    /usr/lib/aarch64-linux-gnu/crt1.o: In function `_start':
+    (.text+0x18): undefined reference to `main'
+    (.text+0x1c): undefined reference to `main'
+    (.text+0x20): undefined reference to `main'
+    (.text+0x24): undefined reference to `main'
+    pgcc (aka nvc) Rel Dev-r194673 linuxarm64 target on aarch64 Linux 
+    PGI Compilers and Tools
+    Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+    ------------------------------------------------------------------------------
+    
+    ==============================================================================
+    Fortran    | 603.bwaves_s(base) 649.fotonik3d_s(base) 654.roms_s(base)
+    ------------------------------------------------------------------------------
+    /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCudaFuncs.o): In
+      function `hxiInitCudaFuncs':
+    /proj/build/dev/Linux_aarch64/rte/nvomp/src/hxrt/platform_cuda/hxCudaFuncs.c:65:
+      warning: Using 'dlopen' in statically linked applications requires at
+      runtime the shared libraries from the glibc version used for linking
+    /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/f90main.o: In function `main':
+    /proj/build/dev/Linux_aarch64/rte/f90/f90/lib-linuxarm64/../src-fio/f90main.c:73:
+      undefined reference to `MAIN_'
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x439):
+      R_AARCH64_ABS64 used with TLS symbol hxiAsyncLaunchDesc
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x6c6):
+      R_AARCH64_ABS64 used with TLS symbol setCurrentDevice.currentDevice
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHost.o)(.debug_info+0x37):
+      R_AARCH64_ABS64 used with TLS symbol queueAllocator
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8ff):
+      R_AARCH64_ABS64 used with TLS symbol tpFreeTasks
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x921):
+      R_AARCH64_ABS64 used with TLS symbol tpWaitingTasks
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x97c):
+      R_AARCH64_ABS64 used with TLS symbol tpHostThreadInfo
+    pgfortran (aka nvfortran) Rel Dev-r194673 linuxarm64 target on aarch64 Linux 
+    PGI Compilers and Tools
+    Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+    ------------------------------------------------------------------------------
+    
+    ==============================================================================
+    Fortran, C | 621.wrf_s(base) 627.cam4_s(base)
+    ------------------------------------------------------------------------------
+    /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCudaFuncs.o): In
+      function `hxiInitCudaFuncs':
+    /proj/build/dev/Linux_aarch64/rte/nvomp/src/hxrt/platform_cuda/hxCudaFuncs.c:65:
+      warning: Using 'dlopen' in statically linked applications requires at
+      runtime the shared libraries from the glibc version used for linking
+    /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/f90main.o: In function `main':
+    /proj/build/dev/Linux_aarch64/rte/f90/f90/lib-linuxarm64/../src-fio/f90main.c:73:
+      undefined reference to `MAIN_'
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x439):
+      R_AARCH64_ABS64 used with TLS symbol hxiAsyncLaunchDesc
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxCuda.o)(.debug_info+0x6c6):
+      R_AARCH64_ABS64 used with TLS symbol setCurrentDevice.currentDevice
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHost.o)(.debug_info+0x37):
+      R_AARCH64_ABS64 used with TLS symbol queueAllocator
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x8ff):
+      R_AARCH64_ABS64 used with TLS symbol tpFreeTasks
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x921):
+      R_AARCH64_ABS64 used with TLS symbol tpWaitingTasks
+    /usr/bin/ld:
+      /opt/hpc_sdk/Linux_aarch64/dev/compilers/lib/libnvomp.a(hxHostThreads.o)(.debug_info+0x97c):
+      R_AARCH64_ABS64 used with TLS symbol tpHostThreadInfo
+    pgfortran (aka nvfortran) Rel Dev-r194673 linuxarm64 target on aarch64 Linux 
+    PGI Compilers and Tools
+    Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+    /usr/lib/aarch64-linux-gnu/crt1.o: In function `_start':
+    (.text+0x18): undefined reference to `main'
+    (.text+0x1c): undefined reference to `main'
+    (.text+0x20): undefined reference to `main'
+    (.text+0x24): undefined reference to `main'
+    pgcc (aka nvc) Rel Dev-r194673 linuxarm64 target on aarch64 Linux 
+    PGI Compilers and Tools
+    Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+    ------------------------------------------------------------------------------
+
+                                                        Base Unknown Flags
+                                                        ------------------
+    603.bwaves_s: "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in FC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in LD) "-DSPEC_SUPRESS_OPENMP" (in EXTRA_OPTIMIZE)
+                  "-fast -Bstatic -Mfprelaxed" (in OPTIMIZE) "-Bstatic" (in LDFLAGS)
+
+       619.lbm_s: "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgcc" (in CC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgcc" (in LD) "-fast -Bstatic -Mfprelaxed" (in OPTIMIZE)
+                  "-DSPEC_SUPRESS_OPENMP" (in EXTRA_OPTIMIZE) "-Bstatic" (in LDFLAGS)
+
+       621.wrf_s: "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in FC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgcc" (in CC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in LD) "-byteswapio" (in FPORTABILITY)
+                  "-DSPEC_SUPRESS_OPENMP" (in EXTRA_OPTIMIZE) "-fast -Bstatic -Mfprelaxed" (in OPTIMIZE) "-Bstatic" (in LDFLAGS)
+
+      627.cam4_s: "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in FC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgcc" (in CC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in LD) "-DSPEC_SUPRESS_OPENMP" (in EXTRA_OPTIMIZE)
+                  "-fast -Bstatic -Mfprelaxed" (in OPTIMIZE) "-Bstatic" (in LDFLAGS)
+
+   638.imagick_s: "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgcc" (in CC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgcc" (in LD) "-fast -Bstatic -Mfprelaxed" (in OPTIMIZE)
+                  "-DSPEC_SUPRESS_OPENMP" (in EXTRA_OPTIMIZE) "-Bstatic" (in LDFLAGS)
+
+       644.nab_s: "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgcc" (in CC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgcc" (in LD) "-fast -Bstatic -Mfprelaxed" (in OPTIMIZE)
+                  "-DSPEC_SUPRESS_OPENMP" (in EXTRA_OPTIMIZE) "-Bstatic" (in LDFLAGS)
+
+ 649.fotonik3d_s: "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in FC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in LD) "-DSPEC_SUPRESS_OPENMP" (in EXTRA_OPTIMIZE)
+                  "-fast -Bstatic -Mfprelaxed" (in OPTIMIZE) "-Bstatic" (in LDFLAGS)
+
+      654.roms_s: "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in FC)
+                  "/opt/hpc_sdk/Linux_aarch64/dev/compilers/bin/pgfortran" (in LD) "-DSPEC_SUPRESS_OPENMP" (in EXTRA_OPTIMIZE)
+                  "-fast -Bstatic -Mfprelaxed" (in OPTIMIZE) "-Bstatic" (in LDFLAGS)
+
+
+                                                      Base Portability Flags
+                                                      ----------------------
+    603.bwaves_s: -DSPEC_LP64
+       619.lbm_s: -DSPEC_LP64
+       621.wrf_s: -DSPEC_CASE_FLAG -DSPEC_LP64
+      627.cam4_s: -DSPEC_CASE_FLAG -DSPEC_LP64
+   638.imagick_s: -DSPEC_LP64
+       644.nab_s: -DSPEC_LP64
+ 649.fotonik3d_s: -DSPEC_LP64
+      654.roms_s: -DSPEC_LP64
+
+
+                                                     Base Optimization Flags
+                                                     -----------------------
+Benchmarks using both Fortran and C:
+
+       621.wrf_s: No flags used
+
+      627.cam4_s: Same as 621.wrf_s
+
+
+  SPEC CPU and SPECspeed are registered trademarks of the Standard Performance Evaluation Corporation.  All other brand and
+    product names appearing in this result are trademarks or registered trademarks of their respective holders.
+##################################################################################################################################
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN                                                      #
+#                                                                                                                                #
+# 'reportable' flag not set during run                                                                                           #
+# 654.roms_s (base) did not have enough runs!                                                                                    #
+# 607.cactuBSSN_s (base) did not have enough runs!                                                                               #
+# 649.fotonik3d_s (base) did not have enough runs!                                                                               #
+# 627.cam4_s (base) did not have enough runs!                                                                                    #
+# 621.wrf_s (base) did not have enough runs!                                                                                     #
+# 638.imagick_s (base) did not have enough runs!                                                                                 #
+# 619.lbm_s (base) did not have enough runs!                                                                                     #
+# 628.pop2_s (base) did not have enough runs!                                                                                    #
+# 603.bwaves_s (base) did not have enough runs!                                                                                  #
+# 644.nab_s (base) did not have enough runs!                                                                                     #
+# 607.cactuBSSN_s (base) had invalid runs!                                                                                       #
+# 628.pop2_s (base) had invalid runs!                                                                                            #
+# Run of 607.cactuBSSN_s (base) was not valid; status is CE                                                                      #
+# Run of 628.pop2_s (base) was not valid; status is CE                                                                           #
+# Unknown flags were used! See                                                                                                   #
+#      https://www.spec.org/cpu2017/Docs/runcpu.html#flagsurl                                                                    #
+# for information about how to get rid of this error.                                                                            #
+# Error 607.cactuBSSN_s: Error with make!                                                                                        #
+# Error 628.pop2_s: Error with make!                                                                                             #
+#                                                                                                                                #
+#   INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN -- INVALID RUN                                                      #
+##################################################################################################################################
+----------------------------------------------------------------------------------------------------------------------------------
+For questions about this result, please contact the tester.
+For other inquiries, please contact info@spec.org.
+Copyright 2017-2020 Standard Performance Evaluation Corporation
+Tested with SPEC CPU(R)2017 v1.1.0 on 2020-10-23 12:49:12-0700.
+Report generated on 2020-10-23 20:12:44 by CPU2017 text formatter v6255.
